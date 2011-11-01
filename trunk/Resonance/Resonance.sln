@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonance", "Resonance\Resonance\Resonance.csproj", "{6D27F8A9-A097-4912-BD53-04BD3B739584}"
+EndProject
+Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "ResonanceContent", "Resonance\ResonanceContent\ResonanceContent.contentproj", "{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}"
+EndProject
+Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Xbox 360 = Debug|Xbox 360
+		Release|Xbox 360 = Release|Xbox 360
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D27F8A9-A097-4912-BD53-04BD3B739584}.Debug|Xbox 360.ActiveCfg = Debug|Xbox 360
+		{6D27F8A9-A097-4912-BD53-04BD3B739584}.Debug|Xbox 360.Build.0 = Debug|Xbox 360
+		{6D27F8A9-A097-4912-BD53-04BD3B739584}.Debug|Xbox 360.Deploy.0 = Debug|Xbox 360
+		{6D27F8A9-A097-4912-BD53-04BD3B739584}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
+		{6D27F8A9-A097-4912-BD53-04BD3B739584}.Release|Xbox 360.Build.0 = Release|Xbox 360
+		{6D27F8A9-A097-4912-BD53-04BD3B739584}.Release|Xbox 360.Deploy.0 = Release|Xbox 360
+		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Debug|Xbox 360.ActiveCfg = Debug|Xbox 360
+		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
