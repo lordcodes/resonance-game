@@ -1,17 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C# Express 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonance", "Resonance\Resonance\Resonance.csproj", "{6D27F8A9-A097-4912-BD53-04BD3B739584}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResonanceContent", "Resonance\ResonanceContent\ResonanceContent.contentproj", "{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Copy of Resonance", "Resonance\Resonance\Windows Copy of Resonance.csproj", "{48010278-AF5C-4BD0-970B-F100FF89B424}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Copy of Resonance", "Resonance\Resonance\Windows Copy of Resonance.csproj", "{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}"
 EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Mixed Platforms = Debug|Mixed Platforms
 		Debug|x86 = Debug|x86
@@ -43,18 +39,22 @@ Global
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|Mixed Platforms.ActiveCfg = Release|Xbox 360
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|x86.ActiveCfg = Release|Xbox 360
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Debug|x86.ActiveCfg = Debug|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Debug|x86.Build.0 = Debug|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Debug|Xbox 360.ActiveCfg = Debug|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Release|Mixed Platforms.Build.0 = Release|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Release|x86.ActiveCfg = Release|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Release|x86.Build.0 = Release|x86
-		{48010278-AF5C-4BD0-970B-F100FF89B424}.Release|Xbox 360.ActiveCfg = Release|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Debug|x86.ActiveCfg = Debug|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Debug|x86.Build.0 = Debug|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Release|Mixed Platforms.Build.0 = Release|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Release|x86.ActiveCfg = Release|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Release|x86.Build.0 = Release|x86
+		{9D7D25F6-F0C5-41FE-A5C6-13556E6CAB5D}.Release|Xbox 360.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
