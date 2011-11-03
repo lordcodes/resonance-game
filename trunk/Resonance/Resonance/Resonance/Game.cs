@@ -17,12 +17,13 @@ namespace Resonance
     public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        Drawing Drawer;
 
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Drawer = new Drawing(Content, graphics);
         }
 
         /// <summary>
@@ -44,9 +45,7 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            Drawer.loadContent();
             // TODO: use this.Content to load your game content here
         }
 
@@ -81,10 +80,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Magenta);
-
-            // TODO: Add your drawing code here
-
+            Drawer.Draw();
             base.Draw(gameTime);
         }
     }
