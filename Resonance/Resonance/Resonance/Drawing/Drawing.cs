@@ -38,10 +38,10 @@ namespace Resonance
             goodVibe = Content.Load<Model>("Drawing/Models/box");
             effect = new BasicEffect(graphics.GraphicsDevice);
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
-            effect.View = Matrix.CreateLookAt(new Vector3(-2, 3, 2), Vector3.Zero, Vector3.Up);
+            effect.View = Matrix.CreateLookAt(new Vector3(0, 8, 22), Vector3.Zero, Vector3.Up);
             effect.LightingEnabled = true;
             effect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, -1.5f, 0));
-            texture = Content.Load<Texture2D>("Drawing/Textures/texGoodVibe");
+            texture = Content.Load<Texture2D>("Drawing/Textures/texBadVibe");
             effect.TextureEnabled = true;
             effect.Texture = texture;
             effect.EnableDefaultLighting();
@@ -75,7 +75,12 @@ namespace Resonance
         public void Draw()
         {
             graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            DrawModel(goodVibe, Matrix.Identity, effect);
+            const int NumberSquares = 10;
+            for (int i = 0; i < NumberSquares; i++)
+            {
+                Matrix world = Matrix.CreateTranslation(((i%5)-2)*4,0,(i/5-3)*-4);
+                DrawModel(goodVibe, world, effect);
+            }
         }
 
     }
