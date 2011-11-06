@@ -90,6 +90,9 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Detect if you are in time to the beat
+        /// </summary>
         public void inTime()
         {
             for (; ; lastI++)
