@@ -42,6 +42,9 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'test|Xbox 360'">
+    <OutputPath>bin\Xbox 360\test\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Xna.Framework">
       <Private>False</Private>
@@ -90,12 +93,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BadVibe.cs" />
     <Compile Include="Drawing\Drawing.cs" />
+    <Compile Include="GoodVibe.cs" />
     <Compile Include="Music\MusicHandler.cs" />
     <Compile Include="Music\MusicTrack.cs" />
+    <Compile Include="Object.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="VibeInterface.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
