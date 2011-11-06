@@ -94,8 +94,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Object\BadVibe.cs" />
+    <Compile Include="DrawingInterface.cs" />
     <Compile Include="Drawing\Drawing.cs" />
     <Compile Include="Object\GoodVibe.cs" />
+    <Compile Include="Drawing\GameModels.cs" />
+    <Compile Include="Drawing\GameModel.cs" />
     <Compile Include="Music\MusicHandler.cs" />
     <Compile Include="Music\MusicTrack.cs" />
     <Compile Include="Object\Object.cs" />
