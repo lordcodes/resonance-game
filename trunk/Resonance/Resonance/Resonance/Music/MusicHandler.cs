@@ -21,7 +21,6 @@ namespace Resonance
         public MusicHandler(ContentManager newContent)
         {
             bgMusic = new MusicTrack(newContent);
-            timing = new SongTiming(newContent);
         }
 
         /// <summary>
