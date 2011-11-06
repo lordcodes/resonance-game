@@ -18,15 +18,15 @@ namespace Resonance
         ContentManager content;
         Song song;
         PlayState state;
-        int beatLength;
-        int offset;
+        long beatLength;
+        long offset;
         NoteMode mode;
         long startTime;
 
         long whenPaused;
         int lastI;
 
-        const int WINDOW = 45000000;
+        const long WINDOW = 45000000;
 
         enum NoteMode { WHOLE, HALF, QUARTER };
         enum PlayState { PLAYING, PAUSED, STOPPED };
@@ -54,13 +54,13 @@ namespace Resonance
             if (state == PlayState.STOPPED)
             {
                 state = PlayState.PLAYING;
-                startTime = DateTime.Now.Ticks / 100;
+                startTime = DateTime.Now.Ticks * 100;
                 MediaPlayer.Play(song);
             }
             else if (state == PlayState.PAUSED)
             {
                 state = PlayState.PLAYING;
-                startTime = ((DateTime.Now.Ticks / 100) - whenPaused) + startTime;
+                startTime = ((DateTime.Now.Ticks * 100) - whenPaused) + startTime;
                 MediaPlayer.Resume();
             }
         }
@@ -85,32 +85,32 @@ namespace Resonance
             if (state == PlayState.PLAYING)
             {
                 state = PlayState.PAUSED;
-                whenPaused = DateTime.Now.Ticks / 100;
+                whenPaused = DateTime.Now.Ticks * 100;
                 MediaPlayer.Pause();
             }
         }
 
-        public bool inTime()
+        public void inTime()
         {
             for (; ; lastI++)
             {
-                long time = DateTime.Now.Ticks / 100;
+                long time = DateTime.Now.Ticks * 100;
                 long beatTime;
                 long lastBeatTime;
 
                 if (mode == NoteMode.WHOLE)
                 {
-                    beatTime = startTime + offset + (lastI + beatLength);
+                    beatTime = startTime + offset + (lastI * beatLength);
                     lastBeatTime = startTime + offset + ((lastI - 1) * beatLength);
                 }
                 else if (mode == NoteMode.HALF)
                 {
-                    beatTime = startTime + offset + (lastI + beatLength / 2);
+                    beatTime = startTime + offset + (lastI * beatLength / 2);
                     lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 2);
                 }
                 else
                 {
-                    beatTime = startTime + offset + (lastI + beatLength / 4);
+                    beatTime = startTime + offset + (lastI * beatLength / 4);
                     lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 4);
                 }
 
@@ -119,12 +119,12 @@ namespace Resonance
                     if (time > (beatTime - WINDOW))
                     {
                         //HIT
-                        Console.WriteLine("HIT");
+                        Console.WriteLine("HIT1");
                     }
                     else if (time < lastBeatTime + WINDOW)
                     {
                         //HIT
-                        Console.WriteLine("HIT");
+                        Console.WriteLine("HIT2");
                     }
                     else
                     {
@@ -134,9 +134,6 @@ namespace Resonance
                     break;
                 }
             }
-
-
-            return true;
         }
     }
 }
