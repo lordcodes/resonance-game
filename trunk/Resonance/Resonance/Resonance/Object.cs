@@ -7,9 +7,9 @@ namespace Resonance
 {
     class Object
     {
-        private int xWorldCord;
-        private int yWorldCord;
-        private int zWorldCord;
+        private float xWorldCord;
+        private float yWorldCord;
+        private float zWorldCord;
 
         public Object()
         {
@@ -18,39 +18,39 @@ namespace Resonance
             zWorldCord = 0;
         }
 
-        public Object(int x, int y, int z)
+        public Object(float x, float y, float z)
         {
             xWorldCord = x;
             yWorldCord = y;
             zWorldCord = z;
         }
 
-        public void setXWoldCord(int x)
+        public void setXWoldCord(float x)
         {
             xWorldCord = x;
         }
 
-        public void setYWorldCord(int y)
+        public void setYWorldCord(float y)
         {
             yWorldCord = y;
         }
 
-        public void setZWorldCord(int z)
+        public void setZWorldCord(float z)
         {
             zWorldCord = z;
         }
 
-        public int getXWorldCord()
+        public float getXWorldCord()
         {
             return xWorldCord;
         }
 
-        public int getZWorldCord()
+        public float getZWorldCord()
         {
             return zWorldCord;
         }
 
-        public int getYWorldCord()
+        public float getYWorldCord()
         {
             return yWorldCord;
         }
