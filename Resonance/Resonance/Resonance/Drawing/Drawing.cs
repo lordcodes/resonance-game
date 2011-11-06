@@ -13,11 +13,15 @@ namespace Resonance
 {
     class Drawing
     {
-        GraphicsDeviceManager graphics;
-        Model goodVibe;
-        BasicEffect effect;
-        Texture2D texture;
-        ContentManager Content;
+        private GraphicsDeviceManager graphics;
+        private Model goodVibe;
+        private Model ground;
+        private Model tree;
+        private BasicEffect effect;
+        private Texture2D texture;
+        private ContentManager Content;
+        private Vector4 goodVibePos;
+        private Matrix goodVibeTranslation;
 
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
@@ -36,15 +40,18 @@ namespace Resonance
         public void loadContent()
         {
             goodVibe = Content.Load<Model>("Drawing/Models/box");
+            ground = Content.Load<Model>("Drawing/Models/ground");
+            tree = Content.Load<Model>("Drawing/Models/basicTree");
             effect = new BasicEffect(graphics.GraphicsDevice);
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
-            effect.View = Matrix.CreateLookAt(new Vector3(0, 8, 22), Vector3.Zero, Vector3.Up);
+            effect.View = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
             effect.LightingEnabled = true;
             effect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, -1.5f, 0));
-            texture = Content.Load<Texture2D>("Drawing/Textures/texBadVibe");
+            texture = Content.Load<Texture2D>("Drawing/Textures/texMissing");
             effect.TextureEnabled = true;
             effect.Texture = texture;
             effect.EnableDefaultLighting();
+            Update(new Vector4(0, 4f, 6f, (float)(Math.PI*0.25)));
         }
 
         private Matrix GetParentTransform(Model m, ModelBone mb)
@@ -55,7 +62,7 @@ namespace Resonance
 
         private void DrawModel(Model m, Matrix world, BasicEffect be)
         {
-            foreach (ModelMesh mm in goodVibe.Meshes)
+            foreach (ModelMesh mm in m.Meshes)
             {
                 foreach (ModelMeshPart mmp in mm.MeshParts)
                 {
@@ -64,7 +71,6 @@ namespace Resonance
                     graphics.GraphicsDevice.Indices = mmp.IndexBuffer;
                     be.CurrentTechnique.Passes[0].Apply();
                     graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, mmp.NumVertices, mmp.StartIndex, mmp.PrimitiveCount);
-
                 }
             }
         }
@@ -74,13 +80,26 @@ namespace Resonance
         /// </summary>
         public void Draw()
         {
-            graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-            const int NumberSquares = 10;
-            for (int i = 0; i < NumberSquares; i++)
-            {
-                Matrix world = Matrix.CreateTranslation(((i%5)-2)*4,0,(i/5-3)*-4);
-                DrawModel(goodVibe, world, effect);
-            }
+            graphics.GraphicsDevice.Clear(Color.White);
+            DrawModel(ground, Matrix.CreateTranslation(0, 0, 0), effect);
+            DrawModel(tree, Matrix.CreateTranslation(0, 0, 0), effect);
+            DrawModel(goodVibe, goodVibeTranslation, effect);
+        }
+
+        /// <summary>
+        /// Gives the Drawing object information about the game world, atm this is only the player but
+        /// this will eventually be given information abut the entire world to be drawn
+        /// </summary>
+        /// <param name="newPos">(TEMP) Provides a vector to containing X,Y,Z coords of good vibe and its rotation in W</param>
+        public void Update(Vector4 newPos)
+        {
+            goodVibePos = newPos;
+            Matrix goodVibeRotation = Matrix.CreateRotationY(goodVibePos.W);
+            Vector3 goodVibePosition = new Vector3(goodVibePos.X, goodVibePos.Y, goodVibePos.Z);
+            Vector3 cameraPosition = new Vector3(0, 4f, 6f);
+            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation)+goodVibePosition;
+            effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, Vector3.Up);
+            goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
         }
 
     }

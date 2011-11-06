@@ -18,6 +18,8 @@ namespace Resonance
     {
         GraphicsDeviceManager graphics;
         Drawing Drawer;
+        float goodVibeRotation = 0;
+        Vector4 goodVibePos;
 
         public Game()
         {
@@ -46,7 +48,7 @@ namespace Resonance
         protected override void LoadContent()
         {
             Drawer.loadContent();
-            // TODO: use this.Content to load your game content here
+            goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
         }
 
         /// <summary>
@@ -69,9 +71,51 @@ namespace Resonance
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
 
-            // TODO: Add your update logic here
-
+            UpdateGoodVibePosition();
+            Drawer.Update(goodVibePos);
             base.Update(gameTime);
+        }
+
+        /// <summary>
+        /// This handles basic user input to move the good vibe around the world, this is temporary 
+        /// and will eventualy feed into the World object rather than directly to the Drawing
+        /// </summary>
+        private void UpdateGoodVibePosition()
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+            float forwardSpeed = 0.05f;
+            float rotateSpeed = 0.05f;
+
+            if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))
+            {
+                goodVibeRotation += rotateSpeed;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
+            {
+                goodVibeRotation -= rotateSpeed;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed))
+            {
+                Matrix forwardMovement = Matrix.CreateRotationY(goodVibeRotation);
+                Vector3 v = new Vector3(0, 0, -forwardSpeed);
+                v = Vector3.Transform(v, forwardMovement);
+                goodVibePos.Z += v.Z;
+                goodVibePos.X += v.X;
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed))
+            {
+                Matrix forwardMovement = Matrix.CreateRotationY(goodVibeRotation);
+                Vector3 v = new Vector3(0, 0, forwardSpeed);
+                v = Vector3.Transform(v, forwardMovement);
+                goodVibePos.Z += v.Z;
+                goodVibePos.X += v.X;
+            }
+
+            goodVibePos.W = goodVibeRotation;
         }
 
         /// <summary>
