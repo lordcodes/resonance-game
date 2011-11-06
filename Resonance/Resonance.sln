@@ -5,8 +5,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonance", "Resonance\Reso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResonanceContent", "Resonance\ResonanceContent\ResonanceContent.contentproj", "{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Copy (4) of Resonance", "Resonance\Resonance\Windows Copy (4) of Resonance.csproj", "{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -43,16 +41,6 @@ Global
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|Mixed Platforms.ActiveCfg = Release|Xbox 360
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|x86.ActiveCfg = Release|Xbox 360
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Debug|x86.ActiveCfg = Debug|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Debug|x86.Build.0 = Debug|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Debug|Xbox 360.ActiveCfg = Debug|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Release|Mixed Platforms.Build.0 = Release|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Release|x86.ActiveCfg = Release|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Release|x86.Build.0 = Release|x86
-		{DE4325C5-6786-46AC-A16A-00EC5AB5DF82}.Release|Xbox 360.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
