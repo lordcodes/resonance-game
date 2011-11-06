@@ -11,13 +11,10 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
-    class Drawing
+    class Drawing : DrawingInterface
     {
         private GraphicsDeviceManager graphics;
-        private Model goodVibe;
-        private Model ground;
-        private Model tree;
-        private Model mushroom;
+        private GameModels GameModelsStore;
         private BasicEffect effect;
         private Texture2D texture;
         private ContentManager Content;
@@ -32,6 +29,7 @@ namespace Resonance
         {
             Content = newContent;
             graphics = newGraphics;
+            GameModelsStore = new GameModels(Content);
         }
 
         /// <summary>
@@ -40,10 +38,7 @@ namespace Resonance
         /// </summary>
         public void loadContent()
         {
-            goodVibe = Content.Load<Model>("Drawing/Models/box");
-            ground = Content.Load<Model>("Drawing/Models/ground");
-            tree = Content.Load<Model>("Drawing/Models/basicTree");
-            mushroom = Content.Load<Model>("Drawing/Models/bender");
+            GameModelsStore.Load();
             effect = new BasicEffect(graphics.GraphicsDevice);
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
             effect.View = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
@@ -54,6 +49,36 @@ namespace Resonance
             effect.Texture = texture;
             effect.EnableDefaultLighting();
             Update(new Vector4(0, 4f, 6f, (float)(Math.PI*0.25)));
+        }
+
+        /// <summary>
+        /// This is called when the world should be drawn.
+        /// </summary>
+        public void Draw()
+        {
+            graphics.GraphicsDevice.Clear(Color.White);
+            // This will eventually be looping through the World object grabbing objects
+            DrawGameModel(GameModels.GROUND, Vector3.Zero);
+            DrawGameModel(GameModels.TREE, Vector3.Zero);
+            DrawGameModel(GameModels.MUSHROOM, new Vector3(4,2,2));
+            // Special case atm for drawing the good vibe:
+            DrawModel(GameModelsStore.getModel(GameModels.GOOD_VIBE).model, Matrix.Multiply(GameModelsStore.getModel(GameModels.GOOD_VIBE).scale, goodVibeTranslation), effect);
+        }
+
+        /// <summary>
+        /// Gives the Drawing object information about the game world, atm this is only the player but
+        /// this will eventually be given information abut the entire world to be drawn
+        /// </summary>
+        /// <param name="newPos">(TEMP) Provides a vector to containing X,Y,Z coords of good vibe and its rotation in W</param>
+        public void Update(Vector4 newPos)
+        {
+            goodVibePos = newPos;
+            Matrix goodVibeRotation = Matrix.CreateRotationY(goodVibePos.W);
+            Vector3 goodVibePosition = new Vector3(goodVibePos.X, goodVibePos.Y, goodVibePos.Z);
+            Vector3 cameraPosition = new Vector3(0, 4f, 6f);
+            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + goodVibePosition;
+            effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, Vector3.Up);
+            goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
         }
 
         private Matrix GetParentTransform(Model m, ModelBone mb)
@@ -77,32 +102,9 @@ namespace Resonance
             }
         }
 
-        /// <summary>
-        /// This is called when the world should be drawn.
-        /// </summary>
-        public void Draw()
+        private void DrawGameModel(int model, Vector3 pos)
         {
-            graphics.GraphicsDevice.Clear(Color.White);
-            DrawModel(ground, Matrix.CreateTranslation(0, 0, 0), effect);
-            //DrawModel(tree, Matrix.CreateTranslation(0, 0, 0), effect);
-            DrawModel(mushroom, Matrix.CreateTranslation(0, 2, 0), effect);
-            DrawModel(goodVibe, goodVibeTranslation, effect);
-        }
-
-        /// <summary>
-        /// Gives the Drawing object information about the game world, atm this is only the player but
-        /// this will eventually be given information abut the entire world to be drawn
-        /// </summary>
-        /// <param name="newPos">(TEMP) Provides a vector to containing X,Y,Z coords of good vibe and its rotation in W</param>
-        public void Update(Vector4 newPos)
-        {
-            goodVibePos = newPos;
-            Matrix goodVibeRotation = Matrix.CreateRotationY(goodVibePos.W);
-            Vector3 goodVibePosition = new Vector3(goodVibePos.X, goodVibePos.Y, goodVibePos.Z);
-            Vector3 cameraPosition = new Vector3(0, 4f, 6f);
-            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation)+goodVibePosition;
-            effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, Vector3.Up);
-            goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
+            DrawModel(GameModelsStore.getModel(model).model, Matrix.Multiply(GameModelsStore.getModel(model).scale, Matrix.CreateTranslation(pos)), effect);
         }
 
     }
