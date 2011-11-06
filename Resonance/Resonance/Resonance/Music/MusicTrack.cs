@@ -37,7 +37,7 @@ namespace Resonance
             song = content.Load<Song>("Music/song");
             state = PlayState.STOPPED;
             String path = newContent.RootDirectory + "/Music/carcrash.timing";
-            mode = NoteMode.WHOLE;
+            mode = NoteMode.QUARTER;
 
             StreamReader reader = new StreamReader(path);
             beatLength = Convert.ToInt32(reader.ReadLine());
