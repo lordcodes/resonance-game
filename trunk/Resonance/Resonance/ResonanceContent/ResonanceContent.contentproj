@@ -98,6 +98,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Models\mushroom.fbx">
+      <Name>mushroom</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\bender.fbx">
+      <Name>bender</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Music\carcrash.timing">
       <Name>carcrash</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
