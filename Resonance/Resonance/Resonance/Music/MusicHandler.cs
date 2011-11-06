@@ -15,7 +15,7 @@ namespace Resonance
     class MusicHandler
     {
         MusicTrack bgMusic;
-        SongTiming timing;
+        //SongTiming timing; // This line was causing compile errors so i comented it out <Phil>
         long startTime;
 
         public MusicHandler(ContentManager newContent)
