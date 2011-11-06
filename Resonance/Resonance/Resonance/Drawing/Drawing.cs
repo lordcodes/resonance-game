@@ -17,6 +17,7 @@ namespace Resonance
         private Model goodVibe;
         private Model ground;
         private Model tree;
+        private Model mushroom;
         private BasicEffect effect;
         private Texture2D texture;
         private ContentManager Content;
@@ -42,6 +43,7 @@ namespace Resonance
             goodVibe = Content.Load<Model>("Drawing/Models/box");
             ground = Content.Load<Model>("Drawing/Models/ground");
             tree = Content.Load<Model>("Drawing/Models/basicTree");
+            mushroom = Content.Load<Model>("Drawing/Models/bender");
             effect = new BasicEffect(graphics.GraphicsDevice);
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
             effect.View = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
@@ -82,7 +84,8 @@ namespace Resonance
         {
             graphics.GraphicsDevice.Clear(Color.White);
             DrawModel(ground, Matrix.CreateTranslation(0, 0, 0), effect);
-            DrawModel(tree, Matrix.CreateTranslation(0, 0, 0), effect);
+            //DrawModel(tree, Matrix.CreateTranslation(0, 0, 0), effect);
+            DrawModel(mushroom, Matrix.CreateTranslation(0, 2, 0), effect);
             DrawModel(goodVibe, goodVibeTranslation, effect);
         }
 
