@@ -72,21 +72,25 @@ namespace Resonance
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+
             KeyboardState keyboardState = Keyboard.GetState();
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
 
+            // Update state of background music
             if (keyboardState.IsKeyDown(Keys.Space) || (currentState.Buttons.Start == ButtonState.Pressed))
             {
-                musicHandler.playTrack();
+                musicHandler.getTrack().playTrack();
             }
             if (keyboardState.IsKeyDown(Keys.S) || (currentState.Buttons.X == ButtonState.Pressed))
             {
-                musicHandler.stopTrack();
+                musicHandler.getTrack().stopTrack();
             }
             if (keyboardState.IsKeyDown(Keys.P) || (currentState.Buttons.A == ButtonState.Pressed))
             {
-                musicHandler.pauseTrack();
+                musicHandler.getTrack().pauseTrack();
             }
+
+            //Update graphics
             UpdateGoodVibePosition();
             Drawer.Update(goodVibePos);
             base.Update(gameTime);
