@@ -39,7 +39,7 @@ namespace Resonance
         {
             zWorldCord = z;
         }
-        
+
         public int getXWorldCord()
         {
             return xWorldCord;
@@ -49,11 +49,10 @@ namespace Resonance
         {
             return zWorldCord;
         }
-        
+
         public int getYWorldCord()
         {
             return yWorldCord;
         }
     }
-        
 }
