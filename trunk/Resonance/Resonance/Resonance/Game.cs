@@ -20,12 +20,14 @@ namespace Resonance
         Drawing Drawer;
         float goodVibeRotation = 0;
         Vector4 goodVibePos;
+        MusicHandler musicHandler;
 
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Drawer = new Drawing(Content, graphics);
+            musicHandler = new MusicHandler(Content);
         }
 
         /// <summary>
@@ -70,7 +72,21 @@ namespace Resonance
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            KeyboardState keyboardState = Keyboard.GetState();
+            GamePadState currentState = GamePad.GetState(PlayerIndex.One);
 
+            if (keyboardState.IsKeyDown(Keys.Space) || (currentState.Buttons.Start == ButtonState.Pressed))
+            {
+                musicHandler.playTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.S) || (currentState.Buttons.X == ButtonState.Pressed))
+            {
+                musicHandler.stopTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.P) || (currentState.Buttons.A == ButtonState.Pressed))
+            {
+                musicHandler.pauseTrack();
+            }
             UpdateGoodVibePosition();
             Drawer.Update(goodVibePos);
             base.Update(gameTime);
