@@ -14,49 +14,23 @@ namespace Resonance
 {
     class MusicHandler
     {
-        ContentManager content;
-        Song song;
-        PlayState state;
+        MusicTrack bgMusic;
+        SongTiming timing;
+        long startTime;
 
-        enum PlayState { PLAYING, PAUSED, STOPPED };
-
-        public MusicHandler(ContentManager newContent) 
+        public MusicHandler(ContentManager newContent)
         {
-            content = newContent;
-            song = content.Load<Song>("Music/song");
-            state = PlayState.STOPPED;
+            bgMusic = new MusicTrack(newContent);
+            timing = new SongTiming(newContent);
         }
 
-        public void playTrack()
+        /// <summary>
+        /// Gets access to the background music track
+        /// </summary>
+        /// <returns>bgMusic the background music track</returns>
+        public MusicTrack getTrack()
         {
-            if (state == PlayState.STOPPED)
-            {
-                state = PlayState.PLAYING;
-                MediaPlayer.Play(song);
-            }
-            else if (state == PlayState.PAUSED)
-            {
-                state = PlayState.PLAYING;
-                MediaPlayer.Resume();
-            }
-        }
-
-        public void stopTrack()
-        {
-            if (state == PlayState.PLAYING || state == PlayState.PAUSED)
-            {
-                state = PlayState.STOPPED;
-                MediaPlayer.Stop();
-            }
-        }
-
-        public void pauseTrack()
-        {
-            if (state == PlayState.PLAYING)
-            {
-                state = PlayState.PAUSED;
-                MediaPlayer.Pause();
-            }
+            return bgMusic;
         }
     }
 }

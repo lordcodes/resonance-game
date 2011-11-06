@@ -1,0 +1,10 @@
+426045446
+176570944
+
+<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+	<Asset Type="Resonance.songTiming">
+		<averageBeatLength>426045446</averageBeatLength>
+		<offset>176570944</offet>
+	</Asset>
+</XnaContent>
