@@ -89,6 +89,10 @@ namespace Resonance
             {
                 musicHandler.getTrack().pauseTrack();
             }
+            if (keyboardState.IsKeyDown(Keys.H) || (currentState.Buttons.B == ButtonState.Pressed))
+            {
+                musicHandler.getTrack().inTime();
+            }
 
             //Update graphics
             UpdateGoodVibePosition();
