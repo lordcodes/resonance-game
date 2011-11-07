@@ -15,10 +15,12 @@ namespace Resonance
     class MusicHandler
     {
         MusicTrack bgMusic;
+        SoundEffectTrack soundEffects;
 
         public MusicHandler(ContentManager newContent)
         {
             bgMusic = new MusicTrack(newContent);
+            soundEffects = new SoundEffectTrack(newContent);
         }
 
         /// <summary>
@@ -28,6 +30,11 @@ namespace Resonance
         public MusicTrack getTrack()
         {
             return bgMusic;
+        }
+
+        public SoundEffectTrack getSound()
+        {
+            return soundEffects;
         }
     }
 }

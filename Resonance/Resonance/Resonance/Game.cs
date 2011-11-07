@@ -97,6 +97,15 @@ namespace Resonance
                 musicHandler.getTrack().inTime();
             }
 
+            //Play sound effects
+            if (keyboardState.IsKeyDown(Keys.D1)) musicHandler.getSound().playSound(0);
+            if (keyboardState.IsKeyDown(Keys.D2)) musicHandler.getSound().playSound(1);
+            if (keyboardState.IsKeyDown(Keys.D3)) musicHandler.getSound().playSound(2);
+            if (keyboardState.IsKeyDown(Keys.D4)) musicHandler.getSound().playSound(3);
+            if (keyboardState.IsKeyDown(Keys.D5)) musicHandler.getSound().playSound(4);
+            if (keyboardState.IsKeyDown(Keys.D6)) musicHandler.getSound().playSound(5);
+            if (keyboardState.IsKeyDown(Keys.D7)) musicHandler.getSound().playSound(6);
+
             //Update graphics
             UpdateGoodVibePosition();
             Drawer.Update(goodVibePos);
