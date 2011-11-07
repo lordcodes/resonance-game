@@ -22,6 +22,9 @@ namespace Resonance
         Vector4 goodVibePos;
         MusicHandler musicHandler;
 
+        KeyboardState oldKeyState;
+        GamePadState oldPadState;
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -89,7 +92,7 @@ namespace Resonance
             {
                 musicHandler.getTrack().pauseTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.H) || (currentState.Buttons.B == ButtonState.Pressed))
+            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H))
             {
                 musicHandler.getTrack().inTime();
             }
@@ -98,6 +101,12 @@ namespace Resonance
             UpdateGoodVibePosition();
             Drawer.Update(goodVibePos);
             base.Update(gameTime);
+
+            //Cache the previous key state. As found this method is run so quickly that pressing key once
+            //caused it to do the beat method inTime() about 4 times and that messed up the detecting
+            //if you were in time to the music.
+            oldKeyState = keyboardState;
+            oldPadState = currentState;
         }
 
         /// <summary>
