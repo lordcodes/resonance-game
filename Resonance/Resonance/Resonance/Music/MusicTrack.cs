@@ -95,7 +95,6 @@ namespace Resonance
         /// </summary>
         public void inTime()
         {
-            Console.WriteLine("TEST PRINT");
             for (; ; lastI++)
             {
                 long time = DateTime.Now.Ticks * 100;
