@@ -31,6 +31,16 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawer = new Drawing(Content, graphics);
             musicHandler = new MusicHandler(Content);
+
+            //Allows you to set the resolution of the game (not tested on Xbox yet)
+            IsMouseVisible = false;
+            IsFixedTimeStep = true;
+            graphics.SynchronizeWithVerticalRetrace = true;
+            graphics.IsFullScreen = true;
+            graphics.PreferMultiSampling = true;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
+            Window.AllowUserResizing = true;
         }
 
         /// <summary>
@@ -78,6 +88,7 @@ namespace Resonance
 
             KeyboardState keyboardState = Keyboard.GetState();
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+            //GamePadState c = GamePad.GetState(PlayerIndex.One);
 
             // Update state of background music
             if (keyboardState.IsKeyDown(Keys.Space) || (currentState.Buttons.Start == ButtonState.Pressed))
@@ -92,7 +103,7 @@ namespace Resonance
             {
                 musicHandler.getTrack().pauseTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H))
+            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H) || currentState.Buttons.B == ButtonState.Pressed && !oldPadState.IsButtonDown(Buttons.B))
             {
                 musicHandler.getTrack().inTime();
             }
