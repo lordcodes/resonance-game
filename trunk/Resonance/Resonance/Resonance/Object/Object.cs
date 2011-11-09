@@ -7,6 +7,7 @@ namespace Resonance
 {
     class Object
     {
+        private string identifier;
         private float xWorldCord;
         private float yWorldCord;
         private float zWorldCord;
@@ -18,6 +19,15 @@ namespace Resonance
             zWorldCord = 0;
         }
 
+        public void addIdentifier(string name)
+        {
+            identifier = name;
+        }
+
+        public string returnIdentifier()
+        {
+            return identifier;
+        }
         public Object(float x, float y, float z)
         {
             xWorldCord = x;
