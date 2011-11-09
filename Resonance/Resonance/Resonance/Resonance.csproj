@@ -93,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\World.cs" />
     <Compile Include="Music\SoundEffectTrack.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Drawing\DrawingInterface.cs" />
