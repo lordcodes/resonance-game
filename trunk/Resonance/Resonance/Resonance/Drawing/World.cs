@@ -45,7 +45,7 @@ namespace Resonance
             else
                 if (checkPosition(posX, posY, posZ, obj.returnIdentifier()) == true)
                 {
-                    obj.setXWoldCord(posX);
+                    obj.setXWorldCord(posX);
                     obj.setYWorldCord(posY);
                     obj.setZWorldCord(posZ);
                     removeObject(obj);
