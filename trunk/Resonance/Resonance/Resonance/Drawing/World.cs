@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
 
-namespace Resonance.Drawing
+namespace Resonance
 {
     class World
     {

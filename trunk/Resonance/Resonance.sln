@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Resonance", "Resonance\Reso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ResonanceContent", "Resonance\ResonanceContent\ResonanceContent.contentproj", "{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Copy (3) of Resonance", "Resonance\Resonance\Windows Copy (3) of Resonance.csproj", "{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Copy (2) of Resonance", "Resonance\Resonance\Windows Copy (2) of Resonance.csproj", "{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -43,16 +43,16 @@ Global
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|Mixed Platforms.ActiveCfg = Release|Xbox 360
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|x86.ActiveCfg = Release|Xbox 360
 		{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}.Release|Xbox 360.ActiveCfg = Release|Xbox 360
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Debug|x86.ActiveCfg = Debug|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Debug|x86.Build.0 = Debug|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Debug|Xbox 360.ActiveCfg = Debug|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Release|Mixed Platforms.Build.0 = Release|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Release|x86.ActiveCfg = Release|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Release|x86.Build.0 = Release|x86
-		{8E07AF2F-D8D1-4AB6-9DA1-02A561117F04}.Release|Xbox 360.ActiveCfg = Release|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Debug|x86.ActiveCfg = Debug|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Debug|x86.Build.0 = Debug|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Release|Mixed Platforms.Build.0 = Release|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Release|x86.ActiveCfg = Release|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Release|x86.Build.0 = Release|x86
+		{33CCAE31-93DC-46DD-B458-C79D8C49C9E3}.Release|Xbox 360.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
