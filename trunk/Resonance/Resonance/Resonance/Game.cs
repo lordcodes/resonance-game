@@ -91,25 +91,11 @@ namespace Resonance
                 this.Exit();
 
             //Player One
-            if (keyboardState.IsKeyDown(Keys.Space) || (playerOne.Buttons.Start == ButtonState.Pressed))
-            {
-                musicHandler.getTrack().playTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.S) || (playerOne.Buttons.X == ButtonState.Pressed))
-            {
-                musicHandler.getTrack().stopTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.P) || (playerOne.Buttons.A == ButtonState.Pressed))
-            {
-                musicHandler.getTrack().pauseTrack();
-            }
+            playerOnePresses(keyboardState, playerOne);
 
 
             //Player Two
-            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H) || playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState.IsButtonDown(Buttons.A))
-            {
-                musicHandler.getTrack().inTime();
-            }
+            playerTwoPresses(keyboardState, playerTwo);
 
             //Play sound effects
             if (keyboardState.IsKeyDown(Keys.D1)) musicHandler.getSound().playSound(0);
@@ -135,15 +121,31 @@ namespace Resonance
         /// <summary>
         /// This handles player one button presses
         /// </summary>
-        private void playerOnePresses()
+        private void playerOnePresses(KeyboardState keyboardState, GamePadState playerOne)
         {
+            if (keyboardState.IsKeyDown(Keys.Space) || (playerOne.Buttons.Start == ButtonState.Pressed))
+            {
+                musicHandler.getTrack().playTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.S) || (playerOne.Buttons.X == ButtonState.Pressed))
+            {
+                musicHandler.getTrack().stopTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.P) || (playerOne.Buttons.A == ButtonState.Pressed))
+            {
+                musicHandler.getTrack().pauseTrack();
+            }
         }
 
         /// <summary>
         /// This handles player two button presses
         /// </summary>
-        private void playerTwoPresses()
+        private void playerTwoPresses(KeyboardState keyboardState, GamePadState playerTwo)
         {
+            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H) || playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState.IsButtonDown(Buttons.A))
+            {
+                musicHandler.getTrack().inTime();
+            }
         }
 
         /// <summary>
