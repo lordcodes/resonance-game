@@ -35,7 +35,7 @@ namespace Resonance
             zWorldCord = z;
         }
 
-        public void setXWoldCord(float x)
+        public void setXWorldCord(float x)
         {
             xWorldCord = x;
         }
