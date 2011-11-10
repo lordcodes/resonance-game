@@ -83,29 +83,30 @@ namespace Resonance
         protected override void Update(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+            GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
+            GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
 
             // Allows the game to exit
-            if (currentState.Buttons.Back == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape))
+            if (playerOne.Buttons.Back == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape))
                 this.Exit();
 
-            
-            //GamePadState c = GamePad.GetState(PlayerIndex.One);
-
-            // Update state of background music
-            if (keyboardState.IsKeyDown(Keys.Space) || (currentState.Buttons.Start == ButtonState.Pressed))
+            //Player One
+            if (keyboardState.IsKeyDown(Keys.Space) || (playerOne.Buttons.Start == ButtonState.Pressed))
             {
                 musicHandler.getTrack().playTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.S) || (currentState.Buttons.X == ButtonState.Pressed))
+            if (keyboardState.IsKeyDown(Keys.S) || (playerOne.Buttons.X == ButtonState.Pressed))
             {
                 musicHandler.getTrack().stopTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.P) || (currentState.Buttons.A == ButtonState.Pressed))
+            if (keyboardState.IsKeyDown(Keys.P) || (playerOne.Buttons.A == ButtonState.Pressed))
             {
                 musicHandler.getTrack().pauseTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H) || currentState.Buttons.B == ButtonState.Pressed && !oldPadState.IsButtonDown(Buttons.B))
+
+
+            //Player Two
+            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H) || playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState.IsButtonDown(Buttons.A))
             {
                 musicHandler.getTrack().inTime();
             }
@@ -128,7 +129,21 @@ namespace Resonance
             //caused it to do the beat method inTime() about 4 times and that messed up the detecting
             //if you were in time to the music.
             oldKeyState = keyboardState;
-            oldPadState = currentState;
+            oldPadState = playerTwo;
+        }
+
+        /// <summary>
+        /// This handles player one button presses
+        /// </summary>
+        private void playerOnePresses()
+        {
+        }
+
+        /// <summary>
+        /// This handles player two button presses
+        /// </summary>
+        private void playerTwoPresses()
+        {
         }
 
         /// <summary>
