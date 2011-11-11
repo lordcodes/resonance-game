@@ -46,6 +46,9 @@
     <OutputPath>bin\Xbox 360\test\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BEPUphysics">
+      <HintPath>BEPUphysics v1.0.0\Xbox 360\Release\BEPUphysics.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework">
       <Private>False</Private>
     </Reference>
