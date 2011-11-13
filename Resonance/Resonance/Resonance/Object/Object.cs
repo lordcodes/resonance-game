@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using BEPUphysics.Entities.Prefabs;
 
 namespace Resonance
 {
@@ -13,6 +14,7 @@ namespace Resonance
         private float yWorldCord;
         private float zWorldCord;
         private int gameModelNum;
+        private Capsule body;
 
         public Object(int modelNum, Game game) : base(game)
         {
