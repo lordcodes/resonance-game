@@ -11,21 +11,21 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
-    class Drawing : DrawingInterface
+    class Drawing
     {
-        private GraphicsDeviceManager graphics;
-        private GameModels GameModelsStore;
-        private BasicEffect effect;
-        private Texture2D texture;
-        private ContentManager Content;
-        private Vector4 goodVibePos;
-        private Matrix goodVibeTranslation;
+        private static GraphicsDeviceManager graphics;
+        private static GameModels GameModelsStore;
+        private static BasicEffect effect;
+        private static Texture2D texture;
+        private static ContentManager Content;
+        private static Vector4 goodVibePos;
+        private static Matrix goodVibeTranslation;
 
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
         /// GraphicsDeviceManger for it to use
         /// </summary>
-        public Drawing(ContentManager newContent, GraphicsDeviceManager newGraphics)
+        public static void Init(ContentManager newContent, GraphicsDeviceManager newGraphics)
         {
             Content = newContent;
             graphics = newGraphics;
@@ -36,7 +36,7 @@ namespace Resonance
         /// LoadContent will be called once per game and is the place to load
         /// all of your content needed for drawing the world.
         /// </summary>
-        public void loadContent()
+        public static void loadContent()
         {
             GameModelsStore.Load();
             effect = new BasicEffect(graphics.GraphicsDevice);
@@ -52,17 +52,27 @@ namespace Resonance
         }
 
         /// <summary>
-        /// This is called when the world should be drawn.
+        /// This is called when the character and the HUD should be drawn.
         /// </summary>
-        public void Draw()
+        public static void Draw()
         {
-            graphics.GraphicsDevice.Clear(Color.White);
+            //graphics.GraphicsDevice.Clear(Color.White);
             // This will eventually be looping through the World object grabbing objects
             DrawGameModel(GameModels.GROUND, Vector3.Zero);
-            DrawGameModel(GameModels.TREE, Vector3.Zero);
-            DrawGameModel(GameModels.MUSHROOM, new Vector3(4,2,2));
+            //DrawGameModel(GameModels.TREE, Vector3.Zero);
+            //DrawGameModel(GameModels.MUSHROOM, new Vector3(4,2,2));
             // Special case atm for drawing the good vibe:
             DrawModel(GameModelsStore.getModel(GameModels.GOOD_VIBE).model, Matrix.Multiply(GameModelsStore.getModel(GameModels.GOOD_VIBE).scale, goodVibeTranslation), effect);
+        }
+
+        /// <summary>
+        /// This is called when you would like to draw an object on screen.
+        /// </summary>
+        /// <param name="gameModelNum">The game model reference used for the object you want to draw e.g GameModels.BOX </param>
+        /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
+        public static void Draw(int gameModelNum, Matrix worldTransform)
+        {
+            DrawModel(GameModelsStore.getModel(gameModelNum).model, Matrix.Multiply(GameModelsStore.getModel(gameModelNum).scale, worldTransform), effect);
         }
 
         /// <summary>
@@ -70,7 +80,7 @@ namespace Resonance
         /// this will eventually be given information abut the entire world to be drawn
         /// </summary>
         /// <param name="newPos">(TEMP) Provides a vector to containing X,Y,Z coords of good vibe and its rotation in W</param>
-        public void Update(Vector4 newPos)
+        public static void Update(Vector4 newPos)
         {
             goodVibePos = newPos;
             Matrix goodVibeRotation = Matrix.CreateRotationY(goodVibePos.W);
@@ -81,13 +91,13 @@ namespace Resonance
             goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
         }
 
-        private Matrix GetParentTransform(Model m, ModelBone mb)
+        private static Matrix GetParentTransform(Model m, ModelBone mb)
         {
             return (mb == m.Root) ? mb.Transform :
                 mb.Transform * GetParentTransform(m, mb.Parent);
         }
 
-        private void DrawModel(Model m, Matrix world, BasicEffect be)
+        private static void DrawModel(Model m, Matrix world, BasicEffect be)
         {
             foreach (ModelMesh mm in m.Meshes)
             {
@@ -102,7 +112,7 @@ namespace Resonance
             }
         }
 
-        private void DrawGameModel(int model, Vector3 pos)
+        private static void DrawGameModel(int model, Vector3 pos)
         {
             DrawModel(GameModelsStore.getModel(model).model, Matrix.Multiply(GameModelsStore.getModel(model).scale, Matrix.CreateTranslation(pos)), effect);
         }
