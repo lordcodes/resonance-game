@@ -18,7 +18,6 @@ namespace Resonance
     public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        Drawing Drawer;
         float goodVibeRotation = 0;
         Vector4 goodVibePos;
         MusicHandler musicHandler;
@@ -31,7 +30,7 @@ namespace Resonance
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            Drawer = new Drawing(Content, graphics);
+            Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
@@ -64,7 +63,7 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
-            Drawer.loadContent();
+            Drawing.loadContent();
             goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
             space = new Space();
             space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
@@ -112,7 +111,7 @@ namespace Resonance
 
             //Update graphics
             UpdateGoodVibePosition();
-            Drawer.Update(goodVibePos);
+            Drawing.Update(goodVibePos);
             base.Update(gameTime);
 
             //Cache the previous key state. As found this method is run so quickly that pressing key once
@@ -200,7 +199,9 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            Drawer.Draw();
+            Drawing.Draw();
+            Drawing.Draw(GameModels.TREE, Matrix.CreateTranslation(Vector3.Zero));
+            Drawing.Draw(GameModels.MUSHROOM, Matrix.CreateTranslation(new Vector3(3, 3, 3)));
             base.Draw(gameTime);
         }
     }
