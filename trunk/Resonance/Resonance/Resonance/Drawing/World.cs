@@ -5,6 +5,9 @@ using System.Text;
 using System.Collections.ObjectModel;
 using BEPUphysics;
 using Microsoft.Xna.Framework;
+using System.Xml;
+using System.IO;
+
 
 namespace Resonance
 {
@@ -67,6 +70,21 @@ namespace Resonance
             return false;
         }
 
+        public Dictionary<string, Object> returnObjects()
+        {
+            return objects;
+        }
+
+        public void readXmlFile(string levelName)
+        {
+            XmlReaderSettings settings = new XmlReaderSettings();
+            settings.IgnoreWhitespace = true;
+            settings.IgnoreComments = true;
+            using (XmlReader reader = XmlReader.Create("Levels/"+levelName, settings))
+            {
+                //to be done once the format of the level is decided
+            }
+        }
 
     }
 
