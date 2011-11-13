@@ -21,7 +21,6 @@ namespace Resonance
         float goodVibeRotation = 0;
         Vector4 goodVibePos;
         MusicHandler musicHandler;
-        Space space;
 
         KeyboardState oldKeyState;
         GamePadState oldPadState;
@@ -65,8 +64,6 @@ namespace Resonance
         {
             Drawing.loadContent();
             goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
-            space = new Space();
-            space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
         }
 
         /// <summary>
