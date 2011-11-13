@@ -5,25 +5,25 @@ using System.Text;
 
 namespace Resonance
 {
-    class BadVibe : VibeInterface
+    class BadVibe : Object
     {
         int health;
 
-        BadVibe()
+        BadVibe(int modelNum, Game game) : base(modelNum, game)
         {
             health = 100;
         }
 
-        void VibeInterface.AdjustHealth(int change)
+        void AdjustHealth(int change)
         {
         }
 
 
-        void VibeInterface.SetHealth(int value)
+        void SetHealth(int value)
         {
         }
 
-        int VibeInterface.GetHealth()
+        int GetHealth()
         {
             return health;
         }

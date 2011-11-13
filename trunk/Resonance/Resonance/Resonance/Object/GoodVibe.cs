@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Resonance
 {
-    class GoodVibe : VibeInterface
+    class GoodVibe : Object
     {
         int health; //health stored as an int between 0 - 100.
 
@@ -13,12 +13,12 @@ namespace Resonance
         /// Constructor
         /// Set initial health to 100
         /// </summary>
-        GoodVibe()
+        GoodVibe(int modelNum, Game game) : base(modelNum, game)
         {
             health = 100;
         }
                
-        void VibeInterface.AdjustHealth(int change)
+        void AdjustHealth(int change)
         {
             //check for <0 or >100
             //health <0, dead vibe
@@ -39,7 +39,7 @@ namespace Resonance
             }
         }
 
-        void VibeInterface.SetHealth(int value)
+        void SetHealth(int value)
         {
             //check between 0-100
             health = value;
@@ -49,7 +49,7 @@ namespace Resonance
         /// 
         /// </summary>
         /// <returns></returns>
-        int VibeInterface.GetHealth()
+        int GetHealth()
         {
             return health;
         }
