@@ -3,20 +3,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Collections.ObjectModel;
+using BEPUphysics;
+using Microsoft.Xna.Framework;
 
 namespace Resonance
 {
     class World
     {
         private Dictionary<string, Object> objects = new Dictionary<string, Object>();
+        Space space;
+
+        public World() 
+        {
+            space = new Space();
+            space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
+        }
+
 
         //I was thinking maybe every object could have like a string identifier so that I can store them into a 
         // hash map (dictionary) making updating, and deleting much more faster than just a simple link list
 
         public void addObject(Object obj)
         {
-            if(checkPosition(obj.getXWorldCord(),obj.getYWorldCord(),obj.getZWorldCord(),obj.returnIdentifier()) == true)
-                objects.Add(obj.returnIdentifier() , obj);
+            if (checkPosition(obj.getXWorldCord(), obj.getYWorldCord(), obj.getZWorldCord(), obj.returnIdentifier()) == true)
+            {
+                objects.Add(obj.returnIdentifier(), obj);
+                //space.Add(obj);
+            }
         }
        
         //checks if there is another object that has the same position on the map
@@ -45,11 +58,10 @@ namespace Resonance
             else
                 if (checkPosition(posX, posY, posZ, obj.returnIdentifier()) == true)
                 {
-                    obj.setXWorldCord(posX);
-                    obj.setYWorldCord(posY);
-                    obj.setZWorldCord(posZ);
+                    obj.setCords(posX, posY, posZ);
                     removeObject(obj);
                     objects.Add(obj.returnIdentifier(), obj);
+                    space.Update();
                     return true;
                 }
             return false;
