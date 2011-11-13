@@ -14,7 +14,7 @@ namespace Resonance
         private float yWorldCord;
         private float zWorldCord;
         private int gameModelNum;
-        private Capsule body;
+        private Box body;
 
         public Object(int modelNum, Game game) : base(game)
         {
