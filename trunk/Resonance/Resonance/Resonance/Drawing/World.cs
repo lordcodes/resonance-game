@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using BEPUphysics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using System.Xml;
 using System.IO;
 
@@ -75,15 +76,10 @@ namespace Resonance
             return objects;
         }
 
-        public void readXmlFile(string levelName)
+        public void readXmlFile(string levelName, ContentManager Content)
         {
-            XmlReaderSettings settings = new XmlReaderSettings();
-            settings.IgnoreWhitespace = true;
-            settings.IgnoreComments = true;
-            using (XmlReader reader = XmlReader.Create("Levels/"+levelName, settings))
-            {
-                //to be done once the format of the level is decided
-            }
+            
+           
         }
 
     }
