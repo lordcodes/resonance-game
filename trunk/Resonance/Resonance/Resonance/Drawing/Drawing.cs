@@ -117,5 +117,13 @@ namespace Resonance
             DrawModel(GameModelsStore.getModel(model).model, Matrix.Multiply(GameModelsStore.getModel(model).scale, Matrix.CreateTranslation(pos)), effect);
         }
 
+        public static GameModels gameModelStore
+        {
+            get
+            {
+                return GameModelsStore;
+            }
+        }
+
     }
 }

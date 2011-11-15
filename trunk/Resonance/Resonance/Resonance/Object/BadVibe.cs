@@ -2,14 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Resonance
 {
-    class BadVibe : Object
+    class BadVibe : DynamicObject
     {
         int health;
 
-        BadVibe(int modelNum, Game game) : base(modelNum, game)
+        BadVibe(int modelNum, String name, Game game, Vector3 pos)
+            : base(modelNum, name, game, pos)
         {
             health = 100;
         }

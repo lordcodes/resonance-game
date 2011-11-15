@@ -100,12 +100,14 @@
     <Compile Include="Music\SoundEffectTrack.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Drawing\Drawing.cs" />
+    <Compile Include="Object\DynamicObject.cs" />
     <Compile Include="Object\GoodVibe.cs" />
     <Compile Include="Drawing\GameModels.cs" />
     <Compile Include="Drawing\GameModel.cs" />
     <Compile Include="Music\MusicHandler.cs" />
     <Compile Include="Music\MusicTrack.cs" />
     <Compile Include="Object\Object.cs" />
+    <Compile Include="Object\StaticObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />

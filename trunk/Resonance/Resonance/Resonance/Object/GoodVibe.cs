@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Resonance
 {
-    class GoodVibe : Object
+    class GoodVibe
     {
         int health; //health stored as an int between 0 - 100.
 
@@ -13,7 +13,7 @@ namespace Resonance
         /// Constructor
         /// Set initial health to 100
         /// </summary>
-        GoodVibe(int modelNum, Game game) : base(modelNum, game)
+        GoodVibe(int modelNum, Game game)
         {
             health = 100;
         }

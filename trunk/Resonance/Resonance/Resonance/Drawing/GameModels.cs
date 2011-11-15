@@ -20,11 +20,11 @@ namespace Resonance
         public static readonly int GROUND = 5;
         public static readonly int MUSHROOM = 6;
 
-        private GameModel Tree;
-        private GameModel Bad_vibe;
-        private GameModel Good_vibe;
-        private GameModel Ground;
-        private GameModel Mushroom;
+        private static GameModel Tree;
+        private static GameModel Bad_vibe;
+        private static GameModel Good_vibe;
+        private static GameModel Ground;
+        private static GameModel Mushroom;
 
         private ContentManager Content;
 
