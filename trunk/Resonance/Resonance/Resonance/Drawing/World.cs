@@ -89,6 +89,11 @@ namespace Resonance
             return false;
         }
 
+        public Object getObject(String name)
+        {
+            return objects[name];
+        }
+
         public void update()
         {
             space.Update();
