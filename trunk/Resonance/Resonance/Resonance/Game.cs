@@ -22,8 +22,12 @@ namespace Resonance
         Vector4 goodVibePos;
         MusicHandler musicHandler;
 
+#if XBOX
+        GamePadState oldPadState1;
+        GamePadState oldPadState2;
+#else
         KeyboardState oldKeyState;
-        GamePadState oldPadState;
+#endif
 
         //Hello world
         World world;
@@ -65,6 +69,12 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
+#if XBOX360
+            oldPadState1 = GamePad.GetState(PlayerIndex.One);
+            oldPadState2 = GamePad.GetState(PlayerIndex.Two);
+#else
+            oldKeyState = Keyboard.GetState();
+#endif
             Drawing.loadContent();
             goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
             world = new World(this);
@@ -96,21 +106,21 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            KeyboardState keyboardState = Keyboard.GetState();
+#if XBOX360
             GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
             GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
-
             // Allows the game to exit
-            if (playerOne.Buttons.Back == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.Escape))
+            if (playerOne.Buttons.Back == ButtonState.Pressed || playerTwo.Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
             //Player One
-            playerOnePresses(keyboardState, playerOne);
-
-
+            playerOnePresses(playerOne);
             //Player Two
-            playerTwoPresses(keyboardState, playerTwo);
-
+            playerTwoPresses(playerTwo);
+#else
+            KeyboardState keyboardState = Keyboard.GetState();
+            // Allows the game to exit
+            if (keyboardState.IsKeyDown(Keys.Escape))
+                this.Exit();
             //Play sound effects
             if (keyboardState.IsKeyDown(Keys.D1)) musicHandler.getSound().playSound(0);
             if (keyboardState.IsKeyDown(Keys.D2)) musicHandler.getSound().playSound(1);
@@ -119,7 +129,25 @@ namespace Resonance
             if (keyboardState.IsKeyDown(Keys.D5)) musicHandler.getSound().playSound(4);
             if (keyboardState.IsKeyDown(Keys.D6)) musicHandler.getSound().playSound(5);
             if (keyboardState.IsKeyDown(Keys.D7)) musicHandler.getSound().playSound(6);
-        
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                musicHandler.getTrack().playTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.S))
+            {
+                musicHandler.getTrack().stopTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.P))
+            {
+                musicHandler.getTrack().pauseTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H))
+            {
+                musicHandler.getTrack().inTime();
+            }
+#endif
+
+
             //Update graphics
             UpdateGoodVibePosition();
             Drawing.Update(goodVibePos);
@@ -129,24 +157,29 @@ namespace Resonance
             //Cache the previous key state. As found this method is run so quickly that pressing key once
             //caused it to do the beat method inTime() about 4 times and that messed up the detecting
             //if you were in time to the music.
+#if XBOX360
+            oldPadState1 = playerOne;
+            oldPadState2 = playerTwo;
+#else
             oldKeyState = keyboardState;
-            oldPadState = playerTwo;
+#endif
         }
 
+#if XBOX360
         /// <summary>
         /// This handles player one button presses
         /// </summary>
-        private void playerOnePresses(KeyboardState keyboardState, GamePadState playerOne)
+        private void playerOnePresses(GamePadState playerOne)
         {
-            if (keyboardState.IsKeyDown(Keys.Space) || (playerOne.Buttons.Start == ButtonState.Pressed))
+            if (playerOne.Buttons.Start == ButtonState.Pressed)
             {
                 musicHandler.getTrack().playTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.S) || (playerOne.Buttons.X == ButtonState.Pressed))
+            if (playerOne.Buttons.X == ButtonState.Pressed)
             {
                 musicHandler.getTrack().stopTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.P) || (playerOne.Buttons.A == ButtonState.Pressed))
+            if (playerOne.Buttons.B == ButtonState.Pressed)
             {
                 musicHandler.getTrack().pauseTrack();
             }
@@ -155,13 +188,14 @@ namespace Resonance
         /// <summary>
         /// This handles player two button presses
         /// </summary>
-        private void playerTwoPresses(KeyboardState keyboardState, GamePadState playerTwo)
+        private void playerTwoPresses(GamePadState playerTwo)
         {
-            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H) || playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState.IsButtonDown(Buttons.A))
+            if (playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.A))
             {
                 musicHandler.getTrack().inTime();
             }
         }
+#endif
 
         /// <summary>
         /// This handles basic user input to move the good vibe around the world, this is temporary 
