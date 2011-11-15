@@ -28,8 +28,6 @@ namespace Resonance
         {
             space = new Space();
             space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
-            Box ground = new Box(Vector3.Zero, 30, 1, 30);
-            space.Add(ground);
             this.game = game;
         }
 
