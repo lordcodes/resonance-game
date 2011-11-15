@@ -6,6 +6,7 @@ using BEPUphysics.Entities.Prefabs;
 using Microsoft.Xna.Framework;
 using BEPUphysics.DataStructures;
 using BEPUphysics.Entities;
+using BEPUphysics.EntityStateManagement;
 
 namespace Resonance
 {
@@ -20,6 +21,11 @@ namespace Resonance
             int[] indices;
             TriangleMesh.GetVerticesAndIndicesFromModel(Drawing.gameModelStore.getModel(modelNum).model, out vertices, out indices);
             body = new ConvexHull(pos, vertices, Drawing.gameModelStore.getModel(modelNum).mass);
+            //MotionState motion = new MotionState();
+            //motion.Position = pos;
+            //motion.LinearVelocity = Vector3.Zero;
+            //motion.AngularVelocity = Vector3.Zero;
+            //body = new ConvexHull(motion, vertices, Drawing.gameModelStore.getModel(modelNum).mass);
             body.Tag = Drawing.gameModelStore.getModel(modelNum);
         }
 

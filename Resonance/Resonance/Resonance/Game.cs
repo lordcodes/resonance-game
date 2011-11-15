@@ -69,7 +69,7 @@ namespace Resonance
             goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
             world = new World(this);
             StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
-            GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0, 6));
+            GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.5f, 6));
             StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
             StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
             BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 10, 3));
