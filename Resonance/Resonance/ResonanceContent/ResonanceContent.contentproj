@@ -49,13 +49,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Models\ground.fbx">
-      <Name>ground</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Drawing\Textures\texBadVibe.jpg">
       <Name>texBadVibe</Name>
       <Importer>TextureImporter</Importer>
@@ -105,6 +98,11 @@
     </Compile>
     <Compile Include="Drawing\Models\bender.fbx">
       <Name>bender</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\terrain.fbx">
+      <Name>terrain</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>

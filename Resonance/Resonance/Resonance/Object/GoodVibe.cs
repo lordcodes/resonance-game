@@ -2,10 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework;
 
 namespace Resonance
 {
-    class GoodVibe
+    class GoodVibe : DynamicObject
     {
         int health; //health stored as an int between 0 - 100.
 
@@ -13,7 +14,8 @@ namespace Resonance
         /// Constructor
         /// Set initial health to 100
         /// </summary>
-        GoodVibe(int modelNum, Game game)
+        public GoodVibe(int modelNum, String name, Game game, Vector3 pos)
+            : base(modelNum, name, game, pos)
         {
             health = 100;
         }
