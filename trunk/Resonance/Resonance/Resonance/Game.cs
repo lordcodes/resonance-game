@@ -82,7 +82,7 @@ namespace Resonance
             GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.5f, 6));
             StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
             StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
-            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 10, 3));
+            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.5f, 3));
             world.addObject(ground);
             world.addObject(player);
             world.addObject(tree);
@@ -150,6 +150,10 @@ namespace Resonance
 
             //Update graphics
             UpdateGoodVibePosition();
+
+            // Update bad vibe position
+          ((BadVibe)world.getObject("BV0")).Move();
+
             Drawing.Update(goodVibePos);
             world.update();
             base.Update(gameTime);
@@ -163,6 +167,7 @@ namespace Resonance
 #else
             oldKeyState = keyboardState;
 #endif
+
         }
 
 #if XBOX360
