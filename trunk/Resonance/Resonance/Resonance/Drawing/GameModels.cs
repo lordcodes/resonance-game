@@ -44,7 +44,7 @@ namespace Resonance
         public void Load()
         {
             Tree = new GameModel(Content, "Drawing/Models/basicTree", 0.5f);
-            Ground = new GameModel(Content, "Drawing/Models/ground", 1f);
+            Ground = new GameModel(Content, "Drawing/Models/terrain", 1f);
             Good_vibe = new GameModel(Content, "Drawing/Models/box", 1f);
             Bad_vibe = new GameModel(Content, "Drawing/Models/box", 1f);
             Mushroom = new GameModel(Content, "Drawing/Models/bender", 1f);
