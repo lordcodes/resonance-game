@@ -15,6 +15,7 @@ namespace Resonance
     {
         private Model Model;
         private Matrix Scale;
+        private float Mass;
 
         public Model model
         {
@@ -32,6 +33,14 @@ namespace Resonance
             }
         }
 
+        public float mass
+        {
+            get
+            {
+                return Mass;
+            }
+        }
+
         /// <summary>
         /// Creates a new GameModel object and stores everything needed to draw the object atm includes
         /// model data and scale. Will eventualy include texture data 
@@ -43,6 +52,7 @@ namespace Resonance
         {
             Model = Content.Load<Model>(modelFile);
             Scale = Matrix.CreateScale(modelScale, modelScale, modelScale);
+            Mass = 1.0f;
         }
         
     }

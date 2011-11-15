@@ -25,6 +25,9 @@ namespace Resonance
         KeyboardState oldKeyState;
         GamePadState oldPadState;
 
+        //Hello world
+        World world;
+
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -64,6 +67,11 @@ namespace Resonance
         {
             Drawing.loadContent();
             goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
+            world = new World(this);
+            StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, Vector3.Zero);
+            StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
+            world.addObject(tree);
+            world.addObject(mush);
         }
 
         /// <summary>
@@ -105,10 +113,11 @@ namespace Resonance
             if (keyboardState.IsKeyDown(Keys.D5)) musicHandler.getSound().playSound(4);
             if (keyboardState.IsKeyDown(Keys.D6)) musicHandler.getSound().playSound(5);
             if (keyboardState.IsKeyDown(Keys.D7)) musicHandler.getSound().playSound(6);
-
+        
             //Update graphics
             UpdateGoodVibePosition();
             Drawing.Update(goodVibePos);
+            world.update();
             base.Update(gameTime);
 
             //Cache the previous key state. As found this method is run so quickly that pressing key once
@@ -197,8 +206,6 @@ namespace Resonance
         protected override void Draw(GameTime gameTime)
         {
             Drawing.Draw();
-            Drawing.Draw(GameModels.TREE, Matrix.CreateTranslation(Vector3.Zero));
-            Drawing.Draw(GameModels.MUSHROOM, Matrix.CreateTranslation(new Vector3(3, 3, 3)));
             base.Draw(gameTime);
         }
     }

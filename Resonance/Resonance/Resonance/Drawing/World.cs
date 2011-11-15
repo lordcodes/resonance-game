@@ -5,7 +5,13 @@ using System.Text;
 using System.Collections.ObjectModel;
 using BEPUphysics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
+using BEPUphysics.Entities.Prefabs;
 using System.Xml;
 using System.IO;
 
@@ -16,11 +22,15 @@ namespace Resonance
     {
         private Dictionary<string, Object> objects = new Dictionary<string, Object>();
         Space space;
+        Game game;
 
-        public World() 
+        public World(Game game) 
         {
             space = new Space();
             space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
+            Box ground = new Box(Vector3.Zero, 30, 1, 30);
+            space.Add(ground);
+            this.game = game;
         }
 
 
@@ -29,18 +39,28 @@ namespace Resonance
 
         public void addObject(Object obj)
         {
-            if (checkPosition(obj.getXWorldCord(), obj.getYWorldCord(), obj.getZWorldCord(), obj.returnIdentifier()) == true)
+            if (checkPosition(obj.Position, obj.returnIdentifier()) == true)
             {
                 objects.Add(obj.returnIdentifier(), obj);
-                //space.Add(obj);
+                if (obj is DynamicObject)
+                {
+                    space.Add(((DynamicObject)obj).Body);
+                    
+                }
+                else if(obj is StaticObject)
+                {
+                    space.Add(((StaticObject)obj).Body);
+                }
+                game.Components.Add(obj);
             }
         }
+
        
         //checks if there is another object that has the same position on the map
-        private bool checkPosition(float x, float y, float z, string ID)
+        private bool checkPosition(Vector3 pos, string ID)
         {
             foreach(string key in objects.Keys)
-                if(objects[key].getXWorldCord() == x && objects[key].getYWorldCord() == y && objects[key].getZWorldCord() == z && key.Equals(ID) == false)
+                if(objects[key].Position == pos && key.Equals(ID) == false)
                      return false;
             return true;
         }
@@ -55,14 +75,14 @@ namespace Resonance
         //basic edge detection - checks if the new position assigned to the object does not collide with 
         //the position of other objects.
 
-        public bool updatePosition(float posX, float posY, float posZ, Object obj)
+        public bool updatePosition(Vector3 pos, Object obj)
         {
             if (objects[obj.returnIdentifier()] == null)
                 return false;
             else
-                if (checkPosition(posX, posY, posZ, obj.returnIdentifier()) == true)
+                if (checkPosition(pos, obj.returnIdentifier()) == true)
                 {
-                    obj.setCords(posX, posY, posZ);
+                    obj.Position = pos;
                     removeObject(obj);
                     objects.Add(obj.returnIdentifier(), obj);
                     space.Update();
@@ -71,10 +91,16 @@ namespace Resonance
             return false;
         }
 
+        public void update()
+        {
+            space.Update();
+        }
+
         public Dictionary<string, Object> returnObjects()
         {
             return objects;
         }
+
 
         public void readXmlFile(string levelName, ContentManager Content)
         {
@@ -83,6 +109,4 @@ namespace Resonance
         }
 
     }
-
-  
 }

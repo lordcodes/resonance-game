@@ -4,28 +4,22 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using BEPUphysics.Entities.Prefabs;
+using BEPUphysics.Entities;
+using BEPUphysics;
 
 namespace Resonance
 {
     class Object : DrawableGameComponent
     {
         private string identifier;
-        private float xWorldCord;
-        private float yWorldCord;
-        private float zWorldCord;
-        private int gameModelNum;
-        private Box body;
+        private Vector3 position;
+        protected int gameModelNum;
 
-        public Object(int modelNum, Game game) : base(game)
+        public Object(int modelNum, string name, Game game, Vector3 pos) 
+            : base(game)
         {
-            xWorldCord = 0;
-            yWorldCord = 0;
-            zWorldCord = 0;
+            position = pos;
             gameModelNum = modelNum;
-        }
-
-        public void addIdentifier(string name)
-        {
             identifier = name;
         }
 
@@ -34,64 +28,28 @@ namespace Resonance
             return identifier;
         }
 
-        public Object(int modelNum, Game game, float x, float y, float z) : base(game)
+        public Vector3 Position
         {
-            xWorldCord = x;
-            yWorldCord = y;
-            zWorldCord = z;
-            gameModelNum = modelNum;
-        }
-
-        public void setCords(float x, float y, float z)
-        {
-            setXWorldCord(x);
-            setYWorldCord(y);
-            setZWorldCord(z);
-        }
-
-        public void setXWorldCord(float x)
-        {
-            xWorldCord = x;
-        }
-
-        public void setYWorldCord(float y)
-        {
-            yWorldCord = y;
-        }
-
-        public void setZWorldCord(float z)
-        {
-            zWorldCord = z;
-        }
-
-        public float[] getCords()
-        {
-            float[] cords = new float[3];
-            cords[0] = xWorldCord;
-            cords[1] = yWorldCord;
-            cords[2] = zWorldCord;
-            return cords;
-        }
-
-        public float getXWorldCord()
-        {
-            return xWorldCord;
-        }
-
-        public float getZWorldCord()
-        {
-            return zWorldCord;
-        }
-
-        public float getYWorldCord()
-        {
-            return yWorldCord;
+            get
+            {
+                return position;
+            }
+            set
+            {
+                position = value;
+            }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            Vector3 pos = new Vector3(xWorldCord, yWorldCord, zWorldCord);
-            Drawing.Draw(gameModelNum, Matrix.CreateTranslation(pos));
+            if (this is DynamicObject)
+            {
+                Drawing.Draw(gameModelNum, ((DynamicObject)this).Body.WorldTransform);
+            }
+            else if (this is StaticObject)
+            {
+                Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix);
+            }
             base.Draw(gameTime);
         }
     }
