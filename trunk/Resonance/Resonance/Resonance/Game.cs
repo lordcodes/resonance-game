@@ -202,6 +202,16 @@ namespace Resonance
         }
 #endif
 
+      /*  public World World
+        {
+            get
+            {
+                return world;
+            }
+        }*/
+
+        
+
         /// <summary>
         /// This handles basic user input to move the good vibe around the world, this is temporary 
         /// and will eventualy feed into the World object rather than directly to the Drawing

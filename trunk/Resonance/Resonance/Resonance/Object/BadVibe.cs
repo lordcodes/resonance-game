@@ -8,6 +8,7 @@ namespace Resonance
 {
     class BadVibe : DynamicObject
     {
+        Game game;
         int health;
         int previousDirection;  //Remembers the previous movement direction 
         //TODO: change to enum 
@@ -15,12 +16,14 @@ namespace Resonance
         public BadVibe(int modelNum, String name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
         {
+            this.game = game;
             health = 100;
             previousDirection = -1;
         }
 
         void AdjustHealth(int change)
         {
+          
         }
 
         /// <summary>
@@ -45,11 +48,11 @@ namespace Resonance
             double binBoundary2 = 0.5;
             double binBoundary3 = 0.75;
 
-            Random r = new Random();
+            Random r = new Random((int)DateTime.Now.Ticks);
             double direction = r.NextDouble();
 
-            //offsetx = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
-            //offsetz = (float)r.NextDouble() * (0.05f- 0.01f) + 0.01f;
+            offsetx = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
+            offsetz = (float)r.NextDouble() * (0.05f- 0.01f) + 0.01f;
 
             //Probability of direction change
             switch (previousDirection)
@@ -111,6 +114,12 @@ namespace Resonance
             }
    
             this.Body.Position += new Vector3(offsetx, offsety, offsetz);
+           // getGoodVibePos();
+        }
+
+        void getGoodVibePos()
+        {
+            //Console.WriteLine(((GoodVibe)game.getWorld().getObject("Player")).Body.Position);
         }
 
         void SetHealth(int value)
