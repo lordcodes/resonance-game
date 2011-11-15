@@ -10,7 +10,7 @@ namespace Resonance
     {
         int health;
 
-        BadVibe(int modelNum, String name, Game game, Vector3 pos)
+        public BadVibe(int modelNum, String name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
         {
             health = 100;

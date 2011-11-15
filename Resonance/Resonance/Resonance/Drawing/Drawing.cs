@@ -58,7 +58,7 @@ namespace Resonance
         {
             //graphics.GraphicsDevice.Clear(Color.White);
             // This will eventually be looping through the World object grabbing objects
-            DrawGameModel(GameModels.GROUND, Vector3.Zero);
+            //DrawGameModel(GameModels.GROUND, Vector3.Zero);
             //DrawGameModel(GameModels.TREE, Vector3.Zero);
             //DrawGameModel(GameModels.MUSHROOM, new Vector3(4,2,2));
             // Special case atm for drawing the good vibe:
