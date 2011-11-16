@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using BEPUphysics.MathExtensions;
 
 namespace Resonance
 {

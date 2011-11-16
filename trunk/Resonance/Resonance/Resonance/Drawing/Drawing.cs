@@ -18,6 +18,7 @@ namespace Resonance
         private static BasicEffect effect;
         private static Texture2D texture;
         private static ContentManager Content;
+
         private static Vector4 goodVibePos;
         private static Matrix goodVibeTranslation;
 
@@ -48,7 +49,7 @@ namespace Resonance
             effect.TextureEnabled = true;
             effect.Texture = texture;
             effect.EnableDefaultLighting();
-            Update(new Vector4(0, 4f, 6f, (float)(Math.PI*0.25)));
+            UpdateCamera(new Vector4(0, 4f, 6f, (float)(Math.PI*0.25)));
         }
 
         /// <summary>
@@ -76,7 +77,7 @@ namespace Resonance
         /// this will eventually be given information abut the entire world to be drawn
         /// </summary>
         /// <param name="newPos">(TEMP) Provides a vector to containing X,Y,Z coords of good vibe and its rotation in W</param>
-        public static void Update(Vector4 newPos)
+        public static void UpdateCamera(Vector4 newPos)
         {
             goodVibePos = newPos;
             Matrix goodVibeRotation = Matrix.CreateRotationY(goodVibePos.W);
@@ -84,6 +85,7 @@ namespace Resonance
             Vector3 cameraPosition = new Vector3(0, 4f, 6f);
             cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + goodVibePosition;
             effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, Vector3.Up);
+            //effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, new Vector3(1,0,0)); // Uncomment this line to make awesome stuff happen when you move. :D
             goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
         }
 

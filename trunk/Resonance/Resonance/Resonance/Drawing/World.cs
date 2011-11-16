@@ -37,8 +37,8 @@ namespace Resonance
 
         public void addObject(Object obj)
         {
-            if (checkPosition(obj.Position, obj.returnIdentifier()) == true)
-            {
+            //if (checkPosition(obj.Position, obj.returnIdentifier()) == true)
+            //{
                 objects.Add(obj.returnIdentifier(), obj);
                 if (obj is DynamicObject)
                 {
@@ -50,18 +50,18 @@ namespace Resonance
                     space.Add(((StaticObject)obj).Body);
                 }
                 game.Components.Add(obj);
-            }
+            //}
         }
 
        
         //checks if there is another object that has the same position on the map
-        private bool checkPosition(Vector3 pos, string ID)
+        /*private bool checkPosition(Vector3 pos, string ID)
         {
             foreach(string key in objects.Keys)
                 if(objects[key].Position == pos && key.Equals(ID) == false)
                      return false;
             return true;
-        }
+        }*/
 
         //removes the object from the dictionary
         public void removeObject(Object obj)
@@ -73,7 +73,7 @@ namespace Resonance
         //basic edge detection - checks if the new position assigned to the object does not collide with 
         //the position of other objects.
 
-        public bool updatePosition(Vector3 pos, Object obj)
+        /*public bool updatePosition(Vector3 pos, Object obj)
         {
             if (objects[obj.returnIdentifier()] == null)
                 return false;
@@ -87,7 +87,7 @@ namespace Resonance
                     return true;
                 }
             return false;
-        }
+        }*/
 
         public Object getObject(String name)
         {

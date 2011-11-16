@@ -18,11 +18,9 @@ namespace Resonance
     public class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
-        float goodVibeRotation = 0;
-        Vector4 goodVibePos;
         MusicHandler musicHandler;
 
-#if XBOX
+#if XBOX360
         GamePadState oldPadState1;
         GamePadState oldPadState2;
 #else
@@ -31,6 +29,8 @@ namespace Resonance
 
         //Hello world
         World world;
+        Vector4 goodVibePos;
+        float goodVibeRotation;
 
         public Game()
         {
@@ -76,10 +76,11 @@ namespace Resonance
             oldKeyState = Keyboard.GetState();
 #endif
             Drawing.loadContent();
-            goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
             world = new World(this);
             StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
-            GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.5f, 6));
+            GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.65f, 6f));
+            goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
+            goodVibeRotation = 0;
             StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
             StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
             BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.5f, 3));
@@ -154,7 +155,7 @@ namespace Resonance
             // Update bad vibe position
           ((BadVibe)world.getObject("BV0")).Move();
 
-            Drawing.Update(goodVibePos);
+            //Drawing.Update(goodVibePos);
             world.update();
             base.Update(gameTime);
 
@@ -220,38 +221,62 @@ namespace Resonance
         {
             KeyboardState keyboardState = Keyboard.GetState();
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+
+            bool upPressed   = keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed);
+            bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
+            
             float forwardSpeed = 0.05f;
             float rotateSpeed = 0.05f;
 
             if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))
             {
-                goodVibeRotation += rotateSpeed;
+                ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
             }
 
             if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
             {
-                goodVibeRotation -= rotateSpeed;
+                ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
             }
 
-            if (keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed))
+
+            if (upPressed ^ downPressed)
             {
-                Matrix forwardMovement = Matrix.CreateRotationY(goodVibeRotation);
-                Vector3 v = new Vector3(0, 0, -forwardSpeed);
-                v = Vector3.Transform(v, forwardMovement);
-                goodVibePos.Z += v.Z;
-                goodVibePos.X += v.X;
-            }
+                if (upPressed)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
 
-            if (keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed))
+                    /*Matrix forwardMovement = Matrix.CreateRotationY(goodVibePos.W);
+                    Vector3 v = new Vector3(0, 0, -forwardSpeed);
+                    v = Vector3.Transform(v, forwardMovement);
+                    goodVibePos.Z += v.Z;
+                    goodVibePos.X += v.X;
+
+                    v.Y = ((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity.Y;*/
+
+                    //((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity = v;
+                }
+                if (downPressed)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).move(forwardSpeed);
+                    /*Matrix forwardMovement = Matrix.CreateRotationY(goodVibePos.W);
+                    Vector3 v = new Vector3(0, 0, forwardSpeed);
+                    v = Vector3.Transform(v, forwardMovement);
+                    goodVibePos.Z += v.Z;
+                    goodVibePos.X += v.X;*/
+
+                    //((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity = v;
+                }
+                goodVibePos.X = -10f;
+                goodVibePos.Y = 2f;
+                goodVibePos.Z = -10f;
+            }
+            else
             {
-                Matrix forwardMovement = Matrix.CreateRotationY(goodVibeRotation);
-                Vector3 v = new Vector3(0, 0, forwardSpeed);
-                v = Vector3.Transform(v, forwardMovement);
-                goodVibePos.Z += v.Z;
-                goodVibePos.X += v.X;
-            }
+                //((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity = Vector3.Zero;
 
-            goodVibePos.W = goodVibeRotation;
+            }
+            Vector3 pos = ((DynamicObject)(world.getObject("Player"))).Body.Position;
+            Drawing.UpdateCamera(new Vector4(pos.X,pos.Y,pos.Z,world.getObject("Player").Rotation));
         }
 
         /// <summary>

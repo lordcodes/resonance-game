@@ -12,32 +12,20 @@ namespace Resonance
     class Object : DrawableGameComponent
     {
         private string identifier;
-        private Vector3 position;
         protected int gameModelNum;
+        protected float rotation;
 
         public Object(int modelNum, string name, Game game, Vector3 pos) 
             : base(game)
         {
-            position = pos;
             gameModelNum = modelNum;
             identifier = name;
+            rotation = 0f;
         }
 
         public string returnIdentifier()
         {
             return identifier;
-        }
-
-        public Vector3 Position
-        {
-            get
-            {
-                return position;
-            }
-            set
-            {
-                position = value;
-            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -51,6 +39,14 @@ namespace Resonance
                 Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix);
             }
             base.Draw(gameTime);
+        }
+
+        public float Rotation
+        {
+            get
+            {
+                return rotation;
+            }
         }
     }
 }
