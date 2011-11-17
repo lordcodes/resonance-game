@@ -14,6 +14,7 @@ namespace Resonance
         private string identifier;
         protected int gameModelNum;
         protected float rotation;
+        private Vector3 position;
 
         public Object(int modelNum, string name, Game game, Vector3 pos) 
             : base(game)
@@ -21,6 +22,7 @@ namespace Resonance
             gameModelNum = modelNum;
             identifier = name;
             rotation = 0f;
+            position = pos;
         }
 
         public string returnIdentifier()
@@ -32,11 +34,11 @@ namespace Resonance
         {
             if (this is DynamicObject)
             {
-                Drawing.Draw(gameModelNum, ((DynamicObject)this).Body.WorldTransform);
+                Drawing.Draw(gameModelNum, ((DynamicObject)this).Body.WorldTransform, ((DynamicObject)this).Body.Position, this);
             }
             else if (this is StaticObject)
             {
-                Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix);
+                Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix, position, this);
             }
             base.Draw(gameTime);
         }

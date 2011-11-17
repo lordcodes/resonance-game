@@ -19,7 +19,6 @@ namespace Resonance
     {
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
-
 #if XBOX360
         GamePadState oldPadState1;
         GamePadState oldPadState2;
@@ -36,6 +35,7 @@ namespace Resonance
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
 
