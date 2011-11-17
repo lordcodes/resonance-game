@@ -22,6 +22,11 @@ namespace Resonance
         private static Vector4 goodVibePos;
         private static Matrix goodVibeTranslation;
 
+        private static SpriteBatch spriteBatch;
+        private static SpriteFont font;
+
+        private static Vector3 cameraPosition;
+
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
         /// GraphicsDeviceManger for it to use
@@ -39,6 +44,8 @@ namespace Resonance
         /// </summary>
         public static void loadContent()
         {
+            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
+            font = Content.Load<SpriteFont>("DebugFont");
             GameModelsStore.Load();
             effect = new BasicEffect(graphics.GraphicsDevice);
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
@@ -57,9 +64,7 @@ namespace Resonance
         /// </summary>
         public static void Draw()
         {
-            //graphics.GraphicsDevice.Clear(Color.White);
-            // Special case atm for drawing the good vibe:
-            //DrawModel(GameModelsStore.getModel(GameModels.GOOD_VIBE).model, Matrix.Multiply(GameModelsStore.getModel(GameModels.GOOD_VIBE).scale, goodVibeTranslation), effect);
+
         }
 
         /// <summary>
@@ -67,9 +72,21 @@ namespace Resonance
         /// </summary>
         /// <param name="gameModelNum">The game model reference used for the object you want to draw e.g GameModels.BOX </param>
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
-        public static void Draw(int gameModelNum, Matrix worldTransform)
+        public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
             DrawModel(GameModelsStore.getModel(gameModelNum).model, Matrix.Multiply(GameModelsStore.getModel(gameModelNum).scale, worldTransform), effect);
+            Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, effect.Projection, effect.View, Matrix.Identity);
+            Vector2 screenPosition = new Vector2(projectedPosition.X, projectedPosition.Y-100);
+            String health = "";
+
+            drawDebugInfo(worldObject.returnIdentifier(), screenPosition);
+            
+            if (worldObject.returnIdentifier().Equals("Player")) 
+            {
+                health = "HEALTH: " + ((GoodVibe)((DynamicObject)worldObject)).GetHealth();
+            }
+            
+            drawDebugInfo("Debug Info\n"+health, new Vector2(20,45)); // This is not very efficient atm
         }
 
         /// <summary>
@@ -82,11 +99,20 @@ namespace Resonance
             goodVibePos = newPos;
             Matrix goodVibeRotation = Matrix.CreateRotationY(goodVibePos.W);
             Vector3 goodVibePosition = new Vector3(goodVibePos.X, goodVibePos.Y, goodVibePos.Z);
-            Vector3 cameraPosition = new Vector3(0, 4f, 6f);
+            cameraPosition = new Vector3(0, 4f, 6f);
             cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + goodVibePosition;
             effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, Vector3.Up);
             //effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, new Vector3(1,0,0)); // Uncomment this line to make awesome stuff happen when you move. :D
             goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
+        }
+
+        private static void drawDebugInfo(String text, Vector2 coords)
+        {
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, text, coords, Color.White, 0f,Vector2.Zero,1f,SpriteEffects.None,0f);
+            spriteBatch.End();
+            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+            graphics.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
         }
 
         private static Matrix GetParentTransform(Model m, ModelBone mb)

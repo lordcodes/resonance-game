@@ -52,7 +52,7 @@ namespace Resonance
         /// 
         /// </summary>
         /// <returns></returns>
-        int GetHealth()
+        public int GetHealth()
         {
             return health;
         }
