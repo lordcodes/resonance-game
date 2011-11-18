@@ -114,12 +114,13 @@ namespace Resonance
             }
    
             this.Body.Position += new Vector3(offsetx, offsety, offsetz);
-           // getGoodVibePos();
+            getGoodVibePos();
         }
 
         void getGoodVibePos()
         {
-            //Console.WriteLine(((GoodVibe)game.getWorld().getObject("Player")).Body.Position);
+            Drawing.drawDebugInfo("Debug Info\n" + ((GoodVibe)game.World.getObject("Player")).Body.Position, new Vector2(20, 45)); 
+            Console.WriteLine(((GoodVibe)game.World.getObject("Player")).Body.Position);
         }
 
         void SetHealth(int value)

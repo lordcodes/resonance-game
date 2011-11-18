@@ -15,7 +15,7 @@ namespace Resonance
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    public class Game : Microsoft.Xna.Framework.Game
+    class Game : Microsoft.Xna.Framework.Game
     {
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
@@ -84,11 +84,13 @@ namespace Resonance
             StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
             StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
             BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.5f, 3));
+            BadVibe bv2 = new BadVibe(GameModels.BAD_VIBE, "BV1", this, new Vector3(-4, 0.5f, 4));
             world.addObject(ground);
             world.addObject(player);
             world.addObject(tree);
             world.addObject(mush);
             world.addObject(bv);
+            world.addObject(bv2);
         }
 
         /// <summary>
@@ -154,6 +156,7 @@ namespace Resonance
 
             // Update bad vibe position
           ((BadVibe)world.getObject("BV0")).Move();
+          ((BadVibe)world.getObject("BV1")).Move();
 
             //Drawing.Update(goodVibePos);
             world.update();
@@ -287,6 +290,14 @@ namespace Resonance
         {
             Drawing.Draw();
             base.Draw(gameTime);
+        }
+
+        public World World
+        {
+            get
+            {
+                return world;
+            }
         }
     }
 }
