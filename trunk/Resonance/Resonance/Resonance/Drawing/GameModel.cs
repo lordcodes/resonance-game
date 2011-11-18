@@ -52,7 +52,7 @@ namespace Resonance
         {
             Model = Content.Load<Model>(modelFile);
             Scale = Matrix.CreateScale(modelScale, modelScale, modelScale);
-            Mass = 1.0f;
+            Mass = 10f;
         }
         
     }
