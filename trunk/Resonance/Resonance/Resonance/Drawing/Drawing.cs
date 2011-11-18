@@ -19,13 +19,8 @@ namespace Resonance
         private static Texture2D texture;
         private static ContentManager Content;
 
-        private static Vector4 goodVibePos;
-        private static Matrix goodVibeTranslation;
-
         private static SpriteBatch spriteBatch;
         private static SpriteFont font;
-
-        private static Vector3 cameraPosition;
 
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
@@ -56,7 +51,6 @@ namespace Resonance
             effect.TextureEnabled = true;
             effect.Texture = texture;
             effect.EnableDefaultLighting();
-            UpdateCamera(new Vector4(0, 4f, 6f, (float)(Math.PI*0.25)));
         }
 
         /// <summary>
@@ -93,17 +87,17 @@ namespace Resonance
         /// Gives the Drawing object information about the game world, atm this is only the player but
         /// this will eventually be given information abut the entire world to be drawn
         /// </summary>
-        /// <param name="newPos">(TEMP) Provides a vector to containing X,Y,Z coords of good vibe and its rotation in W</param>
-        public static void UpdateCamera(Vector4 newPos)
+        /// <param name="player">The good vibe class</param>
+        public static void UpdateCamera(GoodVibe player)
         {
-            goodVibePos = newPos;
-            Matrix goodVibeRotation = Matrix.CreateRotationY(goodVibePos.W);
-            Vector3 goodVibePosition = new Vector3(goodVibePos.X, goodVibePos.Y, goodVibePos.Z);
-            cameraPosition = new Vector3(0, 4f, 6f);
-            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + goodVibePosition;
-            effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, Vector3.Up);
-            //effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, new Vector3(1,0,0));
-            goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
+            Quaternion orientation = player.Body.Orientation;
+            Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
+            Vector3 position = player.Body.Position;
+
+            Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
+            Vector3 cameraPosition = new Vector3(0, 4f, 6f);
+            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + position;
+            effect.View = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
         public static void drawDebugInfo(String text, Vector2 coords)

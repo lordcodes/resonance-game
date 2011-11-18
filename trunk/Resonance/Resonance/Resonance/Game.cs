@@ -209,13 +209,13 @@ namespace Resonance
         }
 #endif
 
-      /*  public World World
+        public World World
         {
             get
             {
                 return world;
             }
-        }*/
+        }
 
         
 
@@ -274,7 +274,7 @@ namespace Resonance
                 goodVibePos.Z = -10f;
             }
             Vector3 pos = ((DynamicObject)(world.getObject("Player"))).Body.Position;
-            Drawing.UpdateCamera(new Vector4(pos.X,pos.Y,pos.Z,world.getObject("Player").Rotation));
+            Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
         }
 
         /// <summary>
@@ -285,14 +285,6 @@ namespace Resonance
         {
             Drawing.Draw();
             base.Draw(gameTime);
-        }
-
-        public World World
-        {
-            get
-            {
-                return world;
-            }
         }
     }
 }
