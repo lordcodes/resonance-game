@@ -83,16 +83,15 @@ namespace Resonance
             StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
             StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
             BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.65f, 3));
-            //BadVibe bv1 = new BadVibe(GameModels.BAD_VIBE, "BV1", this, new Vector3(-3, 0.5f, 0));
-            //BadVibe bv2 = new BadVibe(GameModels.BAD_VIBE, "BV2", this, new Vector3(3, 0.5f, -2));
             BadVibe bv2 = new BadVibe(GameModels.BAD_VIBE, "BV1", this, new Vector3(-4, 0.5f, 4));
+            BadVibe bv3 = new BadVibe(GameModels.BAD_VIBE, "BV2", this, new Vector3(-2, 0.5f, 4));
             world.addObject(ground);
             world.addObject(player);
             world.addObject(tree);
             world.addObject(mush);
             world.addObject(bv);
-            //world.addObject(bv1);
-            //world.addObject(bv2);
+            world.addObject(bv2);
+            world.addObject(bv3);
         }
 
         /// <summary>
@@ -157,9 +156,9 @@ namespace Resonance
             UpdateGoodVibePosition();
 
             // Update bad vibe position
-           //((BadVibe)world.getObject("BV0")).Move();
-           //((BadVibe)world.getObject("BV1")).Move();
-           //((BadVibe)world.getObject("BV2")).Move();
+           ((BadVibe)world.getObject("BV0")).Move();
+           ((BadVibe)world.getObject("BV1")).Move();
+           ((BadVibe)world.getObject("BV2")).Move();
 
             //Drawing.Update(goodVibePos);
             world.update();

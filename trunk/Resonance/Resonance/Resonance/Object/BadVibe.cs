@@ -47,8 +47,12 @@ namespace Resonance
             double binBoundary1 = 0.25;
             double binBoundary2 = 0.5;
             double binBoundary3 = 0.75;
-
-            Random r = new Random((int)DateTime.Now.Ticks);
+            int total = 0;
+            byte[] Unicode = Encoding.Unicode.GetBytes(this.returnIdentifier());
+            foreach (byte x in Unicode ){
+                total+= x;
+            }
+            Random r = new Random((int)DateTime.Now.Ticks*total);
             double direction = r.NextDouble();
 
             offsetx = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
@@ -95,26 +99,29 @@ namespace Resonance
             if (direction < binBoundary1)
             {
                 previousDirection = 0;
+                move(0.1f);
             }
             else if (direction < binBoundary2)
             {
-                offsetx *= -1.0f;
-                offsetz *= -1.0f;
+                move(-0.2f);
                 previousDirection = 1;
             }
             else if (direction < binBoundary3)
             {
-                offsetx *= -1.0f;
+                move(0.1f);
+                rotate(0.2f);
                 previousDirection = 2;
             }
             else
             {
-                offsetz *= -1.0f;
+                move(0.1f);
+                rotate(-0.2f);
                 previousDirection = 3;
             }
    
-            this.Body.Position += new Vector3(offsetx, offsety, offsetz);
-            getGoodVibePos();
+            //this.Body.Position += new Vector3(offsetx, offsety, offsetz);
+            
+            //getGoodVibePos();
         }
 
         void getGoodVibePos()
