@@ -102,7 +102,7 @@ namespace Resonance
             cameraPosition = new Vector3(0, 4f, 6f);
             cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + goodVibePosition;
             effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, Vector3.Up);
-            //effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, new Vector3(1,0,0)); // Uncomment this line to make awesome stuff happen when you move. :D
+            //effect.View = Matrix.CreateLookAt(cameraPosition, goodVibePosition, new Vector3(1,0,0));
             goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
         }
 

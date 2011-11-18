@@ -29,7 +29,6 @@ namespace Resonance
         //Hello world
         World world;
         Vector4 goodVibePos;
-        float goodVibeRotation;
 
         public Game()
         {
@@ -79,18 +78,21 @@ namespace Resonance
             world = new World(this);
             StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
             GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.65f, 6f));
+            //GoodVibe player = new GoodVibe(GameModels.MUSHROOM, "Player", this, new Vector3(0, 5f, 6f));
             goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
-            goodVibeRotation = 0;
             StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
             StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
-            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.5f, 3));
+            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.65f, 3));
+            //BadVibe bv1 = new BadVibe(GameModels.BAD_VIBE, "BV1", this, new Vector3(-3, 0.5f, 0));
+            //BadVibe bv2 = new BadVibe(GameModels.BAD_VIBE, "BV2", this, new Vector3(3, 0.5f, -2));
             BadVibe bv2 = new BadVibe(GameModels.BAD_VIBE, "BV1", this, new Vector3(-4, 0.5f, 4));
             world.addObject(ground);
             world.addObject(player);
             world.addObject(tree);
             world.addObject(mush);
             world.addObject(bv);
-            world.addObject(bv2);
+            //world.addObject(bv1);
+            //world.addObject(bv2);
         }
 
         /// <summary>
@@ -155,8 +157,9 @@ namespace Resonance
             UpdateGoodVibePosition();
 
             // Update bad vibe position
-          ((BadVibe)world.getObject("BV0")).Move();
-          ((BadVibe)world.getObject("BV1")).Move();
+           //((BadVibe)world.getObject("BV0")).Move();
+           //((BadVibe)world.getObject("BV1")).Move();
+           //((BadVibe)world.getObject("BV2")).Move();
 
             //Drawing.Update(goodVibePos);
             world.update();
@@ -228,17 +231,31 @@ namespace Resonance
             bool upPressed   = keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed);
             bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
             
-            float forwardSpeed = 0.05f;
-            float rotateSpeed = 0.05f;
+            float forwardSpeed = 0.25f;
+            float rotateSpeed = 0.25f;
 
             if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))
             {
-                ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                if (!downPressed)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                }
+                else
+                {
+                    ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                }
             }
 
             if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
             {
-                ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                if (!downPressed)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                }
+                else
+                {
+                    ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                }
             }
 
 
@@ -247,36 +264,14 @@ namespace Resonance
                 if (upPressed)
                 {
                     ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
-
-                    /*Matrix forwardMovement = Matrix.CreateRotationY(goodVibePos.W);
-                    Vector3 v = new Vector3(0, 0, -forwardSpeed);
-                    v = Vector3.Transform(v, forwardMovement);
-                    goodVibePos.Z += v.Z;
-                    goodVibePos.X += v.X;
-
-                    v.Y = ((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity.Y;*/
-
-                    //((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity = v;
                 }
                 if (downPressed)
                 {
                     ((DynamicObject)(world.getObject("Player"))).move(forwardSpeed);
-                    /*Matrix forwardMovement = Matrix.CreateRotationY(goodVibePos.W);
-                    Vector3 v = new Vector3(0, 0, forwardSpeed);
-                    v = Vector3.Transform(v, forwardMovement);
-                    goodVibePos.Z += v.Z;
-                    goodVibePos.X += v.X;*/
-
-                    //((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity = v;
                 }
                 goodVibePos.X = -10f;
                 goodVibePos.Y = 2f;
                 goodVibePos.Z = -10f;
-            }
-            else
-            {
-                //((DynamicObject)(world.getObject("Player"))).Body.LinearVelocity = Vector3.Zero;
-
             }
             Vector3 pos = ((DynamicObject)(world.getObject("Player"))).Body.Position;
             Drawing.UpdateCamera(new Vector4(pos.X,pos.Y,pos.Z,world.getObject("Player").Rotation));

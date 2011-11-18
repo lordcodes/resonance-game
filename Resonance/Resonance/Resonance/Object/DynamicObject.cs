@@ -8,6 +8,7 @@ using BEPUphysics.DataStructures;
 using BEPUphysics.Entities;
 using BEPUphysics.EntityStateManagement;
 using BEPUphysics.MathExtensions;
+using BEPUphysics;
 
 namespace Resonance
 {
@@ -22,49 +23,45 @@ namespace Resonance
             int[] indices;
             TriangleMesh.GetVerticesAndIndicesFromModel(Drawing.gameModelStore.getModel(modelNum).model, out vertices, out indices);
             body = new ConvexHull(pos, vertices, Drawing.gameModelStore.getModel(modelNum).mass);
-            //body.IsAffectedByGravity = false;
             body.Tag = Drawing.gameModelStore.getModel(modelNum);
-        }
-
-        public void updatePosition(Vector3 position)
-        {
-            //Matrix rotation = Matrix.CreateRotationY(position.W);
-            Vector3 newPosition = new Vector3(position.X, position.Y, position.Z);
-            Body.Position = newPosition;
-            //Body.WorldTransform = Matrix.Multiply(Drawing.gameModelStore.getModel(GameModels.GOOD_VIBE).scale, Matrix.Multiply(rotation, Matrix.CreateTranslation(newPosition)));  
-        }
-
-        public void updatePosition(float x, float z)
-        {
-            //Matrix rotation = Matrix.CreateRotationY(position.W);
-            //Vector3 newPosition = new Vector3(position.X, position.Y, position.Z);
-            Body.Position += new Vector3(0.05f, 0f, 0f);
-            //Body.WorldTransform = Matrix.Multiply(Drawing.gameModelStore.getModel(GameModels.GOOD_VIBE).scale, Matrix.Multiply(rotation, Matrix.CreateTranslation(newPosition)));  
         }
 
         public void move(float distance)
         {
-            Vector3 p = Body.Position;
-            p.Z += (float)(distance * Math.Cos(rotation));
-            p.X += (float)(distance * Math.Sin(rotation));
-            Body.Position = p;
+            Quaternion orientation = Body.Orientation;
+            Vector3 rotateVector = QuaternionToEuler(orientation);
+
+
+            Vector3 velocity = Body.LinearVelocity;
+            if(velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(distance * Math.Cos(rotateVector.Y));
+            if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(distance * Math.Sin(rotateVector.Y));
+            Body.LinearVelocity = velocity;
         }
 
         public void rotate(float angle)
         {
-            rotation += angle;
-            if (rotation > 2 * Math.PI)
-            {
-                rotation -= (float)(2 * Math.PI);
-            }
-            else if(rotation < 0)
-            {
-                rotation += (float)(2 * Math.PI);
-            }
-            float cosRotate = (float)Math.Cos(rotation);
-            float sinRotate = (float)Math.Sin(rotation);
-            Matrix3X3 orientation = new Matrix3X3(cosRotate, 0f, sinRotate, 0f, 1f, 0f, -sinRotate, 0, cosRotate);
-            Body.OrientationMatrix = orientation;
+            Vector3 velocity = Body.AngularVelocity;
+            if (velocity.Y < 2.5 && velocity.Y > -2.5) velocity.Y += (float)angle;
+            Body.AngularVelocity = velocity;
+        }
+
+        public Vector3 QuaternionToEuler(Quaternion rotation)
+        {
+            float q0 = rotation.W;
+            float q1 = rotation.Y;
+            float q2 = rotation.X;
+            float q3 = rotation.Z;
+
+            Vector3 radAngles = new Vector3();
+            radAngles.Y = (float)Math.Atan2(2 * (q0 * q1 + q2 * q3), 1 - 2 * (Math.Pow(q1, 2) + Math.Pow(q2, 2)));
+            radAngles.X = (float)Math.Asin(2 * (q0 * q2 - q3 * q1));
+            radAngles.Z = (float)Math.Atan2(2 * (q0 * q3 + q1 * q2), 1 - 2 * (Math.Pow(q2, 2) + Math.Pow(q3, 2)));
+
+            Vector3 angles = new Vector3();
+            angles.X = MathHelper.ToDegrees(radAngles.X);
+            angles.Y = MathHelper.ToDegrees(radAngles.Y);
+            angles.Z = MathHelper.ToDegrees(radAngles.Z);
+            return radAngles;
         }
 
         public ConvexHull Body
