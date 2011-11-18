@@ -22,6 +22,12 @@ namespace Resonance
             Vector3[] vertices;
             int[] indices;
             TriangleMesh.GetVerticesAndIndicesFromModel(Drawing.gameModelStore.getModel(modelNum).model, out vertices, out indices);
+            float scaleFactor = Drawing.gameModelStore.getModel(modelNum).scale.M11;
+            Vector3 scale = new Vector3(scaleFactor,scaleFactor,scaleFactor);
+            for (int i = 0; i < vertices.Length; i++ )
+            {
+                vertices[i] = Vector3.Multiply(vertices[i], scale);
+            }
             body = new ConvexHull(pos, vertices, Drawing.gameModelStore.getModel(modelNum).mass);
             body.Tag = Drawing.gameModelStore.getModel(modelNum);
         }
@@ -45,22 +51,17 @@ namespace Resonance
             Body.AngularVelocity = velocity;
         }
 
-        public static Vector3 QuaternionToEuler(Quaternion rotation)
+        public static Vector3 QuaternionToEuler(Quaternion quat)
         {
-            float q0 = rotation.W;
-            float q1 = rotation.Y;
-            float q2 = rotation.X;
-            float q3 = rotation.Z;
+            float w = quat.W;
+            float y = quat.Y;
+            float x = quat.X;
+            float z = quat.Z;
 
             Vector3 radAngles = new Vector3();
-            radAngles.Y = (float)Math.Atan2(2 * (q0 * q1 + q2 * q3), 1 - 2 * (Math.Pow(q1, 2) + Math.Pow(q2, 2)));
-            radAngles.X = (float)Math.Asin(2 * (q0 * q2 - q3 * q1));
-            radAngles.Z = (float)Math.Atan2(2 * (q0 * q3 + q1 * q2), 1 - 2 * (Math.Pow(q2, 2) + Math.Pow(q3, 2)));
-
-            Vector3 angles = new Vector3();
-            angles.X = MathHelper.ToDegrees(radAngles.X);
-            angles.Y = MathHelper.ToDegrees(radAngles.Y);
-            angles.Z = MathHelper.ToDegrees(radAngles.Z);
+            radAngles.Y = (float)Math.Atan2(2 * (w * y + x * z), 1 - 2 * (Math.Pow(y, 2) + Math.Pow(x, 2)));
+            radAngles.X = (float)Math.Asin(2 * (w * x - z * y));
+            radAngles.Z = (float)Math.Atan2(2 * (w * z + y * x), 1 - 2 * (Math.Pow(x, 2) + Math.Pow(z, 2)));
             return radAngles;
         }
 
