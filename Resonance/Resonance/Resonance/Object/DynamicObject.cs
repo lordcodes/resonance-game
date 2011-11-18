@@ -45,7 +45,7 @@ namespace Resonance
             Body.AngularVelocity = velocity;
         }
 
-        public Vector3 QuaternionToEuler(Quaternion rotation)
+        public static Vector3 QuaternionToEuler(Quaternion rotation)
         {
             float q0 = rotation.W;
             float q1 = rotation.Y;
