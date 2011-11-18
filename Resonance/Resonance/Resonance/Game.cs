@@ -39,14 +39,14 @@ namespace Resonance
             musicHandler = new MusicHandler(Content);
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
-            IsMouseVisible = false;
+            /*IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            Window.AllowUserResizing = true;
+            Window.AllowUserResizing = true;*/
         }
 
         /// <summary>
@@ -90,8 +90,8 @@ namespace Resonance
             world.addObject(tree);
             world.addObject(mush);
             world.addObject(bv);
-            world.addObject(bv2);
-            world.addObject(bv3);
+            //world.addObject(bv2);
+            //world.addObject(bv3);
         }
 
         /// <summary>
@@ -156,9 +156,9 @@ namespace Resonance
             UpdateGoodVibePosition();
 
             // Update bad vibe position
-           ((BadVibe)world.getObject("BV0")).Move();
-           ((BadVibe)world.getObject("BV1")).Move();
-           ((BadVibe)world.getObject("BV2")).Move();
+            ((BadVibe)world.getObject("BV0")).moveTowardsGoodVibe();
+           //((BadVibe)world.getObject("BV1")).Move();
+           //((BadVibe)world.getObject("BV2")).Move();
 
             //Drawing.Update(goodVibePos);
             world.update();

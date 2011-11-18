@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using BEPUphysics.Entities;
 
 namespace Resonance
 {
@@ -121,7 +122,27 @@ namespace Resonance
    
             //this.Body.Position += new Vector3(offsetx, offsety, offsetz);
             
+        }
+
+        public void moveTowardsGoodVibe()
+        {
             //getGoodVibePos();
+            Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+            Vector3 badVibePosition = this.Body.Position;
+            Console.WriteLine("BV " + this.Body.Position + "\nGV " + ((GoodVibe)game.World.getObject("Player")).Body.Position);
+
+            Vector3 difference = badVibePosition + goodVibePosition;
+            Vector3 differenceangle = new Vector3();
+            differenceangle.Y = (float)Math.Tan(difference.Z / difference.X);
+
+            Quaternion orientation = this.Body.Orientation;
+            Vector3 rotateVector = QuaternionToEuler(orientation);
+
+         
+            Vector3 gothisway = differenceangle - rotateVector;
+
+            rotate((float)gothisway.Y);
+            move(0.1f);
         }
 
         void getGoodVibePos()
