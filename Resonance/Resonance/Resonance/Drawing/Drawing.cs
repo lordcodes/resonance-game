@@ -106,7 +106,7 @@ namespace Resonance
             goodVibeTranslation = Matrix.Multiply(goodVibeRotation, Matrix.CreateTranslation(goodVibePosition));
         }
 
-        private static void drawDebugInfo(String text, Vector2 coords)
+        public static void drawDebugInfo(String text, Vector2 coords)
         {
             spriteBatch.Begin();
             spriteBatch.DrawString(font, text, coords, Color.White, 0f,Vector2.Zero,1f,SpriteEffects.None,0f);
