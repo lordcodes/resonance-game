@@ -34,9 +34,7 @@ namespace Resonance
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            StoredObjects obj = Content.Load<StoredObjects>("Level1");
-            Console.WriteLine(obj.list[0].identifier);
+            
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
 
@@ -93,7 +91,9 @@ namespace Resonance
             world.addObject(tree);
             world.addObject(mush);
             world.addObject(bv);
-            
+           // StoredObjects obj = Content.Load<StoredObjects>("Level1");
+            //Console.WriteLine(obj.list[0].identifier);
+
             //world.addObject(bv2);
             //world.addObject(bv3);
         }
