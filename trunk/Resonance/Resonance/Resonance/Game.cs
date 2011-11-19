@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
-
+using ResonanceLibrary;
 namespace Resonance
 {
     /// <summary>
@@ -36,6 +36,11 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
+
+
+            StoredObjects obj = Content.Load<StoredObjects>("Levels/Level1");
+            Console.WriteLine(obj.list[0].identifier);
+
 
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
