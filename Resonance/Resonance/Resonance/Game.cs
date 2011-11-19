@@ -34,7 +34,7 @@ namespace Resonance
         public Game()
         {
             graphics = new GraphicsDeviceManager(this);
-            
+            Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
 
