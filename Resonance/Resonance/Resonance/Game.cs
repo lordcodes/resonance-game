@@ -35,7 +35,7 @@ namespace Resonance
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            StoredObjects obj = Content.Load<StoredObjects>("Level1.xml");
+            StoredObjects obj = Content.Load<StoredObjects>("Level1");
             Console.WriteLine(obj.list[0].identifier);
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
