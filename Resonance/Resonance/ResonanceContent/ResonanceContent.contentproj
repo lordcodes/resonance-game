@@ -166,7 +166,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Levels\" />
+    <Compile Include="Levels\Level1.xml">
+      <Name>Level1</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\ResonanceLibrary\ResonanceLibrary.csproj">
+      <Project>{9EE287E9-5FB8-49D0-B8AD-D2D29D8FD15D}</Project>
+      <Name>ResonanceLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

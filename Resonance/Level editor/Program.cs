@@ -18,19 +18,20 @@ namespace Level_editor
             StoredObjects list = new StoredObjects();
             while (ok == true)
             {
+                StoredObject obj = new StoredObject();
                 Console.WriteLine("Please specify the identifier");
-                string identifier = Console.ReadLine();
+                obj.identifier = Console.ReadLine();
                 Console.WriteLine("Please specify the type");
-                string type = Console.ReadLine();
+                obj.type = Console.ReadLine();
                 Console.WriteLine("Please specify XWorldCoord");
-                float xWorldCoord = float.Parse(Console.ReadLine());
+                obj.xWorldCoord = float.Parse(Console.ReadLine());
                 Console.WriteLine("Please specify YWorldCoord");
-                float yWorldCoord = float.Parse(Console.ReadLine());
+                obj.yWorldCoord = float.Parse(Console.ReadLine());
                 Console.WriteLine("Please specify ZWorldCoord");
-                float zWorldCoord = float.Parse(Console.ReadLine());
+                obj.zWorldCoord = float.Parse(Console.ReadLine());
                 Console.WriteLine("Please specify game model number");
-                int gameModNum = int.Parse(Console.ReadLine());
-                StoredObject obj = new StoredObject(identifier,type, xWorldCoord, zWorldCoord, yWorldCoord, gameModNum);
+                obj.gameModelNum = int.Parse(Console.ReadLine());
+                
                 list.addObject(obj);
                 Console.WriteLine("Do you wish to continue? y/n");
                 String response = Console.ReadLine();
@@ -38,6 +39,7 @@ namespace Level_editor
                     ok = false;
             }
             Serialize(list, "Level1.xml");
+            
 
         }
         static void Serialize(StoredObjects obj, string filename)
@@ -59,6 +61,7 @@ namespace Level_editor
                     data = IntermediateSerializer.Deserialize<StoredObjects>(reader, null);
                 }
             }
+            Console.WriteLine(data.list[0].identifier);
         }
     }
 }

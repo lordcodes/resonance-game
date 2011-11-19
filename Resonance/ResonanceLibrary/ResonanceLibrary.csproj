@@ -94,13 +94,6 @@
     <Compile Include="StoredObject.cs" />
     <Compile Include="StoredObjects.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Resonance\ResonanceContent\ResonanceContent.contentproj">
-      <Project>{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}</Project>
-      <Name>ResonanceContent %28Content%29</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
