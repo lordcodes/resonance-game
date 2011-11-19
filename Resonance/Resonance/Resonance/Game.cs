@@ -37,9 +37,10 @@ namespace Resonance
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
 
+            //to test the level editor uncomment the next two lines
 
-            StoredObjects obj = Content.Load<StoredObjects>("Levels/Level1");
-            Console.WriteLine(obj.list[0].identifier);
+//            StoredObjects obj = Content.Load<StoredObjects>("Levels/Level1");
+  //          Console.WriteLine(obj.list[0].identifier);
 
 
 
