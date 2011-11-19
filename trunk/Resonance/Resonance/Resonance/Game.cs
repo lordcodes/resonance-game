@@ -9,7 +9,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
-using ResonanceLibrary;
 
 namespace Resonance
 {
@@ -35,8 +34,6 @@ namespace Resonance
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            StoredObjects obj = Content.Load<StoredObjects>("Level1.xml");
-            Console.WriteLine(obj.list[0].identifier);
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
 
