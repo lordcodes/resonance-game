@@ -31,9 +31,7 @@ namespace Resonance
             this.game = game;
         }
 
-
-        //I was thinking maybe every object could have like a string identifier so that I can store them into a 
-        // hash map (dictionary) making updating, and deleting much more faster than just a simple link list
+       
 
         public void addObject(Object obj)
         {
@@ -54,14 +52,7 @@ namespace Resonance
         }
 
        
-        //checks if there is another object that has the same position on the map
-        /*private bool checkPosition(Vector3 pos, string ID)
-        {
-            foreach(string key in objects.Keys)
-                if(objects[key].Position == pos && key.Equals(ID) == false)
-                     return false;
-            return true;
-        }*/
+       
 
         //removes the object from the dictionary
         public void removeObject(Object obj)
@@ -70,24 +61,7 @@ namespace Resonance
         }
 
 
-        //basic edge detection - checks if the new position assigned to the object does not collide with 
-        //the position of other objects.
-
-        /*public bool updatePosition(Vector3 pos, Object obj)
-        {
-            if (objects[obj.returnIdentifier()] == null)
-                return false;
-            else
-                if (checkPosition(pos, obj.returnIdentifier()) == true)
-                {
-                    obj.Position = pos;
-                    removeObject(obj);
-                    objects.Add(obj.returnIdentifier(), obj);
-                    space.Update();
-                    return true;
-                }
-            return false;
-        }*/
+        
 
         public Object getObject(String name)
         {

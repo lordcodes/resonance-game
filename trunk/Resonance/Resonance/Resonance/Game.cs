@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
+using ResonanceLibrary;
 
 namespace Resonance
 {
@@ -90,6 +91,8 @@ namespace Resonance
             world.addObject(tree);
             world.addObject(mush);
             world.addObject(bv);
+            StoredObjects objects = Content.Load<StoredObjects>("Level1.xml");
+            Console.WriteLine(objects.list[0].identifier);
             //world.addObject(bv2);
             //world.addObject(bv3);
         }

@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 using ResonanceLibrary;
 using System.Xml;
+using System.IO;
 
 
 namespace Level_editor
@@ -36,7 +37,7 @@ namespace Level_editor
                 if(response.Equals("n"))
                     ok = false;
             }
-            Serialize(list, "level1.xml");
+            Serialize(list, "Level1.xml");
 
         }
         static void Serialize(StoredObjects obj, string filename)
@@ -46,6 +47,17 @@ namespace Level_editor
             using (XmlWriter writer = XmlWriter.Create(filename, settings))
             {
                 IntermediateSerializer.Serialize<StoredObjects>(writer, obj, null);
+            }
+        }
+        static void Deserialize(string filename)
+        {
+            StoredObjects data = null;
+            using (FileStream stream = new FileStream(filename, FileMode.Open))
+            {
+                using (XmlReader reader = XmlReader.Create(stream))
+                {
+                    data = IntermediateSerializer.Deserialize<StoredObjects>(reader, null);
+                }
             }
         }
     }
