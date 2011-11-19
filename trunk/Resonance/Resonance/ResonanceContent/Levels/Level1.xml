@@ -4,19 +4,43 @@
     <list>
       <Item>
         <identifier>first object</identifier>
-        <type>tree</type>
-        <xWorldCoord>1</xWorldCoord>
-        <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>1</yWorldCoord>
-        <gameModelNum>1</gameModelNum>
+        <type>Ground</type>
+        <xWorldCoord>0</xWorldCoord>
+        <zWorldCoord>0</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>0</gameModelNum>
       </Item>
       <Item>
         <identifier>second object</identifier>
-        <type>tree</type>
-        <xWorldCoord>2</xWorldCoord>
-        <zWorldCoord>2</zWorldCoord>
-        <yWorldCoord>2</yWorldCoord>
+        <type>Good_vibe</type>
+        <xWorldCoord>0</xWorldCoord>
+        <zWorldCoord>0.65</zWorldCoord>
+        <yWorldCoord>6</yWorldCoord>
         <gameModelNum>2</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>third object</identifier>
+        <type>Tree</type>
+        <xWorldCoord>0</xWorldCoord>
+        <zWorldCoord>0</zWorldCoord>
+        <yWorldCoord>-0.1</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>fourth object</identifier>
+        <type>Mushroom</type>
+        <xWorldCoord>3</xWorldCoord>
+        <zWorldCoord>3</zWorldCoord>
+        <yWorldCoord>3</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>fifth object</identifier>
+        <type>Bad_vibe</type>
+        <xWorldCoord>-3</xWorldCoord>
+        <zWorldCoord>0.65</zWorldCoord>
+        <yWorldCoord>3</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
       </Item>
     </list>
   </Asset>
