@@ -35,9 +35,11 @@ namespace Resonance
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
+            StoredObjects obj = Content.Load<StoredObjects>("Level1.xml");
+            Console.WriteLine(obj.list[0].identifier);
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
+
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
             /*IsMouseVisible = false;
@@ -91,8 +93,7 @@ namespace Resonance
             world.addObject(tree);
             world.addObject(mush);
             world.addObject(bv);
-            StoredObjects objects = Content.Load<StoredObjects>("Level1.xml");
-            Console.WriteLine(objects.list[0].identifier);
+            
             //world.addObject(bv2);
             //world.addObject(bv3);
         }
