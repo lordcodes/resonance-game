@@ -117,9 +117,9 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ResonanceContent\ResonanceContent.contentproj">
-      <Name>ResonanceContent</Name>
-      <XnaReferenceType>Content</XnaReferenceType>
+    <ProjectReference Include="..\..\ResonanceLibrary\ResonanceLibrary.csproj">
+      <Project>{9EE287E9-5FB8-49D0-B8AD-D2D29D8FD15D}</Project>
+      <Name>ResonanceLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

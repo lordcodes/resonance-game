@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="ResonanceLibrary.StoredObjects">
+    <list>
+      <Item>
+        <identifier>first</identifier>
+        <type>tree</type>
+        <xWorldCoord>1</xWorldCoord>
+        <zWorldCoord>1</zWorldCoord>
+        <yWorldCoord>1</yWorldCoord>
+        <gameModelNum>1</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>second</identifier>
+        <type>tree</type>
+        <xWorldCoord>2</xWorldCoord>
+        <zWorldCoord>2</zWorldCoord>
+        <yWorldCoord>2</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+      </Item>
+    </list>
+  </Asset>
+</XnaContent>
