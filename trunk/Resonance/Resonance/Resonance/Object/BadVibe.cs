@@ -147,7 +147,7 @@ namespace Resonance
 
         void getGoodVibePos()
         {
-            Drawing.drawDebugInfo("Debug Info\n" + ((GoodVibe)game.World.getObject("Player")).Body.Position, new Vector2(20, 45)); 
+            //Drawing.drawDebugInfo("Debug Info\n" + ((GoodVibe)game.World.getObject("Player")).Body.Position, new Vector2(20, 45)); 
             Console.WriteLine(((GoodVibe)game.World.getObject("Player")).Body.Position);
         }
 
