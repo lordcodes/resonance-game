@@ -71,7 +71,8 @@ namespace Resonance
             {
                 DebugDisplay.update( "HEALTH",((GoodVibe)((DynamicObject)worldObject)).GetHealth().ToString());
             }
-            
+            /**/
+
         }
 
         /// <summary>

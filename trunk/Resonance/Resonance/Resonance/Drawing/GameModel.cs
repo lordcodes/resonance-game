@@ -17,7 +17,16 @@ namespace Resonance
         private Model PhysicsModel;
         private Matrix GraphicsScale;
         private Matrix PhysicsScale;
+        private Matrix[] ModelTransforms;
         private float Mass;
+
+        public Matrix[] modelTransforms
+        {
+            get
+            {
+                return ModelTransforms;
+            }
+        }
 
         public Model graphicsModel
         {
@@ -72,6 +81,8 @@ namespace Resonance
         public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale, String physicsModelFile, float physicsModelScale)
         {
             GraphicsModel = Content.Load<Model>(graphicsModelFile);
+            ModelTransforms = new Matrix[GraphicsModel.Bones.Count];
+            GraphicsModel.CopyAbsoluteBoneTransformsTo(ModelTransforms);
             GraphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
 
             if(!graphicsModelFile.Equals(physicsModelFile))PhysicsModel = Content.Load<Model>(physicsModelFile);
