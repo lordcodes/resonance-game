@@ -26,14 +26,14 @@ namespace Resonance
         private static GameModel Ground;
         private static GameModel Mushroom;
 
-        private ContentManager Content;
+        private static ContentManager Content;
 
         /// <summary>
         /// Creates a new GameModels object and stores all the GameModel objects in one place
         /// to be grabbed by the Drawing class
         /// </summary>
         /// <param name="Content">Pass it the content manager to load textures</param>
-        public GameModels(ContentManager newContent)
+        public static void Init(ContentManager newContent)
         {
             Content = newContent;
         }
@@ -41,7 +41,7 @@ namespace Resonance
         /// <summary>
         /// Load all the models for the game
         /// </summary>
-        public void Load()
+        public static void Load()
         {
             Tree = new GameModel(Content, "Drawing/Models/basicTree", 0.5f);
             Ground = new GameModel(Content, "Drawing/Models/terrain", 3f);
@@ -54,7 +54,7 @@ namespace Resonance
         /// Returns a GameModel object which contains the Model and scale information
         /// </summary>
         /// <param name="name">Pass it the name of the model e.g GameModels.TREE</param>
-        public GameModel getModel(int name)
+        public static GameModel getModel(int name)
         {
             if (name == TREE) return Tree;
             if (name == GOOD_VIBE) return Good_vibe;

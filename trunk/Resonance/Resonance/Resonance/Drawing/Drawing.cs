@@ -14,7 +14,6 @@ namespace Resonance
     class Drawing
     {
         private static GraphicsDeviceManager graphics;
-        private static GameModels GameModelsStore;
         private static BasicEffect effect;
         private static Texture2D texture;
         private static ContentManager Content;
@@ -30,7 +29,7 @@ namespace Resonance
         {
             Content = newContent;
             graphics = newGraphics;
-            GameModelsStore = new GameModels(Content);
+            GameModels.Init(Content);
         }
 
         /// <summary>
@@ -41,7 +40,7 @@ namespace Resonance
         {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             font = Content.Load<SpriteFont>("DebugFont");
-            GameModelsStore.Load();
+            GameModels.Load();
             effect = new BasicEffect(graphics.GraphicsDevice);
             effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
             effect.View = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
@@ -68,7 +67,7 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            DrawModel(GameModelsStore.getModel(gameModelNum).model, Matrix.Multiply(GameModelsStore.getModel(gameModelNum).scale, worldTransform), effect);
+            DrawModel(GameModels.getModel(gameModelNum).model, Matrix.Multiply(GameModels.getModel(gameModelNum).scale, worldTransform), effect);
             Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, effect.Projection, effect.View, Matrix.Identity);
             Vector2 screenPosition = new Vector2(projectedPosition.X, projectedPosition.Y-100);
             String health = "";
@@ -132,15 +131,7 @@ namespace Resonance
 
         private static void DrawGameModel(int model, Vector3 pos)
         {
-            DrawModel(GameModelsStore.getModel(model).model, Matrix.Multiply(GameModelsStore.getModel(model).scale, Matrix.CreateTranslation(pos)), effect);
-        }
-
-        public static GameModels gameModelStore
-        {
-            get
-            {
-                return GameModelsStore;
-            }
+            DrawModel(GameModels.getModel(model).model, Matrix.Multiply(GameModels.getModel(model).scale, Matrix.CreateTranslation(pos)), effect);
         }
 
     }

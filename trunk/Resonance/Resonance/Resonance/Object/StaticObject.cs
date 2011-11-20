@@ -20,15 +20,15 @@ namespace Resonance
         {
             Vector3[] vertices;
             int[] indices;
-            TriangleMesh.GetVerticesAndIndicesFromModel(Drawing.gameModelStore.getModel(modelNum).model, out vertices, out indices);
-            float scaleFactor = Drawing.gameModelStore.getModel(modelNum).scale.M11;
+            TriangleMesh.GetVerticesAndIndicesFromModel(GameModels.getModel(modelNum).model, out vertices, out indices);
+            float scaleFactor = GameModels.getModel(modelNum).scale.M11;
             Vector3 scale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
             for (int i = 0; i < vertices.Length; i++)
             {
                 vertices[i] = Vector3.Multiply(vertices[i], scale);
             }
             body = new StaticMesh(vertices, indices, new AffineTransform(pos));
-            body.Tag = Drawing.gameModelStore.getModel(modelNum);
+            body.Tag = GameModels.getModel(modelNum);
         }
 
         public StaticMesh Body
