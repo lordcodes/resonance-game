@@ -21,15 +21,15 @@ namespace Resonance
         {
             Vector3[] vertices;
             int[] indices;
-            TriangleMesh.GetVerticesAndIndicesFromModel(Drawing.gameModelStore.getModel(modelNum).model, out vertices, out indices);
-            float scaleFactor = Drawing.gameModelStore.getModel(modelNum).scale.M11;
+            TriangleMesh.GetVerticesAndIndicesFromModel(GameModels.getModel(modelNum).model, out vertices, out indices);
+            float scaleFactor = GameModels.getModel(modelNum).scale.M11;
             Vector3 scale = new Vector3(scaleFactor,scaleFactor,scaleFactor);
             for (int i = 0; i < vertices.Length; i++ )
             {
                 vertices[i] = Vector3.Multiply(vertices[i], scale);
             }
-            body = new ConvexHull(pos, vertices, Drawing.gameModelStore.getModel(modelNum).mass);
-            body.Tag = Drawing.gameModelStore.getModel(modelNum);
+            body = new ConvexHull(pos, vertices, GameModels.getModel(modelNum).mass);
+            body.Tag = GameModels.getModel(modelNum);
         }
 
         public void move(float distance)
