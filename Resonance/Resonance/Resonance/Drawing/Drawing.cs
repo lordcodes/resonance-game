@@ -67,7 +67,7 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            DrawModel(GameModels.getModel(gameModelNum).model, Matrix.Multiply(GameModels.getModel(gameModelNum).scale, worldTransform), effect);
+            DrawModel(GameModels.getModel(gameModelNum).graphicsModel, Matrix.Multiply(GameModels.getModel(gameModelNum).graphicsScale, worldTransform), effect);
             Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, effect.Projection, effect.View, Matrix.Identity);
             Vector2 screenPosition = new Vector2(projectedPosition.X, projectedPosition.Y-100);
             String health = "";
@@ -131,7 +131,7 @@ namespace Resonance
 
         private static void DrawGameModel(int model, Vector3 pos)
         {
-            DrawModel(GameModels.getModel(model).model, Matrix.Multiply(GameModels.getModel(model).scale, Matrix.CreateTranslation(pos)), effect);
+            DrawModel(GameModels.getModel(model).graphicsModel, Matrix.Multiply(GameModels.getModel(model).graphicsScale, Matrix.CreateTranslation(pos)), effect);
         }
 
     }
