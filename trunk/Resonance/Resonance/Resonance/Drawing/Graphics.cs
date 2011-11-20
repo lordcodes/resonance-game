@@ -16,7 +16,6 @@ namespace Resonance
         private static GraphicsDeviceManager graphics;
         private static ContentManager Content;
         private static Effect customEffect;
-        private static Texture2D colorTexture;
         private static Matrix world;
         private static Matrix view;
         private static Matrix projection;
@@ -52,14 +51,11 @@ namespace Resonance
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
             view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
             world = Matrix.Identity;
-            colorTexture = Content.Load<Texture2D>("Drawing/Textures/texMissing");
             customEffect = Content.Load<Effect>("Drawing/Effect");
             customEffect.Parameters["World"].SetValue(Matrix.Identity);
-            customEffect.Parameters["View"].SetValue(Matrix.CreateLookAt(new Vector3(0, 0, 3), Vector3.Zero, Vector3.Up));
-            customEffect.Parameters["Projection"].SetValue(Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 0.1f, 100.0f));
-            customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
+            customEffect.Parameters["View"].SetValue(view);
+            customEffect.Parameters["Projection"].SetValue(projection);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            graphics.GraphicsDevice.Textures[0] = colorTexture;
         }
 
         /// <summary>
@@ -87,8 +83,12 @@ namespace Resonance
         {
             Model m = gmodel.graphicsModel;
             Matrix[] modelTransforms = gmodel.modelTransforms;
+            Texture2D colorTexture = gmodel.texture;
+
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
+            customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
+            graphics.GraphicsDevice.Textures[0] = colorTexture;
 
             foreach (ModelMesh mesh in m.Meshes)
             {
@@ -98,7 +98,6 @@ namespace Resonance
                 {
                     graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
                     graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                    customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
                     customEffect.CurrentTechnique.Passes[0].Apply();
                     graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                 }
