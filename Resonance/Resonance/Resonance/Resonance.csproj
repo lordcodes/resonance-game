@@ -96,6 +96,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\DebugDisplay.cs" />
     <Compile Include="Drawing\Hud.cs" />
     <Compile Include="Drawing\World.cs" />
     <Compile Include="Drawing\Graphics.cs" />

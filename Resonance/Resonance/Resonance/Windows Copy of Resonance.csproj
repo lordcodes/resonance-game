@@ -60,6 +60,7 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Drawing\DebugDisplay.cs" />
     <Compile Include="Drawing\Graphics.cs" />
     <Compile Include="Drawing\Hud.cs" />
     <Compile Include="Drawing\World.cs" />

@@ -326,8 +326,9 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            Drawing.Draw();
             base.Draw(gameTime);
+            Drawing.Draw();
+            
         }
     }
 }

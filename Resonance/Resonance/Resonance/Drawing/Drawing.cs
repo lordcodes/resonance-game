@@ -47,6 +47,7 @@ namespace Resonance
         /// </summary>
         public static void Draw()
         {
+            hud.drawDebugInfo(DebugDisplay.getString(), new Vector2(20,45));
 
         }
 
@@ -60,16 +61,14 @@ namespace Resonance
             gameGraphics.Draw(gameModelNum, worldTransform);
             Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
             Vector2 screenPosition = new Vector2(projectedPosition.X, projectedPosition.Y-100);
-            String health = "";
 
             hud.drawDebugInfo(worldObject.returnIdentifier(), screenPosition);
             
             if (worldObject.returnIdentifier().Equals("Player")) 
             {
-                health = "HEALTH: " + ((GoodVibe)((DynamicObject)worldObject)).GetHealth();
+                DebugDisplay.update( "HEALTH",((GoodVibe)((DynamicObject)worldObject)).GetHealth().ToString());
             }
             
-            hud.drawDebugInfo("Debug Info\n"+health, new Vector2(20,45)); // This is not very efficient atm
         }
 
         /// <summary>
