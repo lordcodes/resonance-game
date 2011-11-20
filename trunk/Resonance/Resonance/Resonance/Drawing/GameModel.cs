@@ -13,23 +13,42 @@ namespace Resonance
 {
     class GameModel
     {
-        private Model Model;
-        private Matrix Scale;
+        private Model GraphicsModel;
+        private Model PhysicsModel;
+        private Matrix GraphicsScale;
+        private Matrix PhysicsScale;
         private float Mass;
 
-        public Model model
+        public Model graphicsModel
         {
             get
             {
-                return Model;
+                return GraphicsModel;
             }
         }
 
-        public Matrix scale
+        public Model physicsModel
         {
             get
             {
-                return Scale;
+                if(PhysicsModel == null)return GraphicsModel;
+                return PhysicsModel;
+            }
+        }
+
+        public Matrix physicsScale
+        {
+            get
+            {
+                return PhysicsScale;
+            }
+        }
+
+        public Matrix graphicsScale
+        {
+            get
+            {
+                return GraphicsScale;
             }
         }
 
@@ -46,14 +65,31 @@ namespace Resonance
         /// model data and scale. Will eventualy include texture data 
         /// </summary>
         /// <param name="Content">Pass it the content manager to load textures</param>
-        /// <param name="modelFile">The name of the model files to load</param>
-        /// <param name="modelScale">The scale as a float for the model</param>
-        public GameModel(ContentManager Content, String modelFile, float modelScale)
+        /// <param name="graphicsModelFile">The name of the graphics model file to load</param>
+        /// <param name="graphicsModelScale">The scale as a float for the grphics model</param>
+        /// <param name="physicsModelFile">The name of the physics model file to load</param>
+        /// <param name="physicsModelScale">The scale as a float for the physics model</param>
+        public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale, String physicsModelFile, float physicsModelScale)
         {
-            Model = Content.Load<Model>(modelFile);
-            Scale = Matrix.CreateScale(modelScale, modelScale, modelScale);
+            GraphicsModel = Content.Load<Model>(graphicsModelFile);
+            GraphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
+
+            if(!graphicsModelFile.Equals(physicsModelFile))PhysicsModel = Content.Load<Model>(physicsModelFile);
+            PhysicsScale = Matrix.CreateScale(physicsModelScale, physicsModelScale, physicsModelScale);
+
             Mass = 10f;
         }
+
+        /// <summary>
+        /// Creates a new GameModel object and stores everything needed to draw the object atm includes
+        /// model data and scale. Will eventualy include texture data
+        /// Only use this for very simple meshes as comples shapes will slow down the physics engine. 
+        /// </summary>
+        /// <param name="Content">Pass it the content manager to load textures</param>
+        /// <param name="graphicsModelFile">The name of the graphics model file to load</param>
+        /// <param name="graphicsModelScale">The scale as a float for the grphics model</param>
+        public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale) : this(Content, graphicsModelFile, graphicsModelScale, graphicsModelFile, graphicsModelScale){}
         
+
     }
 }
