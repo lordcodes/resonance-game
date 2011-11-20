@@ -25,6 +25,12 @@ namespace Resonance
 
         Vector3 lightDirection;
         Vector3 diffuseLightColor;
+        Vector3 lightDirection2;
+        Vector3 diffuseLightColor2;
+
+        Vector4 specularColorPower;
+        Vector3 specularLightColor;
+        Vector3 cameraPosition;
 
         public Matrix Projection
         {
@@ -62,8 +68,17 @@ namespace Resonance
             diffuseColor = new Vector3(0.3f, 0.3f, 0.3f);
 
             diffuseLightColor = new Vector3(0.9f, 0.9f, 0.9f);
-            lightDirection = new Vector3(-0.5f, -0.5f, -0.6f);
+            lightDirection = new Vector3(0.5f, -0.5f, 0.6f);
             lightDirection.Normalize();
+
+            diffuseLightColor2 = new Vector3(0.4f, 0.35f, 0.4f);
+            lightDirection2 = new Vector3(0.45f, -0.8f, 0.45f);
+            lightDirection2.Normalize();
+
+            specularColorPower = new Vector4(1, 1, 1, 128.0f);
+
+            specularLightColor = new Vector3(0.15f, 0.15f, 0.15f);
+
 
             customEffect = Content.Load<Effect>("Drawing/Effect");
             customEffect.Parameters["World"].SetValue(Matrix.Identity);
@@ -82,8 +97,8 @@ namespace Resonance
             Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
             Vector3 position = player.Body.Position;
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-            Vector3 cameraPosition = new Vector3(0, 4f, 6f);
-            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + position;
+            Vector3 defaultCameraPosition = new Vector3(0, 4f, 6f);
+            cameraPosition = Vector3.Transform(defaultCameraPosition, goodVibeRotation) + position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
@@ -107,6 +122,12 @@ namespace Resonance
             customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
             customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
             customEffect.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
+            customEffect.Parameters["LightDirection2"].SetValue(-lightDirection2);
+            customEffect.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
+            customEffect.Parameters["SpecularLightColor"].SetValue(specularLightColor);
+            customEffect.Parameters["CameraPosition"].SetValue(cameraPosition);
+            customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
+
             graphics.GraphicsDevice.Textures[0] = colorTexture;
 
             foreach (ModelMesh mesh in m.Meshes)
