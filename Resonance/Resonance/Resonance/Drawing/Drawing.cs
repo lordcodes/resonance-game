@@ -17,6 +17,9 @@ namespace Resonance
         private static ContentManager Content;
         private static Hud hud;
         private static Graphics gameGraphics;
+        private static int frameCounter;
+        private static int frameTime;
+        private static int currentFrameRate;
 
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
@@ -45,10 +48,10 @@ namespace Resonance
         /// <summary>
         /// This is called when the character and the HUD should be drawn.
         /// </summary>
-        public static void Draw()
+        public static void Draw(GameTime gameTime)
         {
             hud.drawDebugInfo(DebugDisplay.getString(), new Vector2(20,45));
-
+            checkFrameRate(gameTime);
         }
 
         /// <summary>
@@ -78,6 +81,19 @@ namespace Resonance
         public static void UpdateCamera(GoodVibe player)
         {
             gameGraphics.UpdateCamera(player);
+        }
+
+        private static void checkFrameRate(GameTime gameTime)
+        {
+            frameCounter++;
+            frameTime += gameTime.ElapsedGameTime.Milliseconds;
+            if (frameTime >= 1000)
+            {
+                currentFrameRate = frameCounter;
+                frameTime = 0;
+                frameCounter = 0;
+            }
+            DebugDisplay.update("FPS", currentFrameRate.ToString());
         }
 
     }
