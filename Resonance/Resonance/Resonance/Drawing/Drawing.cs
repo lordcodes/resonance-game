@@ -14,12 +14,9 @@ namespace Resonance
     class Drawing
     {
         private static GraphicsDeviceManager graphics;
-        private static BasicEffect effect;
-        private static Texture2D texture;
         private static ContentManager Content;
-
-        private static SpriteBatch spriteBatch;
-        private static SpriteFont font;
+        private static Hud hud;
+        private static Graphics gameGraphics;
 
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
@@ -30,6 +27,8 @@ namespace Resonance
             Content = newContent;
             graphics = newGraphics;
             GameModels.Init(Content);
+            hud = new Hud(Content,graphics);
+            gameGraphics = new Graphics(Content, graphics);
         }
 
         /// <summary>
@@ -38,18 +37,9 @@ namespace Resonance
         /// </summary>
         public static void loadContent()
         {
-            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-            font = Content.Load<SpriteFont>("DebugFont");
+            hud.loadContent();
             GameModels.Load();
-            effect = new BasicEffect(graphics.GraphicsDevice);
-            effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
-            effect.View = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
-            effect.LightingEnabled = true;
-            effect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, -1.5f, 0));
-            texture = Content.Load<Texture2D>("Drawing/Textures/texMissing");
-            effect.TextureEnabled = true;
-            effect.Texture = texture;
-            effect.EnableDefaultLighting();
+            gameGraphics.loadContent();
         }
 
         /// <summary>
@@ -67,71 +57,28 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            DrawModel(GameModels.getModel(gameModelNum).graphicsModel, Matrix.Multiply(GameModels.getModel(gameModelNum).graphicsScale, worldTransform), effect);
-            Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, effect.Projection, effect.View, Matrix.Identity);
+            gameGraphics.Draw(gameModelNum, worldTransform);
+            Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
             Vector2 screenPosition = new Vector2(projectedPosition.X, projectedPosition.Y-100);
             String health = "";
 
-            drawDebugInfo(worldObject.returnIdentifier(), screenPosition);
+            hud.drawDebugInfo(worldObject.returnIdentifier(), screenPosition);
             
             if (worldObject.returnIdentifier().Equals("Player")) 
             {
                 health = "HEALTH: " + ((GoodVibe)((DynamicObject)worldObject)).GetHealth();
             }
             
-            drawDebugInfo("Debug Info\n"+health, new Vector2(20,45)); // This is not very efficient atm
+            hud.drawDebugInfo("Debug Info\n"+health, new Vector2(20,45)); // This is not very efficient atm
         }
 
         /// <summary>
-        /// Gives the Drawing object information about the game world, atm this is only the player but
-        /// this will eventually be given information abut the entire world to be drawn
+        /// Updates Camera and HUD based of player position
         /// </summary>
         /// <param name="player">The good vibe class</param>
         public static void UpdateCamera(GoodVibe player)
         {
-            Quaternion orientation = player.Body.Orientation;
-            Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
-            Vector3 position = player.Body.Position;
-
-            Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-            Vector3 cameraPosition = new Vector3(0, 4f, 6f);
-            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + position;
-            effect.View = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
-        }
-
-        public static void drawDebugInfo(String text, Vector2 coords)
-        {
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font, text, coords, Color.White, 0f,Vector2.Zero,1f,SpriteEffects.None,0f);
-            spriteBatch.End();
-            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
-            graphics.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-        }
-
-        private static Matrix GetParentTransform(Model m, ModelBone mb)
-        {
-            return (mb == m.Root) ? mb.Transform :
-                mb.Transform * GetParentTransform(m, mb.Parent);
-        }
-
-        private static void DrawModel(Model m, Matrix world, BasicEffect be)
-        {
-            foreach (ModelMesh mm in m.Meshes)
-            {
-                foreach (ModelMeshPart mmp in mm.MeshParts)
-                {
-                    be.World = GetParentTransform(m, mm.ParentBone) * world;
-                    graphics.GraphicsDevice.SetVertexBuffer(mmp.VertexBuffer, mmp.VertexOffset);
-                    graphics.GraphicsDevice.Indices = mmp.IndexBuffer;
-                    be.CurrentTechnique.Passes[0].Apply();
-                    graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, mmp.NumVertices, mmp.StartIndex, mmp.PrimitiveCount);
-                }
-            }
-        }
-
-        private static void DrawGameModel(int model, Vector3 pos)
-        {
-            DrawModel(GameModels.getModel(model).graphicsModel, Matrix.Multiply(GameModels.getModel(model).graphicsScale, Matrix.CreateTranslation(pos)), effect);
+            gameGraphics.UpdateCamera(player);
         }
 
     }

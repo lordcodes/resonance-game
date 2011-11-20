@@ -96,7 +96,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Hud.cs" />
     <Compile Include="Drawing\World.cs" />
+    <Compile Include="Drawing\Graphics.cs" />
     <Compile Include="Music\SoundEffectTrack.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Drawing\Drawing.cs" />
