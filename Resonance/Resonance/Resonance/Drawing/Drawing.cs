@@ -50,6 +50,7 @@ namespace Resonance
         /// </summary>
         public static void Draw(GameTime gameTime)
         {
+            hud.Draw();
             hud.drawDebugInfo(DebugDisplay.getString(), new Vector2(20,45));
             checkFrameRate(gameTime);
         }
@@ -61,15 +62,21 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
+
             gameGraphics.Draw(gameModelNum, worldTransform);
             Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
             Vector2 screenPosition = new Vector2(projectedPosition.X, projectedPosition.Y-100);
 
             hud.drawDebugInfo(worldObject.returnIdentifier(), screenPosition);
             
-            if (worldObject.returnIdentifier().Equals("Player")) 
+            if (worldObject is GoodVibe) 
             {
                 DebugDisplay.update( "HEALTH",((GoodVibe)((DynamicObject)worldObject)).GetHealth().ToString());
+            }
+
+            if (worldObject is BadVibe)
+            {
+                hud.updateEnemyRadar(worldObject.returnIdentifier(), pos);
             }
             /**/
 
