@@ -18,7 +18,16 @@ namespace Resonance
         private Matrix GraphicsScale;
         private Matrix PhysicsScale;
         private Matrix[] ModelTransforms;
+        private Texture2D Texture;
         private float Mass;
+
+        public Texture2D texture
+        {
+            get
+            {
+                return Texture;
+            }
+        }
 
         public Matrix[] modelTransforms
         {
@@ -78,9 +87,10 @@ namespace Resonance
         /// <param name="graphicsModelScale">The scale as a float for the grphics model</param>
         /// <param name="physicsModelFile">The name of the physics model file to load</param>
         /// <param name="physicsModelScale">The scale as a float for the physics model</param>
-        public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale, String physicsModelFile, float physicsModelScale)
+        public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale, String physicsModelFile, float physicsModelScale, string texture)
         {
             GraphicsModel = Content.Load<Model>(graphicsModelFile);
+            Texture = Content.Load<Texture2D>(texture);
             ModelTransforms = new Matrix[GraphicsModel.Bones.Count];
             GraphicsModel.CopyAbsoluteBoneTransformsTo(ModelTransforms);
             GraphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
@@ -99,7 +109,7 @@ namespace Resonance
         /// <param name="Content">Pass it the content manager to load textures</param>
         /// <param name="graphicsModelFile">The name of the graphics model file to load</param>
         /// <param name="graphicsModelScale">The scale as a float for the grphics model</param>
-        public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale) : this(Content, graphicsModelFile, graphicsModelScale, graphicsModelFile, graphicsModelScale){}
+        public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale, string ntexture) : this(Content, graphicsModelFile, graphicsModelScale, graphicsModelFile, graphicsModelScale, ntexture){}
         
 
     }

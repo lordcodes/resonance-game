@@ -43,11 +43,11 @@ namespace Resonance
         /// </summary>
         public static void Load()
         {
-            Tree = new GameModel(Content, "Drawing/Models/basicTree", 0.5f, "Drawing/Models/basicTree", 0.5f);
-            Ground = new GameModel(Content, "Drawing/Models/terrain", 3f, "Drawing/Models/terrain", 3f);
-            Good_vibe = new GameModel(Content, "Drawing/Models/box", 1f, "Drawing/Models/box", 1f);
-            Bad_vibe = new GameModel(Content, "Drawing/Models/box", 1f, "Drawing/Models/box", 1f);
-            Mushroom = new GameModel(Content, "Drawing/Models/bender", 1f, "Drawing/Models/bender", 1f);
+            Tree = new GameModel(Content, "Drawing/Models/basicTree", 0.5f, "Drawing/Models/basicTree", 0.5f, "Drawing/Textures/texMissing");
+            Ground = new GameModel(Content, "Drawing/Models/terrain", 3f, "Drawing/Models/terrain", 3f, "Drawing/Textures/texGround");
+            Good_vibe = new GameModel(Content, "Drawing/Models/box", 1f, "Drawing/Models/box", 1f, "Drawing/Textures/texGoodVibe");
+            Bad_vibe = new GameModel(Content, "Drawing/Models/box", 1f, "Drawing/Models/box", 1f, "Drawing/Textures/texBadVibe");
+            Mushroom = new GameModel(Content, "Drawing/Models/bender", 1f, "Drawing/Models/bender", 1f, "Drawing/Textures/texMissing");
         }
 
         /// <summary>
