@@ -90,11 +90,11 @@ namespace Resonance
         public GameModel(ContentManager Content, String graphicsModelFile, float graphicsModelScale, String physicsModelFile, float physicsModelScale, string texture)
         {
             GraphicsModel = Content.Load<Model>(graphicsModelFile);
-            Texture = Content.Load<Texture2D>(texture);
             ModelTransforms = new Matrix[GraphicsModel.Bones.Count];
             GraphicsModel.CopyAbsoluteBoneTransformsTo(ModelTransforms);
             GraphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
 
+            if(!texture.Equals(""))Texture = Content.Load<Texture2D>(texture);
             if(!graphicsModelFile.Equals(physicsModelFile))PhysicsModel = Content.Load<Model>(physicsModelFile);
             PhysicsScale = Matrix.CreateScale(physicsModelScale, physicsModelScale, physicsModelScale);
 

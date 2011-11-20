@@ -83,7 +83,9 @@ namespace Resonance
         {
             Model m = gmodel.graphicsModel;
             Matrix[] modelTransforms = gmodel.modelTransforms;
-            Texture2D colorTexture = gmodel.texture;
+            Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
+
+            if (colorTexture == null) colorTexture = gmodel.texture;
 
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
