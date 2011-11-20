@@ -14,15 +14,18 @@ namespace Resonance
     class Graphics
     {
         private static GraphicsDeviceManager graphics;
-        private static BasicEffect effect;
-        private static Texture2D texture;
         private static ContentManager Content;
+        private static Effect customEffect;
+        private static Texture2D colorTexture;
+        private static Matrix world;
+        private static Matrix view;
+        private static Matrix projection;
 
         public Matrix Projection
         {
             get
             {
-                return effect.Projection;
+                return projection;
             }
         }
 
@@ -30,7 +33,7 @@ namespace Resonance
         {
             get
             {
-                return effect.View;
+                return view;
             }
         }
 
@@ -46,15 +49,17 @@ namespace Resonance
         /// </summary>
         public void loadContent()
         {
-            effect = new BasicEffect(graphics.GraphicsDevice);
-            effect.Projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
-            effect.View = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
-            effect.LightingEnabled = true;
-            effect.DirectionalLight0.Direction = Vector3.Normalize(new Vector3(-1, -1.5f, 0));
-            texture = Content.Load<Texture2D>("Drawing/Textures/texMissing");
-            effect.TextureEnabled = true;
-            effect.Texture = texture;
-            effect.EnableDefaultLighting();
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
+            view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
+            world = Matrix.Identity;
+            colorTexture = Content.Load<Texture2D>("Drawing/Textures/texMissing");
+            customEffect = Content.Load<Effect>("Drawing/Effect");
+            customEffect.Parameters["World"].SetValue(Matrix.Identity);
+            customEffect.Parameters["View"].SetValue(Matrix.CreateLookAt(new Vector3(0, 0, 3), Vector3.Zero, Vector3.Up));
+            customEffect.Parameters["Projection"].SetValue(Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 0.1f, 100.0f));
+            customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
+            graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
+            graphics.GraphicsDevice.Textures[0] = colorTexture;
         }
 
         /// <summary>
@@ -66,42 +71,38 @@ namespace Resonance
             Quaternion orientation = player.Body.Orientation;
             Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
             Vector3 position = player.Body.Position;
-
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
             Vector3 cameraPosition = new Vector3(0, 4f, 6f);
             cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + position;
-            effect.View = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
+            view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
         public void Draw(int gameModelNum, Matrix worldTransform)
         {
-            DrawModel(GameModels.getModel(gameModelNum).graphicsModel, Matrix.Multiply(GameModels.getModel(gameModelNum).graphicsScale, worldTransform), effect);
+            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).graphicsScale, worldTransform));
         }
 
-        private Matrix GetParentTransform(Model m, ModelBone mb)
-        {
-            return (mb == m.Root) ? mb.Transform :
-                mb.Transform * GetParentTransform(m, mb.Parent);
-        }
 
-        private void DrawModel(Model m, Matrix world, BasicEffect be)
+        private void DrawModel(GameModel gmodel, Matrix world)
         {
-            foreach (ModelMesh mm in m.Meshes)
+            Model m = gmodel.graphicsModel;
+            Matrix[] modelTransforms = gmodel.modelTransforms;
+            customEffect.Parameters["View"].SetValue(view);
+            customEffect.Parameters["Projection"].SetValue(projection);
+
+            foreach (ModelMesh mesh in m.Meshes)
             {
-                foreach (ModelMeshPart mmp in mm.MeshParts)
+                customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
+
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
-                    be.World = GetParentTransform(m, mm.ParentBone) * world;
-                    graphics.GraphicsDevice.SetVertexBuffer(mmp.VertexBuffer, mmp.VertexOffset);
-                    graphics.GraphicsDevice.Indices = mmp.IndexBuffer;
-                    be.CurrentTechnique.Passes[0].Apply();
-                    graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, mmp.NumVertices, mmp.StartIndex, mmp.PrimitiveCount);
+                    graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
+                    graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
+                    customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
+                    customEffect.CurrentTechnique.Passes[0].Apply();
+                    graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                 }
             }
-        }
-
-        private void DrawGameModel(int model, Vector3 pos)
-        {
-            DrawModel(GameModels.getModel(model).graphicsModel, Matrix.Multiply(GameModels.getModel(model).graphicsScale, Matrix.CreateTranslation(pos)), effect);
         }
 
     }

@@ -27,7 +27,7 @@ namespace Resonance
         public void loadContent()
         {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-            font = Content.Load<SpriteFont>("DebugFont");
+            font = Content.Load<SpriteFont>("Drawing/DebugFont");
         }
 
         public void drawDebugInfo(String text, Vector2 coords)
