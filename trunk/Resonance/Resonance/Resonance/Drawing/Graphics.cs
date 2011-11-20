@@ -20,6 +20,12 @@ namespace Resonance
         private static Matrix view;
         private static Matrix projection;
 
+        Vector3 ambientLightColor;
+        Vector3 diffuseColor;
+
+        Vector3 lightDirection;
+        Vector3 diffuseLightColor;
+
         public Matrix Projection
         {
             get
@@ -51,6 +57,14 @@ namespace Resonance
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
             view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
             world = Matrix.Identity;
+
+            ambientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
+            diffuseColor = new Vector3(0.3f, 0.3f, 0.3f);
+
+            diffuseLightColor = new Vector3(0.9f, 0.9f, 0.9f);
+            lightDirection = new Vector3(-0.5f, -0.5f, -0.6f);
+            lightDirection.Normalize();
+
             customEffect = Content.Load<Effect>("Drawing/Effect");
             customEffect.Parameters["World"].SetValue(Matrix.Identity);
             customEffect.Parameters["View"].SetValue(view);
@@ -90,6 +104,9 @@ namespace Resonance
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
             customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
+            customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
+            customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
+            customEffect.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
             graphics.GraphicsDevice.Textures[0] = colorTexture;
 
             foreach (ModelMesh mesh in m.Meshes)
@@ -100,6 +117,7 @@ namespace Resonance
                 {
                     graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
                     graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
+                    customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
                     customEffect.CurrentTechnique.Passes[0].Apply();
                     graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                 }
