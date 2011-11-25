@@ -22,7 +22,7 @@
         <identifier>third object</identifier>
         <type>Tree</type>
         <xWorldCoord>0</xWorldCoord>
-        <zWorldCoord>0</zWorldCoord>
+        <zWorldCoord>-5</zWorldCoord>
         <yWorldCoord>-0.1</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
@@ -31,7 +31,7 @@
         <type>Mushroom</type>
         <xWorldCoord>3</xWorldCoord>
         <zWorldCoord>3</zWorldCoord>
-        <yWorldCoord>3</yWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
