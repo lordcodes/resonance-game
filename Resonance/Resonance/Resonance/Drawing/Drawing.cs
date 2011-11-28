@@ -71,7 +71,9 @@ namespace Resonance
             
             if (worldObject is GoodVibe) 
             {
-                DebugDisplay.update( "HEALTH",((GoodVibe)((DynamicObject)worldObject)).GetHealth().ToString());
+                int health = ((GoodVibe)((DynamicObject)worldObject)).GetHealth();
+                DebugDisplay.update( "HEALTH",health.ToString());
+                hud.updateHealth(health);
             }
 
             if (worldObject is BadVibe)
