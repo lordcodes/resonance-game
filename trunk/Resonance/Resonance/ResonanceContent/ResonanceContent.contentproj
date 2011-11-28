@@ -236,11 +236,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\truck_color.jpg">
+    <None Include="Drawing\Models\truck_color.jpg">
       <Name>truck_color</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
     <Compile Include="Drawing\Models\truck_color_clean.jpg">
       <Name>truck_color_clean</Name>
       <Importer>TextureImporter</Importer>
@@ -273,11 +273,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\tree_texture.png">
+    <None Include="Drawing\Models\tree_texture.png">
       <Name>tree_texture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
     <Compile Include="Drawing\Models\trunk_texture.png">
       <Name>trunk_texture</Name>
       <Importer>TextureImporter</Importer>
@@ -285,11 +285,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Models\english_house_texture.bmp">
+    <None Include="Drawing\Models\english_house_texture.bmp">
       <Name>english_house_texture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing\Textures\texGrassReal.jpg">
