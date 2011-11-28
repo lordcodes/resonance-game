@@ -43,7 +43,28 @@ namespace Resonance
             if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(distance * Math.Sin(rotateVector.Y));
             Body.LinearVelocity = velocity;
         }
+        public void moveLeft(float distance)
+        {
+            Quaternion orientation = Body.Orientation;
+            Vector3 rotateVector = QuaternionToEuler(orientation);
+            Vector3 velocity = Body.LinearVelocity;
 
+             velocity.Z += (float)(distance * Math.Sin(rotateVector.Y));
+             velocity.X -= (float)(distance * Math.Cos(rotateVector.Y));
+            
+            Body.LinearVelocity = velocity;
+        }
+        public void moveRight(float distance)
+        {
+            Quaternion orientation = Body.Orientation;
+            Vector3 rotateVector = QuaternionToEuler(orientation);
+            Vector3 velocity = Body.LinearVelocity;
+
+            velocity.Z += (float)(distance * Math.Sin(rotateVector.Y));
+            velocity.X -= (float)(distance * Math.Cos(rotateVector.Y));
+
+            Body.LinearVelocity = velocity;
+        }
         public void rotate(float angle)
         {
             Vector3 velocity = Body.AngularVelocity;

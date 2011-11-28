@@ -269,52 +269,98 @@ namespace Resonance
         private void UpdateGoodVibePosition()
         {
             KeyboardState keyboardState = Keyboard.GetState();
+            
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
+            
 
             bool upPressed   = keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed);
             bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
             
             float forwardSpeed = 0.25f;
             float rotateSpeed = 0.25f;
-
-            if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))
+            if (currentState.IsConnected == false)
             {
-                if (!downPressed)
+                if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))
                 {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                    if (!downPressed)
+                    {
+                        ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                    }
+                    else
+                    {
+                        ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                    }
                 }
-                else
+
+                if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
                 {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                    if (!downPressed)
+                    {
+                        ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                    }
+                    else
+                    {
+                        ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                    }
                 }
+
+
+                if (upPressed ^ downPressed)
+                {
+                    if (upPressed)
+                    {
+                        ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
+                    }
+                    if (downPressed)
+                    {
+                        ((DynamicObject)(world.getObject("Player"))).move(forwardSpeed);
+                    }
+                    goodVibePos.X = -10f;
+                    goodVibePos.Y = 2f;
+                    goodVibePos.Z = -10f;
+                }
+
             }
-
-            if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
+            else
             {
-                if (!downPressed)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
-                }
-                else
-                {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
-                }
-            }
+                float x = currentState.ThumbSticks.Left.X;
+                float y = currentState.ThumbSticks.Left.Y;
+                float camerax = currentState.ThumbSticks.Right.X;
+                float cameray = currentState.ThumbSticks.Right.Y;
 
-
-            if (upPressed ^ downPressed)
-            {
-                if (upPressed)
+                if (x == 0 && y > 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
+                   ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
+                   goodVibePos.X = -10f;
+                   goodVibePos.Y = 2f;
+                   goodVibePos.Z = -10f;
                 }
-                if (downPressed)
+                if (x == 0 && y < 0)
                 {
                     ((DynamicObject)(world.getObject("Player"))).move(forwardSpeed);
+                    
                 }
-                goodVibePos.X = -10f;
-                goodVibePos.Y = 2f;
-                goodVibePos.Z = -10f;
+                
+                if (x < 0 && y == 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).moveLeft(forwardSpeed);
+                  
+                }
+                if (x > 0 && y == 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).moveRight(-rotateSpeed);
+                }
+
+                if (camerax == -1 && cameray == 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                }
+
+                if (camerax == 1 && cameray == 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                }
+                
             }
             Vector3 pos = ((DynamicObject)(world.getObject("Player"))).Body.Position;
             Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
