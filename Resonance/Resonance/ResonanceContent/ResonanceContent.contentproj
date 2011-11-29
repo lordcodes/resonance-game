@@ -136,6 +136,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\wave2.fbx">
+      <Name>wave2</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Music\carcrash.timing">
       <Name>carcrash</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
