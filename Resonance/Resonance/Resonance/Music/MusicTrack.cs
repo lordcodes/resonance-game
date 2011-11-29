@@ -95,46 +95,49 @@ namespace Resonance
         /// </summary>
         public void inTime()
         {
-            for (; ; lastI++)
+            if (state == PlayState.PLAYING)
             {
-                long time = DateTime.Now.Ticks * 100;
-                long beatTime;
-                long lastBeatTime;
+                for (; ; lastI++)
+                {
+                    long time = DateTime.Now.Ticks * 100;
+                    long beatTime;
+                    long lastBeatTime;
 
-                if (mode == NoteMode.WHOLE)
-                {
-                    beatTime = startTime + offset + (lastI * beatLength);
-                    lastBeatTime = startTime + offset + ((lastI - 1) * beatLength);
-                }
-                else if (mode == NoteMode.HALF)
-                {
-                    beatTime = startTime + offset + (lastI * beatLength / 2);
-                    lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 2);
-                }
-                else
-                {
-                    beatTime = startTime + offset + (lastI * beatLength / 4);
-                    lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 4);
-                }
-
-                if (time < beatTime)
-                {
-                    if (time > (beatTime - WINDOW))
+                    if (mode == NoteMode.WHOLE)
                     {
-                        //HIT
-                        Console.WriteLine("HIT1");
+                        beatTime = startTime + offset + (lastI * beatLength);
+                        lastBeatTime = startTime + offset + ((lastI - 1) * beatLength);
                     }
-                    else if (time < lastBeatTime + WINDOW)
+                    else if (mode == NoteMode.HALF)
                     {
-                        //HIT
-                        Console.WriteLine("HIT2");
+                        beatTime = startTime + offset + (lastI * beatLength / 2);
+                        lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 2);
                     }
                     else
                     {
-                        //MISS
-                        Console.WriteLine("MISS");
+                        beatTime = startTime + offset + (lastI * beatLength / 4);
+                        lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 4);
                     }
-                    break;
+
+                    if (time < beatTime)
+                    {
+                        if (time > (beatTime - WINDOW))
+                        {
+                            //HIT
+                            Console.WriteLine("HIT1");
+                        }
+                        else if (time < lastBeatTime + WINDOW)
+                        {
+                            //HIT
+                            Console.WriteLine("HIT2");
+                        }
+                        else
+                        {
+                            //MISS
+                            Console.WriteLine("MISS");
+                        }
+                        break;
+                    }
                 }
             }
         }
