@@ -64,7 +64,6 @@
     <Compile Include="Drawing\Graphics.cs" />
     <Compile Include="Drawing\Hud.cs" />
     <Compile Include="Drawing\World.cs" />
-    <Compile Include="Music\SoundEffectTrack.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Drawing\Drawing.cs" />
     <Compile Include="Object\DynamicObject.cs" />

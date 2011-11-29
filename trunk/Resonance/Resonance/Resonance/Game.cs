@@ -169,14 +169,6 @@ namespace Resonance
             // Allows the game to exit
             if (keyboardState.IsKeyDown(Keys.Escape))
                 this.Exit();
-            //Play sound effects
-            if (keyboardState.IsKeyDown(Keys.D1)) musicHandler.getSound().playSound(0);
-            if (keyboardState.IsKeyDown(Keys.D2)) musicHandler.getSound().playSound(1);
-            if (keyboardState.IsKeyDown(Keys.D3)) musicHandler.getSound().playSound(2);
-            if (keyboardState.IsKeyDown(Keys.D4)) musicHandler.getSound().playSound(3);
-            if (keyboardState.IsKeyDown(Keys.D5)) musicHandler.getSound().playSound(4);
-            if (keyboardState.IsKeyDown(Keys.D6)) musicHandler.getSound().playSound(5);
-            if (keyboardState.IsKeyDown(Keys.D7)) musicHandler.getSound().playSound(6);
             if (keyboardState.IsKeyDown(Keys.Space))
             {
                 musicHandler.getTrack().playTrack();
@@ -184,6 +176,7 @@ namespace Resonance
             if (keyboardState.IsKeyDown(Keys.S))
             {
                 musicHandler.getTrack().stopTrack();
+                musicHandler.playCollision();
             }
             if (keyboardState.IsKeyDown(Keys.P))
             {
@@ -207,6 +200,7 @@ namespace Resonance
             //Drawing.Update(goodVibePos);
             world.update();
             base.Update(gameTime);
+            musicHandler.Update();
 
             //Cache the previous key state. As found this method is run so quickly that pressing key once
             //caused it to do the beat method inTime() about 4 times and that messed up the detecting

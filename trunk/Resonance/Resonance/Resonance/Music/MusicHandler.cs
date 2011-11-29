@@ -15,12 +15,16 @@ namespace Resonance
     class MusicHandler
     {
         MusicTrack bgMusic;
-        SoundEffectTrack soundEffects;
+        private AudioEngine audioEngine;
+        private WaveBank waveBank;
+        private SoundBank soundBank;
 
         public MusicHandler(ContentManager newContent)
         {
             bgMusic = new MusicTrack(newContent);
-            soundEffects = new SoundEffectTrack(newContent);
+            audioEngine = new AudioEngine("Content/SoundProject.xgs");
+            waveBank = new WaveBank(audioEngine, "Content/Wave Bank.xwb");
+            soundBank = new SoundBank(audioEngine, "Content/Sound Bank.xsb");
         }
 
         /// <summary>
@@ -32,9 +36,13 @@ namespace Resonance
             return bgMusic;
         }
 
-        public SoundEffectTrack getSound()
+        public void playCollision() {
+            soundBank.PlayCue("clunk");
+        }
+
+        public void Update()
         {
-            return soundEffects;
+            audioEngine.Update();
         }
     }
 }
