@@ -30,8 +30,8 @@ namespace Resonance
             Content = newContent;
             graphics = newGraphics;
             GameModels.Init(Content);
-            hud = new Hud(Content,graphics);
             gameGraphics = new Graphics(Content, graphics);
+            hud = new Hud(Content,graphics, gameGraphics);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace Resonance
         public static void Draw(GameTime gameTime)
         {
             hud.Draw();
-            hud.drawDebugInfo(DebugDisplay.getString(), new Vector2(20,45));
+            hud.drawDebugInfo(DebugDisplay.getString());
             checkFrameRate(gameTime);
         }
 
@@ -64,10 +64,6 @@ namespace Resonance
         {
 
             gameGraphics.Draw(gameModelNum, worldTransform);
-            Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(pos, gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
-            Vector2 screenPosition = new Vector2(projectedPosition.X, projectedPosition.Y-100);
-
-            hud.drawDebugInfo(worldObject.returnIdentifier(), screenPosition);
             
             if (worldObject is GoodVibe) 
             {
@@ -78,9 +74,8 @@ namespace Resonance
 
             if (worldObject is BadVibe)
             {
-                hud.updateEnemyRadar(worldObject.returnIdentifier(), pos);
+                hud.updateEnemy(worldObject.returnIdentifier(), pos, ((BadVibe)((DynamicObject)worldObject)).GetHealth());
             }
-            /**/
 
         }
 
