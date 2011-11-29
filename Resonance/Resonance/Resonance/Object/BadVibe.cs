@@ -10,7 +10,6 @@ namespace Resonance
     class BadVibe : DynamicObject
     {
         Game game;
-        int health;
         int previousDirection;  //Remembers the previous movement direction 
         //TODO: change to enum 
 
@@ -20,15 +19,17 @@ namespace Resonance
             : base(modelNum, name, game, pos)
         {
             this.game = game;
-            health = 100;
             previousDirection = -1;
 
             armour = ArmourSequence.random();
         }
 
-        void AdjustHealth(int change)
+        public ArmourSequence Armour
         {
-          
+            get
+            {
+                return armour;
+            }
         }
 
         /// <summary>
@@ -154,15 +155,6 @@ namespace Resonance
         void getGoodVibePos()
         { 
             Console.WriteLine(((GoodVibe)game.World.getObject("Player")).Body.Position);
-        }
-
-        void SetHealth(int value)
-        {
-        }
-
-        public int GetHealth()
-        {
-            return health;
         }
 
         public static void initialiseBank()
