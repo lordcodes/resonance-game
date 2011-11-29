@@ -50,7 +50,7 @@ namespace Resonance
             Good_vibe = new GameModel(Content, "Drawing/Models/truck", 1f, "Drawing/Models/truck", 1f, "");
             Bad_vibe = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "");
             Mushroom = new GameModel(Content, "Drawing/Models/house", 1f, "Drawing/Models/house", 1f, "");
-            Shockwave = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "");
+            Shockwave = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texMissing");
         }
 
         /// <summary>
