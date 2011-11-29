@@ -131,13 +131,13 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\wave.fbx">
-      <Name>wave</Name>
+    <Compile Include="Drawing\Models\wave2.fbx">
+      <Name>wave2</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\wave2.fbx">
-      <Name>wave2</Name>
+    <Compile Include="Drawing\Models\wave.fbx">
+      <Name>wave</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
