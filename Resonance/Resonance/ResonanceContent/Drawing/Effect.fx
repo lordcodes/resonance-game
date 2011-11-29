@@ -63,8 +63,8 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	finalColor = (finalColor*1) + DiffuseColor * diffuse;
 
 	float3 view = normalize(input.View);
-	float3 half = normalize(view + LightDirection);
-	float NdotH = saturate(dot(normal,half));
+	float3 halfF = normalize(view + LightDirection);
+	float NdotH = saturate(dot(normal,halfF));
 	float specular = 0;
 	if (NdotL != 0) specular += pow(NdotH, SpecularColorPower.w) * SpecularLightColor;
 	finalColor += SpecularColorPower.xyz * specular;
