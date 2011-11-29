@@ -19,14 +19,12 @@ namespace Resonance
     {
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
-#if XBOX360
+
+        //Input states
         GamePadState oldPadState1;
         GamePadState oldPadState2;
-#else
         KeyboardState oldKeyState;
-#endif
 
-        //Hello world
         World world;
         Vector4 goodVibePos;
 
@@ -36,10 +34,6 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
-
-           
-
-
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
             /*IsMouseVisible = false;
@@ -61,7 +55,6 @@ namespace Resonance
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -71,12 +64,10 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
-#if XBOX360
             oldPadState1 = GamePad.GetState(PlayerIndex.One);
             oldPadState2 = GamePad.GetState(PlayerIndex.Two);
-#else
             oldKeyState = Keyboard.GetState();
-#endif
+
             Drawing.loadContent();
             world = new World(this);
 
@@ -117,23 +108,20 @@ namespace Resonance
 
             }
 
-           // StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
-           // GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.65f, 6f));
+            //Not needed now that we have loading from level file
+            //StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
+            //GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.65f, 6f));
             //GoodVibe player = new GoodVibe(GameModels.MUSHROOM, "Player", this, new Vector3(0, 5f, 6f));
-            goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
             //StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
-           // StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
-           // BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.65f, 3));
-            BadVibe bv2 = new BadVibe(GameModels.BAD_VIBE, "BV1", this, new Vector3(-4, 0.5f, 4));
-            BadVibe bv3 = new BadVibe(GameModels.BAD_VIBE, "BV2", this, new Vector3(-2, 0.5f, 4));
-            
-            
-           // world.addObject(tree);
-           // world.addObject(mush);
-          //  world.addObject(bv);
-           // StoredObjects obj = Content.Load<StoredObjects>("Level1");
-            //Console.WriteLine(obj.list[0].identifier);
+            //StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
+            //BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.65f, 3));
+            //world.addObject(tree);
+            //world.addObject(mush);
+            //world.addObject(bv);
 
+            goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
+            
+            //StoredObjects obj = Content.Load<StoredObjects>("Level1");
             //world.addObject(bv2);
             //world.addObject(bv3);
         }
@@ -154,21 +142,26 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-#if XBOX360
             GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
             GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
-            // Allows the game to exit
+
+
+            //XBOX Controls
             if (playerOne.Buttons.Back == ButtonState.Pressed || playerTwo.Buttons.Back == ButtonState.Pressed)
+            {
                 this.Exit();
+            }
             //Player One
             playerOnePresses(playerOne);
             //Player Two
             playerTwoPresses(playerTwo);
-#else
+
+            //PC Testing Controls
             KeyboardState keyboardState = Keyboard.GetState();
-            // Allows the game to exit
             if (keyboardState.IsKeyDown(Keys.Escape))
+            {
                 this.Exit();
+            }
             if (keyboardState.IsKeyDown(Keys.Space))
             {
                 musicHandler.getTrack().playTrack();
@@ -187,35 +180,23 @@ namespace Resonance
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
             }
-#endif
-
 
             //Update graphics
             UpdateGoodVibePosition();
 
-            // Update bad vibe position
+            //Update bad vibe position
             ((BadVibe)world.getObject("BV0")).moveTowardsGoodVibe();
-           //((BadVibe)world.getObject("BV1")).Move();
-           //((BadVibe)world.getObject("BV2")).Move();
 
-            //Drawing.Update(goodVibePos);
             world.update();
             base.Update(gameTime);
             musicHandler.Update();
 
-            //Cache the previous key state. As found this method is run so quickly that pressing key once
-            //caused it to do the beat method inTime() about 4 times and that messed up the detecting
-            //if you were in time to the music.
-#if XBOX360
+            //Cache the previous key state.
             oldPadState1 = playerOne;
             oldPadState2 = playerTwo;
-#else
             oldKeyState = keyboardState;
-#endif
-
         }
 
-#if XBOX360
         /// <summary>
         /// This handles player one button presses
         /// </summary>
@@ -245,7 +226,6 @@ namespace Resonance
                 musicHandler.getTrack().inTime();
             }
         }
-#endif
 
         public World World
         {
@@ -255,8 +235,6 @@ namespace Resonance
             }
         }
 
-        
-
         /// <summary>
         /// This handles basic user input to move the good vibe around the world, this is temporary 
         /// and will eventualy feed into the World object rather than directly to the Drawing
@@ -264,10 +242,8 @@ namespace Resonance
         private void UpdateGoodVibePosition()
         {
             KeyboardState keyboardState = Keyboard.GetState();
-            
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
             
-
             bool upPressed   = keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed);
             bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
             
@@ -286,7 +262,6 @@ namespace Resonance
                         ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
                     }
                 }
-
                 if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
                 {
                     if (!downPressed)
@@ -298,7 +273,6 @@ namespace Resonance
                         ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
                     }
                 }
-
 
                 if (upPressed ^ downPressed)
                 {
@@ -314,7 +288,6 @@ namespace Resonance
                     goodVibePos.Y = 2f;
                     goodVibePos.Z = -10f;
                 }
-
             }
             else
             {
@@ -370,7 +343,6 @@ namespace Resonance
             GraphicsDevice.Clear(Color.CornflowerBlue);
             base.Draw(gameTime);
             Drawing.Draw(gameTime);
-            
         }
     }
 }
