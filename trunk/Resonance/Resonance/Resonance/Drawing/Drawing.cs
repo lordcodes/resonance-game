@@ -75,7 +75,7 @@ namespace Resonance
 
             if (worldObject is BadVibe)
             {
-                hud.updateEnemy(worldObject.returnIdentifier(), pos, ((BadVibe)((DynamicObject)worldObject)).GetHealth());
+                hud.updateEnemy(worldObject.returnIdentifier(), pos, 100);
             }
 
         }
