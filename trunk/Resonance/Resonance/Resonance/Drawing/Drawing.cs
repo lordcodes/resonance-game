@@ -75,6 +75,8 @@ namespace Resonance
 
             if (worldObject is BadVibe)
             {
+                //Gets list of remaining armour layers
+                List<int> seq = ((BadVibe)worldObject).getLayers();
                 hud.updateEnemy(worldObject.returnIdentifier(), pos, 100);
             }
 

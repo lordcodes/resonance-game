@@ -24,14 +24,10 @@ namespace Resonance
             armour = ArmourSequence.random();
         }
 
-        public ArmourSequence Armour
+        public List<int> getLayers()
         {
-            get
-            {
-                return armour;
-            }
+            return armour.Sequence;
         }
-
         /// <summary>
         /// Moves the bad vibe in the world randomly
         /// 
@@ -189,14 +185,13 @@ namespace Resonance
             private ArmourSequence(int[] seq)
             {
                 sequence = new List<int>();
-
                 for (int i = 0; i < seq.Length; i++)
                 {
                     sequence.Add(seq[i]);
                 }
             }
 
-            private List<int> Sequence {
+            public List<int> Sequence {
                 get
                 {
                     return sequence;
