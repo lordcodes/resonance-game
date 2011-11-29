@@ -77,6 +77,15 @@ namespace Resonance
             {
                 //Gets list of remaining armour layers
                 List<int> seq = ((BadVibe)worldObject).getLayers();
+
+                //prints the armour sequence of BV above head in text
+                /*string toPrint = "";
+                foreach (int layer in seq)
+                {
+                    toPrint += (layer.ToString() + ",");
+                }
+                hud.updateEnemy(toPrint, pos, 100);*/
+
                 hud.updateEnemy(worldObject.returnIdentifier(), pos, 100);
             }
 
