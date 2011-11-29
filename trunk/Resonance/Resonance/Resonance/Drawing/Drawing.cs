@@ -62,9 +62,10 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-
+            if (worldObject is Shockwave) graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
             gameGraphics.Draw(gameModelNum, worldTransform);
-            
+            if (worldObject is Shockwave) graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
             if (worldObject is GoodVibe) 
             {
                 int health = ((GoodVibe)((DynamicObject)worldObject)).GetHealth();
