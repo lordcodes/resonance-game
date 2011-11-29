@@ -18,11 +18,13 @@ namespace Resonance
         public static double MAX_RADIUS = 1.5;
 
         // Colours
-        public static int GREEN  = 0;
-        public static int YELLOW = 1;
-        public static int BLUE   = 2;
-        public static int RED    = 3;
-        public static int CYMBAL = 4;
+        public static int REST   = 0;
+
+        public static int GREEN  = 1;
+        public static int YELLOW = 2;
+        public static int BLUE   = 3;
+        public static int RED    = 4;
+        public static int CYMBAL = 5;
 
         // Fields
 

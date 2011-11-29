@@ -64,6 +64,8 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
+            BadVibe.initialiseBank();
+
             oldPadState1 = GamePad.GetState(PlayerIndex.One);
             oldPadState2 = GamePad.GetState(PlayerIndex.Two);
             oldKeyState = Keyboard.GetState();
