@@ -129,9 +129,9 @@ namespace Resonance
             //getGoodVibePos();
             Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
             Vector3 badVibePosition = this.Body.Position;
-            Console.WriteLine("BV " + this.Body.Position + "\nGV " + ((GoodVibe)game.World.getObject("Player")).Body.Position);
-            DebugDisplay.update("BV", this.Body.Position.ToString());
-            DebugDisplay.update("GV", ((GoodVibe)game.World.getObject("Player")).Body.Position.ToString());
+            //Console.WriteLine("BV " + this.Body.Position + "\nGV " + ((GoodVibe)game.World.getObject("Player")).Body.Position);
+            //DebugDisplay.update("BV", this.Body.Position.ToString());
+            //DebugDisplay.update("GV", ((GoodVibe)game.World.getObject("Player")).Body.Position.ToString());
 
             Vector3 difference = badVibePosition + goodVibePosition;
             Vector3 differenceangle = new Vector3();

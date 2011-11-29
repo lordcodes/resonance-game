@@ -19,12 +19,14 @@ namespace Resonance
         public static readonly int GOOD_VIBE = 4;
         public static readonly int GROUND = 5;
         public static readonly int MUSHROOM = 6;
+        public static readonly int SHOCKWAVE = 7;
 
         private static GameModel Tree;
         private static GameModel Bad_vibe;
         private static GameModel Good_vibe;
         private static GameModel Ground;
         private static GameModel Mushroom;
+        private static GameModel Shockwave;
 
         private static ContentManager Content;
 
@@ -48,6 +50,7 @@ namespace Resonance
             Good_vibe = new GameModel(Content, "Drawing/Models/truck", 1f, "Drawing/Models/truck", 1f, "");
             Bad_vibe = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "");
             Mushroom = new GameModel(Content, "Drawing/Models/house", 1f, "Drawing/Models/house", 1f, "");
+            Shockwave = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "");
         }
 
         /// <summary>
@@ -61,6 +64,7 @@ namespace Resonance
             if (name == BAD_VIBE) return Bad_vibe;
             if (name == GROUND) return Ground;
             if (name == MUSHROOM) return Mushroom;
+            if (name == SHOCKWAVE) return Shockwave;
             return null;
         }
     }

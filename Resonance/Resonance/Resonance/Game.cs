@@ -187,6 +187,9 @@ namespace Resonance
             //Update bad vibe position
             ((BadVibe)world.getObject("BV0")).moveTowardsGoodVibe();
 
+            // Update shockwaves
+            ((GoodVibe)world.getObject("Player")).updateWaves();
+
             world.update();
             base.Update(gameTime);
             musicHandler.Update();

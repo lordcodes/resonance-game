@@ -16,6 +16,8 @@ namespace Resonance
         protected float rotation;
         private Vector3 position;
 
+        private Game gameRef;
+
         public Object(int modelNum, string name, Game game, Vector3 pos) 
             : base(game)
         {
@@ -23,6 +25,8 @@ namespace Resonance
             identifier = name;
             rotation = 0f;
             position = pos;
+
+            gameRef = game;
         }
 
         public string returnIdentifier()
@@ -40,6 +44,11 @@ namespace Resonance
             {
                 Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix, position, this);
             }
+            else if (this is Shockwave)
+            {
+                Drawing.Draw(gameModelNum, ((Shockwave)this).Transform, ((Shockwave)this).Position, this);
+            }
+
             base.Draw(gameTime);
         }
 
