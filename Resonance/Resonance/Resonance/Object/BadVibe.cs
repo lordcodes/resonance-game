@@ -42,7 +42,7 @@ namespace Resonance
         public void Move()
         {
             float offsetx = 0.01f;
-            float offsety = 0;
+            //float offsety = 0;
             float offsetz = 0.01f;
 
             double binBoundary1 = 0.25;
