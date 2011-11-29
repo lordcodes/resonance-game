@@ -185,6 +185,7 @@ namespace Resonance
             if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H))
             {
                 musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
             }
 #endif
 

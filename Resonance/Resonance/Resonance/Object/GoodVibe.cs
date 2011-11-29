@@ -11,6 +11,9 @@ namespace Resonance
     {
         int health; //health stored as an int between 0 - 100.
 
+        // Resonance waves which currently exist
+        List<Shockwave> waves;
+
         /// <summary>
         /// Constructor
         /// Set initial health to 100
@@ -18,6 +21,8 @@ namespace Resonance
         public GoodVibe(int modelNum, String name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
         {
+            waves = new List<Shockwave>();
+
             health = 100;
         }
                
@@ -55,6 +60,19 @@ namespace Resonance
         public int GetHealth()
         {
             return health;
+        }
+
+        public void createShockwave(int colour)
+        {
+        }
+
+        public void removeWaves()
+        {
+            foreach (Shockwave w in waves) {
+                if (w.Radius >= Shockwave.MAX_RADIUS) {
+                    waves.Remove(w);
+                }
+            }
         }
     }
 }
