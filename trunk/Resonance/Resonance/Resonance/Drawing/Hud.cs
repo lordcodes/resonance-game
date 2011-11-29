@@ -70,10 +70,10 @@ namespace Resonance
             resetGraphics();
         }
 
-        public void drawBadVibeHealth(String name, int health, Vector2 coords)
+        public void drawBadVibeHealth(String name, string armour, Vector2 coords)
         {
             spriteBatch.Begin();
-            spriteBatch.DrawString(font, name+": "+health, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, armour, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.End();
             resetGraphics();
         }
@@ -90,16 +90,32 @@ namespace Resonance
             resetGraphics();
         }
 
-        public void updateEnemy(string name, Vector3 pos, int health)
+        public void updateEnemy(string name, Vector3 pos, List<int> armour)
         {
+
+            string armourString = "";
+
+            for (int i = 0; i < armour.Count; i++)
+            {
+                if (i != 0) armourString += " ";
+                if (Shockwave.REST == armour[i]) armourString += "_";
+                if (Shockwave.GREEN == armour[i]) armourString += "G";
+                if (Shockwave.YELLOW == armour[i]) armourString += "Y";
+                if (Shockwave.BLUE == armour[i]) armourString += "B";
+                if (Shockwave.RED == armour[i]) armourString += "R";
+                if (Shockwave.CYMBAL == armour[i]) armourString += "C";
+            }
+
+            int xOffset = (int)Math.Round(font.MeasureString(armourString).X/2);
+
             Vector2 newpos = new Vector2(500 + pos.X , 200+ pos.Z);
             Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.8f, pos.Z-0.3f), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
-            Vector2 screenPosition = new Vector2(projectedPosition.X-20, projectedPosition.Y);
+            Vector2 screenPosition = new Vector2(projectedPosition.X-xOffset, projectedPosition.Y);
 
             if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
             else dictionary.Add(name, newpos);
-            
-            drawBadVibeHealth(name, health, screenPosition);
+
+            drawBadVibeHealth(name, armourString, screenPosition);
         }
 
         private void drawHealthBar()
