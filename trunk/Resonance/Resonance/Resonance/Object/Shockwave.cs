@@ -12,15 +12,17 @@ namespace Resonance
 
         public static double INITIAL_RADIUS = 0.1;
 
+        public static double GROWTH_RATE = 0.01;
+
         // Size at which wave 'dies'
-        public static double MAX_RADIUS = 2.0;
+        public static double MAX_RADIUS = 1.5;
 
         // Colours
         public static int GREEN  = 0;
-        public static int YELLOW = 0;
-        public static int BLUE   = 0;
-        public static int RED    = 0;
-        public static int CYMBAL = 0;
+        public static int YELLOW = 1;
+        public static int BLUE   = 2;
+        public static int RED    = 3;
+        public static int CYMBAL = 4;
 
         // Fields
 
@@ -29,6 +31,12 @@ namespace Resonance
 
         // List of Bad Vibes which this shockwave has already hit
         List<BadVibe> bVibes;
+
+        // Location
+        Vector3 position;
+
+        // WorldTransform
+        Matrix transform;
 
         // Properties
 
@@ -40,10 +48,29 @@ namespace Resonance
             }
         }
 
-        public Shockwave(int modelNum, String name, Game game, Vector3 pos)
+        public Vector3 Position
+        {
+            get
+            {
+                return position;
+            }
+        }
+
+        public Matrix Transform
+        {
+            get
+            {
+                return transform;
+            }
+        }
+
+        public Shockwave(int modelNum, String name, Game game, Vector3 pos, Matrix t)
             : base(modelNum, name, game, pos)
         {
+            position = new Vector3(pos.X, pos.Y, pos.Z);
             radius = INITIAL_RADIUS;
+
+            transform = t;
 
             bVibes = new List<BadVibe>();
         }
@@ -51,6 +78,14 @@ namespace Resonance
 
         // Methods
 
+        public void grow()
+        {
+            radius += GROWTH_RATE;
 
+            Matrix scale = Matrix.CreateScale((float) (1.0f + GROWTH_RATE), 1.0f, (float) (1.0f + GROWTH_RATE));
+            transform = Matrix.Multiply(transform, scale);
+            Matrix translate = Matrix.CreateTranslation((float) -GROWTH_RATE * position.X, 0.0f, (float) -GROWTH_RATE * position.Z);
+            transform = Matrix.Multiply(transform, translate);
+        }
     }
 }

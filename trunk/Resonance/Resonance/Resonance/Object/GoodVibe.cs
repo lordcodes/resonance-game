@@ -9,10 +9,19 @@ namespace Resonance
 {
     class GoodVibe : DynamicObject
     {
+        Game gameRef;
+
         int health; //health stored as an int between 0 - 100.
 
         // Resonance waves which currently exist
         List<Shockwave> waves;
+
+        public int WaveCount {
+            get
+            {
+                return waves.Count;
+            }
+        }
 
         /// <summary>
         /// Constructor
@@ -21,6 +30,7 @@ namespace Resonance
         public GoodVibe(int modelNum, String name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
         {
+            gameRef = game;
             waves = new List<Shockwave>();
 
             health = 100;
@@ -64,14 +74,32 @@ namespace Resonance
 
         public void createShockwave(int colour)
         {
+            Shockwave w = new Shockwave(GameModels.SHOCKWAVE, "Wave", gameRef, this.Body.Position, this.Body.WorldTransform);
+            waves.Add(w);
+            gameRef.Components.Add(w);
         }
 
-        public void removeWaves()
+        public void updateWaves()
         {
-            foreach (Shockwave w in waves) {
-                if (w.Radius >= Shockwave.MAX_RADIUS) {
-                    waves.Remove(w);
+            foreach (Shockwave w in waves)
+            {
+                w.grow();
+            }
+
+            removeWaves();
+        }
+
+        private void removeWaves()
+        {
+            for (int i = 0; i < waves.Count; i++)
+            {
+                if (waves[i].Radius >= Shockwave.MAX_RADIUS)
+                {
+                    gameRef.Components.Remove(waves[i]);
+                    waves.RemoveAt(i);
                 }
+
+                if (i + 1 == waves.Count) break;
             }
         }
     }
