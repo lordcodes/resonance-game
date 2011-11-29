@@ -156,7 +156,7 @@ namespace Resonance
         {
         }
 
-        int GetHealth()
+        public int GetHealth()
         {
             return health;
         }
