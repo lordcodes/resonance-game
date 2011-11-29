@@ -14,12 +14,16 @@ namespace Resonance
         int previousDirection;  //Remembers the previous movement direction 
         //TODO: change to enum 
 
+        ArmourSequence armour;
+
         public BadVibe(int modelNum, String name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
         {
             this.game = game;
             health = 100;
             previousDirection = -1;
+
+            armour = ArmourSequence.random();
         }
 
         void AdjustHealth(int change)
@@ -159,6 +163,81 @@ namespace Resonance
         public int GetHealth()
         {
             return health;
+        }
+
+        public static void initialiseBank()
+        {
+            if (!ArmourSequence.initialised)
+            {
+                ArmourSequence.initialiseBank();
+            }
+        }
+
+        private class ArmourSequence
+        {
+            // Constants
+
+            static List<ArmourSequence> bank = new List<ArmourSequence>();
+
+            // Number of sequences
+            static int COUNT = 2;
+
+            // Fields
+
+            public static Boolean initialised = false; 
+
+            List<int> sequence;
+
+            // Constructor
+
+            /*public ArmourSequence() {
+                sequence = new List<int>();
+            }*/
+
+            private ArmourSequence(int[] seq)
+            {
+                sequence = new List<int>();
+
+                for (int i = 0; i < seq.Length; i++)
+                {
+                    sequence.Add(seq[i]);
+                }
+            }
+
+            private List<int> Sequence {
+                get
+                {
+                    return sequence;
+                }
+            }
+
+            public static ArmourSequence random()
+            {
+                Random generator = new Random();
+                int x = generator.Next();
+                x %= COUNT;
+
+                return new ArmourSequence(bank[x].Sequence.ToArray());
+            }
+
+            // Layer bank
+            public static void initialiseBank() {
+                initialised = true;
+                //Random x = new Random();
+                //x %=
+
+                // Easy
+                {
+                    int[] seq = {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5};
+                    bank.Add(new ArmourSequence(seq));
+                }
+
+                {
+                    int[] seq = {1, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5};
+                    bank.Add(new ArmourSequence(seq));
+                }
+            }
+
         }
     }
 }
