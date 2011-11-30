@@ -212,8 +212,7 @@ namespace Resonance
             UpdateGoodVibePosition();
 
             //Update bad vibe position
-            //((BadVibe)world.getObject("BV0")).moveTowardsGoodVibe();
-            //((BadVibe)world.getObject("BV0")).Move();
+            moveBadVibes();
 
             // Update shockwaves
             ((GoodVibe)world.getObject("Player")).updateWaves();
@@ -378,6 +377,21 @@ namespace Resonance
             {
                 World.removeObject(World.getObject(deadVibes[i]));
                 musicHandler.playSound("beast_dying");
+            }
+        }
+
+        /// <summary>
+        /// Find all the living bad vibes and move them
+        /// </summary>
+        private void moveBadVibes()
+        {
+            foreach (KeyValuePair<string, Object> pair in World.returnObjects())
+            {
+                if (pair.Value is BadVibe)
+                {
+                    BadVibe vibe = (BadVibe)pair.Value;
+                    if (vibe.Dead == false) vibe.Move();
+                }
             }
         }
 
