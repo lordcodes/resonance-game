@@ -19,7 +19,7 @@ namespace Resonance
         private WaveBank waveBank;
         private SoundBank soundBank;
 
-        Boolean autoPlayMusic = false;
+        bool autoPlayMusic = false;
 
         public MusicHandler(ContentManager newContent)
         {
