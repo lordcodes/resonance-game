@@ -19,12 +19,16 @@ namespace Resonance
         private WaveBank waveBank;
         private SoundBank soundBank;
 
+        Boolean autoPlayMusic = false;
+
         public MusicHandler(ContentManager newContent)
         {
             bgMusic = new MusicTrack(newContent);
             audioEngine = new AudioEngine("Content/SoundProject.xgs");
             waveBank = new WaveBank(audioEngine, "Content/Wave Bank.xwb");
             soundBank = new SoundBank(audioEngine, "Content/Sound Bank.xsb");
+
+            if (autoPlayMusic == true) bgMusic.playTrack();
         }
 
         /// <summary>
