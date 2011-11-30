@@ -26,7 +26,6 @@ namespace Resonance
         KeyboardState oldKeyState;
 
         World world;
-        Vector4 goodVibePos;
 
         public Game()
         {
@@ -120,8 +119,6 @@ namespace Resonance
             //world.addObject(tree);
             //world.addObject(mush);
             //world.addObject(bv);
-
-            goodVibePos = new Vector4(0, 0.65f, 6f, (float)(Math.PI * 0.25));
             
             //StoredObjects obj = Content.Load<StoredObjects>("Level1");
             //world.addObject(bv2);
@@ -289,9 +286,6 @@ namespace Resonance
                     {
                         ((DynamicObject)(world.getObject("Player"))).move(forwardSpeed);
                     }
-                    goodVibePos.X = -10f;
-                    goodVibePos.Y = 2f;
-                    goodVibePos.Z = -10f;
                 }
             }
             else
@@ -304,9 +298,6 @@ namespace Resonance
                 if (x == 0 && y > 0)
                 {
                    ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
-                   goodVibePos.X = -10f;
-                   goodVibePos.Y = 2f;
-                   goodVibePos.Z = -10f;
                 }
                 if (x == 0 && y < 0)
                 {
