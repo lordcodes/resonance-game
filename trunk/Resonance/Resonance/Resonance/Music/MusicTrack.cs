@@ -124,17 +124,17 @@ namespace Resonance
                         if (time > (beatTime - WINDOW))
                         {
                             //HIT
-                            Console.WriteLine("HIT1");
+                            //Console.WriteLine("HIT1");
                         }
                         else if (time < lastBeatTime + WINDOW)
                         {
                             //HIT
-                            Console.WriteLine("HIT2");
+                            //Console.WriteLine("HIT2");
                         }
                         else
                         {
                             //MISS
-                            Console.WriteLine("MISS");
+                            //Console.WriteLine("MISS");
                         }
                         break;
                     }

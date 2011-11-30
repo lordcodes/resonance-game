@@ -17,13 +17,13 @@ namespace Resonance
         public static double MAX_RADIUS = 2.5;
 
         // Colours
-        public static int REST   = 0;
+        public const int REST   = 0;
 
-        public static int GREEN  = 1;
-        public static int YELLOW = 2;
-        public static int BLUE   = 3;
-        public static int RED    = 4;
-        public static int CYMBAL = 5;
+        public const int GREEN  = 1;
+        public const int YELLOW = 2;
+        public const int BLUE   = 3;
+        public const int RED    = 4;
+        public const int CYMBAL = 5;
 
         // Fields
 
@@ -32,9 +32,10 @@ namespace Resonance
 
         // List of Bad Vibes which this shockwave has already hit
         List<BadVibe> bVibes;
-
         // Location
         Vector3 position;
+        Game game;
+        int colour;
 
         // WorldTransform
         Matrix transform;
@@ -65,9 +66,11 @@ namespace Resonance
             }
         }
 
-        public Shockwave(int modelNum, String name, Game game, Vector3 pos, Matrix t)
+        public Shockwave(int modelNum, String name, Game game, Vector3 pos, Matrix t, int colour)
             : base(modelNum, name, game, pos)
         {
+            this.game = game;
+            this.colour = colour;
             position = new Vector3(pos.X, pos.Y, pos.Z);
             radius = INITIAL_RADIUS;
             transform = t;
@@ -90,6 +93,33 @@ namespace Resonance
             transform = Matrix.Multiply(transform, scale);
             Matrix translate = Matrix.CreateTranslation((float) -GROWTH_RATE * position.X, 0.0f, (float) -GROWTH_RATE * position.Z);
             transform = Matrix.Multiply(transform, translate);
+        }
+
+        public void checkBadVibes()
+        {
+            Dictionary<string,Object> objects = game.World.returnObjects();
+            foreach (KeyValuePair<string,Object> pair in objects)
+            {
+                if (pair.Value is BadVibe)
+                {
+                    BadVibe vibe = (BadVibe)pair.Value;
+
+                    if(!bVibes.Contains(vibe)) {
+                        
+                        double dx = Position.X - vibe.Body.Position.X;
+                        double dz = Position.Z - vibe.Body.Position.Z;
+                        double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                        d = Math.Sqrt(d);
+
+                        if (BadVibe.RADIUS + Radius >= d)
+                        {
+                            //Collision
+                            bVibes.Add(vibe);
+                            //damage BV
+                        }
+                    }
+                }
+            }
         }
     }
 }

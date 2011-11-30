@@ -74,7 +74,36 @@ namespace Resonance
 
         public void createShockwave(int colour)
         {
-            Shockwave w = new Shockwave(GameModels.SHOCKWAVE, "Wave", gameRef, this.Body.Position, this.Body.WorldTransform);
+            string waveName = "";
+            switch(colour) 
+            {
+                case Shockwave.GREEN:
+                    {
+                        waveName = "GREEN";
+                        break;
+                    }
+                case Shockwave.YELLOW:
+                    {
+                        waveName = "YELLOW";
+                        break;
+                    }
+                case Shockwave.BLUE:
+                    {
+                        waveName = "BLUE";
+                        break;
+                    }
+                case Shockwave.RED:
+                    {
+                        waveName = "RED";
+                        break;
+                    }
+                case Shockwave.CYMBAL:
+                    {
+                        waveName = "CYMBAL";
+                        break;
+                    }
+            }
+            Shockwave w = new Shockwave(GameModels.SHOCKWAVE, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
             waves.Add(w);
             gameRef.Components.Add(w);
         }
@@ -84,6 +113,7 @@ namespace Resonance
             foreach (Shockwave w in waves)
             {
                 w.grow();
+                w.checkBadVibes();
             }
 
             removeWaves();
