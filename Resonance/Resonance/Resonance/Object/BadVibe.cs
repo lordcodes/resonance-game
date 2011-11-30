@@ -177,8 +177,8 @@ namespace Resonance
             Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
             Vector3 badVibePosition = this.Body.Position;
             double xDiff = Math.Abs(goodVibePosition.X - badVibePosition.X);
-            double yDiff = Math.Abs(goodVibePosition.Y - badVibePosition.Y);
-            double distance = Math.Sqrt(Math.Pow(xDiff,2) + Math.Pow(yDiff,2));
+            double zDiff = Math.Abs(goodVibePosition.Z - badVibePosition.Z);
+            double distance = Math.Sqrt(Math.Pow(xDiff,2) + Math.Pow(zDiff,2));
             return distance;
         }
 
