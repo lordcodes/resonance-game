@@ -75,35 +75,40 @@ namespace Resonance
         public void createShockwave(int colour)
         {
             string waveName = "";
+            Shockwave w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
             switch(colour) 
             {
                 case Shockwave.GREEN:
                     {
                         waveName = "GREEN";
+                        w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.YELLOW:
                     {
                         waveName = "YELLOW";
+                        w = new Shockwave(GameModels.SHOCKWAVE_YELLOW, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.BLUE:
                     {
                         waveName = "BLUE";
+                        w = new Shockwave(GameModels.SHOCKWAVE_BLUE, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.RED:
                     {
                         waveName = "RED";
+                        w = new Shockwave(GameModels.SHOCKWAVE_RED, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.CYMBAL:
                     {
                         waveName = "CYMBAL";
+                        w = new Shockwave(GameModels.SHOCKWAVE_CYMBAL, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
             }
-            Shockwave w = new Shockwave(GameModels.SHOCKWAVE, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
             waves.Add(w);
             gameRef.Components.Add(w);
         }

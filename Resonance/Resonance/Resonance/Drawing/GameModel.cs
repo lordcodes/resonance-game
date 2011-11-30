@@ -27,6 +27,10 @@ namespace Resonance
             {
                 return Texture;
             }
+            set
+            {
+                Texture = value;
+            }
         }
 
         public Matrix[] modelTransforms
