@@ -177,7 +177,6 @@ namespace Resonance
             if (keyboardState.IsKeyDown(Keys.S))
             {
                 musicHandler.getTrack().stopTrack();
-                musicHandler.playCollision();
             }
             if (keyboardState.IsKeyDown(Keys.P))
             {
@@ -378,6 +377,7 @@ namespace Resonance
             for (int i = 0; i < deadVibes.Count; i++)
             {
                 World.removeObject(World.getObject(deadVibes[i]));
+                musicHandler.playSound("beast_dying");
             }
         }
 
