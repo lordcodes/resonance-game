@@ -210,8 +210,19 @@ namespace Resonance
         {
             // Constants
 
-            static List<ArmourSequence> bank = new List<ArmourSequence>(); //the bank of armour sequences
-            static int COUNT; // Number of sequences
+            static List<ArmourSequence> bank          = new List<ArmourSequence>(); //the bank of armour sequences
+            static List<ArmourSequence> beginnerBank  = new List<ArmourSequence>(); //the bank of armour sequences
+            static List<ArmourSequence> easyBank      = new List<ArmourSequence>(); //the bank of armour sequences
+            static List<ArmourSequence> mediumBank    = new List<ArmourSequence>(); //the bank of armour sequences
+            static List<ArmourSequence> hardBank      = new List<ArmourSequence>(); //the bank of armour sequences
+            static List<ArmourSequence> expertBank    = new List<ArmourSequence>(); //the bank of armour sequences
+
+            static int COUNT;          // Number of sequences
+            static int BEGINNER_COUNT; // Number of sequences
+            static int EASY_COUNT;     // Number of sequences
+            static int MEDIUM_COUNT;   // Number of sequences
+            static int HARD_COUNT;     // Number of sequences
+            static int EXPERT_COUNT;   // Number of sequences
 
             // Fields
 
@@ -249,9 +260,34 @@ namespace Resonance
             {
                 Random generator = new Random();
                 int x = generator.Next();
-                x %= COUNT;
 
-                return new ArmourSequence(bank[x].Sequence.ToArray());
+                if (Resonance.Game.DIFFICULTY == Resonance.Game.BEGINNER)
+                {
+                    x %= BEGINNER_COUNT;
+                    return new ArmourSequence(beginnerBank[x].Sequence.ToArray());
+                }
+                else if (Resonance.Game.DIFFICULTY == Resonance.Game.EASY)
+                {
+                    x %= EASY_COUNT;
+                    return new ArmourSequence(easyBank[x].Sequence.ToArray());
+                }
+                else if (Resonance.Game.DIFFICULTY == Resonance.Game.MEDIUM)
+                {
+                    x %= MEDIUM_COUNT;
+                    return new ArmourSequence(mediumBank[x].Sequence.ToArray());
+                }
+                else if (Resonance.Game.DIFFICULTY == Resonance.Game.HARD)
+                {
+                    x %= HARD_COUNT;
+                    return new ArmourSequence(hardBank[x].Sequence.ToArray());
+                }
+                else if (Resonance.Game.DIFFICULTY == Resonance.Game.EXPERT)
+                {
+                    x %= EXPERT_COUNT;
+                    return new ArmourSequence(expertBank[x].Sequence.ToArray());
+                }
+
+                return new ArmourSequence(beginnerBank[x].Sequence.ToArray());
             }
 
             /// <summary>
@@ -276,26 +312,105 @@ namespace Resonance
             /// </summary>
             public static void initialiseBank() {
                 initialised = true;
+
+                initialiseBeginner();
+                initialiseEasy();
+                initialiseMedium();
+                initialiseHard();
+                initialiseExpert();
+
                 COUNT = 0;
-                //Random x = new Random();
-                //x %=
-
-                // Easy
-                /*{
-                    int[] seq = {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5};
-                    bank.Add(new ArmourSequence(seq));
-                }
-
-                {
-                    int[] seq = {1, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5};
-                    bank.Add(new ArmourSequence(seq));
-                }*/
                 {
                     int[] seq = { 1, 1, 2, 2, 3, 3, 4, 4, 1, 2, 3, 4, 5 };
                     bank.Add(new ArmourSequence(seq));
                     COUNT++;
                 }
             }
+
+                private static void initialiseBeginner()
+                {
+                    BEGINNER_COUNT = 0;
+
+                    {
+                        int[] seq = { 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5 };
+                        beginnerBank.Add(new ArmourSequence(seq));
+                        BEGINNER_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5 };
+                        beginnerBank.Add(new ArmourSequence(seq));
+                        BEGINNER_COUNT++;
+                    }
+                }
+
+                private static void initialiseEasy()
+                {
+                    EASY_COUNT = 0;
+
+                    {
+                        int[] seq = { 1, 0, 1, 0, 1, 0, 1, 0, 2, 0, 3, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 0, 2, 0, 3, 0, 2, 0, 1, 0, 4, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
+                }
+
+                private static void initialiseMedium()
+                {
+                    MEDIUM_COUNT = 0;
+
+                    {
+                        int[] seq = { 1, 1, 1, 1, 3, 3, 3, 3, 4, 4, 4, 4, 5 };
+                        mediumBank.Add(new ArmourSequence(seq));
+                        MEDIUM_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 2, 0, 1, 0, 2, 0, 1, 0, 3, 3, 4, 0, 5 };
+                        mediumBank.Add(new ArmourSequence(seq));
+                        MEDIUM_COUNT++;
+                    }
+                }
+
+                private static void initialiseHard()
+                {
+                    HARD_COUNT = 0;
+
+                    {
+                        int[] seq = { 2, 2, 3, 3, 2, 2, 3, 0, 1, 1, 2, 1, 5 };
+                        hardBank.Add(new ArmourSequence(seq));
+                        HARD_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 1, 1, 0, 2, 1, 1, 0, 3, 3, 3, 4, 5 };
+                        hardBank.Add(new ArmourSequence(seq));
+                        HARD_COUNT++;
+                    }
+                }
+
+                private static void initialiseExpert()
+                {
+                    EXPERT_COUNT = 0;
+
+                    {
+                        int[] seq = { 3, 2, 4, 2, 4, 2, 3, 0, 2, 1, 0, 2, 5 };
+                        expertBank.Add(new ArmourSequence(seq));
+                        EXPERT_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 4, 1, 2, 1, 3, 2, 3, 2, 0, 1, 0, 1, 5 };
+                        expertBank.Add(new ArmourSequence(seq));
+                        EXPERT_COUNT++;
+                    }
+                }
 
         }
     }
