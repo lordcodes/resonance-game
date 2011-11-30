@@ -205,7 +205,7 @@ namespace Resonance
 
             //Update bad vibe position
             //((BadVibe)world.getObject("BV0")).moveTowardsGoodVibe();
-            ((BadVibe)world.getObject("BV0")).Move();
+            //((BadVibe)world.getObject("BV0")).Move();
 
             // Update shockwaves
             ((GoodVibe)world.getObject("Player")).updateWaves();
@@ -213,6 +213,7 @@ namespace Resonance
             world.update();
             base.Update(gameTime);
             musicHandler.Update();
+            removeDeadBadVibes();
 
             //Cache the previous key state.
             oldPadState1 = playerOne;
@@ -349,6 +350,23 @@ namespace Resonance
             }
             Vector3 pos = ((DynamicObject)(world.getObject("Player"))).Body.Position;
             Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
+        }
+
+        private void removeDeadBadVibes()
+        {
+            List<string> deadVibes = new List<string>();
+
+            foreach (KeyValuePair<string, Object> pair in World.returnObjects())
+            {
+                if(pair.Value is BadVibe) {
+                    BadVibe vibe = (BadVibe)pair.Value;
+                    if (vibe.Dead == true) deadVibes.Add(pair.Key);
+                }
+            }
+            for (int i = 0; i < deadVibes.Count; i++)
+            {
+                World.removeObject(World.getObject(deadVibes[i]));
+            }
         }
 
         /// <summary>

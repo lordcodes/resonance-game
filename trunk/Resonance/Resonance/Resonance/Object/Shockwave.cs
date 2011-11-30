@@ -115,7 +115,7 @@ namespace Resonance
                         {
                             //Collision
                             bVibes.Add(vibe);
-                            //damage BV
+                            vibe.damage(colour);
                         }
                     }
                 }
