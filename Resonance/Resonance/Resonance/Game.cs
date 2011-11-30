@@ -22,6 +22,9 @@ namespace Resonance
         public static int MEDIUM   = 2;
         public static int HARD     = 3;
         public static int EXPERT   = 4;
+        public static int INSANE   = 5;
+
+        public static int DIFFICULTY = EASY;
 
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
@@ -32,8 +35,6 @@ namespace Resonance
         KeyboardState oldKeyState;
 
         World world;
-
-        public static int DIFFICULTY = EASY;
 
         public Game()
         {

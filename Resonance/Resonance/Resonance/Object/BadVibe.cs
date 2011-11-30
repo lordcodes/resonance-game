@@ -286,6 +286,9 @@ namespace Resonance
                     x %= EXPERT_COUNT;
                     return new ArmourSequence(expertBank[x].Sequence.ToArray());
                 }
+                else if (Resonance.Game.DIFFICULTY == Resonance.Game.INSANE) {
+                    return generateRandom();
+                }
 
                 return new ArmourSequence(beginnerBank[x].Sequence.ToArray());
             }
@@ -300,6 +303,23 @@ namespace Resonance
                     sequence.RemoveAt(0);
                 }
                 if (sequence.Count == 0) vibe.kill();
+            }
+
+
+            private static ArmourSequence generateRandom()
+            {
+                Random generator = new Random();
+
+                int[] seq = new int[13];
+
+                for (int i = 0; i < 12; i++)
+                {
+                    seq[i] = generator.Next() % 5;
+                }
+
+                seq[12] = Shockwave.CYMBAL;
+
+                return new ArmourSequence(seq);
             }
 
 
