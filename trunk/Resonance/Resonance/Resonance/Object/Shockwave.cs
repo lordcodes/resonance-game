@@ -10,12 +10,11 @@ namespace Resonance
     {
         // Constants
 
-        public static double INITIAL_RADIUS = 0.1;
-
-        public static double GROWTH_RATE = 0.01;
+        public static double INITIAL_RADIUS = 0.05;
+        public static double GROWTH_RATE = 0.1;
 
         // Size at which wave 'dies'
-        public static double MAX_RADIUS = 1.5;
+        public static double MAX_RADIUS = 2.5;
 
         // Colours
         public static int REST   = 0;
@@ -71,8 +70,11 @@ namespace Resonance
         {
             position = new Vector3(pos.X, pos.Y, pos.Z);
             radius = INITIAL_RADIUS;
-
             transform = t;
+            Matrix scale = Matrix.CreateScale((float)INITIAL_RADIUS*2, 1.0f, (float)INITIAL_RADIUS*2);
+            transform = Matrix.Multiply(transform, scale);
+            Matrix translate = Matrix.CreateTranslation((float)-(INITIAL_RADIUS*2-1) * position.X, 0.0f, (float)-(INITIAL_RADIUS*2-1) * position.Z);
+            transform = Matrix.Multiply(transform, translate);
 
             bVibes = new List<BadVibe>();
         }
@@ -82,7 +84,7 @@ namespace Resonance
 
         public void grow()
         {
-            radius += GROWTH_RATE;
+            radius *= (1 + GROWTH_RATE);
 
             Matrix scale = Matrix.CreateScale((float) (1.0f + GROWTH_RATE), 1.0f, (float) (1.0f + GROWTH_RATE));
             transform = Matrix.Multiply(transform, scale);
