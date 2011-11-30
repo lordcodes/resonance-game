@@ -64,7 +64,7 @@ namespace Resonance
             //float offsety = 0;
             float offsetz = 0.01f;
             DebugDisplay.update("Distance",getDistance().ToString());
-            if (getDistance() > 3)
+            if (getDistance() > 8)
             {
                 double binBoundary1 = 0.25;
                 double binBoundary2 = 0.5;
@@ -142,6 +142,11 @@ namespace Resonance
                     previousDirection = 3;
                 }
             }
+            else
+            {
+                moveTowardsGoodVibe();
+            }
+
         }
 
         /// <summary>
@@ -149,7 +154,7 @@ namespace Resonance
         /// </summary>
         public void moveTowardsGoodVibe()
         {
-            //getGoodVibePos();
+            /*//getGoodVibePos();
             Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
             Vector3 badVibePosition = this.Body.Position;
             //Console.WriteLine("BV " + this.Body.Position + "\nGV " + ((GoodVibe)game.World.getObject("Player")).Body.Position);
@@ -167,7 +172,24 @@ namespace Resonance
             Vector3 gothisway = differenceangle - rotateVector;
 
             rotate((float)gothisway.Y);
-            move(0.1f);
+            move(0.1f);*/
+
+            // http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/index.htm (equation for rotation)
+            // http://bepu.nfshost.com/forum/viewtopic.php?f=4&t=467&p=4493&hilit=facing+entities+rotate+entity+to+face+entity#p4493
+            Vector3 distanceDifference = getDistanceVector();
+            //Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+            Vector3 badVibeDirection = QuaternionToEuler(this.Body.Orientation);
+            //double xquad = Math.Sign(badVibeDirection.X - distanceDifference.X);
+            //double zquad = Math.Sign(badVibeDirection.Z - distanceDifference.Z);
+            //double dotProduct = Vector3.Dot(distanceDifference,badVibeDirection); //(distanceDifference.X * badVibeDirection.X) + (distanceDifference.Y * badVibeDirection.Y) + (distanceDifference.Z * badVibeDirection.Z);
+            //double theta = Math.Acos(dotProduct/(getDistance()*badVibeDirection.Length()));
+            double theta = Math.Atan2(distanceDifference.Z, distanceDifference.X) - Math.Atan2(badVibeDirection.Z, badVibeDirection.X);
+          
+            DebugDisplay.update("theta =",(theta/Math.PI).ToString());
+            Vector3 velocity = this.Body.AngularVelocity;
+            //this.Body.AngularMomentum = Vector3.Zero;
+            //rotate((float)theta);
+            //return (float)theta;
         }
 
         /// <summary>
@@ -182,6 +204,14 @@ namespace Resonance
             double distance = Math.Sqrt(Math.Pow(xDiff,2) + Math.Pow(zDiff,2));
             return distance;
         }
+
+       Vector3 getDistanceVector()
+       {
+           Vector3 badVibePosition = this.Body.Position;
+           Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+           Vector3 difference = goodVibePosition - badVibePosition;
+           return difference;
+       }
 
         /// <summary>
         /// Gets the position of the Good Vibe
