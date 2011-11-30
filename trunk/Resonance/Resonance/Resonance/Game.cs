@@ -283,6 +283,21 @@ namespace Resonance
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
             }
+            if (playerTwo.Buttons.LeftStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftStick))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
+            }
+            if (playerTwo.Buttons.LeftShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftShoulder))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
+            }
+            if (playerTwo.Buttons.RightShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightShoulder))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
+            }
         }
 
         public World World
