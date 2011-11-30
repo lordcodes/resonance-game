@@ -62,80 +62,84 @@ namespace Resonance
             float offsetx = 0.01f;
             //float offsety = 0;
             float offsetz = 0.01f;
+            DebugDisplay.update("Distance",getDistance().ToString());
+            if (getDistance() > 3)
+            {
+                double binBoundary1 = 0.25;
+                double binBoundary2 = 0.5;
+                double binBoundary3 = 0.75;
+                int total = 0;
+                byte[] Unicode = Encoding.Unicode.GetBytes(this.returnIdentifier());
+                foreach (byte x in Unicode)
+                {
+                    total += x;
+                }
+                Random r = new Random((int)DateTime.Now.Ticks * total);
+                double direction = r.NextDouble();
 
-            double binBoundary1 = 0.25;
-            double binBoundary2 = 0.5;
-            double binBoundary3 = 0.75;
-            int total = 0;
-            byte[] Unicode = Encoding.Unicode.GetBytes(this.returnIdentifier());
-            foreach (byte x in Unicode ){
-                total+= x;
-            }
-            Random r = new Random((int)DateTime.Now.Ticks*total);
-            double direction = r.NextDouble();
+                offsetx = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
+                offsetz = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
 
-            offsetx = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
-            offsetz = (float)r.NextDouble() * (0.05f- 0.01f) + 0.01f;
+                //Probability of direction change
+                switch (previousDirection)
+                {
+                    case 0:
+                        {
+                            binBoundary1 = 0.97;
+                            binBoundary2 = 0.98;
+                            binBoundary3 = 0.99;
+                            break;
+                        }
+                    case 1:
+                        {
+                            binBoundary1 = 0.01;
+                            binBoundary2 = 0.98;
+                            binBoundary3 = 0.99;
+                            break;
+                        }
+                    case 2:
+                        {
+                            binBoundary1 = 0.01;
+                            binBoundary2 = 0.02;
+                            binBoundary3 = 0.99;
+                            break;
+                        }
+                    case 3:
+                        {
+                            binBoundary1 = 0.01;
+                            binBoundary2 = 0.02;
+                            binBoundary3 = 0.03;
+                            break;
+                        }
+                    default:
+                        {
+                            break;
+                        }
+                }
 
-            //Probability of direction change
-            switch (previousDirection)
-            {
-                case 0:
-                    {
-                        binBoundary1 = 0.97;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 1:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 2:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 3:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.03;
-                        break;
-                    }
-                default:
-                    {
-                        break;
-                    }
-            } 
-
-            //Movement
-            if (direction < binBoundary1)
-            {
-                previousDirection = 0;
-                move(0.1f);
-            }
-            else if (direction < binBoundary2)
-            {
-                move(-0.2f);
-                previousDirection = 1;
-            }
-            else if (direction < binBoundary3)
-            {
-                move(0.1f);
-                rotate(0.2f);
-                previousDirection = 2;
-            }
-            else
-            {
-                move(0.1f);
-                rotate(-0.2f);
-                previousDirection = 3;
+                //Movement
+                if (direction < binBoundary1)
+                {
+                    previousDirection = 0;
+                    move(0.1f);
+                }
+                else if (direction < binBoundary2)
+                {
+                    move(-0.2f);
+                    previousDirection = 1;
+                }
+                else if (direction < binBoundary3)
+                {
+                    move(0.1f);
+                    rotate(0.2f);
+                    previousDirection = 2;
+                }
+                else
+                {
+                    move(0.1f);
+                    rotate(-0.2f);
+                    previousDirection = 3;
+                }
             }
         }
 
@@ -163,6 +167,19 @@ namespace Resonance
 
             rotate((float)gothisway.Y);
             move(0.1f);
+        }
+
+        /// <summary>
+        /// Calculates the difference between good vibe and bad vibe
+        /// </summary>
+        double getDistance()
+        {
+            Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+            Vector3 badVibePosition = this.Body.Position;
+            double xDiff = Math.Abs(goodVibePosition.X - badVibePosition.X);
+            double yDiff = Math.Abs(goodVibePosition.Y - badVibePosition.Y);
+            double distance = Math.Sqrt(Math.Pow(xDiff,2) + Math.Pow(yDiff,2));
+            return distance;
         }
 
         /// <summary>
