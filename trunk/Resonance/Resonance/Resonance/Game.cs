@@ -17,6 +17,12 @@ namespace Resonance
     /// </summary>
     class Game : Microsoft.Xna.Framework.Game
     {
+        public static int BEGINNER = 0;
+        public static int EASY     = 1;
+        public static int MEDIUM   = 2;
+        public static int HARD     = 3;
+        public static int EXPERT   = 4;
+
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
 
@@ -26,6 +32,8 @@ namespace Resonance
         KeyboardState oldKeyState;
 
         World world;
+
+        public static int DIFFICULTY = EASY;
 
         public Game()
         {
