@@ -9,6 +9,8 @@ namespace Resonance
 {
     class BadVibe : DynamicObject
     {
+        public const double RADIUS = 0.5;
+
         Game game;
         int previousDirection;  //Remembers the previous movement direction 
         //TODO: change to enum 
@@ -161,6 +163,12 @@ namespace Resonance
             }
         }
 
+
+
+
+        /// <summary>
+        /// Armour Sequence nested class
+        /// </summary>
         private class ArmourSequence
         {
             // Constants
@@ -168,7 +176,7 @@ namespace Resonance
             static List<ArmourSequence> bank = new List<ArmourSequence>();
 
             // Number of sequences
-            static int COUNT = 2;
+            static int COUNT;
 
             // Fields
 
@@ -210,11 +218,12 @@ namespace Resonance
             // Layer bank
             public static void initialiseBank() {
                 initialised = true;
+                COUNT = 0;
                 //Random x = new Random();
                 //x %=
 
                 // Easy
-                {
+                /*{
                     int[] seq = {1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5};
                     bank.Add(new ArmourSequence(seq));
                 }
@@ -222,6 +231,11 @@ namespace Resonance
                 {
                     int[] seq = {1, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5};
                     bank.Add(new ArmourSequence(seq));
+                }*/
+                {
+                    int[] seq = { 1, 1, 2, 2, 3, 3, 4, 4, 1, 2, 3, 4, 5 };
+                    bank.Add(new ArmourSequence(seq));
+                    COUNT++;
                 }
             }
 

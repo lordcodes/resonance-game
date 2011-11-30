@@ -174,17 +174,38 @@ namespace Resonance
             {
                 musicHandler.getTrack().pauseTrack();
             }
-            if (keyboardState.IsKeyDown(Keys.H) && !oldKeyState.IsKeyDown(Keys.H))
+            if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
+            }
+            if (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
+            }
+            if (keyboardState.IsKeyDown(Keys.C) && !oldKeyState.IsKeyDown(Keys.C))
             {
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
+            }
+            if (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
+            }
+            if (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
             }
 
             //Update graphics
             UpdateGoodVibePosition();
 
             //Update bad vibe position
-            ((BadVibe)world.getObject("BV0")).moveTowardsGoodVibe();
+            //((BadVibe)world.getObject("BV0")).moveTowardsGoodVibe();
+            ((BadVibe)world.getObject("BV0")).Move();
 
             // Update shockwaves
             ((GoodVibe)world.getObject("Player")).updateWaves();

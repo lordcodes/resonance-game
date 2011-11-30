@@ -35,33 +35,24 @@ namespace Resonance
 
         public void addObject(Object obj)
         {
-            //if (checkPosition(obj.Position, obj.returnIdentifier()) == true)
-            //{
-                objects.Add(obj.returnIdentifier(), obj);
-                if (obj is DynamicObject)
-                {
-                    space.Add(((DynamicObject)obj).Body);
+            objects.Add(obj.returnIdentifier(), obj);
+            if (obj is DynamicObject)
+            {
+                space.Add(((DynamicObject)obj).Body);
                     
-                }
-                else if(obj is StaticObject)
-                {
-                    space.Add(((StaticObject)obj).Body);
-                }
-                game.Components.Add(obj);
-            //}
+            }
+            else if(obj is StaticObject)
+            {
+                space.Add(((StaticObject)obj).Body);
+            }
+            game.Components.Add(obj);
         }
-
-       
-       
 
         //removes the object from the dictionary
         public void removeObject(Object obj)
         {
             objects.Remove(obj.returnIdentifier());
         }
-
-
-        
 
         public Object getObject(String name)
         {
@@ -78,12 +69,10 @@ namespace Resonance
             return objects;
         }
 
-
         public void readXmlFile(string levelName, ContentManager Content)
         {
             
            
         }
-
     }
 }
