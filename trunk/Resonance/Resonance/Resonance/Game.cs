@@ -352,6 +352,9 @@ namespace Resonance
             Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
         }
 
+        /// <summary>
+        /// Find all the dead bad vibes and remove them from the game
+        /// </summary>
         private void removeDeadBadVibes()
         {
             List<string> deadVibes = new List<string>();
