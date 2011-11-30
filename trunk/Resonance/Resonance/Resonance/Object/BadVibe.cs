@@ -302,6 +302,11 @@ namespace Resonance
                 if (sequence[0] == colour) {
                     sequence.RemoveAt(0);
                 }
+                else if (sequence[0] == Shockwave.REST)
+                {
+                    //Deal with rest layer
+                    sequence.RemoveAt(0);
+                }
                 if (sequence.Count == 0) vibe.kill();
             }
 
