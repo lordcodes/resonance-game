@@ -26,6 +26,8 @@ namespace Resonance
         long whenPaused;
         int lastI;
 
+        int currentBeatCount;
+
         const long WINDOW = 45000000;
 
         enum NoteMode { WHOLE, HALF, QUARTER };
@@ -36,7 +38,7 @@ namespace Resonance
             content = newContent;
             song = content.Load<Song>("Music/song");
             state = PlayState.STOPPED;
-            String path = newContent.RootDirectory + "/Music/carcrash.timing";
+            String path = newContent.RootDirectory + "/Music/song.timing";
             mode = NoteMode.QUARTER;
 
             StreamReader reader = new StreamReader(path);
@@ -44,6 +46,7 @@ namespace Resonance
             offset = Convert.ToInt32(reader.ReadLine());
             reader.Close();
             lastI = 0;
+            currentBeatCount = 0;
         }
 
         /// <summary>
@@ -53,6 +56,7 @@ namespace Resonance
         {
             if (state == PlayState.STOPPED)
             {
+                currentBeatCount = 0;
                 state = PlayState.PLAYING;
                 startTime = DateTime.Now.Ticks * 100;
                 MediaPlayer.Play(song);
@@ -87,6 +91,24 @@ namespace Resonance
                 state = PlayState.PAUSED;
                 whenPaused = DateTime.Now.Ticks * 100;
                 MediaPlayer.Pause();
+            }
+        }
+
+        /// <summary>
+        /// Detect if it is on the next quarter beat of music.
+        /// </summary>
+        public bool nextQuarterBeat()
+        {
+            long time = DateTime.Now.Ticks * 100;
+
+            if (time > startTime + offset + (currentBeatCount * beatLength/4))
+            {
+                currentBeatCount++;
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

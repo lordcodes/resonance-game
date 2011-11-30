@@ -214,6 +214,12 @@ namespace Resonance
             //Update bad vibe position
             moveBadVibes();
 
+            //Break rest layers
+            if (musicHandler.getTrack().nextQuarterBeat())
+            {
+                breakRestLayers();
+            }
+
             // Update shockwaves
             ((GoodVibe)world.getObject("Player")).updateWaves();
 
@@ -391,6 +397,24 @@ namespace Resonance
                 {
                     BadVibe vibe = (BadVibe)pair.Value;
                     if (vibe.Dead == false) vibe.Move();
+                }
+            }
+        }
+
+        /// <summary>
+        /// Find all the living bad vibes and move them
+        /// </summary>
+        private void breakRestLayers()
+        {
+            foreach (KeyValuePair<string, Object> pair in World.returnObjects())
+            {
+                if (pair.Value is BadVibe)
+                {
+                    BadVibe vibe = (BadVibe)pair.Value;
+                    if (vibe.Dead == false)
+                    {
+                        vibe.damage(Shockwave.REST);
+                    }
                 }
             }
         }

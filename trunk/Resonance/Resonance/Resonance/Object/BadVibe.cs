@@ -16,7 +16,7 @@ namespace Resonance
         //TODO: change to enum 
 
         ArmourSequence armour;
-        Boolean dead;
+        bool dead;
 
         public BadVibe(int modelNum, String name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
@@ -37,7 +37,7 @@ namespace Resonance
             return armour.Sequence;
         }
 
-        public Boolean Dead
+        public bool Dead
         {
             get
             {
@@ -179,6 +179,10 @@ namespace Resonance
         /// <param name="colour">The colour pf wave that has been attacked with</param>
         public void damage(int colour)
         {
+            if (colour == 0)
+            {
+                Console.WriteLine("woop");
+            }
             armour.breakLayer(colour, this);
         }
 
@@ -226,7 +230,7 @@ namespace Resonance
 
             // Fields
 
-            public static Boolean initialised = false; //whether bank has been initialised
+            public static bool initialised = false; //whether bank has been initialised
             List<int> sequence; //the armour sequence
 
             /// <summary>
@@ -299,12 +303,9 @@ namespace Resonance
             /// <param name="colour">The colour of wave</param>
             public void breakLayer(int colour, BadVibe vibe)
             {
+                Console.WriteLine("COLOUR: " + colour + ", SEQ: "+sequence[0]);
                 if (sequence[0] == colour) {
-                    sequence.RemoveAt(0);
-                }
-                else if (sequence[0] == Shockwave.REST)
-                {
-                    //Deal with rest layer
+                    Console.WriteLine("YES");
                     sequence.RemoveAt(0);
                 }
                 if (sequence.Count == 0) vibe.kill();
