@@ -11,10 +11,10 @@ namespace Resonance
         // Constants
 
         public static double INITIAL_RADIUS = 0.05;
-        public static double GROWTH_RATE = 0.1;
+        public static double GROWTH_RATE = 0.15;
 
         // Size at which wave 'dies'
-        public static double MAX_RADIUS = 2.5;
+        public static double MAX_RADIUS = 3;
 
         // Colours
         public const int REST   = 0;
