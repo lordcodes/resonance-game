@@ -40,8 +40,9 @@ namespace Resonance
             return bgMusic;
         }
 
-        public void playCollision() {
-            soundBank.PlayCue("clunk");
+        public void playSound(string sound)
+        {
+            soundBank.PlayCue(sound);
         }
 
         public void Update()
