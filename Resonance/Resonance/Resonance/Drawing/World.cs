@@ -52,6 +52,11 @@ namespace Resonance
         public void removeObject(Object obj)
         {
             objects.Remove(obj.returnIdentifier());
+            if (obj is BadVibe)
+            {
+                space.Remove(((BadVibe)obj).Body);
+            }
+            game.Components.Remove(obj);
         }
 
         public Object getObject(String name)

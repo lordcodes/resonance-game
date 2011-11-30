@@ -16,20 +16,35 @@ namespace Resonance
         //TODO: change to enum 
 
         ArmourSequence armour;
+        Boolean dead;
 
         public BadVibe(int modelNum, String name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
         {
             this.game = game;
             previousDirection = -1;
+            dead = false;
 
             armour = ArmourSequence.random();
         }
 
+        /// <summary>
+        /// Returns the sequence of armour layers of the Bad Vibe
+        /// </summary>
+        /// <returns></returns>
         public List<int> getLayers()
         {
             return armour.Sequence;
         }
+
+        public Boolean Dead
+        {
+            get
+            {
+                return dead;
+            }
+        }
+
         /// <summary>
         /// Moves the bad vibe in the world randomly
         /// 
@@ -122,11 +137,11 @@ namespace Resonance
                 rotate(-0.2f);
                 previousDirection = 3;
             }
-   
-            //this.Body.Position += new Vector3(offsetx, offsety, offsetz);
-            
         }
 
+        /// <summary>
+        /// Moves Bad Vibe towards Good Vibe
+        /// </summary>
         public void moveTowardsGoodVibe()
         {
             //getGoodVibePos();
@@ -150,11 +165,33 @@ namespace Resonance
             move(0.1f);
         }
 
+        /// <summary>
+        /// Gets the position of the Good Vibe
+        /// </summary>
         void getGoodVibePos()
         { 
             Console.WriteLine(((GoodVibe)game.World.getObject("Player")).Body.Position);
         }
 
+        /// <summary>
+        /// Damage the bad vibe
+        /// </summary>
+        /// <param name="colour">The colour pf wave that has been attacked with</param>
+        public void damage(int colour)
+        {
+            armour.breakLayer(colour, this);
+        }
+
+        private void kill()
+        {
+            dead = true;
+        }
+
+
+
+        /// <summary>
+        /// Initialises the bank of armour sequences
+        /// </summary>
         public static void initialiseBank()
         {
             if (!ArmourSequence.initialised)
@@ -173,23 +210,18 @@ namespace Resonance
         {
             // Constants
 
-            static List<ArmourSequence> bank = new List<ArmourSequence>();
-
-            // Number of sequences
-            static int COUNT;
+            static List<ArmourSequence> bank = new List<ArmourSequence>(); //the bank of armour sequences
+            static int COUNT; // Number of sequences
 
             // Fields
 
-            public static Boolean initialised = false; 
+            public static Boolean initialised = false; //whether bank has been initialised
+            List<int> sequence; //the armour sequence
 
-            List<int> sequence;
-
-            // Constructor
-
-            /*public ArmourSequence() {
-                sequence = new List<int>();
-            }*/
-
+            /// <summary>
+            /// Creates an armour sequence. Constructor.
+            /// </summary>
+            /// <param name="seq">int array of the armour sequence</param>
             private ArmourSequence(int[] seq)
             {
                 sequence = new List<int>();
@@ -199,6 +231,9 @@ namespace Resonance
                 }
             }
 
+            /// <summary>
+            /// Returns the armour sequence
+            /// </summary>
             public List<int> Sequence {
                 get
                 {
@@ -206,6 +241,10 @@ namespace Resonance
                 }
             }
 
+            /// <summary>
+            /// Select a random armour sequence
+            /// </summary>
+            /// <returns></returns>
             public static ArmourSequence random()
             {
                 Random generator = new Random();
@@ -215,7 +254,26 @@ namespace Resonance
                 return new ArmourSequence(bank[x].Sequence.ToArray());
             }
 
-            // Layer bank
+            /// <summary>
+            /// Break the amour layer
+            /// </summary>
+            /// <param name="colour">The colour of wave</param>
+            public void breakLayer(int colour, BadVibe vibe)
+            {
+                if (sequence[0] == colour) {
+                    sequence.RemoveAt(0);
+                }
+                if (sequence.Count == 0) vibe.kill();
+            }
+
+
+
+
+
+
+            /// <summary>
+            /// Initialise the bank of armour sequences
+            /// </summary>
             public static void initialiseBank() {
                 initialised = true;
                 COUNT = 0;
