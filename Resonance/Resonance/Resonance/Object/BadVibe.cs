@@ -26,6 +26,7 @@ namespace Resonance
             dead = false;
 
             armour = ArmourSequence.random();
+            setColour();
         }
 
         /// <summary>
@@ -196,16 +197,45 @@ namespace Resonance
         /// <param name="colour">The colour pf wave that has been attacked with</param>
         public void damage(int colour)
         {
-            if (colour == 0)
-            {
-                Console.WriteLine("woop");
-            }
             armour.breakLayer(colour, this);
+            if (!dead) setColour();
         }
 
         private void kill()
         {
             dead = true;
+        }
+
+        private void setColour()
+        {
+            switch (armour.Sequence[0])
+            {
+                case Shockwave.GREEN:
+                    {
+                        gameModelNum = GameModels.BAD_VIBE_GREEN;
+                        break;
+                    }
+                case Shockwave.YELLOW:
+                    {
+                        gameModelNum = GameModels.BAD_VIBE_YELLOW;
+                        break;
+                    }
+                case Shockwave.BLUE:
+                    {
+                        gameModelNum = GameModels.BAD_VIBE_BLUE;
+                        break;
+                    }
+                case Shockwave.RED:
+                    {
+                        gameModelNum = GameModels.BAD_VIBE_RED;
+                        break;
+                    }
+                case Shockwave.CYMBAL:
+                    {
+                        gameModelNum = GameModels.BAD_VIBE_CYMBAL;
+                        break;
+                    }
+            }
         }
 
 
@@ -320,9 +350,7 @@ namespace Resonance
             /// <param name="colour">The colour of wave</param>
             public void breakLayer(int colour, BadVibe vibe)
             {
-                Console.WriteLine("COLOUR: " + colour + ", SEQ: "+sequence[0]);
                 if (sequence[0] == colour) {
-                    Console.WriteLine("YES");
                     sequence.RemoveAt(0);
                 }
                 if (sequence.Count == 0) vibe.kill();
