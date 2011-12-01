@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using BEPUphysics.Entities;
+using BEPUphysics.Paths.PathFollowing;
 
 namespace Resonance
 {
@@ -12,6 +13,7 @@ namespace Resonance
         public const double RADIUS = 0.5;
 
         Game game;
+        EntityRotator rotator;
         int previousDirection;  //Remembers the previous movement direction 
         //TODO: change to enum 
 
@@ -22,6 +24,7 @@ namespace Resonance
             : base(modelNum, name, game, pos)
         {
             this.game = game;
+            rotator = new EntityRotator(Body);
             previousDirection = -1;
             dead = false;
 
@@ -43,6 +46,14 @@ namespace Resonance
             get
             {
                 return dead;
+            }
+        }
+
+        public EntityRotator Rotator
+        {
+            get
+            {
+                return rotator;
             }
         }
 
