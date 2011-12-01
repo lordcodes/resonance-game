@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using BEPUphysics.Entities;
 using BEPUphysics.Paths.PathFollowing;
+using BEPUphysics;
 
 namespace Resonance
 {
@@ -165,42 +166,16 @@ namespace Resonance
         /// </summary>
         public void moveTowardsGoodVibe()
         {
-            /*//getGoodVibePos();
-            Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
-            Vector3 badVibePosition = this.Body.Position;
-            //Console.WriteLine("BV " + this.Body.Position + "\nGV " + ((GoodVibe)game.World.getObject("Player")).Body.Position);
-            //DebugDisplay.update("BV", this.Body.Position.ToString());
-            //DebugDisplay.update("GV", ((GoodVibe)game.World.getObject("Player")).Body.Position.ToString());
-
-            Vector3 difference = badVibePosition + goodVibePosition;
-            Vector3 differenceangle = new Vector3();
-            differenceangle.Y = (float)Math.Tan(difference.Z / difference.X);
-
-            Quaternion orientation = this.Body.Orientation;
-            Vector3 rotateVector = QuaternionToEuler(orientation);
-
-         
-            Vector3 gothisway = differenceangle - rotateVector;
-
-            rotate((float)gothisway.Y);
-            move(0.1f);*/
-
-            // http://www.euclideanspace.com/maths/algebra/vectors/angleBetween/index.htm (equation for rotation)
-            // http://bepu.nfshost.com/forum/viewtopic.php?f=4&t=467&p=4493&hilit=facing+entities+rotate+entity+to+face+entity#p4493
-            Vector3 distanceDifference = getDistanceVector();
-            //Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
-            Vector3 badVibeDirection = QuaternionToEuler(this.Body.Orientation);
-            //double xquad = Math.Sign(badVibeDirection.X - distanceDifference.X);
-            //double zquad = Math.Sign(badVibeDirection.Z - distanceDifference.Z);
-            //double dotProduct = Vector3.Dot(distanceDifference,badVibeDirection); //(distanceDifference.X * badVibeDirection.X) + (distanceDifference.Y * badVibeDirection.Y) + (distanceDifference.Z * badVibeDirection.Z);
-            //double theta = Math.Acos(dotProduct/(getDistance()*badVibeDirection.Length()));
-            double theta = Math.Atan2(distanceDifference.Z, distanceDifference.X) - Math.Atan2(badVibeDirection.Z, badVibeDirection.X);
-          
-            DebugDisplay.update("theta =",(theta/Math.PI).ToString());
-            Vector3 velocity = this.Body.AngularVelocity;
-            //this.Body.AngularMomentum = Vector3.Zero;
-            //rotate((float)theta);
-            //return (float)theta;
+            Vector3 bvDir = Body.OrientationMatrix.Backward;
+            Vector3 bvPos = Body.Position;
+            Vector3 gvPos = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+            Vector3 diff = Vector3.Normalize(gvPos - bvPos);
+            Quaternion rot;
+            Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
+            Vector3 angles = BadVibe.QuaternionToEuler(rot);
+            rot.X = 0;
+            rot.Z = 0;
+            Rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
         }
 
         /// <summary>
