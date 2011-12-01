@@ -106,11 +106,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\truck.fbx">
-      <Name>truck</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\tree.fbx">
       <Name>tree</Name>
       <Importer>FbxImporter</Importer>
@@ -131,18 +126,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\wave2.fbx">
-      <Name>wave2</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\wave.fbx">
       <Name>wave</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\wave3.fbx">
-      <Name>wave3</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -221,6 +206,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </None>
+    <Compile Include="Drawing\Models\truck.fbx">
+      <Name>truck</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Music\song.timing">
       <Name>song</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
