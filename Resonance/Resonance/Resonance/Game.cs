@@ -434,7 +434,7 @@ namespace Resonance
                     BadVibe vibe = (BadVibe)pair.Value;
                     if (vibe.Dead == false)
                     {
-                        Vector3 bvDir = vibe.Body.OrientationMatrix.Forward;
+                        Vector3 bvDir = vibe.Body.OrientationMatrix.Backward;
                         Vector3 bvPos = vibe.Body.Position;
                         Vector3 gvPos = ((GoodVibe)World.getObject("Player")).Body.Position;
                         Vector3 diff = Vector3.Normalize(gvPos - bvPos);
