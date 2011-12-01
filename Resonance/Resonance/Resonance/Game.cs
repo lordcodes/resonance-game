@@ -434,16 +434,7 @@ namespace Resonance
                     BadVibe vibe = (BadVibe)pair.Value;
                     if (vibe.Dead == false)
                     {
-                        Vector3 bvDir = vibe.Body.OrientationMatrix.Backward;
-                        Vector3 bvPos = vibe.Body.Position;
-                        Vector3 gvPos = ((GoodVibe)World.getObject("Player")).Body.Position;
-                        Vector3 diff = Vector3.Normalize(gvPos - bvPos);
-                        Quaternion rot;
-                        Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
-                        Vector3 angles = BadVibe.QuaternionToEuler(rot);
-                        rot.X = 0;
-                        rot.Z = 0;
-                        vibe.Rotator.TargetOrientation = Quaternion.Concatenate(vibe.Body.Orientation, rot);
+                        vibe.moveTowardsGoodVibe();
                     }
                 }
             }
