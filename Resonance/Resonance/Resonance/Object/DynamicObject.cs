@@ -37,7 +37,6 @@ namespace Resonance
             Quaternion orientation = Body.Orientation;
             Vector3 rotateVector = QuaternionToEuler(orientation);
 
-
             Vector3 velocity = Body.LinearVelocity;
             if(velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(distance * Math.Cos(rotateVector.Y));
             if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(distance * Math.Sin(rotateVector.Y));

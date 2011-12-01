@@ -176,6 +176,7 @@ namespace Resonance
             rot.X = 0;
             rot.Z = 0;
             Rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
+            move(0.25f);
         }
 
         /// <summary>
