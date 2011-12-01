@@ -73,6 +73,7 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
+            long start = DateTime.Now.Ticks;
             BadVibe.initialiseBank();
 
             oldPadState1 = GamePad.GetState(PlayerIndex.One);
@@ -132,6 +133,9 @@ namespace Resonance
             //StoredObjects obj = Content.Load<StoredObjects>("Level1");
             //world.addObject(bv2);
             //world.addObject(bv3);
+
+            double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
+            DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
         }
 
         /// <summary>

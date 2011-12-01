@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using ResonanceLibrary;
 
 namespace Resonance
 {
@@ -78,6 +79,8 @@ namespace Resonance
             Shockwave_blue   = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texBlue");
             Shockwave_red    = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texRed");
             Shockwave_cymbal = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texCymbal");
+
+            //ImportedGameModels igm;
         }
 
         /// <summary>

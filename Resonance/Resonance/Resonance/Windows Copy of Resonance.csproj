@@ -60,9 +60,13 @@
     <XnaCompressContent>true</XnaCompressContent>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Drawing\DebugDisplay.cs" />
+    <Compile Include="Drawing\GameModelsContentReader.cs" />
     <Compile Include="Drawing\Graphics.cs" />
-    <Compile Include="Drawing\Hud.cs" />
+    <Compile Include="Drawing\Hud\DebugDisplay.cs" />
+    <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
+    <Compile Include="Drawing\Hud\Hud.cs" />
+    <Compile Include="Drawing\ImportedGameModel.cs" />
+    <Compile Include="Drawing\ImportedGameModels.cs" />
     <Compile Include="Drawing\World.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Drawing\Drawing.cs" />
