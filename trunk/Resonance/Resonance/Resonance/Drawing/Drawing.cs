@@ -66,11 +66,13 @@ namespace Resonance
             gameGraphics.Draw(gameModelNum, worldTransform);
             if (worldObject is Shockwave) graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
-            if (worldObject is GoodVibe) 
+            if (worldObject is GoodVibe)
             {
                 int health = ((GoodVibe)((DynamicObject)worldObject)).GetHealth();
-                DebugDisplay.update( "HEALTH",health.ToString());
-                hud.updateHealth(health);
+                int score = ((GoodVibe)((DynamicObject)worldObject)).GetHealth();
+                DebugDisplay.update("HEALTH", health.ToString());
+                DebugDisplay.update("SCORE", score.ToString());
+                hud.updateGoodVibe(health, score);
             }
 
             if (worldObject is BadVibe)

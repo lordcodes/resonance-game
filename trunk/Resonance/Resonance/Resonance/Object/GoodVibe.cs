@@ -12,6 +12,7 @@ namespace Resonance
         Game gameRef;
 
         int health; //health stored as an int between 0 - 100.
+        int score;
 
         // Resonance waves which currently exist
         List<Shockwave> waves;
@@ -20,6 +21,19 @@ namespace Resonance
             get
             {
                 return waves.Count;
+            }
+        }
+
+        public int Score
+        {
+            get
+            {
+                return score;
+            }
+
+            set
+            {
+                score = value;
             }
         }
 
@@ -32,7 +46,7 @@ namespace Resonance
         {
             gameRef = game;
             waves = new List<Shockwave>();
-
+            score = 0;
             health = 100;
         }
                

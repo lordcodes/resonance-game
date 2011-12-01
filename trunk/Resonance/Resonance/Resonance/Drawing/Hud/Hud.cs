@@ -19,7 +19,7 @@ namespace Resonance
         private static ContentManager Content;
         private static Graphics gameGraphics;
         private static Dictionary<string, Vector2> dictionary = new Dictionary<string, Vector2>();
-        private static int Score = 0;
+        private static int score = 0;
         private static float health = 1;
         //private static float worldWidth = 10;
         private static float screenWidth;
@@ -28,19 +28,6 @@ namespace Resonance
         private static double heightRatio;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
-
-        public int score
-        {
-            get
-            {
-                return Score;
-            }
-
-            set
-            {
-                Score = value;
-            }
-        }
 
         public Hud(ContentManager newContent, GraphicsDeviceManager newGraphics, Graphics newGameGraphics)
         {
@@ -156,9 +143,10 @@ namespace Resonance
         }
 
 
-        public void updateHealth(int h)
+        public void updateGoodVibe(int h, int s)
         {
             health = (float)h / 100;
+            score = s;
         }
     }
 }
