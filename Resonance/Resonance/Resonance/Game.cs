@@ -440,6 +440,9 @@ namespace Resonance
                         Vector3 diff = Vector3.Normalize(gvPos - bvPos);
                         Quaternion rot;
                         Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
+                        Vector3 angles = BadVibe.QuaternionToEuler(rot);
+                        rot.X = 0;
+                        rot.Z = 0;
                         vibe.Rotator.TargetOrientation = Quaternion.Concatenate(vibe.Body.Orientation, rot);
                     }
                 }
