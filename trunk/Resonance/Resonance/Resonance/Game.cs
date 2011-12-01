@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
 using ResonanceLibrary;
+using BEPUphysics.Paths.PathFollowing;
 namespace Resonance
 {
     /// <summary>
@@ -115,7 +116,6 @@ namespace Resonance
                     bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     world.addObject(bv);
                 }
-
             }
 
             //Not needed now that we have loading from level file
@@ -432,7 +432,16 @@ namespace Resonance
                 if (pair.Value is BadVibe)
                 {
                     BadVibe vibe = (BadVibe)pair.Value;
-                    if (vibe.Dead == false) vibe.Move();
+                    if (vibe.Dead == false)
+                    {
+                        Vector3 bvDir = vibe.Body.OrientationMatrix.Forward;
+                        Vector3 bvPos = vibe.Body.Position;
+                        Vector3 gvPos = ((GoodVibe)World.getObject("Player")).Body.Position;
+                        Vector3 diff = Vector3.Normalize(gvPos - bvPos);
+                        Quaternion rot;
+                        Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
+                        vibe.Rotator.TargetOrientation = Quaternion.Concatenate(vibe.Body.Orientation, rot);
+                    }
                 }
             }
         }
