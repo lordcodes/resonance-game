@@ -19,9 +19,9 @@ namespace Resonance
             gameModels.Add(gameModelNumber, gameModel);
         }
 
-        public Dictionary<int, ImportedGameModel> getModels()
+        public ImportedGameModel getModel(int modelNum)
         {
-            return gameModels;
+            return gameModels[modelNum];
         }
     }
 }

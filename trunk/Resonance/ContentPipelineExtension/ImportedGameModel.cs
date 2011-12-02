@@ -26,7 +26,6 @@ namespace ContentPipelineExtension
         private Matrix graphicsScale;
         private Matrix physicsScale;
         private TextureContent texture;
-        private float Mass;
 
         public string GraphicsModelFile
         {
@@ -113,14 +112,6 @@ namespace ContentPipelineExtension
             }
         }
 
-        public float mass
-        {
-            get
-            {
-                return Mass;
-            }
-        }
-
         public ImportedGameModel(String newGraphicsModel, float graphicsModelScale, String newPhysicsModel, float physicsModelScale, String newTexture)
         {
             graphicsModelFile = newGraphicsModel;
@@ -128,7 +119,6 @@ namespace ContentPipelineExtension
             textureFile = newTexture;
             graphicsScaleFloat = graphicsModelScale;
             physicsScaleFloat = physicsModelScale;
-            Mass = 10f;
         }
 
         public ImportedGameModel(ModelContent newGraphicsModel, float graphicsModelScale, ModelContent newPhysicsModel, float physicsModelScale, TextureContent newTexture)
@@ -138,7 +128,6 @@ namespace ContentPipelineExtension
             texture = newTexture;
             graphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
             physicsScale = Matrix.CreateScale(physicsModelScale, physicsModelScale, physicsModelScale);
-            Mass = 10f;
         }
 
     }

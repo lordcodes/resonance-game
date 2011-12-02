@@ -104,17 +104,17 @@ namespace Resonance
 
         public void Draw(int gameModelNum, Matrix worldTransform)
         {
-            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).graphicsScale, worldTransform));
+            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform));
         }
 
 
-        private void DrawModel(GameModel gmodel, Matrix world)
+        private void DrawModel(ImportedGameModel gmodel, Matrix world)
         {
-            Model m = gmodel.graphicsModel;
-            Matrix[] modelTransforms = gmodel.modelTransforms;
+            Model m = gmodel.GraphicsModel;
+            Matrix[] modelTransforms = gmodel.ModelTransforms;
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
 
-            if (colorTexture == null) colorTexture = gmodel.texture;
+            if (colorTexture == null) colorTexture = gmodel.Texture;
 
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
