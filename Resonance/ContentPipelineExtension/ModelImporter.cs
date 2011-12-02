@@ -24,17 +24,21 @@ namespace ContentPipelineExtension
                 while (!reader.EndOfStream)
                 {
                     string current = reader.ReadLine();
-                    string[] values = current.Split(',');
-                    for (int i = 0; i < values.Length; i++) values[i] = values[i].Trim();
-                    
-                    string graphicsModel = getPath(filename, values[0]);
-                    float graphicsScale = float.Parse(values[1]);
-                    string physicsModel = getPath(filename, values[2]);
-                    float physicsScale = float.Parse(values[3]);
-                    string texture = getPath(filename, values[4]);
-                    ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture);
-                    models.addModel(model, count);
-                    count++;
+                    if (current.ToCharArray()[0] != '-')
+                    {
+                        string[] values = current.Split(',');
+                        for (int i = 0; i < values.Length; i++) values[i] = values[i].Trim();
+                        int modelNum = int.Parse(values[0]);
+                        string graphicsModel = getPath(filename, values[1]);
+                        float graphicsScale = float.Parse(values[2]);
+                        string physicsModel = getPath(filename, values[3]);
+                        float physicsScale = float.Parse(values[4]);
+                        string texture = "";
+                        if (values.Length > 5) texture = getPath(filename, values[5]);
+                        ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture);
+                        models.addModel(model, modelNum);
+                        count++;
+                    }
                 }
             }
             return models;
@@ -56,9 +60,13 @@ namespace ContentPipelineExtension
             foreach (KeyValuePair<int, ImportedGameModel> pair in gameModels)
             {
                 ImportedGameModel model = pair.Value;
-                ExternalReference<TextureContent> textureRef = new ExternalReference<TextureContent>(model.TextureFile);
-                TextureContent texture = context.BuildAndLoadAsset<TextureContent, TextureContent>(textureRef, "TextureProcessor");
-
+                ExternalReference<TextureContent> textureRef;
+                TextureContent texture = null;
+                if(!model.TextureFile.Equals(""))
+                {
+                    textureRef = new ExternalReference<TextureContent>(model.TextureFile);
+                    texture = context.BuildAndLoadAsset<TextureContent, TextureContent>(textureRef, "TextureProcessor");
+                }
                 ModelContent graphicsModel = loadModel(model.GraphicsModelFile, context);
                 ModelContent physicsModel = loadModel(model.PhysicsModelFile, context);
 
@@ -79,12 +87,12 @@ namespace ContentPipelineExtension
     {
         public override string GetRuntimeReader(TargetPlatform targetPlatform)
         {
-            return "Resonance.GameModelsContentReader, ContentImporter";
+            return "Resonance.GameModelsContentReader, Resonance";
         }
 
         public override string GetRuntimeType(TargetPlatform targetPlatform)
         {
-            return "Resonance.ImportedGameModels, ContentImporter";
+            return "Resonance.ImportedGameModels, Resonance";
         }
 
         protected override void Write(ContentWriter output, ImportedGameModels value)
@@ -95,9 +103,9 @@ namespace ContentPipelineExtension
             {
                 ImportedGameModel model = pair.Value;
                 output.WriteObject<ModelContent>(model.GraphicsModel);
-                output.Write(model.GraphicsScale);
+                output.WriteObject<Matrix>(model.GraphicsScale);
                 output.WriteObject<ModelContent>(model.PhysicsModel);
-                output.Write(model.PhysicsScale);
+                output.WriteObject<Matrix>(model.PhysicsScale);
                 output.WriteObject<TextureContent>(model.Texture);
                 output.Write(pair.Key);
             }

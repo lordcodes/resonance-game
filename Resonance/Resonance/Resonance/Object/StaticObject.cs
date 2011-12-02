@@ -20,8 +20,8 @@ namespace Resonance
         {
             Vector3[] vertices;
             int[] indices;
-            TriangleMesh.GetVerticesAndIndicesFromModel(GameModels.getModel(modelNum).physicsModel, out vertices, out indices);
-            float scaleFactor = GameModels.getModel(modelNum).physicsScale.M11;
+            TriangleMesh.GetVerticesAndIndicesFromModel(GameModels.getModel(modelNum).PhysicsModel, out vertices, out indices);
+            float scaleFactor = GameModels.getModel(modelNum).PhysicsScale.M11;
             Vector3 scale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
             for (int i = 0; i < vertices.Length; i++)
             {

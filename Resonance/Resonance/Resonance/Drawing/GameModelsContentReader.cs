@@ -12,17 +12,23 @@ namespace Resonance
     {
         protected override ImportedGameModels Read(ContentReader input, ImportedGameModels existingInstance)
         {
+            Dictionary<string, Model> gameModels = new Dictionary<string, Model>();
             ImportedGameModels models = new ImportedGameModels();
             int count = input.ReadInt32();
-
+            
             for (int i = 0; i < count; i++)
             {
-                Model graphicsModel = input.ReadObject<Model>();
-                Matrix graphicsScale = input.ReadObject<Matrix>();
-                Model physicsModel = input.ReadObject<Model>();
-                Matrix physicsScale = input.ReadObject<Matrix>();
-                Texture2D texture = input.ReadObject<Texture2D>();
-                int gameModelNum =  input.ReadInt32();
+                Model graphicsModel;
+                Matrix graphicsScale;
+                Model physicsModel;
+                Matrix physicsScale;
+                Texture2D texture;
+                graphicsModel = input.ReadObject<Model>();
+                graphicsScale = input.ReadObject<Matrix>();
+                physicsModel = input.ReadObject<Model>();
+                physicsScale = input.ReadObject<Matrix>();
+                texture = input.ReadObject<Texture2D>();
+                int gameModelNum = input.ReadInt32();
                 models.addModel(new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture), gameModelNum);
             }
 

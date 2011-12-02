@@ -441,11 +441,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Drawing\modelDetails.md">
+    <Compile Include="Drawing\modelDetails.md">
       <Name>modelDetails</Name>
-      <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
-    </None>
+      <Importer>ModelImporter</Importer>
+      <Processor>ModelsProcessor</Processor>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 

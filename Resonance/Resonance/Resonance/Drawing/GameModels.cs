@@ -8,7 +8,6 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-using ResonanceLibrary;
 
 namespace Resonance
 {
@@ -31,23 +30,9 @@ namespace Resonance
         public static readonly int BAD_VIBE_RED     = 15;
         public static readonly int BAD_VIBE_CYMBAL  = 16;
 
-        private static GameModel Tree;
-        private static GameModel Bad_vibe;
-        private static GameModel Bad_vibe_green;
-        private static GameModel Bad_vibe_yellow;
-        private static GameModel Bad_vibe_blue;
-        private static GameModel Bad_vibe_red;
-        private static GameModel Bad_vibe_cymbal;
-        private static GameModel Good_vibe;
-        private static GameModel Ground;
-        private static GameModel Mushroom;
-        private static GameModel Shockwave_green;
-        private static GameModel Shockwave_yellow;
-        private static GameModel Shockwave_blue;
-        private static GameModel Shockwave_red;
-        private static GameModel Shockwave_cymbal;
-
         private static ContentManager Content;
+
+        private static ImportedGameModels importedGameModels;
 
         /// <summary>
         /// Creates a new GameModels object and stores all the GameModel objects in one place
@@ -64,47 +49,16 @@ namespace Resonance
         /// </summary>
         public static void Load()
         {
-            Tree             = new GameModel(Content, "Drawing/Models/tree", 1f, "Drawing/Models/tree", 1f, "");
-            Ground           = new GameModel(Content, "Drawing/Models/terrain", 20f, "Drawing/Models/terrain", 20f, "Drawing/Textures/texGrassReal");
-            Good_vibe        = new GameModel(Content, "Drawing/Models/truck", 1f, "Drawing/Models/truck", 1f, "");
-            Bad_vibe         = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "");
-            Bad_vibe_green   = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "Drawing/Textures/texGreen");
-            Bad_vibe_yellow  = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "Drawing/Textures/texYellow");
-            Bad_vibe_blue    = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "Drawing/Textures/texBlue");
-            Bad_vibe_red     = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "Drawing/Textures/texRed");
-            Bad_vibe_cymbal  = new GameModel(Content, "Drawing/Models/virus", 0.5f, "Drawing/Models/box", 1f, "Drawing/Textures/texCymbal");
-            Mushroom         = new GameModel(Content, "Drawing/Models/house", 1f, "Drawing/Models/house", 1f, "");
-            Shockwave_green  = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texGreen");
-            Shockwave_yellow = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texYellow");
-            Shockwave_blue   = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texBlue");
-            Shockwave_red    = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texRed");
-            Shockwave_cymbal = new GameModel(Content, "Drawing/Models/wave", 1f, "Drawing/Models/wave", 1f, "Drawing/Textures/texCymbal");
-
-            //ImportedGameModels igm;
+            importedGameModels = Content.Load<ImportedGameModels>("Drawing/modelDetails");
         }
 
         /// <summary>
         /// Returns a GameModel object which contains the Model and scale information
         /// </summary>
         /// <param name="name">Pass it the name of the model e.g GameModels.TREE</param>
-        public static GameModel getModel(int name)
+        public static ImportedGameModel getModel(int name)
         {
-            if (name == TREE) return Tree;
-            if (name == GOOD_VIBE) return Good_vibe;
-            if (name == BAD_VIBE) return Bad_vibe;
-            if (name == BAD_VIBE_GREEN) return Bad_vibe_green;
-            if (name == BAD_VIBE_YELLOW) return Bad_vibe_yellow;
-            if (name == BAD_VIBE_BLUE) return Bad_vibe_blue;
-            if (name == BAD_VIBE_RED) return Bad_vibe_red;
-            if (name == BAD_VIBE_CYMBAL) return Bad_vibe_cymbal;
-            if (name == GROUND) return Ground;
-            if (name == MUSHROOM) return Mushroom;
-            if (name == SHOCKWAVE_GREEN) return Shockwave_green;
-            if (name == SHOCKWAVE_YELLOW) return Shockwave_yellow;
-            if (name == SHOCKWAVE_BLUE) return Shockwave_blue;
-            if (name == SHOCKWAVE_RED) return Shockwave_red;
-            if (name == SHOCKWAVE_CYMBAL) return Shockwave_cymbal;
-            return null;
+            return importedGameModels.getModel(name);
         }
     }
 }
