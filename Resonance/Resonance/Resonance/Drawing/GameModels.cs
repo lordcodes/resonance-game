@@ -49,6 +49,7 @@ namespace Resonance
         /// </summary>
         public static void Load()
         {
+            // Edit "Content/Drawing/modelDetails.md" to add new models to the game
             importedGameModels = Content.Load<ImportedGameModels>("Drawing/modelDetails");
         }
 
