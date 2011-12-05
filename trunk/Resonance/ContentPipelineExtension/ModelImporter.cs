@@ -14,30 +14,44 @@ namespace ContentPipelineExtension
 {
     [ContentImporter(".md", DisplayName = "Model Importer", DefaultProcessor="GameModelsProcessor")]
     class ModelImporter : ContentImporter<ImportedGameModels>
-    {
+    {   
+        Dictionary<string, int> gameModels = new Dictionary<string, int>();
+
         public override ImportedGameModels Import(string filename, ContentImporterContext context)
         {
+            
             ImportedGameModels models = new ImportedGameModels();
             using (StreamReader reader = new StreamReader(File.OpenRead(filename)))
             {
                 int count = 0;
+                int modelCount = 0;
                 while (!reader.EndOfStream)
                 {
                     string current = reader.ReadLine();
-                    if (current.ToCharArray()[0] != '-')
+                    if (!current.Equals("") && current.ToCharArray()[0] != '-')
                     {
                         string[] values = current.Split(',');
                         for (int i = 0; i < values.Length; i++) values[i] = values[i].Trim();
-                        int modelNum = int.Parse(values[0]);
-                        string graphicsModel = getPath(filename, values[1]);
-                        float graphicsScale = float.Parse(values[2]);
-                        string physicsModel = getPath(filename, values[3]);
-                        float physicsScale = float.Parse(values[4]);
-                        string texture = "";
-                        if (values.Length > 5) texture = getPath(filename, values[5]);
-                        ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture);
-                        models.addModel(model, modelNum);
-                        count++;
+                        if (values.Length == 2)
+                        {
+                            string modelFile = getPath(filename, values[1]);
+                            gameModels.Add(values[0], modelCount);
+                            models.addModelRef(modelCount, modelFile);
+                            modelCount++;
+                        }
+                        else if (values.Length > 4)
+                        {
+                            int modelNum = int.Parse(values[0]);
+                            int graphicsModel = getModelRef(values[1]);
+                            float graphicsScale = float.Parse(values[2]);
+                            int physicsModel = getModelRef(values[3]);
+                            float physicsScale = float.Parse(values[4]);
+                            string texture = "";
+                            if (values.Length > 5) texture = getPath(filename, values[5]);
+                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture);
+                            models.addModel(model, modelNum);
+                            count++;
+                        }
                     }
                 }
             }
@@ -48,6 +62,11 @@ namespace ContentPipelineExtension
         {
             return Path.Combine(Path.GetDirectoryName(input), file);
         }
+
+        private int getModelRef(string name)
+        {
+            return gameModels[name];
+        }
     }
 
     [ContentProcessor(DisplayName = "GameModelsProcessor")]
@@ -57,6 +76,13 @@ namespace ContentPipelineExtension
         {
             ImportedGameModels models = new ImportedGameModels();
             Dictionary<int, ImportedGameModel> gameModels = input.getModels();
+            Dictionary<int, string> modelsRef = input.getModelStringDic();
+            foreach (KeyValuePair<int, string> pair in modelsRef)
+            {
+                ModelContent model = loadModel(pair.Value, context);
+                models.addModelRef(pair.Key, model);
+            }
+
             foreach (KeyValuePair<int, ImportedGameModel> pair in gameModels)
             {
                 ImportedGameModel model = pair.Value;
@@ -67,8 +93,9 @@ namespace ContentPipelineExtension
                     textureRef = new ExternalReference<TextureContent>(model.TextureFile);
                     texture = context.BuildAndLoadAsset<TextureContent, TextureContent>(textureRef, "TextureProcessor");
                 }
-                ModelContent graphicsModel = loadModel(model.GraphicsModelFile, context);
-                ModelContent physicsModel = loadModel(model.PhysicsModelFile, context);
+                //int graphicsModel = loadModel(input.getModelString(model.GraphicsModelFile), context);
+                int graphicsModel = model.GraphicsModelFile;
+                int physicsModel = model.PhysicsModelFile;
 
                 ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, texture);
                 models.addModel(newModel, pair.Key);
@@ -98,13 +125,20 @@ namespace ContentPipelineExtension
         protected override void Write(ContentWriter output, ImportedGameModels value)
         {
             Dictionary<int, ImportedGameModel> gameModels = value.getModels();
+            Dictionary<int, ModelContent> models = value.getModelDic();
+            output.Write(models.Count);
+            foreach (KeyValuePair<int, ModelContent> pair in models)
+            {
+                output.WriteObject<ModelContent>(pair.Value);
+                output.Write(pair.Key);
+            }
             output.Write(gameModels.Count);
             foreach (KeyValuePair<int, ImportedGameModel> pair in gameModels)
             {
                 ImportedGameModel model = pair.Value;
-                output.WriteObject<ModelContent>(model.GraphicsModel);
+                output.Write(model.GraphicsModel);
                 output.WriteObject<Matrix>(model.GraphicsScale);
-                output.WriteObject<ModelContent>(model.PhysicsModel);
+                output.Write(model.PhysicsModel);
                 output.WriteObject<Matrix>(model.PhysicsScale);
                 output.WriteObject<TextureContent>(model.Texture);
                 output.Write(pair.Key);
