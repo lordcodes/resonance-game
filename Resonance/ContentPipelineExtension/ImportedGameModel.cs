@@ -15,8 +15,8 @@ namespace ContentPipelineExtension
 {
     public class ImportedGameModel
     {
-        private String graphicsModelFile;
-        private String physicsModelFile;
+        private int graphicsModelFile;
+        private int physicsModelFile;
         private float graphicsScaleFloat;
         private float physicsScaleFloat;
         private String textureFile;
@@ -27,7 +27,7 @@ namespace ContentPipelineExtension
         private Matrix physicsScale;
         private TextureContent texture;
 
-        public string GraphicsModelFile
+        public int GraphicsModelFile
         {
             get
             {
@@ -35,7 +35,7 @@ namespace ContentPipelineExtension
             }
         }
 
-        public string PhysicsModelFile
+        public int PhysicsModelFile
         {
             get
             {
@@ -79,20 +79,20 @@ namespace ContentPipelineExtension
             }
         }
 
-        public ModelContent GraphicsModel
+        public int GraphicsModel
         {
             get
             {
-                return graphicsModel;
+                return graphicsModelFile;
             }
         }
 
-        public ModelContent PhysicsModel
+        public int PhysicsModel
         {
             get
             {
-                if (physicsModel == null) return graphicsModel;
-                return physicsModel;
+                if (physicsModel == null) return graphicsModelFile;
+                return physicsModelFile;
             }
         }
 
@@ -112,7 +112,7 @@ namespace ContentPipelineExtension
             }
         }
 
-        public ImportedGameModel(String newGraphicsModel, float graphicsModelScale, String newPhysicsModel, float physicsModelScale, String newTexture)
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, String newTexture)
         {
             graphicsModelFile = newGraphicsModel;
             physicsModelFile = newPhysicsModel;
@@ -121,10 +121,10 @@ namespace ContentPipelineExtension
             physicsScaleFloat = physicsModelScale;
         }
 
-        public ImportedGameModel(ModelContent newGraphicsModel, float graphicsModelScale, ModelContent newPhysicsModel, float physicsModelScale, TextureContent newTexture)
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, TextureContent newTexture)
         {
-            graphicsModel = newGraphicsModel;
-            physicsModel = newPhysicsModel;
+            graphicsModelFile = newGraphicsModel;
+            physicsModelFile = newPhysicsModel;
             texture = newTexture;
             graphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
             physicsScale = Matrix.CreateScale(physicsModelScale, physicsModelScale, physicsModelScale);

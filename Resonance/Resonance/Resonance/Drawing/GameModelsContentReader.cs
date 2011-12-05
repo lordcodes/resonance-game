@@ -15,21 +15,27 @@ namespace Resonance
             Dictionary<string, Model> gameModels = new Dictionary<string, Model>();
             ImportedGameModels models = new ImportedGameModels();
             int count = input.ReadInt32();
-            
             for (int i = 0; i < count; i++)
             {
-                Model graphicsModel;
+                Model model = input.ReadObject<Model>();
+                int modelRef = input.ReadInt32();
+                models.addModelRef(modelRef, model);
+            }
+            count = input.ReadInt32();
+            for (int i = 0; i < count; i++)
+            {
+                int graphicsModel;
                 Matrix graphicsScale;
-                Model physicsModel;
+                int physicsModel;
                 Matrix physicsScale;
                 Texture2D texture;
-                graphicsModel = input.ReadObject<Model>();
+                graphicsModel = input.ReadInt32();
                 graphicsScale = input.ReadObject<Matrix>();
-                physicsModel = input.ReadObject<Model>();
+                physicsModel = input.ReadInt32();
                 physicsScale = input.ReadObject<Matrix>();
                 texture = input.ReadObject<Texture2D>();
                 int gameModelNum = input.ReadInt32();
-                models.addModel(new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture), gameModelNum);
+                models.addModel(new ImportedGameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, texture), gameModelNum);
             }
 
             return models;
