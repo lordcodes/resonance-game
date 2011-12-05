@@ -20,9 +20,6 @@ namespace ContentPipelineExtension
         private float graphicsScaleFloat;
         private float physicsScaleFloat;
         private String textureFile;
-
-        private ModelContent graphicsModel;
-        private ModelContent physicsModel;
         private Matrix graphicsScale;
         private Matrix physicsScale;
         private TextureContent texture;
@@ -91,7 +88,7 @@ namespace ContentPipelineExtension
         {
             get
             {
-                if (physicsModel == null) return graphicsModelFile;
+                if (physicsModelFile < 0) return graphicsModelFile;
                 return physicsModelFile;
             }
         }
