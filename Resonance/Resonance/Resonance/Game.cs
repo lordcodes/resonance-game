@@ -438,7 +438,7 @@ namespace Resonance
                     BadVibe vibe = (BadVibe)pair.Value;
                     if (vibe.Dead == false)
                     {
-                        vibe.moveTowardsGoodVibe();
+                        vibe.Move();
                     }
                 }
             }
