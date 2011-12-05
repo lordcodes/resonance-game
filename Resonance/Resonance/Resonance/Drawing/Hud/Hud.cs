@@ -28,6 +28,7 @@ namespace Resonance
         private static double heightRatio;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
+        private static ImportedCustomFont scoreFont;
 
         public Hud(ContentManager newContent, GraphicsDeviceManager newGraphics, Graphics newGameGraphics)
         {
@@ -46,6 +47,7 @@ namespace Resonance
             screenHeight = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
             widthRatio =  screenWidth/1920;
             heightRatio =  screenHeight/1080;
+            scoreFont = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
         }
 
         public void drawDebugInfo(String text)
@@ -73,6 +75,7 @@ namespace Resonance
                 spriteBatch.DrawString(font, "BV", pair.Value, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }*/
             drawHealthBar();
+            scoreFont.drawLeft(pixelsX(1890), pixelsY(15), widthRatio, heightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
             resetGraphics();
         }
@@ -115,9 +118,7 @@ namespace Resonance
             int sliceY = y + pixelsY(9);
             int sliceWidth = 1;
             int sliceHeight = pixelsY(healthSlice.Height);
-
             int limit = (int)Math.Round((float)pixelsX(582) * health);
-
 
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
             for (int i = 0; i < limit; i++)

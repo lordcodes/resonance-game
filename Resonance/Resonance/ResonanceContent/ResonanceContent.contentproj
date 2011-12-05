@@ -381,62 +381,62 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\0.png">
+    <None Include="Drawing\Fonts\Custom\Score\Images\0.png">
       <Name>0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\1.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\1.png">
       <Name>1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\2.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\2.png">
       <Name>2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\3.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\3.png">
       <Name>3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\4.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\4.png">
       <Name>4</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\5.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\5.png">
       <Name>5</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\6.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\6.png">
       <Name>6</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\7.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\7.png">
       <Name>7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\8.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\8.png">
       <Name>8</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Fonts\Custom\Score\Images\9.png">
+    </None>
+    <None Include="Drawing\Fonts\Custom\Score\Images\9.png">
       <Name>9</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing\Fonts\Custom\Score\ScoreFont.xml">
       <Name>ScoreFont</Name>
       <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
+      <Processor>CustomFontProcessor</Processor>
       <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
