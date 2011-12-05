@@ -156,7 +156,10 @@ namespace Resonance
             }
             else
             {
-                moveTowardsGoodVibe();
+                if (getDistance() > 3)
+                {
+                    moveTowardsGoodVibe();
+                }
             }
 
         }
