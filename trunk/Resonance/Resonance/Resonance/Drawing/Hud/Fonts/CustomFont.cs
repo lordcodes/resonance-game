@@ -10,18 +10,15 @@ namespace Resonance
     class CustomFont
     {
         ContentManager Content;
-        String file;
-        //Texture2D sheet;
 
-        public CustomFont(ContentManager c, String f)
+        public CustomFont(ContentManager c)
         {
             Content = c;
-            file = f;
         }
 
         public void load()
         {
-            //Texture2D sheet = Content.Load<Texture2D>(file);
+            ImportedCustomFont font = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
         }
     }
 }

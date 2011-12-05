@@ -49,9 +49,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ImportedGameModel.cs" />
-    <Compile Include="ImportedGameModels.cs" />
-    <Compile Include="ModelImporter.cs" />
+    <Compile Include="Drawing\Custom Fonts\CustomFont.cs" />
+    <Compile Include="Drawing\Custom Fonts\CustomFontImporter.cs" />
+    <Compile Include="Drawing\Game Models\ImportedGameModel.cs" />
+    <Compile Include="Drawing\Game Models\ImportedGameModels.cs" />
+    <Compile Include="Drawing\Game Models\ModelImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
