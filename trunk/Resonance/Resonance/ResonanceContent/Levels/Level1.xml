@@ -14,7 +14,7 @@
         <identifier>second object</identifier>
         <type>Good_vibe</type>
         <xWorldCoord>0</xWorldCoord>
-        <zWorldCoord>0.65</zWorldCoord>
+        <zWorldCoord>1</zWorldCoord>
         <yWorldCoord>6</yWorldCoord>
         <gameModelNum>2</gameModelNum>
       </Item>
