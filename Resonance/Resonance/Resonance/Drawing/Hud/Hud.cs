@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -120,10 +121,18 @@ namespace Resonance
             int sliceHeight = pixelsY(healthSlice.Height);
             int limit = (int)Math.Round((float)pixelsX(582) * health);
 
+            float greenValue;
+            Color c;
+
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
             for (int i = 0; i < limit; i++)
             {
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), Color.White);
+                greenValue = i /582;
+                float red = (float)(greenValue > 0.5 ? 1 - 2 * (greenValue - 0.5) : 1.0);
+                float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
+                c = new Color(red, green, 0f);
+
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
             }
         }
 

@@ -50,40 +50,41 @@ namespace Resonance
             health = 100;
         }
                
-        void AdjustHealth(int change)
+        public void AdjustHealth(int change)
         {
             //check for <0 or >100
             //health <0, dead vibe
-            if (health - change <= 0)
+            if (health + change <= 0)
             {
                 health = 0;
-                Console.WriteLine("Dead vibe!");
+                //Console.WriteLine("Dead vibe!");
+                //DebugDisplay.update("VibeHealthText", "Dead vibe!");
             }
             //full health
             else if (health + change >= 100)
             {
                 health = 100;
-                Console.WriteLine("Full health");
+                //Console.WriteLine("Full health");
+                //DebugDisplay.update("VibeHealthText", "Full health!");
             }
             else
             {
                 health += change;
+                //DebugDisplay.update("VibeHealthText", "");
             }
         }
-
-        void SetHealth(int value)
+                
+        public int Health
         {
-            //check between 0-100
-            health = value;
-        }
+            get
+            {
+                return health;
+            }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        public int GetHealth()
-        {
-            return health;
+            set
+            {
+                health = value;
+            }
         }
 
         public void createShockwave(int colour)
@@ -150,6 +151,28 @@ namespace Resonance
 
                 if (i + 1 == waves.Count) break;
             }
+        }
+
+        public void checkDistance()
+        {
+            Dictionary<string, Object> objects = gameRef.World.returnObjects();
+            foreach (KeyValuePair<string, Object> pair in objects)
+            {
+                if (pair.Value is BadVibe)
+                {
+                    BadVibe vibe = (BadVibe)pair.Value;
+                    double dx = this.Body.Position.X - vibe.Body.Position.X;
+                    double dz = this.Body.Position.Z - vibe.Body.Position.Z;
+                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                    d = Math.Sqrt(d);
+
+                    if (d <= 3)
+                    {   
+                        return;
+                    }
+                }
+            }
+            AdjustHealth(1);
         }
     }
 }
