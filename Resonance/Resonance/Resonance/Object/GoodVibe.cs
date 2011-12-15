@@ -13,7 +13,8 @@ namespace Resonance
 
         int health; //health stored as an int between 0 - 100.
         int score;
-
+        int iterationCount = 0;
+        int healRate = 30;
         // Resonance waves which currently exist
         List<Shockwave> waves;
 
@@ -172,7 +173,16 @@ namespace Resonance
                     }
                 }
             }
-            AdjustHealth(1);
+            if ((iterationCount % 30) == 0)
+            {
+                AdjustHealth(1);
+            }
+            if (iterationCount == 59)
+            {
+                iterationCount = 0;
+            }
+
+            iterationCount++;
         }
     }
 }
