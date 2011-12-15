@@ -127,7 +127,7 @@ namespace Resonance
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
             for (int i = 0; i < limit; i++)
             {
-                greenValue = i /582;
+                greenValue = (float)i /582;
                 float red = (float)(greenValue > 0.5 ? 1 - 2 * (greenValue - 0.5) : 1.0);
                 float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
                 c = new Color(red, green, 0f);
