@@ -58,6 +58,14 @@ namespace Resonance
             }
         }
 
+        public Game Game
+        {
+            get
+            {
+                return game;
+            }
+        }
+
         /// <summary>
         /// Moves the bad vibe in the world randomly
         /// 
@@ -160,8 +168,20 @@ namespace Resonance
                 {
                     moveTowardsGoodVibe();
                 }
+                else
+                {
+                    attackGoodVibe();
+                }
             }
 
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public void attackGoodVibe()
+        {
+            ((GoodVibe)game.World.getObject("Player")).AdjustHealth(-1);
         }
 
         /// <summary>
@@ -206,10 +226,10 @@ namespace Resonance
         /// <summary>
         /// Gets the position of the Good Vibe
         /// </summary>
-        void getGoodVibePos()
+        /*void getGoodVibePos()
         { 
             Console.WriteLine(((GoodVibe)game.World.getObject("Player")).Body.Position);
-        }
+        }*/
 
         /// <summary>
         /// Damage the bad vibe
@@ -219,6 +239,7 @@ namespace Resonance
         {
             armour.breakLayer(colour, this);
             if (!dead) setColour();
+
         }
 
         private void kill()
@@ -370,10 +391,47 @@ namespace Resonance
             /// <param name="colour">The colour of wave</param>
             public void breakLayer(int colour, BadVibe vibe)
             {
-                if (sequence[0] == colour) {
+                if (sequence[0] == colour)
+                {
+                    switch (sequence[0])
+                    {
+                        case Shockwave.GREEN:
+                            {
+                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                break;
+                            }
+                        case Shockwave.YELLOW:
+                            {
+                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                break;
+                            }
+                        case Shockwave.BLUE:
+                            {
+                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                break;
+                            }
+                        case Shockwave.RED:
+                            {
+                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                break;
+                            }
+                        case Shockwave.CYMBAL:
+                            {
+                                ((GoodVibe)vibe.game.World.getObject("Player")).Score += 5;
+                                break;
+                            }
+                        case Shockwave.REST:
+                            {
+                                break;
+                            }
+                    }
                     sequence.RemoveAt(0);
                 }
-                if (sequence.Count == 0) vibe.kill();
+                if (sequence.Count == 0)
+                {
+                    ((GoodVibe)vibe.game.World.getObject("Player")).Score += 10;
+                    vibe.kill();
+                }
             }
 
 

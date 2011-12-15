@@ -45,14 +45,14 @@ namespace Resonance
             musicHandler = new MusicHandler(Content);
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
-            /*IsMouseVisible = false;
+            IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
-            Window.AllowUserResizing = true;*/
+            Window.AllowUserResizing = true;
         }
 
         /// <summary>
@@ -226,6 +226,8 @@ namespace Resonance
 
             // Update shockwaves
             ((GoodVibe)world.getObject("Player")).updateWaves();
+
+            ((GoodVibe)world.getObject("Player")).checkDistance();
 
             world.update();
             base.Update(gameTime);
