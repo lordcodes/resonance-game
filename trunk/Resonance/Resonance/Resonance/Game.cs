@@ -329,7 +329,7 @@ namespace Resonance
             bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
             
             float forwardSpeed = 0.25f;
-            float rotateSpeed = 0.25f;
+            float rotateSpeed = 0.03f;
             if (currentState.IsConnected == false)
             {
                 if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))

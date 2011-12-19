@@ -12,15 +12,17 @@ namespace Resonance
     class BadVibe : DynamicObject
     {
         public const double RADIUS = 0.5;
-        private double attackRate = 0.8;
+        private const double ATTACK_RATE = 0.8;
+        private const double REDUCTION_RATE = 15;
+
         private int iterationCount = 0;
         private double range = 6;
-        private double reductionRate = 15;
 
         Game game;
         EntityRotator rotator;
+        Vector3 goal;
+
         int previousDirection;  //Remembers the previous movement direction 
-        //TODO: change to enum 
 
         ArmourSequence armour;
         bool dead;
@@ -32,6 +34,7 @@ namespace Resonance
             rotator = new EntityRotator(Body);
             previousDirection = -1;
             dead = false;
+            goal = Vector3.Zero;
 
             armour = ArmourSequence.random();
             setColour();
@@ -59,14 +62,6 @@ namespace Resonance
             get
             {
                 return rotator;
-            }
-        }
-
-        public Game Game
-        {
-            get
-            {
-                return game;
             }
         }
 
@@ -168,7 +163,6 @@ namespace Resonance
             }
             else
             {
-                DebugDisplay.update("Distance", getDistance().ToString());
                 if (getDistance() > 3)
                 {
                     moveTowardsGoodVibe();
@@ -180,11 +174,11 @@ namespace Resonance
 
                 if ( getDistance() < range )
                 {
-                    if ( (iterationCount % reductionRate) == 0 )
+                    if ( (iterationCount % REDUCTION_RATE) == 0 )
                     {
                         Random r = new Random((int)DateTime.Now.Ticks);
                         double attack = r.NextDouble();
-                        if (attack < attackRate)
+                        if (attack < ATTACK_RATE)
                         {
                             attackGoodVibe();
                         }
@@ -229,16 +223,8 @@ namespace Resonance
         /// 
         public void moveTowardsGoodVibe()
         {
-            /*Vector3 bvDir = Body.OrientationMatrix.Backward;
-            Vector3 bvPos = Body.Position;
             Vector3 gvPos = ((GoodVibe)game.World.getObject("Player")).Body.Position;
-            Vector3 diff = Vector3.Normalize(gvPos - bvPos);
-            Quaternion rot;
-            Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
-            Vector3 angles = BadVibe.QuaternionToEuler(rot);
-            rot.X = 0;
-            rot.Z = 0;
-            Rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);*/
+            //Find best route to the good vibe
             RotateToFaceGoodVibe();
             move(0.25f);
         }
@@ -255,22 +241,6 @@ namespace Resonance
             double distance = Math.Sqrt(Math.Pow(xDiff,2) + Math.Pow(zDiff,2));
             return distance;
         }
-
-       Vector3 getDistanceVector()
-       {
-           Vector3 badVibePosition = this.Body.Position;
-           Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
-           Vector3 difference = goodVibePosition - badVibePosition;
-           return difference;
-       }
-
-        /// <summary>
-        /// Gets the position of the Good Vibe
-        /// </summary>
-        /*void getGoodVibePos()
-        { 
-            Console.WriteLine(((GoodVibe)game.World.getObject("Player")).Body.Position);
-        }*/
 
         /// <summary>
         /// Damage the bad vibe

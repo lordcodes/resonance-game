@@ -29,6 +29,9 @@ namespace Resonance
             }
             body = new StaticMesh(vertices, indices, new AffineTransform(pos));
             body.Tag = GameModels.getModel(modelNum);
+            body.Material.KineticFriction = 0.8f;
+            body.Material.StaticFriction = 1f;
+            DebugDisplay.update("Friction", "Friction: " + body.Material.KineticFriction + " " + body.Material.StaticFriction);
         }
 
         public StaticMesh Body

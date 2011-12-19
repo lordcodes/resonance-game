@@ -30,6 +30,8 @@ namespace Resonance
             }
             body = new ConvexHull(pos, vertices, GameModels.getModel(modelNum).mass);
             body.Tag = GameModels.getModel(modelNum);
+            body.Material.KineticFriction = 0.8f;
+            body.Material.StaticFriction = 1f;
         }
 
         public void move(float distance)
@@ -67,7 +69,7 @@ namespace Resonance
         public void rotate(float angle)
         {
             Vector3 velocity = Body.AngularVelocity;
-            if (velocity.Y < 2.5 && velocity.Y > -2.5) velocity.Y += (float)angle;
+            if (velocity.Y < 2 && velocity.Y > -2) velocity.Y += (float)angle;
             Body.AngularVelocity = velocity;
         }
 

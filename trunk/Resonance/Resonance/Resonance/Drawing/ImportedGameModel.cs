@@ -91,7 +91,7 @@ namespace Resonance
             GraphicsModel.CopyAbsoluteBoneTransformsTo(ModelTransforms);
             graphicsScale = graphicsModelScale;
             physicsScale = physicsModelScale;
-            Mass = 10f;
+            Mass = 25f;
         }
 
     }

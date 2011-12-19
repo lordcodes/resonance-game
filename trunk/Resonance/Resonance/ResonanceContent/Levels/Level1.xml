@@ -11,11 +11,11 @@
         <gameModelNum>0</gameModelNum>
       </Item>
       <Item>
-        <identifier>player</identifier>
+        <identifier>Player</identifier>
         <type>Good_vibe</type>
         <xWorldCoord>0</xWorldCoord>
         <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>6</yWorldCoord>
+        <yWorldCoord>7</yWorldCoord>
         <gameModelNum>2</gameModelNum>
       </Item>
       <Item>
@@ -39,7 +39,7 @@
         <type>Bad_vibe</type>
         <xWorldCoord>-3</xWorldCoord>
         <zWorldCoord>0.65</zWorldCoord>
-        <yWorldCoord>3</yWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
