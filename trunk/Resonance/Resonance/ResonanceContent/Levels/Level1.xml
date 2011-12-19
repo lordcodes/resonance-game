@@ -3,7 +3,7 @@
   <Asset Type="ResonanceLibrary.StoredObjects">
     <list>
       <Item>
-        <identifier>first object</identifier>
+        <identifier>ground</identifier>
         <type>Ground</type>
         <xWorldCoord>0</xWorldCoord>
         <zWorldCoord>0</zWorldCoord>
@@ -11,7 +11,7 @@
         <gameModelNum>0</gameModelNum>
       </Item>
       <Item>
-        <identifier>second object</identifier>
+        <identifier>player</identifier>
         <type>Good_vibe</type>
         <xWorldCoord>0</xWorldCoord>
         <zWorldCoord>1</zWorldCoord>
@@ -19,7 +19,7 @@
         <gameModelNum>2</gameModelNum>
       </Item>
       <Item>
-        <identifier>third object</identifier>
+        <identifier>tree0</identifier>
         <type>Tree</type>
         <xWorldCoord>0</xWorldCoord>
         <zWorldCoord>-5</zWorldCoord>
@@ -27,7 +27,7 @@
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
-        <identifier>fourth object</identifier>
+        <identifier>mushroom0</identifier>
         <type>Mushroom</type>
         <xWorldCoord>3</xWorldCoord>
         <zWorldCoord>3</zWorldCoord>
@@ -35,9 +35,25 @@
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
-        <identifier>fifth object</identifier>
+        <identifier>bv0</identifier>
         <type>Bad_vibe</type>
         <xWorldCoord>-3</xWorldCoord>
+        <zWorldCoord>0.65</zWorldCoord>
+        <yWorldCoord>3</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>bv1</identifier>
+        <type>Bad_vibe</type>
+        <xWorldCoord>-6</xWorldCoord>
+        <zWorldCoord>0.65</zWorldCoord>
+        <yWorldCoord>3</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>bv2</identifier>
+        <type>Bad_vibe</type>
+        <xWorldCoord>-9</xWorldCoord>
         <zWorldCoord>0.65</zWorldCoord>
         <yWorldCoord>3</yWorldCoord>
         <gameModelNum>3</gameModelNum>

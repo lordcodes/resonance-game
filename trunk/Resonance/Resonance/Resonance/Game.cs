@@ -82,42 +82,8 @@ namespace Resonance
 
             Drawing.loadContent();
             world = new World(this);
+            loadLevel();
 
-            //to test the level editor uncomment the next two lines
-            StaticObject ground = null ;
-            StaticObject tree = null;
-            StaticObject mush = null;
-            GoodVibe player = null;
-            BadVibe bv = null;
-            StoredObjects obj = Content.Load<StoredObjects>("Levels/Level1");
-            for (int i = 0; i < 5; i++)
-            {
-                if (obj.list[i].type.Equals("Ground") == true)
-                {
-                    ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
-                    world.addObject(ground);
-                }
-                if (obj.list[i].type.Equals("Good_vibe") == true)
-                {
-                    player = new GoodVibe(GameModels.GOOD_VIBE,"Player",this,new Vector3(obj.list[i].xWorldCoord,obj.list[i].yWorldCoord,obj.list[i].zWorldCoord));
-                    world.addObject(player);
-                }
-                if (obj.list[i].type.Equals("Tree") == true)
-                {
-                    tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    world.addObject(tree);
-                }
-                if (obj.list[i].type.Equals("Mushroom") == true)
-                {
-                    mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    world.addObject(mush);
-                }
-                if (obj.list[i].type.Equals("Bad_vibe") == true)
-                {
-                    bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    world.addObject(bv);
-                }
-            }
 
             //Not needed now that we have loading from level file
             //StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
@@ -129,13 +95,49 @@ namespace Resonance
             //world.addObject(tree);
             //world.addObject(mush);
             //world.addObject(bv);
-            
-            //StoredObjects obj = Content.Load<StoredObjects>("Level1");
-            //world.addObject(bv2);
-            //world.addObject(bv3);
 
             double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
             DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
+        }
+
+        void loadLevel()
+        {
+            //to test the level editor uncomment the next two lines
+            StaticObject ground = null;
+            StaticObject tree = null;
+            StaticObject mush = null;
+            GoodVibe player = null;
+            BadVibe bv = null;
+            StoredObjects obj = Content.Load<StoredObjects>("Levels/Level1");
+
+            for (int i = 0; i < obj.list.Count; i++)
+            {
+                if (obj.list[i].type.Equals("Ground") == true)
+                {
+                    ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
+                    world.addObject(ground);
+                }
+                if (obj.list[i].type.Equals("Good_vibe") == true)
+                {
+                    player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    world.addObject(player);
+                }
+                if (obj.list[i].type.Equals("Tree") == true)
+                {
+                    tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    world.addObject(tree);
+                }
+                if (obj.list[i].type.Equals("Mushroom") == true)
+                {
+                    mush = new StaticObject(GameModels.MUSHROOM, obj.list[i].identifier, this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    world.addObject(mush);
+                }
+                if (obj.list[i].type.Equals("Bad_vibe") == true)
+                {
+                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    world.addObject(bv);
+                }
+            }
         }
 
         /// <summary>
