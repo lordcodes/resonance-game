@@ -334,22 +334,22 @@ namespace Resonance
                 {
                     if (!downPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(1);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_ANTI);
                     }
                     else
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(-1);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_CLOCK);
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
                 {
                     if (!downPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(-1);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_CLOCK);
                     }
                     else
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(1);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_ANTI);
                     }
                 }
 
@@ -357,11 +357,11 @@ namespace Resonance
                 {
                     if (upPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).move(-1);
+                        ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
                     }
                     if (downPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).move(1);
+                        ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
                     }
                 }
             }
@@ -374,36 +374,35 @@ namespace Resonance
 
                 if (x == 0 && y > 0)
                 {
-                   ((DynamicObject)(world.getObject("Player"))).move(-1);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
                 }
                 if (x == 0 && y < 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).move(1);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
                     
                 }
                 
                 if (x < 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveLeft(1);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
                   
                 }
                 if (x > 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveRight(-1);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
                 }
 
                 if (camerax == -1 && cameray == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(1);
+                    ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_ANTI);
                 }
 
                 if (camerax == 1 && cameray == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(-1);
+                    ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_CLOCK);
                 }
                 
             }
-            Vector3 pos = ((DynamicObject)(world.getObject("Player"))).Body.Position;
             Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
         }
 
