@@ -9,12 +9,18 @@ using BEPUphysics.Entities;
 using BEPUphysics.EntityStateManagement;
 using BEPUphysics.MathExtensions;
 using BEPUphysics;
+using BEPUphysics.Paths.PathFollowing;
 
 namespace Resonance
 {
     class DynamicObject : Object
     {
+        private const float ROTATE_SPEED = 0.3f;
+        private const float MOVE_SPEED = 0.25f;
+
         ConvexHull body;
+
+        protected EntityRotator rotator;
 
         public DynamicObject(int modelNum, string name, Game game, Vector3 pos)
             : base(modelNum, name, game, pos)
@@ -32,18 +38,20 @@ namespace Resonance
             body.Tag = GameModels.getModel(modelNum);
             body.Material.KineticFriction = 0.8f;
             body.Material.StaticFriction = 1f;
+            rotator = new EntityRotator(body);
+            rotator.AngularMotor.Settings.Servo.SpringSettings.StiffnessConstant = 300000;
         }
 
-        public void move(float distance)
+        public void move(float sign)
         {
-            Quaternion orientation = Body.Orientation;
-            Vector3 rotateVector = QuaternionToEuler(orientation);
+            Vector3 rotateVector = QuaternionToEuler(Body.Orientation);
 
             Vector3 velocity = Body.LinearVelocity;
-            if(velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(distance * Math.Cos(rotateVector.Y));
-            if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(distance * Math.Sin(rotateVector.Y));
+            if(velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(sign * MOVE_SPEED * Math.Cos(rotateVector.Y));
+            if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(sign * MOVE_SPEED * Math.Sin(rotateVector.Y));
             Body.LinearVelocity = velocity;
         }
+
         public void moveLeft(float distance)
         {
             Quaternion orientation = Body.Orientation;
@@ -66,11 +74,22 @@ namespace Resonance
 
             Body.LinearVelocity = velocity;
         }
-        public void rotate(float angle)
+
+        /*public void rotate(float angle)
         {
             Vector3 velocity = Body.AngularVelocity;
             if (velocity.Y < 2 && velocity.Y > -2) velocity.Y += (float)angle;
             Body.AngularVelocity = velocity;
+        }*/
+
+        public void rotate(float sign)
+        {
+            Quaternion rot;
+            Vector3 axis = Vector3.Up;
+            Quaternion.CreateFromAxisAngle(ref axis, (ROTATE_SPEED * sign), out rot);
+            rot.X = 0;
+            rot.Z = 0;
+            rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
         }
 
         public static Vector3 QuaternionToEuler(Quaternion quat)
@@ -92,6 +111,14 @@ namespace Resonance
             get
             {
                 return body;
+            }
+        }
+
+        public EntityRotator Rotator
+        {
+            get
+            {
+                return rotator;
             }
         }
     }

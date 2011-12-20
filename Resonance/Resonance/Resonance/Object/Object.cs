@@ -13,7 +13,6 @@ namespace Resonance
     {
         private string identifier;
         protected int gameModelNum;
-        protected float rotation;
         private Vector3 position;
 
         private Game gameRef;
@@ -23,7 +22,6 @@ namespace Resonance
         {
             gameModelNum = modelNum;
             identifier = name;
-            rotation = 0f;
             position = pos;
 
             gameRef = game;
@@ -50,14 +48,6 @@ namespace Resonance
             }
 
             base.Draw(gameTime);
-        }
-
-        public float Rotation
-        {
-            get
-            {
-                return rotation;
-            }
         }
     }
 }

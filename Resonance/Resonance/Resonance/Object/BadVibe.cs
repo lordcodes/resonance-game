@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using BEPUphysics.Entities;
 using BEPUphysics.Paths.PathFollowing;
 using BEPUphysics;
+using BEPUphysics.Paths;
 
 namespace Resonance
 {
@@ -14,13 +15,11 @@ namespace Resonance
         public const double RADIUS = 0.5;
         private const double ATTACK_RATE = 0.8;
         private const double REDUCTION_RATE = 15;
+        private const double ATTACK_RANGE = 3;
 
         private int iterationCount = 0;
-        private double range = 6;
 
         Game game;
-        EntityRotator rotator;
-        Vector3 goal;
 
         int previousDirection;  //Remembers the previous movement direction 
 
@@ -31,10 +30,8 @@ namespace Resonance
             : base(modelNum, name, game, pos)
         {
             this.game = game;
-            rotator = new EntityRotator(Body);
             previousDirection = -1;
             dead = false;
-            goal = Vector3.Zero;
 
             armour = ArmourSequence.random();
             setColour();
@@ -57,16 +54,8 @@ namespace Resonance
             }
         }
 
-        public EntityRotator Rotator
-        {
-            get
-            {
-                return rotator;
-            }
-        }
-
         /// <summary>
-        /// Moves the bad vibe in the world randomly
+        /// Moves the bad vibe in the world
         /// 
         /// Takes into account previous direction of movement so that the vibe is more likely to carry on in that direction
         /// Bin1: x and z positive
@@ -74,92 +63,12 @@ namespace Resonance
         /// Bin3: x negative
         /// Bin4: z negative
         /// 
-        /// @offsetx: the amount of movement in the x direction
-        /// @offsetz: the amount of movement in the z direction
         /// </summary>
         public void Move()
-        {
-            float offsetx = 0.01f;
-            //float offsety = 0;
-            float offsetz = 0.01f;
-            
-            if (getDistance() > 8)
+        {           
+            if (getDistance() > 10)
             {
-                double binBoundary1 = 0.25;
-                double binBoundary2 = 0.5;
-                double binBoundary3 = 0.75;
-                int total = 0;
-                byte[] Unicode = Encoding.Unicode.GetBytes(this.returnIdentifier());
-                foreach (byte x in Unicode)
-                {
-                    total += x;
-                }
-                Random r = new Random((int)DateTime.Now.Ticks * total);
-                double direction = r.NextDouble();
-
-                offsetx = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
-                offsetz = (float)r.NextDouble() * (0.05f - 0.01f) + 0.01f;
-
-                //Probability of direction change
-                switch (previousDirection)
-                {
-                    case 0:
-                        {
-                            binBoundary1 = 0.97;
-                            binBoundary2 = 0.98;
-                            binBoundary3 = 0.99;
-                            break;
-                        }
-                    case 1:
-                        {
-                            binBoundary1 = 0.01;
-                            binBoundary2 = 0.98;
-                            binBoundary3 = 0.99;
-                            break;
-                        }
-                    case 2:
-                        {
-                            binBoundary1 = 0.01;
-                            binBoundary2 = 0.02;
-                            binBoundary3 = 0.99;
-                            break;
-                        }
-                    case 3:
-                        {
-                            binBoundary1 = 0.01;
-                            binBoundary2 = 0.02;
-                            binBoundary3 = 0.03;
-                            break;
-                        }
-                    default:
-                        {
-                            break;
-                        }
-                }
-
-                //Movement
-                if (direction < binBoundary1)
-                {
-                    previousDirection = 0;
-                    move(0.1f);
-                }
-                else if (direction < binBoundary2)
-                {
-                    move(-0.2f);
-                    previousDirection = 1;
-                }
-                else if (direction < binBoundary3)
-                {
-                    move(0.1f);
-                    rotate(0.2f);
-                    previousDirection = 2;
-                }
-                else
-                {
-                    move(0.1f);
-                    rotate(-0.2f);
-                    previousDirection = 3;
-                }
+                moveAround();
             }
             else
             {
@@ -172,7 +81,7 @@ namespace Resonance
                     RotateToFaceGoodVibe();
                 }
 
-                if ( getDistance() < range )
+                if ( getDistance() < ATTACK_RANGE )
                 {
                     if ( (iterationCount % REDUCTION_RATE) == 0 )
                     {
@@ -183,16 +92,80 @@ namespace Resonance
                             attackGoodVibe();
                         }
                     }
-
                     iterationCount++;
                 }
             }
 
-            if (iterationCount == 59)
+            if (iterationCount == 59) iterationCount = 0;
+
+        }
+
+        private void moveAround()
+        {
+            double binBoundary1 = 0.25, binBoundary2 = 0.5, binBoundary3 = 0.75;
+            int total = 0;
+            foreach (byte x in Encoding.Unicode.GetBytes(this.returnIdentifier())) total += x;
+
+            Random r = new Random((int)DateTime.Now.Ticks * total);
+            double direction = r.NextDouble();
+
+            //Probability of direction change
+            switch (previousDirection)
             {
-                iterationCount = 0;
+                case 0:
+                    {
+                        binBoundary1 = 0.97;
+                        binBoundary2 = 0.98;
+                        binBoundary3 = 0.99;
+                        break;
+                    }
+                case 1:
+                    {
+                        binBoundary1 = 0.01;
+                        binBoundary2 = 0.98;
+                        binBoundary3 = 0.99;
+                        break;
+                    }
+                case 2:
+                    {
+                        binBoundary1 = 0.01;
+                        binBoundary2 = 0.02;
+                        binBoundary3 = 0.99;
+                        break;
+                    }
+                case 3:
+                    {
+                        binBoundary1 = 0.01;
+                        binBoundary2 = 0.02;
+                        binBoundary3 = 0.03;
+                        break;
+                    }
+                default: break;
             }
 
+            //Movement
+            if (direction < binBoundary1)
+            {
+                previousDirection = 0;
+                move(1);
+            }
+            else if (direction < binBoundary2)
+            {
+                move(-1);
+                previousDirection = 1;
+            }
+            else if (direction < binBoundary3)
+            {
+                move(1);
+                rotate(1);
+                previousDirection = 2;
+            }
+            else
+            {
+                move(1);
+                rotate(-1);
+                previousDirection = 3;
+            }
         }
 
         /// <summary>
@@ -214,7 +187,7 @@ namespace Resonance
             Vector3 angles = BadVibe.QuaternionToEuler(rot);
             rot.X = 0;
             rot.Z = 0;
-            Rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
+            rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
         }
 
         /// <summary>
@@ -226,7 +199,7 @@ namespace Resonance
             Vector3 gvPos = ((GoodVibe)game.World.getObject("Player")).Body.Position;
             //Find best route to the good vibe
             RotateToFaceGoodVibe();
-            move(0.25f);
+            move(1);
         }
 
         /// <summary>

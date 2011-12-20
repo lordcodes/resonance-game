@@ -39,10 +39,7 @@ namespace Resonance
             if (obj is DynamicObject)
             {
                 space.Add(((DynamicObject)obj).Body);
-                if (obj is BadVibe)
-                {
-                    space.Add(((BadVibe)obj).Rotator);
-                }
+                space.Add(((DynamicObject)obj).Rotator);
                     
             }
             else if(obj is StaticObject)
@@ -55,6 +52,11 @@ namespace Resonance
         public void addToSpace(ISpaceObject obj)
         {
             space.Add(obj);
+        }
+
+        void queryLocations()
+        {
+            
         }
 
         //removes the object from the dictionary
