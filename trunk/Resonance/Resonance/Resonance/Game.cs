@@ -328,30 +328,28 @@ namespace Resonance
             bool upPressed   = keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed);
             bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
             
-            float forwardSpeed = 0.25f;
-            float rotateSpeed = 0.03f;
             if (currentState.IsConnected == false)
             {
                 if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))
                 {
                     if (!downPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(1);
                     }
                     else
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(-1);
                     }
                 }
                 if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
                 {
                     if (!downPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(-1);
                     }
                     else
                     {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                        ((DynamicObject)(world.getObject("Player"))).rotate(1);
                     }
                 }
 
@@ -359,11 +357,11 @@ namespace Resonance
                 {
                     if (upPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
+                        ((DynamicObject)(world.getObject("Player"))).move(-1);
                     }
                     if (downPressed)
                     {
-                        ((DynamicObject)(world.getObject("Player"))).move(forwardSpeed);
+                        ((DynamicObject)(world.getObject("Player"))).move(1);
                     }
                 }
             }
@@ -376,32 +374,32 @@ namespace Resonance
 
                 if (x == 0 && y > 0)
                 {
-                   ((DynamicObject)(world.getObject("Player"))).move(-forwardSpeed);
+                   ((DynamicObject)(world.getObject("Player"))).move(-1);
                 }
                 if (x == 0 && y < 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).move(forwardSpeed);
+                    ((DynamicObject)(world.getObject("Player"))).move(1);
                     
                 }
                 
                 if (x < 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveLeft(forwardSpeed);
+                    ((DynamicObject)(world.getObject("Player"))).moveLeft(1);
                   
                 }
                 if (x > 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveRight(-rotateSpeed);
+                    ((DynamicObject)(world.getObject("Player"))).moveRight(-1);
                 }
 
                 if (camerax == -1 && cameray == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(rotateSpeed);
+                    ((DynamicObject)(world.getObject("Player"))).rotate(1);
                 }
 
                 if (camerax == 1 && cameray == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(-rotateSpeed);
+                    ((DynamicObject)(world.getObject("Player"))).rotate(-1);
                 }
                 
             }
