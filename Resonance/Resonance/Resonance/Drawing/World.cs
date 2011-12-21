@@ -14,13 +14,14 @@ using Microsoft.Xna.Framework.Media;
 using BEPUphysics.Entities.Prefabs;
 using System.Xml;
 using System.IO;
+using BEPUphysics.Entities;
 
 
 namespace Resonance
 {
     class World
     {
-        private Dictionary<string, Object> objects = new Dictionary<string, Object>();
+        private Dictionary<string, Object> objects;
         Space space;
         Game game;
 
@@ -29,6 +30,7 @@ namespace Resonance
             space = new Space();
             space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
             this.game = game;
+            objects = new Dictionary<string, Object>();
         }
 
        
@@ -40,7 +42,7 @@ namespace Resonance
             {
                 space.Add(((DynamicObject)obj).Body);
                 space.Add(((DynamicObject)obj).Rotator);
-                    
+                Entity e = ((DynamicObject)obj).Body;
             }
             else if(obj is StaticObject)
             {
@@ -52,11 +54,6 @@ namespace Resonance
         public void addToSpace(ISpaceObject obj)
         {
             space.Add(obj);
-        }
-
-        void queryLocations()
-        {
-            
         }
 
         //removes the object from the dictionary
