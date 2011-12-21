@@ -18,10 +18,12 @@ namespace Resonance
         private const float ROTATE_SPEED = 0.3f;
         private const float MOVE_SPEED = 0.25f;
 
-        public const int MOVE_FORWARD = 0;
-        public const int MOVE_BACKWARD = 1;
+        public const int BV_FORWARD = 0;
+        public const int BV_BACKWARD = 1;
         public const int MOVE_LEFT = 2;
         public const int MOVE_RIGHT = 3;
+        public const int MOVE_FORWARD = 4;
+        public const int MOVE_BACKWARD = 5;
 
         public const int ROTATE_CLOCK = 0;
         public const int ROTATE_ANTI = 1;
@@ -61,13 +63,13 @@ namespace Resonance
 
             switch(direction)
             {
-                case(MOVE_FORWARD):
+                case(BV_FORWARD): break;
+                case (BV_BACKWARD):
                     {
                         xCoefficient *= -1;
                         zCoefficient *= -1;
                         break;
                     }
-                case (MOVE_BACKWARD): break;
                 case (MOVE_LEFT):
                     {
                         xCoefficient *= -1;
@@ -78,6 +80,13 @@ namespace Resonance
                         zCoefficient *= -1;
                         break;
                     }
+                case (MOVE_FORWARD):
+                    {
+                        xCoefficient *= -1;
+                        zCoefficient *= -1;
+                        break;
+                    }
+                case (MOVE_BACKWARD): break;
             }
 
             if(velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));

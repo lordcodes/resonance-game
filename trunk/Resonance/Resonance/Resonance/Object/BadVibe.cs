@@ -147,23 +147,23 @@ namespace Resonance
             if (direction < binBoundary1)
             {
                 previousDirection = 0;
-                move(1);
+                move(BV_FORWARD);
             }
             else if (direction < binBoundary2)
             {
-                move(-1);
+                move(BV_BACKWARD);
                 previousDirection = 1;
             }
             else if (direction < binBoundary3)
             {
-                move(1);
-                rotate(1);
+                move(BV_FORWARD);
+                rotate(ROTATE_ANTI);
                 previousDirection = 2;
             }
             else
             {
-                move(1);
-                rotate(-1);
+                move(BV_FORWARD);
+                rotate(ROTATE_CLOCK);
                 previousDirection = 3;
             }
         }
@@ -199,7 +199,7 @@ namespace Resonance
             Vector3 gvPos = ((GoodVibe)game.World.getObject("Player")).Body.Position;
             //Find best route to the good vibe
             RotateToFaceGoodVibe();
-            move(1);
+            move(BV_FORWARD);
         }
 
         /// <summary>
