@@ -74,6 +74,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AI\Minheap.cs" />
+    <Compile Include="AI\Node.cs" />
     <Compile Include="AI\PathFind.cs" />
     <Compile Include="Drawing\CustomFontContentReader.cs" />
     <Compile Include="Drawing\GameModelsContentReader.cs" />
