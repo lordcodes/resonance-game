@@ -398,47 +398,47 @@ namespace Resonance
                 if (height > 0 && ((DynamicObject)world.getObject("Player")).Body.AngularVelocity.Y == initial)
                 {
                     
-                    ((DynamicObject)(world.getObject("Player"))).jump(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).jump(0.2f);
                     
                 }
                 if (x == 0 && y > 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveForward(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
                 }
                 if (x == 0 && y < 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveBackward(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
                     
                 }
                 
                 if (x < 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveLeft(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
                   
                 }
                 if (x < 0 && y > 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveLeft(0.5f);
-                    ((DynamicObject)(world.getObject("Player"))).moveForward(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
                 }
                 if (x < 0 && y < 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveLeft(0.5f);
-                    ((DynamicObject)(world.getObject("Player"))).moveBackward(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
                 }
                 if (x > 0 && y < 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveRight(0.5f);
-                    ((DynamicObject)(world.getObject("Player"))).moveBackward(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
                 }
                 if (x > 0 && y > 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveRight(0.5f);
-                    ((DynamicObject)(world.getObject("Player"))).moveForward(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
                 }
                 if (x > 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).moveRight(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
                 }
 
                 if (camerax == -1 && cameray == 0)
