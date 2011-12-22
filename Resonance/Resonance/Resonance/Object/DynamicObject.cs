@@ -98,8 +98,8 @@ namespace Resonance
             if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
             Body.LinearVelocity = velocity;
         }
-
-        /*public void moveLeft(float distance)
+        
+        public void moveLeft(float distance)
         {
             Quaternion orientation = Body.Orientation;
             Vector3 rotateVector = QuaternionToEuler(orientation);
@@ -116,20 +116,51 @@ namespace Resonance
             Vector3 rotateVector = QuaternionToEuler(orientation);
             Vector3 velocity = Body.LinearVelocity;
 
-            velocity.Z += (float)(distance * Math.Sin(rotateVector.Y));
-            velocity.X -= (float)(distance * Math.Cos(rotateVector.Y));
+            velocity.Z -= (float)(distance * Math.Sin(rotateVector.Y));
+            velocity.X += (float)(distance * Math.Cos(rotateVector.Y));
 
             Body.LinearVelocity = velocity;
-        }*/
+        }
+        public void moveForward(float distance)
+        {
+            Quaternion orientation = Body.Orientation;
+            Vector3 rotateVector = QuaternionToEuler(orientation);
+            Vector3 velocity = Body.LinearVelocity;
 
-        /*public void rotate(float angle)
+            velocity.X -= (float)(distance * Math.Sin(rotateVector.Y));
+            velocity.Z -= (float)(distance * Math.Cos(rotateVector.Y));
+
+            Body.LinearVelocity = velocity;
+        }
+        public void moveBackward(float distance)
+        {
+            Quaternion orientation = Body.Orientation;
+            Vector3 rotateVector = QuaternionToEuler(orientation);
+            Vector3 velocity = Body.LinearVelocity;
+
+            velocity.X += (float)(distance * Math.Sin(rotateVector.Y));
+            velocity.Z += (float)(distance * Math.Cos(rotateVector.Y));
+
+            Body.LinearVelocity = velocity;
+        }
+        public void jump(float height)
+        {
+           
+            Quaternion orientation = Body.Orientation;
+            Vector3 rotateVector = QuaternionToEuler(orientation);
+            Vector3 velocity = Body.LinearVelocity;
+            velocity.X = (float)(height * Math.Sin(rotateVector.Y));
+            velocity.Y += (float) (height * Math.Cos(rotateVector.X));
+            Body.LinearVelocity = velocity;
+        }
+      /*  public void rotate(float angle)
         {
             Vector3 velocity = Body.AngularVelocity;
             if (velocity.Y < 2 && velocity.Y > -2) velocity.Y += (float)angle;
             Body.AngularVelocity = velocity;
-        }*/
-
-        public void rotate(int direction)
+        }
+        */
+       public void rotate(int direction)
         {
             float coefficient = ROTATE_SPEED;
 

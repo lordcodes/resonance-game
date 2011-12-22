@@ -347,7 +347,7 @@ namespace Resonance
         {
             KeyboardState keyboardState = Keyboard.GetState();
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
-            
+            float initial = ((DynamicObject)world.getObject("Player")).Body.AngularVelocity.Y;
             bool upPressed   = keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed);
             bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
             
@@ -394,25 +394,52 @@ namespace Resonance
                 float y = currentState.ThumbSticks.Left.Y;
                 float camerax = currentState.ThumbSticks.Right.X;
                 float cameray = currentState.ThumbSticks.Right.Y;
-
+                float height  = currentState.Triggers.Left;
+               
+                if (height > 0 && ((DynamicObject)world.getObject("Player")).Body.AngularVelocity.Y == initial)
+                {
+                    
+                    ((DynamicObject)(world.getObject("Player"))).jump(0.5f);
+                    
+                }
                 if (x == 0 && y > 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
+                    ((DynamicObject)(world.getObject("Player"))).moveForward(0.5f);
                 }
                 if (x == 0 && y < 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
+                    ((DynamicObject)(world.getObject("Player"))).moveBackward(0.5f);
                     
                 }
                 
                 if (x < 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
+                    ((DynamicObject)(world.getObject("Player"))).moveLeft(0.5f);
                   
+                }
+                if (x < 0 && y > 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).moveLeft(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).moveForward(0.5f);
+                }
+                if (x < 0 && y < 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).moveLeft(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).moveBackward(0.5f);
+                }
+                if (x > 0 && y < 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).moveRight(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).moveBackward(0.5f);
+                }
+                if (x > 0 && y > 0)
+                {
+                    ((DynamicObject)(world.getObject("Player"))).moveRight(0.5f);
+                    ((DynamicObject)(world.getObject("Player"))).moveForward(0.5f);
                 }
                 if (x > 0 && y == 0)
                 {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
+                    ((DynamicObject)(world.getObject("Player"))).moveRight(0.5f);
                 }
 
                 if (camerax == -1 && cameray == 0)
