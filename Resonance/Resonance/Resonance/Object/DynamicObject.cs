@@ -68,81 +68,56 @@ namespace Resonance
 
             switch(direction)
             {
-                case(BV_FORWARD): break;
+                case (BV_FORWARD):
+                    {
+                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
+                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
+                        break;
+                    }
                 case (BV_BACKWARD):
                     {
                         xCoefficient *= -1;
                         zCoefficient *= -1;
+                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
+                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
                         break;
                     }
                 case (MOVE_LEFT):
                     {
                         xCoefficient *= -1;
+                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Sin(rotateVector.Y));
+                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Cos(rotateVector.Y));
                         break;
                     }
                 case (MOVE_RIGHT):
                     {
                         zCoefficient *= -1;
+                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Sin(rotateVector.Y));
+                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Cos(rotateVector.Y));
                         break;
                     }
                 case (MOVE_FORWARD):
                     {
+
                         xCoefficient *= -1;
                         zCoefficient *= -1;
+                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
+                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
                         break;
                     }
-                case (MOVE_BACKWARD): break;
+                case (MOVE_BACKWARD):
+                    {
+                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
+                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
+                        break;
+                    }
             }
 
-            if(velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
-            if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
-            Body.LinearVelocity = velocity;
-        }
-        
-        public void moveLeft(float distance)
-        {
-            Quaternion orientation = Body.Orientation;
-            Vector3 rotateVector = QuaternionToEuler(orientation);
-            Vector3 velocity = Body.LinearVelocity;
-
-             velocity.Z += (float)(distance * Math.Sin(rotateVector.Y));
-             velocity.X -= (float)(distance * Math.Cos(rotateVector.Y));
             
             Body.LinearVelocity = velocity;
         }
-        public void moveRight(float distance)
-        {
-            Quaternion orientation = Body.Orientation;
-            Vector3 rotateVector = QuaternionToEuler(orientation);
-            Vector3 velocity = Body.LinearVelocity;
-
-            velocity.Z -= (float)(distance * Math.Sin(rotateVector.Y));
-            velocity.X += (float)(distance * Math.Cos(rotateVector.Y));
-
-            Body.LinearVelocity = velocity;
-        }
-        public void moveForward(float distance)
-        {
-            Quaternion orientation = Body.Orientation;
-            Vector3 rotateVector = QuaternionToEuler(orientation);
-            Vector3 velocity = Body.LinearVelocity;
-
-            velocity.X -= (float)(distance * Math.Sin(rotateVector.Y));
-            velocity.Z -= (float)(distance * Math.Cos(rotateVector.Y));
-
-            Body.LinearVelocity = velocity;
-        }
-        public void moveBackward(float distance)
-        {
-            Quaternion orientation = Body.Orientation;
-            Vector3 rotateVector = QuaternionToEuler(orientation);
-            Vector3 velocity = Body.LinearVelocity;
-
-            velocity.X += (float)(distance * Math.Sin(rotateVector.Y));
-            velocity.Z += (float)(distance * Math.Cos(rotateVector.Y));
-
-            Body.LinearVelocity = velocity;
-        }
+        
+       
         public void jump(float height)
         {
            
