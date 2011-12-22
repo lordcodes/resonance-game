@@ -23,7 +23,7 @@ namespace Resonance
 {
     class World
     {
-        private const float ACCURACY = 0.5f;
+        private const float ACCURACY = 0.1f;
 
         private Dictionary<string, Object> objects;
         Space space;

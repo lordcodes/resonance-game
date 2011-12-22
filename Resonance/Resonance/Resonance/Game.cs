@@ -19,7 +19,6 @@ namespace Resonance
     /// </summary>
     class Game : Microsoft.Xna.Framework.Game
     {
-        public static float WORLD_SCALE;
 
         public const int BEGINNER = 0;
         public const int EASY     = 1;
@@ -106,7 +105,8 @@ namespace Resonance
 
             //Testing world space querying
             //Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
-            //world.querySpace(pos);
+            Vector3 pos = new Vector3(0, 0.5f, -5);
+            world.querySpace(pos);
         }
 
         /// <summary>
