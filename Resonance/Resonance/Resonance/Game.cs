@@ -19,19 +19,21 @@ namespace Resonance
     /// </summary>
     class Game : Microsoft.Xna.Framework.Game
     {
-        public static int BEGINNER = 0;
-        public static int EASY     = 1;
-        public static int MEDIUM   = 2;
-        public static int HARD     = 3;
-        public static int EXPERT   = 4;
-        public static int INSANE   = 5;
+        public static float WORLD_SCALE;
+
+        public const int BEGINNER = 0;
+        public const int EASY     = 1;
+        public const int MEDIUM   = 2;
+        public const int HARD     = 3;
+        public const int EXPERT   = 4;
+        public const int INSANE   = 5;
 
         public static int DIFFICULTY = EASY;
 
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
 
-        //Input states
+        //Previous Input States
         GamePadState oldPadState1;
         GamePadState oldPadState2;
         KeyboardState oldKeyState;
@@ -88,17 +90,6 @@ namespace Resonance
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             MenuActions.loadLevel(1);
 
-            //Not needed now that we have loading from level file
-            //StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
-            //GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(0, 0.65f, 6f));
-            //GoodVibe player = new GoodVibe(GameModels.MUSHROOM, "Player", this, new Vector3(0, 5f, 6f));
-            //StaticObject tree = new StaticObject(GameModels.TREE, "Tree1", this, new Vector3(0,0,-0.1f));
-            //StaticObject mush = new StaticObject(GameModels.MUSHROOM, "Mushroom1", this, new Vector3(3, 3, 3));
-            //BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BV0", this, new Vector3(-3, 0.65f, 3));
-            //world.addObject(tree);
-            //world.addObject(mush);
-            //world.addObject(bv);
-
             double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
             DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
         }
@@ -134,106 +125,13 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
-            GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
-            KeyboardState keyboardState = Keyboard.GetState();
             Drawing.Update(gameTime);
 
             if (!Loading.IsLoading)
             {
-                if (keyboardState.IsKeyDown(Keys.Escape) || playerOne.Buttons.Start == ButtonState.Pressed || playerTwo.Buttons.Start == ButtonState.Pressed)
+                keyInput();
+                if (!UI.Paused)
                 {
-                    if (!oldKeyState.IsKeyDown(Keys.Escape) && oldPadState1.Buttons.Start != ButtonState.Pressed && oldPadState2.Buttons.Start != ButtonState.Pressed)
-                    {
-                        if (UI.Paused) UI.play();
-                        else UI.pause();
-                        //if (paused) musicHandler.getTrack().pauseTrack();
-                        //if (!paused) musicHandler.getTrack().playTrack();
-                    }
-                }
-
-                //XBOX Controls
-                if (playerOne.Buttons.Back == ButtonState.Pressed || playerTwo.Buttons.Back == ButtonState.Pressed)
-                {
-                    this.Exit();
-                }
-
-                if (UI.Paused)
-                {
-                    if (keyboardState.IsKeyDown(Keys.Up) || playerOne.DPad.Up == ButtonState.Pressed || playerTwo.DPad.Up == ButtonState.Pressed)
-                    {
-                        if (!oldKeyState.IsKeyDown(Keys.Up) && oldPadState1.DPad.Up != ButtonState.Pressed && oldPadState2.DPad.Up != ButtonState.Pressed)
-                        {
-                            UI.moveUp();
-                        }
-                    }
-
-                    if (keyboardState.IsKeyDown(Keys.Down) || playerOne.DPad.Down == ButtonState.Pressed || playerTwo.DPad.Down == ButtonState.Pressed)
-                    {
-                        if (!oldKeyState.IsKeyDown(Keys.Down) && oldPadState1.DPad.Down != ButtonState.Pressed && oldPadState2.DPad.Down != ButtonState.Pressed)
-                        {
-                            UI.moveDown();
-                        }
-                    }
-
-                    if (keyboardState.IsKeyDown(Keys.Enter) || playerOne.Buttons.A == ButtonState.Pressed || playerTwo.Buttons.A == ButtonState.Pressed)
-                    {
-                        if (!oldKeyState.IsKeyDown(Keys.Enter) && oldPadState1.Buttons.A != ButtonState.Pressed && oldPadState2.Buttons.A != ButtonState.Pressed)
-                        {
-                            UI.select();
-                        }
-                    }
-                }
-                else
-                {
-
-                    //Player One
-                    playerOnePresses(playerOne);
-                    //Player Two
-                    playerTwoPresses(playerTwo);
-
-                    //PC Testing Controls
-                    if (keyboardState.IsKeyDown(Keys.Space))
-                    {
-                        musicHandler.getTrack().playTrack();
-                    }
-                    if (keyboardState.IsKeyDown(Keys.S))
-                    {
-                        musicHandler.getTrack().stopTrack();
-                    }
-                    if (keyboardState.IsKeyDown(Keys.P))
-                    {
-                        musicHandler.getTrack().pauseTrack();
-                    }
-                    if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
-                    {
-                        musicHandler.getTrack().inTime();
-                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
-                    }
-                    if (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X))
-                    {
-                        musicHandler.getTrack().inTime();
-                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
-                    }
-                    if (keyboardState.IsKeyDown(Keys.C) && !oldKeyState.IsKeyDown(Keys.C))
-                    {
-                        musicHandler.getTrack().inTime();
-                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
-                    }
-                    if (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V))
-                    {
-                        musicHandler.getTrack().inTime();
-                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
-                    }
-                    if (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B))
-                    {
-                        musicHandler.getTrack().inTime();
-                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-                    }
-
-                    //Update graphics
-                    UpdateGoodVibePosition();
-
                     //Update bad vibe position
                     moveBadVibes();
 
@@ -253,11 +151,113 @@ namespace Resonance
                     musicHandler.Update();
                     removeDeadBadVibes();
                 }
+            }
+        }
 
-                //Cache the previous key state.
-                oldPadState1 = playerOne;
-                oldPadState2 = playerTwo;
-                oldKeyState = keyboardState;
+        private void keyInput()
+        {
+            GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
+            GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.Escape) || playerOne.Buttons.Start == ButtonState.Pressed || playerTwo.Buttons.Start == ButtonState.Pressed)
+            {
+                if (!oldKeyState.IsKeyDown(Keys.Escape) && oldPadState1.Buttons.Start != ButtonState.Pressed && oldPadState2.Buttons.Start != ButtonState.Pressed)
+                {
+                    if (UI.Paused) UI.play();
+                    else UI.pause();
+                    //if (paused) musicHandler.getTrack().pauseTrack();
+                    //if (!paused) musicHandler.getTrack().playTrack();
+                }
+            }
+
+            if (UI.Paused)
+            {
+                menuControls(keyboardState, playerOne, playerTwo);
+            }
+            else
+            {
+                //Player One
+                playerOnePresses(playerOne);
+                //Player Two
+                playerTwoPresses(playerTwo);
+
+                //PC Testing Controls
+                pcTestingControls(keyboardState);
+            }
+
+            //Cache the previous key state.
+            oldPadState1 = playerOne;
+            oldPadState2 = playerTwo;
+            oldKeyState = keyboardState;
+        }
+
+        private void pcTestingControls(KeyboardState keyboardState)
+        {
+            //PC Testing Controls
+            if (keyboardState.IsKeyDown(Keys.Space))
+            {
+                musicHandler.getTrack().playTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.S))
+            {
+                musicHandler.getTrack().stopTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.P))
+            {
+                musicHandler.getTrack().pauseTrack();
+            }
+            if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
+            }
+            if (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
+            }
+            if (keyboardState.IsKeyDown(Keys.C) && !oldKeyState.IsKeyDown(Keys.C))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
+            }
+            if (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
+            }
+            if (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B))
+            {
+                musicHandler.getTrack().inTime();
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
+            }
+        }
+
+        private void menuControls(KeyboardState keyboardState, GamePadState playerOne, GamePadState playerTwo)
+        {
+            if (keyboardState.IsKeyDown(Keys.Up) || playerOne.DPad.Up == ButtonState.Pressed || playerTwo.DPad.Up == ButtonState.Pressed)
+            {
+                if (!oldKeyState.IsKeyDown(Keys.Up) && oldPadState1.DPad.Up != ButtonState.Pressed && oldPadState2.DPad.Up != ButtonState.Pressed)
+                {
+                    UI.moveUp();
+                }
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Down) || playerOne.DPad.Down == ButtonState.Pressed || playerTwo.DPad.Down == ButtonState.Pressed)
+            {
+                if (!oldKeyState.IsKeyDown(Keys.Down) && oldPadState1.DPad.Down != ButtonState.Pressed && oldPadState2.DPad.Down != ButtonState.Pressed)
+                {
+                    UI.moveDown();
+                }
+            }
+
+            if (keyboardState.IsKeyDown(Keys.Enter) || playerOne.Buttons.A == ButtonState.Pressed || playerTwo.Buttons.A == ButtonState.Pressed)
+            {
+                if (!oldKeyState.IsKeyDown(Keys.Enter) && oldPadState1.Buttons.A != ButtonState.Pressed && oldPadState2.Buttons.A != ButtonState.Pressed)
+                {
+                    UI.select();
+                }
             }
         }
 
@@ -278,6 +278,9 @@ namespace Resonance
             {
                 musicHandler.getTrack().pauseTrack();
             }
+
+            //Update graphics
+            UpdateGoodVibePosition();
         }
 
         /// <summary>
