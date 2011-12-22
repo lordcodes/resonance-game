@@ -107,8 +107,13 @@
     <Compile Include="Drawing\ImportedCustomFont.cs" />
     <Compile Include="Drawing\ImportedGameModel.cs" />
     <Compile Include="Drawing\ImportedGameModels.cs" />
+    <Compile Include="Drawing\UI\MenuItem.cs" />
+    <Compile Include="Drawing\UI\UI.cs" />
     <Compile Include="Drawing\World.cs" />
     <Compile Include="Drawing\Graphics.cs" />
+    <Compile Include="Drawing\UI\MenuActions.cs" />
+    <Compile Include="Drawing\UI\Loading.cs" />
+    <Compile Include="Drawing\UI\LoadingScreen.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Drawing\Drawing.cs" />
     <Compile Include="Object\DynamicObject.cs" />

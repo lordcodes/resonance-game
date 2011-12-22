@@ -226,7 +226,7 @@ namespace Resonance
 
         }
 
-        private void kill()
+        public void kill()
         {
             dead = true;
         }

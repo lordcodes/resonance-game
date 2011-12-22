@@ -17,9 +17,46 @@ namespace Resonance
         private static ContentManager Content;
         private static Hud hud;
         private static Graphics gameGraphics;
+        private static LoadingScreen loadingScreen;
         private static int frameCounter;
         private static int frameTime;
         private static int currentFrameRate;
+        private static float screenWidth;
+        private static float screenHeight;
+        private static double widthRatio;
+        private static double heightRatio;
+
+        public static int ScreenWidth
+        {
+            get
+            {
+                return (int)Math.Round(screenWidth);
+            }
+        }
+
+        public static int ScreenHeight
+        {
+            get
+            {
+                return (int)Math.Round(screenHeight);
+            }
+        }
+
+        public static double WidthRatio
+        {
+            get
+            {
+                return widthRatio;
+            }
+        }
+
+        public static double HeightRatio
+        {
+            get
+            {
+                return heightRatio;
+            }
+        }
 
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
@@ -32,6 +69,7 @@ namespace Resonance
             GameModels.Init(Content);
             gameGraphics = new Graphics(Content, graphics);
             hud = new Hud(Content,graphics, gameGraphics);
+            loadingScreen = new LoadingScreen(Content, graphics);
         }
 
         /// <summary>
@@ -40,9 +78,26 @@ namespace Resonance
         /// </summary>
         public static void loadContent()
         {
+            screenWidth = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
+            screenHeight = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
+            widthRatio = screenWidth / 1920;
+            heightRatio = screenHeight / 1080;
             hud.loadContent();
             GameModels.Load();
             gameGraphics.loadContent();
+            loadingScreen.loadContent();
+        }
+
+        /// <summary>
+        /// Used to update any frame animation
+        /// </summary>
+        /// <param name="gameTime"></param>
+        public static void Update(GameTime gameTime)
+        {
+            if (Loading.IsLoading)
+            {
+                loadingScreen.Update(gameTime);
+            }
         }
 
         /// <summary>
@@ -50,9 +105,17 @@ namespace Resonance
         /// </summary>
         public static void Draw(GameTime gameTime)
         {
-            hud.Draw();
-            hud.drawDebugInfo(DebugDisplay.getString());
-            checkFrameRate(gameTime);
+            if (Loading.IsLoading)
+            {
+                loadingScreen.Draw();
+            }
+            else
+            {
+                hud.Draw();
+                hud.drawDebugInfo(DebugDisplay.getString());
+                if (UI.Paused) hud.drawMenu(UI.getString());
+                checkFrameRate(gameTime);
+            }
         }
 
         /// <summary>
@@ -62,10 +125,10 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            if (worldObject is Shockwave) graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
             gameGraphics.Draw(gameModelNum, worldTransform);
-            if (worldObject is Shockwave) graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-
+            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
             if (worldObject is GoodVibe)
             {
                 int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
@@ -93,6 +156,39 @@ namespace Resonance
             gameGraphics.UpdateCamera(player);
         }
 
+        /// <summary>
+        /// Converts X pixel values from HD resolution to the current resolution which may not be HD
+        /// </summary>
+        /// <param name="input">X HD coordinate</param>
+        /// <returns>True coordinate</returns>
+        public static int pixelsX(int input)
+        {
+            return (int)Math.Round(input * widthRatio);
+        }
+
+        /// <summary>
+        /// Converts Y pixel values from HD resolution to the current resolution which may not be HD
+        /// </summary>
+        /// <param name="input">Y HD coordinate</param>
+        /// <returns>True coordinate</returns>
+        public static int pixelsY(int input)
+        {
+            return (int)Math.Round(input * heightRatio);
+        }
+
+        /// <summary>
+        /// Reset graphic options which may become corrupted by SpriteBatch
+        /// </summary>
+        public static void resetGraphics()
+        {
+            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+            graphics.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+        }
+
+        /// <summary>
+        /// Used to update frame rate information
+        /// </summary>
+        /// <param name="gameTime"></param>
         private static void checkFrameRate(GameTime gameTime)
         {
             frameCounter++;

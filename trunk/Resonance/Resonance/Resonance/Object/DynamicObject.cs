@@ -52,6 +52,11 @@ namespace Resonance
             rotator.AngularMotor.Settings.Servo.SpringSettings.StiffnessConstant = 300000;
         }
 
+        public void reset()
+        {
+            body.Position = base.OriginalPosition;
+        }
+
         public void move(int direction)
         {
             Vector3 rotateVector = QuaternionToEuler(Body.Orientation);

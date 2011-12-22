@@ -50,6 +50,11 @@ namespace Resonance
             score = 0;
             health = 100;
         }
+
+        public void fullHealth()
+        {
+            health = 100;
+        }
                
         public void AdjustHealth(int change)
         {

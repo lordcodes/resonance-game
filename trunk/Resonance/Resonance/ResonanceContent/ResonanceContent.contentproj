@@ -49,6 +49,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Models\treePhysics.fbx">
+      <Name>treePhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Textures\texBadVibe.jpg">
       <Name>texBadVibe</Name>
       <Importer>TextureImporter</Importer>
@@ -446,6 +451,20 @@
       <Importer>ModelImporter</Importer>
       <Processor>ModelsProcessor</Processor>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level2.xml">
+      <Name>Level2</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\splash1.png">
+      <Name>splash1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

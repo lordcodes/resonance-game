@@ -12,6 +12,9 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
+    /// <summary>
+    /// Class that represents the in game HUD.
+    /// </summary>
     class Hud
     {
         private static SpriteBatch spriteBatch;
@@ -22,15 +25,16 @@ namespace Resonance
         private static Dictionary<string, Vector2> dictionary = new Dictionary<string, Vector2>();
         private static int score = 0;
         private static float health = 1;
-        //private static float worldWidth = 10;
-        private static float screenWidth;
-        private static float screenHeight;
-        private static double widthRatio;
-        private static double heightRatio;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
         private static ImportedCustomFont scoreFont;
 
+        /// <summary>
+        /// Create a new HUD object.
+        /// </summary>
+        /// <param name="newContent">ContentManger object used throughout the game</param>
+        /// <param name="newGraphics">GraphicsDeviceManager used throughout the game</param>
+        /// <param name="newGameGraphics">Graphics object used to the 3D rendering</param>
         public Hud(ContentManager newContent, GraphicsDeviceManager newGraphics, Graphics newGameGraphics)
         {
             Content = newContent;
@@ -38,36 +42,73 @@ namespace Resonance
             gameGraphics = newGameGraphics;
         }
 
+        /// <summary>
+        /// Called once to load the tectures needed for the HUD
+        /// </summary>
         public void loadContent()
         {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             font = Content.Load<SpriteFont>("Drawing/Fonts/DebugFont");
             healthBar = Content.Load<Texture2D>("Drawing/HUD/Textures/healthBar");
             healthSlice = Content.Load<Texture2D>("Drawing/HUD/Textures/healthSlice");
-            screenWidth = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
-            screenHeight = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
-            widthRatio =  screenWidth/1920;
-            heightRatio =  screenHeight/1080;
             scoreFont = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
         }
 
+        /// <summary>
+        /// Called to draw text in the debug position on screen
+        /// </summary>
+        /// <param name="text">Text string to display</param>
         public void drawDebugInfo(String text)
         {
-            Vector2 coords = new Vector2(pixelsX(17), pixelsY(80));
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font, text, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.End();
-            resetGraphics();
+            Vector2 coords = new Vector2(Drawing.pixelsX(17), Drawing.pixelsY(80));
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            drawText(coords2, text, Color.Black);
+            drawText(coords, text, Color.White);
         }
 
+        /// <summary>
+        /// Draw text in the central, pause menu, position on screen
+        /// </summary>
+        /// <param name="text">Text to display</param>
+        public void drawMenu(String text)
+        {
+            Vector2 coords = new Vector2(Drawing.pixelsX(800), Drawing.pixelsY(400));
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            drawText(coords2, text, Color.Black);
+            drawText(coords, text, Color.White);
+        }
+
+        /// <summary>
+        /// Draw text on screen at set coords.
+        /// </summary>
+        /// <param name="coords">Vector3 coords for position of text</param>
+        /// <param name="text">Text string to display</param>
+        /// <param name="color">Color of text to draw</param>
+        private void drawText(Vector2 coords, String text, Color color)
+        {
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, text, coords, color, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.End();
+            Drawing.resetGraphics();
+        }
+
+        /// <summary>
+        /// Draws bad vibes health above them
+        /// </summary>
+        /// <param name="name">Name of bad vibe (not displayed datm)</param>
+        /// <param name="armour">Armour string to use only atm</param>
+        /// <param name="coords">Coords to display the armour levels</param>
         public void drawBadVibeHealth(String name, string armour, Vector2 coords)
         {
             spriteBatch.Begin();
             spriteBatch.DrawString(font, armour, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.End();
-            resetGraphics();
+            Drawing.resetGraphics();
         }
 
+        /// <summary>
+        /// Called every time the HUD needs to be drawn.
+        /// </summary>
         public void Draw()
         {
             spriteBatch.Begin();
@@ -76,11 +117,17 @@ namespace Resonance
                 spriteBatch.DrawString(font, "BV", pair.Value, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }*/
             drawHealthBar();
-            scoreFont.drawLeft(pixelsX(1890), pixelsY(15), widthRatio, heightRatio, score.ToString(), spriteBatch);
+            scoreFont.drawLeft(Drawing.pixelsX(1890), Drawing.pixelsY(15), Drawing.WidthRatio, Drawing.HeightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
-            resetGraphics();
+            Drawing.resetGraphics();
         }
 
+        /// <summary>
+        /// Update the HUD with information about the enemies.
+        /// </summary>
+        /// <param name="name">Enemy name</param>
+        /// <param name="pos">Vector3 position of the enemy</param>
+        /// <param name="armour">List of armour values</param>
         public void updateEnemy(string name, Vector3 pos, List<int> armour)
         {
 
@@ -109,17 +156,20 @@ namespace Resonance
             drawBadVibeHealth(name, armourString, screenPosition);
         }
 
+        /// <summary>
+        /// Draws the helath bar for the player on screen.
+        /// </summary>
         private void drawHealthBar()
         {
-            int x = pixelsX(10);
-            int y = pixelsY(10);
-            int width = pixelsX(healthBar.Width);
-            int height = pixelsY(healthBar.Height);
-            int sliceX = x + pixelsX(9);
-            int sliceY = y + pixelsY(9);
+            int x = Drawing.pixelsX(10);
+            int y = Drawing.pixelsY(10);
+            int width = Drawing.pixelsX(healthBar.Width);
+            int height = Drawing.pixelsY(healthBar.Height);
+            int sliceX = x + Drawing.pixelsX(9);
+            int sliceY = y + Drawing.pixelsY(9);
             int sliceWidth = 1;
-            int sliceHeight = pixelsY(healthSlice.Height);
-            int limit = (int)Math.Round((float)pixelsX(582) * health);
+            int sliceHeight = Drawing.pixelsY(healthSlice.Height);
+            int limit = (int)Math.Round((float)Drawing.pixelsX(582) * health);
 
             float greenValue;
             Color c;
@@ -136,23 +186,11 @@ namespace Resonance
             }
         }
 
-        private void resetGraphics()
-        {
-            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
-            graphics.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
-        }
-
-        private int pixelsX(int input)
-        {
-            return (int)Math.Round(input * widthRatio);
-        }
-
-        private int pixelsY(int input)
-        {
-            return (int)Math.Round(input * heightRatio);
-        }
-
-
+        /// <summary>
+        /// Updates the HUD with infomation about the player.
+        /// </summary>
+        /// <param name="h">Players helath</param>
+        /// <param name="s">Players score</param>
         public void updateGoodVibe(int h, int s)
         {
             health = (float)h / 100;

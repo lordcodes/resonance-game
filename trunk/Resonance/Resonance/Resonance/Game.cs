@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
 using ResonanceLibrary;
 using BEPUphysics.Paths.PathFollowing;
+using System.IO;
 namespace Resonance
 {
     /// <summary>
@@ -43,6 +44,7 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
+            UI.init(this);
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
             IsMouseVisible = false;
@@ -82,11 +84,9 @@ namespace Resonance
 
             Drawing.loadContent();
             world = new World(this);
-            loadLevel();
 
-            //Testing world space querying
-            Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
-            world.querySpace(pos);
+            //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
+            MenuActions.loadLevel(1);
 
             //Not needed now that we have loading from level file
             //StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
@@ -103,44 +103,19 @@ namespace Resonance
             DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
         }
 
-        void loadLevel()
+        /// <summary>
+        /// This method is used to load a level. MenuAction calls this method from a separate thread 
+        /// and therefore we can have an animated loading screen while you wait.
+        /// </summary>
+        /// <param name="i">Int number of the level, taken from the level name, i.e Level1.xml</param>
+        public void loadLevel(int i)
         {
-            //to test the level editor uncomment the next two lines
-            StaticObject ground = null;
-            StaticObject tree = null;
-            StaticObject mush = null;
-            GoodVibe player = null;
-            BadVibe bv = null;
-            StoredObjects obj = Content.Load<StoredObjects>("Levels/Level1");
+            string level = "Levels/Level"+i;
+            world.readXmlFile(level, Content);
 
-            for (int i = 0; i < obj.list.Count; i++)
-            {
-                if (obj.list[i].type.Equals("Ground") == true)
-                {
-                    ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
-                    world.addObject(ground);
-                }
-                if (obj.list[i].type.Equals("Good_vibe") == true)
-                {
-                    player = new GoodVibe(GameModels.GOOD_VIBE, "Player", this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    world.addObject(player);
-                }
-                if (obj.list[i].type.Equals("Tree") == true)
-                {
-                    tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    world.addObject(tree);
-                }
-                if (obj.list[i].type.Equals("Mushroom") == true)
-                {
-                    mush = new StaticObject(GameModels.MUSHROOM, obj.list[i].identifier, this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    world.addObject(mush);
-                }
-                if (obj.list[i].type.Equals("Bad_vibe") == true)
-                {
-                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, this, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    world.addObject(bv);
-                }
-            }
+            //Testing world space querying
+            Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
+            world.querySpace(pos);
         }
 
         /// <summary>
@@ -161,88 +136,129 @@ namespace Resonance
         {
             GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
             GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
-
-
-            //XBOX Controls
-            if (playerOne.Buttons.Back == ButtonState.Pressed || playerTwo.Buttons.Back == ButtonState.Pressed)
-            {
-                this.Exit();
-            }
-            //Player One
-            playerOnePresses(playerOne);
-            //Player Two
-            playerTwoPresses(playerTwo);
-
-            //PC Testing Controls
             KeyboardState keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.Escape))
-            {
-                this.Exit();
-            }
-            if (keyboardState.IsKeyDown(Keys.Space))
-            {
-                musicHandler.getTrack().playTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.S))
-            {
-                musicHandler.getTrack().stopTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.P))
-            {
-                musicHandler.getTrack().pauseTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
-            }
-            if (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
-            }
-            if (keyboardState.IsKeyDown(Keys.C) && !oldKeyState.IsKeyDown(Keys.C))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
-            }
-            if (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
-            }
-            if (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
+            Drawing.Update(gameTime);
 
-            //Update graphics
-            UpdateGoodVibePosition();
-
-            //Update bad vibe position
-            moveBadVibes();
-
-            //Break rest layers
-            if (musicHandler.getTrack().nextQuarterBeat())
+            if (!Loading.IsLoading)
             {
-                breakRestLayers();
+                if (keyboardState.IsKeyDown(Keys.Escape) || playerOne.Buttons.Start == ButtonState.Pressed || playerTwo.Buttons.Start == ButtonState.Pressed)
+                {
+                    if (!oldKeyState.IsKeyDown(Keys.Escape) && oldPadState1.Buttons.Start != ButtonState.Pressed && oldPadState2.Buttons.Start != ButtonState.Pressed)
+                    {
+                        if (UI.Paused) UI.play();
+                        else UI.pause();
+                        //if (paused) musicHandler.getTrack().pauseTrack();
+                        //if (!paused) musicHandler.getTrack().playTrack();
+                    }
+                }
+
+                //XBOX Controls
+                if (playerOne.Buttons.Back == ButtonState.Pressed || playerTwo.Buttons.Back == ButtonState.Pressed)
+                {
+                    this.Exit();
+                }
+
+                if (UI.Paused)
+                {
+                    if (keyboardState.IsKeyDown(Keys.Up) || playerOne.DPad.Up == ButtonState.Pressed || playerTwo.DPad.Up == ButtonState.Pressed)
+                    {
+                        if (!oldKeyState.IsKeyDown(Keys.Up) && oldPadState1.DPad.Up != ButtonState.Pressed && oldPadState2.DPad.Up != ButtonState.Pressed)
+                        {
+                            UI.moveUp();
+                        }
+                    }
+
+                    if (keyboardState.IsKeyDown(Keys.Down) || playerOne.DPad.Down == ButtonState.Pressed || playerTwo.DPad.Down == ButtonState.Pressed)
+                    {
+                        if (!oldKeyState.IsKeyDown(Keys.Down) && oldPadState1.DPad.Down != ButtonState.Pressed && oldPadState2.DPad.Down != ButtonState.Pressed)
+                        {
+                            UI.moveDown();
+                        }
+                    }
+
+                    if (keyboardState.IsKeyDown(Keys.Enter) || playerOne.Buttons.A == ButtonState.Pressed || playerTwo.Buttons.A == ButtonState.Pressed)
+                    {
+                        if (!oldKeyState.IsKeyDown(Keys.Enter) && oldPadState1.Buttons.A != ButtonState.Pressed && oldPadState2.Buttons.A != ButtonState.Pressed)
+                        {
+                            UI.select();
+                        }
+                    }
+                }
+                else
+                {
+
+                    //Player One
+                    playerOnePresses(playerOne);
+                    //Player Two
+                    playerTwoPresses(playerTwo);
+
+                    //PC Testing Controls
+                    if (keyboardState.IsKeyDown(Keys.Space))
+                    {
+                        musicHandler.getTrack().playTrack();
+                    }
+                    if (keyboardState.IsKeyDown(Keys.S))
+                    {
+                        musicHandler.getTrack().stopTrack();
+                    }
+                    if (keyboardState.IsKeyDown(Keys.P))
+                    {
+                        musicHandler.getTrack().pauseTrack();
+                    }
+                    if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
+                    {
+                        musicHandler.getTrack().inTime();
+                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X))
+                    {
+                        musicHandler.getTrack().inTime();
+                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.C) && !oldKeyState.IsKeyDown(Keys.C))
+                    {
+                        musicHandler.getTrack().inTime();
+                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V))
+                    {
+                        musicHandler.getTrack().inTime();
+                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
+                    }
+                    if (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B))
+                    {
+                        musicHandler.getTrack().inTime();
+                        ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
+                    }
+
+                    //Update graphics
+                    UpdateGoodVibePosition();
+
+                    //Update bad vibe position
+                    moveBadVibes();
+
+                    //Break rest layers
+                    if (musicHandler.getTrack().nextQuarterBeat())
+                    {
+                        breakRestLayers();
+                    }
+
+                    // Update shockwaves
+                    ((GoodVibe)world.getObject("Player")).updateWaves();
+
+                    ((GoodVibe)world.getObject("Player")).checkDistance();
+
+                    world.update();
+                    base.Update(gameTime);
+                    musicHandler.Update();
+                    removeDeadBadVibes();
+                }
+
+                //Cache the previous key state.
+                oldPadState1 = playerOne;
+                oldPadState2 = playerTwo;
+                oldKeyState = keyboardState;
             }
-
-            // Update shockwaves
-            ((GoodVibe)world.getObject("Player")).updateWaves();
-
-            ((GoodVibe)world.getObject("Player")).checkDistance();
-
-            world.update();
-            base.Update(gameTime);
-            musicHandler.Update();
-            removeDeadBadVibes();
-
-            //Cache the previous key state.
-            oldPadState1 = playerOne;
-            oldPadState2 = playerTwo;
-            oldKeyState = keyboardState;
         }
 
         /// <summary>
@@ -476,5 +492,6 @@ namespace Resonance
             base.Draw(gameTime);
             Drawing.Draw(gameTime);
         }
+
     }
 }
