@@ -81,6 +81,7 @@ namespace Resonance
             while (true)
             {
                 int parentInd = parentIndex(index);
+                
                 break;
             }
         }
@@ -92,6 +93,7 @@ namespace Resonance
                 break;
             }
         }
+
 
         /// <summary>
         /// Returns the index of the parent
