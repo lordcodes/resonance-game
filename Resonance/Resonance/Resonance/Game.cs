@@ -308,7 +308,7 @@ namespace Resonance
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
             }
-            if (playerTwo.Buttons.RightStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightStick))
+            /*if (playerTwo.Buttons.RightStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightStick))
             {
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
@@ -318,7 +318,7 @@ namespace Resonance
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
             }
-            if (playerTwo.Buttons.LeftShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftShoulder))
+            */if (playerTwo.Buttons.LeftShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftShoulder))
             {
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
