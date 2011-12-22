@@ -60,6 +60,7 @@ namespace Resonance
             if (count >= list.Count) list.Add(node);
             else list[count] = node;
             count++;
+            heapUp(count - 1);
         }
 
         //PRIVATE METHODS
@@ -81,6 +82,9 @@ namespace Resonance
             while (true)
             {
                 int parentInd = parentIndex(index);
+                if (parentInd < 0 || list[parentInd].F > elem.F) break;
+                switchElements(index, parentInd);
+                index = parentInd;
                 
                 break;
             }
@@ -90,7 +94,20 @@ namespace Resonance
         {
             while (true)
             {
-                break;
+                int left = lChildIndex(index);
+                if (left < 0) break;
+                int right = rChildIndex(index);
+
+                int child;
+                if (right < 0) child = left;
+                else
+                {
+                    if (list[left].F > list[right].F) child = left;
+                    else child = right;
+                }
+                if (list[child].F < list[index].F) break;
+                switchElements(index, child);
+                index = child;
             }
         }
 
