@@ -8,18 +8,58 @@ namespace Resonance
 {
     class Node
     {
-        public Vector3 Point { get; set; }
-        public int Cost { get; set; }
-        public int PathCost { get; set; }
-        public Node After { get; set; }
-        public Node NextElement { get; set; }
+        private Vector3 point;
+        private int fCost;
+        private int gCost;
+        private int hCost;
 
-        public Node(Vector3 position, int cost, int pathcost, Node next)
+        public Node(Vector3 position)
         {
-            Point = position;
-            Cost = cost;
-            PathCost = pathcost;
-            After = next;
+            point = position;
+        }
+
+        public Vector3 Point
+        {
+            get
+            {
+                return point;
+            }
+        }
+
+        public int F
+        {
+            get
+            {
+                return fCost;
+            }
+            set
+            {
+                fCost = value;
+            }
+        }
+
+        public int G
+        {
+            get
+            {
+                return gCost;
+            }
+            set
+            {
+                gCost = value;
+            }
+        }
+
+        public int H
+        {
+            get
+            {
+                return hCost;
+            }
+            set
+            {
+                hCost = value;
+            }
         }
     }
 }

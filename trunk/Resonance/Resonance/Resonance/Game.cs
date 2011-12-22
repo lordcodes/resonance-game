@@ -85,10 +85,6 @@ namespace Resonance
             Drawing.loadContent();
             world = new World(this);
 
-            //Testing world space querying
-            //Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
-            //world.querySpace(pos);
-
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             MenuActions.loadLevel(1);
 
@@ -118,8 +114,8 @@ namespace Resonance
             world.readXmlFile(level, Content);
 
             //Testing world space querying
-            Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
-            world.querySpace(pos);
+            //Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
+            //world.querySpace(pos);
         }
 
         /// <summary>
