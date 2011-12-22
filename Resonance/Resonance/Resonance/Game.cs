@@ -84,6 +84,9 @@ namespace Resonance
             world = new World(this);
             loadLevel();
 
+            //Testing world space querying
+            Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
+            world.querySpace(pos);
 
             //Not needed now that we have loading from level file
             //StaticObject ground = new StaticObject(GameModels.GROUND, "Ground", this, Vector3.Zero);
