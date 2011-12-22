@@ -15,12 +15,15 @@ using BEPUphysics.Entities.Prefabs;
 using System.Xml;
 using System.IO;
 using BEPUphysics.Entities;
+using BEPUphysics.BroadPhaseSystems;
 
 
 namespace Resonance
 {
     class World
     {
+        private const float accuracy = 0.5f;
+
         private Dictionary<string, Object> objects;
         Space space;
         Game game;
@@ -54,6 +57,21 @@ namespace Resonance
         public void addToSpace(ISpaceObject obj)
         {
             space.Add(obj);
+        }
+
+        public bool querySpace(Vector3 point)
+        {
+            IList<BroadPhaseEntry> list = new List<BroadPhaseEntry>();
+            BoundingSphere sphere = new BoundingSphere(point, accuracy);
+            space.BroadPhase.QueryAccelerator.GetEntries(sphere, list);
+
+            if (list.Count > 0)
+            {
+                BroadPhaseEntry e = list[0];
+                DebugDisplay.update("Point query", "" + list.Count + " " + point);
+                return true;
+            }
+            else return false;
         }
 
         //removes the object from the dictionary
