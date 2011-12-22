@@ -14,8 +14,16 @@ namespace Resonance
         private string identifier;
         protected int gameModelNum;
         private Vector3 position;
-
+        private Vector3 originalPosition;
         private Game gameRef;
+
+        public Vector3 OriginalPosition
+        {
+            get
+            {
+                return originalPosition;
+            }
+        }
 
         public Object(int modelNum, string name, Game game, Vector3 pos) 
             : base(game)
@@ -23,7 +31,7 @@ namespace Resonance
             gameModelNum = modelNum;
             identifier = name;
             position = pos;
-
+            originalPosition = pos;
             gameRef = game;
         }
 

@@ -14,6 +14,7 @@ using Microsoft.Xna.Framework.Media;
 using BEPUphysics.Entities.Prefabs;
 using System.Xml;
 using System.IO;
+using ResonanceLibrary;
 using BEPUphysics.Entities;
 using BEPUphysics.BroadPhaseSystems;
 
@@ -36,8 +37,6 @@ namespace Resonance
             objects = new Dictionary<string, Object>();
         }
 
-       
-
         public void addObject(Object obj)
         {
             objects.Add(obj.returnIdentifier(), obj);
@@ -59,6 +58,31 @@ namespace Resonance
             space.Add(obj);
         }
 
+        public void clear()
+        {
+            List<Object> objectsToRemove = new List<Object>();
+            foreach (var entry in objects)
+            {
+                objectsToRemove.Add(entry.Value);
+            }
+            foreach (var entry in objectsToRemove)
+            {
+                removeObject(entry);
+            }
+
+        }
+
+        public void reset()
+        {
+            foreach (var entry in objects)
+            {
+                if (entry.Value is DynamicObject)
+                {
+                    ((DynamicObject)entry.Value).reset();
+                }
+            }
+        }
+
         public bool querySpace(Vector3 point)
         {
             IList<BroadPhaseEntry> list = new List<BroadPhaseEntry>();
@@ -78,9 +102,13 @@ namespace Resonance
         public void removeObject(Object obj)
         {
             objects.Remove(obj.returnIdentifier());
-            if (obj is BadVibe)
+            if (obj is DynamicObject)
             {
-                space.Remove(((BadVibe)obj).Body);
+                space.Remove(((DynamicObject)obj).Body);
+            }
+            if (obj is StaticObject)
+            {
+                space.Remove(((StaticObject)obj).Body);
             }
             game.Components.Remove(obj);
         }
@@ -102,7 +130,43 @@ namespace Resonance
 
         public void readXmlFile(string levelName, ContentManager Content)
         {
-            
+            //to test the level editor uncomment the next two lines
+            StaticObject ground = null;
+            StaticObject tree = null;
+            StaticObject mush = null;
+            GoodVibe player = null;
+            BadVibe bv = null;
+            StoredObjects obj = Content.Load<StoredObjects>(levelName);
+            clear();
+
+            for (int i = 0; i < obj.list.Count; i++)
+            {
+                if (obj.list[i].type.Equals("Ground") == true)
+                {
+                    ground = new StaticObject(GameModels.GROUND, "Ground", game, Vector3.Zero);
+                    addObject(ground);
+                }
+                if (obj.list[i].type.Equals("Good_vibe") == true)
+                {
+                    player = new GoodVibe(GameModels.GOOD_VIBE, "Player", game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(player);
+                }
+                if (obj.list[i].type.Equals("Tree") == true)
+                {
+                    tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(tree);
+                }
+                if (obj.list[i].type.Equals("Mushroom") == true)
+                {
+                    mush = new StaticObject(GameModels.MUSHROOM, obj.list[i].identifier, game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(mush);
+                }
+                if (obj.list[i].type.Equals("Bad_vibe") == true)
+                {
+                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(bv);
+                }
+            }
            
         }
     }

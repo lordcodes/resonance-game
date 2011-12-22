@@ -54,23 +54,22 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 	float3 normal = normalize(input.Normal);
 	float3 finalColor = tex2D(ColorTextureSampler, input.TexCoord);
+	float4 fullColor = tex2D(ColorTextureSampler, input.TexCoord);
 	//float3 finalColor = float3(0,0,0);
 	float3 diffuse = AmbientLightColor;
 	float NdotL = saturate(dot(normal,LightDirection));
 	diffuse += NdotL * DiffuseLightColor;
 	NdotL = saturate(dot(normal, LightDirection2));
 	diffuse += NdotL * DiffuseLightColor2;
-	finalColor = (finalColor*1) + DiffuseColor * diffuse;
-
+	finalColor = (finalColor*1) + DiffuseColor * diffuse * fullColor.a;
 	float3 view = normalize(input.View);
 	float3 halfF = normalize(view + LightDirection);
 	float NdotH = saturate(dot(normal,halfF));
 	float specular = 0;
 	if (NdotL != 0) specular += pow(NdotH, SpecularColorPower.w) * SpecularLightColor;
-	finalColor += SpecularColorPower.xyz * specular;
-
-
-    return float4(finalColor,1);
+	finalColor += SpecularColorPower.xyz * specular * fullColor.a;
+	clip( fullColor.a < 0.1f ? -1:1 );
+    return float4(finalColor,fullColor.a);
 }
 
 technique Technique1

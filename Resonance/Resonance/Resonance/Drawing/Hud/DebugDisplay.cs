@@ -20,6 +20,10 @@ namespace Resonance
             else dictionary.Add(name, message);
         }
 
+        /// <summary>
+        /// Create single string of debug info
+        /// </summary>
+        /// <returns>Single string of debug info</returns>
         public static string getString()
         {
             string text = "DEBUG INFO\n";

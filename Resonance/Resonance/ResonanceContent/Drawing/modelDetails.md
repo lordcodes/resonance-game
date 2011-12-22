@@ -1,5 +1,6 @@
 ﻿-Model Ref-|--File name
 tree,		Models\tree.fbx
+treePhysics,Models\treePhysics.fbx
 house,		Models\house.fbx
 virus,		Models\virus.fbx
 truck,		Models\truck.fbx
@@ -9,7 +10,7 @@ box,		Models\box.fbx
 
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|--Texture (if needed)---
-1,			tree,					1,		tree,					1		
+1,			tree,					1,		treePhysics,			1		
 2,			house,					1,		house,					1
 3,			virus,					0.5,	box,					1
 4,			truck,					1,		truck,					1
