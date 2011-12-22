@@ -23,7 +23,7 @@ namespace Resonance
 {
     class World
     {
-        private const float accuracy = 0.5f;
+        private const float ACCURACY = 0.5f;
 
         private Dictionary<string, Object> objects;
         Space space;
@@ -86,7 +86,7 @@ namespace Resonance
         public bool querySpace(Vector3 point)
         {
             IList<BroadPhaseEntry> list = new List<BroadPhaseEntry>();
-            BoundingSphere sphere = new BoundingSphere(point, accuracy);
+            BoundingSphere sphere = new BoundingSphere(point, ACCURACY);
             space.BroadPhase.QueryAccelerator.GetEntries(sphere, list);
 
             if (list.Count > 0)
