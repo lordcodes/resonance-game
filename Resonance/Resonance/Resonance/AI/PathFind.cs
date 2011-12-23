@@ -26,6 +26,8 @@ namespace Resonance
             MAP_HEIGHT = (int)Math.Round(World.MAP_Z,0);
             MAP_WIDTH = (int)Math.Round(World.MAP_X,0);
 
+            //DebugDisplay.update("World", "" + World.MAP_X + " " + World.MAP_Z + " " + MAP_WIDTH + " " + MAP_HEIGHT);
+
             map = new bool[MAP_WIDTH, MAP_HEIGHT];
 
             for (int i = 0; i < map.GetLength(0); i++)
