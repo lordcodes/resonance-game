@@ -23,11 +23,8 @@ namespace Resonance
             openList = new Minheap();
             closedList = new List<Node>();
 
-            Vector3 max = ((StaticObject)game.World.getObject("Ground")).Body.BoundingBox.Max;
-            Vector3 min = ((StaticObject)game.World.getObject("Ground")).Body.BoundingBox.Min;
-
-            MAP_HEIGHT = (int)Math.Round(Math.Abs(max.Z - min.Z),0);
-            MAP_WIDTH = (int)Math.Round(Math.Abs(max.X - min.X),0);
+            MAP_HEIGHT = (int)Math.Round(World.MAP_Z,0);
+            MAP_WIDTH = (int)Math.Round(World.MAP_X,0);
 
             map = new bool[MAP_WIDTH, MAP_HEIGHT];
 
