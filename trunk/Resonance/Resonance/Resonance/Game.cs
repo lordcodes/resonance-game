@@ -38,6 +38,7 @@ namespace Resonance
         KeyboardState oldKeyState;
 
         World world;
+        PathFind pathFind;
 
         public Game()
         {
@@ -89,6 +90,7 @@ namespace Resonance
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             MenuActions.loadLevel(1);
 
+
             double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
             DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
         }
@@ -107,6 +109,8 @@ namespace Resonance
             //Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
             Vector3 pos = new Vector3(0, 0.5f, -5);
             world.querySpace(pos);
+
+            pathFind = new PathFind(this);
         }
 
         /// <summary>
