@@ -82,6 +82,7 @@
     <Compile Include="Drawing\Hud\DebugDisplay.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Hud\Hud.cs" />
+    <Compile Include="Drawing\Hud\MiniMap.cs" />
     <Compile Include="Drawing\ImportedGameModel.cs" />
     <Compile Include="Drawing\ImportedGameModels.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />

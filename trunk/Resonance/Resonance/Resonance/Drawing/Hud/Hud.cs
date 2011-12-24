@@ -27,6 +27,7 @@ namespace Resonance
         private static float health = 1;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
+        private static MiniMap miniMap;
         private static ImportedCustomFont scoreFont;
 
         /// <summary>
@@ -40,10 +41,12 @@ namespace Resonance
             Content = newContent;
             graphics = newGraphics;
             gameGraphics = newGameGraphics;
+
+            miniMap = new MiniMap();
         }
 
         /// <summary>
-        /// Called once to load the tectures needed for the HUD
+        /// Called once to load the textures needed for the HUD
         /// </summary>
         public void loadContent()
         {
@@ -52,6 +55,7 @@ namespace Resonance
             healthBar = Content.Load<Texture2D>("Drawing/HUD/Textures/healthBar");
             healthSlice = Content.Load<Texture2D>("Drawing/HUD/Textures/healthSlice");
             scoreFont = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
+            miniMap.loadTextures(Content);
         }
 
         /// <summary>
@@ -117,6 +121,7 @@ namespace Resonance
                 spriteBatch.DrawString(font, "BV", pair.Value, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }*/
             drawHealthBar();
+            drawMiniMap();
             scoreFont.drawLeft(Drawing.pixelsX(1890), Drawing.pixelsY(15), Drawing.WidthRatio, Drawing.HeightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
             Drawing.resetGraphics();
@@ -184,6 +189,14 @@ namespace Resonance
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
             }
+        }
+
+        /// <summary>
+        /// Draws the Mini Map on screen
+        /// </summary>
+        public void drawMiniMap()
+        {
+            miniMap.draw(spriteBatch);
         }
 
         /// <summary>
