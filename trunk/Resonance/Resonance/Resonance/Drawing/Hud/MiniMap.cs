@@ -12,24 +12,33 @@ namespace Resonance
     {
         /// Constants
 
-        public static int  MAP_X       = 1100;
-        public static int  MAP_Y       = 500;
+        public static int   MAP_X                = 1100;
+        public static int   MAP_Y                = 500;
 
-        public static int  MAP_WIDTH   = 220;
-        public static int  MAP_HEIGHT  = 220;
+        public static int   MAP_WIDTH            = 220;
+        public static int   MAP_HEIGHT           = 220;
 
-        public static int VIBE_WIDTH   = 16;
-        public static int VIBE_HEIGHT  = 20;
+        public static int   VIBE_WIDTH           = 16;
+        public static int   VIBE_HEIGHT          = 20;
 
-        public static int DEFAULT_ZOOM = 20;
+        public static float ZOOM                 = 20f;
+        public static float DEFAULT_ZOOM         = 20f;
 
-        public static bool AUTO_ZOOM   = false;
+        public static bool  AUTO_ZOOM            = true;
+        public static float MIN_ZOOM_SPEED       = 2f;
+
+        public static bool  DRAW_SCALE_LINES     = true;
+        public static int   SCALE_LINE_INTERVAL  = 3;
+
+        public static bool  SWEEPER_ON           = true;
+        public static int   SWEEPER_LENGTH       = 10;
 
         // Colours
         public static Color OUTLINE_COLOUR    = new Color(0f, 0f, 0f, 0.8f);
         public static Color BACKGROUND_COLOUR = new Color(0f, 0f, 0.2f, 0.5f);
         public static Color GOOD_VIBE_COLOUR  = new Color(0f, 0.7f, 0f, 0.5f);
         public static Color BAD_VIBE_COLOUR   = new Color(0.7f, 0f, 0f, 0.5f);
+        public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
 
         /// Fields
 
@@ -48,6 +57,7 @@ namespace Resonance
         ///</summary>
         public MiniMap()
         {
+            ZOOM = DEFAULT_ZOOM;
         }
 
 
@@ -71,11 +81,42 @@ namespace Resonance
         {
             GoodVibe gVRef = (GoodVibe)Program.game.World.getObject("Player");
 
+            if (AUTO_ZOOM)
+            {
+                float speed = gVRef.Body.MotionState.LinearVelocity.Length();
+
+                if (speed > MIN_ZOOM_SPEED)
+                {
+                    ZOOM = DEFAULT_ZOOM + ((speed - MIN_ZOOM_SPEED) * 5);
+                }
+                else
+                {
+                    ZOOM = DEFAULT_ZOOM;
+                }
+
+                scaleFactor = (MAP_WIDTH / (2 * ZOOM));
+            }
+
             // Draw fill
             spriteBatch.Draw(background, new Rectangle(MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT), BACKGROUND_COLOUR);
 
             // Draw outline
             spriteBatch.Draw(outline, new Microsoft.Xna.Framework.Rectangle(MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT), OUTLINE_COLOUR);
+
+            // Draw scale lines, to provide a frame of reference.
+            if (DRAW_SCALE_LINES)
+            {
+                for (float i = MAP_WIDTH / 2; i < MAP_WIDTH; i += scaleFactor * SCALE_LINE_INTERVAL)
+                {
+                    spriteBatch.Draw(background, new Rectangle(MAP_X + (int) i, MAP_Y, 1, MAP_HEIGHT), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, new Rectangle(MAP_X + MAP_WIDTH - (int) i, MAP_Y, 1, MAP_HEIGHT), SCALE_LINE_COLOUR);
+                }
+                for (float i = MAP_HEIGHT / 2; i < MAP_HEIGHT; i += scaleFactor * SCALE_LINE_INTERVAL)
+                {
+                    spriteBatch.Draw(background, new Rectangle(MAP_X, MAP_Y + (int) i, MAP_WIDTH, 1), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, new Rectangle(MAP_X, MAP_Y + MAP_HEIGHT - (int) i, MAP_WIDTH, 1), SCALE_LINE_COLOUR);
+                }
+            }
 
             // Draw good vibe
             int gvx = MAP_X + (int) ((MAP_WIDTH / 2f) - (VIBE_WIDTH / 2f));
@@ -102,8 +143,8 @@ namespace Resonance
                 inYRange = false;
 
                 // Check if bad vibe is in range
-                if ((bVPos.X > gVPos.X - DEFAULT_ZOOM) && (bVPos.X < gVPos.X + DEFAULT_ZOOM)) inXRange = true;
-                if ((bVPos.Y > gVPos.Y - DEFAULT_ZOOM) && (bVPos.Y < gVPos.Y + DEFAULT_ZOOM)) inYRange = true;
+                if ((bVPos.X > gVPos.X - ZOOM) && (bVPos.X < gVPos.X + ZOOM)) inXRange = true;
+                if ((bVPos.Y > gVPos.Y - ZOOM) && (bVPos.Y < gVPos.Y + ZOOM)) inYRange = true;
 
                 if (inXRange && inYRange) {
                     float bVR = 0f;// v.Body.Orientation.Y;
