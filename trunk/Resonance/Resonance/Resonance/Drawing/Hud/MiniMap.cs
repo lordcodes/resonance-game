@@ -21,7 +21,7 @@ namespace Resonance
         public static int VIBE_WIDTH   = 16;
         public static int VIBE_HEIGHT  = 20;
 
-        public static int DEFAULT_ZOOM = 4;
+        public static int DEFAULT_ZOOM = 20;
 
         public static bool AUTO_ZOOM   = false;
 
@@ -37,6 +37,9 @@ namespace Resonance
         private static Texture2D outline;
         private static Texture2D background;
         private static Texture2D vibe;
+        private static Texture2D dVibe;
+
+        private static float scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
 
         /// Constructor
 
@@ -57,6 +60,7 @@ namespace Resonance
             outline    = content.Load<Texture2D>("Drawing/HUD/Textures/miniMap");
             background = content.Load<Texture2D>("Drawing/HUD/Textures/miniMapBG");
             vibe       = content.Load<Texture2D>("Drawing/HUD/Textures/map_vibe");
+            dVibe      = content.Load<Texture2D>("Drawing/HUD/Textures/map_distant_vibe");
         }
 
 
@@ -65,6 +69,8 @@ namespace Resonance
         /// </summary>
         public void draw(SpriteBatch spriteBatch)
         {
+            GoodVibe gVRef = (GoodVibe)Program.game.World.getObject("Player");
+
             // Draw fill
             spriteBatch.Draw(background, new Rectangle(MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT), BACKGROUND_COLOUR);
 
@@ -74,12 +80,81 @@ namespace Resonance
             // Draw good vibe
             int gvx = MAP_X + (int) ((MAP_WIDTH / 2f) - (VIBE_WIDTH / 2f));
             int gvy = MAP_Y + (int) ((MAP_HEIGHT / 2f) - (VIBE_HEIGHT / 2f));
-            spriteBatch.Draw(vibe, new Rectangle(gvx, gvy, VIBE_WIDTH, VIBE_HEIGHT), GOOD_VIBE_COLOUR);
+            //spriteBatch.Draw(vibe, new Rectangle(gvx, gvy, VIBE_WIDTH, VIBE_HEIGHT), GOOD_VIBE_COLOUR);
 
-            //spriteBatch.Draw(vibe, new Vector2(gvx - 30, gvy - 30), null, BAD_VIBE_COLOUR, 0.3f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            float r = 0f;// gVRef.Body.Orientation.Y;
+            spriteBatch.Draw(vibe, new Vector2(gvx, gvy), null, GOOD_VIBE_COLOUR, r, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             // Loop through and draw bad vibes.
+            List<BadVibe> badVibes = Program.game.World.returnBadVibes();
 
+            Vector2 gVPos = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
+
+            Vector2 bVPos;
+            Vector2 bVScreenPos;
+            bool  inXRange, inYRange;
+
+            foreach(BadVibe v in badVibes)
+            {
+                bVPos = new Vector2(v.Body.Position.X, v.Body.Position.Z);
+
+                inXRange = false;
+                inYRange = false;
+
+                // Check if bad vibe is in range
+                if ((bVPos.X > gVPos.X - DEFAULT_ZOOM) && (bVPos.X < gVPos.X + DEFAULT_ZOOM)) inXRange = true;
+                if ((bVPos.Y > gVPos.Y - DEFAULT_ZOOM) && (bVPos.Y < gVPos.Y + DEFAULT_ZOOM)) inYRange = true;
+
+                if (inXRange && inYRange) {
+                    float bVR = 0f;// v.Body.Orientation.Y;
+ 
+                    bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                    //spriteBatch.Draw(vibe, new Rectangle((int) bVScreenPos.X, (int) bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
+                    spriteBatch.Draw(vibe, new Vector2((int)bVScreenPos.X, (int)bVScreenPos.Y), null, BAD_VIBE_COLOUR, bVR, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                } else if (inXRange ^ inYRange) {
+                    if (inXRange) {
+                        if (bVPos.Y < gVPos.Y) {
+                            bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), MAP_Y - (dVibe.Height / 2));
+                        } else {
+                            bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), MAP_Y + MAP_HEIGHT - (dVibe.Height / 2));
+                        }
+                    } else {
+                        if (bVPos.X < gVPos.X)
+                        {
+                            bVScreenPos = new Vector2(MAP_X - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                        }
+                        else
+                        {
+                            bVScreenPos = new Vector2(MAP_X + MAP_WIDTH - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                        }
+                    }
+
+                    spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
+                } else {
+                    // Draw in corresponding corner, transparency proportional to distance.
+                    if (bVPos.X < gVPos.X) {
+                        if (bVPos.Y < gVPos.Y)
+                        {
+                            bVScreenPos = new Vector2(MAP_X - (dVibe.Width / 2), MAP_Y - (dVibe.Height / 2));
+                        }
+                        else
+                        {
+                            bVScreenPos = new Vector2(MAP_X - (dVibe.Width / 2), MAP_Y + MAP_HEIGHT - (dVibe.Height / 2));
+                        }
+                    } else {
+                        if (bVPos.Y < gVPos.Y)
+                        {
+                            bVScreenPos = new Vector2(MAP_X + MAP_WIDTH - (dVibe.Width / 2), MAP_Y - (dVibe.Height / 2));
+                        }
+                        else
+                        {
+                            bVScreenPos = new Vector2(MAP_X + MAP_WIDTH - (dVibe.Width / 2), MAP_Y + MAP_HEIGHT - (dVibe.Height / 2));
+                        }
+                    }
+
+                    spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
+                }
+            }
         }
     }
 }
