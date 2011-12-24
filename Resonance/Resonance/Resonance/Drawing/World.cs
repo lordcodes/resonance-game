@@ -138,6 +138,25 @@ namespace Resonance
             return objects;
         }
 
+        /// <summary>
+        /// Returns all bad vibes as a list.
+        /// </summary>
+        public List<BadVibe> returnBadVibes()
+        {
+            List<BadVibe> badVibes = new List<BadVibe>();
+ 
+            foreach(KeyValuePair<string, Object> kVP in objects) {
+                Object obj = kVP.Value;
+
+                if (obj is BadVibe)
+                {
+                    badVibes.Add((BadVibe) obj);
+                }
+            }
+
+            return badVibes;
+        }
+
         public void readXmlFile(string levelName, ContentManager Content)
         {
             //to test the level editor uncomment the next two lines
