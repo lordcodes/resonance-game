@@ -21,8 +21,8 @@ namespace Resonance
         public static int   VIBE_WIDTH           = 16;
         public static int   VIBE_HEIGHT          = 20;
 
-        public static float ZOOM                 = 20f;
-        public static float DEFAULT_ZOOM         = 20f;
+        public static float ZOOM                 = 10f;
+        public static float DEFAULT_ZOOM         = 10f;
 
         public static bool  AUTO_ZOOM            = true;
         public static float MIN_ZOOM_SPEED       = 2f;
@@ -39,6 +39,7 @@ namespace Resonance
         public static Color GOOD_VIBE_COLOUR  = new Color(0f, 0.7f, 0f, 0.5f);
         public static Color BAD_VIBE_COLOUR   = new Color(0.7f, 0f, 0f, 0.5f);
         public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+        public static Color SWEEPER_COLOUR    = new Color(0.0f, 0.0f, 0.9f, 0.5f);
 
         /// Fields
 
@@ -47,6 +48,8 @@ namespace Resonance
         private static Texture2D background;
         private static Texture2D vibe;
         private static Texture2D dVibe;
+
+        private static int sweeperX = MAP_X + MAP_WIDTH;
 
         private static float scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
 
@@ -195,6 +198,25 @@ namespace Resonance
 
                     spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
                 }
+            }
+
+            // Draw sweeper
+            if (SWEEPER_ON) {
+                if (sweeperX < MAP_X) sweeperX += MAP_WIDTH;
+
+                spriteBatch.Draw(background, new Rectangle(sweeperX, MAP_Y, 1, MAP_HEIGHT), SWEEPER_COLOUR);
+
+                int x;
+                float alpha = 0.5f;
+                for (int i = 0; i < SWEEPER_LENGTH; i++)
+                {
+                    alpha -= (0.5f / (float) SWEEPER_LENGTH);
+                    x = sweeperX + i;
+                    if (x > MAP_X + MAP_WIDTH) x -= MAP_WIDTH;
+                    spriteBatch.Draw(background, new Rectangle(x, MAP_Y, 1, MAP_HEIGHT), new Color(0f, 0f, 0.9f, alpha));
+                }
+
+                sweeperX--;
             }
         }
     }
