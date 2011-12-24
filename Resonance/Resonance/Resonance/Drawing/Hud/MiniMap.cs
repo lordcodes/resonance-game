@@ -137,10 +137,14 @@ namespace Resonance
             Vector2 bVPos;
             Vector2 bVScreenPos;
             bool  inXRange, inYRange;
-
+           
             foreach(BadVibe v in badVibes)
             {
                 bVPos = new Vector2(v.Body.Position.X, v.Body.Position.Z);
+                Vector2 relToGV = gVPos - bVPos;
+                float angle = (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
+                relToGV = rotateVector2(relToGV, angle);
+                bVPos = gVPos - relToGV;
 
                 inXRange = false;
                 inYRange = false;
@@ -150,8 +154,8 @@ namespace Resonance
                 if ((bVPos.Y > gVPos.Y - ZOOM) && (bVPos.Y < gVPos.Y + ZOOM)) inYRange = true;
 
                 if (inXRange && inYRange) {
-                    float bVR = 0f;// v.Body.Orientation.Y;
- 
+                    float bVR = 0f;// (DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y;
+                    
                     bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
                     //spriteBatch.Draw(vibe, new Rectangle((int) bVScreenPos.X, (int) bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
                     spriteBatch.Draw(vibe, new Vector2((int)bVScreenPos.X, (int)bVScreenPos.Y), null, BAD_VIBE_COLOUR, bVR, Vector2.Zero, 1f, SpriteEffects.None, 0f);
@@ -218,6 +222,16 @@ namespace Resonance
 
                 sweeperX--;
             }
+        }
+
+        public static Vector2 rotateVector2(Vector2 vec, float theta)
+        {
+            Vector2 result = new Vector2();
+
+            result.X = (float) ((vec.X * Math.Cos(theta)) - (vec.Y * Math.Sin(theta)));
+            result.Y = (float) ((vec.X * Math.Sin(theta)) + (vec.Y * Math.Cos(theta)));
+
+            return result;
         }
     }
 }
