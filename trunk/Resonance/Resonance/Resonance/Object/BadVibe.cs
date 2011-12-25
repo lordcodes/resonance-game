@@ -19,17 +19,14 @@ namespace Resonance
 
         private int iterationCount = 0;
 
-        Game game;
-
         int previousDirection;  //Remembers the previous movement direction 
 
         ArmourSequence armour;
         bool dead;
 
-        public BadVibe(int modelNum, String name, Game game, Vector3 pos)
-            : base(modelNum, name, game, pos)
+        public BadVibe(int modelNum, String name, Vector3 pos)
+            : base(modelNum, name, pos)
         {
-            this.game = game;
             previousDirection = -1;
             dead = false;
 
@@ -173,14 +170,14 @@ namespace Resonance
         /// </summary>
         public void attackGoodVibe()
         {
-            ((GoodVibe)game.World.getObject("Player")).AdjustHealth(-1);
+            ((GoodVibe)Program.game.World.getObject("Player")).AdjustHealth(-1);
         }
 
         public void RotateToFaceGoodVibe()
         {
             Vector3 bvDir = Body.OrientationMatrix.Backward;
             Vector3 bvPos = Body.Position;
-            Vector3 gvPos = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+            Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
             Vector3 diff = Vector3.Normalize(gvPos - bvPos);
             Quaternion rot;
             Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
@@ -196,7 +193,7 @@ namespace Resonance
         /// 
         public void moveTowardsGoodVibe()
         {
-            Vector3 gvPos = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+            Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
             //Find best route to the good vibe
             RotateToFaceGoodVibe();
             move(BV_FORWARD);
@@ -207,7 +204,7 @@ namespace Resonance
         /// </summary>
         double getDistance()
         {
-            Vector3 goodVibePosition = ((GoodVibe)game.World.getObject("Player")).Body.Position;
+            Vector3 goodVibePosition = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
             Vector3 badVibePosition = this.Body.Position;
             double xDiff = Math.Abs(goodVibePosition.X - badVibePosition.X);
             double zDiff = Math.Abs(goodVibePosition.Z - badVibePosition.Z);
@@ -381,27 +378,27 @@ namespace Resonance
                     {
                         case Shockwave.GREEN:
                             {
-                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
                                 break;
                             }
                         case Shockwave.YELLOW:
                             {
-                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
                                 break;
                             }
                         case Shockwave.BLUE:
                             {
-                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
                                 break;
                             }
                         case Shockwave.RED:
                             {
-                                ((GoodVibe)vibe.game.World.getObject("Player")).Score++;
+                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
                                 break;
                             }
                         case Shockwave.CYMBAL:
                             {
-                                ((GoodVibe)vibe.game.World.getObject("Player")).Score += 5;
+                                ((GoodVibe)Program.game.World.getObject("Player")).Score += 5;
                                 break;
                             }
                         case Shockwave.REST:
@@ -413,7 +410,7 @@ namespace Resonance
                 }
                 if (sequence.Count == 0)
                 {
-                    ((GoodVibe)vibe.game.World.getObject("Player")).Score += 10;
+                    ((GoodVibe)Program.game.World.getObject("Player")).Score += 10;
                     vibe.kill();
                 }
             }

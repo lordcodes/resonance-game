@@ -29,13 +29,11 @@ namespace Resonance
 
         private Dictionary<string, Object> objects;
         Space space;
-        Game game;
 
-        public World(Game game) 
+        public World() 
         {
             space = new Space();
             space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
-            this.game = game;
             objects = new Dictionary<string, Object>();
         }
 
@@ -60,7 +58,7 @@ namespace Resonance
                     MAP_X = Math.Abs(max.X - min.X);
                 }
             }
-            game.Components.Add(obj);
+            Program.game.Components.Add(obj);
         }
 
         public void addToSpace(ISpaceObject obj)
@@ -120,7 +118,7 @@ namespace Resonance
             {
                 space.Remove(((StaticObject)obj).Body);
             }
-            game.Components.Remove(obj);
+            Program.game.Components.Remove(obj);
         }
 
         public Object getObject(String name)
@@ -172,27 +170,27 @@ namespace Resonance
             {
                 if (obj.list[i].type.Equals("Ground") == true)
                 {
-                    ground = new StaticObject(GameModels.GROUND, "Ground", game, Vector3.Zero);
+                    ground = new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero);
                     addObject(ground);
                 }
                 if (obj.list[i].type.Equals("Good_vibe") == true)
                 {
-                    player = new GoodVibe(GameModels.GOOD_VIBE, "Player", game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    player = new GoodVibe(GameModels.GOOD_VIBE, "Player", new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(player);
                 }
                 if (obj.list[i].type.Equals("Tree") == true)
                 {
-                    tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(tree);
                 }
                 if (obj.list[i].type.Equals("Mushroom") == true)
                 {
-                    mush = new StaticObject(GameModels.MUSHROOM, obj.list[i].identifier, game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    mush = new StaticObject(GameModels.MUSHROOM, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(mush);
                 }
                 if (obj.list[i].type.Equals("Bad_vibe") == true)
                 {
-                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, game, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(bv);
                 }
             }

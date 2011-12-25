@@ -30,9 +30,9 @@ namespace Resonance
         /// Called once to initialise the static class
         /// </summary>
         /// <param name="game">Supply the Game object so the UI can effect it</param>
-        public static void init(Game game)
+        public static void init()
         {
-            MenuActions.init(game);
+            MenuActions.init();
 
             // Populate the menus, that are represented as lists of MenuItems
             // Refer to the comments in the MenuItem class for how to create them

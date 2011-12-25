@@ -46,7 +46,7 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
-            UI.init(this);
+            UI.init();
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
             IsMouseVisible = false;
@@ -85,7 +85,7 @@ namespace Resonance
             oldKeyState = Keyboard.GetState();
 
             Drawing.loadContent();
-            world = new World(this);
+            world = new World();
 
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             MenuActions.loadLevel(1);
@@ -110,7 +110,7 @@ namespace Resonance
             Vector3 pos = new Vector3(0, 0.5f, -5);
             world.querySpace(pos);
 
-            pathFind = new PathFind(this);
+            pathFind = new PathFind();
         }
 
         /// <summary>

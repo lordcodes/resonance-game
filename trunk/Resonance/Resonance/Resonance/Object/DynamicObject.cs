@@ -32,8 +32,8 @@ namespace Resonance
 
         protected EntityRotator rotator;
 
-        public DynamicObject(int modelNum, string name, Game game, Vector3 pos)
-            : base(modelNum, name, game, pos)
+        public DynamicObject(int modelNum, string name, Vector3 pos)
+            : base(modelNum, name, pos)
         {
             Vector3[] vertices;
             int[] indices;

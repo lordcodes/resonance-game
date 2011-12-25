@@ -11,16 +11,14 @@ namespace Resonance
     /// </summary>
     class MenuActions
     {
-        private static Game game;
         private static int genNumber = 0;
 
         /// <summary>
         /// Called once to allo this class access to the rest of the game
         /// </summary>
         /// <param name="nGame">Supply the game object so the functions can acces the game</param>
-        public static void init(Game nGame)
+        public static void init()
         {
-            game = nGame;
         }
 
         /// <summary>
@@ -28,7 +26,7 @@ namespace Resonance
         /// </summary>
         public static void fullHealth()
         {
-            ((GoodVibe)game.World.getObject("Player")).fullHealth();
+            ((GoodVibe)Program.game.World.getObject("Player")).fullHealth();
             UI.play();
         }
 
@@ -37,7 +35,7 @@ namespace Resonance
         /// </summary>
         public static void killBadVibes()
         {
-            Dictionary<string, Object> objects = game.World.returnObjects();
+            Dictionary<string, Object> objects = Program.game.World.returnObjects();
             foreach (var entry in objects)
             {
                 if (entry.Value is BadVibe)
@@ -53,8 +51,8 @@ namespace Resonance
         /// </summary>
         public static void addBadVibe()
         {
-            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + genNumber, game, new Vector3(0, 1, -2));
-            game.World.addObject(bv);
+            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + genNumber, new Vector3(0, 1, -2));
+            Program.game.World.addObject(bv);
             genNumber++;
             UI.play();
         }
@@ -64,7 +62,7 @@ namespace Resonance
         /// </summary>
         public static void exit()
         {
-            game.Exit();
+            Program.game.Exit();
         }
 
         /// <summary>
@@ -81,7 +79,7 @@ namespace Resonance
         /// <param name="level">Number representing level, int corresponds the the name of the level e.g Level1.xml</param>
         public static void loadLevel(int level)
         {
-            Loading.load(delegate { game.loadLevel(level);}, "Level "+level);
+            Loading.load(delegate { Program.game.loadLevel(level); }, "Level " + level);
         }
 
         /// <summary>
@@ -89,7 +87,7 @@ namespace Resonance
         /// </summary>
         public static void softReset()
         {
-            game.World.reset();
+            Program.game.World.reset();
             UI.play();
         }
 

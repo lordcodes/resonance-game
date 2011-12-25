@@ -18,7 +18,7 @@ namespace Resonance
 
         bool[,] map;
 
-        public PathFind(Game game)
+        public PathFind()
         {
             openList = new Minheap();
             closedList = new List<Node>();
@@ -34,7 +34,7 @@ namespace Resonance
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    map[i, j] = game.World.querySpace(new Vector3(i, 0.5f, j));
+                    map[i, j] = Program.game.World.querySpace(new Vector3(i, 0.5f, j));
                 }
             }
         }
