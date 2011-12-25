@@ -9,8 +9,6 @@ namespace Resonance
 {
     class GoodVibe : DynamicObject
     {
-        Game gameRef;
-
         int health; //health stored as an int between 0 - 100.
         int score;
         int iterationCount = 0;
@@ -42,10 +40,9 @@ namespace Resonance
         /// Constructor
         /// Set initial health to 100
         /// </summary>
-        public GoodVibe(int modelNum, String name, Game game, Vector3 pos)
-            : base(modelNum, name, game, pos)
+        public GoodVibe(int modelNum, String name, Vector3 pos)
+            : base(modelNum, name, pos)
         {
-            gameRef = game;
             waves = new List<Shockwave>();
             score = 0;
             health = 100;
@@ -96,42 +93,42 @@ namespace Resonance
         public void createShockwave(int colour)
         {
             string waveName = "";
-            Shockwave w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
+            Shockwave w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, this.Body.Position, this.Body.WorldTransform, colour);
             switch(colour) 
             {
                 case Shockwave.GREEN:
                     {
                         waveName = "GREEN";
-                        w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.YELLOW:
                     {
                         waveName = "YELLOW";
-                        w = new Shockwave(GameModels.SHOCKWAVE_YELLOW, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE_YELLOW, waveName, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.BLUE:
                     {
                         waveName = "BLUE";
-                        w = new Shockwave(GameModels.SHOCKWAVE_BLUE, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE_BLUE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.RED:
                     {
                         waveName = "RED";
-                        w = new Shockwave(GameModels.SHOCKWAVE_RED, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE_RED, waveName, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
                 case Shockwave.CYMBAL:
                     {
                         waveName = "CYMBAL";
-                        w = new Shockwave(GameModels.SHOCKWAVE_CYMBAL, waveName, gameRef, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE_CYMBAL, waveName, this.Body.Position, this.Body.WorldTransform, colour);
                         break;
                     }
             }
             waves.Add(w);
-            gameRef.Components.Add(w);
+            Program.game.Components.Add(w);
         }
 
         public void updateWaves()
@@ -151,7 +148,7 @@ namespace Resonance
             {
                 if (waves[i].Radius >= Shockwave.MAX_RADIUS)
                 {
-                    gameRef.Components.Remove(waves[i]);
+                    Program.game.Components.Remove(waves[i]);
                     waves.RemoveAt(i);
                 }
 
@@ -161,7 +158,7 @@ namespace Resonance
 
         public void checkDistance()
         {
-            Dictionary<string, Object> objects = gameRef.World.returnObjects();
+            Dictionary<string, Object> objects = Program.game.World.returnObjects();
             foreach (KeyValuePair<string, Object> pair in objects)
             {
                 if (pair.Value is BadVibe)

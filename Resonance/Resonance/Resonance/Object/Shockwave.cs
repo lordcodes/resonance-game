@@ -35,7 +35,6 @@ namespace Resonance
         List<BadVibe> bVibes;
         // Location
         Vector3 position;
-        Game game;
         int colour;
 
         // WorldTransform
@@ -67,10 +66,9 @@ namespace Resonance
             }
         }
 
-        public Shockwave(int modelNum, String name, Game game, Vector3 pos, Matrix t, int colour)
-            : base(modelNum, name, game, pos)
+        public Shockwave(int modelNum, String name, Vector3 pos, Matrix t, int colour)
+            : base(modelNum, name, pos)
         {
-            this.game = game;
             this.colour = colour;
             position = new Vector3(pos.X, pos.Y, pos.Z);
             radius = INITIAL_RADIUS;
@@ -98,7 +96,7 @@ namespace Resonance
 
         public void checkBadVibes()
         {
-            Dictionary<string,Object> objects = game.World.returnObjects();
+            Dictionary<string,Object> objects = Program.game.World.returnObjects();
             foreach (KeyValuePair<string,Object> pair in objects)
             {
                 if (pair.Value is BadVibe)

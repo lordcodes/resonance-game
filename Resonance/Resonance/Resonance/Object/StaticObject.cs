@@ -15,8 +15,8 @@ namespace Resonance
     {
         StaticMesh body;
 
-        public StaticObject(int modelNum, string name, Game game, Vector3 pos) 
-            : base(modelNum, name, game, pos)
+        public StaticObject(int modelNum, string name, Vector3 pos) 
+            : base(modelNum, name, pos)
         {
             Vector3[] vertices;
             int[] indices;
