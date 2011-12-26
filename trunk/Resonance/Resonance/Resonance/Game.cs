@@ -105,12 +105,8 @@ namespace Resonance
             string level = "Levels/Level"+i;
             world.readXmlFile(level, Content);
 
-            //Testing world space querying
-            //Vector3 pos = ((DynamicObject)world.getObject("Player")).Body.Position;
-            Vector3 pos = new Vector3(0, 0.5f, -5);
-            world.querySpace(pos);
-
             pathFind = new PathFind();
+            pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
         }
 
         /// <summary>
@@ -133,6 +129,7 @@ namespace Resonance
 
             if (!Loading.IsLoading)
             {
+                //DebugDisplay.update("GV Position", "" + ((DynamicObject)world.getObject("Player")).Body.Position);
                 keyInput();
                 if (!UI.Paused)
                 {

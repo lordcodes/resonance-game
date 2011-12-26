@@ -40,13 +40,13 @@ namespace Resonance
             levelsMenu.Add(new MenuItem("Load Level 2", new ItemDelegate(delegate { MenuActions.loadLevel(2); })));
             levelsMenu.Add(new MenuItem("Back", pauseMenu));
 
+            pauseMenu.Add(new MenuItem("Resume", new ItemDelegate(MenuActions.resume)));
+            pauseMenu.Add(new MenuItem("Exit Game", new ItemDelegate(MenuActions.exit)));
             pauseMenu.Add(new MenuItem("Add Bad Vibe (by the tree)", new ItemDelegate(MenuActions.addBadVibe)));
             pauseMenu.Add(new MenuItem("Reset object positions", new ItemDelegate(MenuActions.softReset)));
             pauseMenu.Add(new MenuItem("Kill all the Bad Vibes", new ItemDelegate(MenuActions.killBadVibes)));
             pauseMenu.Add(new MenuItem("Give Good Vibe full health", new ItemDelegate(MenuActions.fullHealth)));
             pauseMenu.Add(new MenuItem("Load a Level", levelsMenu));
-            pauseMenu.Add(new MenuItem("Exit Game", new ItemDelegate(MenuActions.exit)));
-            pauseMenu.Add(new MenuItem("Resume", new ItemDelegate(MenuActions.resume)));
 
             currentMenu = pauseMenu;
         }

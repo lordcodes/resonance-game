@@ -99,8 +99,8 @@ namespace Resonance
 
             if (list.Count > 0)
             {
-                BroadPhaseEntry e = list[0];
-                DebugDisplay.update("Point query", "" + list.Count + " " + point);
+                //BroadPhaseEntry e = list[0];
+                //DebugDisplay.update("Point query", "" + list.Count + " " + point);
                 return true;
             }
             else return false;

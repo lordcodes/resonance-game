@@ -29,27 +29,37 @@ namespace Resonance
             //DebugDisplay.update("World", "" + World.MAP_X + " " + World.MAP_Z + " " + MAP_WIDTH + " " + MAP_HEIGHT);
 
             map = new bool[MAP_WIDTH, MAP_HEIGHT];
+            buildMap();
+        }
+
+        private void buildMap()
+        {
+            int xDir = MAP_WIDTH / 2;
+            int zDir = MAP_HEIGHT / 2;
 
             for (int i = 0; i < map.GetLength(0); i++)
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    map[i, j] = Program.game.World.querySpace(new Vector3(i, 0.5f, j));
+                    map[i, j] = Program.game.World.querySpace(new Vector3((i - xDir), 0.5f, (j - zDir)));
                 }
             }
         }
 
-        public void pathFind(Vector3 pathStart, Vector3 pathEnd)
+        public void find(Vector3 pathStart, Vector3 pathEnd)
         {
             int startX = (int)Math.Round(pathStart.X);
             int startZ = (int)Math.Round(pathStart.Z);
             int endX = (int)Math.Round(pathEnd.X);
             int endZ = (int)Math.Round(pathEnd.Z);
 
-            if (startX == endX && startZ == endZ) { } //already there
+            DebugDisplay.update("Start", "" + startX + " " + startZ);
+
+            if (startX == endX && startZ == endZ) { return; } //already there
+            else if (!map[startX, startZ]) { return; } //target square is blocked
             else
             {
-                //openList.add(new Node(start));
+                openList.add(new Node(startX, startZ));
             }
 
         }
