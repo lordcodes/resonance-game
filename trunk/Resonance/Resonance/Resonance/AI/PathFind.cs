@@ -53,15 +53,30 @@ namespace Resonance
             int endX = (int)Math.Round(pathEnd.X);
             int endZ = (int)Math.Round(pathEnd.Z);
 
-            DebugDisplay.update("Start", "" + startX + " " + startZ);
+            //DebugDisplay.update("Start", "" + startX + " " + startZ);
 
+            //Start and end validity checks
             if (startX == endX && startZ == endZ) { return; } //already there
-            else if (!map[startX, startZ]) { return; } //target square is blocked
-            else
+            else if (map[endX, endZ]) { return; } //target square is blocked
+
+            //Add starting square to open list to be checked
+            openList.add(new Node(startX, startZ));
+
+            //Repeat until path is found
+            do
             {
-                openList.add(new Node(startX, startZ));
-            }
+                //if open list is not empty
+                if (openList.Count > 0)
+                {
+                    //Get root of the open list and add to closed list
+                    Node current = openList.extractRoot();
+                    closedList.Add(current);
+                    //DebugDisplay.update("Root", "" + current.X + " " + current.Z);
+                }
+                break;
+            } while (true);
 
         }
+
     }
 }
