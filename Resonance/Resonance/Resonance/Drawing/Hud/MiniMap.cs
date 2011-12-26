@@ -43,7 +43,7 @@ namespace Resonance
 
         /// Fields
 
-        private static GraphicsDeviceManager graphics;
+        //private static GraphicsDeviceManager graphics;
         private static Texture2D outline;
         private static Texture2D background;
         private static Texture2D vibe;

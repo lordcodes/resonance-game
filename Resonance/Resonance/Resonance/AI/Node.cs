@@ -8,21 +8,31 @@ namespace Resonance
 {
     class Node
     {
-        private Vector3 point;
+        private int pointX;
+        private int pointZ;
         private int fCost;
         private int gCost;
         private int hCost;
 
-        public Node(Vector3 position)
+        public Node(int x, int z)
         {
-            point = position;
+            pointX = x;
+            pointZ = z;
         }
 
-        public Vector3 Point
+        public int X
         {
             get
             {
-                return point;
+                return pointX;
+            }
+        }
+
+        public int Z
+        {
+            get
+            {
+                return pointZ;
             }
         }
 

@@ -36,6 +36,7 @@ namespace Resonance
                 Node rootNode = list[0];
                 switchElements(0, count - 1);
                 count--;
+                heapDown(0);
 
                 return rootNode;
             }
@@ -82,7 +83,7 @@ namespace Resonance
             while (true)
             {
                 int parentInd = parentIndex(index);
-                if (parentInd < 0 || list[parentInd].F > elem.F) break;
+                if (parentInd < 0 || list[parentInd].F < elem.F) break;
                 switchElements(index, parentInd);
                 index = parentInd;
                 
@@ -102,10 +103,10 @@ namespace Resonance
                 if (right < 0) child = left;
                 else
                 {
-                    if (list[left].F > list[right].F) child = left;
+                    if (list[left].F < list[right].F) child = left;
                     else child = right;
                 }
-                if (list[child].F < list[index].F) break;
+                if (list[child].F > list[index].F) break;
                 switchElements(index, child);
                 index = child;
             }
