@@ -18,6 +18,9 @@ namespace Resonance
         {
             pointX = x;
             pointZ = z;
+            hCost = 0;
+            fCost = 0;
+            gCost = 0;
         }
 
         public int X
