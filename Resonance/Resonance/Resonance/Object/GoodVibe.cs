@@ -130,7 +130,7 @@ namespace Resonance
             waves.Add(w);
             Program.game.Components.Add(w);
 
-            Drawing.addWave(this.Body.Position);
+            //Drawing.addWave(this.Body.Position);
         }
 
         public void updateWaves()
