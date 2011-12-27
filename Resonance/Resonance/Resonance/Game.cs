@@ -106,7 +106,39 @@ namespace Resonance
             world.readXmlFile(level, Content);
 
             pathFind = new PathFind();
-            pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
+            //List<Vector3> path = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
+            //int val = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
+            /*if (path != null)
+            {
+                DebugDisplay.update("Path", "" + path.Count);
+            }
+            else
+            {
+                DebugDisplay.update("Path", "Not found");
+            }*/
+            /*switch(val)
+            {
+                case -1:
+                    {
+                        DebugDisplay.update("Path", "Already there");
+                        break;
+                    }
+                case -2:
+                    {
+                        DebugDisplay.update("Path", "Target blocked");
+                        break;
+                    }
+                case 1:
+                    {
+                        DebugDisplay.update("Path", "Path found");
+                        break;
+                    }
+                case 2:
+                    {
+                        DebugDisplay.update("Path", "Path not found");
+                        break;
+                    }
+            }*/
         }
 
         /// <summary>
