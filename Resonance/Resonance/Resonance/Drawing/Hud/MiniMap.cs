@@ -54,6 +54,9 @@ namespace Resonance
         private static Texture2D vibe;
         private static Texture2D dVibe;
 
+        private static int SPEED_SAMPLES = 10;
+        private static List<float> speeds;
+
         private static int sweeperX = MAP_X + MAP_WIDTH;
 
         private static float scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
@@ -66,6 +69,13 @@ namespace Resonance
         public MiniMap()
         {
             ZOOM = DEFAULT_ZOOM;
+
+            speeds = new List<float>();
+
+            for (int i = 0; i < SPEED_SAMPLES; i++)
+            {
+                speeds.Add(0f);
+            }
         }
 
 
@@ -82,6 +92,28 @@ namespace Resonance
         }
 
 
+
+        ///<summary>
+        /// Keeps track of the last SPEED_SAMPLES readings of GV's speed and averages them.
+        /// This is used when drawing scale lines on map, to reduce vibrating.
+        ///</summary>
+        private float estimateSpeed(GoodVibe gV)
+        {
+            speeds.RemoveAt(0);
+            speeds.Add(gV.Body.MotionState.LinearVelocity.Length());
+
+            float sum   = 0;
+            int   count = 0;
+
+            foreach (float x in speeds)
+            {
+                sum += x;
+                count++;
+            }
+
+            return sum / count;
+        }
+
         ///<summary>
         /// Draws the minimap on screen
         /// </summary>
@@ -91,7 +123,8 @@ namespace Resonance
 
             if (AUTO_ZOOM)
             {
-                float speed = gVRef.Body.MotionState.LinearVelocity.Length();
+                //float speed = gVRef.Body.MotionState.LinearVelocity.Length();
+                float speed = estimateSpeed(gVRef);
 
                 if (speed > MIN_ZOOM_SPEED)
                 {
