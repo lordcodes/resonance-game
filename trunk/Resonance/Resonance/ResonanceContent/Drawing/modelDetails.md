@@ -5,6 +5,7 @@ house,		Models\house.fbx
 virus,		Models\virus.fbx
 truck,		Models\truck.fbx
 terrain,	Models\terrain.fbx
+terrainHiPoly,	Models\terrainHiPoly.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
 
@@ -14,7 +15,7 @@ box,		Models\box.fbx
 2,			house,					1,		house,					1
 3,			virus,					0.5,	box,					1
 4,			truck,					1,		truck,					1
-5,			terrain,				20,		terrain,				20,		Textures\texGrassReal.jpg	
+5,			terrainHiPoly,			20,		terrainHiPoly,			20,		Textures\texGrassReal.jpg	
 6,			house,					1,		house,					1
 12,			virus,					0.5,	box,					1,		Textures\texGreen.jpg
 13,			virus,					0.5,	box,					1,		Textures\texYellow.jpg

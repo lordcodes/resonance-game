@@ -80,6 +80,7 @@ namespace Resonance
         public static void loadLevel(int level)
         {
             Loading.load(delegate { Program.game.loadLevel(level); }, "Level " + level);
+            Drawing.reset();
         }
 
         /// <summary>

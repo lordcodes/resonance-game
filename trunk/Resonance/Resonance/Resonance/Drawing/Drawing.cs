@@ -25,6 +25,7 @@ namespace Resonance
         private static float screenHeight;
         private static double widthRatio;
         private static double heightRatio;
+        private static Vector3 playerPos;
 
         public static int ScreenWidth
         {
@@ -58,6 +59,11 @@ namespace Resonance
             }
         }
 
+        public static void reset()
+        {
+            if (gameGraphics != null) gameGraphics.reset();
+        }
+
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
         /// GraphicsDeviceManger for it to use
@@ -70,6 +76,7 @@ namespace Resonance
             gameGraphics = new Graphics(Content, graphics);
             hud = new Hud(Content,graphics, gameGraphics);
             loadingScreen = new LoadingScreen(Content, graphics);
+            playerPos = new Vector3(0,0,0);
         }
 
         /// <summary>
@@ -84,7 +91,7 @@ namespace Resonance
             heightRatio = screenHeight / 1080;
             hud.loadContent();
             GameModels.Load();
-            gameGraphics.loadContent();
+            gameGraphics.loadContent(Content, graphics.GraphicsDevice);
             loadingScreen.loadContent();
         }
 
@@ -98,6 +105,22 @@ namespace Resonance
             {
                 loadingScreen.Update(gameTime);
             }
+            else if (!UI.Paused)
+            {
+                gameGraphics.update(new Vector2(0f, 0f));
+            }
+        }
+
+        public static void addWave(Vector3 position3d)
+        {
+            Vector2 playerGroundPos;
+            float groundWidth = World.MAP_X;
+            float groundHeight = World.MAP_Z;
+            float xDis = Math.Abs(playerPos.X - World.MAP_MIN_X);
+            float yDis = Math.Abs(playerPos.Z - World.MAP_MIN_Z);
+            playerGroundPos.X = (float)Math.Round(Graphics.DISP_WIDTH * (xDis / groundWidth));
+            playerGroundPos.Y = (float)Math.Round(Graphics.DISP_WIDTH * (yDis / groundHeight));
+            gameGraphics.addWave(playerGroundPos);
         }
 
         /// <summary>
@@ -125,10 +148,9 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
         {
+            bool blend = false;
+            Vector2 playerGroundPos = new Vector2(0f, 0f);
             graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-            gameGraphics.Draw(gameModelNum, worldTransform);
-            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
             if (worldObject is GoodVibe)
             {
                 int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
@@ -136,7 +158,17 @@ namespace Resonance
                 DebugDisplay.update("HEALTH", health.ToString());
                 DebugDisplay.update("SCORE", score.ToString());
                 hud.updateGoodVibe(health, score);
+                playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
             }
+
+            if (worldObject.returnIdentifier().Equals("Ground"))
+            {
+                blend = true;
+
+            }
+            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            gameGraphics.Draw(gameModelNum, worldTransform, blend);
+            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
             if (worldObject is BadVibe)
             {

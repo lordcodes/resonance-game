@@ -20,17 +20,22 @@ namespace Resonance
         private static Matrix view;
         private static Matrix projection;
 
-        Vector3 ambientLightColor;
-        Vector3 diffuseColor;
+        private static Vector3 ambientLightColor;
+        private static Vector3 diffuseColor;
 
-        Vector3 lightDirection;
-        Vector3 diffuseLightColor;
-        Vector3 lightDirection2;
-        Vector3 diffuseLightColor2;
+        private static Vector3 lightDirection;
+        private static Vector3 diffuseLightColor;
+        private static Vector3 lightDirection2;
+        private static Vector3 diffuseLightColor2;
 
-        Vector4 specularColorPower;
-        Vector3 specularLightColor;
-        Vector3 cameraPosition;
+        private static Vector4 specularColorPower;
+        private static Vector3 specularLightColor;
+        private static Vector3 cameraPosition;
+
+        private static DisplacementMap dispMap;
+
+        // Reduce this variable if the shockwave is causing frame rate to suffer
+        public static int DISP_WIDTH = 75;
 
         public Matrix Projection
         {
@@ -58,7 +63,7 @@ namespace Resonance
         /// LoadContent will be called once per game and is the place to load
         /// all of your content needed for drawing the world.
         /// </summary>
-        public void loadContent()
+        public void loadContent(ContentManager content, GraphicsDevice graphicsDevice)
         {
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
             view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
@@ -85,6 +90,19 @@ namespace Resonance
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
+
+            dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
+            //bumpMap.SetData
+        }
+
+        public void addWave(Vector2 position)
+        {
+            if (dispMap != null) dispMap.addWave(position);
+        }
+
+        public void reset()
+        {
+            if (dispMap != null) dispMap.reset();
         }
 
         /// <summary>
@@ -102,13 +120,18 @@ namespace Resonance
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
-        public void Draw(int gameModelNum, Matrix worldTransform)
+        public void Draw(int gameModelNum, Matrix worldTransform, bool disp)
         {
-            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform));
+            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform), disp);
+        }
+
+        public void update(Vector2 playerPos)
+        {
+            if (dispMap != null) dispMap.update(playerPos);
         }
 
 
-        private void DrawModel(ImportedGameModel gmodel, Matrix world)
+        private void DrawModel(ImportedGameModel gmodel, Matrix world, bool disp)
         {
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
@@ -116,6 +139,8 @@ namespace Resonance
 
             if (colorTexture == null) colorTexture = gmodel.Texture;
 
+            customEffect.Parameters["doDisp"].SetValue(disp);
+            if (disp) customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
             customEffect.Parameters["ColorTexture"].SetValue(colorTexture);

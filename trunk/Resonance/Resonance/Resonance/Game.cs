@@ -52,10 +52,10 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            //graphics.PreferredBackBufferWidth = 1920;
+            //graphics.PreferredBackBufferHeight = 1080;
             Window.AllowUserResizing = true;
         }
 
@@ -217,6 +217,12 @@ namespace Resonance
 
                 //PC Testing Controls
                 pcTestingControls(keyboardState);
+
+
+                if ((keyboardState.IsKeyDown(Keys.Q) && !oldKeyState.IsKeyDown(Keys.Q)) || (playerOne.Buttons.LeftShoulder == ButtonState.Pressed && oldPadState1.Buttons.LeftShoulder != ButtonState.Pressed))
+                {
+                    Drawing.addWave(((DynamicObject)World.getObject("Player")).Body.Position);
+                }
             }
 
             //Cache the previous key state.
