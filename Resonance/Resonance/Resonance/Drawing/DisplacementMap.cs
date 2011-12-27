@@ -9,6 +9,9 @@ namespace Resonance
 {
     class DisplacementMap
     {
+        public const float WAVE_HEIGHT = 1;
+        public const float WAVE_WIDTH = 1;
+
         private GraphicsDevice graphicsDevice;
         private int width;
         private int height;
@@ -17,7 +20,6 @@ namespace Resonance
         private Texture2D dispMap;
         private int waveCount = 0;
         private static Dictionary<string, float> distanceValues = new Dictionary<string, float>();
-
         private Wave[] waves = new Wave[5];
 
         public void reset()
@@ -109,7 +111,7 @@ namespace Resonance
         {
             float result = 0;
             float peakCenter = distanceFrom;
-            float waveWidth = 2;
+            float waveWidth = WAVE_WIDTH;
             result = (float)(height * Math.Pow(Math.E,-(((x-peakCenter)*(x-peakCenter))/(2*(waveWidth*waveWidth)))));
             return result;
         }
@@ -135,6 +137,7 @@ namespace Resonance
 
     class Wave
     {
+
         private Vector2 epicenter;
         private bool isActive;
         private float distance;
@@ -152,7 +155,7 @@ namespace Resonance
             isActive = true;
             distance = 0;
             speed = 0.5f;
-            height = 1.5f;
+            height = DisplacementMap.WAVE_HEIGHT;
         }
 
         public void update()
