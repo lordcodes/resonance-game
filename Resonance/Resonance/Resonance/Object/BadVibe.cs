@@ -202,13 +202,14 @@ namespace Resonance
         /// <summary>
         /// Calculates the difference between good vibe and bad vibe
         /// </summary>
-        double getDistance()
+        public double getDistance()
         {
             Vector3 goodVibePosition = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
             Vector3 badVibePosition = this.Body.Position;
             double xDiff = Math.Abs(goodVibePosition.X - badVibePosition.X);
+            double yDiff = Math.Abs(goodVibePosition.Y - badVibePosition.Y);
             double zDiff = Math.Abs(goodVibePosition.Z - badVibePosition.Z);
-            double distance = Math.Sqrt(Math.Pow(xDiff,2) + Math.Pow(zDiff,2));
+            double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
             return distance;
         }
 

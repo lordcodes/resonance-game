@@ -33,11 +33,16 @@ namespace Resonance
         public static bool  SWEEPER_ON           = true;
         public static int   SWEEPER_LENGTH       = 10;
 
+        // Distance outside radar at which distant Vibe marker fades. 
+        public static float VANISHING_POINT      = 5f;
+
+        public static float BAD_VIBE_ALPHA       = 0.5f;
+
         // Colours
         public static Color OUTLINE_COLOUR    = new Color(0f, 0f, 0f, 0.8f);
         public static Color BACKGROUND_COLOUR = new Color(0f, 0f, 0.2f, 0.5f);
         public static Color GOOD_VIBE_COLOUR  = new Color(0f, 0.7f, 0f, 0.5f);
-        public static Color BAD_VIBE_COLOUR   = new Color(0.7f, 0f, 0f, 0.5f);
+        public static Color BAD_VIBE_COLOUR   = new Color(0.7f, 0f, 0f, BAD_VIBE_ALPHA);
         public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
         public static Color SWEEPER_COLOUR    = new Color(0.0f, 0.0f, 0.9f, 0.5f);
 
@@ -100,6 +105,9 @@ namespace Resonance
                 scaleFactor = (MAP_WIDTH / (2 * ZOOM));
             }
 
+            // Calculate how far from the good vibe the corner of the map is.
+            float corner_dist = (float) Math.Sqrt(Math.Pow((double) ZOOM, 2.0) * 2);
+
             // Draw fill
             spriteBatch.Draw(background, new Rectangle(MAP_X, MAP_Y, MAP_WIDTH, MAP_HEIGHT), BACKGROUND_COLOUR);
 
@@ -146,6 +154,8 @@ namespace Resonance
                 relToGV = rotateVector2(relToGV, angle);
                 bVPos = gVPos - relToGV;
 
+                float alpha = BAD_VIBE_ALPHA;
+
                 inXRange = false;
                 inYRange = false;
 
@@ -154,12 +164,19 @@ namespace Resonance
                 if ((bVPos.Y > gVPos.Y - ZOOM) && (bVPos.Y < gVPos.Y + ZOOM)) inYRange = true;
 
                 if (inXRange && inYRange) {
-                    float bVR = 0f;// (DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y;
+                    float bVR = 0;// (DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y - (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
                     
                     bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
                     //spriteBatch.Draw(vibe, new Rectangle((int) bVScreenPos.X, (int) bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
                     spriteBatch.Draw(vibe, new Vector2((int)bVScreenPos.X, (int)bVScreenPos.Y), null, BAD_VIBE_COLOUR, bVR, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 } else if (inXRange ^ inYRange) {
+                    float dist = (float) v.getDistance();
+                    bool visible = true;
+
+                    // Calculate the alpha transparency that the distant vibe should have. Determine whether it is visible or not.
+                    alpha = calculateBVAlpha(dist, corner_dist);
+                    if (alpha < 0f) visible = false;
+
                     if (inXRange) {
                         if (bVPos.Y < gVPos.Y) {
                             bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), MAP_Y - (dVibe.Height / 2));
@@ -177,9 +194,22 @@ namespace Resonance
                         }
                     }
 
-                    spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
+                    if (visible)
+                    {
+                        Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
+                        Color c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
+                        spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), c);
+                    }
                 } else {
                     // Draw in corresponding corner, transparency proportional to distance.
+
+                    float dist = (float) v.getDistance();
+                    bool visible = true;
+
+                    // Calculate the alpha transparency that the distant vibe should have. Determine whether it is visible or not.
+                    alpha = calculateBVAlpha(dist, corner_dist);
+                    if (alpha < 0f) visible = false;
+
                     if (bVPos.X < gVPos.X) {
                         if (bVPos.Y < gVPos.Y)
                         {
@@ -200,7 +230,12 @@ namespace Resonance
                         }
                     }
 
-                    spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
+                    if (visible)
+                    {
+                        Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
+                        Color c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
+                        spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), c);
+                    }
                 }
             }
 
@@ -211,10 +246,10 @@ namespace Resonance
                 spriteBatch.Draw(background, new Rectangle(sweeperX, MAP_Y, 1, MAP_HEIGHT), SWEEPER_COLOUR);
 
                 int x;
-                float alpha = 0.5f;
+                float alpha = BAD_VIBE_ALPHA;
                 for (int i = 0; i < SWEEPER_LENGTH; i++)
                 {
-                    alpha -= (0.5f / (float) SWEEPER_LENGTH);
+                    alpha -= (BAD_VIBE_ALPHA / (float) SWEEPER_LENGTH);
                     x = sweeperX + i;
                     if (x > MAP_X + MAP_WIDTH) x -= MAP_WIDTH;
                     spriteBatch.Draw(background, new Rectangle(x, MAP_Y, 1, MAP_HEIGHT), new Color(0f, 0f, 0.9f, alpha));
@@ -222,6 +257,25 @@ namespace Resonance
 
                 sweeperX--;
             }
+        }
+
+        // Calculates the alpha transparency of a bad vibe.
+        private static float calculateBVAlpha(float dist, float corner_dist) {
+            if (dist > corner_dist)
+            {
+                float diff = dist - corner_dist;
+                if (diff > VANISHING_POINT * scaleFactor)
+                {
+                    return -1f;
+                }
+                else
+                {
+                    float ratio = diff / (VANISHING_POINT * scaleFactor);
+                    return BAD_VIBE_ALPHA - (ratio * BAD_VIBE_ALPHA);
+                }
+            }
+
+            return BAD_VIBE_ALPHA;
         }
 
         public static Vector2 rotateVector2(Vector2 vec, float theta)
