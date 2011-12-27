@@ -165,7 +165,6 @@ namespace Resonance
             // Draw good vibe
             int gvx = MAP_X + (int) ((MAP_WIDTH / 2f) - (VIBE_WIDTH / 2f));
             int gvy = MAP_Y + (int) ((MAP_HEIGHT / 2f) - (VIBE_HEIGHT / 2f));
-            //spriteBatch.Draw(vibe, new Rectangle(gvx, gvy, VIBE_WIDTH, VIBE_HEIGHT), GOOD_VIBE_COLOUR);
 
             float r = 0f;// gVRef.Body.Orientation.Y;
             spriteBatch.Draw(vibe, new Vector2(gvx, gvy), null, GOOD_VIBE_COLOUR, r, Vector2.Zero, 1f, SpriteEffects.None, 0f);
@@ -197,11 +196,13 @@ namespace Resonance
                 if ((bVPos.Y > gVPos.Y - ZOOM) && (bVPos.Y < gVPos.Y + ZOOM)) inYRange = true;
 
                 if (inXRange && inYRange) {
-                    float bVR = 0;// (DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y - (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
+                    float bVR = - (DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y + (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
+                    bVR += (float) Math.PI;
                     
                     bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                    Vector2 centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f);
                     //spriteBatch.Draw(vibe, new Rectangle((int) bVScreenPos.X, (int) bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
-                    spriteBatch.Draw(vibe, new Vector2((int)bVScreenPos.X, (int)bVScreenPos.Y), null, BAD_VIBE_COLOUR, bVR, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(vibe, new Vector2((int)bVScreenPos.X, (int)bVScreenPos.Y), null, BAD_VIBE_COLOUR, bVR, centre, 1f, SpriteEffects.None, 0f);
                 } else if (inXRange ^ inYRange) {
                     float dist = (float) v.getDistance();
                     bool visible = true;
