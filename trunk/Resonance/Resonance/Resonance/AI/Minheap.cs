@@ -16,11 +16,49 @@ namespace Resonance
             count = 0;
         }
 
+        /// <summary>
+        /// Get the number of elements on the heap
+        /// </summary>
         public int Count
         {
             get
             {
                 return count;
+            }
+        }
+
+        public bool contains(int x, int z)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].X == x && list[i].Z == z) return true;
+            }
+            return false;
+        }
+
+        public int accessElementGCost(int x, int z)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].X == x && list[i].Z == z)
+                {
+                    return list[i].G;
+                }
+            }
+            return -1;
+        }
+
+        public void setElementCosts(int x, int z, int g)
+        {
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].X == x && list[i].Z == z)
+                {
+                    list[i].F = g + list[i].H;
+                    list[i].G = g;
+                    heapUp(i);
+                    break;
+                }
             }
         }
 

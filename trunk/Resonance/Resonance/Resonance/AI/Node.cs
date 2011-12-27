@@ -13,6 +13,8 @@ namespace Resonance
         private int fCost;
         private int gCost;
         private int hCost;
+        private int parentX;
+        private int parentZ;
 
         public Node(int x, int z)
         {
@@ -36,6 +38,30 @@ namespace Resonance
             get
             {
                 return pointZ;
+            }
+        }
+
+        public int ParentX
+        {
+            get
+            {
+                return parentX;
+            }
+            set
+            {
+                parentX = value;
+            }
+        }
+
+        public int ParentZ
+        {
+            get
+            {
+                return parentZ;
+            }
+            set
+            {
+                parentZ = value;
             }
         }
 
