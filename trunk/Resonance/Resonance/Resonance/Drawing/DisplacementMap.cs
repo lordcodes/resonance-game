@@ -72,6 +72,10 @@ namespace Resonance
                 dispMap = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
                 dispMap.SetData<float>(buffer, 0, buffer.Length);
             }
+            else
+            {
+                reset();
+            }
             return dispMap;
         }
 
