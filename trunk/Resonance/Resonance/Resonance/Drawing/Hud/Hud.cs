@@ -187,7 +187,7 @@ namespace Resonance
                 float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
                 c = new Color(red, green, 0f);
 
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i+1, sliceY+1, sliceWidth, sliceHeight), c);
             }
         }
 
