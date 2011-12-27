@@ -25,6 +25,8 @@ namespace Resonance
     {
         public static float MAP_X;
         public static float MAP_Z;
+        public static float MAP_MIN_X;
+        public static float MAP_MIN_Z;
         private const float ACCURACY = 0.1f;
 
         private Dictionary<string, Object> objects;
@@ -53,6 +55,9 @@ namespace Resonance
                 {
                     Vector3 max = ((StaticObject)obj).Body.BoundingBox.Max;
                     Vector3 min = ((StaticObject)obj).Body.BoundingBox.Min;
+
+                    MAP_MIN_X = min.X;
+                    MAP_MIN_Z = min.Z;
 
                     MAP_Z = Math.Abs(max.Z - min.Z);
                     MAP_X = Math.Abs(max.X - min.X);
