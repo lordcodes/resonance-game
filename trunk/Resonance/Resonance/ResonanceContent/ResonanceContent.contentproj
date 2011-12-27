@@ -54,11 +54,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Textures\testBumpMap.DDS">
-      <Name>testBumpMap</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\terrainHiPoly.fbx">
       <Name>terrainHiPoly</Name>
       <Importer>FbxImporter</Importer>
