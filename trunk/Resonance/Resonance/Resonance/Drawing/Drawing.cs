@@ -160,12 +160,12 @@ namespace Resonance
                 hud.updateGoodVibe(health, score);
                 playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
             }
-            /*
+            
             if (worldObject.returnIdentifier().Equals("Ground"))
             {
-                blend = true;
+                //blend = true;
             }
-            */
+            
             if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
             gameGraphics.Draw(gameModelNum, worldTransform, blend);
             if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
