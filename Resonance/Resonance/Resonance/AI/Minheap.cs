@@ -134,8 +134,6 @@ namespace Resonance
                 if (parentInd < 0 || list[parentInd].F < elem.F) break;
                 switchElements(index, parentInd);
                 index = parentInd;
-                
-                break;
             }
         }
 
@@ -151,7 +149,7 @@ namespace Resonance
                 if (right < 0) child = left;
                 else
                 {
-                    if (left >= list.Count || right >= list.Count) break;
+                    if (left >= count || right >= count) break;
                     if (list[left].F < list[right].F) child = left;
                     else child = right;
                 }
@@ -169,7 +167,7 @@ namespace Resonance
         /// <returns>int - index of parent</returns>
         private int parentIndex(int index)
         {
-            if (count == 0) return -1;
+            if (count == 0 || index == 0) return -1;
             else return (index - 1) / 2;
         }
 
