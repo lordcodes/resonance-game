@@ -24,6 +24,7 @@ namespace Resonance
             get
             {
                 return count;
+                //return list.Count;
             }
         }
 
@@ -57,6 +58,7 @@ namespace Resonance
                     list[i].F = g + list[i].H;
                     list[i].G = g;
                     heapUp(i);
+                    heapDown(i);
                     break;
                 }
             }
@@ -78,6 +80,9 @@ namespace Resonance
 
                 return rootNode;
             }
+            /*Node rootNode = list[0];
+            list.RemoveAt(0);
+            return rootNode;*/
         }
 
         /// <summary>
@@ -100,6 +105,11 @@ namespace Resonance
             else list[count] = node;
             count++;
             heapUp(count - 1);
+            /*if (list.Count == 0) list.Add(node);
+            for (int i = 0; i < list.Count; i++)
+            {
+                if (list[i].F > node.F) list.Insert(i, node);
+            }*/
         }
 
         //PRIVATE METHODS
@@ -141,6 +151,7 @@ namespace Resonance
                 if (right < 0) child = left;
                 else
                 {
+                    if (left >= list.Count || right >= list.Count) break;
                     if (list[left].F < list[right].F) child = left;
                     else child = right;
                 }

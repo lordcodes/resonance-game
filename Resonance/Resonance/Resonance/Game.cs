@@ -107,7 +107,7 @@ namespace Resonance
 
             pathFind = new PathFind();
             //List<Vector3> path = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
-            //int val = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
+            int val = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
             /*if (path != null)
             {
                 DebugDisplay.update("Path", "" + path.Count);
@@ -116,29 +116,29 @@ namespace Resonance
             {
                 DebugDisplay.update("Path", "Not found");
             }*/
-            /*switch(val)
+            switch(val)
             {
                 case -1:
                     {
-                        DebugDisplay.update("Path", "Already there");
+                        DebugDisplay.update("Path1", "Already there");
                         break;
                     }
                 case -2:
                     {
-                        DebugDisplay.update("Path", "Target blocked");
+                        DebugDisplay.update("Path2", "Target blocked");
                         break;
                     }
                 case 1:
                     {
-                        DebugDisplay.update("Path", "Path found");
+                        DebugDisplay.update("Path3", "Path found");
                         break;
                     }
                 case 2:
                     {
-                        DebugDisplay.update("Path", "Path not found");
+                        DebugDisplay.update("Path4", "Path not found");
                         break;
                     }
-            }*/
+            }
         }
 
         /// <summary>

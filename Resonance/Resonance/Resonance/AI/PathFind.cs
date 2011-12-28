@@ -14,7 +14,8 @@ namespace Resonance
         private static int MAP_WIDTH;
 
         Minheap openList;
-        List<Vector2> closedList;
+        //List<Vector2> closedList;
+        List<int[]> closedList;
 
         Vector3[,] parents;
 
@@ -23,7 +24,8 @@ namespace Resonance
         public PathFind()
         {
             openList = new Minheap();
-            closedList = new List<Vector2>();
+            //closedList = new List<Vector2>();
+            closedList = new List<int[]>();
 
             MAP_HEIGHT = (int)Math.Round(World.MAP_Z,0);
             MAP_WIDTH = (int)Math.Round(World.MAP_X,0);
@@ -81,22 +83,25 @@ namespace Resonance
                 {
                     //Get root of the open list and add to closed list
                     Node current = openList.extractRoot();
-                    closedList.Add(new Vector2(current.X, current.Z));
+                    //closedList.Add(new Vector2(current.X, current.Z));
+                    int[] currentNode = { current.X, current.Z };
+                    closedList.Add(currentNode);
                     //DebugDisplay.update("Root", "" + current.X + " " + current.Z);
 
                     //Check adjacent nodes
-                    for (int j = -1; j <= 1; j++)
+                    for (int j = current.Z - 1; j <= current.Z + 1; j++)
                     {
-                        for (int i = -1; i <= 1; i++)
+                        for (int i = current.X - 1; i <= current.X + 1; i++)
                         {
-                            if (adjacentNodeChecks(current.X + i, current.Z + j, current))
+                            if (adjacentNodeChecks(i, j, current))
                             {
+                                //Console.WriteLine("IJ: "+i + " " + j);
                                 //If not already on open list add it
-                                if (!openList.contains(current.X + i, current.Z + j))
+                                if (!openList.contains(i, j))
                                 {
-                                    Node newNode = new Node(current.X + i, current.Z + j);
+                                    Node newNode = new Node(i, j);
                                     //If diagonal move, G cost
-                                    if ((i == -1 || i == 1) && (j == -1 || j == 1))
+                                    if ((i == current.X -1 || i == current.X + 1) && (j == current.Z -1 || j == current.Z + 1))
                                     {
                                         newNode.G = current.G + 7;
                                     }
@@ -119,7 +124,10 @@ namespace Resonance
                                     //F cost
                                     newNode.F = newNode.G + newNode.H;
                                     //Parent
-                                    parents[current.X + i, current.Z + j] = new Vector3(current.X, 0.4f, current.Z);
+                                    int xDir = MAP_WIDTH / 2;
+                                    int zDir = MAP_HEIGHT / 2;
+                                    parents[(i+xDir), (j+zDir)] = new Vector3(current.X, 0.4f, current.Z);
+                                    Console.WriteLine(current.X + " " + current.Z);
                                     //Add to open list
                                     openList.add(newNode);
                                 }
@@ -127,7 +135,7 @@ namespace Resonance
                                 {
                                     int gCost = 0;
                                     //If diagonal move, G cost
-                                    if ((i == -1 || i == 1) && (j == -1 || j == 1))
+                                    if ((i == current.X - 1 || i == current.X + 1) && (j == current.Z - 1 || j == current.Z + 1))
                                     {
                                         gCost = current.G + 7;
                                     }
@@ -137,10 +145,13 @@ namespace Resonance
                                         gCost = current.G + 5;
                                     }
                                     //Check if new G is less than current G for that square
-                                    if (gCost < openList.accessElementGCost(current.X + i, current.Z + j))
+                                    if (gCost < openList.accessElementGCost(i, j))
                                     {
-                                        openList.setElementCosts(current.X + i, current.Z + j, gCost);
-                                        parents[current.X + i, current.Z + j] = new Vector3(current.X, 0.4f, current.Z);
+                                        openList.setElementCosts(i, j, gCost);
+                                        int xDir = MAP_WIDTH / 2;
+                                        int zDir = MAP_HEIGHT / 2;
+                                        parents[(i+xDir), (j+zDir)] = new Vector3(current.X, 0.4f, current.Z);
+                                        Console.WriteLine(current.X + " " + current.Z);
                                     }
                                 }
                             }
@@ -163,12 +174,15 @@ namespace Resonance
             {
                 int x = endX, z = endZ;
                 List<Vector3> path = new List<Vector3>();
-                do
+                /*do
                 {
+                    Console.Write("("+x + "," + z + ") ");
                     path.Add(new Vector3(x, 0.5f, z));
-                    x = (int)parents[x, z].X;
-                    z = (int)parents[x, z].Z;
-                } while ((x != startX) && (z != startZ));
+                    int xDir = MAP_WIDTH / 2;
+                    int zDir = MAP_HEIGHT / 2;
+                    x = (int)parents[(x+xDir), (z+zDir)].X;
+                    z = (int)parents[(x + xDir), (z + zDir)].Z;
+                } while ((x != startX) && (z != startZ));*/
                 //return path;
                 return 1;
             }
@@ -181,17 +195,24 @@ namespace Resonance
 
         private bool adjacentNodeChecks(int x, int z, Node current)
         {
+            //Console.WriteLine("Current1: " + current.X + " " + current.Z + " " + x + " " + z);
+            int xDir = MAP_WIDTH / 2;
+            int zDir = MAP_HEIGHT / 2;
             //Make sure not checking outside map
-            if (z != -1 && x != -1)
+            if (z >= -zDir && x >= -xDir)
             {
-                if (z != MAP_HEIGHT && x != MAP_WIDTH)
+                if (z <= zDir && x <= xDir)
                 {
+                    //Console.WriteLine("Current2: " + current.X + " " + current.Z + " " + x + " " + z);
                     //Check it isn't already in closed list
-                    if (closedList.Contains(new Vector2(x, z)))
+                    int[] test = {x,z};
+                    if (!closedList.Contains(test))
                     {
+                        //Console.WriteLine("Current3: " + current.X + " " + current.Z + " " + x + " " + z);
                         //Check it isn't blocked
                         if (!checkPosition(x, z))
                         {
+                            //Console.WriteLine("Current4: " + current.X + " " + current.Z + " " + x + " " + z);
                             //If moving diagonal, check diagonal path is clear
                             bool walkable = true;
                             if (x == current.X + 1 && z == current.Z + 1)
@@ -222,7 +243,12 @@ namespace Resonance
                                     walkable = false;
                                 }
                             }
-                            if (walkable) return true;
+                            if (walkable)
+                            {
+                                //Console.WriteLine("Current: " + current.X + " " + current.Z + " " + x + " " + z);
+                                if (x == current.X && z == current.Z) return false;
+                                return true;
+                            }
                         }
                     }
                 }
