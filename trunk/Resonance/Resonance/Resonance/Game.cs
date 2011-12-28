@@ -105,6 +105,8 @@ namespace Resonance
             string level = "Levels/Level"+i;
             world.readXmlFile(level, Content);
 
+            Console.WriteLine("STARTING TEST PATH-FINDING");
+            
             pathFind = new PathFind();
             //List<Vector3> path = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
             int val = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));

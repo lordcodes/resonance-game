@@ -87,6 +87,7 @@ namespace Resonance
                     int[] currentNode = { current.X, current.Z };
                     closedList.Add(currentNode);
                     //DebugDisplay.update("Root", "" + current.X + " " + current.Z);
+                    Console.WriteLine(current.X + " " + current.Z);
 
                     //Check adjacent nodes
                     for (int j = current.Z - 1; j <= current.Z + 1; j++)
@@ -127,7 +128,6 @@ namespace Resonance
                                     int xDir = MAP_WIDTH / 2;
                                     int zDir = MAP_HEIGHT / 2;
                                     parents[(i+xDir), (j+zDir)] = new Vector3(current.X, 0.4f, current.Z);
-                                    Console.WriteLine(current.X + " " + current.Z);
                                     //Add to open list
                                     openList.add(newNode);
                                 }
@@ -151,7 +151,6 @@ namespace Resonance
                                         int xDir = MAP_WIDTH / 2;
                                         int zDir = MAP_HEIGHT / 2;
                                         parents[(i+xDir), (j+zDir)] = new Vector3(current.X, 0.4f, current.Z);
-                                        Console.WriteLine(current.X + " " + current.Z);
                                     }
                                 }
                             }
@@ -174,7 +173,7 @@ namespace Resonance
             {
                 int x = endX, z = endZ;
                 List<Vector3> path = new List<Vector3>();
-                /*do
+                do
                 {
                     Console.Write("("+x + "," + z + ") ");
                     path.Add(new Vector3(x, 0.5f, z));
@@ -182,7 +181,8 @@ namespace Resonance
                     int zDir = MAP_HEIGHT / 2;
                     x = (int)parents[(x+xDir), (z+zDir)].X;
                     z = (int)parents[(x + xDir), (z + zDir)].Z;
-                } while ((x != startX) && (z != startZ));*/
+                    if (path.Count > 100) break; //For debugging until bug is fixed
+                } while ((x != startX) && (z != startZ));
                 //return path;
                 return 1;
             }
