@@ -113,7 +113,7 @@ namespace Resonance
 
         public static void addWave(Vector3 position3d)
         {
-            Vector2 playerGroundPos;
+            Vector2 playerGroundPos = new Vector2();
             float groundWidth = World.MAP_X;
             float groundHeight = World.MAP_Z;
             float xDis = Math.Abs(playerPos.X - World.MAP_MIN_X);
