@@ -152,8 +152,8 @@ namespace Resonance
             int xOffset = (int)Math.Round(font.MeasureString(armourString).X/2);
 
             Vector2 newpos = new Vector2(500 + pos.X , 200+ pos.Z);
-            Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.8f, pos.Z-0.3f), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
-            Vector2 screenPosition = new Vector2(projectedPosition.X-xOffset, projectedPosition.Y);
+            Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
+            Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
 
             if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
             else dictionary.Add(name, newpos);
