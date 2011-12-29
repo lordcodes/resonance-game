@@ -15,7 +15,7 @@ namespace Resonance
 
         Minheap openList;
         //List<Vector2> closedList;
-        List<int[]> closedList;
+        List<String> closedList;
 
         Vector3[,] parents;
 
@@ -24,18 +24,15 @@ namespace Resonance
         public PathFind()
         {
             openList = new Minheap();
-            //closedList = new List<Vector2>();
-            closedList = new List<int[]>();
+            closedList = new List<String>();
 
             MAP_HEIGHT = (int)Math.Round(World.MAP_Z,0);
             MAP_WIDTH = (int)Math.Round(World.MAP_X,0);
 
-            parents = new Vector3[MAP_WIDTH, MAP_HEIGHT];
+            parents = new Vector3[MAP_WIDTH+1, MAP_HEIGHT+1];
 
-            //DebugDisplay.update("World", "" + World.MAP_X + " " + World.MAP_Z + " " + MAP_WIDTH + " " + MAP_HEIGHT);
-
-            //map = new bool[MAP_WIDTH, MAP_HEIGHT];
-            //buildMap();
+            map = new bool[MAP_WIDTH+1, MAP_HEIGHT+1];
+            buildMap();
         }
 
         private void buildMap()
@@ -54,10 +51,13 @@ namespace Resonance
 
         private bool checkPosition(int x, int z)
         {
-            return Program.game.World.querySpace(new Vector3(x, 0.5f, z));
+            //return Program.game.World.querySpace(new Vector3(x, 0.5f, z));
+            int xDir = MAP_WIDTH / 2;
+            int zDir = MAP_HEIGHT / 2;
+            return map[(x+xDir),(z+zDir)];
         }
 
-        public int find(Vector3 pathStart, Vector3 pathEnd)
+        public List<Vector3> find(Vector3 pathStart, Vector3 pathEnd)
         {
             bool pathFound = false;
 
@@ -66,11 +66,10 @@ namespace Resonance
             int endX = (int)Math.Round(pathEnd.X);
             int endZ = (int)Math.Round(pathEnd.Z);
 
-            //DebugDisplay.update("Start", "" + startX + " " + startZ);
-
             //Start and end validity checks
-            if (startX == endX && startZ == endZ) { return -1; } //already there
-            else if (checkPosition(endX, endZ)) { return -2; } //target square is blocked
+            if (startX == endX && startZ == endZ) { return null; } //already there
+            //else if (checkPosition(endX, endZ)) { return null; } 
+            //target square is blocked
 
             //Add starting square to open list to be checked
             openList.add(new Node(startX, startZ));
@@ -83,11 +82,7 @@ namespace Resonance
                 {
                     //Get root of the open list and add to closed list
                     Node current = openList.extractRoot();
-                    //closedList.Add(new Vector2(current.X, current.Z));
-                    int[] currentNode = { current.X, current.Z };
-                    closedList.Add(currentNode);
-                    //DebugDisplay.update("Root", "" + current.X + " " + current.Z);
-                    Console.WriteLine(current.X + " " + current.Z);
+                    closedList.Add("" + current.X + "," + current.Z);
 
                     //Check adjacent nodes
                     for (int j = current.Z - 1; j <= current.Z + 1; j++)
@@ -96,7 +91,6 @@ namespace Resonance
                         {
                             if (adjacentNodeChecks(i, j, current))
                             {
-                                //Console.WriteLine("IJ: "+i + " " + j);
                                 //If not already on open list add it
                                 if (!openList.contains(i, j))
                                 {
@@ -171,31 +165,31 @@ namespace Resonance
             }
             if (pathFound)
             {
+                int xDir = MAP_WIDTH / 2;
+                int zDir = MAP_HEIGHT / 2;
                 int x = endX, z = endZ;
                 List<Vector3> path = new List<Vector3>();
-                do
+                bool found = false;
+                while(!found)
                 {
-                    Console.Write("("+x + "," + z + ") ");
                     path.Add(new Vector3(x, 0.5f, z));
-                    int xDir = MAP_WIDTH / 2;
-                    int zDir = MAP_HEIGHT / 2;
-                    x = (int)parents[(x+xDir), (z+zDir)].X;
-                    z = (int)parents[(x + xDir), (z + zDir)].Z;
-                    if (path.Count > 100) break; //For debugging until bug is fixed
-                } while ((x != startX) && (z != startZ));
-                //return path;
-                return 1;
+                    int tempX, tempZ;
+                    tempX = (int)parents[(x+xDir), (z+zDir)].X;
+                    tempZ = (int)parents[(x + xDir), (z + zDir)].Z;
+                    x = tempX;
+                    z = tempZ;
+                    if (x == startX && z == startZ) found = true;
+                }
+                return path;
             }
             else
             {
-                //return null;
-                return 2;
+                return null;
             }
         }
 
         private bool adjacentNodeChecks(int x, int z, Node current)
         {
-            //Console.WriteLine("Current1: " + current.X + " " + current.Z + " " + x + " " + z);
             int xDir = MAP_WIDTH / 2;
             int zDir = MAP_HEIGHT / 2;
             //Make sure not checking outside map
@@ -203,16 +197,12 @@ namespace Resonance
             {
                 if (z <= zDir && x <= xDir)
                 {
-                    //Console.WriteLine("Current2: " + current.X + " " + current.Z + " " + x + " " + z);
                     //Check it isn't already in closed list
-                    int[] test = {x,z};
-                    if (!closedList.Contains(test))
+                    if (!closedList.Contains("" + x + "," + z))
                     {
-                        //Console.WriteLine("Current3: " + current.X + " " + current.Z + " " + x + " " + z);
                         //Check it isn't blocked
                         if (!checkPosition(x, z))
                         {
-                            //Console.WriteLine("Current4: " + current.X + " " + current.Z + " " + x + " " + z);
                             //If moving diagonal, check diagonal path is clear
                             bool walkable = true;
                             if (x == current.X + 1 && z == current.Z + 1)
@@ -245,8 +235,6 @@ namespace Resonance
                             }
                             if (walkable)
                             {
-                                //Console.WriteLine("Current: " + current.X + " " + current.Z + " " + x + " " + z);
-                                if (x == current.X && z == current.Z) return false;
                                 return true;
                             }
                         }
