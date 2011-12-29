@@ -38,7 +38,6 @@ namespace Resonance
         KeyboardState oldKeyState;
 
         World world;
-        PathFind pathFind;
 
         public Game()
         {
@@ -105,42 +104,18 @@ namespace Resonance
             string level = "Levels/Level"+i;
             world.readXmlFile(level, Content);
 
-            Console.WriteLine("STARTING TEST PATH-FINDING");
-            
-            pathFind = new PathFind();
-            //List<Vector3> path = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
-            int val = pathFind.find(new Vector3(3, 0.4f, -2), new Vector3(3, 0.4f, 9));
-            /*if (path != null)
+            /*int startTime = Environment.TickCount;
+            PathFind pathFind = new PathFind();
+            List<Vector3> path = pathFind.find(new Vector3(-19, 0.4f, -19), new Vector3(19, 0.4f, 19));
+            Console.WriteLine("Path took: " + (Environment.TickCount - startTime));
+            if (path != null)
             {
-                DebugDisplay.update("Path", "" + path.Count);
+                DebugDisplay.update("Path", "" + path[0] + " " + path[path.Count-1]);
             }
             else
             {
                 DebugDisplay.update("Path", "Not found");
             }*/
-            switch(val)
-            {
-                case -1:
-                    {
-                        DebugDisplay.update("Path1", "Already there");
-                        break;
-                    }
-                case -2:
-                    {
-                        DebugDisplay.update("Path2", "Target blocked");
-                        break;
-                    }
-                case 1:
-                    {
-                        DebugDisplay.update("Path3", "Path found");
-                        break;
-                    }
-                case 2:
-                    {
-                        DebugDisplay.update("Path4", "Path not found");
-                        break;
-                    }
-            }
         }
 
         /// <summary>

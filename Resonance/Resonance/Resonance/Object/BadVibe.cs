@@ -21,6 +21,7 @@ namespace Resonance
 
         int previousDirection;  //Remembers the previous movement direction 
 
+        PathFind pathFind;
         ArmourSequence armour;
         bool dead;
 
@@ -63,7 +64,7 @@ namespace Resonance
         /// </summary>
         public void Move()
         {           
-            if (getDistance() > 10)
+            if (getDistance() > 15)
             {
                 moveAround();
             }
@@ -75,7 +76,8 @@ namespace Resonance
                 }
                 else
                 {
-                    RotateToFaceGoodVibe();
+                    Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+                    RotateToFaceGoodVibe(gvPos);
                 }
 
                 if ( getDistance() < ATTACK_RANGE )
@@ -173,11 +175,10 @@ namespace Resonance
             ((GoodVibe)Program.game.World.getObject("Player")).AdjustHealth(-1);
         }
 
-        public void RotateToFaceGoodVibe()
+        public void RotateToFaceGoodVibe(Vector3 gvPos)
         {
             Vector3 bvDir = Body.OrientationMatrix.Backward;
             Vector3 bvPos = Body.Position;
-            Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
             Vector3 diff = Vector3.Normalize(gvPos - bvPos);
             Quaternion rot;
             Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
@@ -194,9 +195,21 @@ namespace Resonance
         public void moveTowardsGoodVibe()
         {
             Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
-            //Find best route to the good vibe
-            RotateToFaceGoodVibe();
+            RotateToFaceGoodVibe(gvPos);
             move(BV_FORWARD);
+            //Find best route to the good vibe
+            /*pathFind = new PathFind();
+            List<Vector3> path = pathFind.find(Body.Position, gvPos);
+            if (path != null)
+            {
+                //Console.WriteLine(this.returnIdentifier() + " path found: " + path[0]);
+                RotateToFaceGoodVibe(path[path.Count - 1]);
+                move(BV_FORWARD);
+            }
+            else
+            {
+                //Console.WriteLine(this.returnIdentifier() + " path not found."+gvPos);
+            }*/
         }
 
         /// <summary>

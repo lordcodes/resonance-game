@@ -15,14 +15,14 @@
         <type>Good_vibe</type>
         <xWorldCoord>0</xWorldCoord>
         <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>3</yWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
         <gameModelNum>2</gameModelNum>
       </Item>
       <Item>
         <identifier>tree0</identifier>
         <type>Tree</type>
-        <xWorldCoord>0</xWorldCoord>
-        <zWorldCoord>-5</zWorldCoord>
+        <xWorldCoord>-2</xWorldCoord>
+        <zWorldCoord>1</zWorldCoord>
         <yWorldCoord>-0.1</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
@@ -37,24 +37,24 @@
       <Item>
         <identifier>bv0</identifier>
         <type>Bad_vibe</type>
-        <xWorldCoord>-3</xWorldCoord>
-        <zWorldCoord>0.65</zWorldCoord>
+        <xWorldCoord>-8</xWorldCoord>
+        <zWorldCoord>1</zWorldCoord>
         <yWorldCoord>0.5</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
         <identifier>bv1</identifier>
         <type>Bad_vibe</type>
-        <xWorldCoord>-6</xWorldCoord>
-        <zWorldCoord>0.65</zWorldCoord>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>1</zWorldCoord>
         <yWorldCoord>3</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
         <identifier>bv2</identifier>
         <type>Bad_vibe</type>
-        <xWorldCoord>-9</xWorldCoord>
-        <zWorldCoord>0.65</zWorldCoord>
+        <xWorldCoord>-12</xWorldCoord>
+        <zWorldCoord>1</zWorldCoord>
         <yWorldCoord>3</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
