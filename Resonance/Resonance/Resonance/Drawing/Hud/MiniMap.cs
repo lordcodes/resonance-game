@@ -11,18 +11,17 @@ namespace Resonance
     class MiniMap
     {
         /// Constants
+        public static int   MAP_X                = Drawing.pixelsX(1920 - 250);
+        public static int   MAP_Y                = Drawing.pixelsY(1080 - 250);
 
-        public static int   MAP_X                = 1100;
-        public static int   MAP_Y                = 500;
+        public static int   LARGE_MAP_X          = Drawing.pixelsX(585);
+        public static int   LARGE_MAP_Y          = Drawing.pixelsY(165);
 
-        public static int   LARGE_MAP_X          = 325;
-        public static int   LARGE_MAP_Y          = 20;
+        public static int   MAP_WIDTH            = Drawing.pixelsX(220);
+        public static int   MAP_HEIGHT           = Drawing.pixelsY(220);
 
-        public static int   MAP_WIDTH            = 220;
-        public static int   MAP_HEIGHT           = 220;
-
-        public static int   LARGE_MAP_WIDTH      = 725;
-        public static int   LARGE_MAP_HEIGHT     = 725;
+        public static int   LARGE_MAP_WIDTH      = Drawing.pixelsX(750);
+        public static int   LARGE_MAP_HEIGHT     = Drawing.pixelsY(750);
 
         public static int   VIBE_WIDTH           = 16;
         public static int   VIBE_HEIGHT          = 20;
