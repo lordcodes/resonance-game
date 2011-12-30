@@ -73,6 +73,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AI\AI.cs" />
     <Compile Include="AI\Minheap.cs" />
     <Compile Include="AI\Node.cs" />
     <Compile Include="AI\PathFind.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="ThreadRun.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
