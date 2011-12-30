@@ -18,6 +18,7 @@ namespace Resonance
         private const double ATTACK_RANGE = 3;
 
         private int iterationCount = 0;
+        private int iterationCount2 = 0;
 
         int previousDirection;  //Remembers the previous movement direction 
 
@@ -195,21 +196,30 @@ namespace Resonance
         public void moveTowardsGoodVibe()
         {
             Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
-            RotateToFaceGoodVibe(gvPos);
-            move(BV_FORWARD);
-            //Find best route to the good vibe
-            /*pathFind = new PathFind();
-            List<Vector3> path = pathFind.find(Body.Position, gvPos);
-            if (path != null)
+            if ((iterationCount2 % REDUCTION_RATE) == 0)
             {
-                //Console.WriteLine(this.returnIdentifier() + " path found: " + path[0]);
-                RotateToFaceGoodVibe(path[path.Count - 1]);
-                move(BV_FORWARD);
+                //Find best route to the good vibe
+                pathFind = new PathFind();
+                //List<Vector3> path = pathFind.find(Body.Position, gvPos);
+                //if (path != null)
+                //{
+                    //Console.WriteLine(this.returnIdentifier() + " path found: " + path[0]);
+                    //RotateToFaceGoodVibe(path[path.Count - 1]);
+                    //move(BV_FORWARD);
+                //}
+                //else
+                //{
+                    //Console.WriteLine(this.returnIdentifier() + " path not found."+gvPos);
+               // }
             }
             else
             {
-                //Console.WriteLine(this.returnIdentifier() + " path not found."+gvPos);
-            }*/
+                RotateToFaceGoodVibe(gvPos);
+                move(BV_FORWARD);
+            }
+            iterationCount2++;
+
+            if (iterationCount2 == 59) iterationCount2 = 0;
         }
 
         /// <summary>
