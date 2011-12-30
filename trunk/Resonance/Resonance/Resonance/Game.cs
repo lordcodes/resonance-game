@@ -223,6 +223,12 @@ namespace Resonance
             {
                 musicHandler.getTrack().pauseTrack();
             }
+            if (keyboardState.IsKeyDown(Keys.M))
+            {
+                MiniMap.large = true;
+            } else {
+                MiniMap.large = false;
+            }
             if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
             {
                 musicHandler.getTrack().inTime();
@@ -293,6 +299,12 @@ namespace Resonance
             if (playerOne.Buttons.B == ButtonState.Pressed)
             {
                 musicHandler.getTrack().pauseTrack();
+            }
+            if (playerOne.Buttons.LeftShoulder == ButtonState.Pressed)
+            {
+                MiniMap.large = true;
+            } else {
+                MiniMap.large = false;
             }
 
             //Update graphics
