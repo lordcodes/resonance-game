@@ -96,6 +96,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI\AI.cs" />
+    <Compile Include="ThreadRun.cs" />
     <Compile Include="AI\Minheap.cs" />
     <Compile Include="AI\Node.cs" />
     <Compile Include="AI\PathFind.cs" />

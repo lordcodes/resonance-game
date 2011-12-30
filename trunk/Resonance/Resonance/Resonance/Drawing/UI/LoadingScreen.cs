@@ -60,7 +60,7 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Called to draw th eloading screen
+        /// Called to draw the loading screen
         /// </summary>
         public void Draw()
         {
