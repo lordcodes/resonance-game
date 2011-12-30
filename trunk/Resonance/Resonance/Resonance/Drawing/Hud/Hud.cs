@@ -42,7 +42,7 @@ namespace Resonance
             graphics = newGraphics;
             gameGraphics = newGameGraphics;
 
-            miniMap = new MiniMap();
+            //miniMap = new MiniMap();
         }
 
         /// <summary>
@@ -55,6 +55,7 @@ namespace Resonance
             healthBar = Content.Load<Texture2D>("Drawing/HUD/Textures/healthBar");
             healthSlice = Content.Load<Texture2D>("Drawing/HUD/Textures/healthSlice");
             scoreFont = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
+            miniMap = new MiniMap();
             miniMap.loadTextures(Content);
         }
 
@@ -182,7 +183,7 @@ namespace Resonance
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
             for (int i = 0; i < limit; i++)
             {
-                greenValue = (float)i /582;
+                greenValue = (float)i / 582;
                 float red = (float)(greenValue > 0.5 ? 1 - 2 * (greenValue - 0.5) : 1.0);
                 float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
                 c = new Color(red, green, 0f);

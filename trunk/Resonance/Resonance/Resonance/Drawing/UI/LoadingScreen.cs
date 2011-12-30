@@ -67,7 +67,7 @@ namespace Resonance
             spriteBatch.Begin();
             string text = "Loading";
             for (int i = 0; i < frameNumber; i++) text += ".";
-            spriteBatch.Draw(splash, new Rectangle(0, 0, Drawing.ScreenWidth, Drawing.ScreenHeight), Color.White);
+            spriteBatch.Draw(splash, new Rectangle(0, 0, Drawing.ScreenWidth+1, Drawing.ScreenHeight+1), Color.White);
             spriteBatch.DrawString(font, text, new Vector2(Drawing.pixelsX(100), Drawing.pixelsY(950)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.End();
         }
