@@ -115,7 +115,7 @@ namespace Resonance
             Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
             Vector3 position = player.Body.Position;
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-            Vector3 defaultCameraPosition = new Vector3(0, 4f, 6f);
+            Vector3 defaultCameraPosition = new Vector3(0, 3.5f, 6f);
             cameraPosition = Vector3.Transform(defaultCameraPosition, goodVibeRotation) + position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }

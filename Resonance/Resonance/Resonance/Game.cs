@@ -480,7 +480,10 @@ namespace Resonance
                 }
                 
             }
-            Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
+            if (!keyboardState.IsKeyDown(Keys.RightShift))
+            {
+                Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
+            }
         }
 
         /// <summary>
