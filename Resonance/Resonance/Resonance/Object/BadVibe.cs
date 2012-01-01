@@ -18,11 +18,11 @@ namespace Resonance
         private const double ATTACK_RANGE = 3;
 
         private int iterationCount = 0;
-        private int iterationCount2 = 0;
 
         int previousDirection;  //Remembers the previous movement direction 
 
-        PathFind pathFind;
+        AI ai;
+
         ArmourSequence armour;
         bool dead;
 
@@ -34,6 +34,8 @@ namespace Resonance
 
             armour = ArmourSequence.random();
             setColour();
+
+            ai = new AI();
         }
 
         /// <summary>
@@ -65,7 +67,7 @@ namespace Resonance
         /// </summary>
         public void Move()
         {           
-            if (getDistance() > 15)
+            if (getDistance() > 10)
             {
                 moveAround();
             }
@@ -195,31 +197,10 @@ namespace Resonance
         /// 
         public void moveTowardsGoodVibe()
         {
-            Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
-            if ((iterationCount2 % REDUCTION_RATE) == 0)
-            {
-                //Find best route to the good vibe
-                pathFind = new PathFind();
-                //List<Vector3> path = pathFind.find(Body.Position, gvPos);
-                //if (path != null)
-                //{
-                    //Console.WriteLine(this.returnIdentifier() + " path found: " + path[0]);
-                    //RotateToFaceGoodVibe(path[path.Count - 1]);
-                    //move(BV_FORWARD);
-                //}
-                //else
-                //{
-                    //Console.WriteLine(this.returnIdentifier() + " path not found."+gvPos);
-               // }
-            }
-            else
-            {
-                RotateToFaceGoodVibe(gvPos);
-                move(BV_FORWARD);
-            }
-            iterationCount2++;
-
-            if (iterationCount2 == 59) iterationCount2 = 0;
+            //Vector3 target = ai.calculateStep(this);
+            Vector3 target = ((DynamicObject)Program.game.World.getObject("Player")).Body.Position;
+            RotateToFaceGoodVibe(target);
+            move(BV_FORWARD);
         }
 
         /// <summary>

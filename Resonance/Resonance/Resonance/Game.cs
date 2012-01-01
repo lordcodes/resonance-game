@@ -143,7 +143,7 @@ namespace Resonance
                 if (!UI.Paused)
                 {
                     //Update bad vibe position
-                    moveBadVibes();
+                    List<string> deadVibes = processBadVibes();
 
                     //Break rest layers
                     if (musicHandler.getTrack().nextQuarterBeat())
@@ -159,7 +159,7 @@ namespace Resonance
                     world.update();
                     base.Update(gameTime);
                     musicHandler.Update();
-                    removeDeadBadVibes();
+                    removeDeadBadVibes(deadVibes);
                 }
             }
         }
@@ -487,19 +487,37 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Find all the dead bad vibes and remove them from the game
+        /// Process all the bad vibes, either move or kill them
         /// </summary>
-        private void removeDeadBadVibes()
+        /// <returns>the list of dead bad vibes</returns>
+        private List<string> processBadVibes()
         {
             List<string> deadVibes = new List<string>();
 
             foreach (KeyValuePair<string, Object> pair in World.returnObjects())
             {
-                if(pair.Value is BadVibe) {
+                if (pair.Value is BadVibe)
+                {
                     BadVibe vibe = (BadVibe)pair.Value;
-                    if (vibe.Dead == true) deadVibes.Add(pair.Key);
+                    if (vibe.Dead)
+                    {
+                        deadVibes.Add(pair.Key);
+                    }
+                    else if (!vibe.Dead)
+                    {
+                        vibe.Move();
+                    }
                 }
             }
+            return deadVibes;
+        }
+
+        /// <summary>
+        /// Remove all dead bad vibes from the game
+        /// </summary>
+        /// <param name="deadVibes">the list of dead bad vibes</param>
+        private void removeDeadBadVibes(List<string> deadVibes)
+        {
             for (int i = 0; i < deadVibes.Count; i++)
             {
                 World.removeObject(World.getObject(deadVibes[i]));
@@ -508,25 +526,7 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Find all the living bad vibes and move them
-        /// </summary>
-        private void moveBadVibes()
-        {
-            foreach (KeyValuePair<string, Object> pair in World.returnObjects())
-            {
-                if (pair.Value is BadVibe)
-                {
-                    BadVibe vibe = (BadVibe)pair.Value;
-                    if (vibe.Dead == false)
-                    {
-                        vibe.Move();
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Find all the living bad vibes and move them
+        /// Break the rest layer on all bad vibes if present
         /// </summary>
         private void breakRestLayers()
         {

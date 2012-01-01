@@ -180,6 +180,7 @@ namespace Resonance
                     z = tempZ;
                     if (x == startX && z == startZ) found = true;
                 }
+                path.Reverse();
                 return path;
             }
             else
