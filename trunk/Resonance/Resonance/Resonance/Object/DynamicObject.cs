@@ -16,7 +16,7 @@ namespace Resonance
     class DynamicObject : Object
     {
         private const float ROTATE_SPEED = 0.3f;
-        private const float MOVE_SPEED = 0.4f;
+        private const float MOVE_SPEED = 0.25f;
 
         public const int BV_FORWARD = 0;
         public const int BV_BACKWARD = 1;

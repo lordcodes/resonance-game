@@ -8,16 +8,21 @@ namespace Resonance
 {
     class ThreadRun
     {
-        private static Thread t;
-        private static ThreadClass thread;
-        private static bool isRunning = false;
+        private Thread t;
+        private ThreadClass thread;
+        private bool isRunning;
+
+        public ThreadRun()
+        {
+            isRunning = false;
+        }
 
         /// <summary>
         /// Carrys out the function in another thread.
         /// </summary>
         /// <param name="functionToLoad">Function to run in a separate thread.</param>
         /// <param name="info">Information about what is being ran</param>
-        public static void run(ItemDelegate runFunction, string info)
+        public void run(ItemDelegate runFunction, string info)
         {
             isRunning = true;
             thread = new ThreadClass(runFunction, finished);
@@ -29,12 +34,12 @@ namespace Resonance
         /// <summary>
         /// Called when the function has finished in the separate thread.
         /// </summary>
-        private static void finished()
+        private void finished()
         {
             isRunning = false;
         }
 
-        public static bool Running
+        public bool Running
         {
             get
             {
@@ -72,10 +77,7 @@ namespace Resonance
                 Thread.CurrentThread.SetProcessorAffinity(new int[] { 4 });
                 Thread.CurrentThread.IsBackground = true;
             #endif
-            long start = DateTime.Now.Ticks;
             runFunction();
-            double time = (double)(DateTime.Now.Ticks - start) / 10000000;
-            DebugDisplay.update("RUN TIME", time.ToString());
             finishFunction();
         }
     }

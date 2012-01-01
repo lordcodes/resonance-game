@@ -42,22 +42,6 @@
         <yWorldCoord>0.5</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
-      <Item>
-        <identifier>bv1</identifier>
-        <type>Bad_vibe</type>
-        <xWorldCoord>-10</xWorldCoord>
-        <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>3</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-      </Item>
-      <Item>
-        <identifier>bv2</identifier>
-        <type>Bad_vibe</type>
-        <xWorldCoord>-12</xWorldCoord>
-        <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>3</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-      </Item>
     </list>
   </Asset>
 </XnaContent>
