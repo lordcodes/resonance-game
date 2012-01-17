@@ -308,7 +308,10 @@ namespace Resonance
             }
 
             //Update graphics
-            UpdateGoodVibePosition();
+
+            //UpdateGoodVibePosition();
+            CameraMotionManager.trackGV(Keyboard.GetState());
+            GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
         }
 
         /// <summary>
@@ -370,7 +373,10 @@ namespace Resonance
         /// This handles basic user input to move the good vibe around the world, this is temporary 
         /// and will eventualy feed into the World object rather than directly to the Drawing
         /// </summary>
-        private void UpdateGoodVibePosition()
+        // DEPRECIATED - now handled by GVMotionManager and CameraManager.
+        // This method remains undeleted because GVMotionManager hasn't yet been tested using Xbox controllers
+        // due to a lack of wired Xbox controllers.
+        /*private void UpdateGoodVibePosition()
         {
             KeyboardState keyboardState = Keyboard.GetState();
             GamePadState currentState = GamePad.GetState(PlayerIndex.One);
@@ -436,13 +442,11 @@ namespace Resonance
                 if (x == 0 && y < 0)
                 {
                     ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
-                    
                 }
                 
                 if (x < 0 && y == 0)
                 {
                     ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
-                  
                 }
                 if (x < 0 && y > 0)
                 {
@@ -484,7 +488,7 @@ namespace Resonance
             {
                 Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
             }
-        }
+        }*/
 
         /// <summary>
         /// Process all the bad vibes, either move or kill them
