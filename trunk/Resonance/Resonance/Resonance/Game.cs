@@ -27,7 +27,7 @@ namespace Resonance
         public const int EXPERT   = 4;
         public const int INSANE   = 5;
 
-        public static int DIFFICULTY = EASY;
+        public static int DIFFICULTY = BEGINNER;
 
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
