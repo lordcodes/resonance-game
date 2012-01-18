@@ -192,10 +192,10 @@ namespace Resonance
 
                 for (int i = 0; i < 4; i++) {
                     switch (i) {
-                        case 0: { c = new Color(0.00f, 0.25f, 0.00f, 0.45f); break; }
+                        case 0: { c = new Color(0.25f, 0.00f, 0.00f, 0.45f); break; }
                         case 1: { c = new Color(0.25f, 0.25f, 0.00f, 0.45f); break; }
                         case 2: { c = new Color(0.00f, 0.00f, 0.25f, 0.45f); break; }
-                        case 3: { c = new Color(0.25f, 0.00f, 0.00f, 0.45f); break; }
+                        case 3: { c = new Color(0.00f, 0.25f, 0.00f, 0.45f); break; }
                     }
 
                     spriteBatch.Draw(block, new Rectangle(rectX, rectY, rectW, rectH), c);
@@ -211,10 +211,10 @@ namespace Resonance
             for (int i = 0; i < arm.Count; i++) {
                 switch (arm[i]) {
                     case 0 : { c = new Color(1f, 1f, 1f, 1f); break; }
-                    case 1 : { c = new Color(0f, 1f, 0f, 1f); break; }
+                    case 1 : { c = new Color(1f, 0f, 0f, 1f); break; }
                     case 2 : { c = new Color(1f, 1f, 0f, 1f); break; }
                     case 3 : { c = new Color(0f, 0f, 1f, 1f); break; }
-                    case 4 : { c = new Color(1f, 0f, 0f, 1f); break; }
+                    case 4 : { c = new Color(0f, 1f, 0f, 1f); break; }
                     case 5 : { c = new Color(1f, 1f, 1f, 1f); break; }
                 }
 
