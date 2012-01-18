@@ -18,7 +18,8 @@ namespace Resonance
         private const double ATTACK_RANGE = 3;
         public const int ARMOUR_SPACING = 3;
 
-        public const bool DRAW_HEALTH_AS_STRING = false;
+        public const bool DRAW_HEALTH_AS_STRING  = false;
+        public const bool DRAW_HEALTH_VERTICALLY = false;
 
         private int iterationCount = 0;
 

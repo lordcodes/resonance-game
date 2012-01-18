@@ -154,7 +154,14 @@ namespace Resonance
 
                 drawBadVibeHealthString(name, armourString, screenPosition);
             } else {
-                int xOffset = ((armour.Count * drumPad.Width) + ((armour.Count - 1) * BadVibe.ARMOUR_SPACING)) / 2;
+                int xOffset;
+
+                if (!BadVibe.DRAW_HEALTH_VERTICALLY) {
+                    xOffset = ((armour.Count * drumPad.Width) + ((armour.Count - 1) * BadVibe.ARMOUR_SPACING)) / 2;
+                } else {
+                    xOffset = drumPad.Width / 2;
+                }
+
                 Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
                 Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
                 Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
@@ -190,7 +197,11 @@ namespace Resonance
                     spriteBatch.Draw(rest,    new Rectangle(posX, posY, drumPad.Width, drumPad.Height), c);
                 }
 
-                posX += drumPad.Width + BadVibe.ARMOUR_SPACING;
+                if (!BadVibe.DRAW_HEALTH_VERTICALLY) {
+                    posX += drumPad.Width + BadVibe.ARMOUR_SPACING;
+                } else {
+                    posY -= drumPad.Height + BadVibe.ARMOUR_SPACING;
+                }
             }
 
             spriteBatch.End();
