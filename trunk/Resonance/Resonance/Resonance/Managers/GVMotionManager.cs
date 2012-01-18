@@ -69,7 +69,11 @@ namespace Resonance {
             if (posInc < 0) posInc *= -1;
             if (posSpd < 0) posSpd *= -1;
 
-            if (posSpd + posInc < MAX_R_SPEED) R_SPEED += inc;
+            float max = power * MAX_R_SPEED;
+            if (max < 0) max *= -1;
+            if (max > MAX_R_SPEED) max = MAX_R_SPEED;
+
+            if (posSpd + posInc < max) R_SPEED += inc;
 
             DebugDisplay.update("Speed", R_SPEED.ToString());
 
@@ -147,40 +151,39 @@ namespace Resonance {
 
             // These values record whether or not a motion has been performed with the dPad so that the same motion isn't
             // applied twice if the dPad is used in conjunction with the analogue sticks.
-            bool rotated  = false;
-            bool movedZ   = false;
-            bool strafed  = false;
-
-            bool forward  = kbd.IsKeyDown(Keys.Up)    || (pad.DPad.Up    == ButtonState.Pressed);
-            bool backward = kbd.IsKeyDown(Keys.Down)  || (pad.DPad.Down  == ButtonState.Pressed);
-            bool rotateL  = kbd.IsKeyDown(Keys.Left)  || (pad.DPad.Left  == ButtonState.Pressed);
-            bool rotateR  = kbd.IsKeyDown(Keys.Right) || (pad.DPad.Right == ButtonState.Pressed);
-
-            bool strafeL  = kbd.IsKeyDown(Keys.OemComma);
-            bool strafeR  = kbd.IsKeyDown(Keys.OemPeriod);
+            bool  rotated  = false;
+            bool  movedZ   = false;
+            bool  strafed  = false;
 
             // Analogue stick positions
-            float leftX   = pad.ThumbSticks.Left.X;
-            float leftY   = pad.ThumbSticks.Left.Y;
-            float rightX  = pad.ThumbSticks.Right.X;
-            float rightY  = pad.ThumbSticks.Right.Y;
-            float leftL   = (float) Math.Sqrt(Math.Pow(leftX,  2) + Math.Pow(leftX,  2));
-            float rightL  = (float) Math.Sqrt(Math.Pow(rightX, 2) + Math.Pow(rightX, 2));
+            float leftX = pad.ThumbSticks.Left.X;
+            float leftY = pad.ThumbSticks.Left.Y;
+            float rightX = pad.ThumbSticks.Right.X;
+            float rightY = pad.ThumbSticks.Right.Y;
+            float leftL = (float)Math.Sqrt(Math.Pow(leftX, 2) + Math.Pow(leftX, 2));
+            float rightL = (float)Math.Sqrt(Math.Pow(rightX, 2) + Math.Pow(rightX, 2));
+
+            bool  forward  = kbd.IsKeyDown(Keys.Up)    || (pad.DPad.Up    == ButtonState.Pressed);
+            bool  backward = kbd.IsKeyDown(Keys.Down)  || (pad.DPad.Down  == ButtonState.Pressed);
+            bool  rotateL  = kbd.IsKeyDown(Keys.Left)  || (pad.DPad.Left  == ButtonState.Pressed) || rightX < 0;
+            bool  rotateR  = kbd.IsKeyDown(Keys.Right) || (pad.DPad.Right == ButtonState.Pressed) || rightX > 0;
+
+            bool  strafeL  = kbd.IsKeyDown(Keys.OemComma);
+            bool  strafeR  = kbd.IsKeyDown(Keys.OemPeriod);
 
             // Trigger positions
             float rTrig = pad.Triggers.Left;
 
             // Rotate GV based on keyboard / dPad
             if (rotateL ^ rotateR) {
-                if (backward)
-                {
-                    //if (rotateL) gv.rotate(DynamicObject.ROTATE_CLOCK); else gv.rotate(DynamicObject.ROTATE_ANTI);
-                    if (rotateL) rotate(1f); else rotate(-1f);
+                float power = 1f;
+                if (rightX != 0f) power = -rightX;
+
+                if (backward) {
+                    if (rotateL) rotate(power); else rotate(-power);
                 }
-                else
-                {
-                    //if (rotateL) gv.rotate(DynamicObject.ROTATE_ANTI); else gv.rotate(DynamicObject.ROTATE_CLOCK);
-                    if (rotateL) rotate(-1f); else rotate(1f);
+                else {
+                    if (rotateL) rotate(-power); else rotate(power);
                 }
                 rotated = true;
             } else {
@@ -252,7 +255,7 @@ namespace Resonance {
                 //gv.move(DynamicObject.MOVE_RIGHT);
             }
 
-            if (camerax < 0) {
+            /*if (camerax < 0) {
                 if(y >= 0) rotate(-1f);
                 else rotate(1f);
             } else if (camerax > 0) {
@@ -260,7 +263,7 @@ namespace Resonance {
                 else rotate(-1f);
             } else {
                 R_SPEED = 0;
-            }
+            }*/
 
             // Jump?
             if ((gv.Body.Position.Y == 0) && (rTrig > 0)) {
