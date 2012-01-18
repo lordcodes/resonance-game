@@ -232,7 +232,7 @@ namespace Resonance
             if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
             {
                 musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
             }
             if (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X))
             {
@@ -247,7 +247,7 @@ namespace Resonance
             if (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V))
             {
                 musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
+                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
             }
             if (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B))
             {
