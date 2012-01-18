@@ -29,6 +29,7 @@ namespace Resonance
         private static Texture2D healthSlice;
         private static Texture2D drumPad;
         private static Texture2D rest;
+        private static Texture2D block;
         private static MiniMap miniMap;
         private static ImportedCustomFont scoreFont;
 
@@ -59,6 +60,7 @@ namespace Resonance
             healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
             drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
             rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
+            block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
             scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
 
             miniMap = new MiniMap();
@@ -181,6 +183,31 @@ namespace Resonance
 
             Color c = new Color();
 
+            // Draw v bars
+            if (BadVibe.DRAW_HEALTH_VERTICALLY) {
+                int rectX = (int) (posX - ((drumPad.Width * 1.5f) + BadVibe.ARMOUR_SPACING * 2f));
+                int rectY = posY - ((arm.Count - 1) * drumPad.Height) - (arm.Count + 1) * BadVibe.ARMOUR_SPACING;
+                int rectW = drumPad.Width + BadVibe.ARMOUR_SPACING;
+                int rectH = ((arm.Count + 1) * drumPad.Height) + (arm.Count - 1) * BadVibe.ARMOUR_SPACING;
+
+                for (int i = 0; i < 4; i++) {
+                    switch (i) {
+                        case 0: { c = new Color(0f, 0.25f, 0f, 0.05f); break; }
+                        case 1: { c = new Color(0.25f, 0.25f, 0f, 0.05f); break; }
+                        case 2: { c = new Color(0f, 0f, 0.25f, 0.05f); break; }
+                        case 3: { c = new Color(0.25f, 0f, 0f, 0.05f); break; }
+                    }
+
+                    spriteBatch.Draw(block, new Rectangle(rectX, rectY, rectW, rectH), c);
+
+                    rectX += rectW;
+
+                    if (i != 3) {
+                        spriteBatch.Draw(block, new Rectangle(rectX, rectY, 1, rectH), Color.Navy);
+                    }
+                }
+            }
+
             for (int i = 0; i < arm.Count; i++) {
                 switch (arm[i]) {
                     case 0 : { c = new Color(1f, 1f, 1f, 1f); break; }
@@ -189,6 +216,17 @@ namespace Resonance
                     case 3 : { c = new Color(0f, 0f, 1f, 1f); break; }
                     case 4 : { c = new Color(1f, 0f, 0f, 1f); break; }
                     case 5 : { c = new Color(1f, 1f, 1f, 1f); break; }
+                }
+
+                if (BadVibe.DRAW_HEALTH_VERTICALLY) {
+                    posX = (int) pos.X;
+
+                    switch (arm[i]) {
+                        case 1: { posX -= (int) ((drumPad.Width * 1.5f) + BadVibe.ARMOUR_SPACING * 1.5f); break; }
+                        case 2: { posX -= (int) ((drumPad.Width * 0.5f) + BadVibe.ARMOUR_SPACING * 0.5f); break; }
+                        case 3: { posX += (int) ((drumPad.Width * 0.5f) + BadVibe.ARMOUR_SPACING * 0.5f); break; }
+                        case 4: { posX += (int) ((drumPad.Width * 1.5f) + BadVibe.ARMOUR_SPACING * 1.5f); break; }
+                    }
                 }
 
                 if (arm[i] != 0) {
