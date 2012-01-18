@@ -23,8 +23,6 @@ namespace Resonance
         private static int CHANCE_MISS = 20; //Between 0 and 100
 
         private static int ROTATE_CHANCE = 4; //Between 0 and 100
-        private static int STOP_CHANCE = 1; //Between 0 and 100
-        private static bool MOVING = false;
 
         private BadVibe bv;
         private SingleEntityAngularMotor servo;
@@ -61,8 +59,8 @@ namespace Resonance
             if (!inTargetRange())
             {
                 //Move randomly
-                //randomMove();
-                moveAround();
+                randomMove();
+                //moveAround(); old method to randomly move
             }
             else if (!inAttackRange())
             {
@@ -101,117 +99,23 @@ namespace Resonance
 
         private void randomMove()
         {
-            if (MOVING)
+            Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
+            int choice = r.Next(0, 100);
+            //Either carry on moving or generate new orientation or chance to stop moving
+            if (choice < ROTATE_CHANCE)
             {
-                //Either carry on moving or generate new orientation or chance to stop moving
-                Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
-                int choice = r.Next(0, 100);
-                if (choice < STOP_CHANCE)
-                {
-                    //Stop moving
-                    MOVING = false;
-                }
-                else if (choice < (STOP_CHANCE + ROTATE_CHANCE))
-                {
-                    //Generate new orientation
-                    double angle = r.Next(0, 90);
-                    angle /= 360;
-                    angle *= (2 * Math.PI);
-                    Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
-                    Quaternion orientation = Quaternion.Concatenate(bv.Body.Orientation, change);
-                    servo.Settings.Servo.Goal = orientation;
-                }
-                else
-                {
-                    move(-1f);
-                }                
+                //Generate new orientation
+                double angle = r.Next(0, 90);
+                angle /= 360;
+                angle *= (2 * Math.PI);
+                Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
+                Quaternion orientation = Quaternion.Concatenate(bv.Body.Orientation, change);
+                servo.Settings.Servo.Goal = orientation;
             }
             else
             {
-                //Randomly decide whether to start moving and generate orientation
-                Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
-                int choice = r.Next(0, 100);
-                if (choice > STOP_CHANCE)
-                {
-                    //Start it moving
-                    double angle = r.Next(0, 90);
-                    angle /= 360;
-                    angle *= (2 * Math.PI);
-                    Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
-                    Quaternion orientation = Quaternion.Concatenate(bv.Body.Orientation, change);
-                    servo.Settings.Servo.Goal = orientation;
-                    move(-1f);
-                    MOVING = true;
-                }
-            }
-        }
-
-        private void moveAround()
-        {
-            double binBoundary1 = 0.25, binBoundary2 = 0.5, binBoundary3 = 0.75;
-            int total = 0;
-            foreach (byte x in Encoding.Unicode.GetBytes(bv.returnIdentifier())) total += x;
-
-            Random r = new Random((int)DateTime.Now.Ticks * total);
-            double direction = r.NextDouble();
-
-            //Probability of direction change
-            switch (previousDirection)
-            {
-                case 0:
-                    {
-                        binBoundary1 = 0.97;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 1:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 2:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 3:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.03;
-                        break;
-                    }
-                default: break;
-            }
-
-            //Movement
-            if (direction < binBoundary1)
-            {
-                previousDirection = 0;
                 move(-1f);
-            }
-            else if (direction < binBoundary2)
-            {
-                move(-1f);
-                previousDirection = 1;
-            }
-            else if (direction < binBoundary3)
-            {
-                move(1f);
-                rotate(-1f);
-                previousDirection = 2;
-            }
-            else
-            {
-                move(1f);
-                rotate(1f);
-                previousDirection = 3;
-            }
+            }                
         }
 
         public void move(float power)
@@ -280,6 +184,74 @@ namespace Resonance
             else
             {
                 return false;
+            }
+        }
+
+        private void moveAround()
+        {
+            double binBoundary1 = 0.25, binBoundary2 = 0.5, binBoundary3 = 0.75;
+            int total = 0;
+            foreach (byte x in Encoding.Unicode.GetBytes(bv.returnIdentifier())) total += x;
+
+            Random r = new Random((int)DateTime.Now.Ticks * total);
+            double direction = r.NextDouble();
+
+            //Probability of direction change
+            switch (previousDirection)
+            {
+                case 0:
+                    {
+                        binBoundary1 = 0.97;
+                        binBoundary2 = 0.98;
+                        binBoundary3 = 0.99;
+                        break;
+                    }
+                case 1:
+                    {
+                        binBoundary1 = 0.01;
+                        binBoundary2 = 0.98;
+                        binBoundary3 = 0.99;
+                        break;
+                    }
+                case 2:
+                    {
+                        binBoundary1 = 0.01;
+                        binBoundary2 = 0.02;
+                        binBoundary3 = 0.99;
+                        break;
+                    }
+                case 3:
+                    {
+                        binBoundary1 = 0.01;
+                        binBoundary2 = 0.02;
+                        binBoundary3 = 0.03;
+                        break;
+                    }
+                default: break;
+            }
+
+            //Movement
+            if (direction < binBoundary1)
+            {
+                previousDirection = 0;
+                move(-1f);
+            }
+            else if (direction < binBoundary2)
+            {
+                move(-1f);
+                previousDirection = 1;
+            }
+            else if (direction < binBoundary3)
+            {
+                move(1f);
+                rotate(-1f);
+                previousDirection = 2;
+            }
+            else
+            {
+                move(1f);
+                rotate(1f);
+                previousDirection = 3;
             }
         }
 
