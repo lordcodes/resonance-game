@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using BEPUphysics.Constraints.SingleEntity;
+using BEPUphysics.Constraints.TwoEntity.Motors;
 
 namespace Resonance
 {
@@ -12,26 +14,86 @@ namespace Resonance
     /// </summary>
     class GVMotionManager
     {
-        public static float MAX_ROTATE_SPEED =  0.3f;
-        public static float MAX_X_SPEED      =  4.00f;
-        public static float MAX_Z_SPEED      =  4.00f;
-        public static float Z_ACCELERATION   =  0.25f;
-        public static float X_ACCELERATION   =  0.25f;
+        public static float MAX_R_SPEED      =   0.25f;
+        public static float MAX_X_SPEED      =   4.00f;
+        public static float MAX_Z_SPEED      =  12.00f;
+        public static float R_ACCELERATION   =   0.02f;
+        public static float X_ACCELERATION   =   0.25f;
+        public static float Z_ACCELERATION   =   0.50f;
+        public static float R_SPEED          =   0.00f;
 
         private static GoodVibe gv = (GoodVibe)Program.game.World.getObject("Player");
 
         private static float JUMP_HEIGHT = 0.5f;
+
+        private static SingleEntityAngularMotor motor;
+        private static SingleEntityAngularMotor servo;
+        private static bool initialised = false;
 
         public GVMotionManager() {
         }
 
         /// Methods
 
+        public static void init() {
+            //motor = new SingleEntityAngularMotor(gv.Body);
+            servo = new SingleEntityAngularMotor(gv.Body);
+
+            servo.Settings.Mode = MotorMode.Servomechanism;
+            //motor.Settings.Mode = MotorMode.VelocityMotor;
+
+            DebugDisplay.update("Damping:  ", servo.Settings.Servo.SpringSettings.DampingConstant.ToString());
+            DebugDisplay.update("Stiffness:", servo.Settings.Servo.SpringSettings.StiffnessConstant.ToString());
+
+            servo.Settings.Servo.SpringSettings.DampingConstant   *= 1f;
+            servo.Settings.Servo.SpringSettings.StiffnessConstant *= 5f;
+
+            //motor.Settings.VelocityMotor.Softness = 0.0005f;
+
+            //Program.game.World.addToSpace(motor);
+            Program.game.World.addToSpace(servo);
+
+            initialised = true;
+        }
+
         public static void setGVRef(GoodVibe newGV) {
             gv = newGV;
         }
 
-        private static void rotate(float power) {
+        private static void rotate(float power)
+        {
+            //float inc = power * MAX_ROTATE_SPEED;
+            float inc = -power * R_ACCELERATION;
+
+            float posInc = inc;
+            float posSpd = R_SPEED;
+            if (posInc < 0) posInc *= -1;
+            if (posSpd < 0) posSpd *= -1;
+
+            if (posSpd + posInc < MAX_R_SPEED) R_SPEED += inc;
+
+            DebugDisplay.update("Speed", R_SPEED.ToString());
+
+            /*Vector3 angV = gv.Body.AngularVelocity;
+
+            if (inc >= 0) {
+                if (angV.Y + inc <  MAX_ROTATE_SPEED) angV.Y += inc; else angV.Y =  MAX_ROTATE_SPEED;
+            } else {
+                if (angV.Y + inc > -MAX_ROTATE_SPEED) angV.Y += inc; else angV.Y = -MAX_ROTATE_SPEED;
+            }
+           
+            motor.Settings.VelocityMotor.GoalVelocity = angV;*/
+
+            Quaternion cAng = gv.Body.Orientation;
+            //Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, -power * 0.3f);
+            Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, R_SPEED);
+            Quaternion eAng = Quaternion.Concatenate(cAng, dAng);
+
+            servo.Settings.Servo.Goal = eAng;
+
+            DebugDisplay.update("O", eAng.ToString());
+
+            //gv.Body.AngularVelocity = angV;
         }
 
         private static void move(float power) {
@@ -80,6 +142,10 @@ namespace Resonance
         /// <param name="pad"> Current game pad state. </param>
         public static void input(KeyboardState kbd, GamePadState pad)
         {
+            if (!initialised) {
+                init();
+            }
+
             // These values record whether or not a motion has been performed with the dPad so that the same motion isn't
             // applied twice if the dPad is used in conjunction with the analogue sticks.
             bool rotated  = false;
@@ -107,14 +173,20 @@ namespace Resonance
 
             // Rotate GV based on keyboard / dPad
             if (rotateL ^ rotateR) {
-                if (backward) {
-                    if (rotateL) gv.rotate(DynamicObject.ROTATE_CLOCK); else gv.rotate(DynamicObject.ROTATE_ANTI);
+                if (backward)
+                {
+                    //if (rotateL) gv.rotate(DynamicObject.ROTATE_CLOCK); else gv.rotate(DynamicObject.ROTATE_ANTI);
+                    if (rotateL) rotate(1f); else rotate(-1f);
                 }
-                else {
-                    if (rotateL) gv.rotate(DynamicObject.ROTATE_ANTI); else gv.rotate(DynamicObject.ROTATE_CLOCK);
+                else
+                {
+                    //if (rotateL) gv.rotate(DynamicObject.ROTATE_ANTI); else gv.rotate(DynamicObject.ROTATE_CLOCK);
+                    if (rotateL) rotate(-1f); else rotate(1f);
                 }
 
                 rotated = true;
+            } else {
+                R_SPEED = 0f;
             }
 
             // Move forward / backward based on keyboard / dPad
@@ -193,6 +265,8 @@ namespace Resonance
             if ((gv.Body.Position.Y == 0) && (rTrig > 0)) {
                 gv.jump(JUMP_HEIGHT);
             }
+
+            // Reset
         }
     }
 }
