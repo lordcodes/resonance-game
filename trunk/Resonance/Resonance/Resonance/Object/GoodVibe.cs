@@ -56,24 +56,17 @@ namespace Resonance
         public void AdjustHealth(int change)
         {
             //check for <0 or >100
-            //health <0, dead vibe
             if (health + change <= 0)
             {
                 health = 0;
-                //Console.WriteLine("Dead vibe!");
-                //DebugDisplay.update("VibeHealthText", "Dead vibe!");
             }
-            //full health
             else if (health + change >= 100)
             {
                 health = 100;
-                //Console.WriteLine("Full health");
-                //DebugDisplay.update("VibeHealthText", "Full health!");
             }
             else
             {
                 health += change;
-                //DebugDisplay.update("VibeHealthText", "");
             }
         }
                 
