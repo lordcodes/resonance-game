@@ -131,57 +131,72 @@ namespace Resonance
         /// <param name="armour">List of armour values</param>
         public void updateEnemy(string name, Vector3 pos, List<int> armour)
         {
-            if (BadVibe.DRAW_HEALTH_AS_STRING) {
-                string armourString = "";
+            int bvDist = (int) ((BadVibe)Program.game.World.getObject(name)).getDistance();
 
-                for (int i = 0; i < armour.Count; i++)
-                {
-                    if (i != 0) armourString += " ";
-                    if (Shockwave.REST == armour[i]) armourString += "_";
-                    if (Shockwave.GREEN == armour[i]) armourString += "G";
-                    if (Shockwave.YELLOW == armour[i]) armourString += "Y";
-                    if (Shockwave.BLUE == armour[i]) armourString += "B";
-                    if (Shockwave.RED == armour[i]) armourString += "R";
-                    if (Shockwave.CYMBAL == armour[i]) armourString += "C";
-                }
+            if (bvDist <= BadVibe.MAX_ARMOUR_DISPLAY_DIST) {
+                if (BadVibe.DRAW_HEALTH_AS_STRING) {
+                    string armourString = "";
 
-                int xOffset = (int)Math.Round(font.MeasureString(armourString).X / 2);
+                    for (int i = 0; i < armour.Count; i++)
+                    {
+                        if (i != 0) armourString += " ";
+                        if (Shockwave.REST == armour[i]) armourString += "_";
+                        if (Shockwave.GREEN == armour[i]) armourString += "G";
+                        if (Shockwave.YELLOW == armour[i]) armourString += "Y";
+                        if (Shockwave.BLUE == armour[i]) armourString += "B";
+                        if (Shockwave.RED == armour[i]) armourString += "R";
+                        if (Shockwave.CYMBAL == armour[i]) armourString += "C";
+                    }
 
-                Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
-                Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
-                Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
+                    int xOffset = (int)Math.Round(font.MeasureString(armourString).X / 2);
 
-                if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
-                else dictionary.Add(name, newpos);
+                    Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
+                    Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
+                    Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
 
-                drawBadVibeHealthString(name, armourString, screenPosition);
-            } else {
-                int xOffset;
+                    if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
+                    else dictionary.Add(name, newpos);
 
-                if (!BadVibe.DRAW_HEALTH_VERTICALLY) {
-                    xOffset = ((armour.Count * drumPad.Width) + ((armour.Count - 1) * BadVibe.ARMOUR_SPACING)) / 2;
+                    drawBadVibeHealthString(name, armourString, screenPosition);
                 } else {
-                    xOffset = drumPad.Width / 2;
+                    int xOffset;
+
+                    if (!BadVibe.DRAW_HEALTH_VERTICALLY) {
+                        xOffset = ((armour.Count * drumPad.Width) + ((armour.Count - 1) * BadVibe.ARMOUR_SPACING)) / 2;
+                    } else {
+                        xOffset = drumPad.Width / 2;
+                    }
+
+                    Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
+                    Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
+                    Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
+
+                    if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
+                    else dictionary.Add(name, newpos);
+
+                    drawBadVibeHealth(armour, screenPosition, bvDist);
                 }
-
-                Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
-                Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
-                Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
-
-                if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
-                else dictionary.Add(name, newpos);
-
-                drawBadVibeHealth(armour, screenPosition);
             }
         }
 
-        public void drawBadVibeHealth(List<int> arm, Vector2 pos) {
+        public void drawBadVibeHealth(List<int> arm, Vector2 pos, int bvDist) {
             spriteBatch.Begin();
 
             int posX = (int) pos.X;
             int posY = (int) pos.Y;
 
             Color c = new Color();
+
+            float alphaC;
+
+            if (bvDist <= BadVibe.MAX_ARMOUR_TRANSPARENCY_DIST) {
+                alphaC  = 1f;
+            } else {
+                int window = BadVibe.MAX_ARMOUR_DISPLAY_DIST - BadVibe.MAX_ARMOUR_TRANSPARENCY_DIST;
+                int diff   = bvDist - BadVibe.MAX_ARMOUR_TRANSPARENCY_DIST;
+
+                alphaC  = (float) (1.0 - ((float) diff / (float) window));
+            }
 
             // Draw v bars
             if (BadVibe.DRAW_HEALTH_VERTICALLY) {
@@ -192,10 +207,10 @@ namespace Resonance
 
                 for (int i = 0; i < 4; i++) {
                     switch (i) {
-                        case 0: { c = new Color(0.25f, 0.00f, 0.00f, 0.45f); break; }
-                        case 1: { c = new Color(0.25f, 0.25f, 0.00f, 0.45f); break; }
-                        case 2: { c = new Color(0.00f, 0.00f, 0.25f, 0.45f); break; }
-                        case 3: { c = new Color(0.00f, 0.25f, 0.00f, 0.45f); break; }
+                        case 0: { c = new Color(alphaC * 0.25f, 0.00f         , 0.00f         , alphaC * 0.45f); break; }
+                        case 1: { c = new Color(alphaC * 0.25f, alphaC * 0.25f, 0.00f         , alphaC * 0.45f); break; }
+                        case 2: { c = new Color(0.00f         , 0.00f         , alphaC * 0.25f, alphaC * 0.45f); break; }
+                        case 3: { c = new Color(0.00f         , alphaC * 0.25f, 0.00f         , alphaC * 0.45f); break; }
                     }
 
                     spriteBatch.Draw(block, new Rectangle(rectX, rectY, rectW, rectH), c);
@@ -203,19 +218,20 @@ namespace Resonance
                     rectX += rectW;
 
                     if (i != 3) {
-                        spriteBatch.Draw(block, new Rectangle(rectX, rectY, 1, rectH), Color.Navy);
+                        c = new Color(0f, 0f, (float) (alphaC * (128.0 / 255.0)), alphaC);
+                        spriteBatch.Draw(block, new Rectangle(rectX, rectY, 1, rectH), c);
                     }
                 }
             }
 
             for (int i = 0; i < arm.Count; i++) {
                 switch (arm[i]) {
-                    case 0 : { c = new Color(1f, 1f, 1f, 1f); break; }
-                    case 1 : { c = new Color(1f, 0f, 0f, 1f); break; }
-                    case 2 : { c = new Color(1f, 1f, 0f, 1f); break; }
-                    case 3 : { c = new Color(0f, 0f, 1f, 1f); break; }
-                    case 4 : { c = new Color(0f, 1f, 0f, 1f); break; }
-                    case 5 : { c = new Color(1f, 1f, 1f, 1f); break; }
+                    case 0: { c = new Color(alphaC, alphaC, alphaC, alphaC); break; }
+                    case 1: { c = new Color(alphaC, 0f    , 0f    , alphaC); break; }
+                    case 2: { c = new Color(alphaC, alphaC, 0f    , alphaC); break; }
+                    case 3: { c = new Color(0f    , 0f    , alphaC, alphaC); break; }
+                    case 4: { c = new Color(0f    , alphaC, 0f    , alphaC); break; }
+                    case 5: { c = new Color(alphaC, alphaC, alphaC, alphaC); break; }
                 }
 
                 if (BadVibe.DRAW_HEALTH_VERTICALLY) {

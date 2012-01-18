@@ -12,14 +12,16 @@ namespace Resonance
 {
     class BadVibe : DynamicObject
     {
-        public const double RADIUS = 0.5;
-        private const double ATTACK_RATE = 0.8;
-        private const double REDUCTION_RATE = 15;
-        private const double ATTACK_RANGE = 3;
-        public const int ARMOUR_SPACING = 3;
+        public  const int    ARMOUR_SPACING               = 3;
+        public  const int    MAX_ARMOUR_DISPLAY_DIST      = 20;
+        public  const int    MAX_ARMOUR_TRANSPARENCY_DIST = 8;
+        public  const double RADIUS                       = 0.5;
+        private const double REDUCTION_RATE               = 15;
+        private const double ATTACK_RANGE                 = 3;
+        private const double ATTACK_RATE                  = 0.8;
 
-        public static bool DRAW_HEALTH_AS_STRING  = false;
-        public static bool DRAW_HEALTH_VERTICALLY = true;
+        public static bool   DRAW_HEALTH_AS_STRING        = false;
+        public static bool   DRAW_HEALTH_VERTICALLY       = true;
 
         AIManager ai;
 
