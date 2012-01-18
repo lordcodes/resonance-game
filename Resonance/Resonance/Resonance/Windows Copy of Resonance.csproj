@@ -94,6 +94,7 @@
     <Compile Include="Drawing\UI\UI.cs" />
     <Compile Include="Drawing\World.cs" />
     <Compile Include="Drawing\ImportedCustomFont.cs" />
+    <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
     <Compile Include="Object\BadVibe.cs" />

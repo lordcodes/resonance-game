@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
     <Compile Include="ThreadRun.cs" />
