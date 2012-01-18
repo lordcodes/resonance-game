@@ -7,13 +7,11 @@ using Microsoft.Xna.Framework;
 using BEPUphysics.Constraints.SingleEntity;
 using BEPUphysics.Constraints.TwoEntity.Motors;
 
-namespace Resonance
-{
+namespace Resonance {
     /// <summary>
     /// Handles and provides an interface between button presses and Good Vibe motion.
     /// </summary>
-    class GVMotionManager
-    {
+    class GVMotionManager {
         public static float MAX_R_SPEED      =   0.25f;
         public static float MAX_X_SPEED      =   4.00f;
         public static float MAX_Z_SPEED      =  12.00f;
@@ -30,9 +28,6 @@ namespace Resonance
         private static SingleEntityAngularMotor servo;
         private static bool initialised = false;
 
-        public GVMotionManager() {
-        }
-
         /// Methods
 
         public static void init() {
@@ -45,8 +40,12 @@ namespace Resonance
             DebugDisplay.update("Damping:  ", servo.Settings.Servo.SpringSettings.DampingConstant.ToString());
             DebugDisplay.update("Stiffness:", servo.Settings.Servo.SpringSettings.StiffnessConstant.ToString());
 
-            servo.Settings.Servo.SpringSettings.DampingConstant   *= 1f;
-            servo.Settings.Servo.SpringSettings.StiffnessConstant *= 5f;
+            servo.Settings.Servo.SpringSettings.DampingConstant   *= 10f;
+            servo.Settings.Servo.SpringSettings.StiffnessConstant *= 100f;
+
+            gv.Body.Material.KineticFriction *= 2f;
+            gv.Body.Material.StaticFriction  *= 2f;
+            gv.Body.Mass                     *= 2f;
 
             //motor.Settings.VelocityMotor.Softness = 0.0005f;
 
@@ -265,8 +264,6 @@ namespace Resonance
             if ((gv.Body.Position.Y == 0) && (rTrig > 0)) {
                 gv.jump(JUMP_HEIGHT);
             }
-
-            // Reset
         }
     }
 }

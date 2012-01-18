@@ -45,10 +45,10 @@ namespace Resonance
                 vertices[i] = Vector3.Multiply(vertices[i], scale);
             }
             //body = new ConvexHull(pos, vertices, GameModels.getModel(modelNum).mass);
-            body = new ConvexHull(pos, vertices, 1f);
+            body = new ConvexHull(pos, vertices, 50f);
             body.Tag = GameModels.getModel(modelNum);
-            body.Material.KineticFriction = 0.8f;
-            body.Material.StaticFriction = 1f;
+            //body.Material.KineticFriction = 0.8f;
+            //body.Material.StaticFriction = 1f;
             rotator = new EntityRotator(body);
             rotator.AngularMotor.Settings.Servo.SpringSettings.StiffnessConstant = 300000;
         }
