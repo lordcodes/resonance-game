@@ -45,7 +45,6 @@ namespace Resonance
             if (obj is DynamicObject)
             {
                 space.Add(((DynamicObject)obj).Body);
-                //space.Add(((DynamicObject)obj).Rotator);
             }
             else if(obj is StaticObject)
             {
