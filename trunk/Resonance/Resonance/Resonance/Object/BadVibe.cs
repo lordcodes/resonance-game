@@ -494,6 +494,18 @@ namespace Resonance
                         easyBank.Add(new ArmourSequence(seq));
                         EASY_COUNT++;
                     }
+
+                    {
+                        int[] seq = { 2, 0, 2, 0, 3, 0, 0, 0, 4, 0, 4, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 4, 0, 4, 0, 3, 0, 3, 0, 2, 0, 1, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
                 }
 
                 private static void initialiseMedium()
