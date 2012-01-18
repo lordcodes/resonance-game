@@ -21,11 +21,7 @@ namespace Resonance
         public static bool DRAW_HEALTH_AS_STRING  = false;
         public static bool DRAW_HEALTH_VERTICALLY = true;
 
-        private int iterationCount = 0;
-
-        int previousDirection;  //Remembers the previous movement direction 
-
-        AI ai;
+        AIManager ai;
 
         ArmourSequence armour;
         bool dead;
@@ -33,13 +29,12 @@ namespace Resonance
         public BadVibe(int modelNum, String name, Vector3 pos)
             : base(modelNum, name, pos)
         {
-            previousDirection = -1;
             dead = false;
 
             armour = ArmourSequence.random();
             setColour();
 
-            ai = new AI();
+            ai = new AIManager(this);
         }
 
         /// <summary>
@@ -61,155 +56,12 @@ namespace Resonance
 
         /// <summary>
         /// Moves the bad vibe in the world
-        /// 
-        /// Takes into account previous direction of movement so that the vibe is more likely to carry on in that direction
-        /// Bin1: x and z positive
-        /// Bin2: x and z negative
-        /// Bin3: x negative
-        /// Bin4: z negative
-        /// 
         /// </summary>
         public void Move()
-        {           
-            if (getDistance() > 10)
-            {
-                moveAround();
-            }
-            else
-            {
-                if (getDistance() > 3)
-                {
-                    moveTowardsGoodVibe();
-                }
-                else
-                {
-                    Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
-                    RotateToFaceGoodVibe(gvPos);
-                }
-
-                if ( getDistance() < ATTACK_RANGE )
-                {
-                    if ( (iterationCount % REDUCTION_RATE) == 0 )
-                    {
-                        Random r = new Random((int)DateTime.Now.Ticks);
-                        double attack = r.NextDouble();
-                        if (attack < ATTACK_RATE)
-                        {
-                            attackGoodVibe();
-                        }
-                    }
-                    iterationCount++;
-                }
-            }
-
-            if (iterationCount == 59) iterationCount = 0;
-
-        }
-
-        private void moveAround()
         {
-            double binBoundary1 = 0.25, binBoundary2 = 0.5, binBoundary3 = 0.75;
-            int total = 0;
-            foreach (byte x in Encoding.Unicode.GetBytes(this.returnIdentifier())) total += x;
-
-            Random r = new Random((int)DateTime.Now.Ticks * total);
-            double direction = r.NextDouble();
-
-            //Probability of direction change
-            switch (previousDirection)
-            {
-                case 0:
-                    {
-                        binBoundary1 = 0.97;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 1:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 2:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 3:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.03;
-                        break;
-                    }
-                default: break;
-            }
-
-            //Movement
-            if (direction < binBoundary1)
-            {
-                previousDirection = 0;
-                move(BV_FORWARD);
-            }
-            else if (direction < binBoundary2)
-            {
-                move(BV_BACKWARD);
-                previousDirection = 1;
-            }
-            else if (direction < binBoundary3)
-            {
-                move(BV_FORWARD);
-                rotate(ROTATE_ANTI);
-                previousDirection = 2;
-            }
-            else
-            {
-                move(BV_FORWARD);
-                rotate(ROTATE_CLOCK);
-                previousDirection = 3;
-            }
+            ai.moveManager();
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public void attackGoodVibe()
-        {
-            ((GoodVibe)Program.game.World.getObject("Player")).AdjustHealth(-1);
-        }
-
-        public void RotateToFaceGoodVibe(Vector3 gvPos)
-        {
-            Vector3 bvDir = Body.OrientationMatrix.Backward;
-            Vector3 bvPos = Body.Position;
-            Vector3 diff = Vector3.Normalize(gvPos - bvPos);
-            Quaternion rot;
-            Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
-            Vector3 angles = BadVibe.QuaternionToEuler(rot);
-            rot.X = 0;
-            rot.Z = 0;
-            rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
-        }
-
-        /// <summary>
-        /// Moves Bad Vibe towards Good Vibe
-        /// </summary>
-        /// 
-        public void moveTowardsGoodVibe()
-        {
-            //Vector3 target = ai.calculateStep(this);
-            Vector3 target = ((DynamicObject)Program.game.World.getObject("Player")).Body.Position;
-            RotateToFaceGoodVibe(target);
-            move(BV_FORWARD);
-        }
-
-        /// <summary>
-        /// Calculates the difference between good vibe and bad vibe
-        /// </summary>
         public double getDistance()
         {
             Vector3 goodVibePosition = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;

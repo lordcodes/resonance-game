@@ -30,7 +30,7 @@ namespace Resonance
 
         ConvexHull body;
 
-        protected EntityRotator rotator;
+        //protected EntityRotator rotator;
 
         public DynamicObject(int modelNum, string name, Vector3 pos)
             : base(modelNum, name, pos)
@@ -47,10 +47,8 @@ namespace Resonance
             //body = new ConvexHull(pos, vertices, GameModels.getModel(modelNum).mass);
             body = new ConvexHull(pos, vertices, 50f);
             body.Tag = GameModels.getModel(modelNum);
-            //body.Material.KineticFriction = 0.8f;
-            //body.Material.StaticFriction = 1f;
-            rotator = new EntityRotator(body);
-            rotator.AngularMotor.Settings.Servo.SpringSettings.StiffnessConstant = 300000;
+            //rotator = new EntityRotator(body);
+            //rotator.AngularMotor.Settings.Servo.SpringSettings.StiffnessConstant = 300000;
         }
 
         public void reset()
@@ -147,7 +145,7 @@ namespace Resonance
             Quaternion.CreateFromAxisAngle(ref axis, coefficient, out rot);
             rot.X = 0;
             rot.Z = 0;
-            rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
+            //rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
         }
 
         public static Vector3 QuaternionToEuler(Quaternion quat)
@@ -172,12 +170,12 @@ namespace Resonance
             }
         }
 
-        public EntityRotator Rotator
+        /*public EntityRotator Rotator
         {
             get
             {
                 return rotator;
             }
-        }
+        }*/
     }
 }
