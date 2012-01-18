@@ -182,7 +182,6 @@ namespace Resonance {
                     //if (rotateL) gv.rotate(DynamicObject.ROTATE_ANTI); else gv.rotate(DynamicObject.ROTATE_CLOCK);
                     if (rotateL) rotate(-1f); else rotate(1f);
                 }
-
                 rotated = true;
             } else {
                 R_SPEED = 0f;
@@ -225,39 +224,41 @@ namespace Resonance {
             float cameray = rightY;
 
             if (x == 0 && y > 0) {
-                gv.move(DynamicObject.MOVE_FORWARD);
+                move(1f);
             }
             if (x == 0 && y < 0) {
-                gv.move(DynamicObject.MOVE_BACKWARD);
+                move(-1f);
             }
             if (x < 0 && y == 0) {
-                gv.move(DynamicObject.MOVE_LEFT);
+                //gv.move(DynamicObject.MOVE_LEFT);
             }
             if (x < 0 && y > 0) {
-                gv.move(DynamicObject.MOVE_LEFT);
-                gv.move(DynamicObject.MOVE_FORWARD);
+                //gv.move(DynamicObject.MOVE_LEFT);
+                move(1f);
             }
             if (x < 0 && y < 0) {
-                gv.move(DynamicObject.MOVE_LEFT);
-                gv.move(DynamicObject.MOVE_BACKWARD);
+                //gv.move(DynamicObject.MOVE_LEFT);
+                move(-1f);
             }
             if (x > 0 && y < 0) {
-                gv.move(DynamicObject.MOVE_RIGHT);
-                gv.move(DynamicObject.MOVE_BACKWARD);
+                //gv.move(DynamicObject.MOVE_RIGHT);
+                move(-1f);
             }
             if (x > 0 && y > 0) {
-                gv.move(DynamicObject.MOVE_RIGHT);
-                gv.move(DynamicObject.MOVE_FORWARD);
+                //gv.move(DynamicObject.MOVE_RIGHT);
+                move(1f);
             }
             if (x > 0 && y == 0) {
-                gv.move(DynamicObject.MOVE_RIGHT);
+                //gv.move(DynamicObject.MOVE_RIGHT);
             }
 
-            if (camerax == -1 && cameray == 0) {
-                gv.rotate(DynamicObject.ROTATE_ANTI);
+            if (camerax < 0) {
+                if(y >= 0) rotate(-1f);
+                else rotate(1f);
             }
-            if (camerax == 1 && cameray == 0) {
-                gv.rotate(DynamicObject.ROTATE_CLOCK);
+            if (camerax > 0) {
+                if(y >= 0) rotate(1f);
+                else rotate(-1f);
             }
 
             // Jump?

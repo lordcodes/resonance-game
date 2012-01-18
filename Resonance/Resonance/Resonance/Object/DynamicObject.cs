@@ -47,8 +47,6 @@ namespace Resonance
             //body = new ConvexHull(pos, vertices, GameModels.getModel(modelNum).mass);
             body = new ConvexHull(pos, vertices, 50f);
             body.Tag = GameModels.getModel(modelNum);
-            //rotator = new EntityRotator(body);
-            //rotator.AngularMotor.Settings.Servo.SpringSettings.StiffnessConstant = 300000;
         }
 
         public void reset()
@@ -111,8 +109,6 @@ namespace Resonance
                         break;
                     }
             }
-
-            
             Body.LinearVelocity = velocity;
         }
         
@@ -127,13 +123,7 @@ namespace Resonance
             velocity.Y += (float) (height * Math.Cos(rotateVector.X));
             Body.LinearVelocity = velocity;
         }
-      /*  public void rotate(float angle)
-        {
-            Vector3 velocity = Body.AngularVelocity;
-            if (velocity.Y < 2 && velocity.Y > -2) velocity.Y += (float)angle;
-            Body.AngularVelocity = velocity;
-        }
-        */
+
        public void rotate(int direction)
         {
             float coefficient = ROTATE_SPEED;
@@ -169,13 +159,5 @@ namespace Resonance
                 return body;
             }
         }
-
-        /*public EntityRotator Rotator
-        {
-            get
-            {
-                return rotator;
-            }
-        }*/
     }
 }
