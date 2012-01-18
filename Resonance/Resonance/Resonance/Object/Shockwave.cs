@@ -10,12 +10,11 @@ namespace Resonance
     class Shockwave : Object
     {
         // Constants
-
         public static double INITIAL_RADIUS = 0.05;
-        public static double GROWTH_RATE = 0.15;
+        public static double GROWTH_RATE = 0.3;
 
         // Size at which wave 'dies'
-        public static double MAX_RADIUS = 3;
+        public static double MAX_RADIUS = 5;
 
         // Colours
         public const int REST   = 0;
@@ -90,7 +89,7 @@ namespace Resonance
 
             Matrix scale = Matrix.CreateScale((float) (1.0f + GROWTH_RATE), 1.0f, (float) (1.0f + GROWTH_RATE));
             transform = Matrix.Multiply(transform, scale);
-            Matrix translate = Matrix.CreateTranslation((float) -GROWTH_RATE * position.X, 0.0f, (float) -GROWTH_RATE * position.Z);
+            Matrix translate = Matrix.CreateTranslation((float)-GROWTH_RATE * position.X, 0.0f, (float)-GROWTH_RATE * position.Z);
             transform = Matrix.Multiply(transform, translate);
         }
 
