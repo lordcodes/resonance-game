@@ -42,6 +42,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\armour.png">
+      <Name>armour</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Drawing\Models\bad_vibe.fbx">
       <Name>bad_vibe</Name>
       <Importer>FbxImporter</Importer>
@@ -501,6 +506,13 @@
   <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\map_distant_vibe.png">
       <Name>map_distant_vibe</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\armour_rest.png">
+      <Name>armour_rest</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

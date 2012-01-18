@@ -27,6 +27,8 @@ namespace Resonance
         private static float health = 1;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
+        private static Texture2D drumPad;
+        private static Texture2D rest;
         private static MiniMap miniMap;
         private static ImportedCustomFont scoreFont;
 
@@ -51,10 +53,14 @@ namespace Resonance
         public void loadContent()
         {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-            font = Content.Load<SpriteFont>("Drawing/Fonts/DebugFont");
-            healthBar = Content.Load<Texture2D>("Drawing/HUD/Textures/healthBar");
-            healthSlice = Content.Load<Texture2D>("Drawing/HUD/Textures/healthSlice");
-            scoreFont = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
+
+            font        = Content.Load<SpriteFont>         ("Drawing/Fonts/DebugFont");
+            healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
+            healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
+            drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
+            rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
+            scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
+
             miniMap = new MiniMap();
             miniMap.loadTextures(Content);
         }
@@ -97,19 +103,6 @@ namespace Resonance
             Drawing.resetGraphics();
         }
 
-        /// <summary>
-        /// Draws bad vibes health above them
-        /// </summary>
-        /// <param name="name">Name of bad vibe (not displayed datm)</param>
-        /// <param name="armour">Armour string to use only atm</param>
-        /// <param name="coords">Coords to display the armour levels</param>
-        public void drawBadVibeHealth(String name, string armour, Vector2 coords)
-        {
-            spriteBatch.Begin();
-            spriteBatch.DrawString(font, armour, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.End();
-            Drawing.resetGraphics();
-        }
 
         /// <summary>
         /// Called every time the HUD needs to be drawn.
@@ -136,30 +129,86 @@ namespace Resonance
         /// <param name="armour">List of armour values</param>
         public void updateEnemy(string name, Vector3 pos, List<int> armour)
         {
+            if (BadVibe.DRAW_HEALTH_AS_STRING) {
+                string armourString = "";
 
-            string armourString = "";
+                for (int i = 0; i < armour.Count; i++)
+                {
+                    if (i != 0) armourString += " ";
+                    if (Shockwave.REST == armour[i]) armourString += "_";
+                    if (Shockwave.GREEN == armour[i]) armourString += "G";
+                    if (Shockwave.YELLOW == armour[i]) armourString += "Y";
+                    if (Shockwave.BLUE == armour[i]) armourString += "B";
+                    if (Shockwave.RED == armour[i]) armourString += "R";
+                    if (Shockwave.CYMBAL == armour[i]) armourString += "C";
+                }
 
-            for (int i = 0; i < armour.Count; i++)
-            {
-                if (i != 0) armourString += " ";
-                if (Shockwave.REST == armour[i]) armourString += "_";
-                if (Shockwave.GREEN == armour[i]) armourString += "G";
-                if (Shockwave.YELLOW == armour[i]) armourString += "Y";
-                if (Shockwave.BLUE == armour[i]) armourString += "B";
-                if (Shockwave.RED == armour[i]) armourString += "R";
-                if (Shockwave.CYMBAL == armour[i]) armourString += "C";
+                int xOffset = (int)Math.Round(font.MeasureString(armourString).X / 2);
+
+                Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
+                Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
+                Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
+
+                if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
+                else dictionary.Add(name, newpos);
+
+                drawBadVibeHealthString(name, armourString, screenPosition);
+            } else {
+                int xOffset = ((armour.Count * drumPad.Width) + ((armour.Count - 1) * BadVibe.ARMOUR_SPACING)) / 2;
+                Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
+                Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
+                Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
+
+                if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
+                else dictionary.Add(name, newpos);
+
+                drawBadVibeHealth(armour, screenPosition);
+            }
+        }
+
+        public void drawBadVibeHealth(List<int> arm, Vector2 pos) {
+            spriteBatch.Begin();
+
+            int posX = (int) pos.X;
+            int posY = (int) pos.Y;
+
+            Color c = new Color();
+
+            for (int i = 0; i < arm.Count; i++) {
+                switch (arm[i]) {
+                    case 0 : { c = new Color(1f, 1f, 1f, 1f); break; }
+                    case 1 : { c = new Color(0f, 1f, 0f, 1f); break; }
+                    case 2 : { c = new Color(1f, 1f, 0f, 1f); break; }
+                    case 3 : { c = new Color(0f, 0f, 1f, 1f); break; }
+                    case 4 : { c = new Color(1f, 0f, 0f, 1f); break; }
+                    case 5 : { c = new Color(1f, 1f, 1f, 1f); break; }
+                }
+
+                if (arm[i] != 0) {
+                    spriteBatch.Draw(drumPad, new Rectangle(posX, posY, drumPad.Width, drumPad.Height), c);
+                } else {
+                    spriteBatch.Draw(rest,    new Rectangle(posX, posY, drumPad.Width, drumPad.Height), c);
+                }
+
+                posX += drumPad.Width + BadVibe.ARMOUR_SPACING;
             }
 
-            int xOffset = (int)Math.Round(font.MeasureString(armourString).X/2);
+            spriteBatch.End();
+            Drawing.resetGraphics();
+        }
 
-            Vector2 newpos = new Vector2(500 + pos.X , 200+ pos.Z);
-            Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
-            Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
-
-            if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
-            else dictionary.Add(name, newpos);
-
-            drawBadVibeHealth(name, armourString, screenPosition);
+        /// <summary>
+        /// Draws bad vibes health above them as a string.
+        /// </summary>
+        /// <param name="name">Name of bad vibe (not displayed datm)</param>
+        /// <param name="armour">Armour string to use only atm</param>
+        /// <param name="coords">Coords to display the armour levels</param>
+        public void drawBadVibeHealthString(String name, string armour, Vector2 coords)
+        {
+            spriteBatch.Begin();
+            spriteBatch.DrawString(font, armour, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.End();
+            Drawing.resetGraphics();
         }
 
         /// <summary>

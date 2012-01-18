@@ -16,6 +16,9 @@ namespace Resonance
         private const double ATTACK_RATE = 0.8;
         private const double REDUCTION_RATE = 15;
         private const double ATTACK_RANGE = 3;
+        public const int ARMOUR_SPACING = 3;
+
+        public const bool DRAW_HEALTH_AS_STRING = false;
 
         private int iterationCount = 0;
 

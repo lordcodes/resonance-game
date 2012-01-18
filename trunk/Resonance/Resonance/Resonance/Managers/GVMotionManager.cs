@@ -15,7 +15,7 @@ namespace Resonance {
         public static float MAX_R_SPEED      =   0.25f;
         public static float MAX_X_SPEED      =   4.00f;
         public static float MAX_Z_SPEED      =  12.00f;
-        public static float R_ACCELERATION   =   0.02f;
+        public static float R_ACCELERATION   =   0.01f;
         public static float X_ACCELERATION   =   0.25f;
         public static float Z_ACCELERATION   =   0.50f;
         public static float R_SPEED          =   0.00f;
