@@ -255,10 +255,11 @@ namespace Resonance {
             if (camerax < 0) {
                 if(y >= 0) rotate(-1f);
                 else rotate(1f);
-            }
-            if (camerax > 0) {
-                if(y >= 0) rotate(1f);
+            } else if (camerax > 0) {
+                if (y >= 0) rotate(1f);
                 else rotate(-1f);
+            } else {
+                R_SPEED = 0;
             }
 
             // Jump?
