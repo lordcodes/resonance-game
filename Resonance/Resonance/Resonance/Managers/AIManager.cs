@@ -57,7 +57,12 @@ namespace Resonance
 
         public void moveManager()
         {
-            if (!inTargetRange())
+            if (closeToEdge())
+            {
+                //Move away from the edge
+                moveAwayFromEdge();
+            }
+            else if (!inTargetRange())
             {
                 //Move randomly
                 randomMove();
@@ -71,19 +76,19 @@ namespace Resonance
             else
             {
                 //Rotate to face GV and attack it
-                rotateToGV();
+                Vector3 point = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+                rotateToFacePoint(point);
                 attack();
             }
             iteration++;
             if (iteration == 60) iteration = 0;
         }
 
-        private void rotateToGV()
+        private void rotateToFacePoint(Vector3 point)
         {
             Vector3 bvDir = bv.Body.OrientationMatrix.Backward;
             Vector3 bvPos = bv.Body.Position;
-            Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
-            Vector3 diff = Vector3.Normalize(gvPos - bvPos);
+            Vector3 diff = Vector3.Normalize(point - bvPos);
             Quaternion rot;
             Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
             Vector3 angles = BadVibe.QuaternionToEuler(rot);
@@ -94,7 +99,8 @@ namespace Resonance
 
         private void moveToGV()
         {
-            rotateToGV();
+            Vector3 point = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+            rotateToFacePoint(point);
             move(-1f);
         }
 
@@ -117,6 +123,12 @@ namespace Resonance
             {
                 move(-1f);
             }                
+        }
+
+        private void moveAwayFromEdge()
+        {
+            rotateToFacePoint(new Vector3(0f, bv.Body.Position.Y, 0f));
+            move(-1f);
         }
 
         public void move(float power)
@@ -178,6 +190,27 @@ namespace Resonance
                 {
                     ((GoodVibe)Program.game.World.getObject("Player")).AdjustHealth(-1);
                 }
+            }
+        }
+
+        private bool closeToEdge()
+        {
+            BoundingBox box = ((StaticObject)Program.game.World.getObject("Ground")).Body.BoundingBox;
+            Vector3 max = box.Max;
+            Vector3 min = box.Min;
+
+            float dX1 = Math.Abs(max.X - bv.Body.Position.X);
+            float dX2 = Math.Abs(min.X - bv.Body.Position.X);
+            float dZ1 = Math.Abs(max.Z - bv.Body.Position.Z);
+            float dZ2 = Math.Abs(min.Z - bv.Body.Position.Z);
+
+            if (dX1 <= 1.25f || dX2 <= 1.25f || dZ1 <= 1.25f || dZ2 <= 1.25f)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

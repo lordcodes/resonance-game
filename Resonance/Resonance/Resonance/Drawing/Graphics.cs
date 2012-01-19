@@ -84,7 +84,6 @@ namespace Resonance
 
             specularLightColor = new Vector3(0.15f, 0.15f, 0.15f);
 
-
             customEffect = Content.Load<Effect>("Drawing/Effect");
             customEffect.Parameters["World"].SetValue(Matrix.Identity);
             customEffect.Parameters["View"].SetValue(view);
@@ -109,14 +108,14 @@ namespace Resonance
         /// Updates Camera and HUD based of player position
         /// </summary>
         /// <param name="player">The good vibe class</param>
-        public void UpdateCamera(GoodVibe player)
+        public void UpdateCamera(Vector3 point, Vector3 newCameraPosition)
         {
-            Quaternion orientation = player.Body.Orientation;
+            cameraPosition = newCameraPosition;
+            Quaternion orientation = ((GoodVibe)Program.game.World.getObject("Player")).Body.Orientation;
             Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
-            Vector3 position = player.Body.Position;
+            Vector3 position = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-            Vector3 defaultCameraPosition = new Vector3(0, 7f, 12f);
-            cameraPosition = Vector3.Transform(defaultCameraPosition, goodVibeRotation) + position;
+            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
