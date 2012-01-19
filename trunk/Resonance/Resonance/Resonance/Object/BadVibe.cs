@@ -279,6 +279,8 @@ namespace Resonance
             }
 
 
+            // Generates a beat completely at random.
+            // Good luck!
             private static ArmourSequence generateRandom()
             {
                 Random generator = new Random();
@@ -320,6 +322,7 @@ namespace Resonance
                 }
             }
 
+                // Almost all on-the-beat, a few rare on-half-beats if unlucky.
                 private static void initialiseBeginner()
                 {
                     BEGINNER_COUNT = 0;
@@ -331,13 +334,13 @@ namespace Resonance
                     }
 
                     {
-                        int[] seq = { 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 4, 0, 5 };
+                        int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5 };
                         beginnerBank.Add(new ArmourSequence(seq));
                         BEGINNER_COUNT++;
                     }
 
                     {
-                        int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5 };
+                        int[] seq = { 3, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 5 };
                         beginnerBank.Add(new ArmourSequence(seq));
                         BEGINNER_COUNT++;
                     }
@@ -349,18 +352,43 @@ namespace Resonance
                     }
 
                     {
+                        int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 5 };
+                        beginnerBank.Add(new ArmourSequence(seq));
+                        BEGINNER_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 2, 0, 0, 0, 1, 0, 0, 0, 4, 0, 0, 0, 5 };
+                        beginnerBank.Add(new ArmourSequence(seq));
+                        BEGINNER_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5 };
+                        beginnerBank.Add(new ArmourSequence(seq));
+                        BEGINNER_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 4, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 5 };
+                        beginnerBank.Add(new ArmourSequence(seq));
+                        BEGINNER_COUNT++;
+                    }
+
+                    {
                         int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 4, 0, 1, 0, 5 };
                         beginnerBank.Add(new ArmourSequence(seq));
                         BEGINNER_COUNT++;
                     }
 
                     {
-                        int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 5 };
+                        int[] seq = { 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 4, 0, 5 };
                         beginnerBank.Add(new ArmourSequence(seq));
                         BEGINNER_COUNT++;
                     }
                 }
 
+               // Almost all on-the-half-beat, occasional quarter-beat if unlucky.
                 private static void initialiseEasy()
                 {
                     EASY_COUNT = 0;
@@ -388,14 +416,33 @@ namespace Resonance
                         easyBank.Add(new ArmourSequence(seq));
                         EASY_COUNT++;
                     }
-                }
-
-                private static void initialiseMedium()
-                {
-                    MEDIUM_COUNT = 0;
 
                     {
-                        int[] seq = { 1, 1, 1, 1, 3, 3, 3, 3, 4, 4, 4, 4, 5 };
+                        int[] seq = { 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 4, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 3, 0, 1, 0, 3, 0, 1, 0, 2, 2, 2, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 2, 0, 2, 0, 3, 0, 3, 0, 2, 2, 3, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 1, 1, 0, 2, 0, 1, 0, 3, 0, 0, 0, 5 };
+                        easyBank.Add(new ArmourSequence(seq));
+                        EASY_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 0, 2, 0, 3, 0, 4, 0, 1, 1, 1, 0, 5 };
                         mediumBank.Add(new ArmourSequence(seq));
                         MEDIUM_COUNT++;
                     }
@@ -407,6 +454,39 @@ namespace Resonance
                     }
                 }
 
+                // Almost all quarter-beat with a few rest layers to throw you off.
+                // Generally can be played easily using regular R-L-R-L drumming.
+                private static void initialiseMedium()
+                {
+                    MEDIUM_COUNT = 0;
+
+                    {
+                        int[] seq = { 1, 1, 1, 1, 3, 3, 3, 3, 4, 4, 4, 4, 5 };
+                        mediumBank.Add(new ArmourSequence(seq));
+                        MEDIUM_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 2, 1, 2, 1, 4, 3, 4, 3, 1, 0, 0, 0, 5 };
+                        mediumBank.Add(new ArmourSequence(seq));
+                        MEDIUM_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 1, 2, 1, 1, 1, 3, 1, 1, 1, 4, 1, 5 };
+                        mediumBank.Add(new ArmourSequence(seq));
+                        MEDIUM_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 2, 2, 2, 0, 4, 4, 4, 0, 3, 0, 1, 0, 5 };
+                        mediumBank.Add(new ArmourSequence(seq));
+                        MEDIUM_COUNT++;
+                    }
+                }
+
+                // Irregular beats to throw you off.
+                // Sometimes require L-R-L-R drumming.
                 private static void initialiseHard()
                 {
                     HARD_COUNT = 0;
@@ -418,12 +498,37 @@ namespace Resonance
                     }
 
                     {
+                        int[] seq = { 1, 2, 1, 2, 2, 3, 2, 3, 3, 4, 3, 4, 5 };
+                        hardBank.Add(new ArmourSequence(seq));
+                        HARD_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 4, 0, 1, 1, 4, 0, 2, 2, 4, 0, 3, 3, 5 };
+                        hardBank.Add(new ArmourSequence(seq));
+                        HARD_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 1, 1, 1, 2, 2, 2, 2, 4, 0, 4, 3, 5 };
+                        hardBank.Add(new ArmourSequence(seq));
+                        HARD_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 3, 2, 3, 2, 4, 1, 4, 2, 1, 0, 2, 0, 5 };
+                        hardBank.Add(new ArmourSequence(seq));
+                        HARD_COUNT++;
+                    }
+
+                    {
                         int[] seq = { 1, 1, 1, 0, 2, 1, 1, 0, 3, 3, 3, 4, 5 };
                         hardBank.Add(new ArmourSequence(seq));
                         HARD_COUNT++;
                     }
                 }
 
+                // Irregular patterns, switches between R-L-R-L and L-R-L-R, can require double-hits.
                 private static void initialiseExpert()
                 {
                     EXPERT_COUNT = 0;
@@ -435,7 +540,25 @@ namespace Resonance
                     }
 
                     {
+                        int[] seq = { 4, 4, 1, 1, 4, 2, 2, 3, 3, 1, 2, 3, 5 };
+                        expertBank.Add(new ArmourSequence(seq));
+                        EXPERT_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 4, 3, 2, 1, 1, 2, 3, 4, 4, 1, 1, 4, 5 };
+                        expertBank.Add(new ArmourSequence(seq));
+                        EXPERT_COUNT++;
+                    }
+
+                    {
                         int[] seq = { 4, 1, 2, 1, 3, 2, 3, 2, 0, 1, 0, 1, 5 };
+                        expertBank.Add(new ArmourSequence(seq));
+                        EXPERT_COUNT++;
+                    }
+
+                    {
+                        int[] seq = { 1, 2, 2, 1, 3, 3, 2, 4, 4, 0, 4, 4, 5 };
                         expertBank.Add(new ArmourSequence(seq));
                         EXPERT_COUNT++;
                     }
