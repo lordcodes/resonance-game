@@ -138,12 +138,6 @@ namespace Resonance {
                 init();
             }
 
-            // These values record whether or not a motion has been performed with the dPad so that the same motion isn't
-            // applied twice if the dPad is used in conjunction with the analogue sticks.
-            bool  rotated  = false;
-            bool  movedZ   = false;
-            bool  strafed  = false;
-
             // Analogue stick positions
             float leftX = pad.ThumbSticks.Left.X;
             float leftY = pad.ThumbSticks.Left.Y;
@@ -186,8 +180,6 @@ namespace Resonance {
                 } else {
                     move(-1f);
                 }
-
-                movedZ = true;
             }
 
             // Strafe based on keyboard.
@@ -197,8 +189,6 @@ namespace Resonance {
                 } else {
                     strafe(-1f);
                 }
-
-                strafed = true;
             }
 
             // Move / strafe based on analogue sticks (if no movement performed above).
@@ -206,52 +196,6 @@ namespace Resonance {
             /*if (!movedZ && !strafed) {
                 move(leftY);
                 strafe(leftX);
-            }*/
-
-            //if (!rotated) rotate();
-
-            float x = leftX;
-            float y = leftY;
-            float camerax = rightX;
-            float cameray = rightY;
-
-            if (x == 0 && y > 0) {
-                move(1f);
-            }
-            if (x == 0 && y < 0) {
-                move(-1f);
-            }
-            if (x < 0 && y == 0) {
-                //gv.move(DynamicObject.MOVE_LEFT);
-            }
-            if (x < 0 && y > 0) {
-                //gv.move(DynamicObject.MOVE_LEFT);
-                move(1f);
-            }
-            if (x < 0 && y < 0) {
-                //gv.move(DynamicObject.MOVE_LEFT);
-                move(-1f);
-            }
-            if (x > 0 && y < 0) {
-                //gv.move(DynamicObject.MOVE_RIGHT);
-                move(-1f);
-            }
-            if (x > 0 && y > 0) {
-                //gv.move(DynamicObject.MOVE_RIGHT);
-                move(1f);
-            }
-            if (x > 0 && y == 0) {
-                //gv.move(DynamicObject.MOVE_RIGHT);
-            }
-
-            /*if (camerax < 0) {
-                if(y >= 0) rotate(-1f);
-                else rotate(1f);
-            } else if (camerax > 0) {
-                if (y >= 0) rotate(1f);
-                else rotate(-1f);
-            } else {
-                R_SPEED = 0;
             }*/
 
             // Jump?
