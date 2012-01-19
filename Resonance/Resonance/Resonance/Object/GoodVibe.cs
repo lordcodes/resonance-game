@@ -151,7 +151,7 @@ namespace Resonance
             }
         }
 
-        public void checkDistance()
+        public void regenHealth()
         {
             Dictionary<string, Object> objects = Program.game.World.returnObjects();
             foreach (KeyValuePair<string, Object> pair in objects)

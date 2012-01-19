@@ -10,17 +10,21 @@ namespace Resonance
     {
         private static int MIN_BVS = 15;
 
-        private static int numBVs = 0;
-        private static int totalNumBVs = 0;
+        private int numBVs;
+        private int totalNumBVs;
 
-        BVSpawnManager() { }
+        public BVSpawnManager() 
+        {
+            numBVs = 0;
+            totalNumBVs = 0;
+        }
 
-        public static void vibeDied()
+        public void vibeDied()
         {
             numBVs--;
         }
 
-        public static void update()
+        public void update()
         {
             if (numBVs < MIN_BVS)
             {
@@ -38,14 +42,14 @@ namespace Resonance
                     {
                         placed = true;
                         string id = "BV" + totalNumBVs;
-                        try
-                        {
+                        //try
+                        //{
                             BadVibe bv = new BadVibe(GameModels.BAD_VIBE, id, pos);
                             Program.game.World.addObject(bv);
-                        }
-                        catch (Exception ex)
-                        {
-                        }
+                        //}
+                        //catch (Exception ex)
+                        //{
+                        //}
                         totalNumBVs++;
                         numBVs++;
                     }

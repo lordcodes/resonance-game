@@ -168,7 +168,6 @@ namespace Resonance {
                 else {
                     if (rotateL) rotate(-power); else rotate(power);
                 }
-                rotated = true;
             } else {
                 R_SPEED = 0f;
             }

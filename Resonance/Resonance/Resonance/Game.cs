@@ -29,6 +29,8 @@ namespace Resonance
 
         public static int DIFFICULTY = BEGINNER;
 
+        public static bool USE_SPAWNER = false;
+
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
 
@@ -38,6 +40,7 @@ namespace Resonance
         KeyboardState oldKeyState;
 
         World world;
+        BVSpawnManager spawner;
 
         public Game()
         {
@@ -45,6 +48,7 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
+            if(USE_SPAWNER) spawner = new BVSpawnManager();
             UI.init();
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
@@ -89,7 +93,6 @@ namespace Resonance
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             MenuActions.loadLevel(1);
 
-
             double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
             DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
         }
@@ -104,19 +107,6 @@ namespace Resonance
             string level = "Levels/Level"+i;
             world.readXmlFile(level, Content);
             GVMotionManager.initialised = false;
-
-            /*int startTime = Environment.TickCount;
-            PathFind pathFind = new PathFind();
-            List<Vector3> path = pathFind.find(new Vector3(-19, 0.4f, -19), new Vector3(19, 0.4f, 19));
-            Console.WriteLine("Path took: " + (Environment.TickCount - startTime));
-            if (path != null)
-            {
-                DebugDisplay.update("Path", "" + path[0] + " " + path[path.Count-1]);
-            }
-            else
-            {
-                DebugDisplay.update("Path", "Not found");
-            }*/
         }
 
         /// <summary>
@@ -139,7 +129,6 @@ namespace Resonance
 
             if (!Loading.IsLoading)
             {
-                //DebugDisplay.update("GV Position", "" + ((DynamicObject)world.getObject("Player")).Body.Position);
                 keyInput();
                 if (!UI.Paused)
                 {
@@ -154,14 +143,13 @@ namespace Resonance
 
                     // Update shockwaves
                     ((GoodVibe)world.getObject("Player")).updateWaves();
-
-                    ((GoodVibe)world.getObject("Player")).checkDistance();
+                    ((GoodVibe)world.getObject("Player")).regenHealth();
 
                     world.update();
                     base.Update(gameTime);
                     musicHandler.Update();
                     removeDeadBadVibes(deadVibes);
-                    //BVSpawnManager.update();
+                    if(USE_SPAWNER) spawner.update();
                 }
             }
         }
@@ -178,8 +166,6 @@ namespace Resonance
                 {
                     if (UI.Paused) UI.play();
                     else UI.pause();
-                    //if (paused) musicHandler.getTrack().pauseTrack();
-                    //if (!paused) musicHandler.getTrack().playTrack();
                 }
             }
 
@@ -311,9 +297,6 @@ namespace Resonance
                 MiniMap.large = false;
             }
 
-            //Update graphics
-
-            //UpdateGoodVibePosition();
             CameraMotionManager.trackGV(Keyboard.GetState());
             GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
         }
@@ -365,135 +348,6 @@ namespace Resonance
             }
         }
 
-        public World World
-        {
-            get
-            {
-                return world;
-            }
-        }
-
-        /// <summary>
-        /// This handles basic user input to move the good vibe around the world, this is temporary 
-        /// and will eventualy feed into the World object rather than directly to the Drawing
-        /// </summary>
-        // DEPRECIATED - now handled by GVMotionManager and CameraManager.
-        // This method remains undeleted because GVMotionManager hasn't yet been tested using Xbox controllers
-        // due to a lack of wired Xbox controllers.
-        /*private void UpdateGoodVibePosition()
-        {
-            KeyboardState keyboardState = Keyboard.GetState();
-            GamePadState currentState = GamePad.GetState(PlayerIndex.One);
-            float initial = ((DynamicObject)world.getObject("Player")).Body.AngularVelocity.Y;
-            bool upPressed   = keyboardState.IsKeyDown(Keys.Up) || (currentState.DPad.Up == ButtonState.Pressed);
-            bool downPressed = keyboardState.IsKeyDown(Keys.Down) || (currentState.DPad.Down == ButtonState.Pressed);
-            
-            if (currentState.IsConnected == false)
-            {
-                if (keyboardState.IsKeyDown(Keys.Left) || (currentState.DPad.Left == ButtonState.Pressed))
-                {
-                    if (!downPressed)
-                    {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_ANTI);
-                    }
-                    else
-                    {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_CLOCK);
-                    }
-                }
-                if (keyboardState.IsKeyDown(Keys.Right) || (currentState.DPad.Right == ButtonState.Pressed))
-                {
-                    if (!downPressed)
-                    {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_CLOCK);
-                    }
-                    else
-                    {
-                        ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_ANTI);
-                    }
-                }
-
-                if (upPressed ^ downPressed)
-                {
-                    if (upPressed)
-                    {
-                        ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
-                    }
-                    if (downPressed)
-                    {
-                        ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
-                    }
-                }
-            }
-            else
-            {
-                float x = currentState.ThumbSticks.Left.X;
-                float y = currentState.ThumbSticks.Left.Y;
-                float camerax = currentState.ThumbSticks.Right.X;
-                float cameray = currentState.ThumbSticks.Right.Y;
-                float height  = currentState.Triggers.Left;
-               
-                if (height > 0 && ((DynamicObject)world.getObject("Player")).Body.AngularVelocity.Y == initial)
-                {
-                    
-                    ((DynamicObject)(world.getObject("Player"))).jump(0.2f);
-                    
-                }
-                if (x == 0 && y > 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
-                }
-                if (x == 0 && y < 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
-                }
-                
-                if (x < 0 && y == 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
-                }
-                if (x < 0 && y > 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
-                }
-                if (x < 0 && y < 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_LEFT);
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
-                }
-                if (x > 0 && y < 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_BACKWARD);
-                }
-                if (x > 0 && y > 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_FORWARD);
-                }
-                if (x > 0 && y == 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).move(DynamicObject.MOVE_RIGHT);
-                }
-
-                if (camerax == -1 && cameray == 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_ANTI);
-                }
-
-                if (camerax == 1 && cameray == 0)
-                {
-                    ((DynamicObject)(world.getObject("Player"))).rotate(DynamicObject.ROTATE_CLOCK);
-                }
-                
-            }
-            if (!keyboardState.IsKeyDown(Keys.RightShift))
-            {
-                Drawing.UpdateCamera((GoodVibe)world.getObject("Player"));
-            }
-        }*/
-
         /// <summary>
         /// Process all the bad vibes, either move or kill them
         /// </summary>
@@ -530,7 +384,7 @@ namespace Resonance
             {
                 World.removeObject(World.getObject(deadVibes[i]));
                 musicHandler.playSound("beast_dying");
-                //BVSpawnManager.vibeDied();
+                if(USE_SPAWNER) spawner.vibeDied();
             }
         }
 
@@ -549,6 +403,14 @@ namespace Resonance
                         vibe.damage(Shockwave.REST);
                     }
                 }
+            }
+        }
+
+        public World World
+        {
+            get
+            {
+                return world;
             }
         }
 
