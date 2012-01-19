@@ -122,8 +122,8 @@ namespace Resonance
         public void move(float power)
         {
             //Query world space for objects every position in front up to and including SPOT_RANGE
-            bool found = obstacleFound();
-            DebugDisplay.update("Obstacle", found.ToString());
+            //bool found = obstacleFound();
+            //DebugDisplay.update("Obstacle", found.ToString());
             //Get object that is obstacle
             //Apply steering force to avoid it
             // compute avoidance steering force: take offset from obstacle to me,
