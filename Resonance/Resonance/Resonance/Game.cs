@@ -103,6 +103,7 @@ namespace Resonance
         {
             string level = "Levels/Level"+i;
             world.readXmlFile(level, Content);
+            GVMotionManager.initialised = false;
 
             /*int startTime = Environment.TickCount;
             PathFind pathFind = new PathFind();
@@ -160,6 +161,7 @@ namespace Resonance
                     base.Update(gameTime);
                     musicHandler.Update();
                     removeDeadBadVibes(deadVibes);
+                    //BVSpawnManager.update();
                 }
             }
         }
@@ -183,6 +185,8 @@ namespace Resonance
 
             if (UI.Paused)
             {
+                
+                
                 menuControls(keyboardState, playerOne, playerTwo);
             }
             else
@@ -526,6 +530,7 @@ namespace Resonance
             {
                 World.removeObject(World.getObject(deadVibes[i]));
                 musicHandler.playSound("beast_dying");
+                //BVSpawnManager.vibeDied();
             }
         }
 

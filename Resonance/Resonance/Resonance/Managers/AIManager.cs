@@ -19,6 +19,7 @@ namespace Resonance
 
         private static float TARGET_RANGE = 20f;
         private static float ATTACK_RANGE = 3f;
+        private static int SPOT_RANGE = 3; //Distance to spot obstacles in front
         private static int ATTACK_RATE = 4; //No. of times per second
         private static int CHANCE_MISS = 20; //Between 0 and 100
 
@@ -120,6 +121,23 @@ namespace Resonance
 
         public void move(float power)
         {
+            //Query world space for objects every position in front up to and including SPOT_RANGE
+            bool found = obstacleFound();
+            DebugDisplay.update("Obstacle", found.ToString());
+            //Get object that is obstacle
+            //Apply steering force to avoid it
+            // compute avoidance steering force: take offset from obstacle to me,
+            // take the component of that which is lateral (perpendicular to my
+            // forward direction), set length to maxForce, add a bit of forward
+            // component (in capture the flag, we never want to slow down)
+            //Vector3 offset = Position - nearest.obstacle.center;
+            //avoidance = offset.perpendicularComponent (forward());
+            //avoidance = OpenSteerUtility.perpendicularComponent(offset, forward());
+
+            //avoidance.Normalise();//.normalize ();
+            //avoidance *= maxForce();
+            //avoidance += forward() * maxForce() * 0.75f;
+
             Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
             Vector3 velocity = bv.Body.LinearVelocity;
 
@@ -185,6 +203,26 @@ namespace Resonance
             {
                 return false;
             }
+        }
+
+        private bool obstacleFound()
+        {
+            Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
+            Vector3 position = bv.Body.Position;
+            //double limitX = Math.Cos(orientation.Y) * SPOT_RANGE;
+            //double limitZ = Math.Sin(orientation.Y) * SPOT_RANGE;
+
+            bool found = false;
+            for (int i = 1; i <= SPOT_RANGE; i++)
+            {
+                if (!found)
+                {
+                    double x = position.X + (Math.Cos(orientation.Y) * i);
+                    double z = position.Z + (Math.Sin(orientation.Y) * i);
+                    found = Program.game.World.querySpace(new Vector3((float)x, position.Y, (float)z));
+                }
+            }
+            return found;
         }
 
         private void moveAround()

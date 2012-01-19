@@ -52,66 +52,7 @@ namespace Resonance
         public void reset()
         {
             body.Position = base.OriginalPosition;
-        }
-
-        public void move(int direction)
-        {
-            Vector3 rotateVector = QuaternionToEuler(Body.Orientation);
-            Vector3 velocity = Body.LinearVelocity;
-
-            //Calculate which way to move Up, Down, Left or Right
-            float xCoefficient = MOVE_SPEED;
-            float zCoefficient = MOVE_SPEED;
-
-            switch(direction)
-            {
-                case (BV_FORWARD):
-                    {
-                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
-                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
-                        break;
-                    }
-                case (BV_BACKWARD):
-                    {
-                        xCoefficient *= -1;
-                        zCoefficient *= -1;
-                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
-                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
-                        break;
-                    }
-                case (MOVE_LEFT):
-                    {
-                        xCoefficient *= -1;
-                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Sin(rotateVector.Y));
-                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Cos(rotateVector.Y));
-                        break;
-                    }
-                case (MOVE_RIGHT):
-                    {
-                        zCoefficient *= -1;
-                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Sin(rotateVector.Y));
-                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Cos(rotateVector.Y));
-                        break;
-                    }
-                case (MOVE_FORWARD):
-                    {
-
-                        xCoefficient *= -1;
-                        zCoefficient *= -1;
-                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
-                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
-                        break;
-                    }
-                case (MOVE_BACKWARD):
-                    {
-                        if (velocity.Z < 4 && velocity.Z > -4) velocity.Z += (float)(zCoefficient * Math.Cos(rotateVector.Y));
-                        if (velocity.X < 4 && velocity.X > -4) velocity.X += (float)(xCoefficient * Math.Sin(rotateVector.Y));
-                        break;
-                    }
-            }
-            Body.LinearVelocity = velocity;
-        }
-        
+        }        
        
         public void jump(float height)
         {
@@ -122,20 +63,6 @@ namespace Resonance
             velocity.X = (float)(height * Math.Sin(rotateVector.Y));
             velocity.Y += (float) (height * Math.Cos(rotateVector.X));
             Body.LinearVelocity = velocity;
-        }
-
-       public void rotate(int direction)
-        {
-            float coefficient = ROTATE_SPEED;
-
-            if (direction == ROTATE_CLOCK) coefficient *= -1;
-
-            Quaternion rot;
-            Vector3 axis = Vector3.Up;
-            Quaternion.CreateFromAxisAngle(ref axis, coefficient, out rot);
-            rot.X = 0;
-            rot.Z = 0;
-            //rotator.TargetOrientation = Quaternion.Concatenate(Body.Orientation, rot);
         }
 
         public static Vector3 QuaternionToEuler(Quaternion quat)

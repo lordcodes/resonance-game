@@ -27,11 +27,43 @@
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
-        <identifier>mushroom0</identifier>
-        <type>Mushroom</type>
+        <identifier>tree1</identifier>
+        <type>Tree</type>
+        <xWorldCoord>-25</xWorldCoord>
+        <zWorldCoord>13</zWorldCoord>
+        <yWorldCoord>-0.1</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>tree2</identifier>
+        <type>Tree</type>
+        <xWorldCoord>33</xWorldCoord>
+        <zWorldCoord>-11</zWorldCoord>
+        <yWorldCoord>-0.1</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>tree3</identifier>
+        <type>Tree</type>
+        <xWorldCoord>6</xWorldCoord>
+        <zWorldCoord>27</zWorldCoord>
+        <yWorldCoord>-0.1</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>tree4</identifier>
+        <type>Tree</type>
         <xWorldCoord>3</xWorldCoord>
-        <zWorldCoord>3</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
+        <zWorldCoord>9</zWorldCoord>
+        <yWorldCoord>-0.1</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+      </Item>
+      <Item>
+        <identifier>tree5</identifier>
+        <type>Tree</type>
+        <xWorldCoord>-8</xWorldCoord>
+        <zWorldCoord>-15</zWorldCoord>
+        <yWorldCoord>-0.1</yWorldCoord>
         <gameModelNum>3</gameModelNum>
       </Item>
       <Item>
