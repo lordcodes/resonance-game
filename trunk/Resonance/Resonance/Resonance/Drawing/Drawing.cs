@@ -183,9 +183,9 @@ namespace Resonance
         /// Updates Camera and HUD based of player position
         /// </summary>
         /// <param name="player">The good vibe class</param>
-        public static void UpdateCamera(GoodVibe player)
+        public static void UpdateCamera(Vector3 point, Vector3 cameraPosition)
         {
-            gameGraphics.UpdateCamera(player);
+            gameGraphics.UpdateCamera(point, cameraPosition);
         }
 
         /// <summary>

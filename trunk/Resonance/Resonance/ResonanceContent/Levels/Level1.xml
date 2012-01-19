@@ -3,7 +3,7 @@
   <Asset Type="ResonanceLibrary.StoredObjects">
     <list>
       <Item>
-        <identifier>ground</identifier>
+        <identifier>Ground</identifier>
         <type>Ground</type>
         <xWorldCoord>0</xWorldCoord>
         <zWorldCoord>0</zWorldCoord>

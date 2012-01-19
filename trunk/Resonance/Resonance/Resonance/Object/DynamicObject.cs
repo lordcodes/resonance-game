@@ -30,8 +30,6 @@ namespace Resonance
 
         ConvexHull body;
 
-        //protected EntityRotator rotator;
-
         public DynamicObject(int modelNum, string name, Vector3 pos)
             : base(modelNum, name, pos)
         {
