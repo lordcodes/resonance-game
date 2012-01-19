@@ -20,25 +20,23 @@ namespace Resonance {
         public static float Z_ACCELERATION   =   0.50f;
         public static float R_SPEED          =   0.00f;
 
-        private static GoodVibe gv = (GoodVibe)Program.game.World.getObject("Player");
+        private static GoodVibe gv;
 
         private static float JUMP_HEIGHT = 0.5f;
 
-        private static SingleEntityAngularMotor motor;
+        //private static SingleEntityAngularMotor motor;
         private static SingleEntityAngularMotor servo;
-        private static bool initialised = false;
+        public static bool initialised = false;
 
         /// Methods
 
         public static void init() {
+            gv = (GoodVibe)Program.game.World.getObject("Player");
             //motor = new SingleEntityAngularMotor(gv.Body);
             servo = new SingleEntityAngularMotor(gv.Body);
 
             servo.Settings.Mode = MotorMode.Servomechanism;
             //motor.Settings.Mode = MotorMode.VelocityMotor;
-
-            DebugDisplay.update("Damping:  ", servo.Settings.Servo.SpringSettings.DampingConstant.ToString());
-            DebugDisplay.update("Stiffness:", servo.Settings.Servo.SpringSettings.StiffnessConstant.ToString());
 
             servo.Settings.Servo.SpringSettings.DampingConstant   *= 10f;
             servo.Settings.Servo.SpringSettings.StiffnessConstant *= 100f;
@@ -46,8 +44,6 @@ namespace Resonance {
             gv.Body.Material.KineticFriction *= 2f;
             gv.Body.Material.StaticFriction  *= 2f;
             gv.Body.Mass                     *= 2f;
-
-            //motor.Settings.VelocityMotor.Softness = 0.0005f;
 
             //Program.game.World.addToSpace(motor);
             Program.game.World.addToSpace(servo);
@@ -75,8 +71,6 @@ namespace Resonance {
 
             if (posSpd + posInc < max) R_SPEED += inc;
 
-            DebugDisplay.update("Speed", R_SPEED.ToString());
-
             /*Vector3 angV = gv.Body.AngularVelocity;
 
             if (inc >= 0) {
@@ -88,15 +82,10 @@ namespace Resonance {
             motor.Settings.VelocityMotor.GoalVelocity = angV;*/
 
             Quaternion cAng = gv.Body.Orientation;
-            //Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, -power * 0.3f);
             Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, R_SPEED);
             Quaternion eAng = Quaternion.Concatenate(cAng, dAng);
 
             servo.Settings.Servo.Goal = eAng;
-
-            DebugDisplay.update("O", eAng.ToString());
-
-            //gv.Body.AngularVelocity = angV;
         }
 
         private static void move(float power) {
@@ -163,8 +152,8 @@ namespace Resonance {
             float leftL = (float)Math.Sqrt(Math.Pow(leftX, 2) + Math.Pow(leftX, 2));
             float rightL = (float)Math.Sqrt(Math.Pow(rightX, 2) + Math.Pow(rightX, 2));
 
-            bool  forward  = kbd.IsKeyDown(Keys.Up)    || (pad.DPad.Up    == ButtonState.Pressed);
-            bool  backward = kbd.IsKeyDown(Keys.Down)  || (pad.DPad.Down  == ButtonState.Pressed);
+            bool  forward  = kbd.IsKeyDown(Keys.Up)    || (pad.DPad.Up    == ButtonState.Pressed) || leftY  > 0;
+            bool  backward = kbd.IsKeyDown(Keys.Down)  || (pad.DPad.Down  == ButtonState.Pressed) || leftY  < 0;
             bool  rotateL  = kbd.IsKeyDown(Keys.Left)  || (pad.DPad.Left  == ButtonState.Pressed) || rightX < 0;
             bool  rotateR  = kbd.IsKeyDown(Keys.Right) || (pad.DPad.Right == ButtonState.Pressed) || rightX > 0;
 

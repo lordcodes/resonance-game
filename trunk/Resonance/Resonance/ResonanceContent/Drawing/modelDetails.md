@@ -15,7 +15,7 @@ box,		Models\box.fbx
 2,			house,					1,		house,					1
 3,			virus,					0.2,	box,					2.8
 4,			truck,					0.2,	box,					1
-5,			terrainHiPoly,			20,		terrain,			20,		Textures\texGrassReal.jpg	
+5,			terrainHiPoly,			50,		terrain,			50,		Textures\texGrassReal.jpg	
 6,			house,					1,		house,					1
 12,			virus,					0.2,	box,					2.8,		Textures\texGreen.jpg
 13,			virus,					0.2,	box,					2.8,		Textures\texYellow.jpg
