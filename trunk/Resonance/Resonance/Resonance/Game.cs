@@ -12,6 +12,7 @@ using BEPUphysics;
 using ResonanceLibrary;
 using BEPUphysics.Paths.PathFollowing;
 using System.IO;
+using AnimationLibrary;
 namespace Resonance
 {
     /// <summary>
@@ -41,6 +42,7 @@ namespace Resonance
 
         World world;
         BVSpawnManager spawner;
+        public AnimationPlayer animationPlayer;
 
         public Game()
         {
@@ -146,10 +148,13 @@ namespace Resonance
                     ((GoodVibe)world.getObject("Player")).regenHealth();
 
                     world.update();
-                    base.Update(gameTime);
+                    
                     musicHandler.Update();
                     removeDeadBadVibes(deadVibes);
                     if(USE_SPAWNER) spawner.update();
+
+                    animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
+                    base.Update(gameTime);
                 }
             }
         }

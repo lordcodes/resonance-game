@@ -121,7 +121,7 @@ namespace Resonance
 
         public void Draw(int gameModelNum, Matrix worldTransform, bool disp)
         {
-            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform), disp);
+            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform), disp,gameModelNum);
         }
 
         public void update(Vector2 playerPos)
@@ -130,10 +130,11 @@ namespace Resonance
         }
 
 
-        private void DrawModel(ImportedGameModel gmodel, Matrix world, bool disp)
+        private void DrawModel(ImportedGameModel gmodel, Matrix world, bool disp, int gameModelNum)
         {
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
+            Matrix[] bones = Program.game.animationPlayer.GetSkinTransforms();
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
 
             if (colorTexture == null) colorTexture = gmodel.Texture;
@@ -158,14 +159,41 @@ namespace Resonance
             {
                 customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
 
-                foreach (ModelMeshPart meshPart in mesh.MeshParts)
-                {
-                    graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
-                    graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                    customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
-                    customEffect.CurrentTechnique.Passes[0].Apply();
-                    graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
-                }
+
+                /*if (gameModelNum == GameModels.BAD_VIBE || gameModelNum == GameModels.BAD_VIBE_BLUE || gameModelNum == GameModels.BAD_VIBE_CYMBAL 
+                    || gameModelNum == GameModels.BAD_VIBE_GREEN || gameModelNum == GameModels.BAD_VIBE_RED || gameModelNum == GameModels.BAD_VIBE_YELLOW)*/
+               // if (gameModelNum == GameModels.BAD_VIBE_BLUE)
+                //{
+
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BROAKEN ANIMATION CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                  /*  foreach (SkinnedEffect effect in mesh.Effects)
+                    {
+                        effect.SetBoneTransforms(bones);
+
+                        effect.View = view;
+                        effect.Projection = projection;
+
+                        effect.EnableDefaultLighting();
+
+                        effect.SpecularColor = new Vector3(0.25f);
+                        effect.SpecularPower = 16;
+                    }
+                    mesh.Draw();*/
+
+                // The above code should draw the animation but the "foreach (SkinnedEffect effect in mesh.Effects)" line causes errors :-/
+
+                //}
+                //else
+                //{
+                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                    {
+                        graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
+                        graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
+                        customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
+                        customEffect.CurrentTechnique.Passes[0].Apply();
+                        graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
+                    }
+                //}
             }
         }
 
