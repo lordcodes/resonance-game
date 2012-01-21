@@ -37,6 +37,8 @@ namespace Resonance
         // Reduce this variable if the shockwave is causing frame rate to suffer
         public static int DISP_WIDTH = 16;
 
+        private static Texture2D special;
+
         public Matrix Projection
         {
             get
@@ -91,7 +93,8 @@ namespace Resonance
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
 
             dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
-            //bumpMap.SetData
+
+            special = Content.Load<Texture2D>("Drawing/Textures/texMissing");
         }
 
         public void addWave(Vector2 position)
@@ -121,7 +124,7 @@ namespace Resonance
 
         public void Draw(int gameModelNum, Matrix worldTransform, bool disp)
         {
-            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform), disp,gameModelNum);
+            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform), disp);
         }
 
         public void update(Vector2 playerPos)
@@ -129,12 +132,118 @@ namespace Resonance
             if (dispMap != null) dispMap.update(playerPos);
         }
 
+        public void Draw2DTextures()
+        {
+            VertexPositionColor[] userPrimitives;
+            userPrimitives = new VertexPositionColor[3];
+            userPrimitives[0] = new VertexPositionColor();
+            userPrimitives[0].Position = new Vector3(0, 1, 0);
+            userPrimitives[0].Color = Color.Red;
+            userPrimitives[1] = new VertexPositionColor();
+            userPrimitives[1].Position = new Vector3(1, -1, 0);
+            userPrimitives[1].Color = Color.Green;
+            userPrimitives[1] = new VertexPositionColor();
+            userPrimitives[1].Position = new Vector3(-1, -1, 0);
+            userPrimitives[1].Color = Color.Blue;
 
-        private void DrawModel(ImportedGameModel gmodel, Matrix world, bool disp, int gameModelNum)
+            customEffect.Parameters["doDisp"].SetValue(false);
+            customEffect.Parameters["View"].SetValue(view);
+            customEffect.Parameters["Projection"].SetValue(projection);
+            customEffect.Parameters["ColorTexture"].SetValue(special);
+            customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
+            customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
+            customEffect.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
+            customEffect.Parameters["LightDirection2"].SetValue(-lightDirection2);
+            customEffect.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
+            customEffect.Parameters["SpecularLightColor"].SetValue(specularLightColor);
+            customEffect.Parameters["CameraPosition"].SetValue(cameraPosition);
+            customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
+
+            graphics.GraphicsDevice.Textures[0] = special;
+            customEffect.CurrentTechnique.Passes[0].Apply();
+            customEffect.CurrentTechnique = customEffect.Techniques["Technique1"];
+
+            int number_of_vertices = 4;
+            int number_of_indices = 6;
+            VertexDeclaration vertexDeclaration;
+            VertexPositionNormalTexture[] vertices;
+            VertexBuffer vertexBuffer;
+            short[] indices;
+            IndexBuffer indexBuffer;
+
+            vertexDeclaration = new VertexDeclaration(new VertexElement[]
+                {
+                    new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
+                    new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
+                    new VertexElement(24, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
+                }
+            );
+
+
+
+            vertices = new VertexPositionNormalTexture[4];
+
+
+            Vector3 topLeft = new Vector3(0, 3, 0);
+            Vector3 bottomLeft = new Vector3(0, 0, 0);
+            Vector3 topRight = new Vector3(3, 3, 0);
+            Vector3 bottomRight = new Vector3(3, 0f, 0);
+
+            vertices[0] = new VertexPositionNormalTexture(topLeft, Vector3.Zero, new Vector2(0, 1));
+            vertices[1] = new VertexPositionNormalTexture(topRight, Vector3.Zero, new Vector2(1, 1));
+            vertices[2] = new VertexPositionNormalTexture(bottomLeft, Vector3.Zero, new Vector2(0, 0));
+            vertices[3] = new VertexPositionNormalTexture(bottomRight, Vector3.Zero, new Vector2(1, 0));
+
+
+            indices = new short[] {  0,  1,  2,  // orange
+                                     1,  3,  2};
+
+            vertexBuffer = new VertexBuffer(
+                graphics.GraphicsDevice,
+                vertexDeclaration,
+                number_of_vertices,
+                BufferUsage.None
+                );
+
+
+            vertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
+
+            indexBuffer = new IndexBuffer(graphics.GraphicsDevice,
+                IndexElementSize.SixteenBits,
+                number_of_indices,
+                BufferUsage.None
+                );
+
+            indexBuffer.SetData<short>(indices);
+
+            RasterizerState rasterizerState = new RasterizerState();
+            rasterizerState.CullMode = CullMode.None;
+            graphics.GraphicsDevice.RasterizerState = rasterizerState;
+
+            graphics.GraphicsDevice.SetVertexBuffer(vertexBuffer);
+
+            foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
+            {
+                pass.Apply();
+
+                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(
+                        PrimitiveType.TriangleList,
+                        vertices,
+                        0,   // vertex buffer offset to add to each element of the index buffer
+                        4,  // number of vertices to draw
+                        indices,
+                        0,   // first index element to read
+                        2   // number of primitives to draw
+                    );
+                //graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 4, 0, 2);
+
+            }
+        }
+
+        private void DrawModel(ImportedGameModel gmodel, Matrix world, bool disp)
         {
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
-            Matrix[] bones = Program.game.animationPlayer.GetSkinTransforms();
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
 
             if (colorTexture == null) colorTexture = gmodel.Texture;
@@ -159,41 +268,14 @@ namespace Resonance
             {
                 customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
 
-
-                /*if (gameModelNum == GameModels.BAD_VIBE || gameModelNum == GameModels.BAD_VIBE_BLUE || gameModelNum == GameModels.BAD_VIBE_CYMBAL 
-                    || gameModelNum == GameModels.BAD_VIBE_GREEN || gameModelNum == GameModels.BAD_VIBE_RED || gameModelNum == GameModels.BAD_VIBE_YELLOW)*/
-               // if (gameModelNum == GameModels.BAD_VIBE_BLUE)
-                //{
-
-                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! BROAKEN ANIMATION CODE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                  /*  foreach (SkinnedEffect effect in mesh.Effects)
-                    {
-                        effect.SetBoneTransforms(bones);
-
-                        effect.View = view;
-                        effect.Projection = projection;
-
-                        effect.EnableDefaultLighting();
-
-                        effect.SpecularColor = new Vector3(0.25f);
-                        effect.SpecularPower = 16;
-                    }
-                    mesh.Draw();*/
-
-                // The above code should draw the animation but the "foreach (SkinnedEffect effect in mesh.Effects)" line causes errors :-/
-
-                //}
-                //else
-                //{
-                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
-                    {
-                        graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
-                        graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                        customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
-                        customEffect.CurrentTechnique.Passes[0].Apply();
-                        graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
-                    }
-                //}
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
+                    graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
+                    customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
+                    customEffect.CurrentTechnique.Passes[0].Apply();
+                    graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
+                }
             }
         }
 

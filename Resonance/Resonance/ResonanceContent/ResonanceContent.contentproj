@@ -90,11 +90,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Drawing\Textures\texMissing.jpg">
+    <Compile Include="Drawing\Textures\texMissing.jpg">
       <Name>texMissing</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </None>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Drawing\Models\basicTree.fbx">

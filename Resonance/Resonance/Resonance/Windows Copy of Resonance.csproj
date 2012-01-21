@@ -197,10 +197,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\AnimationLibrary\Windows Copy of AnimationLibrary.csproj">
-      <Project>{B3F226C9-07A8-4617-9AAE-4146EB29C692}</Project>
-      <Name>Windows Copy of AnimationLibrary</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ResonanceContent\ResonanceContent.contentproj">
       <Project>{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}</Project>
       <Name>ResonanceContent %28Content%29</Name>
