@@ -56,6 +56,15 @@
     <Compile Include="Drawing\Game Models\ModelImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AnimationLibrary\AnimationLibrary.csproj">
+      <Project>{7417F76D-3E56-40AC-B595-080F65EB1C24}</Project>
+      <Name>AnimationLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.ContentPipelineExtensions.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
