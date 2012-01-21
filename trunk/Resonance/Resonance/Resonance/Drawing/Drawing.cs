@@ -140,6 +140,7 @@ namespace Resonance
             }
             else
             {
+                //gameGraphics.Draw2DTextures();
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
                 if (UI.Paused) hud.drawMenu(UI.getString());
