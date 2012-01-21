@@ -35,7 +35,7 @@ namespace Resonance
         private static DisplacementMap dispMap;
 
         // Reduce this variable if the shockwave is causing frame rate to suffer
-        public static int DISP_WIDTH = 75;
+        public static int DISP_WIDTH = 16;
 
         public Matrix Projection
         {

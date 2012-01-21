@@ -9,8 +9,9 @@ namespace Resonance
 {
     class DisplacementMap
     {
-        public const float WAVE_HEIGHT = 1;
+        public const float WAVE_HEIGHT = 2;
         public const float WAVE_WIDTH = 1;
+        public const float WAVE_SPEED = 0.1f;
 
         private GraphicsDevice graphicsDevice;
         private int width;
@@ -49,6 +50,11 @@ namespace Resonance
 
         public Texture2D getMap()
         {
+            return dispMap;
+        }
+
+        public void createMap()
+        {
             float dis;
             float ndepth;
             if (waveCount > 0)
@@ -78,7 +84,6 @@ namespace Resonance
             {
                 reset();
             }
-            return dispMap;
         }
 
         public void update(Vector2 position)
@@ -98,6 +103,7 @@ namespace Resonance
             }
 
             if (waveCount <= 0) reset();
+            createMap();
         }
 
         private float waveDepth(float distance, float distanceFrom, float height)
@@ -154,7 +160,7 @@ namespace Resonance
             this.epicenter = epicenter;
             isActive = true;
             distance = 0;
-            speed = 0.5f;
+            speed = DisplacementMap.WAVE_SPEED;
             height = DisplacementMap.WAVE_HEIGHT;
         }
 
