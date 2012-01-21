@@ -27,6 +27,11 @@ namespace Resonance
         private static double heightRatio;
         private static Vector3 playerPos;
 
+        public static bool DoDisp
+        {
+            get;set;
+        }
+
         public static int ScreenWidth
         {
             get
@@ -77,6 +82,7 @@ namespace Resonance
             hud = new Hud(Content,graphics, gameGraphics);
             loadingScreen = new LoadingScreen(Content, graphics);
             playerPos = new Vector3(0,0,0);
+            DoDisp = false;
         }
 
         /// <summary>
@@ -161,9 +167,9 @@ namespace Resonance
                 playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
             }
             
-            if (worldObject.returnIdentifier().Equals("Ground"))
+            if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
             {
-                //blend = true;
+                blend = true;
             }
             
             if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;

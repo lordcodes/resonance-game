@@ -189,6 +189,7 @@ namespace Resonance
 
            if ((keyboardState.IsKeyDown(Keys.Q) && !oldKeyState.IsKeyDown(Keys.Q)) || (playerOne.Buttons.LeftShoulder == ButtonState.Pressed && oldPadState1.Buttons.LeftShoulder != ButtonState.Pressed))
                 {
+                    Drawing.DoDisp = true;
                     Drawing.addWave(((DynamicObject)World.getObject("Player")).Body.Position);
                 }
             }
