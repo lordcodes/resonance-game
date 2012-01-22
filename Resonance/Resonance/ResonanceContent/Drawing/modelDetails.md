@@ -3,10 +3,15 @@ tree,		Models\tree.fbx
 treePhysics,Models\treePhysics.fbx
 house,		Models\house.fbx
 virus,		Models\bad_vibe.fbx
+dude,		Models\dude.fbx
+testAnim,		Models\testAnim.fbx
 truck,		Models\GoodVibe.fbx
 terrain,	Models\terrain.fbx
 terrainHiPoly,	Models\terrainHiPoly.fbx
-terrainMidPoly,	Models\terrainMidPoly.fbx
+terrain16,	Models\terrainMidPoly.fbx
+terrain24,	Models\terrain24.fbx
+terrain32,	Models\terrain32.fbx
+terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
 
@@ -16,11 +21,11 @@ box,		Models\box.fbx
 2,			house,					1,		house,					1
 3,			virus,					0.2,	box,					2.8
 4,			truck,					0.2,	box,					1
-5,			terrainMidPoly,			50,		terrain,			50,		Textures\texGrassReal.jpg	
+5,			terrain16,			50,		terrain,			50,		Textures\texGrassReal.jpg	
 6,			house,					1,		house,					1
 12,			virus,					0.2,	box,					2.8,		Textures\texGreen.jpg
 13,			virus,					0.2,	box,					2.8,		Textures\texYellow.jpg
-14,			virus,					0.2,	box,					2.8,		Textures\texBlue.jpg
+14,			virus,				0.2,	box,					2.8,		Textures\texBlue.jpg
 15,			virus,					0.2,	box,					2.8,		Textures\texRed.jpg
 16,			virus,					0.2,	box,					2.8,		Textures\texCymbal.jpg
 7,			wave,					1,		wave,					1,		Textures\texGreen.jpg
