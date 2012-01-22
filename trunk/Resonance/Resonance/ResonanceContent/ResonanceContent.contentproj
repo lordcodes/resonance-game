@@ -47,6 +47,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\bad_vibe.fbx">
+      <Name>bad_vibe</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>
