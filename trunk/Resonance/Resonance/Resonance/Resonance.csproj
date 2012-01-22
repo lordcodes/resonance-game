@@ -142,6 +142,14 @@
     <Content Include="GameThumbnail.png" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AnimationLibrary\AnimationLibrary.csproj">
+      <Project>{7417F76D-3E56-40AC-B595-080F65EB1C24}</Project>
+      <Name>AnimationLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ContentPipelineExtension\ContentPipelineExtension.csproj">
+      <Project>{3C1AD032-7559-451F-AAE8-4B981995C10D}</Project>
+      <Name>ContentPipelineExtension</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ResonanceLibrary\ResonanceLibrary.csproj">
       <Project>{9EE287E9-5FB8-49D0-B8AD-D2D29D8FD15D}</Project>
       <Name>ResonanceLibrary</Name>

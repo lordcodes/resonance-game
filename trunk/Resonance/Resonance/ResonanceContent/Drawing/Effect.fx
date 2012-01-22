@@ -141,3 +141,70 @@ technique TransformTechnique
     }
 }
 
+/////////////////////////////////////
+
+float4x4 xBones[60];  
+ 
+struct VSInputNmTxWeights  
+{  
+    float4 Position : POSITION0;  
+    float3 Normal   : NORMAL0;  
+    float2 TexCoord : TEXCOORD0;  
+    int4   Indices  : BLENDINDICES0;  
+    float4 Weights  : BLENDWEIGHT0;  
+};  
+ 
+void Skin(inout VSInputNmTxWeights vin, uniform int boneCount)  
+{  
+    float4x3 skinning = 0;  
+ 
+    [unroll]  
+    for (int i = 0; i < boneCount; i++)  
+    {  
+        skinning += xBones[vin.Indices[i]] * vin.Weights[i];  
+    }  
+ 
+    vin.Position.xyz = mul(vin.Position, skinning);  
+    vin.Normal = mul(vin.Normal, (float3x3)skinning);  
+}  
+ 
+struct STextured_VSOut  
+{  
+    float4 Position         : POSITION0;       
+    float3 Normal           : TEXCOORD0;  
+    float2 TexCoords        : TEXCOORD1;  
+};  
+ 
+STextured_VSOut STexturedVertexShader(VSInputNmTxWeights input)  
+{  
+    STextured_VSOut Output = (STextured_VSOut)0;  
+ 
+    Skin(input, 4);
+
+
+
+    float4 worldPosition = mul(input.Position, World);
+	float4 viewPosition = mul(worldPosition, View);
+	Output.Position = mul(viewPosition, Projection);
+	Output.Normal = normalize(mul( input.Normal, World ));
+    Output.TexCoords = input.TexCoord;   
+        
+    return Output;  
+}  
+ 
+float4 STexturedPixelShader(STextured_VSOut PSIn) : Color  
+{       
+    //float4 diffuseColor = tex2D(ColorTextureSampler, PSIn.TexCoords);  
+    float4 diffuseColor = float4(0,0,1,1);  
+ 
+    return diffuseColor;  
+}  
+ 
+technique STextured  
+{  
+    Pass  
+    {  
+        VertexShader = compile vs_2_0 STexturedVertexShader();  
+        PixelShader = compile ps_2_0 STexturedPixelShader();  
+    }  
+} 

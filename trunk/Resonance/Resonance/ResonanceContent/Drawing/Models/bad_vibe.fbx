@@ -13187,26 +13187,7 @@ Objects:  {
 			Property: "LastSaved|DateTime_GMT", "DateTime", "", "13/01/2012 14:35:52.004"
 		}
 	}
-	Pose: "Pose::skinCluster1", "BindPose" {
-		Type: "BindPose"
-		Version: 100
-		Properties60:  {
-		}
-		NbPoseNodes: 3
-		PoseNode:  {
-			Node: "Model::pSphere2"
-			Matrix: -2.97890560615521,0,-1.14349472596836,0,0,3.19083982655044,0,0,1.14349472596836,0,-2.97890560615521,0,0,0,0,1
-             
-		}
-		PoseNode:  {
-			Node: "Model::joint1"
-			Matrix: 2.22044604925031e-016,0,1,0,-0,1,0,0,-1,-0,2.22044604925031e-016,0,0,0.943137638026468,-2.53914354965777,1
-		}
-		PoseNode:  {
-			Node: "Model::joint2"
-			Matrix: 1,0,0,0,0,1,0,0,0,0,1,0,0,0.943137638026468,6.1004533311797,1
-		}
-	}
+
 	Material: "Material::lambert1", "" {
 		Version: 102
 		ShadingModel: "lambert"

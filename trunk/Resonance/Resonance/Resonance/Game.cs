@@ -12,6 +12,7 @@ using BEPUphysics;
 using ResonanceLibrary;
 using BEPUphysics.Paths.PathFollowing;
 using System.IO;
+using AnimationLibrary;
 namespace Resonance
 {
     /// <summary>
@@ -41,6 +42,7 @@ namespace Resonance
 
         World world;
         BVSpawnManager spawner;
+        public AnimationPlayer animationPlayer;
 
         public Game()
         {
@@ -55,10 +57,10 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
+            //graphics.PreferredBackBufferWidth = 1920;
+            //graphics.PreferredBackBufferHeight = 1080;
             Window.AllowUserResizing = true;
         }
 
@@ -146,10 +148,14 @@ namespace Resonance
                     ((GoodVibe)world.getObject("Player")).regenHealth();
 
                     world.update();
-                    base.Update(gameTime);
+                    
                     musicHandler.Update();
                     removeDeadBadVibes(deadVibes);
                     if(USE_SPAWNER) spawner.update();
+
+                    animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
+                    DebugDisplay.update("fr", "" + animationPlayer.CurrentClip.Keyframes);
+                    base.Update(gameTime);
                 }
             }
         }
