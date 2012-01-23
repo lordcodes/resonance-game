@@ -274,10 +274,10 @@ namespace Resonance
             
 
             foreach (ModelMesh mesh in m.Meshes)
-                {
+            {
                 
 
-                    customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
+                customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
 
                 if (gameModelNum == GameModels.BAD_VIBE_BLUE)
                 {
@@ -286,7 +286,7 @@ namespace Resonance
                     //bones[0].Translation = new Vector3(0, 0, 1);
                     DebugDisplay.update("CoOrds of bad vibe anim", "" + bones[1].Translation);
                     customEffect.CurrentTechnique = customEffect.Techniques["STextured"];
-
+                    Matrix[] b = { bones[1]};
                     customEffect.Parameters["xBones"].SetValue(bones);
                     foreach (ModelMeshPart meshPart in mesh.MeshParts)
                     {

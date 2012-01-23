@@ -179,7 +179,7 @@ STextured_VSOut STexturedVertexShader(VSInputNmTxWeights input)
 {  
     STextured_VSOut Output = (STextured_VSOut)0;  
  
-    Skin(input, 4);
+    Skin(input, 2);
 
 
 
