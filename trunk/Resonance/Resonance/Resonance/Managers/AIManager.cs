@@ -12,9 +12,9 @@ namespace Resonance
     class AIManager
     {
         public static float MAX_ROT_SPEED = 0.25f;
-        public static float MAX_MOVE_SPEED = 2.00f;
+        public static float MAX_MOVE_SPEED = 3f;
         public static float ROT_ACCEL = 0.02f;
-        public static float MOVE_ACCEL = 0.25f;
+        public static float MOVE_ACCEL = 0.35f;
         public static float ROT_SPEED = 0.00f;
 
         private static float TARGET_RANGE = 20f;
@@ -76,7 +76,7 @@ namespace Resonance
             else
             {
                 //Rotate to face GV and attack it
-                Vector3 point = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+                Vector3 point = Game.getGV().Body.Position;
                 rotateToFacePoint(point);
                 attack();
             }
@@ -99,7 +99,7 @@ namespace Resonance
 
         private void moveToGV()
         {
-            Vector3 point = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+            Vector3 point = Game.getGV().Body.Position;
             rotateToFacePoint(point);
             move(-1f);
         }
@@ -188,7 +188,7 @@ namespace Resonance
                 int chance = r.Next(0, 100);
                 if (chance > CHANCE_MISS)
                 {
-                    ((GoodVibe)Program.game.World.getObject("Player")).AdjustHealth(-1);
+                    Game.getGV().AdjustHealth(-1);
                 }
             }
         }
@@ -216,7 +216,7 @@ namespace Resonance
 
         private bool inTargetRange()
         {
-            if (bv.getDistance() < TARGET_RANGE)
+            if (Game.getDistance(Game.getGV().Body.Position, bv.Body.Position) < TARGET_RANGE)
             {
                 return true;
             }
@@ -228,7 +228,7 @@ namespace Resonance
 
         private bool inAttackRange()
         {
-            if (bv.getDistance() < ATTACK_RANGE)
+            if (Game.getDistance(Game.getGV().Body.Position, bv.Body.Position) < ATTACK_RANGE)
             {
                 return true;
             }

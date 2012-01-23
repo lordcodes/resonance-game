@@ -38,7 +38,7 @@ namespace Resonance
 
                     Vector3 pos = new Vector3((float)x, 0.5f, (float)z);
 
-                    Vector3 goodVibePosition = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+                    Vector3 goodVibePosition = Game.getGV().Body.Position;
                     double xDiff = Math.Abs(goodVibePosition.X - pos.X);
                     double yDiff = Math.Abs(goodVibePosition.Y - pos.Y);
                     double zDiff = Math.Abs(goodVibePosition.Z - pos.Z);

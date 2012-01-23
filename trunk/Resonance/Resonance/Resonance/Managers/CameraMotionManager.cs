@@ -27,12 +27,22 @@ namespace Resonance
         private static int view = 0;
         private static Vector3 currentPosition = defaultPos;
         private static Vector3 targetPosition = defaultPos;
+        private static Vector3 currentTarget;
 
         private static KeyboardState lastKbd;
         private static GamePadState lastPad;
 
+        private static bool targetSet = false;
+
         public static void update(KeyboardState kbd, GamePadState pad)
         {
+            if (!targetSet)
+            {
+                currentTarget = Game.getGV().Body.Position;
+                targetSet = true;
+            }
+
+            
             if (!lastKbd.IsKeyDown(Keys.Back) && !(lastPad.Buttons.Back == ButtonState.Pressed))
             {
                 if (kbd.IsKeyDown(Keys.Back) || (pad.Buttons.Back == ButtonState.Pressed))
@@ -45,42 +55,67 @@ namespace Resonance
             else if (views[view] == CLOSE) closeGV();
             else if (views[view] == TOPDOWN) topDownGV();
 
+            updateCamera(currentTarget);
+
             lastKbd = kbd;
             lastPad = pad;
         }
-
-        
 
         /// <summary>
         /// Updates Camera and HUD
         /// </summary>
         /// <param name="player">The good vibe class</param>
-        private static void updateCamera()
+        private static void updateCamera(Vector3 toFace)
         {
             if (targetPosition.X != currentPosition.X || targetPosition.Y != currentPosition.Y || targetPosition.Z != currentPosition.Z)
             {
                 Vector3 left = targetPosition - currentPosition;
                 currentPosition += (left * ZOOM_RATE);
             }
-            Drawing.UpdateCamera(((GoodVibe)Program.game.World.getObject("Player")).Body.Position, currentPosition);
-        }
-
-        private static void topDownGV()
-        {
-            targetPosition = topDownPos;
-            updateCamera();
+            Drawing.UpdateCamera(toFace, currentPosition);
         }
 
         private static void defaultGV()
         {
+            currentTarget = Game.getGV().Body.Position;
             targetPosition = defaultPos;
-            updateCamera();
         }
 
         private static void closeGV()
         {
+            currentTarget = Game.getGV().Body.Position;
             targetPosition = closePos;
-            updateCamera();
+        }
+
+        private static void topDownGV()
+        {
+            currentTarget = Game.getGV().Body.Position;
+            targetPosition = topDownPos;
+        }
+
+        private static void nearestBV()
+        {
+            /*double closest = Double.PositiveInfinity;
+            Vector3 closestPoint = currentTarget;
+            Dictionary<string, Object> objects = Program.game.World.returnObjects();
+            foreach (KeyValuePair<string, Object> pair in objects)
+            {
+                if (pair.Value is BadVibe)
+                {
+                    BadVibe bv = (BadVibe)pair.Value;
+                    double dx = Game.getGV().Body.Position.X - bv.Body.Position.X;
+                    double dz = Game.getGV().Body.Position.Z - bv.Body.Position.Z;
+                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                    d = Math.Sqrt(d);
+
+                    if (d < closest)
+                    {
+                        closest = d;
+                        closestPoint = bv.Body.Position;
+                    }
+                }
+            }
+            currentTarget = closestPoint;*/
         }
     }
 }
