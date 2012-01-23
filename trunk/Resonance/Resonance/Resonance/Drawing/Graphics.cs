@@ -281,9 +281,6 @@ namespace Resonance
 
                 if (gameModelNum == GameModels.BAD_VIBE_BLUE)
                 {
-                    //bones[0].Translation = new Vector3(0,0,0);
-                    //bones[1].Translation = bones[1].Translation*0.6f;
-                    //bones[0].Translation = new Vector3(0, 0, 1);
                     DebugDisplay.update("CoOrds of bad vibe anim", "" + bones[1].Translation);
                     customEffect.CurrentTechnique = customEffect.Techniques["STextured"];
                     Matrix[] b = { bones[1]};
