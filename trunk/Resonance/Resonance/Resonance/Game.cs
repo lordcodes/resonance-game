@@ -156,6 +156,7 @@ namespace Resonance
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     DebugDisplay.update("fr", "" + animationPlayer.CurrentClip.Keyframes);
                     base.Update(gameTime);
+                    DebugDisplay.update("COMBAT STATUS:", getGV().inCombat.ToString());
                 }
             }
         }
