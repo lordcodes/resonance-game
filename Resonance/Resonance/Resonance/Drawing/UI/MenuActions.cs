@@ -26,7 +26,7 @@ namespace Resonance
         /// </summary>
         public static void fullHealth()
         {
-            ((GoodVibe)Program.game.World.getObject("Player")).fullHealth();
+            Game.getGV().fullHealth();
             UI.play();
         }
 

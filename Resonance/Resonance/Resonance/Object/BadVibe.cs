@@ -64,17 +64,6 @@ namespace Resonance
             ai.moveManager();
         }
 
-        public double getDistance()
-        {
-            Vector3 goodVibePosition = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
-            Vector3 badVibePosition = this.Body.Position;
-            double xDiff = Math.Abs(goodVibePosition.X - badVibePosition.X);
-            double yDiff = Math.Abs(goodVibePosition.Y - badVibePosition.Y);
-            double zDiff = Math.Abs(goodVibePosition.Z - badVibePosition.Z);
-            double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
-            return distance;
-        }
-
         /// <summary>
         /// Damage the bad vibe
         /// </summary>
@@ -241,27 +230,27 @@ namespace Resonance
                     {
                         case Shockwave.GREEN:
                             {
-                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
+                                Resonance.Game.getGV().Score++;
                                 break;
                             }
                         case Shockwave.YELLOW:
                             {
-                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
+                                Resonance.Game.getGV().Score++;
                                 break;
                             }
                         case Shockwave.BLUE:
                             {
-                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
+                                Resonance.Game.getGV().Score++;
                                 break;
                             }
                         case Shockwave.RED:
                             {
-                                ((GoodVibe)Program.game.World.getObject("Player")).Score++;
+                                Resonance.Game.getGV().Score++;
                                 break;
                             }
                         case Shockwave.CYMBAL:
                             {
-                                ((GoodVibe)Program.game.World.getObject("Player")).Score += 5;
+                                Resonance.Game.getGV().Score += 5;
                                 break;
                             }
                         case Shockwave.REST:
@@ -273,7 +262,7 @@ namespace Resonance
                 }
                 if (sequence.Count == 0)
                 {
-                    ((GoodVibe)Program.game.World.getObject("Player")).Score += 10;
+                    Resonance.Game.getGV().Score += 10;
                     vibe.kill();
                 }
             }

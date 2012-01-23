@@ -232,7 +232,7 @@ namespace Resonance
                     //spriteBatch.Draw(vibe, new Rectangle((int) bVScreenPos.X, (int) bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
                     spriteBatch.Draw(vibe, new Vector2((int)bVScreenPos.X, (int)bVScreenPos.Y), null, BAD_VIBE_COLOUR, bVR, centre, 1f, SpriteEffects.None, 0f);
                 } else if (inXRange ^ inYRange) {
-                    float dist = (float) v.getDistance();
+                    float dist = (float)Resonance.Game.getDistance(Resonance.Game.getGV().Body.Position, v.Body.Position);
                     bool visible = true;
 
                     // Calculate the alpha transparency that the distant vibe should have. Determine whether it is visible or not.
@@ -265,7 +265,7 @@ namespace Resonance
                 } else {
                     // Draw in corresponding corner, transparency proportional to distance.
 
-                    float dist = (float) v.getDistance();
+                    float dist = (float)Resonance.Game.getDistance(Resonance.Game.getGV().Body.Position, v.Body.Position);
                     bool visible = true;
 
                     // Calculate the alpha transparency that the distant vibe should have. Determine whether it is visible or not.

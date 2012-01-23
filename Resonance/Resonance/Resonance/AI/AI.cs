@@ -42,7 +42,7 @@ namespace Resonance
 
         public Vector3 calculateStep(BadVibe bv)
         {
-            Vector3 gvPos = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+            Vector3 gvPos = Game.getGV().Body.Position;
             if (pathIteration == 0)
             {
                 //Do path-finding to get target

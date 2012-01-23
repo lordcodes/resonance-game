@@ -115,9 +115,9 @@ namespace Resonance
         public void UpdateCamera(Vector3 point, Vector3 newCameraPosition)
         {
             cameraPosition = newCameraPosition;
-            Quaternion orientation = ((GoodVibe)Program.game.World.getObject("Player")).Body.Orientation;
+            Quaternion orientation = Game.getGV().Body.Orientation;
             Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
-            Vector3 position = ((GoodVibe)Program.game.World.getObject("Player")).Body.Position;
+            Vector3 position = Game.getGV().Body.Position;
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
             cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
