@@ -16,6 +16,16 @@ namespace Resonance
         // Resonance waves which currently exist
         List<Shockwave> waves;
 
+        private bool isInCombat;
+
+        public bool inCombat
+        {
+            get
+            {
+                return isInCombat;
+            }
+        }
+
         public int WaveCount {
             get
             {
@@ -153,33 +163,25 @@ namespace Resonance
 
         public void regenHealth()
         {
+            isInCombat = false;
             Dictionary<string, Object> objects = Program.game.World.returnObjects();
             foreach (KeyValuePair<string, Object> pair in objects)
             {
                 if (pair.Value is BadVibe)
                 {
+                    
                     BadVibe vibe = (BadVibe)pair.Value;
                     double dx = this.Body.Position.X - vibe.Body.Position.X;
                     double dz = this.Body.Position.Z - vibe.Body.Position.Z;
                     double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
                     d = Math.Sqrt(d);
 
-                    if (d <= 3)
+                    if (d <= Shockwave.MAX_RADIUS)
                     {   
-                        return;
+                       isInCombat = true;
                     }
                 }
             }
-            if ((iterationCount % 30) == 0)
-            {
-                AdjustHealth(1);
-            }
-            if (iterationCount == 59)
-            {
-                iterationCount = 0;
-            }
-
-            iterationCount++;
         }
     }
 }
