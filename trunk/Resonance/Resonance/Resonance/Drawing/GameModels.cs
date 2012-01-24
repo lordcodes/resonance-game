@@ -31,7 +31,7 @@ namespace Resonance
         public static readonly int BAD_VIBE_BLUE    = 14;
         public static readonly int BAD_VIBE_RED     = 15;
         public static readonly int BAD_VIBE_CYMBAL  = 16;
-        public static readonly int PICKUP           = 18;
+        public static readonly int PICKUP           = 17;
         public static readonly int SHIELD_GV        = 18;
 
         private static ContentManager Content;
