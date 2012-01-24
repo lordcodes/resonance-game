@@ -92,6 +92,7 @@ namespace Resonance
         public void kill()
         {
             dead = true;
+            Drawing.addWave(Body.Position);
         }
 
         private void setColour()

@@ -327,5 +327,17 @@ namespace Resonance
                 }
             }
         }
+
+        public void shieldUp()
+        {
+            this.gameModelNum = GameModels.SHIELD_GV;
+        }
+
+        public void shieldDown()
+        {
+            this.gameModelNum = GameModels.GOOD_VIBE;
+        }
+
+
     }
 }

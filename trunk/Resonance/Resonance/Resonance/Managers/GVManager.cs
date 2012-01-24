@@ -68,6 +68,7 @@ namespace Resonance
             }
             else
             {
+                Game.getGV().shieldDown();
                 GVMotionManager.Z_ACCELERATION = GVMotionManager.DEFAULT_Z_ACCELERATION;
                 GVMotionManager.MAX_Z_SPEED = GVMotionManager.DEFAULT_MAX_Z_SPEED;
             }
@@ -79,10 +80,15 @@ namespace Resonance
         {
             if (power == SHIELD)
             {
-                Game.getGV().adjustShield(-1);
+
                 if (Game.getGV().Shield > 0)
                 {
-                    
+                    Game.getGV().adjustShield(-1);
+                    Game.getGV().shieldUp();
+                }
+                else
+                {
+                    Game.getGV().shieldDown();
                 }
             }
 
