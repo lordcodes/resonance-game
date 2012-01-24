@@ -19,7 +19,7 @@ namespace Resonance
 
         private static float TARGET_RANGE = 20f;
         private static float ATTACK_RANGE = 3f;
-        private static int SPOT_RANGE = 3; //Distance to spot obstacles in front
+        private static int SPOT_RANGE = 6; //Distance to spot obstacles in front
         private static int ATTACK_RATE = 4; //No. of times per second
         private static int CHANCE_MISS = 20; //Between 0 and 100
 
@@ -29,8 +29,6 @@ namespace Resonance
         private SingleEntityAngularMotor servo;
         private int uniqueId = 0;
         private int iteration = 0;
-
-        int previousDirection = -1;
 
         public AIManager(BadVibe bvRef)
         {
@@ -66,7 +64,6 @@ namespace Resonance
             {
                 //Move randomly
                 randomMove();
-                //moveAround(); old method to randomly move
             }
             else if (!inAttackRange())
             {
@@ -134,8 +131,8 @@ namespace Resonance
         public void move(float power)
         {
             //Query world space for objects every position in front up to and including SPOT_RANGE
-            //bool found = obstacleFound();
-            //DebugDisplay.update("Obstacle", found.ToString());
+            bool found = obstacleFound();
+            DebugDisplay.update("Obstacle", found.ToString());
             //Get object that is obstacle
             //Apply steering force to avoid it
             // compute avoidance steering force: take offset from obstacle to me,
@@ -257,74 +254,5 @@ namespace Resonance
             }
             return found;
         }
-
-        private void moveAround()
-        {
-            double binBoundary1 = 0.25, binBoundary2 = 0.5, binBoundary3 = 0.75;
-            int total = 0;
-            foreach (byte x in Encoding.Unicode.GetBytes(bv.returnIdentifier())) total += x;
-
-            Random r = new Random((int)DateTime.Now.Ticks * total);
-            double direction = r.NextDouble();
-
-            //Probability of direction change
-            switch (previousDirection)
-            {
-                case 0:
-                    {
-                        binBoundary1 = 0.97;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 1:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.98;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 2:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.99;
-                        break;
-                    }
-                case 3:
-                    {
-                        binBoundary1 = 0.01;
-                        binBoundary2 = 0.02;
-                        binBoundary3 = 0.03;
-                        break;
-                    }
-                default: break;
-            }
-
-            //Movement
-            if (direction < binBoundary1)
-            {
-                previousDirection = 0;
-                move(-1f);
-            }
-            else if (direction < binBoundary2)
-            {
-                move(-1f);
-                previousDirection = 1;
-            }
-            else if (direction < binBoundary3)
-            {
-                move(1f);
-                rotate(-1f);
-                previousDirection = 2;
-            }
-            else
-            {
-                move(1f);
-                rotate(1f);
-                previousDirection = 3;
-            }
-        }
-
     }
 }
