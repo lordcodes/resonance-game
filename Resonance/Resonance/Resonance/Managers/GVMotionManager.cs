@@ -154,8 +154,14 @@ namespace Resonance {
             bool  strafeL  = kbd.IsKeyDown(Keys.OemComma);
             bool  strafeR  = kbd.IsKeyDown(Keys.OemPeriod);
 
+            bool chargeNitro = kbd.IsKeyDown(Keys.D1); //TODO: change to non combat drum pattern
+            bool nitro = kbd.IsKeyDown(Keys.D2);
+            bool chargeShield = kbd.IsKeyDown(Keys.D3); //TODO: change to non combat drum pattern
+            bool shield = kbd.IsKeyDown(Keys.D4);
+
             // Trigger positions
-            float rTrig = pad.Triggers.Left;
+            float lTrig = pad.Triggers.Left;
+            float rTrig = pad.Triggers.Right; //TODO: use boost with right trigger
 
             // Rotate GV based on keyboard / dPad
             if (rotateL ^ rotateR) {
@@ -198,8 +204,37 @@ namespace Resonance {
             }*/
 
             // Jump?
-            if ((gv.Body.Position.Y == 0) && (rTrig > 0)) {
+            if ((gv.Body.Position.Y == 0) && (lTrig > 0)) {
                 gv.jump(JUMP_HEIGHT);
+            }
+
+            //Charge speed boost when not in combat
+            if (!gv.InCombat && chargeNitro)
+            {
+                gv.adjustNitro(1);
+            }
+
+            //Use speed boost
+            if (nitro || (rTrig > 0))
+            {
+                if (forward)
+                {
+                    move(20f); //TODO: fix so acceleration seems to happen
+                } 
+
+                gv.adjustNitro(-1);
+            }
+
+            //Charge shield when not in combat
+            if (!gv.InCombat && chargeShield)
+            {
+                gv.adjustShield(1);
+            }
+
+            //Use shield
+            if (shield)
+            {
+                gv.adjustShield(-1);
             }
         }
     }

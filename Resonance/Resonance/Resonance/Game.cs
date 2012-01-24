@@ -57,10 +57,10 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
-            //graphics.PreferredBackBufferWidth = 1920;
-            //graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             Window.AllowUserResizing = true;
         }
 
@@ -155,7 +155,7 @@ namespace Resonance
 
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     base.Update(gameTime);
-                    DebugDisplay.update("COMBAT STATUS:", getGV().inCombat.ToString());
+                    DebugDisplay.update("COMBAT STATUS:", getGV().InCombat.ToString());
                 }
             }
         }

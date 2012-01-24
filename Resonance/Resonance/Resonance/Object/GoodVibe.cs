@@ -9,26 +9,43 @@ namespace Resonance
 {
     class GoodVibe : DynamicObject
     {
-        int health; //health stored as an int between 0 - 100.
-        int score;
-
-        // Resonance waves which currently exist
-        List<Shockwave> waves;
-
+        List<Shockwave> waves; // Resonance waves which currently exist
         private bool isInCombat;
 
-        public bool inCombat
+        int score;
+        int health; //health stored as an int between 0 - MAX_HEALTH.
+        public static int MAX_HEALTH = 100;
+        int nitro; //speed boost between 0 - MAX_NITRO.
+        public static int MAX_NITRO = 200;
+        int shield; //SOMETHING between 0 - MAX_SHIELD.
+        public static int MAX_SHIELD = 100;
+        int charge4; //SOMETHINGELSE between 0 - 100.
+
+        public bool InCombat
         {
             get
             {
                 return isInCombat;
             }
         }
-
-        public int WaveCount {
+        public int WaveCount
+        {
             get
             {
                 return waves.Count;
+            }
+        }
+
+        public int Health
+        {
+            get
+            {
+                return health;
+            }
+
+            set
+            {
+                health = value;
             }
         }
 
@@ -45,50 +62,79 @@ namespace Resonance
             }
         }
 
+        public int Nitro
+        {
+            get
+            {
+                return nitro;
+            }
+
+            set
+            {
+                nitro = value;
+            }
+        }
+
+        public int Shield
+        {
+            get
+            {
+                return shield;
+            }
+
+            set
+            {
+                shield = value;
+            }
+        }
+
+        public int Charge4
+        {
+            get
+            {
+                return charge4;
+            }
+
+            set
+            {
+                charge4 = value;
+            }
+        }
+
         /// <summary>
         /// Constructor
-        /// Set initial health to 100
+        /// Set initial health to MAX_HEALTH
         /// </summary>
         public GoodVibe(int modelNum, String name, Vector3 pos)
             : base(modelNum, name, pos)
         {
             waves = new List<Shockwave>();
             score = 0;
-            health = 100;
+            health = MAX_HEALTH;
+            nitro = 0;
+            shield = 0;
+            charge4 = 0;
         }
 
         public void fullHealth()
         {
-            health = 100;
+            health = MAX_HEALTH;
         }
-               
+
         public void AdjustHealth(int change)
         {
-            //check for <0 or >100
+            //check for <0 or >MAX_HEALTH
             if (health + change <= 0)
             {
                 health = 0;
             }
-            else if (health + change >= 100)
+            else if (health + change >= MAX_HEALTH)
             {
-                health = 100;
+                health = MAX_HEALTH;
             }
             else
             {
                 health += change;
-            }
-        }
-                
-        public int Health
-        {
-            get
-            {
-                return health;
-            }
-
-            set
-            {
-                health = value;
             }
         }
 
@@ -168,7 +214,6 @@ namespace Resonance
             {
                 if (pair.Value is BadVibe)
                 {
-                    
                     BadVibe vibe = (BadVibe)pair.Value;
                     double dx = this.Body.Position.X - vibe.Body.Position.X;
                     double dz = this.Body.Position.Z - vibe.Body.Position.Z;
@@ -180,6 +225,40 @@ namespace Resonance
                        isInCombat = true;
                     }
                 }
+            }
+        }
+    
+        public void adjustNitro(int change)
+        {
+            //check for <0 or >MAX_NITRO
+            if (nitro + change <= 0)
+            {
+                nitro = 0;
+            }
+            else if (nitro + change >= MAX_NITRO)
+            {
+                nitro = MAX_NITRO;
+            }
+            else
+            {
+                nitro += change;
+            }
+        }
+
+        public void adjustShield(int change)
+        {
+            //check for <0 or >MAX_SHIELD
+            if (shield + change <= 0)
+            {
+                shield = 0;
+            }
+            else if (shield + change >= MAX_SHIELD)
+            {
+                shield = MAX_SHIELD;
+            }
+            else
+            {
+                shield += change;
             }
         }
     }

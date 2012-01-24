@@ -24,7 +24,10 @@ namespace Resonance
         private static Graphics gameGraphics;
         private static Dictionary<string, Vector2> dictionary = new Dictionary<string, Vector2>();
         private static int score = 0;
-        private static float health = 1;
+        private static int health;
+        private static int nitro;
+        private static int shield;
+        private static int charge4;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
         private static Texture2D drumPad;
@@ -73,7 +76,7 @@ namespace Resonance
         /// <param name="text">Text string to display</param>
         public void drawDebugInfo(String text)
         {
-            Vector2 coords = new Vector2(Drawing.pixelsX(17), Drawing.pixelsY(80));
+            Vector2 coords = new Vector2(Drawing.pixelsX(17), Drawing.pixelsY(800));
             Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
             drawText(coords2, text, Color.Black);
             drawText(coords, text, Color.White);
@@ -117,6 +120,8 @@ namespace Resonance
                 spriteBatch.DrawString(font, "BV", pair.Value, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }*/
             drawHealthBar();
+            drawNitroBar();
+            drawShieldBar();
             drawMiniMap();
             scoreFont.drawLeft(Drawing.pixelsX(1890), Drawing.pixelsY(15), Drawing.WidthRatio, Drawing.HeightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
@@ -289,7 +294,7 @@ namespace Resonance
             int sliceY = y + Drawing.pixelsY(9);
             int sliceWidth = 1;
             int sliceHeight = Drawing.pixelsY(healthSlice.Height);
-            int limit = (int)Math.Round((float)Drawing.pixelsX(582) * health);
+            int limit = (int)Math.Round((float)Drawing.pixelsX(582) * health / GoodVibe.MAX_HEALTH);
 
             float greenValue;
             Color c;
@@ -302,7 +307,55 @@ namespace Resonance
                 float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
                 c = new Color(red, green, 0f);
 
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i+1, sliceY+1, sliceWidth, sliceHeight), c);
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
+            }
+        }
+
+        private void drawNitroBar()
+        {
+            int x = Drawing.pixelsX(14);
+            int y = Drawing.pixelsY(healthBar.Height + 5);
+            int width = Drawing.pixelsX(healthBar.Width /2);
+            int height = Drawing.pixelsY(healthBar.Height /2);
+
+            int sliceX = x + Drawing.pixelsX(4);
+            int sliceY = y + Drawing.pixelsY(5);
+            int sliceWidth = 1;
+            int sliceHeight = Drawing.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)Drawing.pixelsX(582 / 2) * nitro / GoodVibe.MAX_NITRO);
+
+            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+
+            Color c;
+            for (int i = 0; i < limit; i++)
+            {
+                c = new Color(0.38f, 1f, 0.99f);
+
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            }
+        }
+
+        private void drawShieldBar()
+        {
+            int x = Drawing.pixelsX(14);
+            int y = Drawing.pixelsY(healthBar.Height + 5 + healthBar.Height / 2);
+            int width = Drawing.pixelsX(healthBar.Width / 2);
+            int height = Drawing.pixelsY(healthBar.Height / 2);
+
+            int sliceX = x + Drawing.pixelsX(4);
+            int sliceY = y + Drawing.pixelsY(5);
+            int sliceWidth = 1;
+            int sliceHeight = Drawing.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)Drawing.pixelsX(582 / 2) * shield / GoodVibe.MAX_SHIELD);
+
+            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+
+            Color c;
+            for (int i = 0; i < limit; i++)
+            {
+                c = new Color(1f, 0.9f, 0f);
+
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
         }
 
@@ -317,12 +370,15 @@ namespace Resonance
         /// <summary>
         /// Updates the HUD with infomation about the player.
         /// </summary>
-        /// <param name="h">Players helath</param>
+        /// <param name="h">Players health</param>
         /// <param name="s">Players score</param>
-        public void updateGoodVibe(int h, int s)
+        public void updateGoodVibe(int h, int s, int n, int sh, int c)
         {
-            health = (float)h / 100;
+            health = h;
             score = s;
+            nitro = n;
+            shield = sh;
+            charge4 = c;
         }
     }
 }
