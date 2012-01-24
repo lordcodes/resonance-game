@@ -188,13 +188,12 @@ namespace Resonance
             {
                 CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
                 //Player One
-                playerOnePresses(playerOne);
-                
+                //playerOnePresses(playerOne);
+                GVManager.inputs(playerOne,musicHandler,keyboardState);
                 //Player Two
-                //playerTwoPresses(playerTwo);
                 DrumManager.Input(playerTwo, oldPadState2, musicHandler, world,keyboardState,oldKeyState);
                 //PC Testing Controls
-                  pcTestingControls(keyboardState);
+                 // pcTestingControls(keyboardState);
               //  DrumManager.pcInput(keyboardState,musicHandler,oldKeyState,world);
 
 
@@ -209,31 +208,6 @@ namespace Resonance
             oldPadState1 = playerOne;
             oldPadState2 = playerTwo;
             oldKeyState = keyboardState;
-        }
-
-        private void pcTestingControls(KeyboardState keyboardState)
-        {
-            //PC Testing Controls
-            if (keyboardState.IsKeyDown(Keys.Space))
-            {
-                musicHandler.getTrack().playTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.S))
-            {
-                musicHandler.getTrack().stopTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.P))
-            {
-                musicHandler.getTrack().pauseTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.M))
-            {
-                //MiniMap.large = true;
-                MiniMap.enlarge();
-            } else {
-                //MiniMap.large = false;
-                MiniMap.ensmall();
-            }
         }
 
         private void menuControls(KeyboardState keyboardState, GamePadState playerOne, GamePadState playerTwo)
@@ -261,34 +235,6 @@ namespace Resonance
                     UI.select();
                 }
             }
-        }
-
-        /// <summary>
-        /// This handles player one button presses
-        /// </summary>
-        private void playerOnePresses(GamePadState playerOne)
-        {
-            if (playerOne.Buttons.Start == ButtonState.Pressed)
-            {
-                musicHandler.getTrack().playTrack();
-            }
-            if (playerOne.Buttons.A == ButtonState.Pressed)
-            {
-                musicHandler.getTrack().stopTrack();
-            }
-            if (playerOne.Buttons.B == ButtonState.Pressed)
-            {
-                musicHandler.getTrack().pauseTrack();
-            }
-            if (playerOne.Buttons.LeftShoulder == ButtonState.Pressed) {
-                MiniMap.enlarge();
-            } else {
-                MiniMap.ensmall();
-            }
-
-            CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
-            GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
-            //MiniMap.setGamePadStateRef(GamePad.);
         }
 
         /// <summary>
