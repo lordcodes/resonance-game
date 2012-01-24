@@ -26,6 +26,7 @@ namespace Resonance
         private static double widthRatio;
         private static double heightRatio;
         private static Vector3 playerPos;
+        private static Texture2D special;
 
         public static bool DoDisp
         {
@@ -98,6 +99,8 @@ namespace Resonance
             hud.loadContent();
             GameModels.Load();
             gameGraphics.loadContent(Content, graphics.GraphicsDevice);
+
+            special = Content.Load<Texture2D>("Drawing/Textures/texTronFloorBottom");
             loadingScreen.loadContent();
         }
 
@@ -140,7 +143,10 @@ namespace Resonance
             }
             else
             {
-                //gameGraphics.Draw2dTextures();
+                Matrix texturePos = Matrix.CreateTranslation(new Vector3(0, -0.2f, 0));
+                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
+                texturePos = Matrix.Multiply(rotation,texturePos);
+                gameGraphics.Draw2dTextures(special, texturePos, World.MAP_X, World.MAP_Z);
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
                 if (UI.Paused) hud.drawMenu(UI.getString());
@@ -182,9 +188,11 @@ namespace Resonance
                 blend = true;
             }
             
-            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            
+
             gameGraphics.Draw(gameModelNum, worldTransform, blend);
-            if (worldObject is Shockwave)graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
             if (worldObject is BadVibe)
             {
