@@ -36,6 +36,8 @@ namespace Resonance
         private static MiniMap miniMap;
         private static ImportedCustomFont scoreFont;
 
+        private static float ARMOUR_SCALE = 1.5f;
+
         /// <summary>
         /// Create a new HUD object.
         /// </summary>
@@ -167,7 +169,7 @@ namespace Resonance
                     int xOffset;
 
                     if (!BadVibe.DRAW_HEALTH_VERTICALLY) {
-                        xOffset = ((armour.Count * drumPad.Width) + ((armour.Count - 1) * BadVibe.ARMOUR_SPACING)) / 2;
+                        xOffset = (int) ((armour.Count * drumPad.Width * ARMOUR_SCALE) + ((armour.Count - 1) * BadVibe.ARMOUR_SPACING)) / 2;
                     } else {
                         xOffset = drumPad.Width / 2;
                     }
@@ -205,10 +207,10 @@ namespace Resonance
 
             // Draw v bars
             if (BadVibe.DRAW_HEALTH_VERTICALLY) {
-                int rectX = (int) (posX - ((drumPad.Width * 1.5f) + BadVibe.ARMOUR_SPACING * 2f));
-                int rectY = posY - ((arm.Count - 1) * drumPad.Height) - (arm.Count + 1) * BadVibe.ARMOUR_SPACING;
-                int rectW = drumPad.Width + BadVibe.ARMOUR_SPACING;
-                int rectH = ((arm.Count + 1) * drumPad.Height) + (arm.Count - 1) * BadVibe.ARMOUR_SPACING;
+                int rectX = (int) (posX - ((drumPad.Width * 1.5f * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING * 2f));
+                int rectY = (int) (posY - ((arm.Count - 1) * drumPad.Height * ARMOUR_SCALE) - (arm.Count + 1) * BadVibe.ARMOUR_SPACING);
+                int rectW = (int) ((drumPad.Width * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING);
+                int rectH = (int) (((arm.Count + 1) * (drumPad.Height * ARMOUR_SCALE)) + (arm.Count - 1) * BadVibe.ARMOUR_SPACING);
 
                 for (int i = 0; i < 4; i++) {
                     switch (i) {
@@ -243,23 +245,23 @@ namespace Resonance
                     posX = (int) pos.X;
 
                     switch (arm[i]) {
-                        case 1: { posX -= (int) ((drumPad.Width * 1.5f) + BadVibe.ARMOUR_SPACING * 1.5f); break; }
-                        case 2: { posX -= (int) ((drumPad.Width * 0.5f) + BadVibe.ARMOUR_SPACING * 0.5f); break; }
-                        case 3: { posX += (int) ((drumPad.Width * 0.5f) + BadVibe.ARMOUR_SPACING * 0.5f); break; }
-                        case 4: { posX += (int) ((drumPad.Width * 1.5f) + BadVibe.ARMOUR_SPACING * 1.5f); break; }
+                        case 1: { posX -= (int) ((drumPad.Width * 1.5f * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING * 1.5f); break; }
+                        case 2: { posX -= (int) ((drumPad.Width * 0.5f * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING * 0.5f); break; }
+                        case 3: { posX += (int) ((drumPad.Width * 0.5f * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING * 0.5f); break; }
+                        case 4: { posX += (int) ((drumPad.Width * 1.5f * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING * 1.5f); break; }
                     }
                 }
 
                 if (arm[i] != 0) {
-                    spriteBatch.Draw(drumPad, new Rectangle(posX, posY, drumPad.Width, drumPad.Height), c);
+                    spriteBatch.Draw(drumPad, new Rectangle(posX, posY, (int) (drumPad.Width * ARMOUR_SCALE), (int) (drumPad.Height * ARMOUR_SCALE)), c);
                 } else {
-                    spriteBatch.Draw(rest,    new Rectangle(posX, posY, drumPad.Width, drumPad.Height), c);
+                    spriteBatch.Draw(rest,    new Rectangle(posX, posY, (int) (drumPad.Width * ARMOUR_SCALE), (int) (drumPad.Height * ARMOUR_SCALE)), c);
                 }
 
                 if (!BadVibe.DRAW_HEALTH_VERTICALLY) {
-                    posX += drumPad.Width + BadVibe.ARMOUR_SPACING;
+                    posX += (int) (drumPad.Width * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING;
                 } else {
-                    posY -= drumPad.Height + BadVibe.ARMOUR_SPACING;
+                    posY -= (int) (drumPad.Height * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING;
                 }
             }
 

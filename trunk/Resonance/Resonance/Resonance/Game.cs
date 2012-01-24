@@ -224,9 +224,11 @@ namespace Resonance
             }
             if (keyboardState.IsKeyDown(Keys.M))
             {
-                MiniMap.large = true;
+                //MiniMap.large = true;
+                MiniMap.enlarge();
             } else {
-                MiniMap.large = false;
+                //MiniMap.large = false;
+                MiniMap.ensmall();
             }
             if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
             {
@@ -304,15 +306,15 @@ namespace Resonance
             {
                 musicHandler.getTrack().pauseTrack();
             }
-            if (playerOne.Buttons.LeftShoulder == ButtonState.Pressed)
-            {
-                MiniMap.large = true;
+            if (playerOne.Buttons.LeftShoulder == ButtonState.Pressed) {
+                MiniMap.enlarge();
             } else {
-                MiniMap.large = false;
+                MiniMap.ensmall();
             }
 
             CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
             GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
+            //MiniMap.setGamePadStateRef(GamePad.);
         }
 
         /// <summary>
