@@ -12,13 +12,15 @@ namespace Resonance {
     /// Handles and provides an interface between button presses and Good Vibe motion.
     /// </summary>
     class GVMotionManager {
-        public static float MAX_R_SPEED      =   0.25f;
-        public static float MAX_X_SPEED      =   4.00f;
-        public static float MAX_Z_SPEED      =  12.00f;
-        public static float R_ACCELERATION   =   0.01f;
-        public static float X_ACCELERATION   =   0.25f;
-        public static float Z_ACCELERATION   =   0.50f;
-        public static float R_SPEED          =   0.00f;
+        public static float MAX_R_SPEED                     =   0.25f;
+        public static float MAX_X_SPEED                     =   4.00f;
+        public static float MAX_Z_SPEED                     =  12.00f;
+        public static readonly float DEFAULT_MAX_Z_SPEED    =  12.00f;
+        public static float R_ACCELERATION                  =   0.01f;
+        public static float X_ACCELERATION                  =   0.25f;
+        public static float Z_ACCELERATION                  =   0.50f;
+        public static readonly float DEFAULT_Z_ACCELERATION =   0.50f;
+        public static float R_SPEED                         =   0.00f;
 
         private static GoodVibe gv;
 
@@ -86,6 +88,13 @@ namespace Resonance {
             Quaternion eAng = Quaternion.Concatenate(cAng, dAng);
 
             servo.Settings.Servo.Goal = eAng;
+        }
+
+        public static void boost()
+        {
+            GVMotionManager.Z_ACCELERATION = 1f;
+            GVMotionManager.MAX_Z_SPEED = 30f;
+            move(1f);
         }
 
         private static void move(float power) {
@@ -216,21 +225,6 @@ namespace Resonance {
                 gv.adjustNitro(1);
             }
 
-            //Use speed boost
-            if ((nitro || (rTrig > 0)) && (gv.Nitro > 0))
-            {
-                if (forward)
-                {
-                    //Increase speed and acceleration
-                    Z_ACCELERATION = 2f;
-                    MAX_Z_SPEED = 30f;
-                    move(1f);
-                }
-                Z_ACCELERATION = 0.5f;
-                MAX_Z_SPEED = 12f;
-
-                gv.adjustNitro(-1);
-            }
 
             //Charge shield when not in combat
             if (!gv.InCombat && chargeShield)
@@ -248,13 +242,6 @@ namespace Resonance {
             if (!gv.InCombat && chargeFreeze)
             {
                 gv.adjustFreeze(1);
-            }
-
-            //Use freeze
-            if (freeze && (gv.Freeze > 0))
-            {
-                gv.freezeBadVibes();
-                gv.adjustFreeze(-1);
             }
         }
     }
