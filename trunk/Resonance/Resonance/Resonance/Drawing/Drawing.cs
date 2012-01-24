@@ -162,9 +162,18 @@ namespace Resonance
             {
                 int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
                 int score = ((GoodVibe)((DynamicObject)worldObject)).Score;
+                int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
+                int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
+                int charge4 = ((GoodVibe)((DynamicObject)worldObject)).Charge4;
+
+
                 DebugDisplay.update("HEALTH", health.ToString());
                 DebugDisplay.update("SCORE", score.ToString());
-                hud.updateGoodVibe(health, score);
+                DebugDisplay.update("nitro", nitro.ToString());
+                DebugDisplay.update("shield", shield.ToString());
+                DebugDisplay.update("charge4", charge4.ToString());
+
+                hud.updateGoodVibe(health, score, nitro, shield, charge4);
                 playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
             }
             
