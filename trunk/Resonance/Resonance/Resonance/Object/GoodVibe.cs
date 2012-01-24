@@ -11,8 +11,7 @@ namespace Resonance
     {
         int health; //health stored as an int between 0 - 100.
         int score;
-        int iterationCount = 0;
-        //int healRate = 30;
+
         // Resonance waves which currently exist
         List<Shockwave> waves;
 
