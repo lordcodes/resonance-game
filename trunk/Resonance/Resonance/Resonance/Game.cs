@@ -39,6 +39,7 @@ namespace Resonance
         GamePadState oldPadState1;
         GamePadState oldPadState2;
         KeyboardState oldKeyState;
+        DrumManager drumManager;
 
         World world;
         BVSpawnManager spawner;
