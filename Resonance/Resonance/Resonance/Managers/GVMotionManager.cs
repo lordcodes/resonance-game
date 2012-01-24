@@ -158,6 +158,8 @@ namespace Resonance {
             bool nitro = kbd.IsKeyDown(Keys.D2);
             bool chargeShield = kbd.IsKeyDown(Keys.D3); //TODO: change to non combat drum pattern
             bool shield = kbd.IsKeyDown(Keys.D4);
+            bool chargeFreeze = kbd.IsKeyDown(Keys.D5); //TODO: change to non combat drum pattern
+            bool freeze = kbd.IsKeyDown(Keys.D6);
 
             // Trigger positions
             float lTrig = pad.Triggers.Left;
@@ -240,6 +242,19 @@ namespace Resonance {
             if (shield)
             {
                 gv.adjustShield(-1);
+            }
+
+            //Charge freeze when not in combat
+            if (!gv.InCombat && chargeFreeze)
+            {
+                gv.adjustFreeze(1);
+            }
+
+            //Use freeze
+            if (freeze)
+            {
+                gv.freezeBadVibes();
+                gv.adjustFreeze(-1);
             }
         }
     }

@@ -27,7 +27,7 @@ namespace Resonance
         private static int health;
         private static int nitro;
         private static int shield;
-        private static int charge4;
+        private static int freeze;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
         private static Texture2D drumPad;
@@ -124,6 +124,7 @@ namespace Resonance
             drawHealthBar();
             drawNitroBar();
             drawShieldBar();
+            drawFreezeBar();
             drawMiniMap();
             scoreFont.drawLeft(Drawing.pixelsX(1890), Drawing.pixelsY(15), Drawing.WidthRatio, Drawing.HeightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
@@ -361,6 +362,30 @@ namespace Resonance
             }
         }
 
+        private void drawFreezeBar()
+        {
+            int x = Drawing.pixelsX(14);
+            int y = Drawing.pixelsY(healthBar.Height + 5 + healthBar.Height);
+            int width = Drawing.pixelsX(healthBar.Width / 2);
+            int height = Drawing.pixelsY(healthBar.Height / 2);
+
+            int sliceX = x + Drawing.pixelsX(4);
+            int sliceY = y + Drawing.pixelsY(5);
+            int sliceWidth = 1;
+            int sliceHeight = Drawing.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)Drawing.pixelsX(582 / 2) * freeze / GoodVibe.MAX_FREEZE);
+
+            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+
+            Color c;
+            for (int i = 0; i < limit; i++)
+            {
+                c = new Color(1f, 0.48f, 0f);
+
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            }
+        }
+
         /// <summary>
         /// Draws the Mini Map on screen
         /// </summary>
@@ -374,13 +399,13 @@ namespace Resonance
         /// </summary>
         /// <param name="h">Players health</param>
         /// <param name="s">Players score</param>
-        public void updateGoodVibe(int h, int s, int n, int sh, int c)
+        public void updateGoodVibe(int h, int s, int n, int sh, int f)
         {
             health = h;
             score = s;
             nitro = n;
             shield = sh;
-            charge4 = c;
+            freeze = f;
         }
     }
 }

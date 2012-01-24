@@ -19,7 +19,8 @@ namespace Resonance
         public static int MAX_NITRO = 200;
         int shield; //SOMETHING between 0 - MAX_SHIELD.
         public static int MAX_SHIELD = 100;
-        int charge4; //SOMETHINGELSE between 0 - 100.
+        int freeze; //SOMETHINGELSE between 0 - 100.
+        public static int MAX_FREEZE = 100;
 
         public bool InCombat
         {
@@ -88,16 +89,16 @@ namespace Resonance
             }
         }
 
-        public int Charge4
+        public int Freeze
         {
             get
             {
-                return charge4;
+                return freeze;
             }
 
             set
             {
-                charge4 = value;
+                freeze = value;
             }
         }
 
@@ -113,7 +114,7 @@ namespace Resonance
             health = MAX_HEALTH;
             nitro = 0;
             shield = 0;
-            charge4 = 0;
+            freeze = 0;
         }
 
         public void fullHealth()
@@ -135,6 +136,57 @@ namespace Resonance
             else
             {
                 health += change;
+            }
+        }
+
+        public void adjustNitro(int change)
+        {
+            //check for <0 or >MAX_NITRO
+            if (nitro + change <= 0)
+            {
+                nitro = 0;
+            }
+            else if (nitro + change >= MAX_NITRO)
+            {
+                nitro = MAX_NITRO;
+            }
+            else
+            {
+                nitro += change;
+            }
+        }
+
+        public void adjustShield(int change)
+        {
+            //check for <0 or >MAX_SHIELD
+            if (shield + change <= 0)
+            {
+                shield = 0;
+            }
+            else if (shield + change >= MAX_SHIELD)
+            {
+                shield = MAX_SHIELD;
+            }
+            else
+            {
+                shield += change;
+            }
+        }
+
+        public void adjustFreeze(int change)
+        {
+            //check for <0 or >MAX_FREEZE
+            if (freeze + change <= 0)
+            {
+                freeze = 0;
+            }
+            else if (freeze + change >= MAX_FREEZE)
+            {
+                freeze = MAX_FREEZE;
+            }
+            else
+            {
+                freeze += change;
             }
         }
 
@@ -206,7 +258,7 @@ namespace Resonance
             }
         }
 
-        public void detectInCombat()
+        public void detectCombatAndFreeze()
         {
             isInCombat = false;
             Dictionary<string, Object> objects = Program.game.World.returnObjects();
@@ -221,44 +273,39 @@ namespace Resonance
                     d = Math.Sqrt(d);
 
                     if (d <= Shockwave.MAX_RADIUS)
-                    {   
-                       isInCombat = true;
+                    {
+                        isInCombat = true;
+                    }
+                    else
+                    {
+                        vibe.Freeze = false;
                     }
                 }
             }
         }
-    
-        public void adjustNitro(int change)
-        {
-            //check for <0 or >MAX_NITRO
-            if (nitro + change <= 0)
-            {
-                nitro = 0;
-            }
-            else if (nitro + change >= MAX_NITRO)
-            {
-                nitro = MAX_NITRO;
-            }
-            else
-            {
-                nitro += change;
-            }
-        }
 
-        public void adjustShield(int change)
+        /// <summary>
+        /// When freeze is used, check for bad vibes in range and freeze them
+        /// </summary>
+        public void freezeBadVibes()
         {
-            //check for <0 or >MAX_SHIELD
-            if (shield + change <= 0)
+            isInCombat = false;
+            Dictionary<string, Object> objects = Program.game.World.returnObjects();
+            foreach (KeyValuePair<string, Object> pair in objects)
             {
-                shield = 0;
-            }
-            else if (shield + change >= MAX_SHIELD)
-            {
-                shield = MAX_SHIELD;
-            }
-            else
-            {
-                shield += change;
+                if (pair.Value is BadVibe)
+                {
+                    BadVibe vibe = (BadVibe)pair.Value;
+                    double dx = this.Body.Position.X - vibe.Body.Position.X;
+                    double dz = this.Body.Position.Z - vibe.Body.Position.Z;
+                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                    d = Math.Sqrt(d);
+
+                    if (d <= Shockwave.MAX_RADIUS)
+                    {
+                        vibe.Freeze = true;
+                    }
+                }
             }
         }
     }
