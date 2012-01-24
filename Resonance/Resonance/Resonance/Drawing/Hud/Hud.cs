@@ -413,17 +413,17 @@ namespace Resonance
         {
             if (Game.getGV().selectedPower == 0)
             {
-                DebugDisplay.update("SELECTED POWER = ", "NITROUS");
+                DebugDisplay.update("SELECTED POWER", "NITROUS");
             }
 
             if (Game.getGV().selectedPower == 1)
             {
-                DebugDisplay.update("SELECTED POWER = ", "SHIELD");
+                DebugDisplay.update("SELECTED POWER", "SHIELD");
             }
 
             if (Game.getGV().selectedPower == 2)
             {
-                DebugDisplay.update("SELECTED POWER = ", "FREEZE");
+                DebugDisplay.update("SELECTED POWER", "FREEZE");
             }
 
         }

@@ -28,7 +28,7 @@ namespace Resonance
                 vertices[i] = Vector3.Multiply(vertices[i], scale);
             }
             body = new StaticMesh(vertices, indices, new AffineTransform(pos));
-            body.Tag = GameModels.getModel(modelNum);
+            body.Tag = name;
             body.Material.KineticFriction = 0.8f;
             body.Material.StaticFriction = 1f;
         }

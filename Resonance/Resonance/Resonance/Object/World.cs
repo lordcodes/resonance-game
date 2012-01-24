@@ -109,6 +109,14 @@ namespace Resonance
             else return false;
         }
 
+        public void rayCast(Vector3 position, Vector3 direction, float distance)
+        {
+            List<RayCastResult> rayCastResults = new List<RayCastResult>();
+            bool result = space.RayCast(new Ray(position, direction), distance, rayCastResults);
+            //if (rayCastResults.Count > 1) DebugDisplay.update("Obstacle0", rayCastResults[1].HitObject.Tag.ToString());
+            //else DebugDisplay.update("Obstacle0", rayCastResults.Count.ToString());
+        }
+
         //removes the object from the dictionary
         public void removeObject(Object obj)
         {
