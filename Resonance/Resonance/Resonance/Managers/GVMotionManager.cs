@@ -219,8 +219,13 @@ namespace Resonance {
             {
                 if (forward)
                 {
-                    move(20f); //TODO: fix so acceleration seems to happen
-                } 
+                    //Increase speed and acceleration
+                    Z_ACCELERATION = 2f;
+                    MAX_Z_SPEED = 30f;
+                    move(1f);
+                }
+                Z_ACCELERATION = 0.5f;
+                MAX_Z_SPEED = 12f;
 
                 gv.adjustNitro(-1);
             }
