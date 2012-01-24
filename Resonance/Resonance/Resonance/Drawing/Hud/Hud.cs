@@ -332,7 +332,7 @@ namespace Resonance
             Color c;
             for (int i = 0; i < limit; i++)
             {
-                c = new Color(0.38f, 1f, 0.99f);
+                c = new Color(1f, 0.9f, 0f);
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
@@ -356,7 +356,7 @@ namespace Resonance
             Color c;
             for (int i = 0; i < limit; i++)
             {
-                c = new Color(1f, 0.9f, 0f);
+                c = new Color(0.38f, 1f, 0.99f);
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }

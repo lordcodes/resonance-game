@@ -58,7 +58,7 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
@@ -194,7 +194,7 @@ namespace Resonance
                 //playerTwoPresses(playerTwo);
                 DrumManager.Input(playerTwo, oldPadState2, musicHandler, world,keyboardState,oldKeyState);
                 //PC Testing Controls
-                //pcTestingControls(keyboardState);
+                  pcTestingControls(keyboardState);
               //  DrumManager.pcInput(keyboardState,musicHandler,oldKeyState,world);
 
 
@@ -233,36 +233,6 @@ namespace Resonance
             } else {
                 //MiniMap.large = false;
                 MiniMap.ensmall();
-            }
-            if (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z))
-            {
-                musicHandler.playSound("Snare");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
-            }
-            if (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X))
-            {
-                musicHandler.playSound("TomHigh");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
-            }
-            if (keyboardState.IsKeyDown(Keys.C) && !oldKeyState.IsKeyDown(Keys.C))
-            {
-                musicHandler.playSound("TomMiddle");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
-            }
-            if (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V))
-            {
-                musicHandler.playSound("TomLow");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
-            }
-            if (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B))
-            {
-                musicHandler.playSound("Crash");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
             }
         }
 
@@ -319,59 +289,6 @@ namespace Resonance
             CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
             GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
             //MiniMap.setGamePadStateRef(GamePad.);
-        }
-
-        /// <summary>
-        /// This handles player two button presses
-        /// </summary>
-        private void playerTwoPresses(GamePadState playerTwo)
-        {
-            if (playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.A))
-            {
-                musicHandler.playSound("TomLow");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
-            }
-            if (playerTwo.Buttons.Y == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.Y))
-            {
-                musicHandler.playSound("TomHigh");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
-            }
-            if (playerTwo.Buttons.X == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.X))
-            {
-                musicHandler.playSound("TomMiddle");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
-            }
-            if (playerTwo.Buttons.B == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.B))
-            {
-                musicHandler.playSound("Snare");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
-            }
-            /*if (playerTwo.Buttons.RightStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightStick))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
-            if (playerTwo.Buttons.LeftStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftStick))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
-            */if (playerTwo.Buttons.LeftShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftShoulder))
-            {
-                musicHandler.playSound("Crash");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
-            if (playerTwo.Buttons.RightShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightShoulder))
-            {
-                musicHandler.playSound("Crash");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
         }
 
         /// <summary>
