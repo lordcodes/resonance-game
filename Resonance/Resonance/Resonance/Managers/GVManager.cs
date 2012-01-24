@@ -62,7 +62,7 @@ namespace Resonance
                 Game.getGV().selectedPower = FREEZE;
             }
 
-            if (playerOne.Triggers.Right > 0.1)
+            if (playerOne.Triggers.Right > 0.1 || keyboardState.IsKeyDown(Keys.T))
             {
                usePower(Game.getGV().selectedPower);
             }
