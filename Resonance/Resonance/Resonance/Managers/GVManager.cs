@@ -14,6 +14,11 @@ namespace Resonance
 {
     class GVManager
     {
+
+        public static readonly int NITROUS = 0;
+        public static readonly int SHIELD = 1;
+        public static readonly int FREEZE = 2;
+
         public static void inputs(GamePadState playerOne, MusicHandler musicHandler, KeyboardState keyboardState)
         {
             
@@ -42,6 +47,20 @@ namespace Resonance
                 MiniMap.ensmall();
             }
 
+            if (playerOne.Buttons.X == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.J))
+            {
+                Game.getGV().selectedPower = SHIELD;
+            }
+
+            if (playerOne.Buttons.Y == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.K))
+            {
+                Game.getGV().selectedPower = NITROUS;
+            }
+
+            if (playerOne.Buttons.B == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.L))
+            {
+                Game.getGV().selectedPower = FREEZE;
+            }
             CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
             GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
         }
