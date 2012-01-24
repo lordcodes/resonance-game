@@ -37,7 +37,6 @@ namespace Resonance
         // Reduce this variable if the shockwave is causing frame rate to suffer
         public static int DISP_WIDTH = 16;
 
-        private static Texture2D special;
 
         public Matrix Projection
         {
@@ -94,7 +93,6 @@ namespace Resonance
 
             dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
 
-            special = Content.Load<Texture2D>("Drawing/Textures/texMissing");
             //bumpMap.SetData
         }
 
@@ -133,24 +131,12 @@ namespace Resonance
             if (dispMap != null) dispMap.update(playerPos);
         }
 
-        public void Draw2dTextures()
+        public void Draw2dTextures(Texture2D texture, Matrix world, float width, float height)
         {
-            VertexPositionColor[] userPrimitives;
-            userPrimitives = new VertexPositionColor[3];
-            userPrimitives[0] = new VertexPositionColor();
-            userPrimitives[0].Position = new Vector3(0, 1, 0);
-            userPrimitives[0].Color = Color.Red;
-            userPrimitives[1] = new VertexPositionColor();
-            userPrimitives[1].Position = new Vector3(1, -1, 0);
-            userPrimitives[1].Color = Color.Green;
-            userPrimitives[1] = new VertexPositionColor();
-            userPrimitives[1].Position = new Vector3(-1, -1, 0);
-            userPrimitives[1].Color = Color.Blue;
-
+            customEffect.Parameters["World"].SetValue(world);
             customEffect.Parameters["doDisp"].SetValue(false);
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
-            customEffect.Parameters["ColorTexture"].SetValue(special);
             customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
             customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
             customEffect.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
@@ -159,8 +145,8 @@ namespace Resonance
             customEffect.Parameters["SpecularLightColor"].SetValue(specularLightColor);
             customEffect.Parameters["CameraPosition"].SetValue(cameraPosition);
             customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
-
-            graphics.GraphicsDevice.Textures[0] = special;
+            customEffect.Parameters["ColorTexture"].SetValue(texture);
+            graphics.GraphicsDevice.Textures[0] = texture;
             customEffect.CurrentTechnique.Passes[0].Apply();
             customEffect.CurrentTechnique = customEffect.Techniques["Technique1"];
 
@@ -180,23 +166,20 @@ namespace Resonance
                 }
             );
 
-
+            float halfWidth = width / 2;
+            float halfHeight = height / 2;
+            Vector3 topLeft = new Vector3(-halfWidth, halfHeight, 0);
+            Vector3 bottomLeft = new Vector3(-halfWidth, -halfHeight, 0);
+            Vector3 topRight = new Vector3(halfWidth,halfHeight, 0);
+            Vector3 bottomRight = new Vector3(halfWidth, -halfHeight, 0);
 
             vertices = new VertexPositionNormalTexture[4];
-
-
-            Vector3 topLeft = new Vector3(0, 3, 0);
-            Vector3 bottomLeft = new Vector3(0, 0, 0);
-            Vector3 topRight = new Vector3(3,3, 0);
-            Vector3 bottomRight = new Vector3(3, 0f, 0);
-
             vertices[0] = new VertexPositionNormalTexture(topLeft, Vector3.Zero, new Vector2(0, 1));
             vertices[1] = new VertexPositionNormalTexture(topRight, Vector3.Zero, new Vector2(1,1));
             vertices[2] = new VertexPositionNormalTexture(bottomLeft, Vector3.Zero, new Vector2(0, 0));
             vertices[3] = new VertexPositionNormalTexture(bottomRight, Vector3.Zero, new Vector2(1, 0));
 
-
-            indices = new short[] {  0,  1,  2,  // orange
+            indices = new short[] {  0,  1,  2,
                                      1,  3,  2};
 
             vertexBuffer = new VertexBuffer(
@@ -204,8 +187,7 @@ namespace Resonance
                 vertexDeclaration,
                 number_of_vertices,
                 BufferUsage.None
-                );
-
+            );
 
             vertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
 
@@ -216,17 +198,14 @@ namespace Resonance
                 );
 
             indexBuffer.SetData<short>(indices);
-
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
-
             graphics.GraphicsDevice.SetVertexBuffer(vertexBuffer);
 
             foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
-                
                 graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(
                         PrimitiveType.TriangleList,
                         vertices,
@@ -236,8 +215,6 @@ namespace Resonance
                         0,   // first index element to read
                         2   // number of primitives to draw
                     );
-                //graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, 4, 0, 2);
-
             }
         }
 
@@ -259,8 +236,6 @@ namespace Resonance
             customEffect.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
             customEffect.Parameters["SpecularLightColor"].SetValue(specularLightColor);
             customEffect.Parameters["CameraPosition"].SetValue(cameraPosition);
-            customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
-
             customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
 
             customEffect.CurrentTechnique = customEffect.Techniques["Technique1"];
