@@ -161,7 +161,7 @@ namespace Resonance
             }
         }
 
-        public void regenHealth()
+        public void detectInCombat()
         {
             isInCombat = false;
             Dictionary<string, Object> objects = Program.game.World.returnObjects();
