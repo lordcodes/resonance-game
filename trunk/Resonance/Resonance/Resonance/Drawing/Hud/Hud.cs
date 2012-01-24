@@ -78,7 +78,7 @@ namespace Resonance
         /// <param name="text">Text string to display</param>
         public void drawDebugInfo(String text)
         {
-            Vector2 coords = new Vector2(Drawing.pixelsX(17), Drawing.pixelsY(800));
+            Vector2 coords = new Vector2(Drawing.pixelsX(17), Drawing.pixelsY(300));
             Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
             drawText(coords2, text, Color.Black);
             drawText(coords, text, Color.White);

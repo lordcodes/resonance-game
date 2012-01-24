@@ -20,7 +20,7 @@ namespace Resonance
         int shield; //SOMETHING between 0 - MAX_SHIELD.
         public static int MAX_SHIELD = 100;
         int freeze; //SOMETHINGELSE between 0 - 100.
-        public static int MAX_FREEZE = 100;
+        public static int MAX_FREEZE = 200;
 
         public static int curentPower = 0;
 
@@ -131,9 +131,9 @@ namespace Resonance
             waves = new List<Shockwave>();
             score = 0;
             health = MAX_HEALTH;
-            nitro = 0;
-            shield = 0;
-            freeze = 0;
+            nitro = 200;
+            shield = 100;
+            freeze = 200;
         }
 
         public void fullHealth()

@@ -6,7 +6,7 @@ virus,		Models\bad_vibe.fbx
 newBadVibe,		Models\new_bad_vibe.fbx
 dude,		Models\dude.fbx
 testAnim,		Models\testAnim.fbx
-goodVibe,		Models\GoodVibe.fbx
+goodVibe,		Models\ShiedlGoodVibe.fbx
 terrain,	Models\terrain.fbx
 terrainHiPoly,	Models\terrainHiPoly.fbx
 terrain16,	Models\terrainMidPoly.fbx

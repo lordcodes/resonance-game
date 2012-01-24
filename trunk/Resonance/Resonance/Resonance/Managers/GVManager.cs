@@ -61,8 +61,51 @@ namespace Resonance
             {
                 Game.getGV().selectedPower = FREEZE;
             }
+
+            if (playerOne.Triggers.Right > 0.1)
+            {
+               usePower(Game.getGV().selectedPower);
+            }
+            else
+            {
+                GVMotionManager.Z_ACCELERATION = GVMotionManager.DEFAULT_Z_ACCELERATION;
+                GVMotionManager.MAX_Z_SPEED = GVMotionManager.DEFAULT_MAX_Z_SPEED;
+            }
             CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
             GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
+        }
+
+        public static void usePower(int power)
+        {
+            if (power == SHIELD)
+            {
+                Game.getGV().adjustShield(-1);
+                if (Game.getGV().Shield > 0)
+                {
+                    
+                }
+            }
+
+            if (power == FREEZE)
+            {
+                if (Game.getGV().Freeze > 0)
+                {
+                    Game.getGV().freezeBadVibes();
+                    Game.getGV().adjustFreeze(-1);
+                }
+
+            }
+
+            if (power == NITROUS)
+            {
+               
+                if (Game.getGV().Nitro > 0.1)
+                {
+                    Game.getGV().adjustNitro(-1);
+                    GVMotionManager.boost(); 
+                }
+                
+            }
         }
     }
 }
