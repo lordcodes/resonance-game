@@ -7,7 +7,7 @@ namespace Resonance
 {
     class DrumManager
     {
-        public static void handlePlayer2Input()
+        public static void input()
         {
 
         }
