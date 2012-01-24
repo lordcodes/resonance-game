@@ -27,7 +27,7 @@ spaceShip,  Models\spaceShip.fbx
 6,			house,					1,		house,					1
 12,			virus,					0.2,	box,					2.8,		Textures\texGreen.jpg
 13,			virus,					0.2,	box,					2.8,		Textures\texYellow.jpg
-14,			testAnim,				0.2,	box,					2.8,		Textures\texBlue.jpg
+14,			testAnim,				0.1,	box,					2.8,		Textures\texBlue.jpg
 15,			virus,					0.2,	box,					2.8,		Textures\texRed.jpg
 16,			virus,					0.2,	box,					2.8,		Textures\texCymbal.jpg
 7,			wave,					1,		wave,					1,		Textures\texGreen.jpg
