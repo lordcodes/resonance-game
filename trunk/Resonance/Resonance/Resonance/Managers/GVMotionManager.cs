@@ -217,7 +217,7 @@ namespace Resonance {
             }
 
             //Use speed boost
-            if (nitro || (rTrig > 0))
+            if ((nitro || (rTrig > 0)) && (gv.Nitro > 0))
             {
                 if (forward)
                 {
@@ -239,7 +239,7 @@ namespace Resonance {
             }
 
             //Use shield
-            if (shield)
+            if (shield && (gv.Shield > 0))
             {
                 gv.adjustShield(-1);
             }
@@ -251,7 +251,7 @@ namespace Resonance {
             }
 
             //Use freeze
-            if (freeze)
+            if (freeze && (gv.Freeze > 0))
             {
                 gv.freezeBadVibes();
                 gv.adjustFreeze(-1);
