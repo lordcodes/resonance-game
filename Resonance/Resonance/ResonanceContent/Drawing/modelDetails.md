@@ -6,7 +6,7 @@ virus,		Models\bad_vibe.fbx
 newBadVibe,		Models\new_bad_vibe.fbx
 dude,		Models\dude.fbx
 testAnim,		Models\testAnim.fbx
-goodVibe,		Models\ShiedlGoodVibe.fbx
+goodVibe,		Models\GoodVibe.fbx
 terrain,	Models\terrain.fbx
 terrainHiPoly,	Models\terrainHiPoly.fbx
 terrain16,	Models\terrainMidPoly.fbx
@@ -16,6 +16,7 @@ terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
+ShieldGoodVibe, Models\ShiedlGoodVibe.fbx
 
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|--Texture (if needed)---
@@ -35,3 +36,4 @@ spaceShip,  Models\spaceShip.fbx
 9,			wave,					1,		wave,					1,		Textures\texBlue.jpg
 10,			wave,					1,		wave,					1,		Textures\texRed.jpg
 11,			wave,					1,		wave,					1,		Textures\texCymbal.jpg
+17,         ShieldGoodVibe,         0.5,    spaceShip,              0.2 
