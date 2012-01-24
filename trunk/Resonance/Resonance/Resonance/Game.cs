@@ -155,6 +155,7 @@ namespace Resonance
                     if(USE_SPAWNER) spawner.update();
 
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
+                    //DrumManager.increaseHealth();
                     base.Update(gameTime);
                     DebugDisplay.update("COMBAT STATUS:", getGV().InCombat.ToString());
                 }
@@ -187,11 +188,13 @@ namespace Resonance
                 CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
                 //Player One
                 playerOnePresses(playerOne);
+                
                 //Player Two
-                playerTwoPresses(playerTwo);
-
+                //playerTwoPresses(playerTwo);
+                DrumManager.Input(playerTwo, oldPadState2, musicHandler, world,keyboardState,oldKeyState);
                 //PC Testing Controls
-                pcTestingControls(keyboardState);
+                //pcTestingControls(keyboardState);
+              //  DrumManager.pcInput(keyboardState,musicHandler,oldKeyState,world);
 
 
            if ((keyboardState.IsKeyDown(Keys.Q) && !oldKeyState.IsKeyDown(Keys.Q)) || (playerOne.Buttons.LeftShoulder == ButtonState.Pressed && oldPadState1.Buttons.LeftShoulder != ButtonState.Pressed))
