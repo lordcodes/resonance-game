@@ -174,6 +174,7 @@ namespace Resonance
             StaticObject mush = null;
             GoodVibe player = null;
             BadVibe bv = null;
+            Pickup p = null;
             StoredObjects obj = Content.Load<StoredObjects>(levelName);
             clear();
 
@@ -204,8 +205,47 @@ namespace Resonance
                     bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(bv);
                 }
+                if (obj.list[i].type.Equals("Pickup") == true)
+                {
+                    p = new Pickup(GameModels.PICKUP, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord), obj.list[i].pickuptype, 60); //TODO: fix xml
+                    addObject(p);
+                }
             }
-           
+            
+            //TODO: Temp crate add
+            p = new Pickup(GameModels.PICKUP, "Pickup2", new Vector3(5f, 0f, 5f), 1, 120);
+            addObject(p);
+            p = new Pickup(GameModels.PICKUP, "Pickup3", new Vector3(15f, 0f, 5f), 1, 180);
+            addObject(p);
+        }
+
+        public List<Pickup> returnPickups()
+        {
+            List<Pickup> pickups = new List<Pickup>();
+
+            foreach (KeyValuePair<string, Object> kVP in objects)
+            {
+                Object obj = kVP.Value;
+
+                if (obj is Pickup)
+                {
+                    pickups.Add((Pickup)obj);
+                }
+            }
+
+            return pickups;
+        }
+
+        public void updatePickups(List<Pickup> pickups)
+        {
+            for (int i = 0; i < pickups.Count; i++)
+            {
+                pickups[i].TimeToLive--;
+                if (pickups[i].TimeToLive == 0)
+                {
+                    removeObject(pickups[i]);
+                }
+            }
         }
     }
 }

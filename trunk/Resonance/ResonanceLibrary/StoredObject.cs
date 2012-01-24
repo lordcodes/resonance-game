@@ -13,6 +13,6 @@ namespace ResonanceLibrary
         public float zWorldCoord;
         public float yWorldCoord;
         public int gameModelNum;
-        
+        public int pickuptype;
     }
 }

@@ -108,6 +108,7 @@ namespace Resonance
         {
             string level = "Levels/Level"+i;
             world.readXmlFile(level, Content);
+
             GVMotionManager.initialised = false;
         }
 
@@ -146,6 +147,9 @@ namespace Resonance
                     // Update shockwaves
                     getGV().updateWaves();
                     getGV().detectCombatAndFreeze();
+
+                    List<Pickup> pickups = world.returnPickups();
+                    world.updatePickups(pickups);
                     
 
                     world.update();
