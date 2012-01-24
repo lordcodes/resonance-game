@@ -15,29 +15,11 @@ namespace Resonance
     class DrumManager
     {
         public static int healthCount = 0;
+        public static int speedCount = 0;
+        public static int shieldCount = 0;
 
         public static void Input(GamePadState playerTwo, GamePadState oldPadState2, MusicHandler musicHandler, World world, KeyboardState keyboardState, KeyboardState oldKeyState)
         {
-            if (keyboardState.IsKeyDown(Keys.Space))
-            {
-                musicHandler.getTrack().playTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.S))
-            {
-                musicHandler.getTrack().stopTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.P))
-            {
-                musicHandler.getTrack().pauseTrack();
-            }
-            if (keyboardState.IsKeyDown(Keys.M))
-            {
-                MiniMap.large = true;
-            }
-            else
-            {
-                MiniMap.large = false;
-            }
             if ((playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.A)) || 
                 (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V)))
             {
@@ -51,6 +33,7 @@ namespace Resonance
             {
                 musicHandler.playSound("TomHigh");
                 musicHandler.getTrack().inTime();
+                increaseSpeed();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
             }
             if ((playerTwo.Buttons.X == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.X)) ||
@@ -58,6 +41,7 @@ namespace Resonance
             {
                 musicHandler.playSound("TomMiddle");
                 musicHandler.getTrack().inTime();
+                increaseShield();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
             }
             if ((playerTwo.Buttons.B == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.B)) ||
@@ -85,8 +69,7 @@ namespace Resonance
                 musicHandler.getTrack().inTime();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
             }
-            if ((playerTwo.Buttons.RightShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightShoulder)) ||
-                (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B)))
+            if ((playerTwo.Buttons.RightShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightShoulder)))
             {
                 musicHandler.playSound("Crash");
                 musicHandler.getTrack().inTime();
@@ -108,6 +91,39 @@ namespace Resonance
             else
             {
                 healthCount = 0;
+            }
+        }
+
+        public static void increaseSpeed()
+        {
+            if (Game.getGV().InCombat == false)
+            {
+                speedCount++;
+                if (speedCount > 4)
+                {
+                    Game.getGV().adjustNitro(10);
+                    speedCount = 0;
+                }
+            }
+            else
+            {
+                speedCount = 0;
+            }
+        }
+        public static void increaseShield()
+        {
+            if (Game.getGV().InCombat == false)
+            {
+                shieldCount++;
+                if (shieldCount > 4)
+                {
+                    Game.getGV().adjustShield(5);
+                    shieldCount = 0;
+                }
+            }
+            else
+            {
+                shieldCount = 0;
             }
         }
     }
