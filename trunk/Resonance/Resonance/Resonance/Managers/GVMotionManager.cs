@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using BEPUphysics.Constraints.SingleEntity;
 using BEPUphysics.Constraints.TwoEntity.Motors;
+using BEPUphysics.Entities;
 
 namespace Resonance {
     /// <summary>
@@ -21,35 +22,57 @@ namespace Resonance {
         public static float Z_ACCELERATION                  =   0.50f;
         public static readonly float DEFAULT_Z_ACCELERATION =   0.50f;
         public static float R_SPEED                         =   0.00f;
+        public static float X_SPEED          = 0.00f;
+        public static float Z_SPEED          = 0.00f;
+
+        private static bool MOVING_F         = false;
+        private static bool MOVING_B         = false;
+
 
         private static GoodVibe gv;
 
         private static float JUMP_HEIGHT = 0.5f;
 
-        //private static SingleEntityAngularMotor motor;
         private static SingleEntityAngularMotor servo;
+        private static LinearAxisMotor           lamZ;
+        private static LinearAxisMotor           lamX;
+
         public static bool initialised = false;
 
         /// Methods
 
         public static void init() {
             gv = (GoodVibe)Program.game.World.getObject("Player");
-            //motor = new SingleEntityAngularMotor(gv.Body);
+
+            gv.Body.Material.KineticFriction *= 2f;
+            gv.Body.Material.StaticFriction  *= 2f;
+            gv.Body.Mass *= 2f;
+
+            // ADD SERVO TO GV
             servo = new SingleEntityAngularMotor(gv.Body);
 
             servo.Settings.Mode = MotorMode.Servomechanism;
-            //motor.Settings.Mode = MotorMode.VelocityMotor;
 
             servo.Settings.Servo.SpringSettings.DampingConstant   *= 10f;
             servo.Settings.Servo.SpringSettings.StiffnessConstant *= 100f;
 
-            gv.Body.Material.KineticFriction *= 2f;
-            gv.Body.Material.StaticFriction  *= 2f;
-            gv.Body.Mass                     *= 2f;
-
-            //Program.game.World.addToSpace(motor);
             Program.game.World.addToSpace(servo);
 
+
+            // ADD LINEARAXISMOTOR TO GV
+            lamZ = new LinearAxisMotor();
+
+            lamZ.Settings.Mode = MotorMode.VelocityMotor;
+
+            //lamZ.Settings.VelocityMotor.Softness = 0f;
+
+            lamZ.ConnectionA = gv.Body;
+            lamZ.ConnectionB = null;
+            lamZ.IsActive = true;
+
+            Program.game.World.addToSpace(lamZ);
+
+            // INITIALISATION COMPLETE
             initialised = true;
         }
 
@@ -57,9 +80,7 @@ namespace Resonance {
             gv = newGV;
         }
 
-        private static void rotate(float power)
-        {
-            //float inc = power * MAX_ROTATE_SPEED;
+        private static void rotate(float power) {
             float inc = -power * R_ACCELERATION;
 
             float posInc = inc;
@@ -72,16 +93,6 @@ namespace Resonance {
             if (max > MAX_R_SPEED) max = MAX_R_SPEED;
 
             if (posSpd + posInc < max) R_SPEED += inc;
-
-            /*Vector3 angV = gv.Body.AngularVelocity;
-
-            if (inc >= 0) {
-                if (angV.Y + inc <  MAX_ROTATE_SPEED) angV.Y += inc; else angV.Y =  MAX_ROTATE_SPEED;
-            } else {
-                if (angV.Y + inc > -MAX_ROTATE_SPEED) angV.Y += inc; else angV.Y = -MAX_ROTATE_SPEED;
-            }
-           
-            motor.Settings.VelocityMotor.GoalVelocity = angV;*/
 
             Quaternion cAng = gv.Body.Orientation;
             Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, R_SPEED);
@@ -98,27 +109,38 @@ namespace Resonance {
         }
 
         private static void move(float power) {
+            float inc = -power * Z_ACCELERATION;
+
+            float posInc = inc;
+            float posSpd = Z_SPEED;
+            float max = power * MAX_Z_SPEED;
+
+            if (posInc < 0) posInc *= -1;
+            if (posSpd < 0) posSpd *= -1;
+            if (max < 0) max *= -1;
+            if (max > MAX_R_SPEED) max = MAX_Z_SPEED;
+            if (posSpd + posInc < max) Z_SPEED += inc;
+
             Vector3 oVector = DynamicObject.QuaternionToEuler(gv.Body.Orientation);
             Vector3 vel     = gv.Body.LinearVelocity;
+
+            //////////// USING VELOCITIES /////////////////
 
             float xInc = (float)(-power * Z_ACCELERATION * Math.Sin(oVector.Y));
             float zInc = (float)(-power * Z_ACCELERATION * Math.Cos(oVector.Y));
 
-            /*float xMax = MAX_Z_SPEED  * (float) Math.Sin(oVector.Y);
-            float zMax = MAX_Z_SPEED  * (float) Math.Cos(oVector.Y);*/
-            /*float xAcc = ACCELERATION * (float) Math.Sin(oVector.Y);
-            float zAcc = ACCELERATION * (float) Math.Cos(oVector.Y);
-
-            if (vel.X < xMax && vel.X > -xMax) vel.X += power * (float) (xAcc);
-            if (vel.Z < zMax && vel.Z > -zMax) vel.Z += power * (float) (zAcc);*/
-
             if (vel.X < MAX_Z_SPEED && vel.X > -MAX_Z_SPEED) vel.X += xInc;
             if (vel.Z < MAX_Z_SPEED && vel.Z > -MAX_Z_SPEED) vel.Z += zInc;
 
-            //if (vel.Length() < MAX_Z_SPEED) vel.Z += (float)(-power * ACCELERATION * Math.Cos(oVector.Y));
-            //if (vel.Length() < MAX_Z_SPEED) vel.X += (float)(-power * ACCELERATION * Math.Sin(oVector.Y));
-
             gv.Body.LinearVelocity = vel;
+
+            ///////////// USING LINEARAXISMOTOR ///////////////
+
+            //Vector2 vf = new Vector2(0f, 1f);
+            //Vector2 v2 = MiniMap.rotateVector2(vf, oVector.Y);
+            //lamZ.Axis = new Vector3(oVector.X, oVector.Y, oVector.Z);
+            //lamZ.Axis = new Vector3(1f, 0f, 0f);
+            //lamZ.Settings.VelocityMotor.GoalVelocity = Z_SPEED;
         }
 
         private static void strafe(float power) {
@@ -196,6 +218,10 @@ namespace Resonance {
                 } else {
                     move(-1f);
                 }
+            } else {
+                if (Z_SPEED > 0) if (Z_ACCELERATION > Z_SPEED)  Z_SPEED = 0f; else Z_SPEED -= Z_ACCELERATION;
+                if (Z_SPEED < 0) if (Z_ACCELERATION > -Z_SPEED) Z_SPEED = 0f; else Z_SPEED += Z_ACCELERATION;
+                move(0f);
             }
 
             // Strafe based on keyboard.
