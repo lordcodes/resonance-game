@@ -27,11 +27,13 @@ namespace Resonance
 
         ArmourSequence armour;
         bool dead;
+        bool freeze;
 
         public BadVibe(int modelNum, String name, Vector3 pos)
             : base(modelNum, name, pos)
         {
             dead = false;
+            freeze = false;
 
             armour = ArmourSequence.random();
             setColour();
@@ -56,12 +58,24 @@ namespace Resonance
             }
         }
 
+        public bool Freeze
+        {
+            get
+            {
+                return freeze;
+            }
+            set
+            {
+                freeze = value;
+            }
+        }
+
         /// <summary>
         /// Moves the bad vibe in the world
         /// </summary>
         public void Move()
         {
-            ai.moveManager();
+            if(!freeze) ai.moveManager();
         }
 
         /// <summary>

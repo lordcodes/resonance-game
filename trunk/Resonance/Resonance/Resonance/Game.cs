@@ -145,8 +145,9 @@ namespace Resonance
                     }
 
                     // Update shockwaves
-                    ((GoodVibe)world.getObject("Player")).updateWaves();
-                    ((GoodVibe)world.getObject("Player")).detectInCombat();
+                    getGV().updateWaves();
+                    getGV().detectCombatAndFreeze();
+                    
 
                     world.update();
                     
