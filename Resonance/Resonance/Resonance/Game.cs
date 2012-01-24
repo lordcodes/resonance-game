@@ -30,7 +30,7 @@ namespace Resonance
 
         public static int DIFFICULTY = BEGINNER;
 
-        public static bool USE_SPAWNER = false;
+        public static bool USE_SPAWNER = true;
 
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;

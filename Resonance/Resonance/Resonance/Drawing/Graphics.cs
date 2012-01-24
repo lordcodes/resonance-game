@@ -293,6 +293,8 @@ namespace Resonance
                         foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
                         {
                             pass.Apply();
+                            
+                            
                             graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                         }
                     }
