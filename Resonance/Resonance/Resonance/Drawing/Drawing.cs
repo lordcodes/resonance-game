@@ -83,7 +83,7 @@ namespace Resonance
             hud = new Hud(Content,graphics, gameGraphics);
             loadingScreen = new LoadingScreen(Content, graphics);
             playerPos = new Vector3(0,0,0);
-            DoDisp = false;
+            DoDisp = true;
         }
 
         /// <summary>
