@@ -10,8 +10,8 @@ namespace Resonance
     class DisplacementMap
     {
         public const float WAVE_HEIGHT = 2;
-        public const float WAVE_WIDTH = 1;
-        public const float WAVE_SPEED = 0.1f;
+        public const float WAVE_WIDTH = 0.7f;
+        public const float WAVE_SPEED = 0.3f;
 
         private GraphicsDevice graphicsDevice;
         private int width;

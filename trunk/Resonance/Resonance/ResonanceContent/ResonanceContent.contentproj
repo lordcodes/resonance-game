@@ -99,6 +99,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </None>
+    <Compile Include="Drawing\Models\new_bad_vibe.fbx">
+      <Name>new_bad_vibe</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\pants.tga">
       <Name>pants</Name>
       <Importer>TextureImporter</Importer>
@@ -509,6 +514,13 @@
   <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\block.png">
       <Name>block</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\texTronFloor.png">
+      <Name>texTronFloor</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
