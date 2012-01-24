@@ -17,6 +17,7 @@ namespace Resonance
         public static int healthCount = 0;
         public static int speedCount = 0;
         public static int shieldCount = 0;
+        public static int freezeCount = 0;
 
         public static void Input(GamePadState playerTwo, GamePadState oldPadState2, MusicHandler musicHandler, World world, KeyboardState keyboardState, KeyboardState oldKeyState)
         {
@@ -49,6 +50,7 @@ namespace Resonance
             {
                 musicHandler.playSound("Snare");
                 musicHandler.getTrack().inTime();
+                increaseFreeze();
                 ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
             }
             /*if (playerTwo.Buttons.RightStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightStick))
@@ -124,6 +126,22 @@ namespace Resonance
             else
             {
                 shieldCount = 0;
+            }
+        }
+        public static void increaseFreeze()
+        {
+            if (Game.getGV().InCombat == false)
+            {
+                freezeCount++;
+                if (freezeCount > 4)
+                {
+                    Game.getGV().adjustFreeze(5);
+                    freezeCount = 0;
+                }
+            }
+            else
+            {
+                freezeCount = 0;
             }
         }
     }

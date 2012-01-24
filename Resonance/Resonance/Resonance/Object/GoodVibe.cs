@@ -22,6 +22,12 @@ namespace Resonance
         int freeze; //SOMETHINGELSE between 0 - 100.
         public static int MAX_FREEZE = 100;
 
+        public static int curentPower = 0;
+
+        public static readonly int NITROUS = 0;
+        public static readonly int SHIELD = 1;
+        public static readonly int FREEZE = 2;
+
         public bool InCombat
         {
             get
