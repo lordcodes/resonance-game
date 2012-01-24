@@ -100,7 +100,7 @@ namespace Resonance
             GameModels.Load();
             gameGraphics.loadContent(Content, graphics.GraphicsDevice);
 
-            special = Content.Load<Texture2D>("Drawing/Textures/texTronFloorBottom");
+            special = Content.Load<Texture2D>("Drawing/Textures/texTronFloorAlpha");
             loadingScreen.loadContent();
         }
 
@@ -125,8 +125,8 @@ namespace Resonance
             Vector2 playerGroundPos = new Vector2();
             float groundWidth = World.MAP_X;
             float groundHeight = World.MAP_Z;
-            float xDis = Math.Abs(playerPos.X - World.MAP_MIN_X);
-            float yDis = Math.Abs(playerPos.Z - World.MAP_MIN_Z);
+            float xDis = Math.Abs(position3d.X - World.MAP_MIN_X);
+            float yDis = Math.Abs(position3d.Z - World.MAP_MIN_Z);
             playerGroundPos.X = (float)Math.Round(Graphics.DISP_WIDTH * (xDis / groundWidth));
             playerGroundPos.Y = (float)Math.Round(Graphics.DISP_WIDTH * (yDis / groundHeight));
             gameGraphics.addWave(playerGroundPos);
@@ -143,7 +143,7 @@ namespace Resonance
             }
             else
             {
-                Matrix texturePos = Matrix.CreateTranslation(new Vector3(0, -0.2f, 0));
+                Matrix texturePos = Matrix.CreateTranslation(new Vector3(0, 0.2f, 0));
                 Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
                 texturePos = Matrix.Multiply(rotation,texturePos);
                 gameGraphics.Draw2dTextures(special, texturePos, World.MAP_X, World.MAP_Z);
@@ -182,7 +182,7 @@ namespace Resonance
                 hud.updateGoodVibe(health, score, nitro, shield, freeze);
                 playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
             }
-            
+
             if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
             {
                 blend = true;

@@ -203,6 +203,8 @@ namespace Resonance
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
             graphics.GraphicsDevice.SetVertexBuffer(vertexBuffer);
 
+            graphics.GraphicsDevice.BlendState = BlendState.Additive;
+
             foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
@@ -216,6 +218,9 @@ namespace Resonance
                         2   // number of primitives to draw
                     );
             }
+
+
+            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
         }
 
 
