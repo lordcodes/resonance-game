@@ -55,27 +55,32 @@ namespace Resonance
 
         public void moveManager()
         {
-            if (closeToEdge())
+            bool found = obstacleFound();
+            DebugDisplay.update("Obstacle", found.ToString());
+            if (!bv.Freeze)
             {
-                //Move away from the edge
-                moveAwayFromEdge();
-            }
-            else if (!inTargetRange())
-            {
-                //Move randomly
-                randomMove();
-            }
-            else if (!inAttackRange())
-            {
-                //Move towards GV
-                moveToGV();
-            }
-            else
-            {
-                //Rotate to face GV and attack it
-                Vector3 point = Game.getGV().Body.Position;
-                rotateToFacePoint(point);
-                attack();
+                if (closeToEdge())
+                {
+                    //Move away from the edge
+                    moveAwayFromEdge();
+                }
+                else if (!inTargetRange())
+                {
+                    //Move randomly
+                    randomMove();
+                }
+                else if (!inAttackRange())
+                {
+                    //Move towards GV
+                    moveToGV();
+                }
+                else
+                {
+                    //Rotate to face GV and attack it
+                    Vector3 point = Game.getGV().Body.Position;
+                    rotateToFacePoint(point);
+                    attack();
+                }
             }
             iteration++;
             if (iteration == 60) iteration = 0;
@@ -91,7 +96,7 @@ namespace Resonance
             Vector3 angles = BadVibe.QuaternionToEuler(rot);
             rot.X = 0;
             rot.Z = 0;
-            servo.Settings.Servo.Goal = Quaternion.Concatenate(bv.Body.Orientation, rot);
+            //servo.Settings.Servo.Goal = Quaternion.Concatenate(bv.Body.Orientation, rot);
         }
 
         private void moveToGV()
@@ -114,12 +119,12 @@ namespace Resonance
                 angle *= (2 * Math.PI);
                 Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
                 Quaternion orientation = Quaternion.Concatenate(bv.Body.Orientation, change);
-                servo.Settings.Servo.Goal = orientation;
+                //servo.Settings.Servo.Goal = orientation;
             }
             else
             {
                 move(1f);
-            }                
+            }           
         }
 
         private void moveAwayFromEdge()
@@ -131,8 +136,6 @@ namespace Resonance
         public void move(float power)
         {
             //Query world space for objects every position in front up to and including SPOT_RANGE
-            bool found = obstacleFound();
-            DebugDisplay.update("Obstacle", found.ToString());
             //Get object that is obstacle
             //Apply steering force to avoid it
             // compute avoidance steering force: take offset from obstacle to me,
@@ -147,7 +150,7 @@ namespace Resonance
             //avoidance *= maxForce();
             //avoidance += forward() * maxForce() * 0.75f;
 
-            Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
+            /*Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
             Vector3 velocity = bv.Body.LinearVelocity;
 
             float xInc = (float)(-power * MOVE_ACCEL * Math.Sin(orientation.Y));
@@ -156,12 +159,12 @@ namespace Resonance
             if (velocity.X < MAX_MOVE_SPEED && velocity.X > -MAX_MOVE_SPEED) velocity.X += xInc;
             if (velocity.Z < MAX_MOVE_SPEED && velocity.Z > -MAX_MOVE_SPEED) velocity.Z += zInc;
 
-            bv.Body.LinearVelocity = velocity;
+            bv.Body.LinearVelocity = velocity;*/
         }
 
         public void rotate(float power)
         {
-            float inc = -power * ROT_ACCEL;
+            /*float inc = -power * ROT_ACCEL;
 
             float posInc = inc;
             float posSpd = ROT_SPEED;
@@ -174,7 +177,7 @@ namespace Resonance
             Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, ROT_SPEED);
             Quaternion eAng = Quaternion.Concatenate(cAng, dAng);
 
-            servo.Settings.Servo.Goal = eAng;
+            servo.Settings.Servo.Goal = eAng;*/
         }
 
         public void attack()
@@ -237,23 +240,49 @@ namespace Resonance
 
         private bool obstacleFound()
         {
-            Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
-            Vector3 position = bv.Body.Position;
-            Vector3 velocity = bv.Body.LinearVelocity;
-            velocity.Normalize();
-            //double limitX = Math.Cos(orientation.Y) * SPOT_RANGE;
-            //double limitZ = Math.Sin(orientation.Y) * SPOT_RANGE;
+            List<Object> obstacles = new List<Object>();
 
-            bool found = false;
-            for (int i = 1; i <= SPOT_RANGE; i++)
+            Dictionary<string, Object> objects = Program.game.World.returnObjects();
+            foreach (KeyValuePair<string, Object> pair in objects)
             {
-                if (!found)
+                if (pair.Value is DynamicObject)
                 {
-                    Vector3 point = velocity * i;
-                    found = Program.game.World.querySpace(point);
+                    DynamicObject obstacle = (DynamicObject)pair.Value;
+                    double distance = Game.getDistance(obstacle.Body.Position, Game.getGV().Body.Position);
+                    if (distance < SPOT_RANGE) obstacles.Add(obstacle);
                 }
             }
-            return found;
+
+            foreach (Object ob in obstacles)
+            {
+                Vector3 localPos = Vector3.Zero;
+                if (ob is StaticObject) localPos = pointRelativeToGV(((StaticObject)ob).Body.WorldTransform.Translation);
+            }
+            
+            //Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
+            //Vector3 position = bv.Body.Position;
+            //Vector3 velocity = bv.Body.LinearVelocity;
+            //velocity.Normalize();
+
+            /*bool found = false;
+            for (int i = 1; i <= SPOT_RANGE; i++)
+            {
+                Vector3 point = velocity * i;
+                found = Program.game.World.querySpace(point);
+                if (found) break;
+            }
+            return found;*/
+            return true;
+        }
+
+        private Vector3 pointRelativeToGV(Vector3 point)
+        {
+            Vector3 relToGV = Game.getGV().Body.Position - point;
+            float angle = (DynamicObject.QuaternionToEuler(Game.getGV().Body.Orientation)).Y;
+            Vector2 rotatePoint = MiniMap.rotateVector2(new Vector2(relToGV.X, relToGV.Z), angle);
+            Vector3 newPoint = new Vector3(rotatePoint.X, point.Y, rotatePoint.Y);
+
+            return Game.getGV().Body.Position - newPoint;
         }
     }
 }

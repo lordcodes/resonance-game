@@ -39,7 +39,6 @@ namespace Resonance
         GamePadState oldPadState1;
         GamePadState oldPadState2;
         KeyboardState oldKeyState;
-        DrumManager drumManager;
 
         World world;
         BVSpawnManager spawner;
@@ -158,7 +157,6 @@ namespace Resonance
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     //DrumManager.increaseHealth();
                     base.Update(gameTime);
-                    DebugDisplay.update("COMBAT STATUS:", getGV().InCombat.ToString());
                 }
             }
         }
@@ -180,8 +178,6 @@ namespace Resonance
 
             if (UI.Paused)
             {
-                
-                
                 menuControls(keyboardState, playerOne, playerTwo);
             }
             else
@@ -195,6 +191,7 @@ namespace Resonance
                 //PC Testing Controls
                  // pcTestingControls(keyboardState);
               //  DrumManager.pcInput(keyboardState,musicHandler,oldKeyState,world);
+                World.rayCast(getGV().Body.Position, getGV().Body.OrientationMatrix.Forward, 6f);
 
 
            if ((keyboardState.IsKeyDown(Keys.Q) && !oldKeyState.IsKeyDown(Keys.Q)) || (playerOne.Buttons.LeftShoulder == ButtonState.Pressed && oldPadState1.Buttons.LeftShoulder != ButtonState.Pressed))

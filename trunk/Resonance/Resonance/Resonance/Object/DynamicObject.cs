@@ -44,7 +44,7 @@ namespace Resonance
             }
             //body = new ConvexHull(pos, vertices, GameModels.getModel(modelNum).mass);
             body = new ConvexHull(pos, vertices, 50f);
-            body.Tag = GameModels.getModel(modelNum);
+            body.Tag = name;
         }
 
         public void reset()
