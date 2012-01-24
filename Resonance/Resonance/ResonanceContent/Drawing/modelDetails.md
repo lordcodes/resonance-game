@@ -6,7 +6,7 @@ virus,		Models\bad_vibe.fbx
 newBadVibe,		Models\new_bad_vibe.fbx
 dude,		Models\dude.fbx
 testAnim,		Models\testAnim.fbx
-truck,		Models\GoodVibe.fbx
+goodVibe,		Models\GoodVibe.fbx
 terrain,	Models\terrain.fbx
 terrainHiPoly,	Models\terrainHiPoly.fbx
 terrain16,	Models\terrainMidPoly.fbx
@@ -15,14 +15,15 @@ terrain32,	Models\terrain32.fbx
 terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
+spaceShip,  Models\spaceShip.fbx
 
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|--Texture (if needed)---
 1,			tree,					1,		treePhysics,			1		
 2,			house,					1,		house,					1
 3,			virus,					0.2,	box,					2.8
-4,			truck,					0.2,	box,					1
-5,			terrain16,			50,		terrain,			50,		Textures\texTronFloor.png	
+4,			goodVibe,				0.5,	spaceShip,				0.2
+5,			terrain16,			    50,		terrain,			    50,		Textures\texTronFloor.png	
 6,			house,					1,		house,					1
 12,			virus,					0.2,	box,					2.8,		Textures\texGreen.jpg
 13,			virus,					0.2,	box,					2.8,		Textures\texYellow.jpg
