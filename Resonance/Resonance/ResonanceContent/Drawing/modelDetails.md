@@ -16,6 +16,7 @@ terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
+pickup,		Models\crate.fbx
 ShieldGoodVibe, Models\ShiedlGoodVibe.fbx
 
 
@@ -36,4 +37,5 @@ ShieldGoodVibe, Models\ShiedlGoodVibe.fbx
 9,			wave,					1,		wave,					1,		Textures\texBlue.jpg
 10,			wave,					1,		wave,					1,		Textures\texRed.jpg
 11,			wave,					1,		wave,					1,		Textures\texCymbal.jpg
-17,         ShieldGoodVibe,         0.5,    spaceShip,              0.2 
+17,			pickup,					4,		pickup,					4
+18,         ShieldGoodVibe,         0.5,    spaceShip,              0.2

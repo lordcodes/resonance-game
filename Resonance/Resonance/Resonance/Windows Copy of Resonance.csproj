@@ -108,6 +108,7 @@
     <Compile Include="Music\MusicHandler.cs" />
     <Compile Include="Music\MusicTrack.cs" />
     <Compile Include="Object\Object.cs" />
+    <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\Shockwave.cs" />
     <Compile Include="Object\StaticObject.cs" />
     <Compile Include="Object\World.cs" />
