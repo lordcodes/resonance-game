@@ -154,7 +154,6 @@ namespace Resonance
                     if(USE_SPAWNER) spawner.update();
 
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
-                    DebugDisplay.update("fr", "" + animationPlayer.CurrentClip.Keyframes);
                     base.Update(gameTime);
                     DebugDisplay.update("COMBAT STATUS:", getGV().inCombat.ToString());
                 }
@@ -454,7 +453,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
             Drawing.Draw(gameTime);
         }

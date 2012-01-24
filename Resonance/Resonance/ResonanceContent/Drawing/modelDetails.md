@@ -3,6 +3,7 @@ tree,		Models\tree.fbx
 treePhysics,Models\treePhysics.fbx
 house,		Models\house.fbx
 virus,		Models\bad_vibe.fbx
+newBadVibe,		Models\new_bad_vibe.fbx
 dude,		Models\dude.fbx
 testAnim,		Models\testAnim.fbx
 truck,		Models\GoodVibe.fbx
@@ -21,7 +22,7 @@ box,		Models\box.fbx
 2,			house,					1,		house,					1
 3,			virus,					0.2,	box,					2.8
 4,			truck,					0.2,	box,					1
-5,			terrain16,			50,		terrain,			50,		Textures\texGrassReal.jpg	
+5,			terrain16,			50,		terrain,			50,		Textures\texTronFloor.png	
 6,			house,					1,		house,					1
 12,			virus,					0.2,	box,					2.8,		Textures\texGreen.jpg
 13,			virus,					0.2,	box,					2.8,		Textures\texYellow.jpg
