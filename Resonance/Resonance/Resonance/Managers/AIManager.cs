@@ -83,7 +83,7 @@ namespace Resonance
 
         private void rotateToFacePoint(Vector3 point)
         {
-            Vector3 bvDir = bv.Body.OrientationMatrix.Backward;
+            Vector3 bvDir = bv.Body.OrientationMatrix.Forward;
             Vector3 bvPos = bv.Body.Position;
             Vector3 diff = Vector3.Normalize(point - bvPos);
             Quaternion rot;
@@ -98,7 +98,7 @@ namespace Resonance
         {
             Vector3 point = Game.getGV().Body.Position;
             rotateToFacePoint(point);
-            move(-1f);
+            move(1f);
         }
 
         private void randomMove()
@@ -118,14 +118,14 @@ namespace Resonance
             }
             else
             {
-                move(-1f);
+                move(1f);
             }                
         }
 
         private void moveAwayFromEdge()
         {
             rotateToFacePoint(new Vector3(0f, bv.Body.Position.Y, 0f));
-            move(-1f);
+            move(1f);
         }
 
         public void move(float power)
@@ -239,6 +239,8 @@ namespace Resonance
         {
             Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
             Vector3 position = bv.Body.Position;
+            Vector3 velocity = bv.Body.LinearVelocity;
+            velocity.Normalize();
             //double limitX = Math.Cos(orientation.Y) * SPOT_RANGE;
             //double limitZ = Math.Sin(orientation.Y) * SPOT_RANGE;
 
@@ -247,9 +249,8 @@ namespace Resonance
             {
                 if (!found)
                 {
-                    double x = position.X + (Math.Cos(orientation.Y) * i);
-                    double z = position.Z + (Math.Sin(orientation.Y) * i);
-                    found = Program.game.World.querySpace(new Vector3((float)x, position.Y, (float)z));
+                    Vector3 point = velocity * i;
+                    found = Program.game.World.querySpace(point);
                 }
             }
             return found;
