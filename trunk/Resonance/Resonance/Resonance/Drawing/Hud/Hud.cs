@@ -121,6 +121,7 @@ namespace Resonance
             {
                 spriteBatch.DrawString(font, "BV", pair.Value, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }*/
+            highlightedPower();
             drawHealthBar();
             drawNitroBar();
             drawShieldBar();
@@ -406,6 +407,25 @@ namespace Resonance
             nitro = n;
             shield = sh;
             freeze = f;
+        }
+
+        public void highlightedPower()
+        {
+            if (Game.getGV().selectedPower == 0)
+            {
+                DebugDisplay.update("SELECTED POWER = ", "NITROUS");
+            }
+
+            if (Game.getGV().selectedPower == 1)
+            {
+                DebugDisplay.update("SELECTED POWER = ", "SHIELD");
+            }
+
+            if (Game.getGV().selectedPower == 2)
+            {
+                DebugDisplay.update("SELECTED POWER = ", "FREEZE");
+            }
+
         }
     }
 }

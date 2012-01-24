@@ -28,6 +28,19 @@ namespace Resonance
         public static readonly int SHIELD = 1;
         public static readonly int FREEZE = 2;
 
+        public int selectedPower
+        {
+            get
+            {
+                return curentPower;
+            }
+            set
+            {
+                curentPower = value;
+            }
+        }
+
+
         public bool InCombat
         {
             get
