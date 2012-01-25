@@ -29,12 +29,12 @@ namespace Resonance
         private static Vector3 targetPosition = defaultPos;
         private static Vector3 currentTarget;
 
-        private static KeyboardState lastKbd;
-        private static GamePadState lastPad;
+        public static KeyboardState lastKbd;
+        public static GamePadState lastPad;
 
         private static bool targetSet = false;
 
-        public static void update(KeyboardState kbd, GamePadState pad)
+        public static void update(GamePadState pad, KeyboardState kbd)
         {
             if (!targetSet)
             {

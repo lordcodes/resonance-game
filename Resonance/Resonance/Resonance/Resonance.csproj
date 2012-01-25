@@ -103,6 +103,7 @@
     <Compile Include="Managers\DrumManager.cs" />
     <Compile Include="Managers\GVManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
+    <Compile Include="Managers\MenuControlManager.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="ThreadRun.cs" />
     <Compile Include="AI\Minheap.cs" />

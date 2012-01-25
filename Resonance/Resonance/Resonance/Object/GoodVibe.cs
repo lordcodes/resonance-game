@@ -280,25 +280,20 @@ namespace Resonance
         public void detectCombatAndFreeze()
         {
             isInCombat = false;
-            Dictionary<string, Object> objects = Program.game.World.returnObjects();
-            foreach (KeyValuePair<string, Object> pair in objects)
+            foreach (BadVibe bv in Program.game.World.returnBadVibes())
             {
-                if (pair.Value is BadVibe)
-                {
-                    BadVibe vibe = (BadVibe)pair.Value;
-                    double dx = this.Body.Position.X - vibe.Body.Position.X;
-                    double dz = this.Body.Position.Z - vibe.Body.Position.Z;
-                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
-                    d = Math.Sqrt(d);
+                double dx = this.Body.Position.X - bv.Body.Position.X;
+                double dz = this.Body.Position.Z - bv.Body.Position.Z;
+                double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                d = Math.Sqrt(d);
 
-                    if (d <= Shockwave.MAX_RADIUS)
-                    {
-                        isInCombat = true;
-                    }
-                    else
-                    {
-                        vibe.Freeze = false;
-                    }
+                if (d <= Shockwave.MAX_RADIUS)
+                {
+                    isInCombat = true;
+                }
+                else
+                {
+                    bv.Freeze = false;
                 }
             }
         }
@@ -309,21 +304,16 @@ namespace Resonance
         public void freezeBadVibes()
         {
             isInCombat = false;
-            Dictionary<string, Object> objects = Program.game.World.returnObjects();
-            foreach (KeyValuePair<string, Object> pair in objects)
+            foreach (BadVibe bv in Program.game.World.returnBadVibes())
             {
-                if (pair.Value is BadVibe)
-                {
-                    BadVibe vibe = (BadVibe)pair.Value;
-                    double dx = this.Body.Position.X - vibe.Body.Position.X;
-                    double dz = this.Body.Position.Z - vibe.Body.Position.Z;
-                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
-                    d = Math.Sqrt(d);
+                double dx = this.Body.Position.X - bv.Body.Position.X;
+                double dz = this.Body.Position.Z - bv.Body.Position.Z;
+                double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                d = Math.Sqrt(d);
 
-                    if (d <= Shockwave.MAX_RADIUS)
-                    {
-                        vibe.Freeze = true;
-                    }
+                if (d <= Shockwave.MAX_RADIUS)
+                {
+                    bv.Freeze = true;
                 }
             }
         }

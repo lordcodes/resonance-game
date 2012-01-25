@@ -95,26 +95,20 @@ namespace Resonance
 
         public void checkBadVibes()
         {
-            Dictionary<string,Object> objects = Program.game.World.returnObjects();
-            foreach (KeyValuePair<string,Object> pair in objects)
+            foreach (BadVibe bv in Program.game.World.returnBadVibes())
             {
-                if (pair.Value is BadVibe)
+                if (!bv.Dead)
                 {
-                    BadVibe vibe = (BadVibe)pair.Value;
+                    double dx = Position.X - bv.Body.Position.X;
+                    double dz = Position.Z - bv.Body.Position.Z;
+                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                    d = Math.Sqrt(d);
 
-                    if(!bVibes.Contains(vibe)) {
-                        
-                        double dx = Position.X - vibe.Body.Position.X;
-                        double dz = Position.Z - vibe.Body.Position.Z;
-                        double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
-                        d = Math.Sqrt(d);
-
-                        if (BadVibe.RADIUS + Radius >= d)
-                        {
-                            //Collision
-                            bVibes.Add(vibe);
-                            vibe.damage(colour);
-                        }
+                    if (BadVibe.RADIUS + Radius >= d)
+                    {
+                        //Collision
+                        bVibes.Add(bv);
+                        bv.damage(colour);
                     }
                 }
             }

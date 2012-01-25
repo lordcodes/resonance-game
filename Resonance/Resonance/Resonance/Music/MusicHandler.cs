@@ -14,6 +14,12 @@ namespace Resonance
 {
     class MusicHandler
     {
+        public static string GREEN = "TomLow";
+        public static string BLUE = "TomMiddle";
+        public static string YELLOW = "TomHigh";
+        public static string RED = "Snare";
+        public static string CYMBAL = "Crash";
+
         MusicTrack bgMusic;
         private AudioEngine audioEngine;
         private WaveBank waveBank;

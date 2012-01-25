@@ -19,26 +19,30 @@ namespace Resonance
         public static readonly int SHIELD = 1;
         public static readonly int FREEZE = 2;
 
-        public static void inputs(GamePadState playerOne, MusicHandler musicHandler, KeyboardState keyboardState)
+        public static GamePadState lastPad;
+        public static KeyboardState lastKbd;
+
+        public static void input(GamePadState pad, KeyboardState kbd)
         {
-            
-            if ((playerOne.Buttons.Start == ButtonState.Pressed) ||
-                (keyboardState.IsKeyDown(Keys.Space)))
+            if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) || 
+                (pad.Buttons.LeftShoulder == ButtonState.Pressed && lastPad.Buttons.LeftShoulder != ButtonState.Pressed))
             {
-                musicHandler.getTrack().playTrack();
+                Drawing.DoDisp = true;
+                Drawing.addWave(Game.getGV().Body.Position);
             }
-            if ((playerOne.Buttons.A == ButtonState.Pressed) ||
-                keyboardState.IsKeyDown(Keys.S))
+            if ((pad.Buttons.Start == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
             {
-                musicHandler.getTrack().stopTrack();
+                Program.game.Music.getTrack().playTrack();
             }
-            if (playerOne.Buttons.B == ButtonState.Pressed ||
-                keyboardState.IsKeyDown(Keys.P))
+            if ((pad.Buttons.A == ButtonState.Pressed) || kbd.IsKeyDown(Keys.S))
             {
-                musicHandler.getTrack().pauseTrack();
+                Program.game.Music.getTrack().stopTrack();
             }
-            if (playerOne.Buttons.LeftShoulder == ButtonState.Pressed ||
-                keyboardState.IsKeyDown(Keys.M))
+            if (pad.Buttons.B == ButtonState.Pressed || kbd.IsKeyDown(Keys.P))
+            {
+                Program.game.Music.getTrack().pauseTrack();
+            }
+            if (pad.Buttons.LeftShoulder == ButtonState.Pressed || kbd.IsKeyDown(Keys.M))
             {
                 MiniMap.enlarge();
             }
@@ -47,22 +51,22 @@ namespace Resonance
                 MiniMap.ensmall();
             }
 
-            if (playerOne.Buttons.X == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.J))
+            if (pad.Buttons.X == ButtonState.Pressed || kbd.IsKeyDown(Keys.J))
             {
                 Game.getGV().selectedPower = SHIELD;
             }
 
-            if (playerOne.Buttons.Y == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.K))
+            if (pad.Buttons.Y == ButtonState.Pressed || kbd.IsKeyDown(Keys.K))
             {
                 Game.getGV().selectedPower = NITROUS;
             }
 
-            if (playerOne.Buttons.B == ButtonState.Pressed || keyboardState.IsKeyDown(Keys.L))
+            if (pad.Buttons.B == ButtonState.Pressed || kbd.IsKeyDown(Keys.L))
             {
                 Game.getGV().selectedPower = FREEZE;
             }
 
-            if (playerOne.Triggers.Right > 0.1 || keyboardState.IsKeyDown(Keys.T))
+            if (pad.Triggers.Right > 0.1 || kbd.IsKeyDown(Keys.T))
             {
                usePower(Game.getGV().selectedPower);
             }
@@ -72,8 +76,10 @@ namespace Resonance
                 GVMotionManager.Z_ACCELERATION = GVMotionManager.DEFAULT_Z_ACCELERATION;
                 GVMotionManager.MAX_Z_SPEED = GVMotionManager.DEFAULT_MAX_Z_SPEED;
             }
-            CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
-            GVMotionManager.input(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
+            GVMotionManager.input(kbd, pad);
+
+            lastPad = pad;
+            lastKbd = kbd;
         }
 
         public static void usePower(int power)
