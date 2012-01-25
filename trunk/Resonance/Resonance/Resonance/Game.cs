@@ -30,15 +30,10 @@ namespace Resonance
 
         public static int DIFFICULTY = BEGINNER;
 
-        public static bool USE_SPAWNER = false;
+        public static bool USE_SPAWNER = true;
 
         GraphicsDeviceManager graphics;
         MusicHandler musicHandler;
-
-        //Previous Input States
-        GamePadState oldPadState1;
-        GamePadState oldPadState2;
-        KeyboardState oldKeyState;
 
         World world;
         BVSpawnManager spawner;
@@ -51,6 +46,9 @@ namespace Resonance
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
             if(USE_SPAWNER) spawner = new BVSpawnManager();
+
+            initKeyCache();
+
             UI.init();
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
@@ -62,6 +60,20 @@ namespace Resonance
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
             Window.AllowUserResizing = true;
+        }
+
+        private void initKeyCache()
+        {
+            KeyboardState kbd = Keyboard.GetState();
+            GamePadState one = GamePad.GetState(PlayerIndex.One);
+            GamePadState two = GamePad.GetState(PlayerIndex.Two);
+
+            DrumManager.lastKbd = kbd;
+            DrumManager.lastPad = two;
+            GVManager.lastKbd = kbd;
+            GVManager.lastPad = one;
+            CameraMotionManager.lastKbd = kbd;
+            CameraMotionManager.lastPad = one;
         }
 
         /// <summary>
@@ -84,10 +96,6 @@ namespace Resonance
         {
             long start = DateTime.Now.Ticks;
             BadVibe.initialiseBank();
-
-            oldPadState1 = GamePad.GetState(PlayerIndex.One);
-            oldPadState2 = GamePad.GetState(PlayerIndex.Two);
-            oldKeyState = Keyboard.GetState();
 
             Drawing.loadContent();
             world = new World();
@@ -135,14 +143,11 @@ namespace Resonance
                 keyInput();
                 if (!UI.Paused)
                 {
-                    //Update bad vibe position
+                    //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
 
                     //Break rest layers
-                    if (musicHandler.getTrack().nextQuarterBeat())
-                    {
-                        breakRestLayers();
-                    }
+                    if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
 
                     // Update shockwaves
                     getGV().updateWaves();
@@ -150,7 +155,6 @@ namespace Resonance
 
                     List<Pickup> pickups = world.returnPickups();
                     world.updatePickups(pickups);
-                    
 
                     world.update();
                     
@@ -158,8 +162,10 @@ namespace Resonance
                     removeDeadBadVibes(deadVibes);
                     if(USE_SPAWNER) spawner.update();
 
+                    //Test ray cast
+                    World.rayCast(getGV().Body.Position, getGV().Body.OrientationMatrix.Forward, 10f);
+
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
-                    //DrumManager.increaseHealth();
                     base.Update(gameTime);
                 }
             }
@@ -169,72 +175,17 @@ namespace Resonance
         {
             GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
             GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
-            KeyboardState keyboardState = Keyboard.GetState();
+            KeyboardState keyboard = Keyboard.GetState();
 
-            if (keyboardState.IsKeyDown(Keys.Escape) || playerOne.Buttons.Start == ButtonState.Pressed || playerTwo.Buttons.Start == ButtonState.Pressed)
+            MenuControlManager.input(playerOne, keyboard);
+            if (!UI.Paused)
             {
-                if (!oldKeyState.IsKeyDown(Keys.Escape) && oldPadState1.Buttons.Start != ButtonState.Pressed && oldPadState2.Buttons.Start != ButtonState.Pressed)
-                {
-                    if (UI.Paused) UI.play();
-                    else UI.pause();
-                }
-            }
-
-            if (UI.Paused)
-            {
-                menuControls(keyboardState, playerOne, playerTwo);
-            }
-            else
-            {
-                CameraMotionManager.update(Keyboard.GetState(), GamePad.GetState(PlayerIndex.One));
+                //Camera
+                CameraMotionManager.update(playerOne, keyboard);
                 //Player One
-                //playerOnePresses(playerOne);
-                GVManager.inputs(playerOne,musicHandler,keyboardState);
+                GVManager.input(playerOne, keyboard);
                 //Player Two
-                DrumManager.Input(playerTwo, oldPadState2, musicHandler, world,keyboardState,oldKeyState);
-                //PC Testing Controls
-                 // pcTestingControls(keyboardState);
-              //  DrumManager.pcInput(keyboardState,musicHandler,oldKeyState,world);
-                World.rayCast(getGV().Body.Position, getGV().Body.OrientationMatrix.Forward, 6f);
-
-
-           if ((keyboardState.IsKeyDown(Keys.Q) && !oldKeyState.IsKeyDown(Keys.Q)) || (playerOne.Buttons.LeftShoulder == ButtonState.Pressed && oldPadState1.Buttons.LeftShoulder != ButtonState.Pressed))
-                {
-                    Drawing.DoDisp = true;
-                    Drawing.addWave(((DynamicObject)World.getObject("Player")).Body.Position);
-                }
-            }
-
-            //Cache the previous key state.
-            oldPadState1 = playerOne;
-            oldPadState2 = playerTwo;
-            oldKeyState = keyboardState;
-        }
-
-        private void menuControls(KeyboardState keyboardState, GamePadState playerOne, GamePadState playerTwo)
-        {
-            if (keyboardState.IsKeyDown(Keys.Up) || playerOne.DPad.Up == ButtonState.Pressed || playerTwo.DPad.Up == ButtonState.Pressed)
-            {
-                if (!oldKeyState.IsKeyDown(Keys.Up) && oldPadState1.DPad.Up != ButtonState.Pressed && oldPadState2.DPad.Up != ButtonState.Pressed)
-                {
-                    UI.moveUp();
-                }
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Down) || playerOne.DPad.Down == ButtonState.Pressed || playerTwo.DPad.Down == ButtonState.Pressed)
-            {
-                if (!oldKeyState.IsKeyDown(Keys.Down) && oldPadState1.DPad.Down != ButtonState.Pressed && oldPadState2.DPad.Down != ButtonState.Pressed)
-                {
-                    UI.moveDown();
-                }
-            }
-
-            if (keyboardState.IsKeyDown(Keys.Enter) || playerOne.Buttons.A == ButtonState.Pressed || playerTwo.Buttons.A == ButtonState.Pressed)
-            {
-                if (!oldKeyState.IsKeyDown(Keys.Enter) && oldPadState1.Buttons.A != ButtonState.Pressed && oldPadState2.Buttons.A != ButtonState.Pressed)
-                {
-                    UI.select();
-                }
+                DrumManager.input(playerTwo, keyboard);
             }
         }
 
@@ -246,19 +197,15 @@ namespace Resonance
         {
             List<string> deadVibes = new List<string>();
 
-            foreach (KeyValuePair<string, Object> pair in World.returnObjects())
+            foreach (BadVibe bv in world.returnBadVibes())
             {
-                if (pair.Value is BadVibe)
+                if (bv.Dead)
                 {
-                    BadVibe vibe = (BadVibe)pair.Value;
-                    if (vibe.Dead)
-                    {
-                        deadVibes.Add(pair.Key);
-                    }
-                    else if (!vibe.Dead)
-                    {
-                        vibe.Move();
-                    }
+                    deadVibes.Add(bv.returnIdentifier());
+                }
+                else if (!bv.Dead)
+                {
+                    bv.Move();
                 }
             }
             return deadVibes;
@@ -283,15 +230,11 @@ namespace Resonance
         /// </summary>
         private void breakRestLayers()
         {
-            foreach (KeyValuePair<string, Object> pair in World.returnObjects())
+            foreach (BadVibe bv in World.returnBadVibes())
             {
-                if (pair.Value is BadVibe)
+                if (!bv.Dead)
                 {
-                    BadVibe vibe = (BadVibe)pair.Value;
-                    if (vibe.Dead == false)
-                    {
-                        vibe.damage(Shockwave.REST);
-                    }
+                    bv.damage(Shockwave.REST);
                 }
             }
         }
@@ -315,6 +258,14 @@ namespace Resonance
             get
             {
                 return world;
+            }
+        }
+
+        public MusicHandler Music
+        {
+            get
+            {
+                return musicHandler;
             }
         }
 

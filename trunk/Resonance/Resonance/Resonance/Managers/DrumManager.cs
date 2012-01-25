@@ -14,69 +14,65 @@ namespace Resonance
 {
     class DrumManager
     {
-        public static int healthCount = 0;
-        public static int speedCount = 0;
-        public static int shieldCount = 0;
-        public static int freezeCount = 0;
+        private static int healthCount = 0;
+        private static int speedCount = 0;
+        private static int shieldCount = 0;
+        private static int freezeCount = 0;
 
-        public static void Input(GamePadState playerTwo, GamePadState oldPadState2, MusicHandler musicHandler, World world, KeyboardState keyboardState, KeyboardState oldKeyState)
+        public static GamePadState lastPad;
+        public static KeyboardState lastKbd;
+
+        public static void input(GamePadState pad, KeyboardState kbd)
         {
-            if ((playerTwo.Buttons.A == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.A)) || 
-                (keyboardState.IsKeyDown(Keys.V) && !oldKeyState.IsKeyDown(Keys.V)))
+            bool green = (pad.Buttons.A == ButtonState.Pressed && !lastPad.IsButtonDown(Buttons.A)) || 
+                         (kbd.IsKeyDown(Keys.V) && !lastKbd.IsKeyDown(Keys.V));
+            bool yellow = (pad.Buttons.Y == ButtonState.Pressed && !lastPad.IsButtonDown(Buttons.Y)) ||
+                          (kbd.IsKeyDown(Keys.X) && !lastKbd.IsKeyDown(Keys.X));
+            bool blue = (pad.Buttons.X == ButtonState.Pressed && !lastPad.IsButtonDown(Buttons.X)) ||
+                        (kbd.IsKeyDown(Keys.C) && !lastKbd.IsKeyDown(Keys.C));
+            bool red = (pad.Buttons.B == ButtonState.Pressed && !lastPad.IsButtonDown(Buttons.B)) ||
+                       (kbd.IsKeyDown(Keys.Z) && !lastKbd.IsKeyDown(Keys.Z));
+            bool cymbal = (pad.Buttons.LeftShoulder == ButtonState.Pressed && !lastPad.IsButtonDown(Buttons.LeftShoulder)) ||
+                          (kbd.IsKeyDown(Keys.B) && !lastKbd.IsKeyDown(Keys.B)) ||
+                          (pad.Buttons.RightShoulder == ButtonState.Pressed && !lastPad.IsButtonDown(Buttons.RightShoulder));
+
+            if (green)
             {
-                musicHandler.playSound("TomLow");
-                musicHandler.getTrack().inTime();
+                Program.game.Music.playSound(MusicHandler.GREEN);
+                Program.game.Music.getTrack().inTime();
                 increaseHealth();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.GREEN);
+                Game.getGV().createShockwave(Shockwave.GREEN);
             }
-            if ((playerTwo.Buttons.Y == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.Y)) ||
-                (keyboardState.IsKeyDown(Keys.X) && !oldKeyState.IsKeyDown(Keys.X)))
+            if (yellow)
             {
-                musicHandler.playSound("TomHigh");
-                musicHandler.getTrack().inTime();
+                Program.game.Music.playSound(MusicHandler.YELLOW);
+                Program.game.Music.getTrack().inTime();
                 increaseSpeed();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.YELLOW);
+                Game.getGV().createShockwave(Shockwave.YELLOW);
             }
-            if ((playerTwo.Buttons.X == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.X)) ||
-                (keyboardState.IsKeyDown(Keys.C) && !oldKeyState.IsKeyDown(Keys.C)))
+            if (blue)
             {
-                musicHandler.playSound("TomMiddle");
-                musicHandler.getTrack().inTime();
+                Program.game.Music.playSound(MusicHandler.BLUE);
+                Program.game.Music.getTrack().inTime();
                 increaseShield();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.BLUE);
+                Game.getGV().createShockwave(Shockwave.BLUE);
             }
-            if ((playerTwo.Buttons.B == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.B)) ||
-                (keyboardState.IsKeyDown(Keys.Z) && !oldKeyState.IsKeyDown(Keys.Z)))
+            if (red)
             {
-                musicHandler.playSound("Snare");
-                musicHandler.getTrack().inTime();
+                Program.game.Music.playSound(MusicHandler.RED);
+                Program.game.Music.getTrack().inTime();
                 increaseFreeze();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.RED);
+                Game.getGV().createShockwave(Shockwave.RED);
             }
-            /*if (playerTwo.Buttons.RightStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightStick))
+            if (cymbal)
             {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
+                Program.game.Music.playSound(MusicHandler.CYMBAL);
+                Program.game.Music.getTrack().inTime();
+                Game.getGV().createShockwave(Shockwave.CYMBAL);
             }
-            if (playerTwo.Buttons.LeftStick == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftStick))
-            {
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
-            */
-            if ((playerTwo.Buttons.LeftShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.LeftShoulder)) ||
-                (keyboardState.IsKeyDown(Keys.B) && !oldKeyState.IsKeyDown(Keys.B)))
-            {
-                musicHandler.playSound("Crash");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
-            if ((playerTwo.Buttons.RightShoulder == ButtonState.Pressed && !oldPadState2.IsButtonDown(Buttons.RightShoulder)))
-            {
-                musicHandler.playSound("Crash");
-                musicHandler.getTrack().inTime();
-                ((GoodVibe)(world.getObject("Player"))).createShockwave(Shockwave.CYMBAL);
-            }
+
+            lastPad = pad;
+            lastKbd = kbd;
         }
 
         public static void increaseHealth()

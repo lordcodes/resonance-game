@@ -99,6 +99,7 @@
     <Compile Include="Managers\DrumManager.cs" />
     <Compile Include="Managers\GVManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
+    <Compile Include="Managers\MenuControlManager.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Drawing\Drawing.cs" />
     <Compile Include="Object\DynamicObject.cs" />

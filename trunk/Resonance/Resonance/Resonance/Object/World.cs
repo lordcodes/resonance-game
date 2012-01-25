@@ -17,6 +17,8 @@ using System.IO;
 using ResonanceLibrary;
 using BEPUphysics.Entities;
 using BEPUphysics.BroadPhaseSystems;
+using BEPUphysics.Collidables.MobileCollidables;
+using BEPUphysics.CollisionRuleManagement;
 
 
 namespace Resonance
@@ -109,12 +111,39 @@ namespace Resonance
             else return false;
         }
 
-        public void rayCast(Vector3 position, Vector3 direction, float distance)
+        public List<Object> rayCast(Vector3 position, Vector3 direction, float distance)
         {
+            List<Object> objects = new List<Object>();
+
             List<RayCastResult> rayCastResults = new List<RayCastResult>();
-            bool result = space.RayCast(new Ray(position, direction), distance, rayCastResults);
-            //if (rayCastResults.Count > 1) DebugDisplay.update("Obstacle0", rayCastResults[1].HitObject.Tag.ToString());
-            //else DebugDisplay.update("Obstacle0", rayCastResults.Count.ToString());
+            if (space.RayCast(new Ray(position, direction), distance, RayCastFilter, rayCastResults))
+            {
+                DebugDisplay.update("SEESOMETHING", "I CAN SEE SOMETHING");
+                foreach (RayCastResult result in rayCastResults)
+                {
+                    var entityCollision = rayCastResults[0].HitObject as EntityCollidable;
+                    if (entityCollision != null)
+                    {
+                        //DebugDisplay.update("0", entityCollision.Entity.Tag.ToString());
+                        objects.Add(getObject(entityCollision.Entity.Tag.ToString()));
+                    }
+                    else
+                    {
+                        //DebugDisplay.update("0", rayCastResults[0].HitObject.Tag.ToString());
+                        objects.Add(getObject(rayCastResults[0].HitObject.Tag.ToString()));
+                    }
+                }
+            }
+            else
+            {
+                DebugDisplay.update("SEESOMETHING", "I CANNOT SEE ANYTHING");
+            }
+            return objects;
+        }
+
+        bool RayCastFilter(BroadPhaseEntry entry)
+        {
+            return entry != Game.getGV().Body.CollisionInformation && entry.CollisionRules.Personal <= CollisionRule.Normal;
         }
 
         //removes the object from the dictionary
