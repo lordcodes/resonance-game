@@ -19,7 +19,7 @@ namespace Resonance
         public static string YELLOW = "TomHigh";
         public static string RED = "Snare";
         public static string CYMBAL = "Crash";
-        public static string PICKUP = "Crash";
+        public static string PICKUP = "chink";
 
         MusicTrack bgMusic;
         private AudioEngine audioEngine;
