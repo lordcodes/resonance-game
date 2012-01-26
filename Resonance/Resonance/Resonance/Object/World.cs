@@ -248,6 +248,10 @@ namespace Resonance
             addObject(p);
         }
 
+        /// <summary>
+        /// Returns a list of Pickup objects
+        /// </summary>
+        /// <returns>The list of Pickup Objects</returns>
         public List<Pickup> returnPickups()
         {
             List<Pickup> pickups = new List<Pickup>();
@@ -265,12 +269,26 @@ namespace Resonance
             return pickups;
         }
 
+        /// <summary>
+        /// Checks if Pickups intersect with GoodVibe and remove pickups with TimeToLive = 0
+        /// </summary>
+        /// <param name="pickups">List of Pickup objects</param>
         public void updatePickups(List<Pickup> pickups)
         {
-            pickUpCollision(Game.getGV().Body.Position, Game.getGV().Body.OrientationMatrix.Forward, 3f);
+            //pickUpCollision(Game.getGV().Body.Position, Game.getGV().Body.OrientationMatrix.Forward, 3f);
 
             for (int i = 0; i < pickups.Count; i++)
             {
+                Vector3 pickupPoint = pickups[i].OriginalPosition;
+                double diff = Game.getDistance(Game.getGV().Body.Position, pickupPoint);
+
+                if(diff < pickups[i].Size)
+                {                    
+                    Program.game.Music.playSound(MusicHandler.PICKUP);
+                    Drawing.addWave(pickupPoint);
+                    removeObject(pickups[i]);
+                }
+
                 pickups[i].TimeToLive--;
                 if (pickups[i].TimeToLive == 0)
                 {
@@ -278,7 +296,13 @@ namespace Resonance
                 }
             }
         }
-
+        
+        /// <summary>
+        /// Deprecated method.
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="direction"></param>
+        /// <param name="distance"></param>
         public void pickUpCollision(Vector3 position, Vector3 direction, float distance)
         {
             List<RayCastResult> rayCastResults = new List<RayCastResult>();
