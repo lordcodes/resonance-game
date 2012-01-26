@@ -52,6 +52,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\bad_vibe_animation.fbx">
+      <Name>bad_vibe_animation</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>
