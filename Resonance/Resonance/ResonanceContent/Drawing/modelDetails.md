@@ -25,7 +25,7 @@ ShieldGoodVibe, Models\ShiedlGoodVibe.fbx
 2,			house,					1,		house,					1
 3,			virus,					0.2,	box,					2.8
 4,			goodVibe,				0.5,	spaceShip,				0.2
-5,			terrain64,			    50,		terrain,			    50,		Textures\texTronFloor.png	
+5,			terrain64,			    250,		terrain,			    250,		Textures\texTronFloor.png	
 6,			house,					1,		house,					1
 12,			virus,					0.2,	box,					2.8,		Textures\texGreen.jpg
 13,			virus,					0.2,	box,					2.8,		Textures\texYellow.jpg
