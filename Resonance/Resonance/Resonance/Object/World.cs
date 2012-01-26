@@ -267,12 +267,40 @@ namespace Resonance
 
         public void updatePickups(List<Pickup> pickups)
         {
+            pickUpCollision(Game.getGV().Body.Position, Game.getGV().Body.OrientationMatrix.Forward, 3f);
+
             for (int i = 0; i < pickups.Count; i++)
             {
                 pickups[i].TimeToLive--;
                 if (pickups[i].TimeToLive == 0)
                 {
-                    removeObject(pickups[i]);
+                    //removeObject(pickups[i]);
+                }
+            }
+        }
+
+        public void pickUpCollision(Vector3 position, Vector3 direction, float distance)
+        {
+            List<RayCastResult> rayCastResults = new List<RayCastResult>();
+            if (space.RayCast(new Ray(position, direction), distance, RayCastFilter, rayCastResults))
+            {
+                //DebugDisplay.update("pickup collision", "collision");
+                foreach (RayCastResult result in rayCastResults)
+                {
+                    var entityCollision = rayCastResults[0].HitObject as EntityCollidable;
+                    if (entityCollision == null)
+                    {
+                        //DebugDisplay.update("1", rayCastResults[0].HitObject.Tag.ToString());
+
+                        Object obj = getObject(rayCastResults[0].HitObject.Tag.ToString());
+                        if (obj is Pickup)
+                        {
+                            Program.game.Music.playSound(MusicHandler.PICKUP);
+                            Drawing.addWave(obj.OriginalPosition);
+                            //((StaticObject)obj).Body.
+                            removeObject(obj);
+                        }
+                    }
                 }
             }
         }

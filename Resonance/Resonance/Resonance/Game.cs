@@ -151,10 +151,14 @@ namespace Resonance
 
                     // Update shockwaves
                     getGV().updateWaves();
+
+                    //Check if combat and freeze range
                     getGV().detectCombatAndFreeze();
 
+                    //Update pickups
                     List<Pickup> pickups = world.returnPickups();
                     world.updatePickups(pickups);
+
 
                     world.update();
                     
