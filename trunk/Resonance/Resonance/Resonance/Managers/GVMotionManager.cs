@@ -13,20 +13,22 @@ namespace Resonance {
     /// Handles and provides an interface between button presses and Good Vibe motion.
     /// </summary>
     class GVMotionManager {
-        public static float MAX_R_SPEED                     =   0.10f;
-        public static float MAX_X_SPEED                     =  10.00f;
-        public static float MAX_Z_SPEED                     =  12.00f;
-        public static readonly float DEFAULT_MAX_Z_SPEED    =  12.00f;
-        public static float R_ACCELERATION                  =   0.01f;
-        public static float R_DECELERATION                  =   0.01f;
-        public static float X_ACCELERATION                  =   0.50f;
-        public static float X_DECELERATION                  =   0.50f;
-        public static float Z_ACCELERATION                  =   0.50f;
-        public static float Z_DECELERATION                  =   0.50f;
-        public static readonly float DEFAULT_Z_ACCELERATION =   0.50f;
-        public static float R_SPEED                         =   0.00f;
-        public static float X_SPEED                         =   0.00f;
-        public static float Z_SPEED                         =   0.00f;
+        public static readonly float DEFAULT_Z_ACCELERATION          =   2.50f;
+        public static readonly float DEFAULT_MAX_Z_SPEED             =  40.00f;
+        public static float          MAX_R_SPEED                     =   0.10f;
+        public static float          MAX_X_SPEED                     =  30.00f;
+        public static float          MAX_Z_SPEED                     =  12.00f;
+        public static float          R_ACCELERATION                  =   0.01f;
+        public static float          R_DECELERATION                  =   0.01f;
+        public static float          X_ACCELERATION                  =   0.80f;
+        public static float          X_DECELERATION                  =   1.40f;
+        public static float          Z_ACCELERATION                  =   2.50f;
+        public static float          Z_DECELERATION                  =   1.00f;
+        public static float          R_SPEED                         =   0.00f;
+        public static float          X_SPEED                         =   0.00f;
+        public static float          Z_SPEED                         =   0.00f;
+        public static float          BOOST_POWER                     =   2.00f;
+        public static bool           BOOSTING                        =   false;
 
         private static bool MOVING_F         = false;
         private static bool MOVING_B         = false;
@@ -106,15 +108,16 @@ namespace Resonance {
             Quaternion eAng = Quaternion.Concatenate(cAng, dAng);
 
             servo.Settings.Servo.Goal = eAng;
-
-            //DebugDisplay.update("ROTATION", (DynamicObject.QuaternionToEuler(gv.Body.Orientation)).Y.ToString());
         }
 
-        public static void boost()
-        {
-            GVMotionManager.Z_ACCELERATION = 1f;
-            GVMotionManager.MAX_Z_SPEED = 30f;
-            move(1f);
+        public static void boost() {
+            Z_ACCELERATION = DEFAULT_Z_ACCELERATION * BOOST_POWER;
+            MAX_Z_SPEED    = DEFAULT_MAX_Z_SPEED    * BOOST_POWER;
+        }
+
+        public static void resetBoost() {
+            Z_ACCELERATION = DEFAULT_Z_ACCELERATION;
+            MAX_Z_SPEED    = DEFAULT_MAX_Z_SPEED;
         }
 
         private static void move(float power) {
@@ -298,12 +301,5 @@ namespace Resonance {
                 gv.adjustFreeze(1);
             }
         }
-
-        public static void resetBoost()
-        {
-            Z_ACCELERATION = DEFAULT_Z_ACCELERATION;
-            MAX_Z_SPEED = DEFAULT_MAX_Z_SPEED;
-        }
-
     }
 }
