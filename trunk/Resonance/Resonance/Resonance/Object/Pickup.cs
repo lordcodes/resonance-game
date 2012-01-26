@@ -19,13 +19,20 @@ namespace Resonance
         //public static readonly int FREEZE = 2;
 
         public int powerupType;
+        private int initialTime;
         private int timeToLive;
 
         public Pickup(int modelNum, String name, Vector3 pos, int power, int time)
             : base(modelNum, name, pos)
         {
             powerupType = power;
+            initialTime = time;
             timeToLive = time;
+        }
+
+        public void resetTimeToLive()
+        {
+            timeToLive = initialTime;
         }
 
         public int TimeToLive
