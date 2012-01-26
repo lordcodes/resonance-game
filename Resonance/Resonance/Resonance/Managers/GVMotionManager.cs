@@ -298,5 +298,12 @@ namespace Resonance {
                 gv.adjustFreeze(1);
             }
         }
+
+        public static void resetBoost()
+        {
+            Z_ACCELERATION = DEFAULT_Z_ACCELERATION;
+            MAX_Z_SPEED = DEFAULT_MAX_Z_SPEED;
+        }
+
     }
 }
