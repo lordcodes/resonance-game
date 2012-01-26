@@ -209,12 +209,12 @@ namespace Resonance {
             bool  strafeL  = kbd.IsKeyDown(Keys.OemComma);
             bool  strafeR  = kbd.IsKeyDown(Keys.OemPeriod);
 
-            bool chargeNitro = kbd.IsKeyDown(Keys.D1); //TODO: change to non combat drum pattern
-            bool nitro = kbd.IsKeyDown(Keys.D2);
+            bool chargeNitro  = kbd.IsKeyDown(Keys.D1); //TODO: change to non combat drum pattern
+            bool nitro        = kbd.IsKeyDown(Keys.D2);
             bool chargeShield = kbd.IsKeyDown(Keys.D3); //TODO: change to non combat drum pattern
-            bool shield = kbd.IsKeyDown(Keys.D4);
+            bool shield       = kbd.IsKeyDown(Keys.D4);
             bool chargeFreeze = kbd.IsKeyDown(Keys.D5); //TODO: change to non combat drum pattern
-            bool freeze = kbd.IsKeyDown(Keys.D6);
+            bool freeze       = kbd.IsKeyDown(Keys.D6);
 
             // Trigger positions
             float lTrig = pad.Triggers.Left;
@@ -223,7 +223,6 @@ namespace Resonance {
             // Rotate GV based on keyboard / dPad
             if (rotateL ^ rotateR) {
                 float power = 1f;
-                //if (rightX != 0f) power = -rightX;
 
                 if (backward) {
                     if (rotateL) rotate(power); else rotate(-power);
@@ -248,7 +247,6 @@ namespace Resonance {
                 if (Z_SPEED > 0) if (Z_DECELERATION > Z_SPEED)  Z_SPEED = 0f; else Z_SPEED -= Z_DECELERATION;
                 if (Z_SPEED < 0) if (Z_DECELERATION > -Z_SPEED) Z_SPEED = 0f; else Z_SPEED += Z_DECELERATION;
                 move(0f);
-                //lamZ.Settings.VelocityMotor.GoalVelocity = 0f;
             }
 
             // Strafe based on keyboard.
@@ -264,40 +262,28 @@ namespace Resonance {
                 strafe(0f);
             }
 
-            // Move / strafe based on analogue sticks (if no movement performed above).
-            // UNTESTED
-            /*if (!movedZ && !strafed) {
-                move(leftY);
-                strafe(leftX);
+            // Jump?
+            /*if ((gv.Body.Position.Y == 0) && (lTrig > 0)) {
+                gv.jump(JUMP_HEIGHT);
             }*/
 
-            // Jump?
-            if ((gv.Body.Position.Y == 0) && (lTrig > 0)) {
-                gv.jump(JUMP_HEIGHT);
-            }
-
             //Charge speed boost when not in combat
-            if (!gv.InCombat && chargeNitro)
-            {
+            if (!gv.InCombat && chargeNitro) {
                 gv.adjustNitro(1);
             }
 
-
             //Charge shield when not in combat
-            if (!gv.InCombat && chargeShield)
-            {
+            if (!gv.InCombat && chargeShield) {
                 gv.adjustShield(1);
             }
 
             //Use shield
-            if (shield && (gv.Shield > 0))
-            {
+            if (shield && (gv.Shield > 0)) {
                 gv.adjustShield(-1);
             }
 
             //Charge freeze when not in combat
-            if (!gv.InCombat && chargeFreeze)
-            {
+            if (!gv.InCombat && chargeFreeze) {
                 gv.adjustFreeze(1);
             }
         }
