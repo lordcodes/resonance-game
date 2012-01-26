@@ -13,13 +13,16 @@ namespace Resonance {
     /// Handles and provides an interface between button presses and Good Vibe motion.
     /// </summary>
     class GVMotionManager {
-        public static float MAX_R_SPEED                     =   0.20f;
+        public static float MAX_R_SPEED                     =   0.10f;
         public static float MAX_X_SPEED                     =  10.00f;
         public static float MAX_Z_SPEED                     =  12.00f;
         public static readonly float DEFAULT_MAX_Z_SPEED    =  12.00f;
-        public static float R_ACCELERATION                  =   0.02f;
+        public static float R_ACCELERATION                  =   0.01f;
+        public static float R_DECELERATION                  =   0.01f;
         public static float X_ACCELERATION                  =   0.50f;
+        public static float X_DECELERATION                  =   0.50f;
         public static float Z_ACCELERATION                  =   0.50f;
+        public static float Z_DECELERATION                  =   0.50f;
         public static readonly float DEFAULT_Z_ACCELERATION =   0.50f;
         public static float R_SPEED                         =   0.00f;
         public static float X_SPEED                         =   0.00f;
@@ -226,7 +229,9 @@ namespace Resonance {
                     if (rotateL) rotate(-power); else rotate(power);
                 }
             } else {
-                R_SPEED = 0f;
+                if (R_SPEED > 0) if (R_DECELERATION > R_SPEED)  R_SPEED = 0f; else R_SPEED -= R_DECELERATION;
+                if (R_SPEED < 0) if (R_DECELERATION > -R_SPEED) R_SPEED = 0f; else R_SPEED += R_DECELERATION;
+                rotate(0f);
             }
 
             // Move forward / backward based on keyboard / dPad
@@ -237,8 +242,8 @@ namespace Resonance {
                     move(-1f);
                 }
             } else {
-                if (Z_SPEED > 0) if (Z_ACCELERATION > Z_SPEED)  Z_SPEED = 0f; else Z_SPEED -= Z_ACCELERATION;
-                if (Z_SPEED < 0) if (Z_ACCELERATION > -Z_SPEED) Z_SPEED = 0f; else Z_SPEED += Z_ACCELERATION;
+                if (Z_SPEED > 0) if (Z_DECELERATION > Z_SPEED)  Z_SPEED = 0f; else Z_SPEED -= Z_DECELERATION;
+                if (Z_SPEED < 0) if (Z_DECELERATION > -Z_SPEED) Z_SPEED = 0f; else Z_SPEED += Z_DECELERATION;
                 move(0f);
                 //lamZ.Settings.VelocityMotor.GoalVelocity = 0f;
             }
@@ -251,8 +256,8 @@ namespace Resonance {
                     strafe(-1f);
                 }
             } else {
-                if (X_SPEED > 0) if (X_ACCELERATION > X_SPEED)  X_SPEED = 0f; else X_SPEED -= X_ACCELERATION;
-                if (X_SPEED < 0) if (X_ACCELERATION > -X_SPEED) X_SPEED = 0f; else X_SPEED += X_ACCELERATION;
+                if (X_SPEED > 0) if (X_DECELERATION > X_SPEED)  X_SPEED = 0f; else X_SPEED -= X_DECELERATION;
+                if (X_SPEED < 0) if (X_DECELERATION > -X_SPEED) X_SPEED = 0f; else X_SPEED += X_DECELERATION;
                 strafe(0f);
             }
 
