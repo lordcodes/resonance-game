@@ -146,7 +146,7 @@ namespace Resonance
                 Matrix texturePos = Matrix.CreateTranslation(new Vector3(0, 0.2f, 0));
                 Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
                 texturePos = Matrix.Multiply(rotation,texturePos);
-                gameGraphics.Draw2dTextures(special, texturePos, World.MAP_X, World.MAP_Z);
+                //gameGraphics.Draw2dTextures(special, texturePos, World.MAP_X, World.MAP_Z);
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
                 if (UI.Paused) hud.drawMenu(UI.getString());

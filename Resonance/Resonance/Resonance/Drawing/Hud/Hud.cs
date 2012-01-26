@@ -22,7 +22,7 @@ namespace Resonance
         private static GraphicsDeviceManager graphics;
         private static ContentManager Content;
         private static Graphics gameGraphics;
-        private static Dictionary<string, Vector2> dictionary = new Dictionary<string, Vector2>();
+        private static Dictionary<string, BadVibeDetails> badVibes = new Dictionary<string, BadVibeDetails>();
         private static int score = 0;
         private static int health;
         private static int nitro;
@@ -116,11 +116,8 @@ namespace Resonance
         /// </summary>
         public void Draw()
         {
+            drawBadVibeArmour();
             spriteBatch.Begin();
-            /*foreach (KeyValuePair<string, Vector2> pair in dictionary)
-            {
-                spriteBatch.DrawString(font, "BV", pair.Value, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            }*/
             highlightedPower();
             drawHealthBar();
             drawNitroBar();
@@ -163,10 +160,9 @@ namespace Resonance
                     Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
                     Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
 
-                    if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
-                    else dictionary.Add(name, newpos);
+                    if (badVibes.ContainsKey(name)) badVibes[name] = new BadVibeDetails(screenPosition, armour, bvDist);
+                    else badVibes.Add(name, new BadVibeDetails(screenPosition, armour, bvDist));
 
-                    drawBadVibeHealthString(name, armourString, screenPosition);
                 } else {
                     int xOffset;
 
@@ -180,12 +176,45 @@ namespace Resonance
                     Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
                     Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
 
-                    if (dictionary.ContainsKey(name)) dictionary[name] = newpos;
-                    else dictionary.Add(name, newpos);
+                    if (badVibes.ContainsKey(name)) badVibes[name] = new BadVibeDetails(screenPosition, armour,bvDist);
+                    else badVibes.Add(name, new BadVibeDetails(screenPosition, armour, bvDist));
 
-                    drawBadVibeHealth(armour, screenPosition, bvDist);
                 }
             }
+        }
+
+        private void drawBadVibeArmour()
+        {
+            foreach (KeyValuePair<string, BadVibeDetails> badVibe in badVibes)
+            {
+                string key = badVibe.Key;
+                BadVibeDetails details = badVibes[key];
+                Vector2 pos = details.ScreenPos;
+                int dist = details.Distance;
+                List<int> armour = details.Armour; 
+
+                if (BadVibe.DRAW_HEALTH_AS_STRING)
+                {
+                    string armourString = "";
+                    for (int i = 0; i < armour.Count; i++)
+                    {
+                        if (i != 0) armourString += " ";
+                        if (Shockwave.REST == armour[i]) armourString += "_";
+                        if (Shockwave.GREEN == armour[i]) armourString += "G";
+                        if (Shockwave.YELLOW == armour[i]) armourString += "Y";
+                        if (Shockwave.BLUE == armour[i]) armourString += "B";
+                        if (Shockwave.RED == armour[i]) armourString += "R";
+                        if (Shockwave.CYMBAL == armour[i]) armourString += "C";
+                    }
+                    drawBadVibeHealthString(key, armourString, pos);
+                }
+                else
+                {
+                    drawBadVibeHealth(armour, pos, dist);
+                }
+            }
+
+            badVibes.Clear();
         }
 
         public void drawBadVibeHealth(List<int> arm, Vector2 pos, int bvDist) {
@@ -428,4 +457,22 @@ namespace Resonance
 
         }
     }
+
+    class BadVibeDetails
+    {
+        private Vector2 screenPos;
+        private int distance;
+        private List<int> armour;
+        public Vector2 ScreenPos { get { return screenPos; }}
+        public List<int> Armour { get { return armour; }}
+        public int Distance { get { return distance; }}
+
+        public BadVibeDetails(Vector2 screenPos, List<int> armour, int distance)
+        {
+            this.screenPos = screenPos;
+            this.armour = armour;
+            this.distance = distance;
+        }
+    }
+
 }

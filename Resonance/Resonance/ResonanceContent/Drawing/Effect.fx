@@ -12,6 +12,9 @@ float3 DiffuseLightColor2;
 float4 SpecularColorPower;
 float3 SpecularLightColor;
 float3 CameraPosition;
+
+float textureSize = 16.0f;
+float texelSize =  1/16.0f;
 bool doDisp;
 
 sampler DispMapSampler = sampler_state
@@ -50,20 +53,33 @@ struct VertexShaderOutput
 	float height   : COLOR;
 };
 
+float4 tex2DlodSmooth( sampler texSam, float4 uv )
+{
+	float4 height00 = tex2Dlod(texSam, uv);
+	float4 height10 = tex2Dlod(texSam, uv + float4(texelSize, 0, 0, 0));
+	float4 height01 = tex2Dlod(texSam, uv + float4(0, texelSize, 0, 0));
+	float4 height11 = tex2Dlod(texSam, uv + float4(texelSize , texelSize, 0, 0));
+	float2 f = frac( uv.xy * textureSize );
+	float4 tA = lerp( height00, height10, f.x );
+	float4 tB = lerp( height01, height11, f.x );
+	return lerp( tA, tB, f.y );
+}
 
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 {
     VertexShaderOutput output;
-	float height = tex2Dlod(DispMapSampler, input.TexCoord);
-    float4 worldPosition = mul(input.Position, World);
+	float height = tex2DlodSmooth(DispMapSampler, input.TexCoord);
 	
 	if(doDisp)
 	{
-		worldPosition.y = height;
+		input.Position.y = height * 0.03;
 	}
 
+    float4 worldPosition = mul(input.Position, World);
     float4 viewPosition = mul(worldPosition, View);
     output.Position = mul(viewPosition, Projection);
+
+
 	output.TexCoord = input.TexCoord;
 	output.Normal = mul(input.Normal, World);
 	output.View = CameraPosition - worldPosition;
@@ -74,8 +90,23 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 	float3 normal = normalize(input.Normal);
-	float3 finalColor = tex2D(ColorTextureSampler, input.TexCoord);
-	float4 fullColor = tex2D(ColorTextureSampler, input.TexCoord);
+	float3 finalColor;
+	float4 fullColor;
+
+	
+	if(false)
+	{
+		finalColor = tex2DlodSmooth(DispMapSampler, input.TexCoord);
+		fullColor = tex2DlodSmooth(DispMapSampler, input.TexCoord);
+	}
+	else
+	{
+		finalColor = tex2D(ColorTextureSampler, input.TexCoord);
+		fullColor = tex2D(ColorTextureSampler, input.TexCoord);
+
+	}
+
+	
 	//float3 finalColor = float3(0,0,0);
 	float3 diffuse = AmbientLightColor;
 	float NdotL = saturate(dot(normal,LightDirection));
@@ -90,13 +121,6 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	if (NdotL != 0) specular += pow(NdotH, SpecularColorPower.w) * SpecularLightColor;
 	finalColor += SpecularColorPower.xyz * specular * fullColor.a;
 	clip( fullColor.a < 0.1f ? -1:1 );
-	if(doDisp)
-	{
-		if(input.height < 0)
-		{
-			finalColor += input.height*1.2;
-		}
-	}
     return float4(finalColor,fullColor.a);
 }
 
@@ -108,6 +132,8 @@ technique Technique1
         PixelShader = compile ps_3_0 PixelShaderFunction();
     }
 }
+
+///////////////////////////////////
 
 struct VS_OUTPUT
 {

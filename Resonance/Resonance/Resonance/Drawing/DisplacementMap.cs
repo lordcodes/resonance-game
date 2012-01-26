@@ -9,14 +9,15 @@ namespace Resonance
 {
     class DisplacementMap
     {
-        public const float WAVE_HEIGHT = 2;
-        public const float WAVE_WIDTH = 0.7f;
-        public const float WAVE_SPEED = 0.3f;
+        public const float WAVE_HEIGHT = 1f;
+        public const float WAVE_WIDTH = 1f;
+        public const float WAVE_SPEED = 0.2f;
 
         private GraphicsDevice graphicsDevice;
         private int width;
         private int height;
         private float[] buffer;
+        private float[] damageBuffer;
         private Vector2 lastPosition;
         private Texture2D dispMap;
         private int waveCount = 0;
@@ -25,10 +26,9 @@ namespace Resonance
 
         public void reset()
         {
-            if (buffer != null)
-            {
-                for (int i = 0; i < buffer.Length; i++) buffer[i] = 0f;
-            }
+            for (int i = 0; i < buffer.Length; i++) buffer[i] = damageBuffer[i];
+            dispMap = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
+            dispMap.SetData<float>(buffer, 0, buffer.Length);
         }
 
         public DisplacementMap(GraphicsDevice nGraphics, int nWidth, int nHeight)
@@ -36,13 +36,25 @@ namespace Resonance
             graphicsDevice = nGraphics;
             width = nWidth;
             height = nHeight;
+            damageBuffer = new float[width * height];
             buffer = new float[width * height];
             lastPosition = new Vector2(-1,-1);
-            for (int i = 0; i < buffer.Length; i++) buffer[i] = 0f;
+            for (int i = 0; i < buffer.Length; i++)buffer[i] = 0f;
+            for (int i = 0; i < damageBuffer.Length; i++)damageBuffer[i] = 0f;
+        }
+
+        public void addHole(float x , float y)
+        {
+            int index = (int)Math.Round(x) + (int)Math.Round(y * width);
+            if (index < damageBuffer.Length && index >= 0)
+            {
+                damageBuffer[index] = -0.5f;
+            }
         }
 
         public void addWave(Vector2 position)
         {
+            addHole(position.X, position.Y);
             if (waveCount >= waves.Length) waveCount = 0;
             waves[waveCount] = new Wave(position);
             waveCount++;
@@ -136,7 +148,7 @@ namespace Resonance
             int index = (int)Math.Round(x) + (int)Math.Round(y * width);
             if (index < buffer.Length && index>= 0)
             {
-                buffer[index] = value;
+                buffer[index] = value+damageBuffer[index];
             }
         }
     }
