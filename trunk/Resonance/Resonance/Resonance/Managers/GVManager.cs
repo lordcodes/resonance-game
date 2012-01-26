@@ -70,11 +70,10 @@ namespace Resonance
             {
                usePower(Game.getGV().selectedPower);
             }
-            else
+            else //if ((pad.Triggers.Right > 0 && pad.Triggers.Right < 0.1) || kbd.IsKeyUp(Keys.T))
             {
                 Game.getGV().shieldDown();
-                GVMotionManager.Z_ACCELERATION = GVMotionManager.DEFAULT_Z_ACCELERATION;
-                GVMotionManager.MAX_Z_SPEED = GVMotionManager.DEFAULT_MAX_Z_SPEED;
+                GVMotionManager.resetBoost();
             }
             GVMotionManager.input(kbd, pad);
 
