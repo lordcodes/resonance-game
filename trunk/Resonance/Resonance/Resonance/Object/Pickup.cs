@@ -18,9 +18,10 @@ namespace Resonance
         //public static readonly int SHIELD = 1;
         //public static readonly int FREEZE = 2;
 
-        public int powerupType;
+        private int powerupType;
         private int initialTime;
         private int timeToLive;
+        private float size;
 
         public Pickup(int modelNum, String name, Vector3 pos, int power, int time)
             : base(modelNum, name, pos)
@@ -28,11 +29,23 @@ namespace Resonance
             powerupType = power;
             initialTime = time;
             timeToLive = time;
+            size = 5f; //TODO: model size
         }
 
+        /// <summary>
+        /// Resets the timer on the Pickup to its initial value
+        /// </summary>
         public void resetTimeToLive()
         {
             timeToLive = initialTime;
+        }
+
+        public float Size
+        {
+            get
+            {
+                return size;
+            }
         }
 
         public int TimeToLive
