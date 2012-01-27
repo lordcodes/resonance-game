@@ -179,8 +179,11 @@ namespace Resonance
 
                 if (GV_KILLED || mode.terminated()) {
                     endGame();
+                }
+
+                //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
+                //if (musicHandler.getTrack().inTime() > 0f) musicHandler.playSound("chink");
             }
-        }
         }
 
         // Called when game finished (won or lost).

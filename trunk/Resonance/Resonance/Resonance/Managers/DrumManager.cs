@@ -71,6 +71,8 @@ namespace Resonance
                 Game.getGV().createShockwave(Shockwave.CYMBAL);
             }
 
+            if (green | blue | yellow | red | cymbal) DebugDisplay.update("In time", Program.game.Music.getTrack().inTime().ToString());
+
             lastPad = pad;
             lastKbd = kbd;
         }

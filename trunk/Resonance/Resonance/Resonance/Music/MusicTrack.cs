@@ -23,6 +23,8 @@ namespace Resonance
         Song song;
         PlayState state;
         long beatLength;
+        long halfBeatLength;
+        long quarterBeatLength;
         long offset;
         NoteMode mode;
         long startTime;
@@ -31,8 +33,10 @@ namespace Resonance
         int lastI;
 
         int currentBeatCount;
+        int beats   = 0;
+        int offbeat = 0;
 
-        const long WINDOW = 45000000;
+        const long WINDOW = 80000000;//45000000;
 
         enum NoteMode { WHOLE, HALF, QUARTER };
         enum PlayState { PLAYING, PAUSED, STOPPED };
@@ -43,14 +47,24 @@ namespace Resonance
             song = content.Load<Song>("Music/song");
             state = PlayState.STOPPED;
             String path = newContent.RootDirectory + "/Music/song.timing";
-            mode = NoteMode.QUARTER;
 
+            //mode = NoteMode.QUARTER;
+                 if (Game.DIFFICULTY == Game.BEGINNER) mode = NoteMode.WHOLE;
+            else if (Game.DIFFICULTY <= Game.MEDIUM)   mode = NoteMode.HALF;
+            else                                       mode = NoteMode.QUARTER;
+
+            //MediaPlayer.Volume /= 10;
             StreamReader reader = new StreamReader(path);
             beatLength = Convert.ToInt32(reader.ReadLine());
+            halfBeatLength = beatLength >> 1;
+            quarterBeatLength = halfBeatLength >> 1;
             offset = Convert.ToInt32(reader.ReadLine());
             reader.Close();
             lastI = 0;
             currentBeatCount = 0;
+
+            //DebugDisplay.update("Half Beat Length", halfBeatLength.ToString());
+            //DebugDisplay.update("Window Size     ", WINDOW.ToString());
 
             if (Game.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
         }
@@ -135,52 +149,76 @@ namespace Resonance
         /// <summary>
         /// Detect if you are in time to the beat
         /// </summary>
-        public void inTime()
+        public float inTime()
         {
             if (state == PlayState.PLAYING)
             {
+                long time = (DateTime.Now.Ticks * 100) - startTime;
+                float scoreWeight = -1f;
                 for (; ; lastI++)
                 {
-                    long time = DateTime.Now.Ticks * 100;
                     long beatTime;
                     long lastBeatTime;
 
                     if (mode == NoteMode.WHOLE)
                     {
-                        beatTime = startTime + offset + (lastI * beatLength);
-                        lastBeatTime = startTime + offset + ((lastI - 1) * beatLength);
+                        beatTime = offset + (lastI * beatLength);
+                        lastBeatTime = beatTime - beatLength;
                     }
                     else if (mode == NoteMode.HALF)
                     {
-                        beatTime = startTime + offset + (lastI * beatLength / 2);
-                        lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 2);
+                        beatTime = offset + (lastI * halfBeatLength);
+                        lastBeatTime = beatTime - halfBeatLength;
                     }
                     else
                     {
-                        beatTime = startTime + offset + (lastI * beatLength / 4);
-                        lastBeatTime = startTime + offset + ((lastI - 1) * beatLength / 4);
+                        beatTime = offset + (lastI * quarterBeatLength);
+                        lastBeatTime = beatTime - quarterBeatLength;
                     }
 
                     if (time < beatTime)
                     {
                         if (time > (beatTime - WINDOW))
                         {
+                            beats++;
                             //HIT
                             //Console.WriteLine("HIT1");
+
+                            //return true;
+                            long numerator = time - beatTime + WINDOW;
+                            long window    = WINDOW >> 15;
+                            numerator >>= 15;
+                            float div  = (numerator / (float) window);
+                            double div2 = ((1f - div) * (Math.PI / 2d));
+                            scoreWeight = (float) Math.Cos(div2);
                         }
-                        else if (time < lastBeatTime + WINDOW)
+                        if (time < lastBeatTime + WINDOW)
                         {
+                            beats++;
                             //HIT
                             //Console.WriteLine("HIT2");
+                            //return true;
+                            long numerator = lastBeatTime + WINDOW - time;
+                            long window = WINDOW >> 15;
+                            numerator >>= 15;
+                            float div = (numerator / (float) window);
+                            double div2 = ((1f - div) * (Math.PI / 2d));
+                            float result = (float) Math.Cos(div2);
+                            if (result > scoreWeight) scoreWeight = result;
                         }
-                        else
-                        {
-                            //MISS
-                            //Console.WriteLine("MISS");
-                        }
+                        if (scoreWeight == -1f) offbeat++;
+
+                        DebugDisplay.update("Beats    ",   beats.ToString());
+                        DebugDisplay.update("Offbeats ", offbeat.ToString());
                         break;
                     }
                 }
+
+                return scoreWeight;
+            } else {
+                // Not playing. Return false.
+                //return false;
+                return -1f;
             }
         }
     }
