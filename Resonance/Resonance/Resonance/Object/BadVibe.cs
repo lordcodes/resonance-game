@@ -567,7 +567,6 @@ namespace Resonance
                         EXPERT_COUNT++;
                     }
                 }
-
         }
     }
 }
