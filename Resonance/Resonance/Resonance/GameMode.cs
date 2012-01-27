@@ -29,15 +29,33 @@ namespace Resonance {
                     if (Program.game.Music.getTrack().SONG_ENDED) TERMINATION_CRITERION_MET = true;
                     break;
                 }
-                case SURVIVAL:    { // TODO: Survival mode termination criteria ()
+                case SURVIVAL:    { // TODO: Survival mode termination criteria (Nothing: Only way to end is for GV to be dead. Handled separately)
                     break;
                 }
                 case ELIMINATION: { // TODO: Elimination mode termination criteria (no BV left)
+                    if (Program.game.World.returnBadVibes().Count == 0) TERMINATION_CRITERION_MET = true;
                     break;
                 }
             }
 
             return TERMINATION_CRITERION_MET;
+        }
+
+        public int finaliseScore(bool gVKilled, int score) {
+            switch (MODE) {
+                case TIME_ATTACK: {
+                        if (gVKilled) return 0; else return score;
+                }
+                case SURVIVAL: {
+                    return score;
+                }
+                case ELIMINATION: {
+                    if (gVKilled) return 0; else return score;
+                }
+            }
+
+            // Should be impossible.
+            return 0;
         }
     }
 }
