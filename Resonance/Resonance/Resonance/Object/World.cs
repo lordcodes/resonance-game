@@ -276,7 +276,7 @@ namespace Resonance
                     {
                         case 1:
                             {
-                                Program.game.Music.playSound(MusicHandler.PICKUP);
+                                Program.game.Music.playSound(MusicHandler.CHINK);
                                 Game.getGV().adjustNitro(10);
                                 break;
                             }
