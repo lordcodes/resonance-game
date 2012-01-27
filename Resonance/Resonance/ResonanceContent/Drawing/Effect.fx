@@ -12,7 +12,7 @@ float3 DiffuseLightColor2;
 float4 SpecularColorPower;
 float3 SpecularLightColor;
 float3 CameraPosition;
-
+float4x4 xBones[60]; 
 float textureSize = 32.0f;
 float texelSize =  1/32.0f;
 bool doDisp;
@@ -92,22 +92,8 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float3 normal = normalize(input.Normal);
 	float3 finalColor;
 	float4 fullColor;
-
-	
-	if(false)
-	{
-		finalColor = tex2DlodSmooth(DispMapSampler, input.TexCoord);
-		fullColor = tex2DlodSmooth(DispMapSampler, input.TexCoord);
-	}
-	else
-	{
-		finalColor = tex2D(ColorTextureSampler, input.TexCoord);
-		fullColor = tex2D(ColorTextureSampler, input.TexCoord);
-
-	}
-
-	
-	//float3 finalColor = float3(0,0,0);
+	finalColor = tex2D(ColorTextureSampler, input.TexCoord);
+	fullColor = tex2D(ColorTextureSampler, input.TexCoord);
 	float3 diffuse = AmbientLightColor;
 	float NdotL = saturate(dot(normal,LightDirection));
 	diffuse += NdotL * DiffuseLightColor;
@@ -124,58 +110,16 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     return float4(finalColor,fullColor.a);
 }
 
-technique Technique1
-{
-    pass Pass1
-    {
-        VertexShader = compile vs_3_0 VertexShaderFunction();
-        PixelShader = compile ps_3_0 PixelShaderFunction();
-    }
-}
 
 ///////////////////////////////////
 
-struct VS_OUTPUT
-{
-    float4 position : POSITION;
-    float4 color : COLOR0;
-};
-
-VS_OUTPUT Transform(
-    float4 Pos  : POSITION, 
-    float4 Color : COLOR0 )
-{
-    VS_OUTPUT Out = (VS_OUTPUT)0;
-
-    Out.position = mul(Pos, Projection);
-    Out.color = Color;
-
-    return Out;
-}
-
-float4 ApplyAPixelShader( VS_OUTPUT vsout ) : COLOR
-{
-	return vsout.color;
-}
-
-technique TransformTechnique
-{
-    pass P0
-    {
-        vertexShader = compile vs_2_0 Transform();
-        pixelShader = compile ps_2_0 ApplyAPixelShader();
-    }
-}
-
-/////////////////////////////////////
-
-float4x4 xBones[60];  
+ 
  
 struct VSInputNmTxWeights  
 {  
     float4 Position : POSITION0;  
     float3 Normal   : NORMAL0;  
-    float2 TexCoord : TEXCOORD0;  
+    float4 TexCoord : TEXCOORD0;  
     int4   Indices  : BLENDINDICES0;  
     float4 Weights  : BLENDWEIGHT0;  
 };  
@@ -194,41 +138,47 @@ void Skin(inout VSInputNmTxWeights vin, uniform int boneCount)
     vin.Normal = mul(vin.Normal, (float3x3)skinning);  
 }  
  
-struct STextured_VSOut  
+struct Animation_VSOut  
 {  
     float4 Position         : POSITION0;       
     float3 Normal           : TEXCOORD0;  
     float2 TexCoords        : TEXCOORD1;  
 };  
  
-STextured_VSOut STexturedVertexShader(VSInputNmTxWeights input)  
+VertexShaderOutput AnimationVertexShader(VSInputNmTxWeights input)  
 {  
-    STextured_VSOut Output = (STextured_VSOut)0;  
- 
+    VertexShaderOutput output;
     Skin(input, 2);
-
-
-
     float4 worldPosition = mul(input.Position, World);
-	float4 viewPosition = mul(worldPosition, View);
-	Output.Position = mul(viewPosition, Projection);
-	Output.Normal = normalize(mul( input.Normal, World ));
-    Output.TexCoords = input.TexCoord;   
-        
-    return Output;  
+    float4 viewPosition = mul(worldPosition, View);
+    output.Position = mul(viewPosition, Projection);
+	output.TexCoord = input.TexCoord;
+	output.Normal = mul(input.Normal, World);
+	output.View = CameraPosition - worldPosition;
+	output.height = 0;
+    return output;  
 }  
  
-float4 STexturedPixelShader(STextured_VSOut PSIn) : Color  
+float4 AnimationPixelShader(Animation_VSOut PSIn) : Color  
 {       
     float4 diffuseColor = tex2D(ColorTextureSampler, PSIn.TexCoords);
     return diffuseColor;  
 }  
  
-technique STextured  
+technique Animation 
 {  
     Pass  
     {  
-        VertexShader = compile vs_2_0 STexturedVertexShader();  
-        PixelShader = compile ps_2_0 STexturedPixelShader();  
+        VertexShader = compile vs_2_0 AnimationVertexShader();  
+        PixelShader = compile ps_2_0 PixelShaderFunction();  
     }  
-} 
+}
+
+technique StaticObject
+{
+    pass Pass1
+    {
+        VertexShader = compile vs_3_0 VertexShaderFunction();
+        PixelShader = compile ps_3_0 PixelShaderFunction();
+    }
+}
