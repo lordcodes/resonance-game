@@ -33,7 +33,7 @@ namespace Resonance
         public static bool GV_KILLED = false;
 
         public static bool USE_BV_SPAWNER = false;
-        public static bool USE_PICKUP_SPAWNER = true;
+        public static bool USE_PICKUP_SPAWNER = false;
         GraphicsDeviceManager graphics;
         public readonly MusicHandler musicHandler;
 
@@ -173,7 +173,6 @@ namespace Resonance
                     if(USE_BV_SPAWNER) bvSpawner.update();
                     if(USE_PICKUP_SPAWNER) pickupSpawner.update();
 
-                    animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     base.Update(gameTime);
                 }
 
