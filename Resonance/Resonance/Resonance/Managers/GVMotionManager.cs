@@ -30,13 +30,11 @@ namespace Resonance {
         public static float          BOOST_POWER                     =   2.00f;
         public static bool           BOOSTING                        =   false;
 
-        private static bool MOVING_F         = false;
-        private static bool MOVING_B         = false;
+        //private static bool MOVING_F         = false;
+        //private static bool MOVING_B         = false;
 
 
         private static GoodVibe gv;
-
-        private static float JUMP_HEIGHT = 0.5f;
 
         private static SingleEntityAngularMotor servo;
         private static LinearAxisMotor           lamZ;
@@ -261,11 +259,6 @@ namespace Resonance {
                 if (X_SPEED < 0) if (X_DECELERATION > -X_SPEED) X_SPEED = 0f; else X_SPEED += X_DECELERATION;
                 strafe(0f);
             }
-
-            // Jump?
-            /*if ((gv.Body.Position.Y == 0) && (lTrig > 0)) {
-                gv.jump(JUMP_HEIGHT);
-            }*/
 
             //Charge speed boost when not in combat
             if (!gv.InCombat && chargeNitro) {

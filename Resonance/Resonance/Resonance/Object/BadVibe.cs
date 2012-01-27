@@ -15,7 +15,6 @@ namespace Resonance
         public const int ARMOUR_SPACING = 3;
         public const int MAX_ARMOUR_DISPLAY_DIST = 20;
         public const int MAX_ARMOUR_TRANSPARENCY_DIST = 8;
-        public const double RADIUS = 3;
         private const double REDUCTION_RATE = 15;
         private const double ATTACK_RANGE = 3;
         private const double ATTACK_RATE = 0.8;
@@ -26,6 +25,7 @@ namespace Resonance
         AIManager ai;
 
         ArmourSequence armour;
+        double radius = 3;
         State state = State.NORMAL;
 
         public enum State { NORMAL, DEAD, FROZEN };
@@ -37,6 +37,14 @@ namespace Resonance
             setColour();
 
             ai = new AIManager(this);
+
+            BoundingBox box = Body.CollisionInformation.BoundingBox;
+
+            double x = Math.Abs(box.Max.X - box.Min.X);
+            double z = Math.Abs(box.Max.Z - box.Min.Z);
+
+            if (x > z) radius = x;
+            else radius = z;
         }
 
         public State Status
@@ -48,6 +56,14 @@ namespace Resonance
             set
             {
                 state = value;
+            }
+        }
+
+        public double Size
+        {
+            get
+            {
+                return radius;
             }
         }
 
