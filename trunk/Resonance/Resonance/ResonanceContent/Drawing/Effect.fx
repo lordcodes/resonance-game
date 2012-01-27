@@ -220,9 +220,7 @@ STextured_VSOut STexturedVertexShader(VSInputNmTxWeights input)
  
 float4 STexturedPixelShader(STextured_VSOut PSIn) : Color  
 {       
-    //float4 diffuseColor = tex2D(ColorTextureSampler, PSIn.TexCoords);  
-    float4 diffuseColor = float4(0,0,1,1);  
- 
+    float4 diffuseColor = tex2D(ColorTextureSampler, PSIn.TexCoords);
     return diffuseColor;  
 }  
  

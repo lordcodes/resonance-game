@@ -19,7 +19,8 @@ namespace Resonance
         private Matrix physicsScale;
         private Matrix[] modelTransforms;
         private Texture2D texture;
-        private float Mass;
+        bool animation;
+        private float mass;
 
         public Texture2D Texture
         {
@@ -74,15 +75,23 @@ namespace Resonance
             }
         }
 
-        public float mass
+        public float Mass
         {
             get
             {
-                return Mass;
+                return mass;
             }
         }
 
-        public ImportedGameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, Texture2D newTexture)
+        public bool Animation
+        {
+            get
+            {
+                return animation;
+            }
+        }
+
+        public ImportedGameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, Texture2D newTexture, bool animation)
         {
             graphicsModel = newGraphicsModel;
             physicsModel = newPhysicsModel;
@@ -91,7 +100,8 @@ namespace Resonance
             GraphicsModel.CopyAbsoluteBoneTransformsTo(ModelTransforms);
             graphicsScale = graphicsModelScale;
             physicsScale = physicsModelScale;
-            Mass = 25f;
+            this.animation = animation;
+            mass = 25f;
         }
 
     }

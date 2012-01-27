@@ -49,8 +49,10 @@ namespace ContentPipelineExtension
                             int physicsModel = getModelRef(values[3]);
                             float physicsScale = float.Parse(values[4]);
                             string texture = "";
+                            bool animation = false;
                             if (values.Length > 5) texture = getPath(filename, values[5]);
-                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture);
+                            if (values.Length > 6) animation = values[6].Equals("1");
+                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture, animation);
                             models.addModel(model, modelNum);
                             count++;
                         }
@@ -191,8 +193,9 @@ namespace ContentPipelineExtension
                 //int graphicsModel = loadModel(input.getModelString(model.GraphicsModelFile), context);
                 int graphicsModel = model.GraphicsModelFile;
                 int physicsModel = model.PhysicsModelFile;
+                bool animation = model.Animation;
 
-                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, texture);
+                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, texture, animation);
                 models.addModel(newModel, pair.Key);
             }
             return models;
@@ -419,6 +422,7 @@ namespace ContentPipelineExtension
                 output.Write(model.PhysicsModel);
                 output.WriteObject<Matrix>(model.PhysicsScale);
                 output.WriteObject<TextureContent>(model.Texture);
+                output.Write(model.Animation);
                 output.Write(pair.Key);
             }
         }

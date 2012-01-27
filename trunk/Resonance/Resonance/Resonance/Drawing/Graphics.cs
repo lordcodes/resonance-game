@@ -259,26 +259,34 @@ namespace Resonance
 
                 customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
 
-                if (gameModelNum == GameModels.BAD_VIBE_BLUE)
+                //if (gameModelNum == GameModels.BAD_VIBE_BLUE)
+                //{
+                    //DebugDisplay.update("CoOrds of bad vibe anim", "" + bones[1].Translation);
+
+                if (GameModels.getModel(gameModelNum).Animation)
                 {
-                    DebugDisplay.update("CoOrds of bad vibe anim", "" + bones[1].Translation);
                     customEffect.CurrentTechnique = customEffect.Techniques["STextured"];
-                    Matrix[] b = { bones[1]};
                     customEffect.Parameters["xBones"].SetValue(bones);
-                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                }
+                else
+                {
+                    customEffect.CurrentTechnique = customEffect.Techniques["Technique1"];
+                }
+
+                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+                {
+                    graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
+                    graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
+                    customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
+                    foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
                     {
-                        graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
-                        graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                        customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
-                        foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
-                        {
-                            pass.Apply();
+                        pass.Apply();
                             
                             
-                            graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
-                        }
+                        graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                     }
-                    
+                }
+                 /*   
                 }else{
 
                     foreach (ModelMeshPart meshPart in mesh.MeshParts)
@@ -292,7 +300,7 @@ namespace Resonance
                             graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                         }
                     }
-                }
+                }*/
 
             }
         }

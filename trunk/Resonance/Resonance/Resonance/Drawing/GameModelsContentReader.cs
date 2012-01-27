@@ -29,13 +29,16 @@ namespace Resonance
                 int physicsModel;
                 Matrix physicsScale;
                 Texture2D texture;
+                bool animation;
+                int gameModelNum;
                 graphicsModel = input.ReadInt32();
                 graphicsScale = input.ReadObject<Matrix>();
                 physicsModel = input.ReadInt32();
                 physicsScale = input.ReadObject<Matrix>();
                 texture = input.ReadObject<Texture2D>();
-                int gameModelNum = input.ReadInt32();
-                models.addModel(new ImportedGameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, texture), gameModelNum);
+                animation = input.ReadBoolean();
+                gameModelNum = input.ReadInt32();
+                models.addModel(new ImportedGameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, texture, animation), gameModelNum);
             }
 
             return models;
