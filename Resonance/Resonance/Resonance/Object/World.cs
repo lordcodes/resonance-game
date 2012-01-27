@@ -34,8 +34,6 @@ namespace Resonance
         private Dictionary<string, Object> objects;
         Space space;
 
-        string ignoreObject;
-
         public World() 
         {
             space = new Space();
@@ -113,13 +111,12 @@ namespace Resonance
             else return false;
         }
 
-        public List<Object> rayCast(DynamicObject obj, float distance)
+        public List<Object> rayCast(Vector3 position, Vector3 direction, float distance, Func<BroadPhaseEntry, bool> filter)
         {
             List<Object> objects = new List<Object>();
-            ignoreObject = obj.returnIdentifier();
 
             List<RayCastResult> rayCastResults = new List<RayCastResult>();
-            if (space.RayCast(new Ray(obj.Body.Position, obj.Body.OrientationMatrix.Forward), distance, rayCastResults))
+            if (space.RayCast(new Ray(position, direction), distance, filter, rayCastResults))
             {
                 foreach (RayCastResult result in rayCastResults)
                 {
@@ -142,11 +139,6 @@ namespace Resonance
             }
             return objects;
         }
-
-        /*bool RayCastFilter(BroadPhaseEntry entry)
-        {
-            return entry != ((DynamicObject)objects[ignoreObject]).Body.CollisionInformation && entry.CollisionRules.Personal <= CollisionRule.Normal;
-        }*/
 
         //removes the object from the dictionary
         public void removeObject(Object obj)
