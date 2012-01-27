@@ -21,6 +21,7 @@ namespace Resonance
         private static float ATTACK_RANGE = 3f;
         private static int SPOT_RANGE = 15; //Distance to spot obstacles in front
         private static int ATTACK_RATE = 4; //No. of times per second
+        private static float ATTACK_ANGLE_THRESHOLD = 0.7f; // Measure of angle at which BV has to be (rel to GV) to attack. 1 = 60 deg, sqrt(2) = 90 deg, >=2 = 180 deg.
         private static int CHANCE_MISS = 20; //Between 0 and 100
         private static int ROTATE_CHANCE = 4; //Between 0 and 100
 
@@ -188,6 +189,15 @@ namespace Resonance
 
         public void attack()
         {
+            // Make sure BV is facing GV
+            Vector3 posDiff = bv.Body.Position - Game.getGV().Body.Position;
+            Vector3 bvf = bv.Body.OrientationMatrix.Backward; // THIS MAY NEED TO BE Faorward IF THE MODEL ORIENTATION CHANGES
+            posDiff.Normalize();
+            bvf.Normalize();
+            float facing = (bvf - posDiff).Length();
+            if (facing > ATTACK_ANGLE_THRESHOLD) return;
+
+            // If so, then attack.
             if (iteration % (60 / ATTACK_RATE) == 0)
             {
                 Random r = new Random((int)DateTime.Now.Ticks * uniqueId);
