@@ -243,15 +243,10 @@ namespace Resonance
             customEffect.Parameters["CameraPosition"].SetValue(cameraPosition);
             customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
 
-            customEffect.CurrentTechnique = customEffect.Techniques["Technique1"];
-
-
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
             if (colorTexture == null) colorTexture = gmodel.Texture;
             customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
             graphics.GraphicsDevice.Textures[0] = colorTexture;
-
-            
 
             foreach (ModelMesh mesh in m.Meshes)
             {
@@ -259,12 +254,12 @@ namespace Resonance
 
                 if (GameModels.getModel(gameModelNum).Animation)
                 {
-                    customEffect.CurrentTechnique = customEffect.Techniques["STextured"];
+                    customEffect.CurrentTechnique = customEffect.Techniques["Animation"];
                     customEffect.Parameters["xBones"].SetValue(bones);
                 }
                 else
                 {
-                    customEffect.CurrentTechnique = customEffect.Techniques["Technique1"];
+                    customEffect.CurrentTechnique = customEffect.Techniques["StaticObject"];
                 }
 
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
@@ -275,8 +270,6 @@ namespace Resonance
                     foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
                     {
                         pass.Apply();
-                            
-                            
                         graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                     }
                 }
