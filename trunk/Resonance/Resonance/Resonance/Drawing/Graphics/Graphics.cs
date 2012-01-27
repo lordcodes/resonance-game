@@ -35,7 +35,7 @@ namespace Resonance
         private static DisplacementMap dispMap;
 
         // Reduce this variable if the shockwave is causing frame rate to suffer
-        public static int DISP_WIDTH = 16;
+        public static int DISP_WIDTH = 32;
 
 
         public Matrix Projection
@@ -255,13 +255,7 @@ namespace Resonance
 
             foreach (ModelMesh mesh in m.Meshes)
             {
-                
-
                 customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
-
-                //if (gameModelNum == GameModels.BAD_VIBE_BLUE)
-                //{
-                    //DebugDisplay.update("CoOrds of bad vibe anim", "" + bones[1].Translation);
 
                 if (GameModels.getModel(gameModelNum).Animation)
                 {
@@ -286,21 +280,6 @@ namespace Resonance
                         graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                     }
                 }
-                 /*   
-                }else{
-
-                    foreach (ModelMeshPart meshPart in mesh.MeshParts)
-                    {
-                        graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
-                        graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                        customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
-                        foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
-                        {
-                            pass.Apply();
-                            graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
-                        }
-                    }
-                }*/
 
             }
         }

@@ -9,7 +9,7 @@ namespace Resonance
 {
     class DisplacementMap
     {
-        public const float WAVE_HEIGHT = 1f;
+        public const float WAVE_HEIGHT = 0.75f;
         public const float WAVE_WIDTH = 1f;
         public const float WAVE_SPEED = 0.2f;
 
@@ -54,7 +54,7 @@ namespace Resonance
 
         public void addWave(Vector2 position)
         {
-            addHole(position.X, position.Y);
+            //addHole(position.X, position.Y);
             if (waveCount >= waves.Length) waveCount = 0;
             waves[waveCount] = new Wave(position);
             waveCount++;
@@ -130,7 +130,8 @@ namespace Resonance
             float result = 0;
             float peakCenter = distanceFrom;
             float waveWidth = WAVE_WIDTH;
-            result = (float)(height * Math.Pow(Math.E,-(((x-peakCenter)*(x-peakCenter))/(2*(waveWidth*waveWidth)))));
+            result = (float)(height * Math.Pow(Math.E, -(((x - peakCenter) * (x - peakCenter)) / (2 * (waveWidth * waveWidth)))));
+            //result = 0;
             return result;
         }
 
