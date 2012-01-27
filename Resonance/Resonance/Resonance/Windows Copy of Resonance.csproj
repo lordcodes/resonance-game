@@ -107,6 +107,7 @@
     <Compile Include="Drawing\UI\MenuActions.cs" />
     <Compile Include="Drawing\UI\MenuItem.cs" />
     <Compile Include="Drawing\UI\UI.cs" />
+    <Compile Include="GameMode.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />

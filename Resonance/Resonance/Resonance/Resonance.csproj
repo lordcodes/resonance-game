@@ -114,6 +114,7 @@
     <Compile Include="Managers\GVMotionManager.cs" />
     <Compile Include="Managers\MenuControlManager.cs" />
     <Compile Include="Managers\PickupSpawnManager.cs" />
+    <Compile Include="GameMode.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="ThreadRun.cs" />
     <Compile Include="AI\Minheap.cs" />

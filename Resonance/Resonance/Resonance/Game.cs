@@ -29,11 +29,15 @@ namespace Resonance
         public const int INSANE   = 5;
 
         public static int DIFFICULTY = BEGINNER;
+        public static GameMode mode;
+
+        public static bool GV_KILLED = false;
+        public static int  FINAL_SCORE = -1; // -1 indicates game failed. >= 0 indicates game won.
 
         public static bool USE_SPAWNER = false;
 
         GraphicsDeviceManager graphics;
-        MusicHandler musicHandler;
+        public readonly MusicHandler musicHandler;
 
         World world;
         BVSpawnManager spawner;
@@ -42,6 +46,7 @@ namespace Resonance
 
         public Game()
         {
+            mode = new GameMode(GameMode.TIME_ATTACK);
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
@@ -171,7 +176,19 @@ namespace Resonance
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     base.Update(gameTime);
                 }
+
+                if (GV_KILLED || mode.terminated()) {
+                    endGame();
+                }
             }
+        }
+
+        // Called when game finished (won or lost).
+        private void endGame() {
+            String r;
+            if (GV_KILLED) r = "GV Killed."; else r = "Level Complete!";
+            UI.pause();
+            DebugDisplay.update("Game Over! State", r);
         }
 
         private void keyInput()
