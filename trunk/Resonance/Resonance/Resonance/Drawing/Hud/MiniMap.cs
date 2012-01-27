@@ -26,14 +26,14 @@ namespace Resonance
         public static int   VIBE_WIDTH           = 16;
         public static int   VIBE_HEIGHT          = 20;
 
-        public static float ZOOM                 = 10f;
-        public static float DEFAULT_ZOOM         = 10f;
+        public static float ZOOM                 = 40f;
+        public static float DEFAULT_ZOOM         = 40f;
 
         public static bool  AUTO_ZOOM            = true;
         public static float MIN_ZOOM_SPEED       = 2f;
 
         public static bool  DRAW_SCALE_LINES     = true;
-        public static int   SCALE_LINE_INTERVAL  = 3;
+        public static int   SCALE_LINE_INTERVAL  = 12;
 
         public static bool  SWEEPER_ON           = true;
         public static int   SWEEPER_LENGTH       = 20;
