@@ -143,21 +143,20 @@ namespace Resonance
         {
             //Query world space for objects every position in front up to and including SPOT_RANGE
             //Get object that is obstacle
+            //Get point to the side of it that is closest to GV
+            //Set that to target and turn and face it.
+            //Once target reached carry on tracking GV
             Object obstacle = obstacleFound();
-            if (obstacle != null) DebugDisplay.update("ClosestObstacle", obstacle.returnIdentifier());
+            if (obstacle != null)
+            {
+                //DebugDisplay.update("ClosestObstacle", obstacle.returnIdentifier());
+                BoundingBox box = new BoundingBox();
+                if (obstacle is StaticObject) box = ((StaticObject)obstacle).Body.BoundingBox;
+                else if (obstacle is DynamicObject) box = ((DynamicObject)obstacle).Body.CollisionInformation.BoundingBox;
 
-            //Apply steering force to avoid it
-            // compute avoidance steering force: take offset from obstacle to me,
-            // take the component of that which is lateral (perpendicular to my
-            // forward direction), set length to maxForce, add a bit of forward
-            // component (in capture the flag, we never want to slow down)
-            //Vector3 offset = Position - nearest.obstacle.center;
-            //avoidance = offset.perpendicularComponent (forward());
-            //avoidance = OpenSteerUtility.perpendicularComponent(offset, forward());
-
-            //avoidance.Normalise();//.normalize ();
-            //avoidance *= maxForce();
-            //avoidance += forward() * maxForce() * 0.75f;
+                double z = Math.Abs(box.Max.Z - box.Min.Z);
+                double x = Math.Abs(box.Max.X - box.Min.X);
+            }
 
             /*Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
             Vector3 velocity = bv.Body.LinearVelocity;

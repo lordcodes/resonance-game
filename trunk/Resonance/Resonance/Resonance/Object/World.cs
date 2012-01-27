@@ -123,19 +123,13 @@ namespace Resonance
                     var entityCollision = result.HitObject as EntityCollidable;
                     if (entityCollision != null)
                     {
-                        //DebugDisplay.update("SEESOMETHING", "1111 I CAN SEE SOMETHING");
                         objects.Add(getObject(entityCollision.Entity.Tag.ToString()));
                     }
                     else
                     {
-                        //DebugDisplay.update("SEESOMETHING", "2222 I CAN SEE SOMETHING");
                         objects.Add(getObject(result.HitObject.Tag.ToString()));
                     }
                 }
-            }
-            else
-            {
-                //DebugDisplay.update("SEESOMETHING", "I CANNOT SEE ANYTHING");
             }
             return objects;
         }

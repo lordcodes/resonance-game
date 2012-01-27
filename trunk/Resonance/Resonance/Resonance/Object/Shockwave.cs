@@ -104,7 +104,7 @@ namespace Resonance
                     double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
                     d = Math.Sqrt(d);
 
-                    if (BadVibe.RADIUS + Radius >= d)
+                    if (bv.Size + Radius >= d)
                     {
                         //Collision
                         bVibes.Add(bv);
