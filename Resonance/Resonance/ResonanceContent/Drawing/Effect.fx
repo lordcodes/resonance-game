@@ -13,8 +13,8 @@ float4 SpecularColorPower;
 float3 SpecularLightColor;
 float3 CameraPosition;
 
-float textureSize = 16.0f;
-float texelSize =  1/16.0f;
+float textureSize = 32.0f;
+float texelSize =  1/32.0f;
 bool doDisp;
 
 sampler DispMapSampler = sampler_state
@@ -72,7 +72,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	
 	if(doDisp)
 	{
-		input.Position.y = height * 0.03;
+		input.Position.y = height * 0.005;
 	}
 
     float4 worldPosition = mul(input.Position, World);
