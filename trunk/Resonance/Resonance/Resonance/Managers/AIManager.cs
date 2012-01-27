@@ -192,7 +192,7 @@ namespace Resonance
         {
             // Make sure BV is facing GV
             Vector3 posDiff = bv.Body.Position - Game.getGV().Body.Position;
-            Vector3 bvf = bv.Body.OrientationMatrix.Forward; // THIS MAY NEED TO BE Forward IF THE MODEL ORIENTATION CHANGES
+            Vector3 bvf = bv.Body.OrientationMatrix.Forward;
             posDiff.Normalize();
             bvf.Normalize();
             float facing = (bvf + posDiff).Length();

@@ -55,6 +55,7 @@ namespace Resonance
         public void Update()
         {
             audioEngine.Update();
+            bgMusic.update();
         }
     }
 }

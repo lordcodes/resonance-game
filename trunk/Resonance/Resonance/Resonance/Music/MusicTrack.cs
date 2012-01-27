@@ -15,6 +15,10 @@ namespace Resonance
 {
     class MusicTrack
     {
+        public bool SONG_ENDED            = false;
+        public bool SONG_MANUALLY_STOPPED = true;
+        public bool SONG_MANUALLY_PAUSED  = false;
+
         ContentManager content;
         Song song;
         PlayState state;
@@ -47,6 +51,8 @@ namespace Resonance
             reader.Close();
             lastI = 0;
             currentBeatCount = 0;
+
+            if (Game.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
         }
 
         /// <summary>
@@ -56,6 +62,8 @@ namespace Resonance
         {
             if (state == PlayState.STOPPED)
             {
+                SONG_MANUALLY_STOPPED = false;
+
                 currentBeatCount = 0;
                 state = PlayState.PLAYING;
                 startTime = DateTime.Now.Ticks * 100;
@@ -63,6 +71,8 @@ namespace Resonance
             }
             else if (state == PlayState.PAUSED)
             {
+                SONG_MANUALLY_PAUSED = false;
+
                 state = PlayState.PLAYING;
                 startTime = ((DateTime.Now.Ticks * 100) - whenPaused) + startTime;
                 MediaPlayer.Resume();
@@ -76,6 +86,8 @@ namespace Resonance
         {
             if (state == PlayState.PLAYING || state == PlayState.PAUSED)
             {
+                SONG_MANUALLY_STOPPED = true;
+
                 state = PlayState.STOPPED;
                 MediaPlayer.Stop();
             }
@@ -88,6 +100,8 @@ namespace Resonance
         {
             if (state == PlayState.PLAYING)
             {
+                SONG_MANUALLY_PAUSED = true;
+
                 state = PlayState.PAUSED;
                 whenPaused = DateTime.Now.Ticks * 100;
                 MediaPlayer.Pause();
@@ -109,6 +123,12 @@ namespace Resonance
             else
             {
                 return false;
+            }
+        }
+
+        public void update() {
+            if ((MediaPlayer.State == MediaState.Stopped) && (!SONG_MANUALLY_STOPPED)) {
+                SONG_ENDED = true;
             }
         }
 

@@ -134,6 +134,8 @@ namespace Resonance
             {
                 health += change;
             }
+
+            if (health <= 0) Resonance.Game.GV_KILLED = true;
         }
 
         /// <summary>
