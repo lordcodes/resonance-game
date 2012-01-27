@@ -53,7 +53,7 @@ namespace Resonance
                         {
                             placed = true;
 
-                            Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, 1, 120);
+                            Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(1,4), 120);
                             Program.game.World.addObject(p);
 
                             totalNumPickups++;

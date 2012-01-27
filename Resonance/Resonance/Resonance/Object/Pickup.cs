@@ -48,6 +48,14 @@ namespace Resonance
             }
         }
 
+        public int PowerUpType
+        {
+            get
+            {
+                return powerupType;
+            }
+        }
+
         public int TimeToLive
         {
             get
