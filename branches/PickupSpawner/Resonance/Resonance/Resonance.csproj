@@ -1,0 +1,178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{6D27F8A9-A097-4912-BD53-04BD3B739584}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Xbox 360</Platform>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Resonance</RootNamespace>
+    <AssemblyName>Resonance</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Xbox 360</XnaPlatform>
+    <XnaProfile>HiDef</XnaProfile>
+    <XnaCrossPlatformGroupID>7e9053fc-4656-4e60-ba3d-5e7878acd2f8</XnaCrossPlatformGroupID>
+    <XnaOutputType>Game</XnaOutputType>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|Xbox 360' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Xbox 360\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;XBOX;XBOX360</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|Xbox 360' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Xbox 360\Release</OutputPath>
+    <DefineConstants>TRACE;XBOX;XBOX360</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'test|Xbox 360'">
+    <OutputPath>bin\Xbox 360\test\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BEPUphysics">
+      <HintPath>BEPUphysics v1.0.0\Xbox 360\Release\BEPUphysics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Game">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Graphics">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.GamerServices">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Xact">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Video">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Avatar">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Net">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Storage">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="mscorlib">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AI\AI.cs" />
+    <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
+    <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
+    <Compile Include="Drawing\Graphics\DisplacementMap.cs" />
+    <Compile Include="Drawing\Graphics\Drawing.cs" />
+    <Compile Include="Drawing\Graphics\GameModels.cs" />
+    <Compile Include="Drawing\Graphics\GameModelsContentReader.cs" />
+    <Compile Include="Drawing\Graphics\Graphics.cs" />
+    <Compile Include="Drawing\Graphics\ImportedGameModel.cs" />
+    <Compile Include="Drawing\Graphics\ImportedGameModels.cs" />
+    <Compile Include="Managers\AIManager.cs" />
+    <Compile Include="Managers\BVSpawnManager.cs" />
+    <Compile Include="Managers\CameraMotionManager.cs" />
+    <Compile Include="Managers\DrumManager.cs" />
+    <Compile Include="Managers\GVManager.cs" />
+    <Compile Include="Managers\GVMotionManager.cs" />
+    <Compile Include="Managers\MenuControlManager.cs" />
+    <Compile Include="Managers\PickupSpawnManager.cs" />
+    <Compile Include="Object\Pickup.cs" />
+    <Compile Include="ThreadRun.cs" />
+    <Compile Include="AI\Minheap.cs" />
+    <Compile Include="AI\Node.cs" />
+    <Compile Include="AI\PathFind.cs" />
+    <Compile Include="Drawing\Hud\MiniMap.cs" />
+    <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
+    <Compile Include="Drawing\Hud\DebugDisplay.cs" />
+    <Compile Include="Drawing\Hud\Hud.cs" />
+    <Compile Include="Drawing\UI\MenuItem.cs" />
+    <Compile Include="Drawing\UI\UI.cs" />
+    <Compile Include="Object\World.cs" />
+    <Compile Include="Drawing\UI\MenuActions.cs" />
+    <Compile Include="Drawing\UI\Loading.cs" />
+    <Compile Include="Drawing\UI\LoadingScreen.cs" />
+    <Compile Include="Object\BadVibe.cs" />
+    <Compile Include="Object\DynamicObject.cs" />
+    <Compile Include="Object\GoodVibe.cs" />
+    <Compile Include="Music\MusicHandler.cs" />
+    <Compile Include="Music\MusicTrack.cs" />
+    <Compile Include="Object\Object.cs" />
+    <Compile Include="Object\Shockwave.cs" />
+    <Compile Include="Object\StaticObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Game.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\AnimationLibrary\AnimationLibrary.csproj">
+      <Project>{7417F76D-3E56-40AC-B595-080F65EB1C24}</Project>
+      <Name>AnimationLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ContentPipelineExtension\ContentPipelineExtension.csproj">
+      <Project>{3C1AD032-7559-451F-AAE8-4B981995C10D}</Project>
+      <Name>ContentPipelineExtension</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ResonanceLibrary\ResonanceLibrary.csproj">
+      <Project>{9EE287E9-5FB8-49D0-B8AD-D2D29D8FD15D}</Project>
+      <Name>ResonanceLibrary</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ResonanceContent\ResonanceContent.contentproj">
+      <Project>{AFD27F02-EB50-48B7-8DAE-B7D1BC6AEBA4}</Project>
+      <Name>ResonanceContent %28Content%29</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>
