@@ -17,11 +17,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimationLibrary", "Animati
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Windows Copy of AnimationLibrary", "AnimationLibrary\Windows Copy of AnimationLibrary.csproj", "{B3F226C9-07A8-4617-9AAE-4146EB29C692}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelEditor", "LevelEditor\LevelEditor.csproj", "{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}"
+EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -137,8 +135,24 @@ Global
 		{B3F226C9-07A8-4617-9AAE-4146EB29C692}.Release|x86.ActiveCfg = Release|x86
 		{B3F226C9-07A8-4617-9AAE-4146EB29C692}.Release|x86.Build.0 = Release|x86
 		{B3F226C9-07A8-4617-9AAE-4146EB29C692}.Release|Xbox 360.ActiveCfg = Release|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Debug|x86.ActiveCfg = Debug|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Debug|x86.Build.0 = Debug|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Debug|Xbox 360.ActiveCfg = Debug|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Release|Any CPU.ActiveCfg = Release|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Release|Mixed Platforms.Build.0 = Release|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Release|x86.ActiveCfg = Release|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Release|x86.Build.0 = Release|x86
+		{BE9FBED0-9D83-464B-BD8B-6B9CDE749E76}.Release|Xbox 360.ActiveCfg = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
