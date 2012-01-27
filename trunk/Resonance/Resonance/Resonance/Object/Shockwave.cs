@@ -97,7 +97,7 @@ namespace Resonance
         {
             foreach (BadVibe bv in Program.game.World.returnBadVibes())
             {
-                if (!bv.Dead)
+                if (bv.Status != BadVibe.State.DEAD)
                 {
                     double dx = Position.X - bv.Body.Position.X;
                     double dz = Position.Z - bv.Body.Position.Z;

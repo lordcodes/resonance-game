@@ -9,50 +9,43 @@ namespace Resonance
 {
     class GoodVibe : DynamicObject
     {
-        List<Shockwave> waves; // Resonance waves which currently exist
-        private bool isInCombat;
-
-        int score;
-        int health; //health stored as an int between 0 - MAX_HEALTH.
-        public static int MAX_HEALTH = 100;
-        int nitro; //speed boost between 0 - MAX_NITRO.
-        public static int MAX_NITRO = 200;
-        int shield; //SOMETHING between 0 - MAX_SHIELD.
-        public static int MAX_SHIELD = 100;
-        int freeze; //SOMETHINGELSE between 0 - 100.
-        public static int MAX_FREEZE = 200;
-
-        public static int curentPower = 0;
-
         public static readonly int NITROUS = 0;
         public static readonly int SHIELD = 1;
         public static readonly int FREEZE = 2;
+
+        public static int MAX_HEALTH = 100;
+        public static int MAX_NITRO = 200;
+        public static int MAX_SHIELD = 100;
+        public static int MAX_FREEZE = 200;
+
+        List<Shockwave> waves; // Resonance waves which currently exist
+
+        int score; //score value
+        int health; //health stored as an int between 0 - MAX_HEALTH.
+        int nitro; //speed boost between 0 - MAX_NITRO.
+        int shield; //shield between 0 - MAX_SHIELD.
+        int freeze; //SOMETHINGELSE between 0 - 100.
+        private int currentPower = 0;
+
+        private bool isInCombat;
 
         public int selectedPower
         {
             get
             {
-                return curentPower;
+                return currentPower;
             }
             set
             {
-                curentPower = value;
+                currentPower = value;
             }
         }
-
 
         public bool InCombat
         {
             get
             {
                 return isInCombat;
-            }
-        }
-        public int WaveCount
-        {
-            get
-            {
-                return waves.Count;
             }
         }
 
@@ -62,11 +55,6 @@ namespace Resonance
             {
                 return health;
             }
-
-            set
-            {
-                health = value;
-            }
         }
 
         public int Score
@@ -75,7 +63,6 @@ namespace Resonance
             {
                 return score;
             }
-
             set
             {
                 score = value;
@@ -88,11 +75,6 @@ namespace Resonance
             {
                 return nitro;
             }
-
-            set
-            {
-                nitro = value;
-            }
         }
 
         public int Shield
@@ -100,11 +82,6 @@ namespace Resonance
             get
             {
                 return shield;
-            }
-
-            set
-            {
-                shield = value;
             }
         }
 
@@ -114,16 +91,10 @@ namespace Resonance
             {
                 return freeze;
             }
-
-            set
-            {
-                freeze = value;
-            }
         }
 
         /// <summary>
         /// Constructor
-        /// Set initial health to MAX_HEALTH
         /// </summary>
         public GoodVibe(int modelNum, String name, Vector3 pos)
             : base(modelNum, name, pos)
@@ -136,11 +107,18 @@ namespace Resonance
             freeze = 200;
         }
 
+        /// <summary>
+        /// Reset GV to full health
+        /// </summary>
         public void fullHealth()
         {
             health = MAX_HEALTH;
         }
 
+        /// <summary>
+        /// Adjust the GV's health
+        /// </summary>
+        /// <param name="change">Amount to change by</param>
         public void AdjustHealth(int change)
         {
             //check for <0 or >MAX_HEALTH
@@ -158,9 +136,12 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Adjust nitro
+        /// </summary>
+        /// <param name="change">Amount to change by</param>
         public void adjustNitro(int change)
         {
-            //check for <0 or >MAX_NITRO
             if (nitro + change <= 0)
             {
                 nitro = 0;
@@ -175,9 +156,12 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Adjust shield
+        /// </summary>
+        /// <param name="change">Amount to change by</param>
         public void adjustShield(int change)
         {
-            //check for <0 or >MAX_SHIELD
             if (shield + change <= 0)
             {
                 shield = 0;
@@ -192,9 +176,12 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Adjust freeze
+        /// </summary>
+        /// <param name="change">Amount to change by</param>
         public void adjustFreeze(int change)
         {
-            //check for <0 or >MAX_FREEZE
             if (freeze + change <= 0)
             {
                 freeze = 0;
@@ -209,11 +196,15 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Create a shockwave from the GV
+        /// </summary>
+        /// <param name="colour">Colour of the shockwave</param>
         public void createShockwave(int colour)
         {
             string waveName = "";
             Shockwave w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-            switch(colour) 
+            switch (colour)
             {
                 case Shockwave.GREEN:
                     {
@@ -248,10 +239,11 @@ namespace Resonance
             }
             waves.Add(w);
             Program.game.Components.Add(w);
-
-            //Drawing.addWave(this.Body.Position);
         }
 
+        /// <summary>
+        /// Update the shockwaves
+        /// </summary>
         public void updateWaves()
         {
             foreach (Shockwave w in waves)
@@ -263,6 +255,9 @@ namespace Resonance
             removeWaves();
         }
 
+        /// <summary>
+        /// Remove a shockwave
+        /// </summary>
         private void removeWaves()
         {
             for (int i = 0; i < waves.Count; i++)
@@ -277,6 +272,9 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Detect if the GV is in combat, and resets BVs to unfrozen when out of range
+        /// </summary>
         public void detectCombatAndFreeze()
         {
             isInCombat = false;
@@ -293,7 +291,7 @@ namespace Resonance
                 }
                 else
                 {
-                    bv.Freeze = false;
+                    bv.Status = BadVibe.State.NORMAL;
                 }
             }
         }
@@ -313,16 +311,22 @@ namespace Resonance
 
                 if (d <= Shockwave.MAX_RADIUS)
                 {
-                    bv.Freeze = true;
+                    bv.Status = BadVibe.State.FROZEN;
                 }
             }
         }
 
+        /// <summary>
+        /// Put the GV shield up
+        /// </summary>
         public void shieldUp()
         {
             this.gameModelNum = GameModels.SHIELD_GV;
         }
 
+        /// <summary>
+        /// Put GV shield down
+        /// </summary>
         public void shieldDown()
         {
             this.gameModelNum = GameModels.GOOD_VIBE;
