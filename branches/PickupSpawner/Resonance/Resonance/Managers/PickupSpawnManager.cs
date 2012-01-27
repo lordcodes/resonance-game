@@ -8,7 +8,7 @@ namespace Resonance
 {
     class PickupSpawnManager
     {
-        private static int MIN_PICKUPS = 4;
+        private static int MIN_PICKUPS = 10;
 
         private int numPickups;
         private int totalNumPickups;
@@ -27,7 +27,8 @@ namespace Resonance
 
         public void update()
         {
-
+            DebugDisplay.update("num pickups",numPickups.ToString());
+            DebugDisplay.update("total pickups", totalNumPickups.ToString());
             if (numPickups < MIN_PICKUPS)
             {
                 bool placed = false;
@@ -46,7 +47,7 @@ namespace Resonance
                     double zDiff = Math.Abs(goodVibePosition.Z - pos.Z);
                     double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
 
-                    if (distance < 25)
+                    if (distance < 100)
                     {
                         if (!Program.game.World.querySpace(pos))
                         {

@@ -294,8 +294,9 @@ namespace Resonance
                 pickups[i].TimeToLive--;
                 if (pickups[i].TimeToLive == 0)
                 {
-                    //removeObject(pickups[i]);
-                    //Program.game.pickupspawner.pickupPickedUp();
+                    Program.game.Music.playSound(MusicHandler.PICKUP);
+                    removeObject(pickups[i]);
+                    Program.game.pickupspawner.pickupPickedUp();
                 }
             }
         }
