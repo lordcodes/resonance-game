@@ -159,15 +159,11 @@ namespace Resonance
                     List<Pickup> pickups = world.returnPickups();
                     world.updatePickups(pickups);
 
-
                     world.update();
                     
                     musicHandler.Update();
                     removeDeadBadVibes(deadVibes);
                     if(USE_SPAWNER) spawner.update();
-
-                    //Test ray cast
-                    World.rayCast(getGV().Body.Position, getGV().Body.OrientationMatrix.Forward, 10f);
 
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     base.Update(gameTime);
@@ -203,11 +199,11 @@ namespace Resonance
 
             foreach (BadVibe bv in world.returnBadVibes())
             {
-                if (bv.Dead)
+                if (bv.Status == BadVibe.State.DEAD)
                 {
                     deadVibes.Add(bv.returnIdentifier());
                 }
-                else if (!bv.Dead)
+                else if (bv.Status != BadVibe.State.DEAD)
                 {
                     bv.Move();
                 }
@@ -236,7 +232,7 @@ namespace Resonance
         {
             foreach (BadVibe bv in World.returnBadVibes())
             {
-                if (!bv.Dead)
+                if (bv.Status != BadVibe.State.DEAD)
                 {
                     bv.damage(Shockwave.REST);
                 }

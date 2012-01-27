@@ -34,6 +34,8 @@ namespace Resonance
         private Dictionary<string, Object> objects;
         Space space;
 
+        string ignoreObject;
+
         public World() 
         {
             space = new Space();
@@ -111,40 +113,40 @@ namespace Resonance
             else return false;
         }
 
-        public List<Object> rayCast(Vector3 position, Vector3 direction, float distance)
+        public List<Object> rayCast(DynamicObject obj, float distance)
         {
             List<Object> objects = new List<Object>();
+            ignoreObject = obj.returnIdentifier();
 
             List<RayCastResult> rayCastResults = new List<RayCastResult>();
-            if (space.RayCast(new Ray(position, direction), distance, RayCastFilter, rayCastResults))
+            if (space.RayCast(new Ray(obj.Body.Position, obj.Body.OrientationMatrix.Forward), distance, rayCastResults))
             {
-                DebugDisplay.update("SEESOMETHING", "I CAN SEE SOMETHING");
                 foreach (RayCastResult result in rayCastResults)
                 {
-                    var entityCollision = rayCastResults[0].HitObject as EntityCollidable;
+                    var entityCollision = result.HitObject as EntityCollidable;
                     if (entityCollision != null)
                     {
-                        //DebugDisplay.update("0", entityCollision.Entity.Tag.ToString());
+                        //DebugDisplay.update("SEESOMETHING", "1111 I CAN SEE SOMETHING");
                         objects.Add(getObject(entityCollision.Entity.Tag.ToString()));
                     }
                     else
                     {
-                        //DebugDisplay.update("0", rayCastResults[0].HitObject.Tag.ToString());
-                        objects.Add(getObject(rayCastResults[0].HitObject.Tag.ToString()));
+                        //DebugDisplay.update("SEESOMETHING", "2222 I CAN SEE SOMETHING");
+                        objects.Add(getObject(result.HitObject.Tag.ToString()));
                     }
                 }
             }
             else
             {
-                DebugDisplay.update("SEESOMETHING", "I CANNOT SEE ANYTHING");
+                //DebugDisplay.update("SEESOMETHING", "I CANNOT SEE ANYTHING");
             }
             return objects;
         }
 
-        bool RayCastFilter(BroadPhaseEntry entry)
+        /*bool RayCastFilter(BroadPhaseEntry entry)
         {
-            return entry != Game.getGV().Body.CollisionInformation && entry.CollisionRules.Personal <= CollisionRule.Normal;
-        }
+            return entry != ((DynamicObject)objects[ignoreObject]).Body.CollisionInformation && entry.CollisionRules.Personal <= CollisionRule.Normal;
+        }*/
 
         //removes the object from the dictionary
         public void removeObject(Object obj)
@@ -293,38 +295,6 @@ namespace Resonance
                 if (pickups[i].TimeToLive == 0)
                 {
                     //removeObject(pickups[i]);
-                }
-            }
-        }
-        
-        /// <summary>
-        /// Deprecated method.
-        /// </summary>
-        /// <param name="position"></param>
-        /// <param name="direction"></param>
-        /// <param name="distance"></param>
-        public void pickUpCollision(Vector3 position, Vector3 direction, float distance)
-        {
-            List<RayCastResult> rayCastResults = new List<RayCastResult>();
-            if (space.RayCast(new Ray(position, direction), distance, RayCastFilter, rayCastResults))
-            {
-                //DebugDisplay.update("pickup collision", "collision");
-                foreach (RayCastResult result in rayCastResults)
-                {
-                    var entityCollision = rayCastResults[0].HitObject as EntityCollidable;
-                    if (entityCollision == null)
-                    {
-                        //DebugDisplay.update("1", rayCastResults[0].HitObject.Tag.ToString());
-
-                        Object obj = getObject(rayCastResults[0].HitObject.Tag.ToString());
-                        if (obj is Pickup)
-                        {
-                            Program.game.Music.playSound(MusicHandler.PICKUP);
-                            Drawing.addWave(obj.OriginalPosition);
-                            //((StaticObject)obj).Body.
-                            removeObject(obj);
-                        }
-                    }
                 }
             }
         }
