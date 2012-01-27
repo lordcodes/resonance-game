@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework;
 using BEPUphysics.Constraints.SingleEntity;
 using BEPUphysics.Constraints.TwoEntity.Motors;
 using BEPUphysics;
+using BEPUphysics.BroadPhaseSystems;
+using BEPUphysics.CollisionRuleManagement;
 
 namespace Resonance
 {
@@ -18,7 +20,7 @@ namespace Resonance
         public static float ROT_SPEED = 0.00f;
 
         private static float TARGET_RANGE = 20f;
-        private static float ATTACK_RANGE = 3f;
+        private static float ATTACK_RANGE = 5f;
         private static int SPOT_RANGE = 15; //Distance to spot obstacles in front
         private static int ATTACK_RATE = 4; //No. of times per second
         private static float ATTACK_ANGLE_THRESHOLD = 0.7f; // Measure of angle at which BV has to be (rel to GV) to attack. 1 = 60 deg, sqrt(2) = 90 deg, >=2 = 180 deg.
@@ -141,8 +143,8 @@ namespace Resonance
         {
             //Query world space for objects every position in front up to and including SPOT_RANGE
             //Get object that is obstacle
-            //Object obstacle = obstacleFound();
-            //if (obstacle != null) DebugDisplay.update("ClosestObstacle", obstacle.returnIdentifier());
+            Object obstacle = obstacleFound();
+            if (obstacle != null) DebugDisplay.update("ClosestObstacle", obstacle.returnIdentifier());
 
             //Apply steering force to avoid it
             // compute avoidance steering force: take offset from obstacle to me,
@@ -191,10 +193,10 @@ namespace Resonance
         {
             // Make sure BV is facing GV
             Vector3 posDiff = bv.Body.Position - Game.getGV().Body.Position;
-            Vector3 bvf = bv.Body.OrientationMatrix.Backward; // THIS MAY NEED TO BE Faorward IF THE MODEL ORIENTATION CHANGES
+            Vector3 bvf = bv.Body.OrientationMatrix.Forward; // THIS MAY NEED TO BE Forward IF THE MODEL ORIENTATION CHANGES
             posDiff.Normalize();
             bvf.Normalize();
-            float facing = (bvf - posDiff).Length();
+            float facing = (bvf + posDiff).Length();
             if (facing > ATTACK_ANGLE_THRESHOLD) return;
 
             // If so, then attack.
@@ -257,7 +259,7 @@ namespace Resonance
         private Object obstacleFound()
         {
             double closestDist = Double.MaxValue;
-            List<Object> obstacles = Program.game.World.rayCast(bv, SPOT_RANGE);
+            List<Object> obstacles = Program.game.World.rayCast(bv.Body.Position, bv.Body.OrientationMatrix.Forward, SPOT_RANGE, RayCastFilter);
             Object closestObj = null;
 
             foreach (Object ob in obstacles)
@@ -278,6 +280,11 @@ namespace Resonance
                 }
             }
             return closestObj;
+        }
+
+        bool RayCastFilter(BroadPhaseEntry entry)
+        {
+            return entry != bv.Body.CollisionInformation && entry.CollisionRules.Personal <= CollisionRule.Normal;
         }
 
         private Vector3 pointRelativeToBV(Vector3 point)
