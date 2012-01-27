@@ -97,6 +97,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
+    <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
+    <Compile Include="Drawing\Graphics\DisplacementMap.cs" />
+    <Compile Include="Drawing\Graphics\Drawing.cs" />
+    <Compile Include="Drawing\Graphics\GameModels.cs" />
+    <Compile Include="Drawing\Graphics\GameModelsContentReader.cs" />
+    <Compile Include="Drawing\Graphics\Graphics.cs" />
+    <Compile Include="Drawing\Graphics\ImportedGameModel.cs" />
+    <Compile Include="Drawing\Graphics\ImportedGameModels.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
@@ -109,28 +118,19 @@
     <Compile Include="AI\Minheap.cs" />
     <Compile Include="AI\Node.cs" />
     <Compile Include="AI\PathFind.cs" />
-    <Compile Include="Drawing\DisplacementMap.cs" />
-    <Compile Include="Drawing\CustomFontContentReader.cs" />
     <Compile Include="Drawing\Hud\MiniMap.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Hud\DebugDisplay.cs" />
-    <Compile Include="Drawing\GameModelsContentReader.cs" />
     <Compile Include="Drawing\Hud\Hud.cs" />
-    <Compile Include="Drawing\ImportedCustomFont.cs" />
-    <Compile Include="Drawing\ImportedGameModel.cs" />
-    <Compile Include="Drawing\ImportedGameModels.cs" />
     <Compile Include="Drawing\UI\MenuItem.cs" />
     <Compile Include="Drawing\UI\UI.cs" />
     <Compile Include="Object\World.cs" />
-    <Compile Include="Drawing\Graphics.cs" />
     <Compile Include="Drawing\UI\MenuActions.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />
     <Compile Include="Drawing\UI\LoadingScreen.cs" />
     <Compile Include="Object\BadVibe.cs" />
-    <Compile Include="Drawing\Drawing.cs" />
     <Compile Include="Object\DynamicObject.cs" />
     <Compile Include="Object\GoodVibe.cs" />
-    <Compile Include="Drawing\GameModels.cs" />
     <Compile Include="Music\MusicHandler.cs" />
     <Compile Include="Music\MusicTrack.cs" />
     <Compile Include="Object\Object.cs" />
@@ -163,6 +163,7 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--
