@@ -224,16 +224,16 @@ namespace Resonance
                 }
                 if (obj.list[i].type.Equals("Pickup") == true)
                 {
-                    p = new Pickup(GameModels.PICKUP, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord), obj.list[i].pickuptype, 60); //TODO: fix xml
-                    addObject(p);
+                    //p = new Pickup(GameModels.PICKUP, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord), obj.list[i].pickuptype, 60); //TODO: fix xml
+                    //addObject(p);
                 }
             }
             
             //TODO: Temp crate add
-            p = new Pickup(GameModels.PICKUP, "Pickup2", new Vector3(5f, 0f, 5f), 1, 120);
-            addObject(p);
-            p = new Pickup(GameModels.PICKUP, "Pickup3", new Vector3(15f, 0f, 5f), 1, 180);
-            addObject(p);
+            //p = new Pickup(GameModels.PICKUP, "Pickup2", new Vector3(5f, 0f, 5f), 1, 120);
+            //addObject(p);
+            //p = new Pickup(GameModels.PICKUP, "Pickup3", new Vector3(15f, 0f, 5f), 1, 180);
+            //addObject(p);
         }
 
         /// <summary>
@@ -275,12 +275,16 @@ namespace Resonance
                     Program.game.Music.playSound(MusicHandler.PICKUP);
                     Drawing.addWave(pickupPoint);
                     removeObject(pickups[i]);
+                    Program.game.pickupspawner.pickupPickedUp();
+                    continue;
                 }
 
                 pickups[i].TimeToLive--;
                 if (pickups[i].TimeToLive == 0)
                 {
-                    //removeObject(pickups[i]);
+                    Program.game.Music.playSound(MusicHandler.PICKUP);
+                    removeObject(pickups[i]);
+                    Program.game.pickupspawner.pickupPickedUp();
                 }
             }
         }

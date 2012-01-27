@@ -37,6 +37,7 @@ namespace Resonance
 
         World world;
         BVSpawnManager spawner;
+        public PickupSpawnManager pickupspawner;
         public AnimationPlayer animationPlayer;
 
         public Game()
@@ -46,6 +47,7 @@ namespace Resonance
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
             if(USE_SPAWNER) spawner = new BVSpawnManager();
+            pickupspawner = new PickupSpawnManager();
 
             initKeyCache();
 
@@ -55,10 +57,10 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            //graphics.IsFullScreen = true;
+            graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
-            //graphics.PreferredBackBufferWidth = 1920;
-            //graphics.PreferredBackBufferHeight = 1080;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             Window.AllowUserResizing = true;
         }
 
@@ -164,6 +166,7 @@ namespace Resonance
                     musicHandler.Update();
                     removeDeadBadVibes(deadVibes);
                     if(USE_SPAWNER) spawner.update();
+                    pickupspawner.update();
 
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     base.Update(gameTime);
