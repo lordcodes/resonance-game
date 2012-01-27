@@ -32,7 +32,6 @@ namespace Resonance
         public static GameMode mode;
 
         public static bool GV_KILLED = false;
-        public static int  FINAL_SCORE = -1; // -1 indicates game failed. >= 0 indicates game won.
 
         public static bool USE_SPAWNER = false;
 
@@ -186,9 +185,12 @@ namespace Resonance
         // Called when game finished (won or lost).
         private void endGame() {
             String r;
-            if (GV_KILLED) r = "GV Killed."; else r = "Level Complete!";
-            UI.pause();
+            int finalScore;
+            if (GV_KILLED) r = "GV Killed."; else r = "Game won!";
+            finalScore = mode.finaliseScore(GV_KILLED, getGV().Score);
             DebugDisplay.update("Game Over! State", r);
+            DebugDisplay.update("Final Score", finalScore.ToString());
+            UI.pause();
         }
 
         private void keyInput()
