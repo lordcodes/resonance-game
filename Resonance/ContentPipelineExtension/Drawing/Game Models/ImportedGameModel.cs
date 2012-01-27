@@ -23,6 +23,7 @@ namespace ContentPipelineExtension
         private Matrix graphicsScale;
         private Matrix physicsScale;
         private TextureContent texture;
+        private bool animation;
 
         public int GraphicsModelFile
         {
@@ -109,22 +110,32 @@ namespace ContentPipelineExtension
             }
         }
 
-        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, String newTexture)
+        public bool Animation
+        {
+            get
+            {
+                return animation;
+            }
+        }
+
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, String newTexture, bool animation)
         {
             graphicsModelFile = newGraphicsModel;
             physicsModelFile = newPhysicsModel;
             textureFile = newTexture;
             graphicsScaleFloat = graphicsModelScale;
             physicsScaleFloat = physicsModelScale;
+            this.animation = animation;
         }
 
-        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, TextureContent newTexture)
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, TextureContent newTexture, bool animation)
         {
             graphicsModelFile = newGraphicsModel;
             physicsModelFile = newPhysicsModel;
             texture = newTexture;
             graphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
             physicsScale = Matrix.CreateScale(physicsModelScale, physicsModelScale, physicsModelScale);
+            this.animation = animation;
         }
 
     }

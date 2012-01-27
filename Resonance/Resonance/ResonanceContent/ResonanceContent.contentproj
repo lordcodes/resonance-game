@@ -47,16 +47,16 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\bad_vibe.fbx">
+    <None Include="Drawing\Models\bad_vibe.fbx">
       <Name>bad_vibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\bad_vibe_animation.fbx">
+    </None>
+    <None Include="Drawing\Models\bad_vibe_animation.fbx">
       <Name>bad_vibe_animation</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
+    </None>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>
@@ -64,31 +64,31 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Models\treePhysics.fbx">
+    <None Include="Drawing\Models\treePhysics.fbx">
       <Name>treePhysics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\terrainHiPoly.fbx">
+    </None>
+    <None Include="Drawing\Models\terrainHiPoly.fbx">
       <Name>terrainHiPoly</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\terrain32.fbx">
+    </None>
+    <None Include="Drawing\Models\terrain32.fbx">
       <Name>terrain32</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\terrain64.fbx">
+    </None>
+    <None Include="Drawing\Models\terrain64.fbx">
       <Name>terrain64</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\terrain24.fbx">
+    </None>
+    <None Include="Drawing\Models\terrain24.fbx">
       <Name>terrain24</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
+    </None>
     <None Include="Drawing\Models\dude.fbx">
       <Name>dude</Name>
       <Importer>FbxImporter</Importer>
@@ -104,11 +104,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </None>
-    <Compile Include="Drawing\Models\new_bad_vibe.fbx">
+    <None Include="Drawing\Models\new_bad_vibe.fbx">
       <Name>new_bad_vibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
+    </None>
     <None Include="Drawing\Models\pants.tga">
       <Name>pants</Name>
       <Importer>TextureImporter</Importer>
