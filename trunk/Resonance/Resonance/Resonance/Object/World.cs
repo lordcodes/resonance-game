@@ -271,20 +271,51 @@ namespace Resonance
                 double diff = Game.getDistance(Game.getGV().Body.Position, pickupPoint);
 
                 if(diff < pickups[i].Size)
-                {                    
-                    Program.game.Music.playSound(MusicHandler.PICKUP);
+                {
+                    switch (pickups[i].PowerUpType)
+                    {
+                        case 1:
+                            {
+                                Program.game.Music.playSound(MusicHandler.PICKUP);
+                                Game.getGV().adjustNitro(10);
+                                break;
+                            }
+                        case 2:
+                            {
+                                Program.game.Music.playSound(MusicHandler.DING);
+                                Game.getGV().adjustShield(5);
+                                break;
+                            }
+                        case 3:
+                            {
+                                Program.game.Music.playSound(MusicHandler.SHIMMER);
+                                Game.getGV().AdjustHealth(5);
+                                break;
+                            }
+                        case 4:
+                            {
+                                Program.game.Music.playSound(MusicHandler.RED);
+                                Game.getGV().adjustFreeze(5);
+                                break;
+                            }
+                        default:
+                            {
+                                //Program.game.Music.playSound("lobster");
+                                break;
+                            }
+                    }
+
                     Drawing.addWave(pickupPoint);
                     removeObject(pickups[i]);
-                    Program.game.pickupspawner.pickupPickedUp();
+                    Program.game.pickupSpawner.pickupPickedUp();
                     continue;
                 }
 
                 pickups[i].TimeToLive--;
                 if (pickups[i].TimeToLive == 0)
                 {
-                    Program.game.Music.playSound(MusicHandler.PICKUP);
                     removeObject(pickups[i]);
-                    Program.game.pickupspawner.pickupPickedUp();
+                    Program.game.pickupSpawner.pickupPickedUp();
                 }
             }
         }

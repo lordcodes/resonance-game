@@ -30,17 +30,16 @@ namespace Resonance
 
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode;
-
         public static bool GV_KILLED = false;
 
-        public static bool USE_SPAWNER = false;
-
+        public static bool USE_BV_SPAWNER = false;
+        public static bool USE_PICKUP_SPAWNER = true;
         GraphicsDeviceManager graphics;
         public readonly MusicHandler musicHandler;
 
         World world;
-        BVSpawnManager spawner;
-        public PickupSpawnManager pickupspawner;
+        BVSpawnManager bvSpawner;
+        public PickupSpawnManager pickupSpawner;
         public AnimationPlayer animationPlayer;
 
         public Game()
@@ -50,8 +49,8 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
-            if(USE_SPAWNER) spawner = new BVSpawnManager();
-            pickupspawner = new PickupSpawnManager();
+            if(USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
+            if(USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
 
             initKeyCache();
 
@@ -169,8 +168,10 @@ namespace Resonance
                     
                     musicHandler.Update();
                     removeDeadBadVibes(deadVibes);
-                    if(USE_SPAWNER) spawner.update();
-                    pickupspawner.update();
+
+                    //Update Spawners
+                    if(USE_BV_SPAWNER) bvSpawner.update();
+                    if(USE_PICKUP_SPAWNER) pickupSpawner.update();
 
                     animationPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
                     base.Update(gameTime);
@@ -178,8 +179,8 @@ namespace Resonance
 
                 if (GV_KILLED || mode.terminated()) {
                     endGame();
-                }
             }
+        }
         }
 
         // Called when game finished (won or lost).
@@ -243,7 +244,7 @@ namespace Resonance
             {
                 World.removeObject(World.getObject(deadVibes[i]));
                 musicHandler.playSound("beast_dying");
-                if(USE_SPAWNER) spawner.vibeDied();
+                if(USE_BV_SPAWNER) bvSpawner.vibeDied();
             }
         }
 
