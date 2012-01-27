@@ -14,7 +14,7 @@ namespace Level_editor
     {
         static void Main(string[] args)
         {
-            Boolean ok = true;
+           /* Boolean ok = true;
             StoredObjects list = new StoredObjects();
             while (ok == true)
             {
@@ -39,8 +39,8 @@ namespace Level_editor
                     ok = false;
             }
             Serialize(list, "Level1.xml");
+            */
             
-
         }
         static void Serialize(StoredObjects obj, string filename)
         {
