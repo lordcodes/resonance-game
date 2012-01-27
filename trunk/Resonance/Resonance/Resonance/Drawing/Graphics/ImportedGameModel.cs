@@ -8,10 +8,11 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using AnimationLibrary;
 
 namespace Resonance
 {
-    public class ImportedGameModel
+    public class ImportedGameModel : GameComponent
     {
         private Model graphicsModel;
         private Model physicsModel;
@@ -21,6 +22,7 @@ namespace Resonance
         private Texture2D texture;
         bool animation;
         private float mass;
+        private AnimationPlayer animPlayer = null;
 
         public Texture2D Texture
         {
@@ -91,7 +93,33 @@ namespace Resonance
             }
         }
 
+        public AnimationPlayer AnimPlayer
+        {
+            get
+            {
+                return animPlayer;
+            }
+        }
+
+        public Matrix[] Bones
+        {
+            get
+            {
+                return animPlayer.GetSkinTransforms();
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            if(animPlayer != null)animPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
+        }
+
+        public override void Initialize()
+        {
+        }
+
         public ImportedGameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, Texture2D newTexture, bool animation)
+            : base(Program.game)
         {
             graphicsModel = newGraphicsModel;
             physicsModel = newPhysicsModel;
@@ -102,6 +130,18 @@ namespace Resonance
             physicsScale = physicsModelScale;
             this.animation = animation;
             mass = 25f;
+            //Set up animation
+
+            if (Animation)
+            {
+                SkinningData skinningData = graphicsModel.Tag as SkinningData;
+                if (skinningData != null)
+                {
+                    animPlayer = new AnimationPlayer(skinningData);
+                    AnimationClip clip = skinningData.AnimationClips["Take 001"];
+                    animPlayer.StartClip(clip);
+                }
+            }
         }
 
     }

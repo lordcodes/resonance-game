@@ -54,6 +54,14 @@ namespace Resonance
             }
         }
 
+        public Vector3 CameraPosition
+        {
+            get
+            {
+                return cameraPosition;
+            }
+        }
+
         public Graphics(ContentManager newContent, GraphicsDeviceManager newGraphics)
         {
             Content = newContent;
@@ -148,7 +156,7 @@ namespace Resonance
             customEffect.Parameters["ColorTexture"].SetValue(texture);
             graphics.GraphicsDevice.Textures[0] = texture;
             customEffect.CurrentTechnique.Passes[0].Apply();
-            customEffect.CurrentTechnique = customEffect.Techniques["Technique1"];
+            customEffect.CurrentTechnique = customEffect.Techniques["StaticObject"];
 
             int number_of_vertices = 4;
             int number_of_indices = 6;
@@ -203,7 +211,7 @@ namespace Resonance
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
             graphics.GraphicsDevice.SetVertexBuffer(vertexBuffer);
 
-            graphics.GraphicsDevice.BlendState = BlendState.Additive;
+            //graphics.GraphicsDevice.BlendState = BlendState.Additive;
 
             foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
             {
@@ -228,7 +236,6 @@ namespace Resonance
         {
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
-            Matrix[] bones = Program.game.animationPlayer.GetSkinTransforms();
 
             customEffect.Parameters["doDisp"].SetValue(disp);
             if (disp) customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
@@ -255,6 +262,7 @@ namespace Resonance
                 if (GameModels.getModel(gameModelNum).Animation)
                 {
                     customEffect.CurrentTechnique = customEffect.Techniques["Animation"];
+                    Matrix[] bones = GameModels.getModel(gameModelNum).Bones;
                     customEffect.Parameters["xBones"].SetValue(bones);
                 }
                 else

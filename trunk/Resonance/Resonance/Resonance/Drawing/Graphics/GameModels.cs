@@ -55,15 +55,6 @@ namespace Resonance
         {
             // Edit "Content/Drawing/modelDetails.md" to add new models to the game
             importedGameModels = Content.Load<ImportedGameModels>("Drawing/modelDetails");
-            SkinningData skinningData = importedGameModels.getModel(BAD_VIBE_BLUE).GraphicsModel.Tag as SkinningData;
-            if (skinningData == null)
-               Console.WriteLine("This model does not contain a SkinningData tag.");
-
-            Program.game.animationPlayer = new AnimationPlayer(skinningData);
-
-            AnimationClip clip = skinningData.AnimationClips["Take 001"];
-
-            Program.game.animationPlayer.StartClip(clip);
 
         }
 

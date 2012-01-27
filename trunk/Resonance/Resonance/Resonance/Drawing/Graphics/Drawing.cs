@@ -26,7 +26,7 @@ namespace Resonance
         private static double widthRatio;
         private static double heightRatio;
         private static Vector3 playerPos;
-        private static Texture2D special;
+        private static Texture2D ring;
 
         public static bool DoDisp
         {
@@ -100,7 +100,7 @@ namespace Resonance
             GameModels.Load();
             gameGraphics.loadContent(Content, graphics.GraphicsDevice);
 
-            special = Content.Load<Texture2D>("Drawing/Textures/texTronFloorAlpha");
+            ring = Content.Load<Texture2D>("Drawing/Textures/texRing");
             loadingScreen.loadContent();
         }
 
@@ -143,10 +143,11 @@ namespace Resonance
             }
             else
             {
-                Matrix texturePos = Matrix.CreateTranslation(new Vector3(0, 0.2f, 0));
+                Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
+                Matrix texturePos = Matrix.CreateTranslation(pos);
                 Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
                 texturePos = Matrix.Multiply(rotation,texturePos);
-                //gameGraphics.Draw2dTextures(special, texturePos, World.MAP_X, World.MAP_Z);
+                gameGraphics.Draw2dTextures(ring, texturePos, 20, 20);
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
                 if (UI.Paused) hud.drawMenu(UI.getString());

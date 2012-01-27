@@ -38,7 +38,9 @@ namespace Resonance
                 texture = input.ReadObject<Texture2D>();
                 animation = input.ReadBoolean();
                 gameModelNum = input.ReadInt32();
-                models.addModel(new ImportedGameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, texture, animation), gameModelNum);
+                ImportedGameModel newModel = new ImportedGameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, texture, animation);
+                Program.game.Components.Add(newModel);
+                models.addModel(newModel, gameModelNum);
             }
 
             return models;
