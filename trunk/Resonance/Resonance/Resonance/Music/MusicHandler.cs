@@ -19,7 +19,7 @@ namespace Resonance
         public static string YELLOW = "TomHigh";
         public static string RED = "Snare";
         public static string CYMBAL = "Crash";
-        public static string PICKUP = "chink";
+        public static string CHINK = "chink";
         public static string DING = "ding";
         public static string SHIMMER = "shimmer";
 
