@@ -95,27 +95,32 @@ namespace Resonance
             {
                 case Shockwave.GREEN:
                     {
-                        gameModelNum = GameModels.BAD_VIBE_GREEN;
+                        //gameModelNum = GameModels.BAD_VIBE_GREEN;
+                        GameModels.getModel(gameModelNum).setTexture(0);
                         break;
                     }
                 case Shockwave.YELLOW:
                     {
-                        gameModelNum = GameModels.BAD_VIBE_YELLOW;
+                        //gameModelNum = GameModels.BAD_VIBE_YELLOW;
+                        GameModels.getModel(gameModelNum).setTexture(1);
                         break;
                     }
                 case Shockwave.BLUE:
                     {
-                        gameModelNum = GameModels.BAD_VIBE_BLUE;
+                        //gameModelNum = GameModels.BAD_VIBE_BLUE;
+                        GameModels.getModel(gameModelNum).setTexture(2);
                         break;
                     }
                 case Shockwave.RED:
                     {
-                        gameModelNum = GameModels.BAD_VIBE_RED;
+                        //gameModelNum = GameModels.BAD_VIBE_RED;
+                        GameModels.getModel(gameModelNum).setTexture(3);
                         break;
                     }
                 case Shockwave.CYMBAL:
                     {
-                        gameModelNum = GameModels.BAD_VIBE_CYMBAL;
+                        //gameModelNum = GameModels.BAD_VIBE_CYMBAL;
+                        GameModels.getModel(gameModelNum).setTexture(4);
                         break;
                     }
             }
