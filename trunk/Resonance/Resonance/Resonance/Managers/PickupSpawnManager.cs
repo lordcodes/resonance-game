@@ -27,8 +27,8 @@ namespace Resonance
 
         public void update()
         {
-            DebugDisplay.update("num pickups",numPickups.ToString());
-            DebugDisplay.update("total pickups", totalNumPickups.ToString());
+            //DebugDisplay.update("num pickups", numPickups.ToString());
+            //DebugDisplay.update("total pickups", totalNumPickups.ToString());
             if (numPickups < MIN_PICKUPS)
             {
                 bool placed = false;
@@ -53,7 +53,7 @@ namespace Resonance
                         {
                             placed = true;
 
-                            Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(1,4), 120);
+                            Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(0,16)%4, 1200);
                             Program.game.World.addObject(p);
 
                             totalNumPickups++;
