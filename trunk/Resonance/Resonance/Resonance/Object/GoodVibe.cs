@@ -253,7 +253,6 @@ namespace Resonance
                 w.grow();
                 w.checkBadVibes();
             }
-
             removeWaves();
         }
 
@@ -293,7 +292,7 @@ namespace Resonance
                 }
                 else
                 {
-                    bv.Status = BadVibe.State.NORMAL;
+                    if(bv.Status == BadVibe.State.FROZEN) bv.Status = BadVibe.State.NORMAL;
                 }
             }
         }

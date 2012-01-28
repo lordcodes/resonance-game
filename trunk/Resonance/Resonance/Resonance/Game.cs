@@ -150,6 +150,7 @@ namespace Resonance
                 {
                     //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
+                    removeDeadBadVibes(deadVibes);
 
                     //Break rest layers
                     if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
@@ -167,7 +168,6 @@ namespace Resonance
                     world.update();
                     
                     musicHandler.Update();
-                    removeDeadBadVibes(deadVibes);
 
                     //Update Spawners
                     if(USE_BV_SPAWNER) bvSpawner.update();
