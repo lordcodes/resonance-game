@@ -196,9 +196,9 @@ namespace Resonance
             }
             
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-            
 
-            gameGraphics.Draw(gameModelNum, worldTransform, blend);
+
+            gameGraphics.Draw(worldObject, worldTransform, blend);
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
             if (worldObject is BadVibe)

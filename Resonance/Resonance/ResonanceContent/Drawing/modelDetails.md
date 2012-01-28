@@ -39,16 +39,7 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 4,			goodVibe,				0.5,	spaceShip,				0.2
 5,			terrain64,			    250,	terrain,			    250,			tronFloor,							0,					0
 6,			house,					1,		house,					1,
-7,			wave,					1,		wave,					1,				green
-8,			wave,					1,		wave,					1,				yellow
-9,			wave,					1,		wave,					1,				blue
-10,			wave,					1,		wave,					1,				red
-11,			wave,					1,		wave,					1,				cymbal
-12,			BV_animated,			0.2,	box,					3.5,			green,								0,					1
-13,			BV_animated,			0.2,	box,					3.5,			yellow,								0,					1
-14,			BV_animated,			0.2,	box,					3.5,			blue,								0,					1
-15,			BV_animated,			0.2,	box,					3.5,			red,								0,					1
-16,			BV_animated,			0.2,	box,					3.5,			cymbal,								0,					1
-----17,			pickup,					2,		pickup,					2
-17,			box,					2,		pickup,					2,				animationTest,						80
-18,         ShieldGoodVibe,         0.5,    spaceShip,              0.2
+7,			wave,					1,		wave,					1,				allColours
+----8,			pickup,					2,		pickup,					2
+8,			box,					2,		pickup,					2,				animationTest,						80
+9,         ShieldGoodVibe,         0.5,    spaceShip,              0.2

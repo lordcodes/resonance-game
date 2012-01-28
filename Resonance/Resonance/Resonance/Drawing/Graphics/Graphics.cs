@@ -129,9 +129,9 @@ namespace Resonance
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
-        public void Draw(int gameModelNum, Matrix worldTransform, bool disp)
+        public void Draw(Object worldObject, Matrix worldTransform, bool disp)
         {
-            DrawModel(GameModels.getModel(gameModelNum), Matrix.Multiply(GameModels.getModel(gameModelNum).GraphicsScale, worldTransform), disp,gameModelNum);
+            DrawModel(worldObject, worldTransform, disp);
         }
 
         public void update(Vector2 playerPos)
@@ -232,8 +232,11 @@ namespace Resonance
         }
 
 
-        private void DrawModel(GameModel gmodel, Matrix world, bool disp, int gameModelNum)
+        private void DrawModel(Object worldObject, Matrix worldTransform, bool disp)
         {
+            GameModel gmodel = GameModels.getModel(worldObject.GameModelNumber);
+            GameModelVariables modelVariables = worldObject.Variables;
+            Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
 
@@ -251,7 +254,7 @@ namespace Resonance
             customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
 
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
-            if (colorTexture == null) colorTexture = gmodel.Texture;
+            if (colorTexture == null) colorTexture = modelVariables.Texture;
             customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
             graphics.GraphicsDevice.Textures[0] = colorTexture;
 
@@ -259,10 +262,10 @@ namespace Resonance
             {
                 customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
 
-                if (GameModels.getModel(gameModelNum).ModelAnimation)
+                if (gmodel.ModelAnimation)
                 {
                     customEffect.CurrentTechnique = customEffect.Techniques["Animation"];
-                    Matrix[] bones = GameModels.getModel(gameModelNum).Bones;
+                    Matrix[] bones = modelVariables.Bones;
                     customEffect.Parameters["xBones"].SetValue(bones);
                 }
                 else

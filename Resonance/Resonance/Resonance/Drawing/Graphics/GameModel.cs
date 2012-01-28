@@ -22,17 +22,21 @@ namespace Resonance
         private List<Texture2D> textures = new List<Texture2D>();
         bool modelAnimation;
         private float mass;
-        private AnimationPlayer animPlayer = null;
-        private int currentFrame = 0;
         private float frameDelay;
-        private float timeElapsed;
 
-        public Texture2D Texture
+        public List<Texture2D> Textures
         {
             get
             {
-                if (textures.Count == 0) return null;
-                return textures[currentFrame];
+                return textures;
+            }
+        }
+
+        public float FrameDelay
+        {
+            get
+            {
+                return frameDelay;
             }
         }
 
@@ -93,49 +97,13 @@ namespace Resonance
             }
         }
 
-        public AnimationPlayer AnimPlayer
-        {
-            get
-            {
-                return animPlayer;
-            }
-        }
-
-        public Matrix[] Bones
-        {
-            get
-            {
-                return animPlayer.GetSkinTransforms();
-            }
-        }
-
-        public void setTexture(int index)
+        public Texture2D getTexture(int index)
         {
             if (index < textures.Count)
             {
-                currentFrame = index;
+                return textures[index];
             }
-        }
-
-        public override void Update(GameTime gameTime)
-        {
-            if(animPlayer != null)animPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
-            if (frameDelay > 0 && textures.Count > 1)
-            {
-                timeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                if (timeElapsed > frameDelay)
-                {
-                    timeElapsed -= frameDelay;
-                    currentFrame++;
-                    if (currentFrame >= textures.Count)
-                    {
-                        currentFrame = 0;
-                    }
-                }
-                    
-                
-            }
+            return null;
         }
 
         public override void Initialize()
@@ -155,18 +123,6 @@ namespace Resonance
             this.modelAnimation = modelAnimation;
             this.frameDelay = frameDelay;
             mass = 25f;
-
-            //Set up model animation
-            if (ModelAnimation)
-            {
-                SkinningData skinningData = graphicsModel.Tag as SkinningData;
-                if (skinningData != null)
-                {
-                    animPlayer = new AnimationPlayer(skinningData);
-                    AnimationClip clip = skinningData.AnimationClips["Take 001"];
-                    animPlayer.StartClip(clip);
-                }
-            }
         }
 
     }

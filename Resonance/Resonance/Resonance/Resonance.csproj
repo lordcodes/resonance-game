@@ -107,6 +107,7 @@
     <Compile Include="Drawing\Graphics\Graphics.cs" />
     <Compile Include="Drawing\Graphics\ImportedGameModels.cs" />
     <Compile Include="Drawing\Hud\HealthBar.cs" />
+    <Compile Include="Drawing\Graphics\GameModelVariables.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
