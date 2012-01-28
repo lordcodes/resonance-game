@@ -14,9 +14,10 @@ namespace Resonance
     class Pickup : StaticObject
     {
         //for reference
-        //public static readonly int NITROUS = 0;
-        //public static readonly int SHIELD = 1;
-        //public static readonly int FREEZE = 2;
+        public const int HEALTH = 0;
+        public const int NITROUS = 1;
+        public const int SHIELD = 2;
+        public const int FREEZE = 3;
 
         private int powerupType;
         private int initialTime;

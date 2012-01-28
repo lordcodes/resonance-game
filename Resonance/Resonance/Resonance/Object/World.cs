@@ -274,25 +274,25 @@ namespace Resonance
                 {
                     switch (pickups[i].PowerUpType)
                     {
-                        case 1:
+                        case Pickup.NITROUS:
                             {
                                 Program.game.Music.playSound(MusicHandler.CHINK);
                                 Game.getGV().adjustNitro(10);
                                 break;
                             }
-                        case 2:
+                        case Pickup.SHIELD:
                             {
                                 Program.game.Music.playSound(MusicHandler.DING);
                                 Game.getGV().adjustShield(5);
                                 break;
                             }
-                        case 3:
+                        case Pickup.HEALTH:
                             {
                                 Program.game.Music.playSound(MusicHandler.SHIMMER);
                                 Game.getGV().AdjustHealth(5);
                                 break;
                             }
-                        case 4:
+                        case Pickup.FREEZE:
                             {
                                 Program.game.Music.playSound(MusicHandler.RED);
                                 Game.getGV().adjustFreeze(5);

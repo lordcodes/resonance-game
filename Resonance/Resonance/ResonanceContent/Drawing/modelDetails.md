@@ -38,5 +38,5 @@ BV_animated, Models\bad_vibe_animation.fbx
 9,			wave,					1,		wave,					1,			Textures\texBlue.jpg
 10,			wave,					1,		wave,					1,			Textures\texRed.jpg
 11,			wave,					1,		wave,					1,			Textures\texCymbal.jpg
-17,			pickup,					4,		pickup,					4
+17,			pickup,					2,		pickup,					2
 18,         ShieldGoodVibe,         0.5,    spaceShip,              0.2

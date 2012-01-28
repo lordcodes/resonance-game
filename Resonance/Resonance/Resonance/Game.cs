@@ -33,7 +33,7 @@ namespace Resonance
         public static bool GV_KILLED = false;
 
         public static bool USE_BV_SPAWNER = false;
-        public static bool USE_PICKUP_SPAWNER = false;
+        public static bool USE_PICKUP_SPAWNER = true;
         GraphicsDeviceManager graphics;
         public readonly MusicHandler musicHandler;
 
