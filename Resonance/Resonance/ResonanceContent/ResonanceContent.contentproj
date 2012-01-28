@@ -89,6 +89,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
+    <Compile Include="Drawing\HUD\Textures\pickup.png">
+      <Name>pickup</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
     <Compile Include="Drawing\Models\head.tga">
       <Name>head</Name>
       <Importer>TextureImporter</Importer>
@@ -584,13 +589,6 @@
     </Compile>
     <Compile Include="Drawing\Models\truck_spec_clean.jpg">
       <Name>truck_spec_clean</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\HUD\Textures\pickup.png">
-      <Name>pickup</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
