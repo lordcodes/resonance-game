@@ -4,8 +4,6 @@ treePhysics,Models\treePhysics.fbx
 house,		Models\house.fbx
 virus,		Models\bad_vibe.fbx
 newBadVibe,		Models\new_bad_vibe.fbx
-dude,		Models\dude.fbx
-testAnim,		Models\testAnim.fbx
 goodVibe,		Models\GoodVibe.fbx
 terrain,	Models\terrain.fbx
 terrainHiPoly,	Models\terrainHiPoly.fbx
@@ -17,7 +15,7 @@ wave,		Models\wave.fbx
 box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
-ShieldGoodVibe, Models\ShiedlGoodVibe.fbx
+ShieldGoodVibe, Models\GoodVibeShield.fbx
 BV_animated, Models\bad_vibe_animation.fbx
 
 
