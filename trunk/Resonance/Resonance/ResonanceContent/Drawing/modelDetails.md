@@ -17,6 +17,7 @@ spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
 ShieldGoodVibe, Models\GoodVibeShield.fbx
 BV_animated, Models\bad_vibe_animation.fbx
+dude        Models\dude.fbx
 
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture (if needed)------|-Animate-|
