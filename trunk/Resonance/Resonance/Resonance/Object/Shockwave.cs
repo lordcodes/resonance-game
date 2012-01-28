@@ -97,14 +97,13 @@ namespace Resonance
         {
             foreach (BadVibe bv in Program.game.World.returnBadVibes())
             {
-                if (bv.Status != BadVibe.State.DEAD)
+                if (bv.Status != BadVibe.State.DEAD && !bVibes.Contains(bv))
                 {
-                    double dx = Position.X - bv.Body.Position.X;
-                    double dz = Position.Z - bv.Body.Position.Z;
-                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
-                    d = Math.Sqrt(d);
+                    double dist = Resonance.Game.getDistance(Position, bv.Body.Position);
 
-                    if (bv.Size + Radius >= d)
+                    //DebugDisplay.update("RADIUS", bv.Size + " : " + Radius + " : " + dist);
+
+                    if (bv.Size + Radius >= dist)
                     {
                         //Collision
                         bVibes.Add(bv);

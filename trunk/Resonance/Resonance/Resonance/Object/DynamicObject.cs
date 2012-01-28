@@ -29,6 +29,7 @@ namespace Resonance
         public const int ROTATE_ANTI = 1;
 
         ConvexHull body;
+        double radius;
 
         public DynamicObject(int modelNum, string name, Vector3 pos)
             : base(modelNum, name, pos)
@@ -45,6 +46,20 @@ namespace Resonance
             //body = new ConvexHull(pos, vertices, GameModels.getModel(modelNum).mass);
             body = new ConvexHull(pos, vertices, 50f);
             body.Tag = name;
+        }
+
+        public void calculateSize()
+        {
+            BoundingBox box = Body.CollisionInformation.BoundingBox;
+
+            double x = Math.Abs(box.Max.X - box.Min.X);
+            double z = Math.Abs(box.Max.Z - box.Min.Z);
+
+            if (x > z) radius = x;
+            else radius = z;
+
+            DebugDisplay.update("BoxDetails", box.Max.X + "," + box.Max.Z + " : " + box.Min.X + "," + box.Min.Z);
+            DebugDisplay.update("BVDetails", x + " : " + z + " : " + radius);
         }
 
         public void reset()
@@ -82,6 +97,14 @@ namespace Resonance
             get
             {
                 return body;
+            }
+        }
+
+        public double Size
+        {
+            get
+            {
+                return radius;
             }
         }
     }

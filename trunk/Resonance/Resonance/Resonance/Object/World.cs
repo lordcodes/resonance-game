@@ -206,6 +206,7 @@ namespace Resonance
                 {
                     player = new GoodVibe(GameModels.GOOD_VIBE, "Player", new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(player);
+                    player.calculateSize();
                 }
                 if (obj.list[i].type.Equals("Tree") == true)
                 {
@@ -221,6 +222,7 @@ namespace Resonance
                 {
                     bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(bv);
+                    bv.calculateSize();
                 }
                 if (obj.list[i].type.Equals("Pickup") == true)
                 {

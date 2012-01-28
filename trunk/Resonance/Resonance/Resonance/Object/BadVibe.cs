@@ -25,7 +25,6 @@ namespace Resonance
         AIManager ai;
 
         ArmourSequence armour;
-        double radius = 3;
         State state = State.NORMAL;
 
         public enum State { NORMAL, DEAD, FROZEN };
@@ -37,14 +36,6 @@ namespace Resonance
             setColour();
 
             ai = new AIManager(this);
-
-            BoundingBox box = Body.CollisionInformation.BoundingBox;
-
-            double x = Math.Abs(box.Max.X - box.Min.X);
-            double z = Math.Abs(box.Max.Z - box.Min.Z);
-
-            if (x > z) radius = x;
-            else radius = z;
         }
 
         public State Status
@@ -56,14 +47,6 @@ namespace Resonance
             set
             {
                 state = value;
-            }
-        }
-
-        public double Size
-        {
-            get
-            {
-                return radius;
             }
         }
 
@@ -87,13 +70,16 @@ namespace Resonance
         /// <summary>
         /// Damage the bad vibe
         /// </summary>
-        /// <param name="colour">The colour pf wave that has been attacked with</param>
+        /// <param name="colour">The colour wave that has been attacked with</param>
         public void damage(int colour)
         {
-            armour.breakLayer(colour, this);
             if (state != State.DEAD)
             {
-                setColour();
+                armour.breakLayer(colour, this);
+                if (state != State.DEAD)
+                {
+                    setColour();
+                }
             }
         }
 
