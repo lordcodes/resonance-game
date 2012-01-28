@@ -35,6 +35,7 @@ namespace Resonance
         private static Texture2D block;
         private static MiniMap miniMap;
         private static ImportedCustomFont scoreFont;
+        private static HealthBar healthBarClass;
 
         private static float ARMOUR_SCALE = 1.5f;
 
@@ -70,6 +71,9 @@ namespace Resonance
 
             miniMap = new MiniMap();
             miniMap.loadTextures(Content);
+
+            healthBarClass = new HealthBar(graphics);
+            healthBarClass.loadTextures(Content);
         }
 
         /// <summary>
@@ -117,9 +121,9 @@ namespace Resonance
         public void Draw()
         {
             drawBadVibeArmour();
+            drawHealthBar();
             spriteBatch.Begin();
             highlightedPower();
-            drawHealthBar();
             drawNitroBar();
             drawShieldBar();
             drawFreezeBar();
@@ -319,6 +323,8 @@ namespace Resonance
         /// </summary>
         private void drawHealthBar()
         {
+            //healthBarClass.draw(spriteBatch);
+
             int x = Drawing.pixelsX(10);
             int y = Drawing.pixelsY(10);
             int width = Drawing.pixelsX(healthBar.Width);
@@ -331,7 +337,7 @@ namespace Resonance
 
             float greenValue;
             Color c;
-
+            spriteBatch.Begin();
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
             for (int i = 0; i < limit; i++)
             {
@@ -342,6 +348,7 @@ namespace Resonance
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
             }
+            spriteBatch.End();
         }
 
         private void drawNitroBar()

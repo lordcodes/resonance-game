@@ -100,6 +100,7 @@
     <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
     <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
+    <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Drawing\Hud\Hud.cs" />
     <Compile Include="Drawing\Hud\MiniMap.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />
