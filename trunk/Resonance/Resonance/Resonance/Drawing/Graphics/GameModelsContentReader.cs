@@ -46,7 +46,7 @@ namespace Resonance
                 animation = input.ReadBoolean();
                 gameModelNum = input.ReadInt32();
                 GameModel newModel = new GameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, textures, animation, frameDelay);
-                Program.game.Components.Add(newModel);
+                
                 models.addModel(newModel, gameModelNum);
             }
 

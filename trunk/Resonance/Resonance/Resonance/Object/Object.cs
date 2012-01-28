@@ -13,6 +13,7 @@ namespace Resonance
     {
         private string identifier;
         protected int gameModelNum;
+        private GameModelVariables variables;
         private Vector3 position;
         private Vector3 originalPosition;
 
@@ -24,6 +25,22 @@ namespace Resonance
             }
         }
 
+        public GameModelVariables Variables
+        {
+            get
+            {
+                return variables;
+            }
+        }
+
+        public int GameModelNumber
+        {
+            get
+            {
+                return gameModelNum;
+            }
+        }
+
         public Object(int modelNum, string name, Vector3 pos) 
             : base(Program.game)
         {
@@ -31,6 +48,8 @@ namespace Resonance
             identifier = name;
             position = pos;
             originalPosition = pos;
+            variables = new GameModelVariables(gameModelNum);
+            Program.game.Components.Add(variables);
         }
 
         public string returnIdentifier()

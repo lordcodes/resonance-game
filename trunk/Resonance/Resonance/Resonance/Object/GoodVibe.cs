@@ -205,37 +205,42 @@ namespace Resonance
         public void createShockwave(int colour)
         {
             string waveName = "";
-            Shockwave w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+            Shockwave w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
             switch (colour)
             {
                 case Shockwave.GREEN:
                     {
                         waveName = "GREEN";
-                        w = new Shockwave(GameModels.SHOCKWAVE_GREEN, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w.Variables.SetTexture(0);
                         break;
                     }
                 case Shockwave.YELLOW:
                     {
                         waveName = "YELLOW";
-                        w = new Shockwave(GameModels.SHOCKWAVE_YELLOW, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w.Variables.SetTexture(1);
                         break;
                     }
                 case Shockwave.BLUE:
                     {
                         waveName = "BLUE";
-                        w = new Shockwave(GameModels.SHOCKWAVE_BLUE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w.Variables.SetTexture(2);
                         break;
                     }
                 case Shockwave.RED:
                     {
                         waveName = "RED";
-                        w = new Shockwave(GameModels.SHOCKWAVE_RED, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w.Variables.SetTexture(3);
                         break;
                     }
                 case Shockwave.CYMBAL:
                     {
                         waveName = "CYMBAL";
-                        w = new Shockwave(GameModels.SHOCKWAVE_CYMBAL, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
+                        w.Variables.SetTexture(4);
                         break;
                     }
             }

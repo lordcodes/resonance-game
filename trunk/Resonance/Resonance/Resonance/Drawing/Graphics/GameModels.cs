@@ -21,18 +21,9 @@ namespace Resonance
         public static readonly int GOOD_VIBE        = 4;
         public static readonly int GROUND           = 5;
         public static readonly int MUSHROOM         = 6;
-        public static readonly int SHOCKWAVE_GREEN  = 7;
-        public static readonly int SHOCKWAVE_YELLOW = 8;
-        public static readonly int SHOCKWAVE_BLUE   = 9;
-        public static readonly int SHOCKWAVE_RED    = 10;
-        public static readonly int SHOCKWAVE_CYMBAL = 11;
-        public static readonly int BAD_VIBE_GREEN   = 12;
-        public static readonly int BAD_VIBE_YELLOW  = 13;
-        public static readonly int BAD_VIBE_BLUE    = 14;
-        public static readonly int BAD_VIBE_RED     = 15;
-        public static readonly int BAD_VIBE_CYMBAL  = 16;
-        public static readonly int PICKUP           = 17;
-        public static readonly int SHIELD_GV        = 18;
+        public static readonly int SHOCKWAVE        = 7;
+        public static readonly int PICKUP           = 8;
+        public static readonly int SHIELD_GV        = 9;
 
         private static ContentManager Content;
 
