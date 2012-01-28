@@ -109,10 +109,18 @@ namespace Resonance
             }
         }
 
+        public void setTexture(int index)
+        {
+            if (index < textures.Count)
+            {
+                currentFrame = index;
+            }
+        }
+
         public override void Update(GameTime gameTime)
         {
             if(animPlayer != null)animPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
-            if (textures.Count > 1)
+            if (frameDelay > 0 && textures.Count > 1)
             {
                 timeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
