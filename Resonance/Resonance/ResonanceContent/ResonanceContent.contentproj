@@ -592,7 +592,9 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-  </ItemGroup>    <Compile Include="Drawing\HUD\Textures\bar.png">
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\bar.png">
       <Name>bar</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
