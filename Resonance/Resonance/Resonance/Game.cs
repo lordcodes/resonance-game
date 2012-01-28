@@ -40,7 +40,6 @@ namespace Resonance
         World world;
         BVSpawnManager bvSpawner;
         public PickupSpawnManager pickupSpawner;
-        public AnimationPlayer animationPlayer;
 
         public Game()
         {

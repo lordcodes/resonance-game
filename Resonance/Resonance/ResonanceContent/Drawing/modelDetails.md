@@ -45,5 +45,6 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 9,			wave,					1,		wave,					1,				blue
 10,			wave,					1,		wave,					1,				red
 11,			wave,					1,		wave,					1,				cymbal
-17,			pickup,					2,		pickup,					2
+----17,			pickup,					2,		pickup,					2
+17,			box,					2,		pickup,					2,				animationTest,						80
 18,         ShieldGoodVibe,         0.5,    spaceShip,              0.2
