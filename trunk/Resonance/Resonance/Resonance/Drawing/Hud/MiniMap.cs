@@ -45,14 +45,16 @@ namespace Resonance
         public static float VANISHING_POINT      = 5f;
 
         public static float BAD_VIBE_ALPHA       = 0.5f;
+        public static float PICKUP_ALPHA         = 0.5f;
 
         // Colours
-        public static Color OUTLINE_COLOUR    = new Color(0f, 0f, 0f, 1f); // 0.8 alpha?
-        public static Color BACKGROUND_COLOUR = new Color(0f, 0f, 0.2f, 0.5f);
-        public static Color GOOD_VIBE_COLOUR  = new Color(0f, 0.7f, 0f, 0.5f);
-        public static Color BAD_VIBE_COLOUR   = new Color(0.7f, 0f, 0f, BAD_VIBE_ALPHA);
+        public static Color    OUTLINE_COLOUR = new Color(0.0f, 0.0f, 0.0f, 1.0f); // 0.8 alpha?
+        public static Color BACKGROUND_COLOUR = new Color(0.0f, 0.0f, 0.2f, 0.5f);
+        public static Color  GOOD_VIBE_COLOUR = new Color(0.0f, 0.7f, 0.0f, 0.5f);
+        public static Color   BAD_VIBE_COLOUR = new Color(0.7f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
+        public static Color     PICKUP_COLOUR = new Color(0.7f, 0.7f, 0.0f, PICKUP_ALPHA);
         public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
-        public static Color SWEEPER_COLOUR    = new Color(0.0f, 0.0f, 0.9f, 0.5f);
+        public static Color    SWEEPER_COLOUR = new Color(0.0f, 0.0f, 0.9f, 0.5f);
 
         /// Fields
 
@@ -63,6 +65,7 @@ namespace Resonance
         private static Texture2D vibe;
         private static Texture2D dVibe;
         private static Texture2D block;
+        private static Texture2D pickup;
 
         private static int SPEED_SAMPLES = 10;
         private static List<float> speeds;
@@ -105,6 +108,7 @@ namespace Resonance
             vibe       = content.Load<Texture2D>("Drawing/HUD/Textures/map_vibe");
             dVibe      = content.Load<Texture2D>("Drawing/HUD/Textures/map_distant_vibe");
             block      = content.Load<Texture2D>("Drawing/HUD/Textures/block");
+            pickup     = content.Load<Texture2D>("Drawing/HUD/Textures/pickup");
         }
 
 
@@ -205,7 +209,7 @@ namespace Resonance
                 scaleFactor = (LARGE_MAP_WIDTH / (2 * DEFAULT_ZOOM));
             }*/
 
-            gVRef = (GoodVibe)Program.game.World.getObject("Player");
+            gVRef = (GoodVibe) Program.game.World.getObject("Player");
 
             if (AUTO_ZOOM) {
                 //float speed = gVRef.Body.MotionState.LinearVelocity.Length();
@@ -250,39 +254,66 @@ namespace Resonance
 
             // Loop through and draw bad vibes.
             List<BadVibe> badVibes = Program.game.World.returnBadVibes();
+            List<Pickup>  pickups  = Program.game.World.returnPickups();
+            List<Object>  toDraw   = new List<Object>();
+
+            foreach (BadVibe b in badVibes) {
+                toDraw.Add((Object) b);
+            }
+            foreach (Pickup p in pickups) {
+                toDraw.Add((Object) p);
+            }
 
             Vector2 gVPos = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
 
-            Vector2 bVPos;
-            Vector2 bVScreenPos;
+            Vector2 objPos       = Vector2.Zero;
+            Vector2 objScreenPos = Vector2.Zero;
             bool  inXRange, inYRange;
            
-            foreach(BadVibe v in badVibes) {
-                bVPos = new Vector2(v.Body.Position.X, v.Body.Position.Z);
-                Vector2 relToGV = gVPos - bVPos;
+            foreach(Object o in toDraw) {
+                BadVibe v = null;
+                Pickup  p = null;
+                if (o is BadVibe) v = (BadVibe) o;
+                if (o is Pickup)  p = (Pickup)  o;
+
+                     if (o is BadVibe) objPos = new Vector2(v.Body.Position.X,    v.Body.Position.Z);
+                else if (o is Pickup)  objPos = new Vector2(p.OriginalPosition.X, p.OriginalPosition.Z);
+
+                Vector2 relToGV = gVPos - objPos;
                 float angle = (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
                 relToGV = rotateVector2(relToGV, angle);
-                bVPos = gVPos - relToGV;
+                objPos = gVPos - relToGV;
 
                 float alpha = BAD_VIBE_ALPHA;
+                if (o is Pickup) alpha = PICKUP_ALPHA;
 
                 inXRange = false;
                 inYRange = false;
 
                 // Check if bad vibe is in range
-                if ((bVPos.X > gVPos.X - ZOOM) && (bVPos.X < gVPos.X + ZOOM)) inXRange = true;
-                if ((bVPos.Y > gVPos.Y - ZOOM) && (bVPos.Y < gVPos.Y + ZOOM)) inYRange = true;
+                if ((objPos.X > gVPos.X - ZOOM) && (objPos.X < gVPos.X + ZOOM)) inXRange = true;
+                if ((objPos.Y > gVPos.Y - ZOOM) && (objPos.Y < gVPos.Y + ZOOM)) inYRange = true;
 
                 if (inXRange && inYRange) {
-                    float bVR = - (DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y + (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
-                    bVR += (float) Math.PI;
+                    float objR = 0f;
+
+                    if (o is BadVibe) {
+                        objR = -(DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y + (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
+                        objR += (float)Math.PI;
+                    }
                     
-                    bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                    objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));
                     Vector2 centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f);
-                    //spriteBatch.Draw(vibe, new Rectangle((int) bVScreenPos.X, (int) bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), BAD_VIBE_COLOUR);
-                    spriteBatch.Draw(vibe, new Vector2((int)bVScreenPos.X, (int)bVScreenPos.Y), null, BAD_VIBE_COLOUR, bVR, centre, 1f, SpriteEffects.None, 0f);
-                } else if (inXRange ^ inYRange) {
+
+                    if (o is BadVibe) {
+                        spriteBatch.Draw(vibe,   new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, BAD_VIBE_COLOUR, objR, centre, 1f, SpriteEffects.None, 0f);
+                    } else if (o is Pickup) {
+                        spriteBatch.Draw(pickup, new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, PICKUP_COLOUR,   objR, centre, 1f, SpriteEffects.None, 0f);
+                    }
+                } else if ((o is BadVibe) && (inXRange ^ inYRange)) {
                     float dist = (float)Resonance.Game.getDistance(Resonance.Game.getGV().Body.Position, v.Body.Position);
+                    Vector2 bVPos = objPos;
+                    Vector2 bVScreenPos = objScreenPos;
                     bool visible = true;
 
                     // Calculate the alpha transparency that the distant vibe should have. Determine whether it is visible or not.
@@ -308,7 +339,10 @@ namespace Resonance
                         Color c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
                         spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), c);
                     }
-                } else {
+                } else if (o is BadVibe) {
+                    Vector2 bVPos = objPos;
+                    Vector2 bVScreenPos = objScreenPos;
+
                     // Draw in corresponding corner, transparency proportional to distance.
 
                     float dist = (float)Resonance.Game.getDistance(Resonance.Game.getGV().Body.Position, v.Body.Position);
