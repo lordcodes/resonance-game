@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="Drawing\Graphics\GameModel.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
     <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
     <Compile Include="Drawing\Graphics\DisplacementMap.cs" />
@@ -104,7 +105,6 @@
     <Compile Include="Drawing\Graphics\GameModels.cs" />
     <Compile Include="Drawing\Graphics\GameModelsContentReader.cs" />
     <Compile Include="Drawing\Graphics\Graphics.cs" />
-    <Compile Include="Drawing\Graphics\ImportedGameModel.cs" />
     <Compile Include="Drawing\Graphics\ImportedGameModels.cs" />
     <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Managers\AIManager.cs" />

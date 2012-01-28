@@ -132,6 +132,16 @@ namespace Resonance
             gameGraphics.addWave(playerGroundPos);
         }
 
+        public static void drawRangeIndicator()
+        {
+            Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
+            Matrix texturePos = Matrix.CreateTranslation(pos);
+            Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
+            texturePos = Matrix.Multiply(rotation,texturePos);
+            gameGraphics.Draw2dTextures(ring, texturePos, 20, 20);
+        }
+
+
         /// <summary>
         /// This is called when the character and the HUD should be drawn.
         /// </summary>
@@ -143,11 +153,7 @@ namespace Resonance
             }
             else
             {
-                Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
-                Matrix texturePos = Matrix.CreateTranslation(pos);
-                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
-                texturePos = Matrix.Multiply(rotation,texturePos);
-                gameGraphics.Draw2dTextures(ring, texturePos, 20, 20);
+                drawRangeIndicator();
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
                 if (UI.Paused) hud.drawMenu(UI.getString());

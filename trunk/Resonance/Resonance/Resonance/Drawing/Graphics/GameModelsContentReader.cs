@@ -28,17 +28,24 @@ namespace Resonance
                 Matrix graphicsScale;
                 int physicsModel;
                 Matrix physicsScale;
-                Texture2D texture;
+                List<Texture2D> textures = new List<Texture2D>();
                 bool animation;
                 int gameModelNum;
+                int numberTextures;
+                float frameDelay = 0;
                 graphicsModel = input.ReadInt32();
                 graphicsScale = input.ReadObject<Matrix>();
                 physicsModel = input.ReadInt32();
                 physicsScale = input.ReadObject<Matrix>();
-                texture = input.ReadObject<Texture2D>();
+                frameDelay = (float)input.ReadDouble();
+                numberTextures = input.ReadInt32();
+                for (int j = 0; j < numberTextures; j++)
+                {
+                    textures.Add(input.ReadObject<Texture2D>());
+                }
                 animation = input.ReadBoolean();
                 gameModelNum = input.ReadInt32();
-                ImportedGameModel newModel = new ImportedGameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, texture, animation);
+                GameModel newModel = new GameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, textures, animation, frameDelay);
                 Program.game.Components.Add(newModel);
                 models.addModel(newModel, gameModelNum);
             }

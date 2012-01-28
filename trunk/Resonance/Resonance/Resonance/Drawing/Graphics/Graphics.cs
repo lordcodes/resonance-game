@@ -142,7 +142,7 @@ namespace Resonance
         public void Draw2dTextures(Texture2D texture, Matrix world, float width, float height)
         {
             customEffect.Parameters["World"].SetValue(world);
-            customEffect.Parameters["doDisp"].SetValue(false);
+            customEffect.Parameters["DoDisp"].SetValue(false);
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
             customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
@@ -232,12 +232,12 @@ namespace Resonance
         }
 
 
-        private void DrawModel(ImportedGameModel gmodel, Matrix world, bool disp, int gameModelNum)
+        private void DrawModel(GameModel gmodel, Matrix world, bool disp, int gameModelNum)
         {
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
 
-            customEffect.Parameters["doDisp"].SetValue(disp);
+            customEffect.Parameters["DoDisp"].SetValue(disp);
             if (disp) customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
@@ -259,7 +259,7 @@ namespace Resonance
             {
                 customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
 
-                if (GameModels.getModel(gameModelNum).Animation)
+                if (GameModels.getModel(gameModelNum).ModelAnimation)
                 {
                     customEffect.CurrentTechnique = customEffect.Techniques["Animation"];
                     Matrix[] bones = GameModels.getModel(gameModelNum).Bones;

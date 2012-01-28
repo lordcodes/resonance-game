@@ -16,8 +16,9 @@ namespace ContentPipelineExtension
 {
     [ContentImporter(".md", DisplayName = "Model Importer", DefaultProcessor="GameModelsProcessor")]
     class ModelImporter : ContentImporter<ImportedGameModels>
-    {   
+    {
         Dictionary<string, int> gameModels = new Dictionary<string, int>();
+        Dictionary<string, List<string>> textureDictionary = new Dictionary<string, List<string>>();
 
         public override ImportedGameModels Import(string filename, ContentImporterContext context)
         {
@@ -27,6 +28,7 @@ namespace ContentPipelineExtension
             {
                 int count = 0;
                 int modelCount = 0;
+                int section = 0;
                 while (!reader.EndOfStream)
                 {
                     string current = reader.ReadLine();
@@ -34,12 +36,30 @@ namespace ContentPipelineExtension
                     {
                         string[] values = current.Split(',');
                         for (int i = 0; i < values.Length; i++) values[i] = values[i].Trim();
-                        if (values.Length == 2)
+                        if (values.Length == 1)
                         {
-                            string modelFile = getPath(filename, values[1]);
-                            gameModels.Add(values[0], modelCount);
-                            models.addModelRef(modelCount, modelFile);
-                            modelCount++;
+                            string title = values[0];
+                            if (title.Equals("MODELS") || title.Equals("TEXTURES")) section++;
+                        }
+                        else if (values.Length == 2)
+                        {
+                            if (section == 1)
+                            {
+                                string modelFile = getPath(filename, values[1]);
+                                gameModels.Add(values[0], modelCount);
+                                models.addModelRef(modelCount, modelFile);
+                                modelCount++;
+                            }
+                            else if (section == 2)
+                            {
+                                List<string> textureFiles = new List<string>();
+                                string[] files = values[1].Split(';');
+                                for (int i = 0; i < files.Length; i++)
+                                {
+                                    textureFiles.Add(getPath(filename,files[i]));
+                                }
+                                textureDictionary.Add(values[0], textureFiles);
+                            }
                         }
                         else if (values.Length > 4)
                         {
@@ -48,11 +68,27 @@ namespace ContentPipelineExtension
                             float graphicsScale = float.Parse(values[2]);
                             int physicsModel = getModelRef(values[3]);
                             float physicsScale = float.Parse(values[4]);
-                            string texture = "";
+                            List<string> textures = new List<string>();
                             bool animation = false;
-                            if (values.Length > 5) texture = getPath(filename, values[5]);
-                            if (values.Length > 6) animation = values[6].Equals("1");
-                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, texture, animation);
+                            double frameDelay = 0;
+                            if (values.Length > 5)
+                            {
+                                string textureRef = values[5];
+                                if (!textureRef.Equals(""))
+                                {
+                                    textures = textureDictionary[textureRef];
+                                }
+                            }
+                            if (values.Length > 6)
+                            {
+                                string delay = values[6];
+                                if (!delay.Equals(""))
+                                {
+                                    frameDelay = Convert.ToDouble(delay);
+                                }
+                            }
+                            if (values.Length > 7) animation = values[7].Equals("1");
+                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, textures, animation, frameDelay);
                             models.addModel(model, modelNum);
                             count++;
                         }
@@ -72,46 +108,6 @@ namespace ContentPipelineExtension
             return gameModels[name];
         }
     }
-
-   /* [ContentProcessor(DisplayName = "GameModelsProcessor")]
-    public class ModelsProcessor : ContentProcessor<ImportedGameModels, ImportedGameModels>
-    {
-        public override ImportedGameModels Process(ImportedGameModels input, ContentProcessorContext context)
-        {
-            ImportedGameModels models = new ImportedGameModels();
-            Dictionary<int, ImportedGameModel> gameModels = input.getModels();
-            Dictionary<int, string> modelsRef = input.getModelStringDic();
-            foreach (KeyValuePair<int, string> pair in modelsRef)
-            {
-                ModelContent model = loadModel(pair.Value, context);
-                models.addModelRef(pair.Key, model);
-            }
-
-            foreach (KeyValuePair<int, ImportedGameModel> pair in gameModels)
-            {
-                ImportedGameModel model = pair.Value;
-                ExternalReference<TextureContent> textureRef;
-                TextureContent texture = null;
-                if(!model.TextureFile.Equals(""))
-                {
-                    textureRef = new ExternalReference<TextureContent>(model.TextureFile);
-                    texture = context.BuildAndLoadAsset<TextureContent, TextureContent>(textureRef, "TextureProcessor");
-                }
-                //int graphicsModel = loadModel(input.getModelString(model.GraphicsModelFile), context);
-                int graphicsModel = model.GraphicsModelFile;
-                int physicsModel = model.PhysicsModelFile;
-
-                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, texture);
-                models.addModel(newModel, pair.Key);
-            }
-            return models;
-        }
-
-        private ModelContent loadModel(string file, ContentProcessorContext context)
-        {
-            return context.BuildAndLoadAsset<NodeContent, ModelContent>(new ExternalReference<NodeContent>(file), "ModelProcessor");
-        }
-    }*/
 
     [ContentProcessor(DisplayName = "GameModelsProcessor")]
     public class ModelsProcessor : ContentProcessor<ImportedGameModels, ImportedGameModels>
@@ -184,18 +180,18 @@ namespace ContentPipelineExtension
             {
                 ImportedGameModel model = pair.Value;
                 ExternalReference<TextureContent> textureRef;
-                TextureContent texture = null;
-                if (!model.TextureFile.Equals(""))
+                List<TextureContent> textures = new List<TextureContent>();
+                List<string> textureFiles = model.TextureFiles;
+                foreach(string textureFile in textureFiles)
                 {
-                    textureRef = new ExternalReference<TextureContent>(model.TextureFile);
-                    texture = context.BuildAndLoadAsset<TextureContent, TextureContent>(textureRef, "TextureProcessor");
+                    textureRef = new ExternalReference<TextureContent>(textureFile);
+                    textures.Add(context.BuildAndLoadAsset<TextureContent, TextureContent>(textureRef, "TextureProcessor"));
                 }
-                //int graphicsModel = loadModel(input.getModelString(model.GraphicsModelFile), context);
                 int graphicsModel = model.GraphicsModelFile;
                 int physicsModel = model.PhysicsModelFile;
                 bool animation = model.Animation;
 
-                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, texture, animation);
+                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, textures, animation, model.FrameDelay);
                 models.addModel(newModel, pair.Key);
             }
             return models;
@@ -421,7 +417,12 @@ namespace ContentPipelineExtension
                 output.WriteObject<Matrix>(model.GraphicsScale);
                 output.Write(model.PhysicsModel);
                 output.WriteObject<Matrix>(model.PhysicsScale);
-                output.WriteObject<TextureContent>(model.Texture);
+                output.Write(model.FrameDelay);
+                output.Write(model.Textures.Count);
+                foreach (TextureContent texture in model.Textures)
+                {
+                    output.WriteObject<TextureContent>(texture);
+                }
                 output.Write(model.Animation);
                 output.Write(pair.Key);
             }
