@@ -64,25 +64,45 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Models\building.fbx">
+    <None Include="Drawing\Models\building.fbx">
       <Name>building</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\GoodVibe.fbx">
+    </None>
+    <None Include="Drawing\Models\GoodVibe.fbx">
       <Name>GoodVibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\GoodVibeShield.fbx">
+    </None>
+    <None Include="Drawing\Models\GoodVibeShield.fbx">
       <Name>GoodVibeShield</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\spaceShip.fbx">
+    </None>
+    <None Include="Drawing\Models\spaceShip.fbx">
       <Name>spaceShip</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
+    </None>
+    <None Include="Drawing\Models\dude.fbx">
+      <Name>dude</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </None>
+    <Compile Include="Drawing\Models\head.tga">
+      <Name>head</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\jacket.tga">
+      <Name>jacket</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\pants.tga">
+      <Name>pants</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
     <None Include="Drawing\Models\treePhysics.fbx">
       <Name>treePhysics</Name>
@@ -111,6 +131,16 @@
     </None>
     <None Include="Drawing\Models\new_bad_vibe.fbx">
       <Name>new_bad_vibe</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </None>
+    <Compile Include="Drawing\Models\upBodyC.tga">
+      <Name>upBodyC</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <None Include="Drawing\Models\truck.fbx">
+      <Name>truck</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
@@ -499,6 +529,63 @@
       <Name>shimmer</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Models\truck_bump.jpg">
+      <Name>truck_bump</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_color-blue.jpg">
+      <Name>truck_color-blue</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_color-green.jpg">
+      <Name>truck_color-green</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_color-red.jpg">
+      <Name>truck_color-red</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_color-silver.jpg">
+      <Name>truck_color-silver</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_color.jpg">
+      <Name>truck_color</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_color_clean.jpg">
+      <Name>truck_color_clean</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_refl.jpg">
+      <Name>truck_refl</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_refl_clean.jpg">
+      <Name>truck_refl_clean</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_spec.jpg">
+      <Name>truck_spec</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\truck_spec_clean.jpg">
+      <Name>truck_spec_clean</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
