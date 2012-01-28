@@ -62,7 +62,7 @@ namespace Resonance
         /// Returns a GameModel object which contains the Model and scale information
         /// </summary>
         /// <param name="name">Pass it the name of the model e.g GameModels.TREE</param>
-        public static ImportedGameModel getModel(int name)
+        public static GameModel getModel(int name)
         {
             return importedGameModels.getModel(name);
         }

@@ -19,11 +19,20 @@ namespace ContentPipelineExtension
         private int physicsModelFile;
         private float graphicsScaleFloat;
         private float physicsScaleFloat;
-        private String textureFile;
+        private List<String> textureFiles = new List<string>();
         private Matrix graphicsScale;
         private Matrix physicsScale;
-        private TextureContent texture;
+        private List<TextureContent> textures = new List<TextureContent>();
         private bool animation;
+        private double frameDelay;
+
+        public double FrameDelay
+        {
+            get
+            {
+                return frameDelay;
+            }
+        }
 
         public int GraphicsModelFile
         {
@@ -41,11 +50,11 @@ namespace ContentPipelineExtension
             }
         }
 
-        public string TextureFile
+        public List<string> TextureFiles
         {
             get
             {
-                return textureFile;
+                return textureFiles;
             }
         }
 
@@ -65,15 +74,11 @@ namespace ContentPipelineExtension
             }
         }
 
-        public TextureContent Texture
+        public List<TextureContent> Textures
         {
             get
             {
-                return texture;
-            }
-            set
-            {
-                texture = value;
+                return textures;
             }
         }
 
@@ -118,24 +123,26 @@ namespace ContentPipelineExtension
             }
         }
 
-        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, String newTexture, bool animation)
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, List<String> newTextures, bool animation, double frameDelay)
         {
             graphicsModelFile = newGraphicsModel;
             physicsModelFile = newPhysicsModel;
-            textureFile = newTexture;
+            textureFiles = newTextures;
             graphicsScaleFloat = graphicsModelScale;
             physicsScaleFloat = physicsModelScale;
             this.animation = animation;
+            this.frameDelay = frameDelay;
         }
 
-        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, TextureContent newTexture, bool animation)
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, List<TextureContent> newTextures, bool animation, double frameDelay)
         {
             graphicsModelFile = newGraphicsModel;
             physicsModelFile = newPhysicsModel;
-            texture = newTexture;
+            textures = newTextures;
             graphicsScale = Matrix.CreateScale(graphicsModelScale, graphicsModelScale, graphicsModelScale);
             physicsScale = Matrix.CreateScale(physicsModelScale, physicsModelScale, physicsModelScale);
             this.animation = animation;
+            this.frameDelay = frameDelay;
         }
 
     }

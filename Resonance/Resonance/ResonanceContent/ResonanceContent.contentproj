@@ -594,6 +594,128 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <None Include="Drawing\Textures\animationTest\animationTest0001.jpg">
+      <Name>animationTest0001</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0002.jpg">
+      <Name>animationTest0002</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0003.jpg">
+      <Name>animationTest0003</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0004.jpg">
+      <Name>animationTest0004</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0005.jpg">
+      <Name>animationTest0005</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0006.jpg">
+      <Name>animationTest0006</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0007.jpg">
+      <Name>animationTest0007</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0008.jpg">
+      <Name>animationTest0008</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0009.jpg">
+      <Name>animationTest0009</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0010.jpg">
+      <Name>animationTest0010</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0011.jpg">
+      <Name>animationTest0011</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0012.jpg">
+      <Name>animationTest0012</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0013.jpg">
+      <Name>animationTest0013</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0014.jpg">
+      <Name>animationTest0014</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0015.jpg">
+      <Name>animationTest0015</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0016.jpg">
+      <Name>animationTest0016</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0017.jpg">
+      <Name>animationTest0017</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0018.jpg">
+      <Name>animationTest0018</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0019.jpg">
+      <Name>animationTest0019</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0020.jpg">
+      <Name>animationTest0020</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0021.jpg">
+      <Name>animationTest0021</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0022.jpg">
+      <Name>animationTest0022</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0023.jpg">
+      <Name>animationTest0023</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\animationTest\animationTest0024.jpg">
+      <Name>animationTest0024</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\bar.png">
       <Name>bar</Name>
       <Importer>TextureImporter</Importer>

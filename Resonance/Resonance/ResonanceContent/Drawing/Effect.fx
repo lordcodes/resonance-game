@@ -12,10 +12,8 @@ float3 DiffuseLightColor2;
 float4 SpecularColorPower;
 float3 SpecularLightColor;
 float3 CameraPosition;
-float4x4 xBones[60]; 
-float textureSize = 32.0f;
-float texelSize =  1/32.0f;
-bool doDisp;
+float4x3 xBones[60]; 
+bool DoDisp;
 
 sampler DispMapSampler = sampler_state
 {
@@ -50,11 +48,13 @@ struct VertexShaderOutput
 	float4 TexCoord : TEXCOORD0;
 	float3 Normal   : TEXCOORD1;
 	float3 View     : TEXCOORD2;
-	float height   : COLOR;
+	float height   : PSIZE;
 };
 
 float4 tex2DlodSmooth( sampler texSam, float4 uv )
 {
+	float textureSize = 32.0f;
+	float texelSize =  1/32.0f;
 	float4 height00 = tex2Dlod(texSam, uv);
 	float4 height10 = tex2Dlod(texSam, uv + float4(texelSize, 0, 0, 0));
 	float4 height01 = tex2Dlod(texSam, uv + float4(0, texelSize, 0, 0));
@@ -70,7 +70,7 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     VertexShaderOutput output;
 	float height = tex2DlodSmooth(DispMapSampler, input.TexCoord);
 	
-	if(doDisp)
+	if(DoDisp)
 	{
 		input.Position.y = height * 0.005;
 	}
@@ -169,8 +169,8 @@ technique Animation
 {  
     Pass  
     {  
-        VertexShader = compile vs_2_0 AnimationVertexShader();  
-        PixelShader = compile ps_2_0 PixelShaderFunction();  
+        VertexShader = compile vs_3_0 AnimationVertexShader();  
+        PixelShader = compile ps_3_0 PixelShaderFunction();  
     }  
 }
 

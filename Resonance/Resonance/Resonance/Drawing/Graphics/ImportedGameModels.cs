@@ -13,7 +13,7 @@ namespace Resonance
 {
     public class ImportedGameModels
     {
-        private Dictionary<int, ImportedGameModel> gameModels = new Dictionary<int, ImportedGameModel>();
+        private Dictionary<int, GameModel> gameModels = new Dictionary<int, GameModel>();
         private Dictionary<int, Model> models = new Dictionary<int, Model>();
 
         public void addModelRef(int id, Model model)
@@ -26,12 +26,12 @@ namespace Resonance
             return models[id];
         }
 
-        public void addModel(ImportedGameModel gameModel, int gameModelNumber)
+        public void addModel(GameModel gameModel, int gameModelNumber)
         {
             gameModels.Add(gameModelNumber, gameModel);
         }
 
-        public ImportedGameModel getModel(int modelNum)
+        public GameModel getModel(int modelNum)
         {
             return gameModels[modelNum];
         }
