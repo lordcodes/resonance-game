@@ -21,6 +21,9 @@ namespace Resonance
         private bool textureAnimPaused = false;
         private bool textureAnimPlayOnce = false;
 
+        /// <summary>
+        /// Returns the game model of this GameModelInstance.
+        /// </summary>
         public GameModel Model
         {
             get
@@ -111,6 +114,10 @@ namespace Resonance
                     animPlayer.StartClip(clip);
                 }
             }
+
+            textureAnimPaused = !gameModel.TextureAnimationStart;
+
+            Program.game.Components.Add(this);
         }
 
         /// <summary>

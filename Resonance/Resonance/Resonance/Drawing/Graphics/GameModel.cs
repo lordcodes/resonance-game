@@ -29,6 +29,15 @@ namespace Resonance
         bool modelAnimation;
         private float mass;
         private float frameDelay;
+        private bool textureAnimationStart;
+
+        public bool TextureAnimationStart
+        {
+            get
+            {
+                return textureAnimationStart;
+            }
+        }
 
         public int TextureCount
         {
@@ -112,7 +121,7 @@ namespace Resonance
             return null;
         }
 
-        public GameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, List<Texture2D> newTextures, bool modelAnimation, float frameDelay)
+        public GameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, List<Texture2D> newTextures, bool modelAnimation, float frameDelay, bool textureAnimStart)
         {
             graphicsModel = newGraphicsModel;
             physicsModel = newPhysicsModel;
@@ -123,6 +132,7 @@ namespace Resonance
             physicsScale = physicsModelScale;
             this.modelAnimation = modelAnimation;
             this.frameDelay = frameDelay;
+            this.textureAnimationStart = textureAnimStart;
             mass = 25f;
         }
 

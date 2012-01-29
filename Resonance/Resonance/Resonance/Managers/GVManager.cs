@@ -24,11 +24,15 @@ namespace Resonance
 
         public static void input(GamePadState pad, KeyboardState kbd)
         {
-            if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) || 
+            if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) ||
                 (pad.Buttons.LeftShoulder == ButtonState.Pressed && lastPad.Buttons.LeftShoulder != ButtonState.Pressed))
             {
                 Drawing.DoDisp = true;
                 Drawing.addWave(Game.getGV().Body.Position);
+            }
+            if ((kbd.IsKeyDown(Keys.L) && !lastKbd.IsKeyDown(Keys.L)))
+            {
+                Game.getGV().showBeat();
             }
             if ((pad.Buttons.Start == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
             {

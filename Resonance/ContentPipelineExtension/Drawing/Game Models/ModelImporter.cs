@@ -70,6 +70,7 @@ namespace ContentPipelineExtension
                             float physicsScale = float.Parse(values[4]);
                             List<string> textures = new List<string>();
                             bool animation = false;
+                            bool textureAnimationStart = false;
                             double frameDelay = 0;
                             if (values.Length > 5)
                             {
@@ -87,8 +88,9 @@ namespace ContentPipelineExtension
                                     frameDelay = Convert.ToDouble(delay);
                                 }
                             }
-                            if (values.Length > 7) animation = values[7].Equals("1");
-                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, textures, animation, frameDelay);
+                            if (values.Length > 7) textureAnimationStart = values[7].Equals("1");
+                            if (values.Length > 8) animation = values[8].Equals("1");
+                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, textures, animation, frameDelay, textureAnimationStart);
                             models.addModel(model, modelNum);
                             count++;
                         }
@@ -191,7 +193,7 @@ namespace ContentPipelineExtension
                 int physicsModel = model.PhysicsModelFile;
                 bool animation = model.Animation;
 
-                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, textures, animation, model.FrameDelay);
+                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, textures, animation, model.FrameDelay, model.TextureAnimationStart);
                 models.addModel(newModel, pair.Key);
             }
             return models;
@@ -418,6 +420,7 @@ namespace ContentPipelineExtension
                 output.Write(model.PhysicsModel);
                 output.WriteObject<Matrix>(model.PhysicsScale);
                 output.Write(model.FrameDelay);
+                output.Write(model.TextureAnimationStart);
                 output.Write(model.Textures.Count);
                 foreach (TextureContent texture in model.Textures)
                 {

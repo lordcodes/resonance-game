@@ -346,6 +346,12 @@ namespace Resonance
             this.ModelInstance = sheildDownModel;
         }
 
-
+        /// <summary>
+        /// Makes changes to the graphics of the good vibe to show beat time.
+        /// </summary>
+        public void showBeat()
+        {
+            this.ModelInstance.playTextureAnimOnce();
+        }
     }
 }
