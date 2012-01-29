@@ -84,11 +84,11 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Drawing\Graphics\GameModel.cs" />
+    <Compile Include="Drawing\Graphics\GameModelInstance.cs" />
     <Compile Include="Drawing\Graphics\GameModels.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Drawing\Graphics\GameModelsContentReader.cs" />
-    <Compile Include="Drawing\Graphics\GameModelVariables.cs" />
     <Compile Include="Drawing\Graphics\Graphics.cs">
       <SubType>Code</SubType>
     </Compile>

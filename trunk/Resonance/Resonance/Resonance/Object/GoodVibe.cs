@@ -18,6 +18,9 @@ namespace Resonance
         public static int MAX_SHIELD = 100;
         public static int MAX_FREEZE = 200;
 
+        private GameModelInstance sheildUpModel;
+        private GameModelInstance sheildDownModel;
+
         List<Shockwave> waves; // Resonance waves which currently exist
 
         int score; //score value
@@ -105,6 +108,9 @@ namespace Resonance
             nitro = 200;
             shield = 100;
             freeze = 200;
+
+            sheildUpModel = new GameModelInstance(GameModels.SHIELD_GV);
+            sheildDownModel = new GameModelInstance(GameModels.GOOD_VIBE);
         }
 
         /// <summary>
@@ -212,35 +218,35 @@ namespace Resonance
                     {
                         waveName = "GREEN";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.Variables.SetTexture(0);
+                        w.ModelInstance.SetTexture(0);
                         break;
                     }
                 case Shockwave.YELLOW:
                     {
                         waveName = "YELLOW";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.Variables.SetTexture(1);
+                        w.ModelInstance.SetTexture(1);
                         break;
                     }
                 case Shockwave.BLUE:
                     {
                         waveName = "BLUE";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.Variables.SetTexture(2);
+                        w.ModelInstance.SetTexture(2);
                         break;
                     }
                 case Shockwave.RED:
                     {
                         waveName = "RED";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.Variables.SetTexture(3);
+                        w.ModelInstance.SetTexture(3);
                         break;
                     }
                 case Shockwave.CYMBAL:
                     {
                         waveName = "CYMBAL";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.Variables.SetTexture(4);
+                        w.ModelInstance.SetTexture(4);
                         break;
                     }
             }
@@ -327,7 +333,8 @@ namespace Resonance
         /// </summary>
         public void shieldUp()
         {
-            this.gameModelNum = GameModels.SHIELD_GV;
+            //this.gameModelNum = GameModels.SHIELD_GV;
+            this.ModelInstance = sheildUpModel;
         }
 
         /// <summary>
@@ -335,7 +342,8 @@ namespace Resonance
         /// </summary>
         public void shieldDown()
         {
-            this.gameModelNum = GameModels.GOOD_VIBE;
+            //this.gameModelNum = GameModels.GOOD_VIBE;
+            this.ModelInstance = sheildDownModel;
         }
 
 

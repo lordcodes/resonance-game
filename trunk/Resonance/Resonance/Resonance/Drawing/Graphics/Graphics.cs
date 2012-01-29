@@ -234,8 +234,8 @@ namespace Resonance
 
         private void DrawModel(Object worldObject, Matrix worldTransform, bool disp)
         {
-            GameModel gmodel = GameModels.getModel(worldObject.GameModelNumber);
-            GameModelVariables modelVariables = worldObject.Variables;
+            GameModel gmodel = worldObject.ModelInstance.Model;
+            GameModelInstance modelVariables = worldObject.ModelInstance;
             Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;

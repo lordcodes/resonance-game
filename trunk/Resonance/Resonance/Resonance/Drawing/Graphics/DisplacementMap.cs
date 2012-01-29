@@ -9,6 +9,7 @@ namespace Resonance
 {
     class DisplacementMap
     {
+        // Variables that control the wave dimensions, changing wave width will probably give weird looking results.
         public const float WAVE_HEIGHT = 0.75f;
         public const float WAVE_WIDTH = 1f;
         public const float WAVE_SPEED = 0.2f;
@@ -24,6 +25,9 @@ namespace Resonance
         private static Dictionary<string, float> distanceValues = new Dictionary<string, float>();
         private Wave[] waves = new Wave[5];
 
+        /// <summary>
+        /// Reset the displacement map so everything is flat
+        /// </summary>
         public void reset()
         {
             for (int i = 0; i < buffer.Length; i++) buffer[i] = damageBuffer[i];

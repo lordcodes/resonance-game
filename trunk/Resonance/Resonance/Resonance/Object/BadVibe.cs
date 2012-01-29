@@ -95,31 +95,31 @@ namespace Resonance
             {
                 case Shockwave.GREEN:
                     {
-                        Variables.SetTexture(0);
+                        ModelInstance.SetTexture(0);
                         //gameModelNum = GameModels.BAD_VIBE_GREEN;
                         break;
                     }
                 case Shockwave.YELLOW:
                     {
-                        Variables.SetTexture(1);
+                        ModelInstance.SetTexture(1);
                         //gameModelNum = GameModels.BAD_VIBE_YELLOW;
                         break;
                     }
                 case Shockwave.BLUE:
                     {
-                        Variables.SetTexture(2);
+                        ModelInstance.SetTexture(2);
                         //gameModelNum = GameModels.BAD_VIBE_BLUE;
                         break;
                     }
                 case Shockwave.RED:
                     {
-                        Variables.SetTexture(3);
+                        ModelInstance.SetTexture(3);
                         //gameModelNum = GameModels.BAD_VIBE_RED;
                         break;
                     }
                 case Shockwave.CYMBAL:
                     {
-                        Variables.SetTexture(4);
+                        ModelInstance.SetTexture(4);
                         //gameModelNum = GameModels.BAD_VIBE_CYMBAL;
                         break;
                     }
