@@ -120,7 +120,6 @@ namespace Resonance
             {
                 foreach (RayCastResult result in rayCastResults)
                 {
-                    Console.WriteLine(result.HitObject.ToString());
                     var entityCollision = result.HitObject as EntityCollidable;
                     if (entityCollision != null)
                     {
