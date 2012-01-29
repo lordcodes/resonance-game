@@ -8,13 +8,29 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance
 {
-    class GameModelVariables : GameComponent
+    /// <summary>
+    /// Class that stores/updates details that are unique to each instance of a GameModel,
+    /// this allows animations to run independently.
+    /// </summary>
+    class GameModelInstance : GameComponent
     {
-        GameModel gameModel;
+        private GameModel gameModel;
         private AnimationPlayer animPlayer = null;
         private int currentFrame = 0;
         private float timeElapsed;
 
+        public GameModel Model
+        {
+            get
+            {
+                return gameModel;
+            }
+        }
+
+        /// <summary>
+        /// Returns the texture that should be currently applied to the graphics model.
+        /// This could depend on any animated textures that are applied.
+        /// </summary>
         public Texture2D Texture
         {
             get
@@ -23,6 +39,10 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Returns the details of the current Bones of the model, this depends on 
+        /// the stage of animation.
+        /// </summary>
         public Matrix[] Bones
         {
             get
@@ -31,15 +51,24 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Set the current texture of this GameModelInstance
+        /// </summary>
+        /// <param name="index">Index of the texture.</param>
         public void SetTexture(int index)
         {
-            if (index < gameModel.Textures.Count)
+            if (index < gameModel.TextureCount)
             {
                 currentFrame = index;
             }
         }
 
-        public GameModelVariables(int gameModelNumber)
+        /// <summary>
+        /// Stores information that relates to the GameModel but is usnique to each object. 
+        /// For example what stange of any animation each object is in  
+        /// </summary>
+        /// <param name="gameModelNumber">The GameModelNumber that this is an instance of</param>
+        public GameModelInstance(int gameModelNumber)
             : base(Program.game)
         {
             gameModel = GameModels.getModel(gameModelNumber);
@@ -57,10 +86,14 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Updates any anymations that is associated with this GameModelInstance
+        /// </summary>
+        /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
             if (animPlayer != null) animPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
-            if (gameModel.FrameDelay > 0 && gameModel.Textures.Count > 1)
+            if (gameModel.FrameDelay > 0 && gameModel.TextureCount > 1)
             {
                 timeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -68,18 +101,12 @@ namespace Resonance
                 {
                     timeElapsed -= gameModel.FrameDelay;
                     currentFrame++;
-                    if (currentFrame >= gameModel.Textures.Count)
+                    if (currentFrame >= gameModel.TextureCount)
                     {
                         currentFrame = 0;
                     }
                 }
-
-
             }
-        }
-
-        public override void Initialize()
-        {
         }
     }
 }

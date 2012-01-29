@@ -120,6 +120,10 @@ namespace Resonance
             }
         }
 
+        /// <summary>
+        /// Add a displacement wave to the ground texture.
+        /// </summary>
+        /// <param name="position3d"></param>
         public static void addWave(Vector3 position3d)
         {
             Vector2 playerGroundPos = new Vector2();
@@ -132,7 +136,7 @@ namespace Resonance
             gameGraphics.addWave(playerGroundPos);
         }
 
-        public static void drawRangeIndicator()
+        private static void drawRangeIndicator()
         {
             Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
             Matrix texturePos = Matrix.CreateTranslation(pos);
@@ -166,7 +170,7 @@ namespace Resonance
         /// </summary>
         /// <param name="gameModelNum">The game model reference used for the object you want to draw e.g GameModels.BOX </param>
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
-        public static void Draw(int gameModelNum, Matrix worldTransform, Vector3 pos, Object worldObject)
+        public static void Draw(Matrix worldTransform, Vector3 pos, Object worldObject)
         {
             bool blend = false;
             Vector2 playerGroundPos = new Vector2(0f, 0f);

@@ -12,7 +12,13 @@ using AnimationLibrary;
 
 namespace Resonance
 {
-    public class GameModel : GameComponent
+    /// <summary>
+    /// Class that stores information about the graphics and physics models that are 
+    /// the same for each instance of the model that appears in the game world. 
+    /// GameModelInstance stores information that is unique to each use of the GameModel
+    /// in the world, such as the animation details.
+    /// </summary>
+    public class GameModel
     {
         private Model graphicsModel;
         private Model physicsModel;
@@ -24,11 +30,11 @@ namespace Resonance
         private float mass;
         private float frameDelay;
 
-        public List<Texture2D> Textures
+        public int TextureCount
         {
             get
             {
-                return textures;
+                return textures.Count;
             }
         }
 
@@ -106,12 +112,7 @@ namespace Resonance
             return null;
         }
 
-        public override void Initialize()
-        {
-        }
-
         public GameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, List<Texture2D> newTextures, bool modelAnimation, float frameDelay)
-            : base(Program.game)
         {
             graphicsModel = newGraphicsModel;
             physicsModel = newPhysicsModel;
