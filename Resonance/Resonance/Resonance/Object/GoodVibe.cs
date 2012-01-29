@@ -122,86 +122,41 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Adjust the GV's health
+        /// Adjust the GV's health  between 0 - MAX_HEALTH
         /// </summary>
         /// <param name="change">Amount to change by</param>
         public void AdjustHealth(int change)
         {
-            //check for <0 or >MAX_HEALTH
-            if (health + change <= 0)
-            {
-                health = 0;
-            }
-            else if (health + change >= MAX_HEALTH)
-            {
-                health = MAX_HEALTH;
-            }
-            else
-            {
-                health += change;
-            }
+            health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);        
 
             if (health <= 0) Resonance.Game.GV_KILLED = true;
         }
 
         /// <summary>
-        /// Adjust nitro
+        /// Adjust nitro between 0 - MAX_NITRO
         /// </summary>
         /// <param name="change">Amount to change by</param>
         public void adjustNitro(int change)
         {
-            if (nitro + change <= 0)
-            {
-                nitro = 0;
-            }
-            else if (nitro + change >= MAX_NITRO)
-            {
-                nitro = MAX_NITRO;
-            }
-            else
-            {
-                nitro += change;
-            }
+            nitro = (int)MathHelper.Clamp(nitro += change, 0, MAX_NITRO);
         }
 
         /// <summary>
-        /// Adjust shield
+        /// Adjust shield between 0 - MAX_SHIELD
         /// </summary>
         /// <param name="change">Amount to change by</param>
         public void adjustShield(int change)
         {
-            if (shield + change <= 0)
-            {
-                shield = 0;
-            }
-            else if (shield + change >= MAX_SHIELD)
-            {
-                shield = MAX_SHIELD;
-            }
-            else
-            {
-                shield += change;
-            }
+            shield = (int)MathHelper.Clamp(shield += change, 0, MAX_SHIELD);
         }
 
         /// <summary>
-        /// Adjust freeze
+        /// Adjust freeze between 0 - MAX_FREEZE
         /// </summary>
         /// <param name="change">Amount to change by</param>
         public void adjustFreeze(int change)
         {
-            if (freeze + change <= 0)
-            {
-                freeze = 0;
-            }
-            else if (freeze + change >= MAX_FREEZE)
-            {
-                freeze = MAX_FREEZE;
-            }
-            else
-            {
-                freeze += change;
-            }
+            freeze = (int)MathHelper.Clamp(freeze += change, 0, MAX_FREEZE);
         }
 
         /// <summary>
