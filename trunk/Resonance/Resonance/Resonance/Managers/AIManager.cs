@@ -33,7 +33,7 @@ namespace Resonance
         private int iteration = 0;
 
         private Vector3 target;
-        private bool avoiding;
+        //private bool avoiding;
 
         public AIManager(BadVibe bvRef)
         {
@@ -44,20 +44,20 @@ namespace Resonance
         private void init()
         {
             foreach (byte x in Encoding.Unicode.GetBytes(bv.returnIdentifier())) uniqueId += x;
-            Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
-            double angle = r.Next(0, 360);
-            angle /= 360;
-            angle *= (2 * Math.PI);
-            Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
+            //Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
+            //double angle = r.Next(0, 360);
+            //angle /= 360;
+            //angle *= (2 * Math.PI);
+            //Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
 
             servo = new SingleEntityAngularMotor(bv.Body);
             servo.Settings.Mode = MotorMode.Servomechanism;
             servo.Settings.Servo.SpringSettings.DampingConstant *= 1f;
             servo.Settings.Servo.SpringSettings.StiffnessConstant *= 5f;
-            servo.Settings.Servo.Goal = orientation;
+            //servo.Settings.Servo.Goal = orientation;
             Program.game.World.addToSpace(servo);
             target = bv.Body.Position;
-            avoiding = false;
+            //avoiding = false;
         }
 
         public void moveManager()
@@ -150,12 +150,6 @@ namespace Resonance
             if (obstacle != null)
             {
                 //DebugDisplay.update("ClosestObstacle", obstacle.returnIdentifier());
-                BoundingBox box = new BoundingBox();
-                if (obstacle is StaticObject) box = ((StaticObject)obstacle).Body.BoundingBox;
-                else if (obstacle is DynamicObject) box = ((DynamicObject)obstacle).Body.CollisionInformation.BoundingBox;
-
-                double z = Math.Abs(box.Max.Z - box.Min.Z);
-                double x = Math.Abs(box.Max.X - box.Min.X);
             }
 
             /*Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
@@ -278,6 +272,8 @@ namespace Resonance
                     closestObj = ob;
                 }
             }
+            if(closestObj != null) DebugDisplay.update("ClosestObstacle " + bv.returnIdentifier(), closestObj.returnIdentifier());
+            else DebugDisplay.update("ClosestObstacle " + bv.returnIdentifier(), "None");
             return closestObj;
         }
 
