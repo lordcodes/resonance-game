@@ -41,6 +41,9 @@ namespace Resonance
         BVSpawnManager bvSpawner;
         public PickupSpawnManager pickupSpawner;
 
+        // Testing variable
+        bool beatTested = false;
+
         public Game()
         {
             mode = new GameMode(GameMode.TIME_ATTACK);
@@ -180,7 +183,21 @@ namespace Resonance
                 }
 
                 //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
-                //if (musicHandler.getTrack().inTime() > 0f) musicHandler.playSound("chink");
+
+                // TESTING CODE - Could be adapted for metronome / throbber.
+                if (musicHandler.getTrack().inTime() > 0.8f) {
+                    if (!beatTested) {
+                        //musicHandler.playSound("chink");
+                        DebugDisplay.update("Hit", "Now!");
+                        beatTested = true;
+                    }
+                } else {
+                    if (beatTested) {
+                        beatTested = false;
+                        //musicHandler.playSound("chink");
+                        DebugDisplay.update("Hit", "Not now!");
+                    }
+                }
             }
         }
 

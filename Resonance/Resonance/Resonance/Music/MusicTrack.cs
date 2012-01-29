@@ -53,6 +53,8 @@ namespace Resonance
             else if (Game.DIFFICULTY <= Game.MEDIUM)   mode = NoteMode.HALF;
             else                                       mode = NoteMode.QUARTER;
 
+                 //mode = NoteMode.WHOLE;
+
             //MediaPlayer.Volume /= 10;
             StreamReader reader = new StreamReader(path);
             beatLength = Convert.ToInt32(reader.ReadLine());
@@ -186,8 +188,8 @@ namespace Resonance
 
                             //return true;
                             long numerator = time - beatTime + WINDOW;
-                            long window    = WINDOW >> 15;
-                            numerator >>= 15;
+                            long window    = WINDOW;// >> 15;
+                            //numerator >>= 15;
                             float div  = (numerator / (float) window);
                             double div2 = ((1f - div) * (Math.PI / 2d));
                             scoreWeight = (float) Math.Cos(div2);
@@ -199,8 +201,8 @@ namespace Resonance
                             //Console.WriteLine("HIT2");
                             //return true;
                             long numerator = lastBeatTime + WINDOW - time;
-                            long window = WINDOW >> 15;
-                            numerator >>= 15;
+                            long window = WINDOW;// >> 15;
+                            //numerator >>= 15;
                             float div = (numerator / (float) window);
                             double div2 = ((1f - div) * (Math.PI / 2d));
                             float result = (float) Math.Cos(div2);
