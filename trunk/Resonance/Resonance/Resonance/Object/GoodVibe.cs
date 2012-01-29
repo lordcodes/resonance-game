@@ -218,35 +218,35 @@ namespace Resonance
                     {
                         waveName = "GREEN";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.ModelInstance.SetTexture(0);
+                        w.ModelInstance.setTexture(0);
                         break;
                     }
                 case Shockwave.YELLOW:
                     {
                         waveName = "YELLOW";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.ModelInstance.SetTexture(1);
+                        w.ModelInstance.setTexture(1);
                         break;
                     }
                 case Shockwave.BLUE:
                     {
                         waveName = "BLUE";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.ModelInstance.SetTexture(2);
+                        w.ModelInstance.setTexture(2);
                         break;
                     }
                 case Shockwave.RED:
                     {
                         waveName = "RED";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.ModelInstance.SetTexture(3);
+                        w.ModelInstance.setTexture(3);
                         break;
                     }
                 case Shockwave.CYMBAL:
                     {
                         waveName = "CYMBAL";
                         w = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
-                        w.ModelInstance.SetTexture(4);
+                        w.ModelInstance.setTexture(4);
                         break;
                     }
             }

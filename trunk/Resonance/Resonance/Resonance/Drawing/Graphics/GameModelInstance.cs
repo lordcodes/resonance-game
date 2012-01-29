@@ -18,6 +18,8 @@ namespace Resonance
         private AnimationPlayer animPlayer = null;
         private int currentFrame = 0;
         private float timeElapsed;
+        private bool textureAnimPaused = false;
+        private bool textureAnimPlayOnce = false;
 
         public GameModel Model
         {
@@ -55,12 +57,37 @@ namespace Resonance
         /// Set the current texture of this GameModelInstance
         /// </summary>
         /// <param name="index">Index of the texture.</param>
-        public void SetTexture(int index)
+        public void setTexture(int index)
         {
             if (index < gameModel.TextureCount)
             {
                 currentFrame = index;
             }
+        }
+
+        /// <summary>
+        /// Play the texture animation
+        /// </summary>
+        public void playTextureAnim()
+        {
+            textureAnimPaused = false;
+        }
+
+        /// <summary>
+        /// Play the texture animation once
+        /// </summary>
+        public void playTextureAnimOnce()
+        {
+            textureAnimPaused = false;
+            textureAnimPlayOnce = true;
+        }
+
+        /// <summary>
+        /// Pause the texture animation
+        /// </summary>
+        public void pauseTextureAnim()
+        {
+            textureAnimPaused = true;
         }
 
         /// <summary>
@@ -93,7 +120,7 @@ namespace Resonance
         public override void Update(GameTime gameTime)
         {
             if (animPlayer != null) animPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
-            if (gameModel.FrameDelay > 0 && gameModel.TextureCount > 1)
+            if (!textureAnimPaused && gameModel.FrameDelay > 0 && gameModel.TextureCount > 1)
             {
                 timeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
@@ -104,6 +131,11 @@ namespace Resonance
                     if (currentFrame >= gameModel.TextureCount)
                     {
                         currentFrame = 0;
+                        if (textureAnimPlayOnce)
+                        {
+                            textureAnimPlayOnce = false;
+                            textureAnimPaused = true;
+                        }
                     }
                 }
             }
