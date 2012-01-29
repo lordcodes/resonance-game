@@ -84,6 +84,15 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
+        <identifier>bv1</identifier>
+        <type>Bad_vibe</type>
+        <xWorldCoord>-8</xWorldCoord>
+        <zWorldCoord>7</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
         <identifier>pickup0</identifier>
         <type>Pickup</type>
         <xWorldCoord>10</xWorldCoord>

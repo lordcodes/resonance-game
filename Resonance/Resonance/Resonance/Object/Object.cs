@@ -14,7 +14,6 @@ namespace Resonance
         private string identifier;
         protected int gameModelNum;
         private GameModelVariables variables;
-        private Vector3 position;
         private Vector3 originalPosition;
 
         public Vector3 OriginalPosition
@@ -46,7 +45,6 @@ namespace Resonance
         {
             gameModelNum = modelNum;
             identifier = name;
-            position = pos;
             originalPosition = pos;
             variables = new GameModelVariables(gameModelNum);
             Program.game.Components.Add(variables);
@@ -65,7 +63,7 @@ namespace Resonance
             }
             else if (this is StaticObject)
             {
-                Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix, position, this);
+                Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix, ((StaticObject)this).Body.WorldTransform.Translation, this);
             }
             else if (this is Shockwave)
             {

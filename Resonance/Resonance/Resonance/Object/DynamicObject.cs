@@ -57,9 +57,6 @@ namespace Resonance
 
             if (x > z) radius = x;
             else radius = z;
-
-            DebugDisplay.update("BoxDetails", box.Max.X + "," + box.Max.Z + " : " + box.Min.X + "," + box.Min.Z);
-            DebugDisplay.update("BVDetails", x + " : " + z + " : " + radius);
         }
 
         public void reset()

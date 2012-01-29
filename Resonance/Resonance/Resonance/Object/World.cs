@@ -120,17 +120,21 @@ namespace Resonance
             {
                 foreach (RayCastResult result in rayCastResults)
                 {
+                    Console.WriteLine(result.HitObject.ToString());
                     var entityCollision = result.HitObject as EntityCollidable;
                     if (entityCollision != null)
                     {
+                        DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING DYNAMIC");
                         objects.Add(getObject(entityCollision.Entity.Tag.ToString()));
                     }
                     else
                     {
+                        DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING STATIC");
                         objects.Add(getObject(result.HitObject.Tag.ToString()));
                     }
                 }
             }
+            else DebugDisplay.update("RAYCAST", "I CANT SEE ANYTHING");
             return objects;
         }
 
@@ -191,7 +195,7 @@ namespace Resonance
             StaticObject mush = null;
             GoodVibe player = null;
             BadVibe bv = null;
-            Pickup p = null;
+            //Pickup p = null;
             StoredObjects obj = Content.Load<StoredObjects>(levelName);
             clear();
 
