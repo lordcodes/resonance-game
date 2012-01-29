@@ -32,6 +32,7 @@ namespace Resonance
         private static Texture2D healthSlice;
         private static Texture2D drumPad;
         private static Texture2D rest;
+        private static Texture2D tempo;
         private static Texture2D block;
         private static MiniMap miniMap;
         private static ImportedCustomFont scoreFont;
@@ -67,6 +68,7 @@ namespace Resonance
             drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
             rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
+            tempo        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/tempo");
             scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
 
             miniMap = new MiniMap();
@@ -128,9 +130,19 @@ namespace Resonance
             drawShieldBar();
             drawFreezeBar();
             drawMiniMap();
+            drawThrobber();
             scoreFont.drawLeft(Drawing.pixelsX(1890), Drawing.pixelsY(15), Drawing.WidthRatio, Drawing.HeightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
             Drawing.resetGraphics();
+        }
+
+        private void drawThrobber() {
+            if (Program.game.Music.getTrack().inTime() > 0.5f) {
+                spriteBatch.Draw(tempo, new Rectangle(Drawing.pixelsX(50), Drawing.pixelsY(1000), tempo.Width, tempo.Height), Color.White);
+                Game.getGV().showBeat();
+            } else {
+                spriteBatch.Draw(tempo, new Rectangle(Drawing.pixelsX(50), Drawing.pixelsY(1000), tempo.Width, tempo.Height), Color.Black);
+            }
         }
 
         /// <summary>
