@@ -190,6 +190,8 @@ namespace Resonance
                         //musicHandler.playSound("chink");
                         DebugDisplay.update("Hit", "Now!");
                         beatTested = true;
+
+                        Game.getGV().showBeat();
                     }
                 } else {
                     if (beatTested) {
