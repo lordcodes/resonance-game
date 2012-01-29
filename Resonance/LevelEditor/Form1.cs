@@ -59,8 +59,8 @@ namespace LevelEditor
             this.Controls.Add(export);
             this.Controls.Add(title);
             this.Controls.Add(begin);
-
-           // this.BackgroundImage = Image.FromFile(@"\Images\splash1.png");
+            Console.WriteLine();
+            this.BackgroundImage = Image.FromFile(Path.GetDirectoryName(Path.GetDirectoryName(Application.StartupPath))+@"\Images\splash1.png");
 
             begin.Click += beginClicked;
             export.Click += exportClicked;
