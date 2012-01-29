@@ -257,6 +257,7 @@ namespace Resonance
 
             foreach (Object ob in obstacles)
             {
+                //Console.WriteLine(ob.returnIdentifier());
                 double newDistance = Double.MaxValue;
                 if (ob is StaticObject)
                 {
