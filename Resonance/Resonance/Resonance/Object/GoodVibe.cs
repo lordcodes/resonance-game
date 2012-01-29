@@ -351,6 +351,7 @@ namespace Resonance
         /// </summary>
         public void showBeat()
         {
+            this.ModelInstance.setTexture(1);
             this.ModelInstance.playTextureAnimOnce();
         }
     }
