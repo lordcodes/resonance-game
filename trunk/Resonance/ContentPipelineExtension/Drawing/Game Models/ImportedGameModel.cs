@@ -25,6 +25,15 @@ namespace ContentPipelineExtension
         private List<TextureContent> textures = new List<TextureContent>();
         private bool animation;
         private double frameDelay;
+        private bool textureAnimationStart;
+
+        public bool TextureAnimationStart
+        {
+            get
+            {
+                return textureAnimationStart;
+            }
+        }
 
         public double FrameDelay
         {
@@ -123,7 +132,7 @@ namespace ContentPipelineExtension
             }
         }
 
-        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, List<String> newTextures, bool animation, double frameDelay)
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, List<String> newTextures, bool animation, double frameDelay, bool textureAnimationStart)
         {
             graphicsModelFile = newGraphicsModel;
             physicsModelFile = newPhysicsModel;
@@ -132,9 +141,10 @@ namespace ContentPipelineExtension
             physicsScaleFloat = physicsModelScale;
             this.animation = animation;
             this.frameDelay = frameDelay;
+            this.textureAnimationStart = textureAnimationStart;
         }
 
-        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, List<TextureContent> newTextures, bool animation, double frameDelay)
+        public ImportedGameModel(int newGraphicsModel, float graphicsModelScale, int newPhysicsModel, float physicsModelScale, List<TextureContent> newTextures, bool animation, double frameDelay, bool textureAnimationStart)
         {
             graphicsModelFile = newGraphicsModel;
             physicsModelFile = newPhysicsModel;
@@ -143,6 +153,7 @@ namespace ContentPipelineExtension
             physicsScale = Matrix.CreateScale(physicsModelScale, physicsModelScale, physicsModelScale);
             this.animation = animation;
             this.frameDelay = frameDelay;
+            this.textureAnimationStart = textureAnimationStart;
         }
 
     }

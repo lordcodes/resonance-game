@@ -41,7 +41,6 @@ namespace Resonance
             identifier = name;
             originalPosition = pos;
             modelInstance = new GameModelInstance(modelNum);
-            Program.game.Components.Add(modelInstance);
         }
 
         public string returnIdentifier()

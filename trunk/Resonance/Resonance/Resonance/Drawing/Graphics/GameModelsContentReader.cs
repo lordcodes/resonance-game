@@ -33,11 +33,13 @@ namespace Resonance
                 int gameModelNum;
                 int numberTextures;
                 float frameDelay = 0;
+                bool textureAnimStart;
                 graphicsModel = input.ReadInt32();
                 graphicsScale = input.ReadObject<Matrix>();
                 physicsModel = input.ReadInt32();
                 physicsScale = input.ReadObject<Matrix>();
                 frameDelay = (float)input.ReadDouble();
+                textureAnimStart = input.ReadBoolean();
                 numberTextures = input.ReadInt32();
                 for (int j = 0; j < numberTextures; j++)
                 {
@@ -45,7 +47,7 @@ namespace Resonance
                 }
                 animation = input.ReadBoolean();
                 gameModelNum = input.ReadInt32();
-                GameModel newModel = new GameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, textures, animation, frameDelay);
+                GameModel newModel = new GameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, textures, animation, frameDelay, textureAnimStart);
                 
                 models.addModel(newModel, gameModelNum);
             }
