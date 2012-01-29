@@ -184,8 +184,8 @@ namespace Resonance
 
                 //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
 
-                // TESTING CODE - Could be adapted for metronome / throbber.
-                if (musicHandler.getTrack().inTime() > 0.8f) {
+                // Recoded in Hud.cs
+                /*if (musicHandler.getTrack().inTime() > 0.8f) {
                     if (!beatTested) {
                         //musicHandler.playSound("chink");
                         DebugDisplay.update("Hit", "Now!");
@@ -199,7 +199,7 @@ namespace Resonance
                         //musicHandler.playSound("chink");
                         DebugDisplay.update("Hit", "Not now!");
                     }
-                }
+                }*/
             }
         }
 
