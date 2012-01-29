@@ -6,13 +6,18 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.IO;
 
 namespace LevelEditor
 {
     public partial class Form1 : Form
     {
         string[] models = new string[21];
-        
+        TextBox levelNameTextBox;
+        TextBox levelNumberTextBox;
+        Label[] images = new Label[26 * 26];
+        Label[] pictures = new Label[21];
+
         public Form1()
         {
             InitializeComponent();
@@ -20,26 +25,11 @@ namespace LevelEditor
             models[0] = "";
             models[1] = "tree";
             models[2] = "house";
-            models[3] = "virus";
-            models[4] = "goodVibe";
-            models[5] = "terrain";
-            models[6] = "house";
-            models[7] = "wave";
-            models[8] = "wave";
-            models[9] = "wave";
-            models[10] = "wave";
-            models[11] = "wave";
-            models[12] = "virus";
-            models[13] = "virus";
-            models[14] = "testAnim";
-            models[15] = "virus";
-            models[16] = "virus";
-            models[17] = "pickup";
-            models[18] = "ShieldGoodVibe";
-            models[19] = "";
-            models[20] = "";
+            models[3] = "goodVibe";
+            models[4] = "terrain";
+            models[5] = "pickup";
 
-            this.Size =new Size(1024, 700);
+            this.Size =new Size(1350, 700);
             Label title = new Label();
             Button begin = new Button();
             Button export = new Button();
@@ -48,7 +38,7 @@ namespace LevelEditor
             this.Text = "Level Editor - Resonance";
             this.MaximizeBox = false;
             title.Text = "Level Editor";
-            title.Location = new Point(450,20);
+            title.Location = new Point(600,20);
             title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             title.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             title.AutoSize = true;
@@ -58,27 +48,47 @@ namespace LevelEditor
             begin.Height = 40;
             begin.Width = 100;
             begin.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            begin.Location = new Point(435, 60);
+            begin.Location = new Point(585, 60);
 
             export.Text = "Export";
             export.Height = 40;
             export.Width = 100;
             export.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            export.Location = new Point(545, 60);
+            export.Location = new Point(695, 60);
 
             this.Controls.Add(export);
             this.Controls.Add(title);
             this.Controls.Add(begin);
-            this.BackColor = System.Drawing.Color.White;
+
+           // this.BackgroundImage = Image.FromFile(@"\Images\splash1.png");
+
+            begin.Click += beginClicked;
+            export.Click += exportClicked;
+           
+           
+           
+        }
+        private void exportClicked(object sender, System.EventArgs e)
+        {
+
+        }
+
+        private void confirmClicked(object sender, System.EventArgs e)
+        {
+            Console.WriteLine("test " + levelNameTextBox.Text);
+                initializeOptionsPanel();
+                initializeGraphPanel();            
+        }
+
+        private void beginClicked(object sender, System.EventArgs e)
+        {
             initializeMenuPanel();
-            initializeOptionsPanel();
-            initializeGraphPanel();
         }
 
         private void initializeGraphPanel()
         {
             Panel graphPanel = new Panel();
-            PictureBox[] images = new PictureBox[26*26];
+            
             int index = 0;
             int x = 0;
             int y = 0;
@@ -86,27 +96,27 @@ namespace LevelEditor
             {
                 for (int j = 0; j < 25; j++)
                 {
-                    images[index] = new PictureBox();
-                    images[index].Size = new Size(40, 40);
+                    images[index] = new Label();
+                    images[index].Width = 40;
                     images[index].Location = new Point(x, y);
                     images[index].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                    images[index].BackColor = System.Drawing.Color.Green;
+                    images[index].Text = "terrain";
+                    images[index].ForeColor = Color.Black;
 
                     graphPanel.Controls.Add(images[index]);
                     x = x + 40;
                     index++;
                 }
                 x = 0;
-                y = y + 40;
-            }
-                
+                y = y + 20;
+            }                
             
-            graphPanel.Size = new Size(690,530);
+            graphPanel.Size = new Size(1010,530);
             graphPanel.Location = new Point(310, 120);
             graphPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             graphPanel.AutoScroll = true;
-
-
-           
+                       
             this.Controls.Add(graphPanel);
         }
         private void initializeOptionsPanel()
@@ -114,7 +124,6 @@ namespace LevelEditor
             Panel optionPanel = new Panel();
             Label title = new Label();
             Label[] options = new Label[21];
-            PictureBox[] pictures = new PictureBox[21];
 
             title.Text = "Game Models";
             title.Location = new Point(70, 0);
@@ -122,10 +131,10 @@ namespace LevelEditor
             title.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             int y = 20;
-            for (int i = 1; i < 21; i++)
+            for (int i = 1; i <= 5 ; i++)
             {
                 options[i] = new Label();
-                pictures[i] = new PictureBox();
+                pictures[i] = new Label();
                 options[i].AutoSize = true;
                 options[i].Text = i.ToString() + " " + models[i];
                 options[i].Location = new Point(0, y);
@@ -133,7 +142,25 @@ namespace LevelEditor
 
                 pictures[i].Size = new Size(80, 20);
                 pictures[i].Location = new Point(150, y);
+                
                 pictures[i].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+
+
+                if (models[i].Equals("terrain") == true)
+                    pictures[i].BackColor = System.Drawing.Color.Green;
+                else if (models[i].Equals("house") == true)
+                    pictures[i].BackColor = System.Drawing.Color.Red;
+                else if (models[i].Equals("goodVibe") == true)
+                    pictures[i].BackColor = System.Drawing.Color.Blue;
+                else if (models[i].Equals("tree") == true)
+                    pictures[i].BackColor = System.Drawing.Color.Brown;
+                else if (models[i].Equals("pickup") == true)
+                    pictures[i].BackColor = System.Drawing.Color.Yellow;
+                else
+                    pictures[i].BackColor = System.Drawing.Color.Azure;
+                pictures[i].Text = models[i];
+                pictures[i].ForeColor = System.Drawing.Color.Black;
+               
 
                 optionPanel.Controls.Add(pictures[i]);
                 optionPanel.Controls.Add(options[i]);
@@ -145,6 +172,7 @@ namespace LevelEditor
             optionPanel.Location = new Point(30, 240);
             optionPanel.AutoScroll = true;
             optionPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            optionPanel.BackColor = System.Drawing.Color.GhostWhite;
 
             optionPanel.Controls.Add(title);
             this.Controls.Add(optionPanel);
@@ -153,9 +181,9 @@ namespace LevelEditor
         {
             Panel menuPanel = new Panel();
             Label levelNumberLabel = new Label();
-            TextBox levelNumberTextBox = new TextBox();
+            levelNumberTextBox = new TextBox();
             Label levelNameLabel = new Label();
-            TextBox levelNameTextBox = new TextBox();
+            levelNameTextBox = new TextBox();
             Button confirm = new Button();
 
             levelNumberLabel.Text = "Level Number:";
@@ -197,8 +225,14 @@ namespace LevelEditor
             menuPanel.Controls.Add(levelNameTextBox);
             menuPanel.Controls.Add(confirm);
 
+
             this.Controls.Add(menuPanel);
             
+            confirm.Click += confirmClicked;
+            
         }
+
+        
+       
     }
 }
