@@ -13,6 +13,8 @@ namespace Resonance
 {
     class Drawing
     {
+        private const bool FLOOR_REFLECTIONS = false;
+
         private static GraphicsDeviceManager graphics;
         private static ContentManager Content;
         private static Hud hud;
@@ -27,6 +29,23 @@ namespace Resonance
         private static double heightRatio;
         private static Vector3 playerPos;
         private static Texture2D ring;
+        private static bool drawingReflection = false;
+        private static RenderTarget2D mirrorRenderTarget;
+        private static Texture2D shinyFloorTexture;
+        private static int drawCount = 0;
+
+        public static bool requestRender
+        {
+            get
+            {
+                if (FLOOR_REFLECTIONS && drawCount > 2)
+                {
+                    drawCount = 0;
+                    return true;
+                }
+                return false;
+            }
+        }
 
         public static bool DoDisp
         {
@@ -65,9 +84,46 @@ namespace Resonance
             }
         }
 
+        public static bool DrawingReflection
+        {
+            get
+            {
+                return drawingReflection;
+            }
+        }
+
+        public static Vector3 CameraPosition
+        {
+            get
+            {
+                return gameGraphics.CameraPosition;
+            }
+        }
+
+        public static Vector3 CameraCoords
+        {
+            get
+            {
+                return gameGraphics.CameraCoords;
+            }
+        }
+
         public static void reset()
         {
             if (gameGraphics != null) gameGraphics.reset();
+        }
+
+        public static void drawReflection()
+        {
+            graphics.GraphicsDevice.SetRenderTarget(mirrorRenderTarget);
+            drawingReflection = true;
+        }
+
+        public static void drawGame()
+        {
+            graphics.GraphicsDevice.SetRenderTarget(null);
+            shinyFloorTexture = (Texture2D)mirrorRenderTarget;
+            drawingReflection = false;
         }
 
         /// <summary>
@@ -99,8 +155,11 @@ namespace Resonance
             hud.loadContent();
             GameModels.Load();
             gameGraphics.loadContent(Content, graphics.GraphicsDevice);
-
             ring = Content.Load<Texture2D>("Drawing/Textures/texRing");
+
+            PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
+            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, true, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
+
             loadingScreen.loadContent();
         }
 
@@ -157,6 +216,15 @@ namespace Resonance
             }
             else
             {
+                drawCount++;
+                Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
+                Matrix texturePos = Matrix.CreateTranslation(pos);
+                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
+                texturePos = Matrix.Multiply(rotation,texturePos);
+                gameGraphics.Draw2dTextures(shinyFloorTexture, texturePos, 20, 20);
+
+
+
                 drawRangeIndicator();
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
@@ -172,55 +240,64 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            bool blend = false;
-            Vector2 playerGroundPos = new Vector2(0f, 0f);
-            graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-            if (worldObject is GoodVibe)
+            if (DrawingReflection)
             {
-                int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
-                int score = ((GoodVibe)((DynamicObject)worldObject)).Score;
-                int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
-                int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
-                int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
+            }
+            if (!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection))
+            {
+                bool blend = false;
+                Vector2 playerGroundPos = new Vector2(0f, 0f);
+                graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+                if (worldObject is GoodVibe)
+                {
+                    int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
+                    int score = ((GoodVibe)((DynamicObject)worldObject)).Score;
+                    int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
+                    int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
+                    int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
 
 
-                DebugDisplay.update("HEALTH", health.ToString());
-                DebugDisplay.update("SCORE", score.ToString());
-                DebugDisplay.update("nitro", nitro.ToString());
-                DebugDisplay.update("shield", shield.ToString());
-                DebugDisplay.update("freeze", freeze.ToString());
+                    DebugDisplay.update("HEALTH", health.ToString());
+                    DebugDisplay.update("SCORE", score.ToString());
+                    DebugDisplay.update("nitro", nitro.ToString());
+                    DebugDisplay.update("shield", shield.ToString());
+                    DebugDisplay.update("freeze", freeze.ToString());
 
-                hud.updateGoodVibe(health, score, nitro, shield, freeze);
-                playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
+                    hud.updateGoodVibe(health, score, nitro, shield, freeze);
+                    playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
+                }
+
+                if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
+                {
+                    blend = true;
+                }
+
+                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+
+                gameGraphics.Draw(worldObject, worldTransform, blend);
+
+                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+
+                if (worldObject is BadVibe)
+                {
+                    //Gets list of remaining armour layers
+                    List<int> seq = ((BadVibe)worldObject).getLayers();
+                    hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
+                }
             }
 
-            if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
+            if (DrawingReflection)
             {
-                blend = true;
+                
             }
-            
-            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-
-
-            gameGraphics.Draw(worldObject, worldTransform, blend);
-            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-
-            if (worldObject is BadVibe)
-            {
-                //Gets list of remaining armour layers
-                List<int> seq = ((BadVibe)worldObject).getLayers();
-                hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
-            }
-
         }
 
         /// <summary>
-        /// Updates Camera and HUD based of player position
+        /// Updates Camera
         /// </summary>
-        /// <param name="player">The good vibe class</param>
         public static void UpdateCamera(Vector3 point, Vector3 cameraPosition)
         {
-            gameGraphics.UpdateCamera(point, cameraPosition);
+            gameGraphics.UpdateCamera(cameraPosition);
         }
 
         /// <summary>

@@ -6,7 +6,6 @@ house,		Models\house.fbx
 virus,		Models\bad_vibe.fbx
 goodVibe,		Models\GoodVibe.fbx
 terrain,	Models\terrain.fbx
-terrainHiPoly,	Models\terrainHiPoly.fbx
 terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
