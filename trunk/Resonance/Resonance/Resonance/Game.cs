@@ -319,9 +319,18 @@ namespace Resonance
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.Black);
+            if (Drawing.requestRender)
+            {
+                Drawing.drawReflection();
+                GraphicsDevice.Clear(Color.Black);
+                base.Draw(gameTime);
+            }
+            Drawing.drawGame();
+            GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
             Drawing.Draw(gameTime);
         }
+
 
     }
 }

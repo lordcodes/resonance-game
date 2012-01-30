@@ -31,6 +31,7 @@ namespace Resonance
         private static Vector4 specularColorPower;
         private static Vector3 specularLightColor;
         private static Vector3 cameraPosition;
+        private static Vector3 cameraCoords;
 
         private static DisplacementMap dispMap;
 
@@ -59,6 +60,14 @@ namespace Resonance
             get
             {
                 return cameraPosition;
+            }
+        }
+
+        public Vector3 CameraCoords
+        {
+            get
+            {
+                return cameraCoords;
             }
         }
 
@@ -118,14 +127,14 @@ namespace Resonance
         /// Updates Camera and HUD based of player position
         /// </summary>
         /// <param name="player">The good vibe class</param>
-        public void UpdateCamera(Vector3 point, Vector3 newCameraPosition)
+        public void UpdateCamera(Vector3 newCameraPosition)
         {
-            cameraPosition = newCameraPosition;
+            cameraCoords = newCameraPosition;
             Quaternion orientation = Game.getGV().Body.Orientation;
             Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
             Vector3 position = Game.getGV().Body.Position;
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-            cameraPosition = Vector3.Transform(cameraPosition, goodVibeRotation) + position;
+            cameraPosition = Vector3.Transform(cameraCoords, goodVibeRotation) + position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
@@ -228,12 +237,15 @@ namespace Resonance
             }
 
 
-            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+            //graphics.GraphicsDevice.BlendState = BlendState.Opaque;
         }
 
 
         private void DrawModel(Object worldObject, Matrix worldTransform, bool disp)
         {
+
+            //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
             Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
