@@ -19,6 +19,7 @@ namespace LevelEditor
         Label[] pictures = new Label[21];
         string selectedOption = null;
         System.Drawing.Color selectedColor;
+        Boolean goodVibe = false;
 
         public Form1()
         {
@@ -244,10 +245,21 @@ namespace LevelEditor
             var target = sender as Label;
             if (selectedOption != null && selectedColor != null)
             {
-                target.Text = selectedOption;
-                target.BackColor = selectedColor;
+                if (selectedOption.Equals("goodVibe") == true && goodVibe == false)
+                {
+                    goodVibe = true;
+                    target.Text = selectedOption;
+                    target.BackColor = selectedColor;
+                }
+                else if(selectedOption.Equals("goodVibe") == false)
+                {
+                    if(target.Text.Equals("goodVibe") == true)
+                        goodVibe = false;
+                    target.Text = selectedOption;
+                    target.BackColor = selectedColor;
+                }
             }
-            Console.WriteLine("works");
+            
         }
         void selectObject(object sender, EventArgs e)
         {
