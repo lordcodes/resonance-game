@@ -17,6 +17,8 @@ namespace LevelEditor
         TextBox levelNumberTextBox;
         Label[] images = new Label[26 * 26];
         Label[] pictures = new Label[21];
+        string selectedOption = null;
+        System.Drawing.Color selectedColor;
 
         public Form1()
         {
@@ -28,7 +30,7 @@ namespace LevelEditor
             models[3] = "goodVibe";
             models[4] = "terrain";
             models[5] = "pickup";
-
+            this.AllowDrop = true;
             this.Size =new Size(1350, 700);
             Label title = new Label();
             Button begin = new Button();
@@ -75,7 +77,7 @@ namespace LevelEditor
 
         private void confirmClicked(object sender, System.EventArgs e)
         {
-            Console.WriteLine("test " + levelNameTextBox.Text);
+           
                 initializeOptionsPanel();
                 initializeGraphPanel();            
         }
@@ -103,6 +105,8 @@ namespace LevelEditor
                     images[index].BackColor = System.Drawing.Color.Green;
                     images[index].Text = "terrain";
                     images[index].ForeColor = Color.Black;
+                    images[index].AllowDrop = true;
+                    images[index].Click += new EventHandler(insertObject);
 
                     graphPanel.Controls.Add(images[index]);
                     x = x + 40;
@@ -141,9 +145,11 @@ namespace LevelEditor
                 options[i].Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 pictures[i].Size = new Size(80, 20);
-                pictures[i].Location = new Point(150, y);
-                
+                pictures[i].Location = new Point(150, y);                
                 pictures[i].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+                
+              
+                
 
 
                 if (models[i].Equals("terrain") == true)
@@ -160,7 +166,7 @@ namespace LevelEditor
                     pictures[i].BackColor = System.Drawing.Color.Azure;
                 pictures[i].Text = models[i];
                 pictures[i].ForeColor = System.Drawing.Color.Black;
-               
+                pictures[i].Click += new EventHandler(selectObject);
 
                 optionPanel.Controls.Add(pictures[i]);
                 optionPanel.Controls.Add(options[i]);
@@ -177,6 +183,7 @@ namespace LevelEditor
             optionPanel.Controls.Add(title);
             this.Controls.Add(optionPanel);
         }
+        
         private void initializeMenuPanel()
         {
             Panel menuPanel = new Panel();
@@ -231,6 +238,25 @@ namespace LevelEditor
             confirm.Click += confirmClicked;
             
         }
+
+        void insertObject(object sender, EventArgs e)
+        {
+            var target = sender as Label;
+            if (selectedOption != null && selectedColor != null)
+            {
+                target.Text = selectedOption;
+                target.BackColor = selectedColor;
+            }
+            Console.WriteLine("works");
+        }
+        void selectObject(object sender, EventArgs e)
+        {
+            var target = sender as Label;
+            selectedOption = target.Text;
+            selectedColor = target.BackColor;
+            this.Text = "Selected object is: " + selectedOption + " and the color is " + selectedColor.ToString();
+        }
+       
 
         
        
