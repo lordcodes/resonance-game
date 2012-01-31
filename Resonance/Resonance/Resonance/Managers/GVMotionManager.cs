@@ -221,7 +221,9 @@ namespace Resonance {
 
             // Rotate GV based on keyboard / dPad
             if (rotateL ^ rotateR) {
-                float power = 1f;
+                float power;
+                if (rightX != 0) power = rightX; else power = 1f;
+                if (power < 0) power *= -1;
 
                 if (backward) {
                     if (rotateL) rotate(power); else rotate(-power);
