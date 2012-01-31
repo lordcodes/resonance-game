@@ -164,8 +164,11 @@ namespace Resonance
                     getGV().detectCombatAndFreeze();
 
                     //Update pickups
-                    List<Pickup> pickups = world.returnPickups();
-                    world.updatePickups(pickups);
+                    PickupManager.update();
+                    //List<Pickup> pickups = world.returnPickups();
+                    //world.updatePickups(pickups);
+                    //PickupManager.updateTimeRemaining();
+
 
                     world.update();
                     
@@ -208,7 +211,7 @@ namespace Resonance
             String r;
             int finalScore;
             if (GV_KILLED) r = "GV Killed."; else r = "Game won!";
-            finalScore = mode.finaliseScore(GV_KILLED, getGV().Score);
+            finalScore = mode.finaliseScore(GV_KILLED, getGV().TotalScore);
             DebugDisplay.update("Game Over! State", r);
             DebugDisplay.update("Final Score", finalScore.ToString());
             UI.pause();

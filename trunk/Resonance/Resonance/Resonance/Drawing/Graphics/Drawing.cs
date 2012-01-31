@@ -269,7 +269,7 @@ namespace Resonance
                 if (worldObject is GoodVibe)
                 {
                     int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
-                    int score = ((GoodVibe)((DynamicObject)worldObject)).Score;
+                    int score = ((GoodVibe)((DynamicObject)worldObject)).TotalScore;
                     int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
                     int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
                     int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;

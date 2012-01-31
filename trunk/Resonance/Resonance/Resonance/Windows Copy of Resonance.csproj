@@ -115,6 +115,7 @@
     <Compile Include="Managers\GVManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
     <Compile Include="Managers\MenuControlManager.cs" />
+    <Compile Include="Managers\PickupManager.cs" />
     <Compile Include="Managers\PickupSpawnManager.cs" />
     <Compile Include="Managers\Utility.cs" />
     <Compile Include="Object\BadVibe.cs" />

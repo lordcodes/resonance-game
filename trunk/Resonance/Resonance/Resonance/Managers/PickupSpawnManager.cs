@@ -19,7 +19,6 @@ namespace Resonance
             totalNumPickups = 0;
         }
 
-
         public void pickupPickedUp()
         {
             numPickups--;
