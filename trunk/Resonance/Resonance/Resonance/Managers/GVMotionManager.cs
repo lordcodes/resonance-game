@@ -200,7 +200,7 @@ namespace Resonance {
             float leftL = (float)Math.Sqrt(Math.Pow(leftX, 2) + Math.Pow(leftX, 2));
             float rightL = (float)Math.Sqrt(Math.Pow(rightX, 2) + Math.Pow(rightX, 2));
 
-            bool  forward  = kbd.IsKeyDown(Keys.Up)    || (pad.DPad.Up    == ButtonState.Pressed) || leftY  > 0;
+            bool  forward  = kbd.IsKeyDown(Keys.Up)    || (pad.DPad.Up    == ButtonState.Pressed) || leftY  > 0 || BOOSTING;
             bool  backward = kbd.IsKeyDown(Keys.Down)  || (pad.DPad.Down  == ButtonState.Pressed) || leftY  < 0;
             bool  rotateL  = kbd.IsKeyDown(Keys.Left)  || (pad.DPad.Left  == ButtonState.Pressed) || rightX < 0;
             bool  rotateR  = kbd.IsKeyDown(Keys.Right) || (pad.DPad.Right == ButtonState.Pressed) || rightX > 0;
@@ -245,10 +245,14 @@ namespace Resonance {
 
             // Move forward / backward based on keyboard / dPad
             if (forward ^ backward) {
+                float power;
+                if (leftY != 0) power = leftY; else power = 1f;
+                if (power < 0) power *= -1;
+
                 if (forward) {
-                    move(1f);
+                    move(power);
                 } else {
-                    move(-1f);
+                    move(-power);
                 }
             }
 
@@ -260,10 +264,14 @@ namespace Resonance {
 
             // Strafe based on keyboard.
             if (strafeL ^ strafeR) {
+                float power;
+                if (leftX != 0) power = leftX; else power = 1f;
+                if (power < 0) power *= -1;
+
                 if (strafeL) {
-                    strafe(1f);
+                    strafe(power);
                 } else {
-                    strafe(-1f);
+                    strafe(-power);
                 }
             } else {
                 if (X_SPEED > 0) if (X_DECELERATION > X_SPEED)  X_SPEED = 0f; else X_SPEED -= X_DECELERATION;
