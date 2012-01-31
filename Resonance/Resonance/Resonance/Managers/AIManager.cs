@@ -13,10 +13,11 @@ namespace Resonance
 {
     class AIManager
     {
-        public static float MAX_MOVE_SPEED = 3f;
-        public static float MOVE_ACCEL = 0.35f;
+        public static float MAX_MOVE_SPEED = 6f;
+        public static float MOVE_ACCEL = 0.8f;
+        public static float ROT_SPEED = 0.1f;
 
-        private static float TARGET_RANGE = 20f;
+        private static float TARGET_RANGE = 25f;
         private static float ATTACK_RANGE = 5f;
         private static int SPOT_RANGE = 15; //Distance to spot obstacles in front
         private static int ATTACK_RATE = 4; //No. of times per second
@@ -24,16 +25,13 @@ namespace Resonance
         private static int CHANCE_MISS = 20; //Between 0 and 100
         private static int ROTATE_CHANCE = 4; //Between 0 and 100
 
-        private static float LEFT_RAY_ANGLE = MathHelper.ToRadians(15f);
-        private static float RIGHT_RAY_ANGLE = MathHelper.ToRadians(15f);
+        private static float LEFT_RAY_ANGLE = MathHelper.ToRadians(10f);
+        private static float RIGHT_RAY_ANGLE = MathHelper.ToRadians(10f);
 
         private BadVibe bv;
         private SingleEntityAngularMotor servo;
         private int uniqueId = 0;
         private int iteration = 0;
-
-        private Vector3 target;
-        //private bool avoiding;
 
         public AIManager(BadVibe bvRef)
         {
@@ -44,20 +42,16 @@ namespace Resonance
         private void init()
         {
             foreach (byte x in Encoding.Unicode.GetBytes(bv.returnIdentifier())) uniqueId += x;
-            //Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
-            //double angle = r.Next(0, 360);
-            //angle /= 360;
-            //angle *= (2 * Math.PI);
-            //Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
+            Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
+            float angle = MathHelper.ToRadians(r.Next(0, 360));
+            Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
 
             servo = new SingleEntityAngularMotor(bv.Body);
             servo.Settings.Mode = MotorMode.Servomechanism;
             servo.Settings.Servo.SpringSettings.DampingConstant *= 1f;
             servo.Settings.Servo.SpringSettings.StiffnessConstant *= 5f;
-            //servo.Settings.Servo.Goal = orientation;
+            servo.Settings.Servo.Goal = orientation;
             Program.game.World.addToSpace(servo);
-            target = bv.Body.Position;
-            //avoiding = false;
         }
 
         public void moveManager()
@@ -98,17 +92,15 @@ namespace Resonance
             Vector3 diff = Vector3.Normalize(point - bvPos);
             Quaternion rot;
             Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
-            Vector3 angles = Utility.QuaternionToEuler(rot);
             rot.X = 0;
             rot.Z = 0;
-            //servo.Settings.Servo.Goal = Quaternion.Concatenate(bv.Body.Orientation, rot);
+            servo.Settings.Servo.Goal = Quaternion.Concatenate(bv.Body.Orientation, rot);
         }
 
         private void moveToGV()
         {
             Vector3 point = Game.getGV().Body.Position;
             rotateToFacePoint(point);
-            target = Game.getGV().Body.Position;
             move(1f);
         }
 
@@ -123,7 +115,7 @@ namespace Resonance
                 float angle = MathHelper.ToRadians(r.Next(0, 90));
                 Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
                 Quaternion orientation = Quaternion.Concatenate(bv.Body.Orientation, change);
-                //servo.Settings.Servo.Goal = orientation;
+                servo.Settings.Servo.Goal = orientation;
             }
             else
             {
@@ -140,7 +132,7 @@ namespace Resonance
         public void move(float power)
         {
             avoidObstacles();
-            /*Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
+            Vector3 orientation = Utility.QuaternionToEuler(bv.Body.Orientation);
             Vector3 velocity = bv.Body.LinearVelocity;
 
             float xInc = (float)(-power * MOVE_ACCEL * Math.Sin(orientation.Y));
@@ -149,34 +141,62 @@ namespace Resonance
             if (velocity.X < MAX_MOVE_SPEED && velocity.X > -MAX_MOVE_SPEED) velocity.X += xInc;
             if (velocity.Z < MAX_MOVE_SPEED && velocity.Z > -MAX_MOVE_SPEED) velocity.Z += zInc;
 
-            bv.Body.LinearVelocity = velocity;*/
+            bv.Body.LinearVelocity = velocity;
         }
 
         private void avoidObstacles()
         {
-            //Cast three rays
-            //List<Object> forwardRay = rayCast(bv.Body.Position, bv.Body.OrientationMatrix.Forward);
-            //List<Object> leftRay = rayCast(bv.Body.Position, bv rotated by -LEFT_RAY_ANGLE);
-            //List<Object> rightRay = rayCast(bv.Body.Position, bv rotated by LEFT_RAY_ANGLE);
-
-            //Object forwardClosest = closestObstacle(forwardRay);
-            //Object leftClosest = closestObstacle(leftRay);
-            //Object rightClosest = closestObstacle(rightRay);
-
-            //bool forwardFound = forwardClosest != null;
-            //bool leftFound = leftClosest != null;
-            //bool rightFound = rightClosest != null;
-
             List<RayHit> forwardRay = rayCastHits(bv.Body.Position, bv.Body.OrientationMatrix.Forward);
 
-            if (forwardRay.Count > 0)
+            Vector3 original = bv.Body.OrientationMatrix.Forward;
+            Vector2 temp = Utility.rotateVector2(new Vector2(original.X, original.Z), LEFT_RAY_ANGLE);
+            Vector3 left = new Vector3(temp.X, original.Y, temp.Y);
+            temp = Utility.rotateVector2(new Vector2(original.X, original.Z), RIGHT_RAY_ANGLE);
+            Vector3 right = new Vector3(temp.X, original.Y, temp.Y);
+
+            List<RayHit> leftRay = rayCastHits(bv.Body.Position, left);
+            List<RayHit> rightRay = rayCastHits(bv.Body.Position, right);
+
+            bool forward = forwardRay.Count > 0;
+            bool turnLeft = rightRay.Count > 0;
+            bool turnRight = leftRay.Count > 0;
+
+            if (forward)
             {
                 Vector3 normal = closestObstacleNormal(forwardRay);
                 normal.Normalize();
                 Vector3 direction = bv.Body.OrientationMatrix.Forward;
                 direction.Normalize();
-                Vector3 force = Utility.perpendicularComponent(normal, direction);
+                Vector3 avoid = Utility.perpendicularComponent(normal, direction);
+                avoid.Normalize();
+                Quaternion rot;
+                Toolbox.GetQuaternionBetweenNormalizedVectors(ref direction, ref avoid, out rot);
+                rot.X = 0;
+                rot.Z = 0;
+                Vector3 angles = Utility.QuaternionToEuler(rot);
 
+                float power = 1f;
+                if (angles.Y < 0)
+                {
+                    power *= -1f;
+                }
+                Quaternion inc = Quaternion.CreateFromAxisAngle(Vector3.Up, (power * ROT_SPEED));
+                Quaternion goal = Quaternion.Concatenate(bv.Body.Orientation, inc);
+                servo.Settings.Servo.Goal = goal;
+            }
+            else if (turnLeft ^ turnRight)
+            {
+                float power = 1f;
+                if (turnLeft) power *= -1f;
+                Quaternion inc = Quaternion.CreateFromAxisAngle(Vector3.Up, (power * ROT_SPEED));
+                Quaternion goal = Quaternion.Concatenate(bv.Body.Orientation, inc);
+                servo.Settings.Servo.Goal = goal;
+            }
+            else if (turnLeft && turnRight)
+            {
+                Quaternion inc = Quaternion.CreateFromAxisAngle(Vector3.Up, ROT_SPEED);
+                Quaternion goal = Quaternion.Concatenate(bv.Body.Orientation, inc);
+                servo.Settings.Servo.Goal = goal;
             }
         }
 
