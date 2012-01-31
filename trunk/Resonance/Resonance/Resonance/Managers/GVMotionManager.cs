@@ -204,8 +204,8 @@ namespace Resonance {
             bool  rotateL  = kbd.IsKeyDown(Keys.Left)  || (pad.DPad.Left  == ButtonState.Pressed) || rightX < 0;
             bool  rotateR  = kbd.IsKeyDown(Keys.Right) || (pad.DPad.Right == ButtonState.Pressed) || rightX > 0;
 
-            bool  strafeL  = kbd.IsKeyDown(Keys.OemComma);
-            bool  strafeR  = kbd.IsKeyDown(Keys.OemPeriod);
+            bool  strafeL  = kbd.IsKeyDown(Keys.OemComma)  || leftX < 0;
+            bool  strafeR  = kbd.IsKeyDown(Keys.OemPeriod) || leftX > 0;
 
             bool chargeNitro  = kbd.IsKeyDown(Keys.D1); //TODO: change to non combat drum pattern
             bool nitro        = kbd.IsKeyDown(Keys.D2);
