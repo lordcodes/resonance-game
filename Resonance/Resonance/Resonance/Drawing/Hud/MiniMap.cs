@@ -280,8 +280,8 @@ namespace Resonance
                 else if (o is Pickup)  objPos = new Vector2(p.OriginalPosition.X, p.OriginalPosition.Z);
 
                 Vector2 relToGV = gVPos - objPos;
-                float angle = (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
-                relToGV = rotateVector2(relToGV, angle);
+                float angle = (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
+                relToGV = Utility.rotateVector2(relToGV, angle);
                 objPos = gVPos - relToGV;
 
                 float alpha = BAD_VIBE_ALPHA;
@@ -298,7 +298,7 @@ namespace Resonance
                     float objR = 0f;
 
                     if (o is BadVibe) {
-                        objR = -(DynamicObject.QuaternionToEuler(v.Body.Orientation)).Y + (DynamicObject.QuaternionToEuler(gVRef.Body.Orientation)).Y;
+                        objR = -(Utility.QuaternionToEuler(v.Body.Orientation)).Y + (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
                         objR += (float)Math.PI;
                     }
                     
@@ -311,7 +311,7 @@ namespace Resonance
                         spriteBatch.Draw(pickup, new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, PICKUP_COLOUR,   objR, centre, 1f, SpriteEffects.None, 0f);
                     }
                 } else if ((o is BadVibe) && (inXRange ^ inYRange)) {
-                    float dist = (float)Resonance.Game.getDistance(Resonance.Game.getGV().Body.Position, v.Body.Position);
+                    float dist = Vector3.Distance(Resonance.Game.getGV().Body.Position, v.Body.Position);
                     Vector2 bVPos = objPos;
                     Vector2 bVScreenPos = objScreenPos;
                     bool visible = true;
@@ -345,7 +345,7 @@ namespace Resonance
 
                     // Draw in corresponding corner, transparency proportional to distance.
 
-                    float dist = (float)Resonance.Game.getDistance(Resonance.Game.getGV().Body.Position, v.Body.Position);
+                    float dist = Vector3.Distance(Resonance.Game.getGV().Body.Position, v.Body.Position);
                     bool visible = true;
 
                     // Calculate the alpha transparency that the distant vibe should have. Determine whether it is visible or not.
@@ -415,16 +415,6 @@ namespace Resonance
             }
 
             return BAD_VIBE_ALPHA;
-        }
-
-        public static Vector2 rotateVector2(Vector2 vec, float theta)
-        {
-            Vector2 result = new Vector2();
-
-            result.X = (float) ((vec.X * Math.Cos(theta)) - (vec.Y * Math.Sin(theta)));
-            result.Y = (float) ((vec.X * Math.Sin(theta)) + (vec.Y * Math.Cos(theta)));
-
-            return result;
         }
     }
 }

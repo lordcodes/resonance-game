@@ -131,7 +131,7 @@ namespace Resonance
         {
             cameraCoords = newCameraPosition;
             Quaternion orientation = Game.getGV().Body.Orientation;
-            Vector3 rotation = DynamicObject.QuaternionToEuler(orientation);
+            Vector3 rotation = Utility.QuaternionToEuler(orientation);
             Vector3 position = Game.getGV().Body.Position;
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
             cameraPosition = Vector3.Transform(cameraCoords, goodVibeRotation) + position;

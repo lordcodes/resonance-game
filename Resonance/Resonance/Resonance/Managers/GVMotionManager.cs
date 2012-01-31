@@ -132,7 +132,7 @@ namespace Resonance {
             if (max > MAX_Z_SPEED) max = MAX_Z_SPEED;
             if (posSpd + posInc < max) Z_SPEED += inc;
 
-            Vector3 oVector = DynamicObject.QuaternionToEuler(gv.Body.Orientation);
+            Vector3 oVector = Utility.QuaternionToEuler(gv.Body.Orientation);
             Vector3 vel     = gv.Body.LinearVelocity;
 
             //////////// USING VELOCITIES /////////////////
@@ -164,7 +164,7 @@ namespace Resonance {
             if (max > MAX_X_SPEED) max = MAX_X_SPEED;
             if (posSpd + posInc < max) X_SPEED += inc;
 
-            Vector3 oVector = DynamicObject.QuaternionToEuler(gv.Body.Orientation);
+            Vector3 oVector = Utility.QuaternionToEuler(gv.Body.Orientation);
             Vector3 vel     = gv.Body.LinearVelocity;
 
             /*float xInc = (float)(-power * X_ACCELERATION * Math.Cos(oVector.Y));

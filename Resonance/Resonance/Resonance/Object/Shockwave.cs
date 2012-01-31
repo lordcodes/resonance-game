@@ -99,7 +99,7 @@ namespace Resonance
             {
                 if (bv.Status != BadVibe.State.DEAD && !bVibes.Contains(bv))
                 {
-                    double dist = Resonance.Game.getDistance(Position, bv.Body.Position);
+                    double dist = Vector3.Distance(Position, bv.Body.Position);
 
                     //DebugDisplay.update("RADIUS", bv.Size + " : " + Radius + " : " + dist);
 
