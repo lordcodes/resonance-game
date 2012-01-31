@@ -246,27 +246,27 @@ namespace Resonance
                     {
                         case Shockwave.GREEN:
                             {
-                                Resonance.Game.getGV().Score++;
+                                Resonance.Game.getGV().adjustScore(1);
                                 break;
                             }
                         case Shockwave.YELLOW:
                             {
-                                Resonance.Game.getGV().Score++;
+                                Resonance.Game.getGV().adjustScore(1);
                                 break;
                             }
                         case Shockwave.BLUE:
                             {
-                                Resonance.Game.getGV().Score++;
+                                Resonance.Game.getGV().adjustScore(1);
                                 break;
                             }
                         case Shockwave.RED:
                             {
-                                Resonance.Game.getGV().Score++;
+                                Resonance.Game.getGV().adjustScore(1);
                                 break;
                             }
                         case Shockwave.CYMBAL:
                             {
-                                Resonance.Game.getGV().Score += 5;
+                                Resonance.Game.getGV().adjustScore(5);
                                 break;
                             }
                         case Shockwave.REST:
@@ -278,7 +278,7 @@ namespace Resonance
                 }
                 if (sequence.Count == 0)
                 {
-                    Resonance.Game.getGV().Score += 10;
+                    Resonance.Game.getGV().adjustScore(10);
                     vibe.kill();
                 }
             }

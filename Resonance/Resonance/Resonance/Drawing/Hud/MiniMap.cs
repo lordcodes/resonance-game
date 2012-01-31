@@ -254,7 +254,7 @@ namespace Resonance
 
             // Loop through and draw bad vibes.
             List<BadVibe> badVibes = Program.game.World.returnBadVibes();
-            List<Pickup>  pickups  = Program.game.World.returnPickups();
+            List<Pickup> pickups = PickupManager.returnPickups();
             List<Object>  toDraw   = new List<Object>();
 
             foreach (BadVibe b in badVibes) {

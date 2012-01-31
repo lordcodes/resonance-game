@@ -23,11 +23,12 @@ namespace Resonance
 
         List<Shockwave> waves; // Resonance waves which currently exist
 
-        int score; //score value
-        int health; //health stored as an int between 0 - MAX_HEALTH.
-        int nitro; //speed boost between 0 - MAX_NITRO.
-        int shield; //shield between 0 - MAX_SHIELD.
-        int freeze; //SOMETHINGELSE between 0 - 100.
+        private int totalScore; //total score value for the game
+        private int currentScore; //score for this sequence
+        private int health; //health stored as an int between 0 - MAX_HEALTH.
+        private int nitro; //speed boost between 0 - MAX_NITRO.
+        private int shield; //shield between 0 - MAX_SHIELD.
+        private int freeze; //SOMETHINGELSE between 0 - 100.
         private int currentPower = 0;
 
         private bool isInCombat;
@@ -60,17 +61,25 @@ namespace Resonance
             }
         }
 
-        public int Score
+        public int TotalScore
         {
             get
             {
-                return score;
-            }
-            set
-            {
-                score = value;
+                return totalScore;
             }
         }
+
+        //public int CurrentScore
+        //{
+        //    get
+        //    {
+        //        return currentScore;
+        //    }
+        //    set
+        //    {
+        //        currentScore = value;
+        //    }
+        //}
 
         public int Nitro
         {
@@ -103,14 +112,24 @@ namespace Resonance
             : base(modelNum, name, pos)
         {
             waves = new List<Shockwave>();
-            score = 0;
+            totalScore = 0;
+            currentScore = 0;
             health = MAX_HEALTH;
-            nitro = 200;
-            shield = 100;
-            freeze = 200;
+            nitro = MAX_NITRO / 2;
+            shield = MAX_SHIELD / 2;
+            freeze = MAX_FREEZE / 2;
 
             sheildUpModel = new GameModelInstance(GameModels.SHIELD_GV);
             sheildDownModel = new GameModelInstance(GameModels.GOOD_VIBE);
+        }
+
+        /// <summary>
+        /// Adjusts the GVs score according to the multiplier
+        /// </summary>
+        /// <param name="change">Amount to adjust the score</param>
+        public void adjustScore(int change)
+        {
+            totalScore += (change * PickupManager.currentMultipler);
         }
 
         /// <summary>
