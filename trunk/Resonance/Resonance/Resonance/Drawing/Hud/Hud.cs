@@ -153,7 +153,7 @@ namespace Resonance
         /// <param name="armour">List of armour values</param>
         public void updateEnemy(string name, Vector3 pos, List<int> armour)
         {
-            int bvDist = (int)Resonance.Game.getDistance(Resonance.Game.getGV().Body.Position, pos);
+            int bvDist = (int)Vector3.Distance(Resonance.Game.getGV().Body.Position, pos);
 
             if (bvDist <= BadVibe.MAX_ARMOUR_DISPLAY_DIST) {
                 if (BadVibe.DRAW_HEALTH_AS_STRING) {

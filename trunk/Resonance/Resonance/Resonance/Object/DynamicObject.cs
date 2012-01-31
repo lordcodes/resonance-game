@@ -68,25 +68,11 @@ namespace Resonance
         {
            
             Quaternion orientation = Body.Orientation;
-            Vector3 rotateVector = QuaternionToEuler(orientation);
+            Vector3 rotateVector = Utility.QuaternionToEuler(orientation);
             Vector3 velocity = Body.LinearVelocity;
             velocity.X = (float)(height * Math.Sin(rotateVector.Y));
             velocity.Y += (float) (height * Math.Cos(rotateVector.X));
             Body.LinearVelocity = velocity;
-        }
-
-        public static Vector3 QuaternionToEuler(Quaternion quat)
-        {
-            float w = quat.W;
-            float y = quat.Y;
-            float x = quat.X;
-            float z = quat.Z;
-
-            Vector3 radAngles = new Vector3();
-            radAngles.Y = (float)Math.Atan2(2 * (w * y + x * z), 1 - 2 * (Math.Pow(y, 2) + Math.Pow(x, 2)));
-            radAngles.X = (float)Math.Asin(2 * (w * x - z * y));
-            radAngles.Z = (float)Math.Atan2(2 * (w * z + y * x), 1 - 2 * (Math.Pow(x, 2) + Math.Pow(z, 2)));
-            return radAngles;
         }
 
         public ConvexHull Body

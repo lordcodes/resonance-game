@@ -282,15 +282,6 @@ namespace Resonance
             }
         }
 
-        public static double getDistance(Vector3 from, Vector3 to)
-        {
-            double xDiff = Math.Abs(from.X - to.X);
-            double yDiff = Math.Abs(from.Y - to.Y);
-            double zDiff = Math.Abs(from.Z - to.Z);
-            double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
-            return distance;
-        }
-
         public static GoodVibe getGV()
         {
             return (GoodVibe)Program.game.World.getObject("Player");

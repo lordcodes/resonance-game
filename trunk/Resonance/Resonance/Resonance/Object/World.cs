@@ -111,7 +111,7 @@ namespace Resonance
             else return false;
         }
 
-        public List<Object> rayCast(Vector3 position, Vector3 direction, float distance, Func<BroadPhaseEntry, bool> filter)
+        public List<Object> rayCastObjects(Vector3 position, Vector3 direction, float distance, Func<BroadPhaseEntry, bool> filter)
         {
             List<Object> objects = new List<Object>();
 
@@ -134,6 +134,21 @@ namespace Resonance
                 }
             }
             else DebugDisplay.update("RAYCAST", "I CANT SEE ANYTHING");
+            return objects;
+        }
+
+        public List<RayHit> rayCastHitData(Vector3 position, Vector3 direction, float distance, Func<BroadPhaseEntry, bool> filter)
+        {
+            List<RayHit> objects = new List<RayHit>();
+
+            List<RayCastResult> rayCastResults = new List<RayCastResult>();
+            if (space.RayCast(new Ray(position, direction), distance, filter, rayCastResults))
+            {
+                foreach (RayCastResult result in rayCastResults)
+                {
+                    objects.Add(result.HitData);
+                }
+            }
             return objects;
         }
 
@@ -273,7 +288,7 @@ namespace Resonance
             for (int i = 0; i < pickups.Count; i++)
             {
                 Vector3 pickupPoint = pickups[i].OriginalPosition;
-                double diff = Game.getDistance(Game.getGV().Body.Position, pickupPoint);
+                double diff = Vector3.Distance(Game.getGV().Body.Position, pickupPoint);
 
                 if(diff < pickups[i].Size)
                 {

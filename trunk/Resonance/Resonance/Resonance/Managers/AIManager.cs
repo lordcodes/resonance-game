@@ -13,11 +13,8 @@ namespace Resonance
 {
     class AIManager
     {
-        public static float MAX_ROT_SPEED = 0.25f;
         public static float MAX_MOVE_SPEED = 3f;
-        public static float ROT_ACCEL = 0.02f;
         public static float MOVE_ACCEL = 0.35f;
-        public static float ROT_SPEED = 0.00f;
 
         private static float TARGET_RANGE = 20f;
         private static float ATTACK_RANGE = 5f;
@@ -26,6 +23,9 @@ namespace Resonance
         private static float ATTACK_ANGLE_THRESHOLD = 0.7f; // Measure of angle at which BV has to be (rel to GV) to attack. 1 = 60 deg, sqrt(2) = 90 deg, >=2 = 180 deg.
         private static int CHANCE_MISS = 20; //Between 0 and 100
         private static int ROTATE_CHANCE = 4; //Between 0 and 100
+
+        private static float LEFT_RAY_ANGLE = MathHelper.ToRadians(15f);
+        private static float RIGHT_RAY_ANGLE = MathHelper.ToRadians(15f);
 
         private BadVibe bv;
         private SingleEntityAngularMotor servo;
@@ -98,7 +98,7 @@ namespace Resonance
             Vector3 diff = Vector3.Normalize(point - bvPos);
             Quaternion rot;
             Toolbox.GetQuaternionBetweenNormalizedVectors(ref bvDir, ref diff, out rot);
-            Vector3 angles = BadVibe.QuaternionToEuler(rot);
+            Vector3 angles = Utility.QuaternionToEuler(rot);
             rot.X = 0;
             rot.Z = 0;
             //servo.Settings.Servo.Goal = Quaternion.Concatenate(bv.Body.Orientation, rot);
@@ -120,10 +120,8 @@ namespace Resonance
             if (choice < ROTATE_CHANCE)
             {
                 //Generate new orientation
-                double angle = r.Next(0, 90);
-                angle /= 360;
-                angle *= (2 * Math.PI);
-                Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, (float)angle);
+                float angle = MathHelper.ToRadians(r.Next(0, 90));
+                Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
                 Quaternion orientation = Quaternion.Concatenate(bv.Body.Orientation, change);
                 //servo.Settings.Servo.Goal = orientation;
             }
@@ -141,17 +139,7 @@ namespace Resonance
 
         public void move(float power)
         {
-            //Query world space for objects every position in front up to and including SPOT_RANGE
-            //Get object that is obstacle
-            //Get point to the side of it that is closest to GV
-            //Set that to target and turn and face it.
-            //Once target reached carry on tracking GV
-            Object obstacle = obstacleFound();
-            if (obstacle != null)
-            {
-                //DebugDisplay.update("ClosestObstacle", obstacle.returnIdentifier());
-            }
-
+            avoidObstacles();
             /*Vector3 orientation = DynamicObject.QuaternionToEuler(bv.Body.Orientation);
             Vector3 velocity = bv.Body.LinearVelocity;
 
@@ -164,22 +152,32 @@ namespace Resonance
             bv.Body.LinearVelocity = velocity;*/
         }
 
-        public void rotate(float power)
+        private void avoidObstacles()
         {
-            /*float inc = -power * ROT_ACCEL;
+            //Cast three rays
+            //List<Object> forwardRay = rayCast(bv.Body.Position, bv.Body.OrientationMatrix.Forward);
+            //List<Object> leftRay = rayCast(bv.Body.Position, bv rotated by -LEFT_RAY_ANGLE);
+            //List<Object> rightRay = rayCast(bv.Body.Position, bv rotated by LEFT_RAY_ANGLE);
 
-            float posInc = inc;
-            float posSpd = ROT_SPEED;
-            if (posInc < 0) posInc *= -1;
-            if (posSpd < 0) posSpd *= -1;
+            //Object forwardClosest = closestObstacle(forwardRay);
+            //Object leftClosest = closestObstacle(leftRay);
+            //Object rightClosest = closestObstacle(rightRay);
 
-            if (posSpd + posInc < MAX_ROT_SPEED) ROT_SPEED += inc;
+            //bool forwardFound = forwardClosest != null;
+            //bool leftFound = leftClosest != null;
+            //bool rightFound = rightClosest != null;
 
-            Quaternion cAng = bv.Body.Orientation;
-            Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, ROT_SPEED);
-            Quaternion eAng = Quaternion.Concatenate(cAng, dAng);
+            List<RayHit> forwardRay = rayCastHits(bv.Body.Position, bv.Body.OrientationMatrix.Forward);
 
-            servo.Settings.Servo.Goal = eAng;*/
+            if (forwardRay.Count > 0)
+            {
+                Vector3 normal = closestObstacleNormal(forwardRay);
+                normal.Normalize();
+                Vector3 direction = bv.Body.OrientationMatrix.Forward;
+                direction.Normalize();
+                Vector3 force = Utility.perpendicularComponent(normal, direction);
+
+            }
         }
 
         public void attack()
@@ -227,7 +225,7 @@ namespace Resonance
 
         private bool inTargetRange()
         {
-            if (Game.getDistance(Game.getGV().Body.Position, bv.Body.Position) < TARGET_RANGE)
+            if (Vector3.Distance(Game.getGV().Body.Position, bv.Body.Position) < TARGET_RANGE)
             {
                 return true;
             }
@@ -239,7 +237,7 @@ namespace Resonance
 
         private bool inAttackRange()
         {
-            if (Game.getDistance(Game.getGV().Body.Position, bv.Body.Position) < ATTACK_RANGE)
+            if (Vector3.Distance(Game.getGV().Body.Position, bv.Body.Position) < ATTACK_RANGE)
             {
                 return true;
             }
@@ -249,23 +247,22 @@ namespace Resonance
             }
         }
 
-        private Object obstacleFound()
+
+        private Object closestObstacle(List<Object> obstacles)
         {
             double closestDist = Double.MaxValue;
-            List<Object> obstacles = Program.game.World.rayCast(bv.Body.Position, bv.Body.OrientationMatrix.Forward, SPOT_RANGE, RayCastFilter);
             Object closestObj = null;
 
             foreach (Object ob in obstacles)
             {
-                //Console.WriteLine(ob.returnIdentifier());
                 double newDistance = Double.MaxValue;
                 if (ob is StaticObject)
                 {
-                    newDistance = Game.getDistance(bv.Body.Position, ((StaticObject)ob).Body.WorldTransform.Translation);
+                    newDistance = Vector3.Distance(bv.Body.Position, ((StaticObject)ob).Body.WorldTransform.Translation);
                 }
                 else if (ob is DynamicObject)
                 {
-                    newDistance = Game.getDistance(bv.Body.Position, ((DynamicObject)ob).Body.Position);
+                    newDistance = Vector3.Distance(bv.Body.Position, ((DynamicObject)ob).Body.Position);
                 }
                 if (newDistance < closestDist)
                 {
@@ -273,9 +270,35 @@ namespace Resonance
                     closestObj = ob;
                 }
             }
-            if(closestObj != null) DebugDisplay.update("ClosestObstacle " + bv.returnIdentifier(), closestObj.returnIdentifier());
-            else DebugDisplay.update("ClosestObstacle " + bv.returnIdentifier(), "None");
             return closestObj;
+        }
+
+        private Vector3 closestObstacleNormal(List<RayHit> obstacles)
+        {
+            double closestDist = Double.MaxValue;
+            Vector3 normal = new Vector3();
+
+            foreach (RayHit ob in obstacles)
+            {
+                double newDistance = ob.T;
+                
+                if (newDistance < closestDist)
+                {
+                    closestDist = newDistance;
+                    normal = ob.Normal;
+                }
+            }
+            return normal;
+        }
+        
+        private List<Object> rayCast(Vector3 position, Vector3 direction)
+        {
+            return Program.game.World.rayCastObjects(position, direction, SPOT_RANGE, RayCastFilter);
+        }
+
+        private List<RayHit> rayCastHits(Vector3 position, Vector3 direction)
+        {
+            return Program.game.World.rayCastHitData(position, direction, SPOT_RANGE, RayCastFilter);
         }
 
         bool RayCastFilter(BroadPhaseEntry entry)
@@ -283,14 +306,10 @@ namespace Resonance
             return entry != bv.Body.CollisionInformation && entry.CollisionRules.Personal <= CollisionRule.Normal;
         }
 
-        private Vector3 pointRelativeToBV(Vector3 point)
+        private Quaternion rotateQuaternion(Quaternion quaternion, float angle)
         {
-            Vector3 relToGV = bv.Body.Position - point;
-            float angle = (DynamicObject.QuaternionToEuler(bv.Body.Orientation)).Y;
-            Vector2 rotatePoint = MiniMap.rotateVector2(new Vector2(relToGV.X, relToGV.Z), angle);
-            Vector3 newPoint = new Vector3(rotatePoint.X, point.Y, rotatePoint.Y);
-
-            return bv.Body.Position - newPoint;
+            Quaternion quat = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
+            return Quaternion.Concatenate(quaternion, quat);
         }
     }
 }
