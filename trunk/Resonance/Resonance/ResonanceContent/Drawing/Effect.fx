@@ -12,7 +12,8 @@ float3 DiffuseLightColor2;
 float4 SpecularColorPower;
 float3 SpecularLightColor;
 float3 CameraPosition;
-float4x3 xBones[60]; 
+float4x3 xBones[60];
+float3 gvPos;
 bool DoDisp;
 
 sampler DispMapSampler = sampler_state

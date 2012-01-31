@@ -123,7 +123,28 @@ namespace Resonance
         {
             graphics.GraphicsDevice.SetRenderTarget(null);
             shinyFloorTexture = (Texture2D)mirrorRenderTarget;
+            //GameModels.getModel(GameModels.GROUND).setTexture(0,shinyFloorTexture);
             drawingReflection = false;
+        }
+
+        public static Texture2D flipTexture(Texture2D source, bool vertical, bool horizontal)
+        {
+            Texture2D flipped = new Texture2D(source.GraphicsDevice, source.Width, source.Height);
+            Color[] data = new Color[source.Width * source.Height];
+            Color[] flippedData = new Color[data.Length];
+
+            source.GetData<Color>(data);
+
+            for (int x = 0; x < source.Width; x++)
+                for (int y = 0; y < source.Height; y++)
+                {
+                    int idx = (horizontal ? source.Width - 1 - x : x) + ((vertical ? source.Height - 1 - y : y) * source.Width);
+                    flippedData[x + y * source.Width] = data[idx];
+                }
+
+            flipped.SetData<Color>(flippedData);
+
+            return flipped;
         }
 
         /// <summary>
@@ -158,7 +179,7 @@ namespace Resonance
             ring = Content.Load<Texture2D>("Drawing/Textures/texRing");
 
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
-            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, pp.BackBufferWidth, pp.BackBufferHeight, true, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
+            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, 2048, 2048, true, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth16);
 
             loadingScreen.loadContent();
         }
@@ -217,12 +238,12 @@ namespace Resonance
             else
             {
                 drawCount++;
-                Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
+                /*Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.1f, Game.getGV().Body.Position.Z);
                 Matrix texturePos = Matrix.CreateTranslation(pos);
-                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
+                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2*3));
                 texturePos = Matrix.Multiply(rotation,texturePos);
                 gameGraphics.Draw2dTextures(shinyFloorTexture, texturePos, 20, 20);
-
+                */
 
 
                 drawRangeIndicator();
@@ -240,9 +261,6 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            if (DrawingReflection)
-            {
-            }
             if (!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection))
             {
                 bool blend = false;
@@ -274,7 +292,7 @@ namespace Resonance
 
                 graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
-                gameGraphics.Draw(worldObject, worldTransform, blend);
+                gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection);
 
                 graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 
@@ -284,11 +302,6 @@ namespace Resonance
                     List<int> seq = ((BadVibe)worldObject).getLayers();
                     hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
                 }
-            }
-
-            if (DrawingReflection)
-            {
-                
             }
         }
 

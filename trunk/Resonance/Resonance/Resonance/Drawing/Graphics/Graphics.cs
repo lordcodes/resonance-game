@@ -75,7 +75,7 @@ namespace Resonance
         {
             Content = newContent;
             graphics = newGraphics;
-        }
+        } 
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -138,9 +138,9 @@ namespace Resonance
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
-        public void Draw(Object worldObject, Matrix worldTransform, bool disp)
+        public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
         {
-            DrawModel(worldObject, worldTransform, disp);
+            DrawModel(worldObject, worldTransform, disp,  drawingReflection);
         }
 
         public void update(Vector2 playerPos)
@@ -241,7 +241,7 @@ namespace Resonance
         }
 
 
-        private void DrawModel(Object worldObject, Matrix worldTransform, bool disp)
+        private void DrawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
         {
 
             //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
@@ -252,9 +252,29 @@ namespace Resonance
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
 
+            Matrix theView = view;
+            Vector3 cameraPosition2 = cameraPosition;
+
+            if (drawingReflection)
+            {
+                Vector3 cameraCoords = new Vector3(0,-90f,0.5f);
+                Quaternion orientation = Game.getGV().Body.Orientation;
+                //Vector3 gvrotation = DynamicObject.QuaternionToEuler(orientation);
+                //Vector3 rotation = new Vector3(gvrotation.X, gvrotation.Y, gvrotation.Z);
+                Vector3 rotation = Vector3.Zero;
+                Vector3 position = Game.getGV().Body.Position;
+                Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
+                //cameraPosition2 = Vector3.Transform(cameraCoords, goodVibeRotation);
+                theView = Matrix.CreateLookAt(cameraCoords, Vector3.Zero, Vector3.Down);
+            }
             customEffect.Parameters["DoDisp"].SetValue(disp);
-            if (disp) customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
-            customEffect.Parameters["View"].SetValue(view);
+            if (disp)
+            {
+                customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
+                customEffect.Parameters["gvPos"].SetValue(Game.getGV().Body.Position);
+
+            }
+            customEffect.Parameters["View"].SetValue(theView);
             customEffect.Parameters["Projection"].SetValue(projection);
             customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
             customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
@@ -262,7 +282,7 @@ namespace Resonance
             customEffect.Parameters["LightDirection2"].SetValue(-lightDirection2);
             customEffect.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
             customEffect.Parameters["SpecularLightColor"].SetValue(specularLightColor);
-            customEffect.Parameters["CameraPosition"].SetValue(cameraPosition);
+            customEffect.Parameters["CameraPosition"].SetValue(cameraPosition2);
             customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
 
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;

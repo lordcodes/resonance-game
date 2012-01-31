@@ -93,6 +93,11 @@ namespace Resonance
             textureAnimPaused = true;
         }
 
+        public void setTexture(int index, Texture2D texture)
+        {
+            gameModel.setTexture(index, texture);
+        }
+
         /// <summary>
         /// Stores information that relates to the GameModel but is usnique to each object. 
         /// For example what stange of any animation each object is in  

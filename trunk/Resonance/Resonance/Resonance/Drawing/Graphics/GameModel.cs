@@ -121,6 +121,12 @@ namespace Resonance
             return null;
         }
 
+        public void setTexture(int index, Texture2D texture)
+        {
+            if(index<textures.Count)
+                textures[index] = texture;
+        }
+
         public GameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, List<Texture2D> newTextures, bool modelAnimation, float frameDelay, bool textureAnimStart)
         {
             graphicsModel = newGraphicsModel;
