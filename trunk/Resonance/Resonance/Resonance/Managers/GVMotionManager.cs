@@ -116,6 +116,7 @@ namespace Resonance {
         public static void resetBoost() {
             Z_ACCELERATION = DEFAULT_Z_ACCELERATION;
             MAX_Z_SPEED    = DEFAULT_MAX_Z_SPEED;
+            BOOSTING       = false;
         }
 
         private static void move(float power) {
@@ -234,6 +235,12 @@ namespace Resonance {
                 rotate(0f);
             }
 
+            if (BOOSTING) {
+                boost();
+            } else {
+                resetBoost();
+            }
+
             // Move forward / backward based on keyboard / dPad
             if (forward ^ backward) {
                 if (forward) {
@@ -241,7 +248,9 @@ namespace Resonance {
                 } else {
                     move(-1f);
                 }
-            } else {
+            }
+
+            if (!(forward ^ backward) || !BOOSTING) {
                 if (Z_SPEED > 0) if (Z_DECELERATION > Z_SPEED)  Z_SPEED = 0f; else Z_SPEED -= Z_DECELERATION;
                 if (Z_SPEED < 0) if (Z_DECELERATION > -Z_SPEED) Z_SPEED = 0f; else Z_SPEED += Z_DECELERATION;
                 move(0f);
