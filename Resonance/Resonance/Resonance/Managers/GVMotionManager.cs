@@ -237,7 +237,7 @@ namespace Resonance {
                 rotate(0f);
             }
 
-            if (BOOSTING) {
+            if (BOOSTING && gv.Nitro > 0) {
                 boost();
             } else {
                 resetBoost();
