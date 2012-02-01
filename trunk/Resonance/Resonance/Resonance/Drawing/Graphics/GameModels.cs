@@ -24,6 +24,7 @@ namespace Resonance
         public static readonly int SHOCKWAVE        = 7;
         public static readonly int PICKUP           = 8;
         public static readonly int SHIELD_GV        = 9;
+        public static readonly int BV_SPAWNER = 10;
 
         private static ContentManager Content;
 
