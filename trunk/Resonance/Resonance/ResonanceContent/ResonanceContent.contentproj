@@ -491,11 +491,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Drawing\Textures\texRing.png">
+    <Compile Include="Drawing\Textures\texRing.png">
       <Name>texRing</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </None>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sounds\chink.wav">
