@@ -129,7 +129,7 @@ namespace Resonance
                             }
                     }
 
-                    Drawing.addWave(pickupPoint);
+                    //Drawing.addWave(pickupPoint);
                     Program.game.World.removeObject(pickups[i]);
                     Program.game.pickupSpawner.pickupPickedUp();
                     continue;
