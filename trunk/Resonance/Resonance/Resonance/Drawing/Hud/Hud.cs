@@ -68,7 +68,7 @@ namespace Resonance
             drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
             rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
-            tempo        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/tempo");
+            tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
             scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
 
             miniMap = new MiniMap();
@@ -77,6 +77,9 @@ namespace Resonance
             healthBarClass = new HealthBar(graphics);
             healthBarClass.loadTextures(Content);
         }
+
+        //private TestEmitter tEmm = new TestEmitter(new Vector3(250f, 250f, 250f));
+       // public static Texture2D getBlock() { return block; }
 
         /// <summary>
         /// Called to draw text in the debug position on screen
@@ -131,6 +134,8 @@ namespace Resonance
             drawFreezeBar();
             drawMiniMap();
             drawThrobber();
+            //tEmm.pos.X += 5;
+            //tEmm.update(spriteBatch);
             scoreFont.drawLeft(Drawing.pixelsX(1890), Drawing.pixelsY(15), Drawing.WidthRatio, Drawing.HeightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
             Drawing.resetGraphics();

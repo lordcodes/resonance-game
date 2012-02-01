@@ -108,9 +108,14 @@
     <Compile Include="Drawing\Graphics\ImportedGameModels.cs" />
     <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Drawing\Graphics\GameModelInstance.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
+    <Compile Include="Drawing\ParticleEngine\Particle.cs" />
+    <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
+    <Compile Include="Managers\ParticleEmitterManager.cs" />
     <Compile Include="Managers\DrumManager.cs" />
     <Compile Include="Managers\GVManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
