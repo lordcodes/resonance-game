@@ -45,4 +45,4 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 ----8,			pickup,					2,		pickup,					2
 8,			box,					2,		pickup,					2,				animationTest,						80,						1
 9,         ShieldGoodVibe,         0.5,    spaceShip,              0.2
-10,        BV_Spawner,              0.5,     box,                 0.5
+10,        BV_Spawner,              0.5,     BV_Spawner,                 0.5
