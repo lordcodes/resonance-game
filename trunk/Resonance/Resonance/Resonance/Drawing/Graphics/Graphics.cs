@@ -254,10 +254,12 @@ namespace Resonance
 
             Matrix theView = view;
             Vector3 cameraPosition2 = cameraPosition;
+            Matrix projection2 = projection;
+
 
             if (drawingReflection)
             {
-                Vector3 cameraCoords = new Vector3(0,-90f,0.5f);
+                Vector3 cameraCoords = new Vector3(0, -10f, 0.1f);
                 Quaternion orientation = Game.getGV().Body.Orientation;
                 //Vector3 gvrotation = DynamicObject.QuaternionToEuler(orientation);
                 //Vector3 rotation = new Vector3(gvrotation.X, gvrotation.Y, gvrotation.Z);
@@ -266,19 +268,28 @@ namespace Resonance
                 Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
                 //cameraPosition2 = Vector3.Transform(cameraCoords, goodVibeRotation);
                 theView = Matrix.CreateLookAt(cameraCoords, Vector3.Zero, Vector3.Down);
+                //projection2 = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 1, 1.0f, 1000.0f);
+                float plus = -2.0f;
+                projection2 = Matrix.CreateOrthographic(World.MAP_X+plus, World.MAP_Z+plus, 1.0f, 1000.0f);
             }
             customEffect.Parameters["DoDisp"].SetValue(disp);
             if (disp)
             {
-                customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
-
-                try {
-                    customEffect.Parameters["gvPos"].SetValue(Game.getGV().Body.Position);
-                } catch (KeyNotFoundException e) { }
-
+                try
+                {
+                    customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
+                    Vector2 pos = Drawing.groundPos(Game.getGV().Body.Position, true);
+                    //DebugDisplay.update("gp", pos+"");
+                    customEffect.Parameters["gvPos"].SetValue(pos);
+                }
+                catch (Exception)
+                {
+                    customEffect.Parameters["gvPos"].SetValue(Vector2.Zero);
+                }
             }
+            customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
             customEffect.Parameters["View"].SetValue(theView);
-            customEffect.Parameters["Projection"].SetValue(projection);
+            customEffect.Parameters["Projection"].SetValue(projection2);
             customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
             customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
             customEffect.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);

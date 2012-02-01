@@ -38,7 +38,7 @@ namespace Resonance
         {
             get
             {
-                if (FLOOR_REFLECTIONS && drawCount > 2)
+                if (FLOOR_REFLECTIONS && drawCount > 0)
                 {
                     drawCount = 0;
                     return true;
@@ -121,10 +121,17 @@ namespace Resonance
 
         public static void drawGame()
         {
-            graphics.GraphicsDevice.SetRenderTarget(null);
-            shinyFloorTexture = (Texture2D)mirrorRenderTarget;
-            //GameModels.getModel(GameModels.GROUND).setTexture(0,shinyFloorTexture);
-            drawingReflection = false;
+            if (FLOOR_REFLECTIONS)
+            {
+                graphics.GraphicsDevice.SetRenderTarget(null);
+                shinyFloorTexture = (Texture2D)mirrorRenderTarget;
+                try
+                {
+                    GameModel ground = GameModels.getModel(GameModels.GROUND);
+                    ground.setTexture(0, shinyFloorTexture);
+                }catch(Exception){}
+                drawingReflection = false;
+            }
         }
 
         public static Texture2D flipTexture(Texture2D source, bool vertical, bool horizontal)
@@ -179,7 +186,7 @@ namespace Resonance
             ring = Content.Load<Texture2D>("Drawing/Textures/texRing");
 
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
-            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, 2048, 2048, true, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth16);
+            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, 2048, 2048, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
 
             loadingScreen.loadContent();
         }
@@ -200,29 +207,46 @@ namespace Resonance
             }
         }
 
-        /// <summary>
-        /// Add a displacement wave to the ground texture.
-        /// </summary>
-        /// <param name="position3d"></param>
-        public static void addWave(Vector3 position3d)
+        public static Vector2 groundPos(Vector3 position3d, bool one)
         {
             Vector2 playerGroundPos = new Vector2();
             float groundWidth = World.MAP_X;
             float groundHeight = World.MAP_Z;
             float xDis = Math.Abs(position3d.X - World.MAP_MIN_X);
             float yDis = Math.Abs(position3d.Z - World.MAP_MIN_Z);
-            playerGroundPos.X = (float)Math.Round(Graphics.DISP_WIDTH * (xDis / groundWidth));
-            playerGroundPos.Y = (float)Math.Round(Graphics.DISP_WIDTH * (yDis / groundHeight));
-            gameGraphics.addWave(playerGroundPos);
+            if (!one)
+            {
+                playerGroundPos.X = (float)Math.Round(Graphics.DISP_WIDTH * (xDis / groundWidth));
+                playerGroundPos.Y = (float)Math.Round(Graphics.DISP_WIDTH * (yDis / groundHeight));
+            }
+            else
+            {
+                playerGroundPos.X = (float)(xDis / groundWidth);
+                playerGroundPos.Y = (float)(yDis / groundHeight);
+
+            }
+            return playerGroundPos;
+        }
+
+        /// <summary>
+        /// Add a displacement wave to the ground texture.
+        /// </summary>
+        /// <param name="position3d"></param>
+        public static void addWave(Vector3 position3d)
+        {
+            gameGraphics.addWave(groundPos(position3d, false));
         }
 
         private static void drawRangeIndicator()
         {
-            Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
-            Matrix texturePos = Matrix.CreateTranslation(pos);
-            Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
-            texturePos = Matrix.Multiply(rotation,texturePos);
-            gameGraphics.Draw2dTextures(ring, texturePos, 20, 20);
+            try
+            {
+                Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
+                Matrix texturePos = Matrix.CreateTranslation(pos);
+                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
+                texturePos = Matrix.Multiply(rotation, texturePos);
+                gameGraphics.Draw2dTextures(ring, texturePos, 20, 20);
+            }catch(Exception){}
         }
 
 
