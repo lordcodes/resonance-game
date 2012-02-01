@@ -14,20 +14,22 @@ namespace Resonance
     class Pickup : StaticObject
     {
         //for reference
-        public const int HEALTH = 0;
-        public const int NITROUS = 1;
-        public const int SHIELD = 2;
-        public const int FREEZE = 3;
+        public const int HEALTH = 2;
+        public const int NITROUS = 3;
+        public const int SHIELD = 4;
+        public const int FREEZE = 5;
 
         private int powerupType;
-        private int initialTime;
-        private int timeToLive;
+        private int powerupLength; //length of time the powerup has an effect
+        private int initialTime; //initial time
+        private int timeToLive; //current time left
         private float size;
 
-        public Pickup(int modelNum, String name, Vector3 pos, int power, int time)
+        public Pickup(int modelNum, String name, Vector3 pos, int power, int length, int time)
             : base(modelNum, name, pos)
         {
             powerupType = power;
+            powerupLength = length;
             initialTime = time;
             timeToLive = time;
             size = 5f; //TODO: model size
@@ -54,6 +56,14 @@ namespace Resonance
             get
             {
                 return powerupType;
+            }
+        }
+
+        public int PowerupLength
+        {
+            get
+            {
+                return powerupLength;
             }
         }
 

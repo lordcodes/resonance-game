@@ -97,28 +97,28 @@ namespace Resonance
                         case Pickup.NITROUS:
                             {
                                 Program.game.Music.playSound(MusicHandler.CHINK);
-                                PickupManager.newMultiplier(2, 600);
+                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustNitro(10);
                                 break;
                             }
                         case Pickup.SHIELD:
                             {
                                 Program.game.Music.playSound(MusicHandler.DING);
-                                PickupManager.newMultiplier(3, 600);
+                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustShield(5);
                                 break;
                             }
                         case Pickup.HEALTH:
                             {
                                 Program.game.Music.playSound(MusicHandler.SHIMMER);
-                                PickupManager.newMultiplier(4, 600);
+                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().AdjustHealth(5);
                                 break;
                             }
                         case Pickup.FREEZE:
                             {
                                 Program.game.Music.playSound(MusicHandler.RED);
-                                PickupManager.newMultiplier(5, 600);
+                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustFreeze(5);
                                 break;
                             }
