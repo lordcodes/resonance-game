@@ -267,6 +267,10 @@ namespace LevelEditor
             selectedOption = target.Text;
             selectedColor = target.BackColor;
             this.Text = "Selected object is: " + selectedOption + " and the color is " + selectedColor.ToString();
-        }       
+        }
+       
+
+        
+       
     }
 }
