@@ -491,11 +491,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\texRing.png">
+    <None Include="Drawing\Textures\texRing.png">
       <Name>texRing</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sounds\chink.wav">
@@ -744,39 +744,39 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\texGreen.jpg">
+    <None Include="Drawing\Textures\texGreen.jpg">
       <Name>texGreen</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\texRed.jpg">
+    <None Include="Drawing\Textures\texRed.jpg">
       <Name>texRed</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\texBlue.jpg">
+    <None Include="Drawing\Textures\texBlue.jpg">
       <Name>texBlue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\texYellow.jpg">
+    <None Include="Drawing\Textures\texYellow.jpg">
       <Name>texYellow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\texCymbal.jpg">
+    <None Include="Drawing\Textures\texCymbal.jpg">
       <Name>texCymbal</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
