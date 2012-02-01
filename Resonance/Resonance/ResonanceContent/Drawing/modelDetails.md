@@ -13,6 +13,7 @@ spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
 ShieldGoodVibe, Models\GoodVibeShield.fbx
 BV_animated, Models\bad_vibe_animation.fbx
+BV_Spawner, Models\BV_Spawner.fbx
 --dude        Models\dude.fbx
 
 TEXTURES
@@ -44,3 +45,4 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 ----8,			pickup,					2,		pickup,					2
 8,			box,					2,		pickup,					2,				animationTest,						80,						1
 9,         ShieldGoodVibe,         0.5,    spaceShip,              0.2
+10,        BV_Spawner              0.5     spawner                 0.5
