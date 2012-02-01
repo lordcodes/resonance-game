@@ -102,6 +102,10 @@
     <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Drawing\Hud\Hud.cs" />
     <Compile Include="Drawing\Hud\MiniMap.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
+    <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
+    <Compile Include="Drawing\ParticleEngine\Particle.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />
     <Compile Include="Drawing\UI\LoadingScreen.cs" />
     <Compile Include="Drawing\UI\MenuActions.cs" />
@@ -115,6 +119,7 @@
     <Compile Include="Managers\GVManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
     <Compile Include="Managers\MenuControlManager.cs" />
+    <Compile Include="Managers\ParticleEmitterManager.cs" />
     <Compile Include="Managers\PickupManager.cs" />
     <Compile Include="Managers\PickupSpawnManager.cs" />
     <Compile Include="Managers\Utility.cs" />

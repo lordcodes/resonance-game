@@ -271,7 +271,10 @@ namespace Resonance
             if (disp)
             {
                 customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
-                customEffect.Parameters["gvPos"].SetValue(Game.getGV().Body.Position);
+
+                try {
+                    customEffect.Parameters["gvPos"].SetValue(Game.getGV().Body.Position);
+                } catch (KeyNotFoundException e) { }
 
             }
             customEffect.Parameters["View"].SetValue(theView);
