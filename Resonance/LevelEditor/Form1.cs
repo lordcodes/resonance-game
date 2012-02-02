@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
+using ResonanceLibrary;
+using System.Xml;
 
 namespace LevelEditor
 {
@@ -73,14 +76,108 @@ namespace LevelEditor
         }
         private void exportClicked(object sender, System.EventArgs e)
         {
+            StoredObjects list = new StoredObjects();
+            StoredObject obj = new StoredObject();
+            obj.identifier = "Ground";
+            obj.type = "Ground";
+            obj.xWorldCoord = 0;
+            obj.yWorldCoord = 0;
+            obj.zWorldCoord = 0;
+            obj.gameModelNum = 5;
+            obj.pickuptype = -1;
 
+            int treeNumber = 0;
+            int pickupNumber = 0;
+            int houseNumber = 0;
+
+            for (int i = 0; i < 625; i++)
+            {
+                Console.WriteLine(i);
+                if(images[i].Text.Equals("tree"))
+                {
+                    obj = new StoredObject();
+                    obj.identifier = "tree"+treeNumber.ToString();
+                    obj.type = "Tree";
+                    obj.gameModelNum = 1;
+                    obj.xWorldCoord = -125 + ((i * 100) / 250);
+                    obj.yWorldCoord = (float)-0.1;
+                    obj.zWorldCoord = 125 - ((i * 100) / 250);
+                    obj.pickuptype = -1;
+                    treeNumber++;
+                    list.addObject(obj);
+                }
+                if (images[i].Text.Equals("house"))
+                {
+                    obj = new StoredObject();
+                    obj.identifier = "house" + houseNumber.ToString();
+                    obj.type = "House";
+                    obj.gameModelNum = 2;
+                    obj.xWorldCoord = -125 + ((i * 100) / 250);
+                    obj.yWorldCoord = (float)-0.1;
+                    obj.zWorldCoord = 125 - ((i * 100) / 250);
+                    obj.pickuptype = -1;
+                    houseNumber++;
+                    list.addObject(obj);
+                }
+                if (images[i].Text.Equals("goodVibe"))
+                {
+                    obj = new StoredObject();
+                    obj.identifier = "Player";
+                    obj.type = "Good_Vibe";
+                    obj.gameModelNum = 4;
+                    obj.xWorldCoord = -125 + ((i * 100) / 250);
+                    obj.yWorldCoord = (float)-0.1;
+                    obj.zWorldCoord = 125 - ((i * 100) / 250);
+                    obj.pickuptype = -1;
+                    list.addObject(obj);
+                }
+                if (images[i].Text.Equals("pickup"))
+                {
+                    obj = new StoredObject();
+                    obj.identifier = "pickup"+pickupNumber.ToString();
+                    obj.type = "Pickup";
+                    obj.gameModelNum = 8;
+                    obj.xWorldCoord = -125 + ((i * 100) / 250);
+                    obj.yWorldCoord = (float)-0.1;
+                    obj.zWorldCoord = 125 - ((i * 100) / 250);
+                    obj.pickuptype = 1;
+                    pickupNumber++;
+                    list.addObject(obj);
+                }
+            }
+            Serialize(list,"Level"+levelNumberTextBox.Text+".xml");
+
+        }
+
+        static void Serialize(StoredObjects obj, string filename)
+        {
+            XmlWriterSettings settings = new XmlWriterSettings();
+            settings.Indent = true;
+            using (XmlWriter writer = XmlWriter.Create(filename, settings))
+            {
+                IntermediateSerializer.Serialize<StoredObjects>(writer, obj, null);
+            }
+        }
+        static void Deserialize(string filename)
+        {
+            StoredObjects data = null;
+            using (FileStream stream = new FileStream(filename, FileMode.Open))
+            {
+                using (XmlReader reader = XmlReader.Create(stream))
+                {
+                    data = IntermediateSerializer.Deserialize<StoredObjects>(reader, null);
+                }
+            }
+            Console.WriteLine(data.list[0].identifier);
         }
 
         private void confirmClicked(object sender, System.EventArgs e)
         {
-           
+            if (levelNameTextBox.Text.Length > 0 && levelNumberTextBox.Text.Length > 0)
+            {
                 initializeOptionsPanel();
-                initializeGraphPanel();            
+                initializeGraphPanel();
+            }
         }
 
         private void beginClicked(object sender, System.EventArgs e)
