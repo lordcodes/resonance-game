@@ -21,15 +21,6 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>tree0</identifier>
-        <type>Tree</type>
-        <xWorldCoord>-2</xWorldCoord>
-        <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>-0.1</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
         <identifier>tree1</identifier>
         <type>Tree</type>
         <xWorldCoord>-25</xWorldCoord>

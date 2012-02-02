@@ -9,6 +9,10 @@ namespace Resonance
     class PickupSpawnManager
     {
         private static int MIN_PICKUPS = 10;
+        private static int MIN_PICKUP_TIME_LIVE = 300; //length of time the pickup is on the world
+        private static int MAX_PICKUP_TIME_LIVE = 600;
+        private static int MIN_PICKUP_TIME_EFFECT = 600; //length of time the pickup has an effect
+        private static int MAX_PICKUP_TIME_EFFECT = 1200;
 
         private int numPickups;
         private int totalNumPickups;
@@ -52,7 +56,7 @@ namespace Resonance
                         {
                             placed = true;
 
-                            Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(0,16)%4+2, 600, 1200);
+                            Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(0,16)%4+2, r.Next(MIN_PICKUP_TIME_LIVE, MAX_PICKUP_TIME_LIVE), r.Next(MIN_PICKUP_TIME_EFFECT,MAX_PICKUP_TIME_EFFECT));
                             Program.game.World.addObject(p);
 
                             totalNumPickups++;
