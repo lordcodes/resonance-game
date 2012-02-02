@@ -1,10 +1,9 @@
 ﻿MODELS
 -Model Ref-|--File name
 tree,		Models\tree.fbx
-treePhysics,Models\treePhysics.fbx
+treePhysics,Models\tree-physics.fbx
 house,		Models\house.fbx
-virus,		Models\bad_vibe.fbx
-goodVibe,		Models\GoodVibe.fbx
+goodVibe,	Models\GoodVibe.fbx
 terrain,	Models\terrain.fbx
 terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
@@ -12,7 +11,7 @@ box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
 ShieldGoodVibe, Models\GoodVibeShield.fbx
-BV_animated, Models\bad_vibe_animation.fbx
+BV_animated, Models\BadVibe.fbx
 BV_Spawner, Models\BV_Spawner.fbx
 --dude        Models\dude.fbx
 

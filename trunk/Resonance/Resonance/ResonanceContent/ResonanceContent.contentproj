@@ -47,13 +47,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\bad_vibe.fbx">
-      <Name>bad_vibe</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <None Include="Drawing\Models\bad_vibe_animation.fbx">
-      <Name>bad_vibe_animation</Name>
+    <None Include="Drawing\Models\BadVibe.fbx">
+      <Name>BadVibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
@@ -64,11 +59,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Drawing\Models\building.fbx">
-      <Name>building</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <Compile Include="Drawing\Models\BV_Spawner.fbx">
       <Name>BV_Spawner</Name>
       <Importer>FbxImporter</Importer>
@@ -114,11 +104,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\treePhysics.fbx">
-      <Name>treePhysics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <None Include="Drawing\Models\terrainHiPoly.fbx">
       <Name>terrainHiPoly</Name>
       <Importer>FbxImporter</Importer>
@@ -139,15 +124,15 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
-    <None Include="Drawing\Models\new_bad_vibe.fbx">
-      <Name>new_bad_vibe</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <Compile Include="Drawing\Models\upBodyC.tga">
       <Name>upBodyC</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\tree-physics.fbx">
+      <Name>tree-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
     <None Include="Drawing\Models\truck.fbx">
       <Name>truck</Name>
