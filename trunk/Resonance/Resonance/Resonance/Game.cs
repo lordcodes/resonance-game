@@ -62,7 +62,7 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
@@ -175,7 +175,7 @@ namespace Resonance
                     musicHandler.Update();
 
                     //Update Spawners
-                    if(USE_BV_SPAWNER) bvSpawner.update();
+                    //if(USE_BV_SPAWNER) bvSpawner.update();
                     if(USE_PICKUP_SPAWNER) pickupSpawner.update();
 
                     base.Update(gameTime);
