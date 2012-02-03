@@ -11,7 +11,7 @@ box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
 ShieldGoodVibe, Models\GoodVibeShield.fbx
-BV_animated, Models\BadVibe.fbx
+BV_animated, Models\bad_vibe_animation.fbx
 BV_Spawner, Models\BV_Spawner.fbx
 --dude        Models\dude.fbx
 

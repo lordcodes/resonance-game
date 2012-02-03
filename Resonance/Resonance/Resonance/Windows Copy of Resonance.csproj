@@ -131,6 +131,7 @@
     <Compile Include="Object\Object.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\Shockwave.cs" />
+    <Compile Include="Object\Spawner.cs" />
     <Compile Include="Object\StaticObject.cs" />
     <Compile Include="Object\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
