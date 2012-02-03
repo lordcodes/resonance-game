@@ -124,6 +124,7 @@
     <Compile Include="Managers\PickupSpawnManager.cs" />
     <Compile Include="Managers\Utility.cs" />
     <Compile Include="Object\BadVibe.cs" />
+    <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="Object\DynamicObject.cs" />
     <Compile Include="Object\GoodVibe.cs" />
     <Compile Include="Music\MusicHandler.cs" />
@@ -131,7 +132,6 @@
     <Compile Include="Object\Object.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\Shockwave.cs" />
-    <Compile Include="Object\Spawner.cs" />
     <Compile Include="Object\StaticObject.cs" />
     <Compile Include="Object\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

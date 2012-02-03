@@ -125,7 +125,7 @@
     <Compile Include="GameMode.cs" />
     <Compile Include="Managers\Utility.cs" />
     <Compile Include="Object\Pickup.cs" />
-    <Compile Include="Object\Spawner.cs" />
+    <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="ThreadRun.cs" />
     <Compile Include="AI\Minheap.cs" />
     <Compile Include="AI\Node.cs" />
