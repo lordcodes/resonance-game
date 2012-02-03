@@ -21,7 +21,7 @@ namespace Resonance
             spawners = new List<BVSpawner>();
             numBVs = 0;
             totalNumBVs = 0;
-            addNewSpawner(12,12,3);
+            //addNewSpawner(12,12,3);
         }
 
         public void addNewSpawner(int totalBv, int radious, int totalActive )
