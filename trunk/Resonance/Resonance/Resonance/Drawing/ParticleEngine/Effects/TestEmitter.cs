@@ -8,10 +8,10 @@ namespace Resonance {
     class TestEmitter : Emitter {
         public TestEmitter(Vector3 p)
             : base(p) {
-            emissionsPerUpdate = 50;
-            particlesLeft = 50000;
-            maxParticleSpd = 1;
-            maxParticleLife = 100;
+            emissionsPerUpdate = 800;
+            particlesLeft = 800;
+            maxParticleSpd = 0.6f;
+            maxParticleLife = 30;
         }
     }
 }
