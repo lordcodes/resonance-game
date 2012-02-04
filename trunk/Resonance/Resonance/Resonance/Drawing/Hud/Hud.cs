@@ -79,7 +79,7 @@ namespace Resonance
         }
 
         //private TestEmitter tEmm = new TestEmitter(new Vector3(250f, 250f, 250f));
-       // public static Texture2D getBlock() { return block; }
+        //public static Texture2D getBlock() { return block; }
 
         /// <summary>
         /// Called to draw text in the debug position on screen

@@ -28,8 +28,15 @@ namespace Resonance {
             pos = p;
         }
 
-        // s only used for testing.
-        public void update(SpriteBatch s) {
+        public List<Particle> getParticles() {
+            return particles;
+        }
+
+        /// <summary>
+        /// The basic Emitter update method. Can be overridden by subclasses.
+        /// </summary>
+        public void update() {
+
             // Remove dead particles.
             int killed = 0;
             for (int i = 0; i < particles.Count; ++i) {
@@ -41,7 +48,7 @@ namespace Resonance {
 
             // Update and draw current particles.
             foreach (Particle p in particles) {
-                p.update(s);
+                p.update();
             }
 
             // Generate new particles.
@@ -52,6 +59,7 @@ namespace Resonance {
                     Vector3 iDir = new Vector3((float)gen.NextDouble(), (float)gen.NextDouble(), (float)gen.NextDouble());
                     if (gen.Next() % 2 == 0) iDir.X *= -1;
                     if (gen.Next() % 2 == 0) iDir.Y *= -1;
+                    if (gen.Next() % 2 == 0) iDir.Z *= -1;
                     iDir.Normalize();
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;

@@ -26,6 +26,10 @@ namespace Resonance {
             return (lifespan <= 0);
         }
 
+        public Vector3 getPos() {
+            return pos;
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -39,7 +43,7 @@ namespace Resonance {
 
 
         // s only used for testing
-        public void update(SpriteBatch s) {
+        public void update() {
             pos += (direction * speed);
             lifespan--;
 
