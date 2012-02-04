@@ -12,6 +12,8 @@ namespace Resonance
 {
     class BadVibe : DynamicObject
     {
+        private int spawnerNumber;
+
         public const int ARMOUR_SPACING = 3;
         public const int MAX_ARMOUR_DISPLAY_DIST = 20;
         public const int MAX_ARMOUR_TRANSPARENCY_DIST = 8;
@@ -29,13 +31,21 @@ namespace Resonance
 
         public enum State { NORMAL, DEAD, FROZEN };
 
-        public BadVibe(int modelNum, String name, Vector3 pos)
+        public BadVibe(int modelNum, String name, Vector3 pos,int spawner)
             : base(modelNum, name, pos)
         {
             armour = ArmourSequence.random();
             setColour();
-
+            spawnerNumber = spawner;
             ai = new AIManager(this);
+        }
+
+        public int SpawnerIndex
+        {
+            get
+            {
+                return spawnerNumber;
+            }
         }
 
         public State Status

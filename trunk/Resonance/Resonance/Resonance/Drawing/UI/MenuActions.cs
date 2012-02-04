@@ -51,7 +51,7 @@ namespace Resonance
         /// </summary>
         public static void addBadVibe()
         {
-            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + genNumber, new Vector3(0, 1, -2));
+            BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + genNumber, new Vector3(0, 1, -2), 0);
             Program.game.World.addObject(bv);
             genNumber++;
             UI.play();

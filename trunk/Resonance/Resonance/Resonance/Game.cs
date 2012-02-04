@@ -32,7 +32,7 @@ namespace Resonance
         public static GameMode mode;
         public static bool GV_KILLED = false;
 
-        public static bool USE_BV_SPAWNER = false;
+        public static bool USE_BV_SPAWNER = true;
         public static bool USE_PICKUP_SPAWNER = true;
         GraphicsDeviceManager graphics;
         public readonly MusicHandler musicHandler;
@@ -62,7 +62,7 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = true;
+            graphics.IsFullScreen = false;
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
@@ -175,12 +175,12 @@ namespace Resonance
                     musicHandler.Update();
 
                     //Update Spawners
-                    if (USE_BV_SPAWNER) bvSpawner.addNewSpawner(12, 12, 3); //bvSpawner.update();
+                    if (USE_BV_SPAWNER) BVSpawnManager.update(); //bvSpawner.update();
                     if(USE_PICKUP_SPAWNER) pickupSpawner.update();
 
                     base.Update(gameTime);
                 }
-
+                
                 if (GV_KILLED || mode.terminated()) {
                     endGame();
                 }
@@ -265,9 +265,10 @@ namespace Resonance
         {
             for (int i = 0; i < deadVibes.Count; i++)
             {
+                if (USE_BV_SPAWNER) BVSpawnManager.vibeDied((BadVibe)World.getObject(deadVibes[i]));
                 World.removeObject(World.getObject(deadVibes[i]));
                 musicHandler.playSound("beast_dying");
-                if(USE_BV_SPAWNER) bvSpawner.vibeDied();
+                
             }
         }
 
