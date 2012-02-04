@@ -29,6 +29,7 @@ namespace Resonance
         private static double heightRatio;
         private static Vector3 playerPos;
         private static Texture2D ring;
+        private static Texture2D texPixel;
         private static bool drawingReflection = false;
         private static RenderTarget2D mirrorRenderTarget;
         private static Texture2D shinyFloorTexture;
@@ -184,7 +185,7 @@ namespace Resonance
             GameModels.Load();
             gameGraphics.loadContent(Content, graphics.GraphicsDevice);
             ring = Content.Load<Texture2D>("Drawing/Textures/texRing");
-
+            texPixel = Content.Load<Texture2D>("Drawing/Textures/texPixel");
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
             mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, 2048, 2048, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
 
@@ -249,6 +250,26 @@ namespace Resonance
             }catch(Exception){}
         }
 
+        /// <summary>
+        /// Responsible for drawing particles in 3D space.
+        /// </summary>
+        private static void drawParticles() {
+            ParticleEmitterManager.update();
+            foreach (Emitter e in ParticleEmitterManager.getEmitters()) {
+                DebugDisplay.update("P Count", e.getParticles().Count.ToString());
+                foreach (Particle p in e.getParticles()) {
+                    try {
+                        //Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
+                        //pos += p.getPos();
+                        Vector3 pos = p.getPos();
+                        Matrix texturePos = Matrix.CreateTranslation(pos);
+                        Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
+                        texturePos = Matrix.Multiply(rotation, texturePos);
+                        gameGraphics.Draw2dTextures(texPixel, texturePos, 0.02f, 0.02f);
+                    } catch (Exception) {}
+                }
+            }
+        }
 
         /// <summary>
         /// This is called when the character and the HUD should be drawn.
@@ -271,6 +292,7 @@ namespace Resonance
 
 
                 drawRangeIndicator();
+                drawParticles();
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
                 if (UI.Paused) hud.drawMenu(UI.getString());

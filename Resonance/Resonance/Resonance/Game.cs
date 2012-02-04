@@ -109,6 +109,7 @@ namespace Resonance
 
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             MenuActions.loadLevel(1);
+            ParticleEmitterManager.initialise();
 
             double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
             DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
@@ -136,6 +137,7 @@ namespace Resonance
             // TODO: Unload any non ContentManager content here
         }
 
+        bool x = true;
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -150,6 +152,8 @@ namespace Resonance
                 keyInput();
                 if (!UI.Paused)
                 {
+
+                    //if (x) {ParticleEmitterManager.addEmitter(new TestEmitter( new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z))); x = false;}
                     //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
                     removeDeadBadVibes(deadVibes);
