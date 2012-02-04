@@ -238,7 +238,7 @@ namespace Resonance
                 }
                 if (obj.list[i].type.Equals("Bad_vibe") == true)
                 {
-                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord),0);
                     addObject(bv);
                     bv.calculateSize();
                 }
@@ -248,6 +248,7 @@ namespace Resonance
                     //addObject(p);
                 }
             }
+            BVSpawnManager.addNewSpawner(12, 12, 3);
             
             //TODO: Temp crate add
             //p = new Pickup(GameModels.PICKUP, "Pickup2", new Vector3(5f, 0f, 5f), 1, 120);

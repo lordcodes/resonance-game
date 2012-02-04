@@ -8,42 +8,64 @@ namespace Resonance
 {
     class BVSpawnManager
     {
-        //private static int MIN_BVS = 15;
+        private static int MIN_BVS = 15;
 
-        private int numBVs;
-        //private int totalNumBVs;
-        private int spawnerCount;
-        List<BVSpawner> spawners;
+        private static int numBVs = 0;
+        private static int totalNumBVs = 0;
+        private static int spawnerCount = 2;
+        private static int bvcount = 0;
+        private static List<BVSpawner> spawners = new List<BVSpawner>();
+        private static bool debugSwtich = true;
 
         public BVSpawnManager() 
         {
             spawnerCount = 2;
             spawners = new List<BVSpawner>();
             numBVs = 0;
-            //totalNumBVs = 0;
-            //addNewSpawner(12,12,3);
+            totalNumBVs = 0;
         }
 
-        public void addNewSpawner(int totalBv, int radious, int totalActive )
+        public static void addNewSpawner(int totalBv, int radious, int totalActive )
         {
+            //DebugDisplay.update("Spawner Added","true");
             Random r = new Random((int)DateTime.Now.Ticks);
+            Vector3 pos;
             int x = r.Next((int)-World.MAP_X, (int)World.MAP_X);
             int z = r.Next((int)-World.MAP_Z, (int)World.MAP_Z);
-            Vector3 pos = new Vector3((float)x, 0.5f, (float)z);
+            if (debugSwtich)
+            {
+                pos = new Vector3(1f, 0.5f, 1f);
+            }
+            else
+            {
+                pos = new Vector3((float)x, 0.5f, (float)z);
+            }
             BVSpawner spawn = new BVSpawner(GameModels.BV_SPAWNER, "BV_SPAWNER" + spawnerCount, pos, totalActive,radious,totalActive);
             Program.game.World.addObject(spawn);
-            //spawners.Add(spawn);
+            spawners.Add(spawn);
             spawnerCount++;
         }
 
-        public void vibeDied()
+        public static void vibeDied(BadVibe bv)
         {
-            numBVs--;
+            spawners[bv.SpawnerIndex].removeBadVibe(bv);
         }
 
-        public void update()
+        public static void update()
         {
-
+            int i = 0;
+            DebugDisplay.update("number of spawn objects", spawners.Count.ToString());
+            while (i < spawners.Count)
+            {
+                DebugDisplay.update("Updating", "true");
+                if (spawners[i].getTotalCurrentlyActive() < spawners[i].getTotalAllowedActive())
+                {
+                    BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, new Vector3(0, 2, 2),i);
+                    spawners[i].addBadVibe(bv);
+                    bvcount++;
+                }
+                i++;
+            }
 
            /* if (numBVs < MIN_BVS)
             {

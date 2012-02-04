@@ -30,6 +30,7 @@ namespace Resonance
         public void addBadVibe(BadVibe bv)
         {
             badVibes.Add(bv);
+            Program.game.World.addObject(bv);
         }
 
         public void removeBadVibe(BadVibe bv)
@@ -42,7 +43,12 @@ namespace Resonance
             return totalBadVibes;
         }
 
-        public int getTotalActive()
+        public int getTotalAllowedActive()
+        {
+            return totalActive;
+        }
+
+        public int getTotalCurrentlyActive()
         {
             return badVibes.Count;
         }
