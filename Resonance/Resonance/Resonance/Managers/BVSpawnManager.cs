@@ -60,7 +60,7 @@ namespace Resonance
                 DebugDisplay.update("Updating", "true");
                 if (spawners[i].getTotalCurrentlyActive() < spawners[i].getTotalAllowedActive())
                 {
-                    BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, new Vector3(0, 2, 2),i);
+                    BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, new Vector3(5, 2, 6),i);
                     spawners[i].addBadVibe(bv);
                     bvcount++;
                 }
