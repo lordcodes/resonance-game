@@ -16,12 +16,17 @@ namespace Resonance {
 
         protected int emissionsPerUpdate;
         protected int particlesLeft;
-        protected int maxParticleSpd;
+        protected float maxParticleSpd;
         protected int maxParticleLife;
 
         protected List<Particle> particles;
 
         protected static Random gen = new Random();
+
+        public bool isEmpty() {
+            DebugDisplay.update("PC", particles.Count.ToString());
+            return ((particles.Count == 0) && (particlesLeft == 0));
+        }
 
         public Emitter(Vector3 p) {
             particles = new List<Particle>();
@@ -37,19 +42,17 @@ namespace Resonance {
         /// </summary>
         public void update() {
 
-            // Remove dead particles.
+            // Remove dead particles and update alive ones.
             int killed = 0;
             for (int i = 0; i < particles.Count; ++i) {
-                if (particles.ElementAt(i).isDead()) {
+                if (particles.ElementAt(i - killed).isDead()) {
                     particles.RemoveAt(i - killed);
                     killed++;
+                } else {
+                    particles.ElementAt(i - killed).update();
                 }
             }
 
-            // Update and draw current particles.
-            foreach (Particle p in particles) {
-                p.update();
-            }
 
             // Generate new particles.
             if (particlesLeft > 0) {

@@ -151,7 +151,6 @@ namespace Resonance
                 keyInput();
                 if (!UI.Paused)
                 {
-
                     //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
                     removeDeadBadVibes(deadVibes);
