@@ -104,8 +104,6 @@ namespace Resonance
 
             if (list.Count > 0)
             {
-                //BroadPhaseEntry e = list[0];
-                //DebugDisplay.update("Point query", "" + list.Count + " " + point);
                 return true;
             }
             else return false;
@@ -123,17 +121,17 @@ namespace Resonance
                     var entityCollision = result.HitObject as EntityCollidable;
                     if (entityCollision != null)
                     {
-                        DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING DYNAMIC");
+                        //DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING DYNAMIC");
                         objects.Add(getObject(entityCollision.Entity.Tag.ToString()));
                     }
                     else
                     {
-                        DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING STATIC");
+                        //DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING STATIC");
                         objects.Add(getObject(result.HitObject.Tag.ToString()));
                     }
                 }
             }
-            else DebugDisplay.update("RAYCAST", "I CANT SEE ANYTHING");
+            //else DebugDisplay.update("RAYCAST", "I CANT SEE ANYTHING");
             return objects;
         }
 
@@ -242,10 +240,10 @@ namespace Resonance
                     addObject(bv);
                     bv.calculateSize();
                 }
-                if (obj.list[i].type.Equals("Pickup") == true)
+                if (obj.list[i].type.Equals("House") == true)
                 {
-                    //p = new Pickup(GameModels.PICKUP, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord), obj.list[i].pickuptype, 60); //TODO: fix xml
-                    //addObject(p);
+                    mush = new StaticObject(GameModels.HOUSE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(mush);
                 }
             }
             BVSpawnManager.addNewSpawner(12, 12, 3);
