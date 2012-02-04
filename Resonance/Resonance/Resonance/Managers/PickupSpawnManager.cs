@@ -13,6 +13,7 @@ namespace Resonance
         private static int MAX_PICKUP_TIME_LIVE = 600;
         private static int MIN_PICKUP_TIME_EFFECT = 600; //length of time the pickup has an effect
         private static int MAX_PICKUP_TIME_EFFECT = 1200;
+        private static int DISTANCE_FROM_PLAYER = 100;
 
         private int numPickups;
         private int totalNumPickups;
@@ -38,20 +39,32 @@ namespace Resonance
 
                 while (!placed)
                 {
+                    Vector3 gvPos = Game.getGV().Body.Position;
+
+                    int minX = (int)gvPos.X - DISTANCE_FROM_PLAYER;
+                    if (minX < (int)-World.MAP_X) minX = (int)-World.MAP_X;
+
+                    int maxX = (int)gvPos.X + DISTANCE_FROM_PLAYER;
+                    if (maxX > (int)World.MAP_X) maxX = (int)World.MAP_X;
+
+                    int minZ = (int)gvPos.Z - DISTANCE_FROM_PLAYER;
+                    if (minZ < (int)-World.MAP_Z) minZ = (int)-World.MAP_Z;
+
+                    int maxZ = (int)gvPos.Z + DISTANCE_FROM_PLAYER;
+                    if (maxZ > (int)World.MAP_Z) maxZ = (int)World.MAP_Z;
+
                     Random r = new Random((int)DateTime.Now.Ticks);
-                    int x = r.Next((int)-World.MAP_X, (int)World.MAP_X);
-                    int z = r.Next((int)-World.MAP_Z, (int)World.MAP_Z);
+                    //int x = r.Next((int)-World.MAP_X, (int)World.MAP_X);
+                    //int z = r.Next((int)-World.MAP_Z, (int)World.MAP_Z);
+
+                    int x = r.Next(minX, maxX);
+                    int z = r.Next(minZ, maxZ);
 
                     Vector3 pos = new Vector3((float)x, 0.5f, (float)z);
+                    double distance = Vector3.Distance(gvPos, pos);
 
-                    Vector3 goodVibePosition = Game.getGV().Body.Position;
-                    double xDiff = Math.Abs(goodVibePosition.X - pos.X);
-                    double yDiff = Math.Abs(goodVibePosition.Y - pos.Y);
-                    double zDiff = Math.Abs(goodVibePosition.Z - pos.Z);
-                    double distance = Math.Sqrt(Math.Pow(xDiff, 2) + Math.Pow(yDiff, 2) + Math.Pow(zDiff, 2));
-
-                    if (distance < 100)
-                    {
+                    //if (distance < 100)
+                    //{
                         if (!Program.game.World.querySpace(pos))
                         {
                             placed = true;
@@ -62,7 +75,7 @@ namespace Resonance
                             totalNumPickups++;
                             numPickups++;
                         }
-                    }
+                    //}
                 }
             }
         }
