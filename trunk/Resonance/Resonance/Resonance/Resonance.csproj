@@ -113,7 +113,6 @@
     <Compile Include="Drawing\ParticleEngine\Particle.cs" />
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
     <Compile Include="Managers\AIManager.cs" />
-    <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
     <Compile Include="Managers\ParticleEmitterManager.cs" />
     <Compile Include="Managers\DrumManager.cs" />
@@ -124,6 +123,7 @@
     <Compile Include="Managers\PickupSpawnManager.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="Managers\Utility.cs" />
+    <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="ThreadRun.cs" />

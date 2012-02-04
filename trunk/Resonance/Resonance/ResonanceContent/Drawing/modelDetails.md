@@ -4,14 +4,15 @@ tree,		Models\tree.fbx
 treePhysics,Models\tree-physics.fbx
 house,		Models\house.fbx
 goodVibe,	Models\GoodVibe.fbx
+ShieldGoodVibe, Models\GoodVibeShield.fbx
 terrain,	Models\terrain.fbx
 terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
-ShieldGoodVibe, Models\GoodVibeShield.fbx
-BV_animated, Models\bad_vibe_animation.fbx
+badVibe, Models\BadVibe.fbx
+badVibePhysics, Models\BadVibe-physics.fbx
 BV_Spawner, Models\BV_Spawner.fbx
 --dude        Models\dude.fbx
 
@@ -36,12 +37,11 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Texture delay(ms)-|--Start texture anim.--|-Model Animation (if needed)-|
 1,			tree,					1,		treePhysics,			1
 2,			house,					1,		house,					1
-3,			BV_animated,			0.2,	box,					3.5,			allColours,							0,						0,						1
-4,			goodVibe,				0.5,	spaceShip,				0.2,			pulseGreyToRed,						40,						0,
+3,			badVibe,			    0.1,	badVibePhysics,			0.1,			allColours,							0,						0,						1
+4,			goodVibe,				0.35,	spaceShip,				0.35,			pulseGreyToRed,						40,						0,
 5,			terrain64,			    250,	terrain,			    250,			tronFloor,							0,						0,						0
 6,			house,					1,		house,					1,
 7,			wave,					1,		wave,					1,				allColours,							0,						
-----8,			pickup,					2,		pickup,					2
 8,			box,					2,		pickup,					2,				animationTest,						80,						1
-9,         ShieldGoodVibe,         0.5,    spaceShip,              0.2
-10,        BV_Spawner,              0.5,     box,                 0.5
+9,          ShieldGoodVibe,         0.5,    spaceShip,              0.2
+10,         BV_Spawner,             0.5,    box,                    0.5

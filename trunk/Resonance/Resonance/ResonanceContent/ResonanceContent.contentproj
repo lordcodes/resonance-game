@@ -47,13 +47,13 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\BadVibe.fbx">
+    <Compile Include="Drawing\Models\BadVibe.fbx">
       <Name>BadVibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </None>
-    <Compile Include="Drawing\Models\bad_vibe_animation.fbx">
-      <Name>bad_vibe_animation</Name>
+    </Compile>
+    <Compile Include="Drawing\Models\BadVibe-physics.fbx">
+      <Name>BadVibe-physics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
