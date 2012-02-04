@@ -34,7 +34,7 @@ namespace Resonance
             int z = r.Next((int)-World.MAP_Z, (int)World.MAP_Z);
             if (debugSwtich)
             {
-                pos = new Vector3(1f, 0.5f, 1f);
+                pos = new Vector3(5f, 0.5f, 5f);
             }
             else
             {
