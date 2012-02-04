@@ -137,7 +137,6 @@ namespace Resonance
             // TODO: Unload any non ContentManager content here
         }
 
-        bool x = true;
         /// <summary>
         /// Allows the game to run logic such as updating the world,
         /// checking for collisions, gathering input, and playing audio.
@@ -153,7 +152,6 @@ namespace Resonance
                 if (!UI.Paused)
                 {
 
-                    //if (x) {ParticleEmitterManager.addEmitter(new TestEmitter( new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z))); x = false;}
                     //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
                     removeDeadBadVibes(deadVibes);
