@@ -19,8 +19,8 @@ namespace Resonance {
             blastVec = blast;
             emissionsPerUpdate = 100;
             particlesLeft = 100;
-            maxParticleSpd = 1f;
-            maxParticleLife = 50;
+            maxParticleSpd = 1.2f;
+            maxParticleLife = 70;
             iPSize = 0.4f;
             iColour = c;
         }
@@ -52,7 +52,7 @@ namespace Resonance {
                     posOffset *= bVRad;
                     pos += posOffset;
 
-                    Vector3 gravity = new Vector3(0f, -1f, 0f);
+                    Vector3 gravity = new Vector3(0f, -0.1f, 0f);
 
                     if (gen.Next() % 5 == 0) {
                         particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity));

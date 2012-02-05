@@ -79,6 +79,10 @@ namespace Resonance {
             rotation += spin;
             colour = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f, (colour.A / 255f) - dAlpha);
             lifespan--;
+            
+            if (force != Vector3.Zero) {
+                direction += force;
+            }
         }
     }
 }
