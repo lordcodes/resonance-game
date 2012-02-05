@@ -45,7 +45,7 @@ namespace Resonance {
             pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texPixel");
 
             // Default p size
-            iPSize = 0.02f;
+            iPSize = 0.05f;
 
             // Default colour
             iColour = new Color(1f, 1f, 1f, 1f);
@@ -71,7 +71,7 @@ namespace Resonance {
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour));
+                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f));
                     particlesLeft--;
 
                     if (particlesLeft <= 0) break;

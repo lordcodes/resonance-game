@@ -19,6 +19,10 @@ namespace Resonance {
         int lifespan; // Number of frames for which this particle is alive.
         Color colour;
         float size;
+        Vector3 rotation;
+        Vector3 spin;
+
+        float dAlpha;
 
 
         /// Properties
@@ -35,6 +39,10 @@ namespace Resonance {
             return pos;
         }
 
+        public Vector3 getRotation() {
+            return rotation;
+        }
+
         public Color getColour() {
             return colour;
         }
@@ -42,19 +50,24 @@ namespace Resonance {
         /// <summary>
         /// Constructor
         /// </summary>
-        public Particle(Vector3 p, Vector3 iDirection, float iSpeed, float s, int iLife, Color c) {
+        public Particle(Vector3 p, Vector3 iDirection, float iSpeed, float s, int iLife, Color c, float iAlpha) {
             speed = iSpeed;
             pos = p;
             direction = iDirection;
             size = s;
             lifespan = iLife;
             colour = c;
+            dAlpha = iAlpha / iLife;
+            rotation = Vector3.Zero;
+            spin = new Vector3(1f, 1f, 1f);
         }
 
 
         // s only used for testing
         public void update() {
             pos += (direction * speed);
+            rotation += spin;
+            colour = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f, (colour.A / 255f) - dAlpha);
             lifespan--;
         }
     }
