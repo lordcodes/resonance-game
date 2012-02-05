@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
 
 namespace Resonance {
     /// <summary>
@@ -12,6 +13,7 @@ namespace Resonance {
     class Emitter {
         
         /// Fields
+
         public Vector3 pos;
 
         protected int emissionsPerUpdate;
@@ -20,6 +22,7 @@ namespace Resonance {
         protected int maxParticleLife;
 
         protected List<Particle> particles;
+        protected Texture2D pTex;
 
         protected static Random gen = new Random();
 
@@ -28,13 +31,42 @@ namespace Resonance {
             return ((particles.Count == 0) && (particlesLeft == 0));
         }
 
+        public Texture2D getPTex() {
+            return pTex;
+        }
+
         public Emitter(Vector3 p) {
             particles = new List<Particle>();
             pos = p;
+
+            // Default texture
+            pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texPixel");
         }
 
         public List<Particle> getParticles() {
             return particles;
+        }
+
+        /// <summary>
+        /// Generates the new particles for this update.
+        /// </summary>
+        private void generateParticles() {
+            if (particlesLeft > 0) {
+                for (int i = 0; i < emissionsPerUpdate; ++i) {
+                    Vector3 iDir = new Vector3((float)gen.NextDouble(), (float)gen.NextDouble(), (float)gen.NextDouble());
+                    if (gen.Next() % 2 == 0) iDir.X *= -1;
+                    if (gen.Next() % 2 == 0) iDir.Y *= -1;
+                    if (gen.Next() % 2 == 0) iDir.Z *= -1;
+                    iDir.Normalize();
+
+                    float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
+                    int   iLife = gen.Next(maxParticleLife);
+                    particles.Add(new Particle(pos, iDir, iSpd, iLife, Color.White));
+                    particlesLeft--;
+
+                    if (particlesLeft <= 0) break;
+                }
+            }
         }
 
         /// <summary>
@@ -53,24 +85,8 @@ namespace Resonance {
                 }
             }
 
-
             // Generate new particles.
-            if (particlesLeft > 0) {
-                for (int i = 0; i < emissionsPerUpdate; ++i) {
-                    if (particlesLeft <= 0) break;
-
-                    Vector3 iDir = new Vector3((float)gen.NextDouble(), (float)gen.NextDouble(), (float)gen.NextDouble());
-                    if (gen.Next() % 2 == 0) iDir.X *= -1;
-                    if (gen.Next() % 2 == 0) iDir.Y *= -1;
-                    if (gen.Next() % 2 == 0) iDir.Z *= -1;
-                    iDir.Normalize();
-
-                    float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
-                    int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iLife, Color.White));
-                    particlesLeft--;
-                }
-            }
+            generateParticles();
         }
     }
 }

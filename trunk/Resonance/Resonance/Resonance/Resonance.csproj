@@ -108,6 +108,7 @@
     <Compile Include="Drawing\Graphics\ImportedGameModels.cs" />
     <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Drawing\Graphics\GameModelInstance.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\ArmourShatter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
     <Compile Include="Drawing\ParticleEngine\Particle.cs" />

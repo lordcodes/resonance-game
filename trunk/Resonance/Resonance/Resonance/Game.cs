@@ -109,7 +109,7 @@ namespace Resonance
 
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             MenuActions.loadLevel(1);
-            ParticleEmitterManager.initialise();
+            ParticleEmitterManager.initialise(Content);
 
             double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
             DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());

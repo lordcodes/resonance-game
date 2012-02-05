@@ -102,6 +102,7 @@
     <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Drawing\Hud\Hud.cs" />
     <Compile Include="Drawing\Hud\MiniMap.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\ArmourShatter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />

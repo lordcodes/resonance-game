@@ -46,8 +46,6 @@ namespace Resonance {
         public void update() {
             pos += (direction * speed);
             lifespan--;
-
-            //s.Draw(Hud.getBlock(), new Rectangle((int) pos.X, (int) pos.Y, 1, 1), null, colour, 0f, Vector2.Zero, SpriteEffects.None, 0f);
         }
     }
 }

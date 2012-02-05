@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Content;
 
 namespace Resonance {
 
@@ -10,6 +11,8 @@ namespace Resonance {
     /// </summary>
     class ParticleEmitterManager {
 
+        public static ContentManager Content;
+
         // Holds all currently existing emitters.
         private static List<Emitter> emitters;
 
@@ -17,7 +20,8 @@ namespace Resonance {
             return emitters;
         }
 
-        public static void initialise() {
+        public static void initialise(ContentManager c) {
+            Content = c;
             emitters = new List<Emitter>();
         }
 
