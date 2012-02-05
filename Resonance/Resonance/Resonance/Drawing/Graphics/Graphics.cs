@@ -19,20 +19,8 @@ namespace Resonance
         private static Matrix world;
         private static Matrix view;
         private static Matrix projection;
-
-        private static Vector3 ambientLightColor;
-        private static Vector3 diffuseColor;
-
-        private static Vector3 lightDirection;
-        private static Vector3 diffuseLightColor;
-        private static Vector3 lightDirection2;
-        private static Vector3 diffuseLightColor2;
-
-        private static Vector4 specularColorPower;
-        private static Vector3 specularLightColor;
         private static Vector3 cameraPosition;
         private static Vector3 cameraCoords;
-
         private static DisplacementMap dispMap;
 
         // Reduce this variable if the shockwave is causing frame rate to suffer
@@ -86,31 +74,10 @@ namespace Resonance
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
             view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
             world = Matrix.Identity;
-
-            ambientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
-            diffuseColor = new Vector3(0.3f, 0.3f, 0.3f);
-
-            diffuseLightColor = new Vector3(0.9f, 0.9f, 0.9f);
-            lightDirection = new Vector3(0.5f, -0.5f, 0.6f);
-            lightDirection.Normalize();
-
-            diffuseLightColor2 = new Vector3(0.4f, 0.35f, 0.4f);
-            lightDirection2 = new Vector3(0.45f, -0.8f, 0.45f);
-            lightDirection2.Normalize();
-
-            specularColorPower = new Vector4(1, 1, 1, 128.0f);
-
-            specularLightColor = new Vector3(0.15f, 0.15f, 0.15f);
-
             shaders = new Shaders();
-            shaders.Default.Parameters["World"].SetValue(Matrix.Identity);
-            shaders.Default.Parameters["View"].SetValue(view);
-            shaders.Default.Parameters["Projection"].SetValue(projection);
+            shaders.Default.sceneSetup(world, view, projection, Vector3.Zero);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-
             dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
-
-            //bumpMap.SetData
         }
 
         public void addWave(Vector2 position)
@@ -150,21 +117,8 @@ namespace Resonance
 
         public void draw2dTexture(Texture2D texture, Matrix world, float width, float height)
         {
-            shaders.Default.Parameters["World"].SetValue(world);
             shaders.Default.Parameters["DoDisp"].SetValue(false);
-            shaders.Default.Parameters["View"].SetValue(view);
-            shaders.Default.Parameters["Projection"].SetValue(projection);
-            shaders.Default.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
-            shaders.Default.Parameters["LightDirection"].SetValue(-lightDirection);
-            shaders.Default.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
-            shaders.Default.Parameters["LightDirection2"].SetValue(-lightDirection2);
-            shaders.Default.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
-            shaders.Default.Parameters["SpecularLightColor"].SetValue(specularLightColor);
-            shaders.Default.Parameters["CameraPosition"].SetValue(cameraPosition);
-            shaders.Default.Parameters["SpecularColorPower"].SetValue(specularColorPower);
-            shaders.Default.Parameters["ColorTexture"].SetValue(texture);
-            graphics.GraphicsDevice.Textures[0] = texture;
-            shaders.Default.applyPass(0);
+            shaders.Default.sceneSetup(world, view, projection, cameraPosition, texture);
             shaders.Default.applyTechnique(shaders.Default.Techniques["StaticObject"]);
 
             int number_of_vertices = 4;
@@ -225,17 +179,8 @@ namespace Resonance
             foreach (EffectPass pass in shaders.Default.Passes)
             {
                 pass.Apply();
-                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(
-                        PrimitiveType.TriangleList,
-                        vertices,
-                        0,   // vertex buffer offset to add to each element of the index buffer
-                        4,  // number of vertices to draw
-                        indices,
-                        0,   // first index element to read
-                        2   // number of primitives to draw
-                    );
+                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList,vertices,0,4,indices,0,2);
             }
-
 
             //graphics.GraphicsDevice.BlendState = BlendState.Opaque;
         }
@@ -245,41 +190,35 @@ namespace Resonance
         {
 
             //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
             Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
-
             Matrix theView = view;
             Vector3 cameraPosition2 = cameraPosition;
             Matrix projection2 = projection;
-
 
             if (drawingReflection)
             {
                 Vector3 cameraCoords = new Vector3(0, -10f, 0.1f);
                 Quaternion orientation = Game.getGV().Body.Orientation;
-                //Vector3 gvrotation = DynamicObject.QuaternionToEuler(orientation);
-                //Vector3 rotation = new Vector3(gvrotation.X, gvrotation.Y, gvrotation.Z);
                 Vector3 rotation = Vector3.Zero;
                 Vector3 position = Game.getGV().Body.Position;
                 Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-                //cameraPosition2 = Vector3.Transform(cameraCoords, goodVibeRotation);
                 theView = Matrix.CreateLookAt(cameraCoords, Vector3.Zero, Vector3.Down);
-                //projection2 = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, 1, 1.0f, 1000.0f);
                 float plus = -2.0f;
                 projection2 = Matrix.CreateOrthographic(World.MAP_X+plus, World.MAP_Z+plus, 1.0f, 1000.0f);
             }
+
             shaders.Default.Parameters["DoDisp"].SetValue(disp);
+
             if (disp)
             {
                 try
                 {
                     shaders.Default.Parameters["DispMap"].SetValue(dispMap.getMap());
                     Vector2 pos = Drawing.groundPos(Game.getGV().Body.Position, true);
-                    //DebugDisplay.update("gp", pos+"");
                     shaders.Default.Parameters["gvPos"].SetValue(pos);
                 }
                 catch (Exception)
@@ -287,22 +226,12 @@ namespace Resonance
                     shaders.Default.Parameters["gvPos"].SetValue(Vector2.Zero);
                 }
             }
+
             shaders.Default.Parameters["DispMap"].SetValue(dispMap.getMap());
-            shaders.Default.Parameters["View"].SetValue(theView);
-            shaders.Default.Parameters["Projection"].SetValue(projection2);
-            shaders.Default.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
-            shaders.Default.Parameters["LightDirection"].SetValue(-lightDirection);
-            shaders.Default.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
-            shaders.Default.Parameters["LightDirection2"].SetValue(-lightDirection2);
-            shaders.Default.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
-            shaders.Default.Parameters["SpecularLightColor"].SetValue(specularLightColor);
-            shaders.Default.Parameters["CameraPosition"].SetValue(cameraPosition2);
-            shaders.Default.Parameters["SpecularColorPower"].SetValue(specularColorPower);
 
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
             if (colorTexture == null) colorTexture = modelVariables.Texture;
-            shaders.Default.Parameters["ColorTexture"].SetValue(colorTexture);
-            graphics.GraphicsDevice.Textures[0] = colorTexture;
+            shaders.Default.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
 
             foreach (ModelMesh mesh in m.Meshes)
             {
@@ -323,16 +252,13 @@ namespace Resonance
                 {
                     graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
                     graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                    shaders.Default.Parameters["DiffuseColor"].SetValue(diffuseColor);
                     foreach (EffectPass pass in shaders.Default.Passes)
                     {
                         pass.Apply();
                         graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                     }
                 }
-
             }
         }
-
     }
 }
