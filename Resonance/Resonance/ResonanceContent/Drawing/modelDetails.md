@@ -16,6 +16,7 @@ badVibePhysics, Models\BadVibe-physics.fbx
 BV_Spawner, Models\BV_Spawner.fbx
 --dude        Models\dude.fbx
 x2,			Models\x2.fbx
+BV_Explosion, Models\BVExplosion.fbx
 
 TEXTURES
 -Texture Ref-|--Files Name(s)--|
@@ -47,3 +48,4 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 9,          ShieldGoodVibe,         0.5,    spaceShip,              0.2
 10,         BV_Spawner,             0.5,    box,                    0.5
 11,			x2,						0.5,		x2,						0.5
+12,         BV_Explosion,           0.1,    BV_Explosion,           0.1
