@@ -21,6 +21,7 @@ namespace Resonance {
         float size;
         Vector3 rotation;
         Vector3 spin;
+        Vector3 force;
 
         float dAlpha;
 
@@ -50,7 +51,15 @@ namespace Resonance {
         /// <summary>
         /// Constructor
         /// </summary>
-        public Particle(Vector3 p, Vector3 iDirection, float iSpeed, float s, int iLife, Color c, float iAlpha) {
+        /// <param name="p">          Initial particle position.               </param>
+        /// <param name="iDirection"> Initial direction of travel.             </param>
+        /// <param name="iSpeed">     Initial speed.                           </param>
+        /// <param name="s">          Initial size.                            </param>
+        /// <param name="iLife">      Lifespan (in frames).                    </param>
+        /// <param name="c">          Initial colour.                          </param>
+        /// <param name="iAlpha">     Initial alpha transparency.              </param>
+        /// <param name="f">          Constantly applied force (e.g. gravity). </param>
+        public Particle(Vector3 p, Vector3 iDirection, float iSpeed, float s, int iLife, Color c, float iAlpha, Vector3 f) {
             speed = iSpeed;
             pos = p;
             direction = iDirection;
@@ -60,6 +69,7 @@ namespace Resonance {
             dAlpha = iAlpha / iLife;
             rotation = Vector3.Zero;
             spin = new Vector3(1f, 1f, 1f);
+            force = f;
         }
 
 

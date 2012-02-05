@@ -71,7 +71,7 @@ namespace Resonance {
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f));
+                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero));
                     particlesLeft--;
 
                     if (particlesLeft <= 0) break;
