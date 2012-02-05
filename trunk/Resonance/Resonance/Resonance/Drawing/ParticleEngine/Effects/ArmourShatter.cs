@@ -10,19 +10,31 @@ namespace Resonance {
 
         // The direction in which the armour layer is being blasted.
         Vector3 blastVec;
+
+        // The 'spread' of the particles in the blast.
         float radius = 1.75f;
+
+        // Reference to the bad vibe.
         BadVibe bVRef;
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="p">     The position of the emitter (in this case, the bad vibe) </param>
+        /// <param name="blast"> The direction of the blast (away from the shockwave.)    </param>
+        /// <param name="c">     The initial colour.                                      </param>
+        /// <param name="v">     Bad Vibe reference.                                      </param>
         public ArmourShatter(Vector3 p, Vector3 blast, Color c, BadVibe v) : base(p) {
-            pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texTriangle");
-            bVRef = v;
-            blastVec = blast;
+            pTex               = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texTriangle");
+            bVRef              = v;
+            blastVec           = blast;
             emissionsPerUpdate = 100;
-            particlesLeft = 100;
-            maxParticleSpd = 1.2f;
-            maxParticleLife = 70;
-            iPSize = 0.4f;
-            iColour = c;
+            particlesLeft      = 100;
+            maxParticleSpd     = 1.2f;
+            maxParticleLife    = 50;
+            iPSize             = 0.4f;
+            iColour            = c;
+            deceleration       = 0.025f;
         }
 
         /// <summary>
@@ -52,16 +64,16 @@ namespace Resonance {
                     posOffset *= bVRad;
                     pos += posOffset;
 
-                    Vector3 gravity = new Vector3(0f, -0.1f, 0f);
+                    Vector3 gravity = new Vector3(0f, -0.05f, 0f);
 
                     if (gen.Next() % 5 == 0) {
-                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity));
+                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, true));
                     } else {
-                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, Color.Black, 1f, gravity));
+                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, Color.Black, 1f, gravity, deceleration, true));
                     }
                     particlesLeft--;
 
-                    if (particlesLeft <= 0) break;
+                    if (particlesLeft <= 0) break; 
                 }
             }
         }

@@ -21,6 +21,7 @@ namespace Resonance {
         protected int   maxParticleLife;
         protected float maxParticleSpd;
         protected float iPSize;
+        protected float deceleration;
         protected Color iColour;
 
         protected List<Particle> particles;
@@ -47,6 +48,9 @@ namespace Resonance {
             // Default p size
             iPSize = 0.05f;
 
+            // Default p deceleration
+            deceleration = 0f;
+
             // Default colour
             iColour = new Color(1f, 1f, 1f, 1f);
 
@@ -71,7 +75,7 @@ namespace Resonance {
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero));
+                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero, deceleration, false));
                     particlesLeft--;
 
                     if (particlesLeft <= 0) break;

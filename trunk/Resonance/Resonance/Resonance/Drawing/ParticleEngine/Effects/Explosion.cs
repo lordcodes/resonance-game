@@ -10,10 +10,10 @@ namespace Resonance {
         public Explosion(Vector3 p)
             : base(p) {
             emissionsPerUpdate = 500;
-            particlesLeft = 500;
-            maxParticleSpd = 0.6f;
-            maxParticleLife = 30;
-            iColour = Color.White;
+            particlesLeft      = 500;
+            maxParticleSpd     = 0.6f;
+            maxParticleLife    = 30;
+            iColour            = Color.White;
         }
 
         protected override void generateParticles() {
@@ -29,9 +29,9 @@ namespace Resonance {
                     int   iLife = gen.Next(maxParticleLife);
 
                     if (gen.Next() % 4 == 0) { 
-                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero));
+                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero, deceleration, false));
                     } else {
-                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, Color.Black, 1f, Vector3.Zero));
+                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, Color.Black, 1f, Vector3.Zero, deceleration, false));
                     }
                     particlesLeft--;
 
