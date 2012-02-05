@@ -18,12 +18,17 @@ namespace Resonance {
         Vector3 direction; // Normalised direction of movement vector.
         int lifespan; // Number of frames for which this particle is alive.
         Color colour;
+        float size;
 
 
         /// Properties
 
         public bool isDead() {
             return (lifespan <= 0);
+        }
+
+        public float getSize() {
+            return size;
         }
 
         public Vector3 getPos() {
@@ -33,10 +38,11 @@ namespace Resonance {
         /// <summary>
         /// Constructor
         /// </summary>
-        public Particle(Vector3 p, Vector3 iDirection, float iSpeed, int iLife, Color c) {
+        public Particle(Vector3 p, Vector3 iDirection, float iSpeed, float s, int iLife, Color c) {
             speed = iSpeed;
             pos = p;
             direction = iDirection;
+            size = s;
             lifespan = iLife;
             colour = c;
         }

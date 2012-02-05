@@ -270,11 +270,12 @@ namespace Resonance
                     try {
                         //Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
                         //pos += p.getPos();
-                        Vector3 pos = p.getPos();
+                        Vector3 pos  = p.getPos();
+                        float   size = p.getSize();
                         Matrix texturePos = Matrix.CreateTranslation(pos);
                         Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
                         texturePos = Matrix.Multiply(rotation, texturePos);
-                        gameGraphics.draw2dTexture(e.getPTex(), texturePos, 0.02f, 0.02f);
+                        gameGraphics.draw2dTexture(e.getPTex(), texturePos, size, size);
                     } catch (Exception) {}
                 }
             }

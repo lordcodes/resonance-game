@@ -16,10 +16,11 @@ namespace Resonance {
 
         public Vector3 pos;
 
-        protected int emissionsPerUpdate;
-        protected int particlesLeft;
+        protected int   emissionsPerUpdate;
+        protected int   particlesLeft;
+        protected int   maxParticleLife;
         protected float maxParticleSpd;
-        protected int maxParticleLife;
+        protected float iPSize;
 
         protected List<Particle> particles;
         protected Texture2D pTex;
@@ -41,6 +42,11 @@ namespace Resonance {
 
             // Default texture
             pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texPixel");
+
+            // Default p size
+            iPSize = 0.02f;
+
+            ParticleEmitterManager.addEmitter(this);
         }
 
         public List<Particle> getParticles() {
@@ -50,7 +56,7 @@ namespace Resonance {
         /// <summary>
         /// Generates the new particles for this update.
         /// </summary>
-        private void generateParticles() {
+        protected virtual void generateParticles() {
             if (particlesLeft > 0) {
                 for (int i = 0; i < emissionsPerUpdate; ++i) {
                     Vector3 iDir = new Vector3((float)gen.NextDouble(), (float)gen.NextDouble(), (float)gen.NextDouble());
@@ -61,7 +67,7 @@ namespace Resonance {
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iLife, Color.White));
+                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, Color.White));
                     particlesLeft--;
 
                     if (particlesLeft <= 0) break;
@@ -72,8 +78,7 @@ namespace Resonance {
         /// <summary>
         /// The basic Emitter update method. Can be overridden by subclasses.
         /// </summary>
-        public void update() {
-
+        public virtual void update() {
             // Remove dead particles and update alive ones.
             int killed = 0;
             for (int i = 0; i < particles.Count; ++i) {

@@ -85,7 +85,19 @@ namespace Resonance
         {
             if (state != State.DEAD)
             {
-                armour.breakLayer(colour, this);
+                armour.breakLayer(colour, this, Vector3.Zero);
+                if (state != State.DEAD)
+                {
+                    setColour();
+                }
+            }
+        }
+
+        public void damage(int colour, Vector3 blast)
+        {
+            if (state != State.DEAD)
+            {
+                armour.breakLayer(colour, this, blast);
                 if (state != State.DEAD)
                 {
                     setColour();
@@ -95,7 +107,7 @@ namespace Resonance
 
         public void kill()
         {
-            ParticleEmitterManager.addEmitter(new Explosion(Body.Position));
+            new Explosion(Body.Position);
             state = State.DEAD;
             Drawing.addWave(Body.Position);
         }
@@ -249,7 +261,7 @@ namespace Resonance
             /// Break the amour layer
             /// </summary>
             /// <param name="colour">The colour of wave</param>
-            public void breakLayer(int colour, BadVibe vibe)
+            public void breakLayer(int colour, BadVibe vibe, Vector3 blast)
             {
                 if (sequence[0] == colour)
                 {
@@ -285,6 +297,11 @@ namespace Resonance
                                 break;
                             }
                     }
+
+                    if ((sequence[0] != Shockwave.REST) && (sequence[0] != Shockwave.CYMBAL)) {
+                        new ArmourShatter(vibe.Body.Position, blast);
+                    }
+
                     sequence.RemoveAt(0);
                 }
                 if (sequence.Count == 0)

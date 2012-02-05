@@ -107,7 +107,9 @@ namespace Resonance
                     {
                         //Collision
                         bVibes.Add(bv);
-                        bv.damage(colour);
+
+                        Vector3 blast = bv.Body.Position - position;
+                        bv.damage(colour, blast);
                     }
                 }
             }
