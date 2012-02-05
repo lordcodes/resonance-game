@@ -21,6 +21,7 @@ namespace Resonance {
         protected int   maxParticleLife;
         protected float maxParticleSpd;
         protected float iPSize;
+        protected Color iColour;
 
         protected List<Particle> particles;
         protected Texture2D pTex;
@@ -46,6 +47,9 @@ namespace Resonance {
             // Default p size
             iPSize = 0.02f;
 
+            // Default colour
+            iColour = new Color(1f, 1f, 1f, 1f);
+
             ParticleEmitterManager.addEmitter(this);
         }
 
@@ -67,7 +71,7 @@ namespace Resonance {
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, Color.White));
+                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour));
                     particlesLeft--;
 
                     if (particlesLeft <= 0) break;

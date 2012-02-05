@@ -35,6 +35,10 @@ namespace Resonance {
             return pos;
         }
 
+        public Color getColour() {
+            return colour;
+        }
+
         /// <summary>
         /// Constructor
         /// </summary>
