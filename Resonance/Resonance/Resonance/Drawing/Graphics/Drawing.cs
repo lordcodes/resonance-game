@@ -268,13 +268,19 @@ namespace Resonance
                 DebugDisplay.update("P Count", e.getParticles().Count.ToString());
                 foreach (Particle p in e.getParticles()) {
                     try {
-                        //Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
-                        //pos += p.getPos();
                         Vector3 pos = p.getPos();
                         float size = p.getSize();
                         Matrix texturePos = Matrix.CreateTranslation(pos);
-                        Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
-                        texturePos = Matrix.Multiply(rotation, texturePos);
+
+                        Vector3 rotation = p.getRotation();
+
+                        if (rotation != Vector3.Zero) {
+                            Matrix rX = Matrix.CreateRotationX(rotation.X);
+                            Matrix rY = Matrix.CreateRotationY(rotation.Y);
+                            Matrix rZ = Matrix.CreateRotationZ(rotation.Z);
+                            texturePos = Matrix.Multiply(rX, Matrix.Multiply(rY, Matrix.Multiply(rZ, texturePos)));
+                        }
+
                         gameGraphics.drawParticle(e.getPTex(), texturePos, size, size, p.getColour());
                     } catch (Exception) {}
                 }

@@ -10,14 +10,14 @@ namespace Resonance {
 
         // The direction in which the armour layer is being blasted.
         Vector3 blastVec;
-        float radius = 5f;
+        float radius = 2f;
 
         public ArmourShatter(Vector3 p, Vector3 blast, Color c) : base(p) {
             pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texTriangle");
             blastVec = blast;
-            emissionsPerUpdate = 300;
-            particlesLeft = 300;
-            maxParticleSpd = 0.6f;
+            emissionsPerUpdate = 200;
+            particlesLeft = 200;
+            maxParticleSpd = 1.2f;
             maxParticleLife = 8;
             iPSize = 0.5f;
             iColour = c;
@@ -36,9 +36,9 @@ namespace Resonance {
 
                     iDir.Normalize();
 
-                    float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
+                    float iSpd  = maxParticleSpd;//(float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour));
+                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f));
                     particlesLeft--;
 
                     if (particlesLeft <= 0) break;
