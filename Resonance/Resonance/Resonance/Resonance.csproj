@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModel.cs" />
+    <Compile Include="Drawing\Graphics\Shaders\ParticleShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\DefaultShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\GroundShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shader.cs" />

@@ -154,6 +154,11 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Shaders\Particle.fx">
+      <Name>Particle</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Textures\texBadVibe.jpg">
       <Name>texBadVibe</Name>
       <Importer>TextureImporter</Importer>

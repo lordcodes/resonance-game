@@ -115,10 +115,20 @@ namespace Resonance
             if (dispMap != null) dispMap.update(playerPos);
         }
 
-        public void draw2dTexture(Texture2D texture, Matrix world, float width, float height)
+        public void drawParticle(Texture2D texture, Matrix world, float width, float height)
         {
-            shaders.Default.sceneSetup(world, view, projection, cameraPosition, texture);
-            shaders.Default.applyTechnique(shaders.Default.Techniques["StaticObject"]);
+            draw2dTexture(shaders.Particle, texture, world, width, height);
+        }
+
+        public void drawTexture(Texture2D texture, Matrix world, float width, float height)
+        {
+            draw2dTexture(shaders.Default, texture, world, width, height);
+        }
+
+        private void draw2dTexture(Shader shader, Texture2D texture, Matrix world, float width, float height)
+        {
+            shader.sceneSetup(world, view, projection, cameraPosition, texture);
+            shader.applyTechnique(shader.Techniques["StaticObject"]);
 
             int number_of_vertices = 4;
             int number_of_indices = 6;
@@ -175,7 +185,7 @@ namespace Resonance
 
             //graphics.GraphicsDevice.BlendState = BlendState.Additive;
 
-            foreach (EffectPass pass in shaders.Default.Passes)
+            foreach (EffectPass pass in shader.Passes)
             {
                 pass.Apply();
                 graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList,vertices,0,4,indices,0,2);
