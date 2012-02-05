@@ -265,26 +265,31 @@ namespace Resonance
             {
                 if (sequence[0] == colour)
                 {
+                    Color c = new Color (0f, 0f, 0f, 0f);
                     switch (sequence[0])
                     {
                         case Shockwave.GREEN:
                             {
                                 Resonance.Game.getGV().adjustScore(1);
+                                c = new Color(0f, 1f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.YELLOW:
                             {
                                 Resonance.Game.getGV().adjustScore(1);
+                                c = new Color(1f, 1f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.BLUE:
                             {
                                 Resonance.Game.getGV().adjustScore(1);
+                                c = new Color(0f, 0f, 1f, 1f);
                                 break;
                             }
                         case Shockwave.RED:
                             {
                                 Resonance.Game.getGV().adjustScore(1);
+                                c = new Color(1f, 0f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.CYMBAL:
@@ -299,7 +304,7 @@ namespace Resonance
                     }
 
                     if ((sequence[0] != Shockwave.REST) && (sequence[0] != Shockwave.CYMBAL)) {
-                        new ArmourShatter(vibe.Body.Position, blast);
+                        new ArmourShatter(vibe.Body.Position, blast, c);
                     }
 
                     sequence.RemoveAt(0);

@@ -34,7 +34,7 @@ namespace Resonance
 
         public static bool USE_BV_SPAWNER = false;
         public static bool USE_PICKUP_SPAWNER = true;
-        public static bool USE_MAIN_MENU = false;
+        public static bool USE_MAIN_MENU = true;
 
         public static bool onMainMenu = false;
 

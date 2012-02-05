@@ -272,12 +272,10 @@ namespace Resonance
                         //pos += p.getPos();
                         Vector3 pos = p.getPos();
                         float size = p.getSize();
-                        Color colour = Color.Blue;
-                        //colour.A = 128;
                         Matrix texturePos = Matrix.CreateTranslation(pos);
                         Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
                         texturePos = Matrix.Multiply(rotation, texturePos);
-                        gameGraphics.drawParticle(e.getPTex(), texturePos, size, size, colour);
+                        gameGraphics.drawParticle(e.getPTex(), texturePos, size, size, p.getColour());
                     } catch (Exception) {}
                 }
             }
