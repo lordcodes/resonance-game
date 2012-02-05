@@ -48,6 +48,9 @@ namespace Resonance
             body.Tag = name;
         }
 
+        /// <summary>
+        /// Calculates the length of the longest horizontal edge of the bounding box
+        /// </summary>
         public void calculateSize()
         {
             BoundingBox box = Body.CollisionInformation.BoundingBox;
@@ -57,6 +60,21 @@ namespace Resonance
 
             if (x > z) radius = x;
             else radius = z;
+        }
+
+        /// <summary>
+        /// Returns the length of the shortest horizontal edge of the bounding box.
+        /// </summary>
+        /// <returns></returns>
+        public float calculateMinBBEdge()
+        {
+            BoundingBox box = Body.CollisionInformation.BoundingBox;
+
+            double x = Math.Abs(box.Max.X - box.Min.X);
+            double z = Math.Abs(box.Max.Z - box.Min.Z);
+
+            if (x < z) return (float) x;
+            else return (float) z;
         }
 
         public void reset()
