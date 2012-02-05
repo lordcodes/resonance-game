@@ -93,6 +93,7 @@
     <Compile Include="Drawing\Graphics\Models\ImportedGameModels.cs" />
     <Compile Include="Drawing\Graphics\Shaders\DefaultShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\GroundShader.cs" />
+    <Compile Include="Drawing\Graphics\Shaders\ParticleShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shaders.cs" />
     <Compile Include="Drawing\Hud\DebugDisplay.cs" />
