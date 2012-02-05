@@ -26,6 +26,7 @@ namespace Resonance
         public static readonly int SHIELD_GV        = 9;
         public static readonly int BV_SPAWNER       = 10;
         public static readonly int X2               = 11;
+        public static readonly int BV_Exploasion    = 12;
 
         private static ContentManager Content;
 

@@ -74,6 +74,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <None Include="Drawing\Models\BVExplosion.fbx">
+      <Name>BVExplosion</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </None>
     <None Include="Drawing\Models\GoodVibe.fbx">
       <Name>GoodVibe</Name>
       <Importer>FbxImporter</Importer>
