@@ -16,6 +16,7 @@ namespace Resonance
         private int totalBadVibes;
         private int spawnRadius;
         private int totalActive;
+        private int totalSpawned;
         private List<BadVibe> badVibes;
 
         public BVSpawner(int modelNum, String name, Vector3 pos, int TotalBadVibes, int SpawnRadious, int TotalActive)
@@ -25,12 +26,19 @@ namespace Resonance
             totalBadVibes = TotalBadVibes;
             spawnRadius = SpawnRadious;
             totalActive = TotalActive;
+            totalSpawned = 0;
         }
 
         public void addBadVibe(BadVibe bv)
         {
             badVibes.Add(bv);
             Program.game.World.addObject(bv);
+            totalSpawned++;
+        }
+
+        public int getTotalSpawned()
+        {
+            return totalSpawned;
         }
 
         public void removeBadVibe(BadVibe bv)
@@ -53,5 +61,19 @@ namespace Resonance
             return badVibes.Count;
         }
 
+        public Vector3 getSpawnCords()
+        {
+            Vector3 pos;
+            do
+            {
+                Random r = new Random((int)DateTime.Now.Ticks);
+                int x = r.Next((int)(this.OriginalPosition.X - spawnRadius), (int)(this.OriginalPosition.X + spawnRadius));
+                int z = r.Next((int)(this.OriginalPosition.Y - spawnRadius), (int)(this.OriginalPosition.Y + spawnRadius));
+
+                pos = new Vector3((float)x, 0.5f, (float)z);
+            } while (Program.game.World.querySpace(pos));
+
+            return pos;
+        } 
     }
 }
