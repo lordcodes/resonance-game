@@ -265,7 +265,7 @@ namespace Resonance
                         Matrix texturePos = Matrix.CreateTranslation(pos);
                         Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
                         texturePos = Matrix.Multiply(rotation, texturePos);
-                        gameGraphics.Draw2dTextures(texPixel, texturePos, 0.02f, 0.02f);
+                        gameGraphics.Draw2dTextures(e.getPTex(), texturePos, 0.02f, 0.02f);
                     } catch (Exception) {}
                 }
             }

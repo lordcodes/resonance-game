@@ -95,7 +95,7 @@ namespace Resonance
 
         public void kill()
         {
-            ParticleEmitterManager.addEmitter(new TestEmitter(Body.Position));
+            ParticleEmitterManager.addEmitter(new Explosion(Body.Position));
             state = State.DEAD;
             Drawing.addWave(Body.Position);
         }

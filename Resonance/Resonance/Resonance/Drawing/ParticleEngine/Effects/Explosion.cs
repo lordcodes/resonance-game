@@ -9,6 +9,10 @@ namespace Resonance {
 
         public Explosion(Vector3 p)
             : base(p) {
+            emissionsPerUpdate = 800;
+            particlesLeft = 800;
+            maxParticleSpd = 0.6f;
+            maxParticleLife = 30;
         }
     }
 }
