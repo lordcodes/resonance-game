@@ -116,6 +116,7 @@
     <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
     <Compile Include="Drawing\ParticleEngine\Particle.cs" />
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
+    <Compile Include="Drawing\UI\MainMenuScreen.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
     <Compile Include="Managers\ParticleEmitterManager.cs" />
@@ -180,7 +181,9 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Drawing\UI\Menus\" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

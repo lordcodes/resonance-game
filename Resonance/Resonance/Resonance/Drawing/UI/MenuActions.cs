@@ -14,14 +14,6 @@ namespace Resonance
         private static int genNumber = 0;
 
         /// <summary>
-        /// Called once to allo this class access to the rest of the game
-        /// </summary>
-        /// <param name="nGame">Supply the game object so the functions can acces the game</param>
-        public static void init()
-        {
-        }
-
-        /// <summary>
         /// Give the player character full health.
         /// </summary>
         public static void fullHealth()
@@ -91,6 +83,5 @@ namespace Resonance
             Program.game.World.reset();
             UI.play();
         }
-
     }
 }

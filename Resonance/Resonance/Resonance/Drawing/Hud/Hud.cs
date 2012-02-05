@@ -51,8 +51,6 @@ namespace Resonance
             Content = newContent;
             graphics = newGraphics;
             gameGraphics = newGameGraphics;
-
-            //miniMap = new MiniMap();
         }
 
         /// <summary>

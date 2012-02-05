@@ -3,37 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 delegate void ItemDelegate();
 
 namespace Resonance
 {
     class UI
     {
-        public static bool paused = false;
+        private static bool paused = false;
         private static int selected = 0;
         private static List<MenuItem> currentMenu;
         private static List<MenuItem> pauseMenu = new List<MenuItem>();
         private static List<MenuItem> levelsMenu = new List<MenuItem>();
 
-        /// <summary>
-        /// Returns true of the UI has paused the game
-        /// </summary>
-        public static bool Paused
-        {
-            get
-            {
-                return paused;
-            }
-        }
+        private static MainMenuScreen mainMenu;
 
         /// <summary>
         /// Called once to initialise the static class
         /// </summary>
         /// <param name="game">Supply the Game object so the UI can effect it</param>
-        public static void init()
+        public static void init(ContentManager content, GraphicsDeviceManager graphics)
         {
-            MenuActions.init();
-
             // Populate the menus, that are represented as lists of MenuItems
             // Refer to the comments in the MenuItem class for how to create them
             levelsMenu.Add(new MenuItem("Load Level 1", new ItemDelegate(delegate { MenuActions.loadLevel(1); })));
@@ -49,6 +39,17 @@ namespace Resonance
             pauseMenu.Add(new MenuItem("Load a Level", levelsMenu));
 
             currentMenu = pauseMenu;
+
+            mainMenu = new MainMenuScreen(content, graphics);
+            mainMenu.loadContent();
+        }
+
+        public static bool Paused
+        {
+            get
+            {
+                return paused;
+            }
         }
 
         /// <summary>
@@ -73,8 +74,15 @@ namespace Resonance
         /// </summary>
         public static void moveUp()
         {
-            selected--;
-            if (selected < 0) selected = currentMenu.Count-1;
+            if (paused)
+            {
+                selected--;
+                if (selected < 0) selected = currentMenu.Count - 1;
+            }
+            else if (Game.onMainMenu)
+            {
+                mainMenu.moveUp();
+            }
         }
 
         /// <summary>
@@ -82,8 +90,15 @@ namespace Resonance
         /// </summary>
         public static void moveDown()
         {
-            selected++;
-            if (selected >= currentMenu.Count) selected = 0;
+            if (paused)
+            {
+                selected++;
+                if (selected >= currentMenu.Count) selected = 0;
+            }
+            else if (Game.onMainMenu)
+            {
+                mainMenu.moveDown();
+            }
         }
 
         /// <summary>
@@ -91,15 +106,22 @@ namespace Resonance
         /// </summary>
         public static void select()
         {
-            MenuItem selection = currentMenu[selected];
-            if (selection.IsMenu)
+            if (paused)
             {
-                currentMenu = selection.NextMenu;
-                selected = 0;
+                MenuItem selection = currentMenu[selected];
+                if (selection.IsMenu)
+                {
+                    currentMenu = selection.NextMenu;
+                    selected = 0;
+                }
+                else
+                {
+                    selection.CallBack();
+                }
             }
-            else
+            else if (Game.onMainMenu)
             {
-                selection.CallBack();
+                mainMenu.select();
             }
         }
 
@@ -117,6 +139,11 @@ namespace Resonance
                 menu += "\n";
             }
             return menu;
+        }
+
+        public static void drawMainMenu()
+        {
+            mainMenu.Draw();
         }
 
     }

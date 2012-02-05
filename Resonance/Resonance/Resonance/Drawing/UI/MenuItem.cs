@@ -6,7 +6,7 @@ using System.Text;
 namespace Resonance
 {
     /// <summary>
-    /// Class that reprents the a single menu item i.e its string value and what heppens when its selected
+    /// Class that reprents the a single menu item i.e its string value and what happens when its selected
     /// </summary>
     class MenuItem
     {
@@ -38,7 +38,7 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Retursn the string value of the menu item
+        /// Returns the string value of the menu item
         /// </summary>
         public string Text
         {
@@ -71,7 +71,7 @@ namespace Resonance
         }
 
         /// <summary>
-        /// COnstructor to be used when the button will lead to another menu
+        /// Constructor to be used when the button will lead to another menu
         /// </summary>
         /// <param name="text">String value for the menu item</param>
         /// <param name="nextMenu">List of MenuItems representing the menu to be diplyed once this button is selected</param>
