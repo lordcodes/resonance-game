@@ -115,17 +115,17 @@ namespace Resonance
             if (dispMap != null) dispMap.update(playerPos);
         }
 
-        public void drawParticle(Texture2D texture, Matrix world, float width, float height)
+        public void drawParticle(Texture2D texture, Matrix world, float width, float height, Color colour)
         {
-            draw2dTexture(shaders.Particle, texture, world, width, height);
+            draw2dTexture(shaders.Particle, texture, world, width, height, colour);
         }
 
         public void drawTexture(Texture2D texture, Matrix world, float width, float height)
         {
-            draw2dTexture(shaders.Default, texture, world, width, height);
+            draw2dTexture(shaders.Default, texture, world, width, height, Color.White);
         }
 
-        private void draw2dTexture(Shader shader, Texture2D texture, Matrix world, float width, float height)
+        private void draw2dTexture(Shader shader, Texture2D texture, Matrix world, float width, float height, Color colour)
         {
             shader.sceneSetup(world, view, projection, cameraPosition, texture);
             shader.applyTechnique(shader.Techniques["StaticObject"]);
@@ -138,13 +138,19 @@ namespace Resonance
             short[] indices;
             IndexBuffer indexBuffer;
 
+            if(shader is ParticleShader)
+            {
+                ((ParticleShader)shader).setColour(colour);
+            }
+
             vertexDeclaration = new VertexDeclaration(new VertexElement[]
-                {
-                    new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
-                    new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
-                    new VertexElement(24, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
-                }
+            {
+                new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
+                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
+                new VertexElement(24, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
+            }
             );
+
 
             float halfWidth = width / 2;
             float halfHeight = height / 2;
