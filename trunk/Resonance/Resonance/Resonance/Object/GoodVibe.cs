@@ -140,6 +140,11 @@ namespace Resonance
             health = MAX_HEALTH;
         }
 
+        public float healthFraction()
+        {
+            return (float)health / (float)MAX_HEALTH;
+        }
+
         /// <summary>
         /// Adjust the GV's health  between 0 - MAX_HEALTH
         /// </summary>
