@@ -16,7 +16,7 @@ namespace Resonance
         public const int CLOSE = 1;
         public const int TOPDOWN = 2;
 
-        private static Vector3 defaultPos = new Vector3(0, 6f, 10f);
+        private static Vector3 defaultPos = new Vector3(0, 12f, 20f);
         private static Vector3 closePos = new Vector3(0, 3f, 6f);
         private static Vector3 topDownPos = new Vector3(0, 20f, 1f);
 
