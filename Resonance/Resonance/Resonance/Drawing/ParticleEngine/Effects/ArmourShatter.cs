@@ -11,15 +11,17 @@ namespace Resonance {
         // The direction in which the armour layer is being blasted.
         Vector3 blastVec;
         float radius = 2f;
+        BadVibe bVRef;
 
-        public ArmourShatter(Vector3 p, Vector3 blast, Color c) : base(p) {
+        public ArmourShatter(Vector3 p, Vector3 blast, Color c, BadVibe v) : base(p) {
             pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texTriangle");
+            bVRef = v;
             blastVec = blast;
-            emissionsPerUpdate = 200;
-            particlesLeft = 200;
-            maxParticleSpd = 1.2f;
-            maxParticleLife = 8;
-            iPSize = 0.5f;
+            emissionsPerUpdate = 100;
+            particlesLeft = 100;
+            maxParticleSpd = 1f;
+            maxParticleLife = 50;
+            iPSize = 0.4f;
             iColour = c;
         }
 
@@ -38,6 +40,18 @@ namespace Resonance {
 
                     float iSpd  = maxParticleSpd;//(float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
+
+                    // Add an offset to the position so the particles start off around the BV as opposed to it's centre.
+                    float bVRad = bVRef.calculateMinBBEdge() / 2;
+                    Vector3 posOffset = new Vector3((float) gen.NextDouble(), (float) gen.NextDouble(), (float) gen.NextDouble());
+                    if (gen.Next() % 2 == 0) posOffset.X *= -1;
+                    if (gen.Next() % 2 == 0) posOffset.Y *= -1; 
+                    if (gen.Next() % 2 == 0) posOffset.Z *= -1; 
+
+                    posOffset.Normalize();
+                    posOffset *= bVRad;
+                    //pos += posOffset;
+
                     particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f));
                     particlesLeft--;
 

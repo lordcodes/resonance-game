@@ -304,7 +304,7 @@ namespace Resonance
                     }
 
                     if ((sequence[0] != Shockwave.REST) && (sequence[0] != Shockwave.CYMBAL)) {
-                        new ArmourShatter(vibe.Body.Position, blast, c);
+                        new ArmourShatter(vibe.Body.Position, blast, c, vibe);
                     }
 
                     sequence.RemoveAt(0);
