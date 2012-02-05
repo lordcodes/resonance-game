@@ -16,7 +16,7 @@ namespace Resonance
         private const bool FLOOR_REFLECTIONS = false;
 
         private static GraphicsDeviceManager graphics;
-        private static ContentManager Content;
+        private static ContentManager content;
         private static Hud hud;
         private static Graphics gameGraphics;
         private static LoadingScreen loadingScreen;
@@ -109,6 +109,15 @@ namespace Resonance
             }
         }
 
+
+        public static ContentManager Content
+        {
+            get
+            {
+                return content;
+            }
+        }
+
         public static void reset()
         {
             if (gameGraphics != null) gameGraphics.reset();
@@ -161,12 +170,12 @@ namespace Resonance
         /// </summary>
         public static void Init(ContentManager newContent, GraphicsDeviceManager newGraphics)
         {
-            Content = newContent;
+            content = newContent;
             graphics = newGraphics;
-            GameModels.Init(Content);
-            gameGraphics = new Graphics(Content, graphics);
-            hud = new Hud(Content,graphics, gameGraphics);
-            loadingScreen = new LoadingScreen(Content, graphics);
+            GameModels.Init(content);
+            gameGraphics = new Graphics(content, graphics);
+            hud = new Hud(content,graphics, gameGraphics);
+            loadingScreen = new LoadingScreen(content, graphics);
             playerPos = new Vector3(0,0,0);
             DoDisp = true;
         }
@@ -183,9 +192,9 @@ namespace Resonance
             heightRatio = screenHeight / 1080;
             hud.loadContent();
             GameModels.Load();
-            gameGraphics.loadContent(Content, graphics.GraphicsDevice);
-            ring = Content.Load<Texture2D>("Drawing/Textures/texRing");
-            texPixel = Content.Load<Texture2D>("Drawing/Textures/texPixel");
+            gameGraphics.loadContent(content, graphics.GraphicsDevice);
+            ring = content.Load<Texture2D>("Drawing/Textures/texRing");
+            texPixel = content.Load<Texture2D>("Drawing/Textures/texPixel");
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
             mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, 2048, 2048, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
 
