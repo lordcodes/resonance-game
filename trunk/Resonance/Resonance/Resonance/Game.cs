@@ -34,8 +34,13 @@ namespace Resonance
 
         public static bool USE_BV_SPAWNER = false;
         public static bool USE_PICKUP_SPAWNER = true;
+        public static bool USE_MAIN_MENU = false;
+
+        public static bool onMainMenu = false;
+
         GraphicsDeviceManager graphics;
-        public readonly MusicHandler musicHandler;
+
+        private MusicHandler musicHandler;
 
         World world;
         BVSpawnManager bvSpawner;
@@ -51,12 +56,13 @@ namespace Resonance
             Content.RootDirectory = "Content";
             Drawing.Init(Content, graphics);
             musicHandler = new MusicHandler(Content);
+
             if(USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if(USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
 
-            initKeyCache();
+            if (USE_MAIN_MENU) onMainMenu = true;
 
-            UI.init();
+            initKeyCache();
 
             //Allows you to set the resolution of the game (not tested on Xbox yet)
             IsMouseVisible = false;
@@ -101,18 +107,19 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
-            long start = DateTime.Now.Ticks;
+            //long start = DateTime.Now.Ticks;
             BadVibe.initialiseBank();
 
             Drawing.loadContent();
+            UI.init(Content, graphics);
             world = new World();
 
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
-            MenuActions.loadLevel(1);
+            if(!USE_MAIN_MENU) MenuActions.loadLevel(1);
             ParticleEmitterManager.initialise(Content);
 
-            double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
-            DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
+            //double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
+            //DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
         }
 
         /// <summary>
@@ -122,6 +129,8 @@ namespace Resonance
         /// <param name="i">Int number of the level, taken from the level name, i.e Level1.xml</param>
         public void loadLevel(int i)
         {
+            onMainMenu = false;
+
             string level = "Levels/Level"+i;
             world.readXmlFile(level, Content);
 
@@ -146,10 +155,14 @@ namespace Resonance
         {
             Drawing.Update(gameTime);
 
-            if (!Loading.IsLoading)
+            if (!Loading.isLoading)
             {
                 keyInput();
-                if (!UI.Paused)
+                if (USE_MAIN_MENU && onMainMenu)
+                {
+
+                }
+                else if (!UI.Paused)
                 {
                     //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
@@ -225,7 +238,11 @@ namespace Resonance
             KeyboardState keyboard = Keyboard.GetState();
 
             MenuControlManager.input(playerOne, keyboard);
-            if (!UI.Paused)
+            if (USE_MAIN_MENU && onMainMenu)
+            {
+
+            }
+            else if (!UI.Paused)
             {
                 //Camera
                 CameraMotionManager.update(playerOne, keyboard);

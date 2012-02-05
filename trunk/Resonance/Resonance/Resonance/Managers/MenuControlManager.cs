@@ -27,12 +27,9 @@ namespace Resonance
                     else UI.pause();
             }
 
-            if (UI.Paused)
-            {
-                if (up) UI.moveUp();
-                if (down) UI.moveDown();
-                if (select) UI.select();
-            }
+            if (up) UI.moveUp();
+            if (down) UI.moveDown();
+            if (select) UI.select();
 
             lastPad = pad;
             lastKbd = kbd;

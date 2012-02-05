@@ -207,7 +207,7 @@ namespace Resonance
         /// <param name="gameTime"></param>
         public static void Update(GameTime gameTime)
         {
-            if (Loading.IsLoading)
+            if (Loading.isLoading)
             {
                 loadingScreen.Update(gameTime);
             }
@@ -286,7 +286,11 @@ namespace Resonance
         /// </summary>
         public static void Draw(GameTime gameTime)
         {
-            if (Loading.IsLoading)
+            if (Game.onMainMenu)
+            {
+                UI.drawMainMenu();
+            }
+            else if (Loading.isLoading)
             {
                 loadingScreen.Draw();
             }

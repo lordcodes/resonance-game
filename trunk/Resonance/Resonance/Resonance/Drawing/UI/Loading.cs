@@ -11,18 +11,15 @@ namespace Resonance
 {
     class Loading
     {
+        private static bool loading = false;
         private static Thread t;
         private static ThreadObject thread;
-        private static bool isLoading = false;
 
-        /// <summary>
-        /// Returns true if the static Loading class is being used to load something.
-        /// </summary>
-        public static bool IsLoading
+        public static bool isLoading
         {
             get
             {
-                return isLoading;
+                return loading;
             }
         }
 
@@ -33,7 +30,7 @@ namespace Resonance
         /// <param name="info">Information about what is being loaded</param>
         public static void load(ItemDelegate functionToLoad, string info)
         {
-            isLoading = true;
+            loading = true;
             thread = new ThreadObject(functionToLoad, finished);
             t = new Thread(new ThreadStart(thread.startThread));
             t.Name = "Load: "+info;
@@ -45,7 +42,7 @@ namespace Resonance
         /// </summary>
         private static void finished()
         {
-            isLoading = false;
+            loading = false;
             UI.play();
         }
 
