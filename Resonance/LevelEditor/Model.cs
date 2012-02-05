@@ -10,5 +10,6 @@ namespace LevelEditor
         public string name;
         public int modelNumber;
         public System.Drawing.Color color;
+        public string pickupType;
     }
 }

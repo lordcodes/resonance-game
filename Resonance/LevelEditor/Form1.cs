@@ -101,6 +101,7 @@ namespace LevelEditor
                             mod.name = split[0];
                             mod.modelNumber = Convert.ToInt32(split[1]);
                             mod.color = (System.Drawing.Color) conv.ConvertFromString(split[2]);
+                            mod.pickupType = split[3];
                             modelsList.Add(mod);                            
                         }
                     }
@@ -127,36 +128,49 @@ namespace LevelEditor
             obj.pickuptype = -1;
 
             int treeNumber = 0;
-            
 
-            for (int i = 0; i < 625; i++)
+            int x = -125;
+            int z = 125;
+            int i = 0;
+            for (int xi = 0; xi < 25; xi++)
             {
-                
-                if(images[i].Text.Equals("terrain64") == false)
+                x = -125;
+                for (int zi = 0; zi < 25; zi++)
                 {
-                    obj = new StoredObject();
-                    string name = null;
-                    int modelNumber = 0;
-                    for (int j = 0; j < modelsList.Count; j++)
+                    if (images[i].Text.Equals("terrain64") == false)
                     {
-                        if (modelsList[j].name.Contains(images[i].Text) == true)
+                        obj = new StoredObject();
+                        string name = null;
+                        int modelNumber = 0;
+                        string pickup = null;
+                        for (int j = 0; j < modelsList.Count; j++)
                         {
-                            name = modelsList[j].name;
-                            modelNumber = modelsList[j].modelNumber;
-                            break;
+                            if (modelsList[j].name.Contains(images[i].Text) == true)
+                            {
+                                name = modelsList[j].name;
+                                modelNumber = modelsList[j].modelNumber;
+                                pickup = modelsList[j].pickupType;
+                                break;
+                            }
                         }
+                        obj.identifier = name + treeNumber.ToString();
+                        obj.type = name;
+                        obj.gameModelNum = modelNumber;
+                        obj.xWorldCoord = x;
+                        obj.yWorldCoord = (float)0;
+                        obj.zWorldCoord = z;
+                        if(pickup.Equals("No") == true)
+                            obj.pickuptype = -1;
+                        else
+                            obj.pickuptype = 1;
+
+                        treeNumber++;
+                        list.addObject(obj);
                     }
-                    obj.identifier = name+treeNumber.ToString();
-                    obj.type = name;
-                    obj.gameModelNum = modelNumber;
-                    obj.xWorldCoord = -125 + ((i * 100) / 250);
-                    obj.yWorldCoord = (float) 0;
-                    obj.zWorldCoord = 125 - ((i * 100) / 250);
-                    obj.pickuptype = -1;
-                    treeNumber++;
-                    list.addObject(obj);
+                    i++;
+                    x = x + 10;
                 }
-                
+                z = z - 10;
             }
             Serialize(list,"Level"+levelNumberTextBox.Text+".xml");
 
