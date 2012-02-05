@@ -71,6 +71,8 @@ namespace Resonance
 
                             Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(0,16)%4+2, r.Next(MIN_PICKUP_TIME_LIVE, MAX_PICKUP_TIME_LIVE), r.Next(MIN_PICKUP_TIME_EFFECT,MAX_PICKUP_TIME_EFFECT));
                             Program.game.World.addObject(p);
+                            p.calculateSize();
+                            //DebugDisplay.update("size", p.Size.ToString());
 
                             totalNumPickups++;
                             numPickups++;
