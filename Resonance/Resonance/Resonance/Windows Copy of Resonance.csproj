@@ -83,18 +83,14 @@
     <Compile Include="Drawing\Graphics\Drawing.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Drawing\Graphics\GameModel.cs" />
-    <Compile Include="Drawing\Graphics\GameModelInstance.cs" />
-    <Compile Include="Drawing\Graphics\GameModels.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Drawing\Graphics\GameModelsContentReader.cs" />
     <Compile Include="Drawing\Graphics\Graphics.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Drawing\Graphics\ImportedGameModels.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Drawing\Graphics\Models\GameModel.cs" />
+    <Compile Include="Drawing\Graphics\Models\GameModelInstance.cs" />
+    <Compile Include="Drawing\Graphics\Models\GameModels.cs" />
+    <Compile Include="Drawing\Graphics\Models\GameModelsContentReader.cs" />
+    <Compile Include="Drawing\Graphics\Models\ImportedGameModels.cs" />
     <Compile Include="Drawing\Hud\DebugDisplay.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />

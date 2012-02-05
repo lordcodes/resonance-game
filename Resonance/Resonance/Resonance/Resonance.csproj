@@ -97,17 +97,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
-    <Compile Include="Drawing\Graphics\GameModel.cs" />
+    <Compile Include="Drawing\Graphics\Models\GameModel.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
     <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
     <Compile Include="Drawing\Graphics\DisplacementMap.cs" />
     <Compile Include="Drawing\Graphics\Drawing.cs" />
-    <Compile Include="Drawing\Graphics\GameModels.cs" />
-    <Compile Include="Drawing\Graphics\GameModelsContentReader.cs" />
+    <Compile Include="Drawing\Graphics\Models\GameModels.cs" />
+    <Compile Include="Drawing\Graphics\Models\GameModelsContentReader.cs" />
     <Compile Include="Drawing\Graphics\Graphics.cs" />
-    <Compile Include="Drawing\Graphics\ImportedGameModels.cs" />
+    <Compile Include="Drawing\Graphics\Models\ImportedGameModels.cs" />
     <Compile Include="Drawing\Hud\HealthBar.cs" />
-    <Compile Include="Drawing\Graphics\GameModelInstance.cs" />
+    <Compile Include="Drawing\Graphics\Models\GameModelInstance.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\ArmourShatter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />

@@ -38,7 +38,6 @@ namespace Resonance
         // Reduce this variable if the shockwave is causing frame rate to suffer
         public static int DISP_WIDTH = 32;
 
-
         public Matrix Projection
         {
             get
@@ -102,7 +101,7 @@ namespace Resonance
 
             specularLightColor = new Vector3(0.15f, 0.15f, 0.15f);
 
-            customEffect = Content.Load<Effect>("Drawing/Effect");
+            customEffect = Content.Load<Effect>("Drawing/Shaders/Default");
             customEffect.Parameters["World"].SetValue(Matrix.Identity);
             customEffect.Parameters["View"].SetValue(view);
             customEffect.Parameters["Projection"].SetValue(projection);
@@ -127,7 +126,7 @@ namespace Resonance
         /// Updates Camera and HUD based of player position
         /// </summary>
         /// <param name="player">The good vibe class</param>
-        public void UpdateCamera(Vector3 newCameraPosition)
+        public void updateCamera(Vector3 newCameraPosition)
         {
             cameraCoords = newCameraPosition;
             Quaternion orientation = Game.getGV().Body.Orientation;
@@ -140,7 +139,7 @@ namespace Resonance
 
         public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
         {
-            DrawModel(worldObject, worldTransform, disp,  drawingReflection);
+            drawModel(worldObject, worldTransform, disp,  drawingReflection);
         }
 
         public void update(Vector2 playerPos)
@@ -148,7 +147,7 @@ namespace Resonance
             if (dispMap != null) dispMap.update(playerPos);
         }
 
-        public void Draw2dTextures(Texture2D texture, Matrix world, float width, float height)
+        public void draw2dTexture(Texture2D texture, Matrix world, float width, float height)
         {
             customEffect.Parameters["World"].SetValue(world);
             customEffect.Parameters["DoDisp"].SetValue(false);
@@ -241,7 +240,7 @@ namespace Resonance
         }
 
 
-        private void DrawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
+        private void drawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
         {
 
             //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;

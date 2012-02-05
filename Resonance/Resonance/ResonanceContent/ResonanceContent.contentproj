@@ -177,8 +177,8 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Effect.fx">
-      <Name>Effect</Name>
+    <Compile Include="Drawing\Shaders\Default.fx">
+      <Name>Default</Name>
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>

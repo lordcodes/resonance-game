@@ -246,7 +246,7 @@ namespace Resonance
                 Matrix texturePos = Matrix.CreateTranslation(pos);
                 Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
                 texturePos = Matrix.Multiply(rotation, texturePos);
-                gameGraphics.Draw2dTextures(ring, texturePos, 20, 20);
+                gameGraphics.draw2dTexture(ring, texturePos, 20, 20);
             }catch(Exception){}
         }
 
@@ -265,7 +265,7 @@ namespace Resonance
                         Matrix texturePos = Matrix.CreateTranslation(pos);
                         Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
                         texturePos = Matrix.Multiply(rotation, texturePos);
-                        gameGraphics.Draw2dTextures(e.getPTex(), texturePos, 0.02f, 0.02f);
+                        gameGraphics.draw2dTexture(e.getPTex(), texturePos, 0.02f, 0.02f);
                     } catch (Exception) {}
                 }
             }
@@ -356,7 +356,7 @@ namespace Resonance
         /// </summary>
         public static void UpdateCamera(Vector3 point, Vector3 cameraPosition)
         {
-            gameGraphics.UpdateCamera(cameraPosition);
+            gameGraphics.updateCamera(cameraPosition);
         }
 
         /// <summary>
