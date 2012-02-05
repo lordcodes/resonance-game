@@ -75,15 +75,6 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>bv0</identifier>
-        <type>Bad_vibe</type>
-        <xWorldCoord>-8</xWorldCoord>
-        <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>0.5</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
         <identifier>pickup0</identifier>
         <type>Pickup</type>
         <xWorldCoord>10</xWorldCoord>
@@ -91,6 +82,15 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>17</gameModelNum>
         <pickuptype>0</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner1</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-5</xWorldCoord>
+        <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
       </Item>
     </list>
   </Asset>
