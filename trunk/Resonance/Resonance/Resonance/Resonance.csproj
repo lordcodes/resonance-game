@@ -98,6 +98,7 @@
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModel.cs" />
+    <Compile Include="Drawing\Graphics\Shaders\Shader.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
     <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
     <Compile Include="Drawing\Graphics\DisplacementMap.cs" />
@@ -127,6 +128,7 @@
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\BVSpawner.cs" />
+    <Compile Include="Drawing\Graphics\Shaders\Shaders.cs" />
     <Compile Include="ThreadRun.cs" />
     <Compile Include="AI\Minheap.cs" />
     <Compile Include="AI\Node.cs" />

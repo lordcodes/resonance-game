@@ -14,8 +14,8 @@ namespace Resonance
     class Graphics
     {
         private static GraphicsDeviceManager graphics;
-        private static ContentManager Content;
-        private static Effect customEffect;
+        private static ContentManager content;
+        private static Shaders shaders;
         private static Matrix world;
         private static Matrix view;
         private static Matrix projection;
@@ -70,9 +70,10 @@ namespace Resonance
             }
         }
 
+
         public Graphics(ContentManager newContent, GraphicsDeviceManager newGraphics)
         {
-            Content = newContent;
+            content = newContent;
             graphics = newGraphics;
         } 
 
@@ -101,10 +102,10 @@ namespace Resonance
 
             specularLightColor = new Vector3(0.15f, 0.15f, 0.15f);
 
-            customEffect = Content.Load<Effect>("Drawing/Shaders/Default");
-            customEffect.Parameters["World"].SetValue(Matrix.Identity);
-            customEffect.Parameters["View"].SetValue(view);
-            customEffect.Parameters["Projection"].SetValue(projection);
+            shaders = new Shaders();
+            shaders.Default.Parameters["World"].SetValue(Matrix.Identity);
+            shaders.Default.Parameters["View"].SetValue(view);
+            shaders.Default.Parameters["Projection"].SetValue(projection);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
 
             dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
@@ -149,22 +150,22 @@ namespace Resonance
 
         public void draw2dTexture(Texture2D texture, Matrix world, float width, float height)
         {
-            customEffect.Parameters["World"].SetValue(world);
-            customEffect.Parameters["DoDisp"].SetValue(false);
-            customEffect.Parameters["View"].SetValue(view);
-            customEffect.Parameters["Projection"].SetValue(projection);
-            customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
-            customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
-            customEffect.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
-            customEffect.Parameters["LightDirection2"].SetValue(-lightDirection2);
-            customEffect.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
-            customEffect.Parameters["SpecularLightColor"].SetValue(specularLightColor);
-            customEffect.Parameters["CameraPosition"].SetValue(cameraPosition);
-            customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
-            customEffect.Parameters["ColorTexture"].SetValue(texture);
+            shaders.Default.Parameters["World"].SetValue(world);
+            shaders.Default.Parameters["DoDisp"].SetValue(false);
+            shaders.Default.Parameters["View"].SetValue(view);
+            shaders.Default.Parameters["Projection"].SetValue(projection);
+            shaders.Default.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
+            shaders.Default.Parameters["LightDirection"].SetValue(-lightDirection);
+            shaders.Default.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
+            shaders.Default.Parameters["LightDirection2"].SetValue(-lightDirection2);
+            shaders.Default.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
+            shaders.Default.Parameters["SpecularLightColor"].SetValue(specularLightColor);
+            shaders.Default.Parameters["CameraPosition"].SetValue(cameraPosition);
+            shaders.Default.Parameters["SpecularColorPower"].SetValue(specularColorPower);
+            shaders.Default.Parameters["ColorTexture"].SetValue(texture);
             graphics.GraphicsDevice.Textures[0] = texture;
-            customEffect.CurrentTechnique.Passes[0].Apply();
-            customEffect.CurrentTechnique = customEffect.Techniques["StaticObject"];
+            shaders.Default.applyPass(0);
+            shaders.Default.applyTechnique(shaders.Default.Techniques["StaticObject"]);
 
             int number_of_vertices = 4;
             int number_of_indices = 6;
@@ -221,7 +222,7 @@ namespace Resonance
 
             //graphics.GraphicsDevice.BlendState = BlendState.Additive;
 
-            foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
+            foreach (EffectPass pass in shaders.Default.Passes)
             {
                 pass.Apply();
                 graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(
@@ -271,59 +272,59 @@ namespace Resonance
                 float plus = -2.0f;
                 projection2 = Matrix.CreateOrthographic(World.MAP_X+plus, World.MAP_Z+plus, 1.0f, 1000.0f);
             }
-            customEffect.Parameters["DoDisp"].SetValue(disp);
+            shaders.Default.Parameters["DoDisp"].SetValue(disp);
             if (disp)
             {
                 try
                 {
-                    customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
+                    shaders.Default.Parameters["DispMap"].SetValue(dispMap.getMap());
                     Vector2 pos = Drawing.groundPos(Game.getGV().Body.Position, true);
                     //DebugDisplay.update("gp", pos+"");
-                    customEffect.Parameters["gvPos"].SetValue(pos);
+                    shaders.Default.Parameters["gvPos"].SetValue(pos);
                 }
                 catch (Exception)
                 {
-                    customEffect.Parameters["gvPos"].SetValue(Vector2.Zero);
+                    shaders.Default.Parameters["gvPos"].SetValue(Vector2.Zero);
                 }
             }
-            customEffect.Parameters["DispMap"].SetValue(dispMap.getMap());
-            customEffect.Parameters["View"].SetValue(theView);
-            customEffect.Parameters["Projection"].SetValue(projection2);
-            customEffect.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
-            customEffect.Parameters["LightDirection"].SetValue(-lightDirection);
-            customEffect.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
-            customEffect.Parameters["LightDirection2"].SetValue(-lightDirection2);
-            customEffect.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
-            customEffect.Parameters["SpecularLightColor"].SetValue(specularLightColor);
-            customEffect.Parameters["CameraPosition"].SetValue(cameraPosition2);
-            customEffect.Parameters["SpecularColorPower"].SetValue(specularColorPower);
+            shaders.Default.Parameters["DispMap"].SetValue(dispMap.getMap());
+            shaders.Default.Parameters["View"].SetValue(theView);
+            shaders.Default.Parameters["Projection"].SetValue(projection2);
+            shaders.Default.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
+            shaders.Default.Parameters["LightDirection"].SetValue(-lightDirection);
+            shaders.Default.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
+            shaders.Default.Parameters["LightDirection2"].SetValue(-lightDirection2);
+            shaders.Default.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
+            shaders.Default.Parameters["SpecularLightColor"].SetValue(specularLightColor);
+            shaders.Default.Parameters["CameraPosition"].SetValue(cameraPosition2);
+            shaders.Default.Parameters["SpecularColorPower"].SetValue(specularColorPower);
 
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
             if (colorTexture == null) colorTexture = modelVariables.Texture;
-            customEffect.Parameters["ColorTexture"].SetValue(colorTexture);
+            shaders.Default.Parameters["ColorTexture"].SetValue(colorTexture);
             graphics.GraphicsDevice.Textures[0] = colorTexture;
 
             foreach (ModelMesh mesh in m.Meshes)
             {
-                customEffect.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
+                shaders.Default.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
 
                 if (gmodel.ModelAnimation)
                 {
-                    customEffect.CurrentTechnique = customEffect.Techniques["Animation"];
+                    shaders.Default.applyTechnique(shaders.Default.Techniques["Animation"]);
                     Matrix[] bones = modelVariables.Bones;
-                    customEffect.Parameters["xBones"].SetValue(bones);
+                    shaders.Default.Parameters["xBones"].SetValue(bones);
                 }
                 else
                 {
-                    customEffect.CurrentTechnique = customEffect.Techniques["StaticObject"];
+                    shaders.Default.applyTechnique(shaders.Default.Techniques["StaticObject"]);
                 }
 
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
                     graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
                     graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                    customEffect.Parameters["DiffuseColor"].SetValue(diffuseColor);
-                    foreach (EffectPass pass in customEffect.CurrentTechnique.Passes)
+                    shaders.Default.Parameters["DiffuseColor"].SetValue(diffuseColor);
+                    foreach (EffectPass pass in shaders.Default.Passes)
                     {
                         pass.Apply();
                         graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
