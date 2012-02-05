@@ -117,7 +117,6 @@ namespace Resonance
 
         public void draw2dTexture(Texture2D texture, Matrix world, float width, float height)
         {
-            shaders.Default.Parameters["DoDisp"].SetValue(false);
             shaders.Default.sceneSetup(world, view, projection, cameraPosition, texture);
             shaders.Default.applyTechnique(shaders.Default.Techniques["StaticObject"]);
 
@@ -188,7 +187,6 @@ namespace Resonance
 
         private void drawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
         {
-
             //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
@@ -198,6 +196,7 @@ namespace Resonance
             Matrix theView = view;
             Vector3 cameraPosition2 = cameraPosition;
             Matrix projection2 = projection;
+            Shader currentShader;
 
             if (drawingReflection)
             {
@@ -211,48 +210,51 @@ namespace Resonance
                 projection2 = Matrix.CreateOrthographic(World.MAP_X+plus, World.MAP_Z+plus, 1.0f, 1000.0f);
             }
 
-            shaders.Default.Parameters["DoDisp"].SetValue(disp);
 
             if (disp)
             {
+                currentShader = shaders.Ground;
+                ((GroundShader)currentShader).setDispMap(dispMap.getMap());
+
                 try
                 {
-                    shaders.Default.Parameters["DispMap"].SetValue(dispMap.getMap());
                     Vector2 pos = Drawing.groundPos(Game.getGV().Body.Position, true);
-                    shaders.Default.Parameters["gvPos"].SetValue(pos);
+                    ((GroundShader)currentShader).GoodVibePos = pos;
                 }
                 catch (Exception)
                 {
-                    shaders.Default.Parameters["gvPos"].SetValue(Vector2.Zero);
+                    ((GroundShader)currentShader).GoodVibePos = Vector2.Zero;
                 }
             }
-
-            shaders.Default.Parameters["DispMap"].SetValue(dispMap.getMap());
+            else
+            {
+                currentShader = shaders.Default;
+            }
 
             Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
             if (colorTexture == null) colorTexture = modelVariables.Texture;
-            shaders.Default.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
+            currentShader.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
 
             foreach (ModelMesh mesh in m.Meshes)
             {
-                shaders.Default.Parameters["World"].SetValue(modelTransforms[mesh.ParentBone.Index] * world);
+                currentShader.World = modelTransforms[mesh.ParentBone.Index] * world;
 
                 if (gmodel.ModelAnimation)
                 {
-                    shaders.Default.applyTechnique(shaders.Default.Techniques["Animation"]);
+                    currentShader.applyTechnique(currentShader.Techniques["Animation"]);
                     Matrix[] bones = modelVariables.Bones;
-                    shaders.Default.Parameters["xBones"].SetValue(bones);
+                    ((DefaultShader)currentShader).Bones = bones;
                 }
                 else
                 {
-                    shaders.Default.applyTechnique(shaders.Default.Techniques["StaticObject"]);
+                    currentShader.applyTechnique(currentShader.Techniques["StaticObject"]);
                 }
 
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
                     graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
                     graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                    foreach (EffectPass pass in shaders.Default.Passes)
+                    foreach (EffectPass pass in currentShader.Passes)
                     {
                         pass.Apply();
                         graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);

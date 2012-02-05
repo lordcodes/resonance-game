@@ -144,6 +144,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
+    <Compile Include="Drawing\Shaders\Ground.fx">
+      <Name>Ground</Name>
+      <Importer>EffectImporter</Importer>
+      <Processor>EffectProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Textures\texBadVibe.jpg">
       <Name>texBadVibe</Name>
       <Importer>TextureImporter</Importer>

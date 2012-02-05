@@ -11,11 +11,27 @@ namespace Resonance
     {
         private Effect customEffect;
 
+        public Matrix World
+        {
+            set
+            {
+                Effect.Parameters["World"].SetValue(value);
+            }
+        }
+
+        public Effect Effect
+        {
+            get
+            {
+                return customEffect;
+            }
+        }
+
         public EffectTechniqueCollection Techniques
         {
             get
             {
-                return customEffect.Techniques;
+                return Effect.Techniques;
             }
         }
 
@@ -23,7 +39,7 @@ namespace Resonance
         {
             get
             {
-                return customEffect.Parameters;
+                return Effect.Parameters;
             }
         }
 
@@ -31,42 +47,42 @@ namespace Resonance
         {
             get
             {
-                return customEffect.CurrentTechnique.Passes;
+                return Effect.CurrentTechnique.Passes;
             }
         }
 
         public void applyTechnique(EffectTechnique technique)
         {
-            customEffect.CurrentTechnique = technique;
+            Effect.CurrentTechnique = technique;
         }
 
         public void applyPass(int pass)
         {
-            customEffect.CurrentTechnique.Passes[0].Apply();
+            Effect.CurrentTechnique.Passes[0].Apply();
         }
 
         public void sceneSetup(Matrix view, Matrix projection, Vector3 camera)
         {
-            customEffect.Parameters["View"].SetValue(view);
-            customEffect.Parameters["Projection"].SetValue(projection);
-            customEffect.Parameters["CameraPosition"].SetValue(camera);
+            Effect.Parameters["View"].SetValue(view);
+            Effect.Parameters["Projection"].SetValue(projection);
+            Effect.Parameters["CameraPosition"].SetValue(camera);
         }
 
         public void sceneSetup(Matrix world, Matrix view, Matrix projection, Vector3 camera)
         {
-            customEffect.Parameters["World"].SetValue(world);
+            Effect.Parameters["World"].SetValue(world);
             sceneSetup(view, projection, camera);
         }
 
         public void sceneSetup(Matrix world, Matrix view, Matrix projection, Vector3 camera, Texture2D texture)
         {
-            customEffect.Parameters["ColorTexture"].SetValue(texture);
+            Effect.Parameters["ColorTexture"].SetValue(texture);
             sceneSetup(world, view, projection, camera);
         }
 
         public void sceneSetup(Matrix view, Matrix projection, Vector3 camera, Texture2D texture)
         {
-            customEffect.Parameters["ColorTexture"].SetValue(texture);
+            Effect.Parameters["ColorTexture"].SetValue(texture);
             sceneSetup(view, projection, camera);
         }
 
