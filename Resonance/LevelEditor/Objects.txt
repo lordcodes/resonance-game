@@ -1,0 +1,7 @@
+﻿---Name---||---ModelNumber----||----Color----
+tree             1                 Brown
+house            2                 Red
+goodVibe         4                 White
+terrain64        5                 Green
+box              8                 Yellow
+BV_Spawner       10                Silver
