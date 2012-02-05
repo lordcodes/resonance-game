@@ -8,8 +8,8 @@ namespace Resonance
 {
     class Shaders
     {
-        Shader defaultShader;
-        Shader particleShader;
+        DefaultShader defaultShader;
+        GroundShader groundShader;
 
         public Shader Default
         {
@@ -19,9 +19,18 @@ namespace Resonance
             }
         }
 
+        public Shader Ground
+        {
+            get
+            {
+                return groundShader;
+            }
+        }
+
         public Shaders()
         {
-            defaultShader = new Shader("Drawing/Shaders/Default");
+            defaultShader = new DefaultShader("Drawing/Shaders/Default");
+            groundShader = new GroundShader("Drawing/Shaders/Ground");
 
             Vector3 ambientLightColor = new Vector3(0.1f, 0.1f, 0.1f);
             Vector3 diffuseColor = new Vector3(0.3f, 0.3f, 0.3f);
@@ -40,6 +49,15 @@ namespace Resonance
             Default.Parameters["SpecularLightColor"].SetValue(specularLightColor);
             Default.Parameters["SpecularColorPower"].SetValue(specularColorPower);
             Default.Parameters["DiffuseColor"].SetValue(diffuseColor);
+
+            Ground.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
+            Ground.Parameters["LightDirection"].SetValue(-lightDirection);
+            Ground.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
+            Ground.Parameters["LightDirection2"].SetValue(-lightDirection2);
+            Ground.Parameters["DiffuseLightColor2"].SetValue(diffuseLightColor2);
+            Ground.Parameters["SpecularLightColor"].SetValue(specularLightColor);
+            Ground.Parameters["SpecularColorPower"].SetValue(specularColorPower);
+            Ground.Parameters["DiffuseColor"].SetValue(diffuseColor);
         }
     }
 }
