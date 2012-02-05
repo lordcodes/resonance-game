@@ -10,7 +10,7 @@ namespace Resonance {
 
         // The direction in which the armour layer is being blasted.
         Vector3 blastVec;
-        float radius = 2f;
+        float radius = 1.75f;
         BadVibe bVRef;
 
         public ArmourShatter(Vector3 p, Vector3 blast, Color c, BadVibe v) : base(p) {
@@ -35,7 +35,7 @@ namespace Resonance {
                     if (gen.Next() % 2 == 0) iDir.X += (float) (gen.NextDouble() * radius); else iDir.X += (float) (gen.NextDouble() * radius);
                     if (gen.Next() % 2 == 0) iDir.Y += (float) (gen.NextDouble() * radius); else iDir.Y += (float) (gen.NextDouble() * radius);
                     if (gen.Next() % 2 == 0) iDir.Z += (float) (gen.NextDouble() * radius); else iDir.Z += (float) (gen.NextDouble() * radius);
-
+                    iDir.Y += 1f;
                     iDir.Normalize();
 
                     float iSpd  = maxParticleSpd;//(float) gen.NextDouble() * maxParticleSpd;
