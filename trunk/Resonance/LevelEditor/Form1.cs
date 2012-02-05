@@ -10,6 +10,8 @@ using System.IO;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Intermediate;
 using ResonanceLibrary;
 using System.Xml;
+using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace LevelEditor
 {
@@ -23,9 +25,11 @@ namespace LevelEditor
         string selectedOption = null;
         System.Drawing.Color selectedColor;
         Boolean goodVibe = false;
+        List<Model> modelsList = new List<Model>();
 
         public Form1()
         {
+            loadFile();
             InitializeComponent();
 
             models[0] = "";
@@ -74,6 +78,42 @@ namespace LevelEditor
            
            
         }
+
+
+        private void loadFile()
+        {
+            KnownColor[] colors =(KnownColor[]) Enum.GetValues(typeof(KnownColor));
+            
+            try
+            {
+                using (StreamReader sr = new StreamReader(Path.GetDirectoryName(Path.GetDirectoryName(Application.StartupPath))+@"\Objects.txt"))
+                {
+                    String line;
+                    while ((line = sr.ReadLine()) != null)
+                    {
+                        
+                        if (line.Contains("--") == false)
+                        {
+                            string[] split = Regex.Split(line, @"\W+");
+                            Model mod = new Model();
+                            ColorConverter conv = new ColorConverter();
+                            
+                            mod.name = split[0];
+                            mod.modelNumber = Convert.ToInt32(split[1]);
+                            mod.color = (System.Drawing.Color) conv.ConvertFromString(split[2]);
+                            modelsList.Add(mod);                            
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {                
+                Console.WriteLine("The file could not be read:");
+                Console.WriteLine(e.Message);
+            }
+        }
+
+
         private void exportClicked(object sender, System.EventArgs e)
         {
             StoredObjects list = new StoredObjects();
@@ -87,63 +127,36 @@ namespace LevelEditor
             obj.pickuptype = -1;
 
             int treeNumber = 0;
-            int pickupNumber = 0;
-            int houseNumber = 0;
+            
 
             for (int i = 0; i < 625; i++)
             {
-                Console.WriteLine(i);
-                if(images[i].Text.Equals("tree"))
+                
+                if(images[i].Text.Equals("terrain64") == false)
                 {
                     obj = new StoredObject();
-                    obj.identifier = "tree"+treeNumber.ToString();
-                    obj.type = "Tree";
-                    obj.gameModelNum = 1;
+                    string name = null;
+                    int modelNumber = 0;
+                    for (int j = 0; j < modelsList.Count; j++)
+                    {
+                        if (modelsList[j].name.Contains(images[i].Text) == true)
+                        {
+                            name = modelsList[j].name;
+                            modelNumber = modelsList[j].modelNumber;
+                            break;
+                        }
+                    }
+                    obj.identifier = name+treeNumber.ToString();
+                    obj.type = name;
+                    obj.gameModelNum = modelNumber;
                     obj.xWorldCoord = -125 + ((i * 100) / 250);
-                    obj.yWorldCoord = (float)-0.1;
+                    obj.yWorldCoord = (float) 0;
                     obj.zWorldCoord = 125 - ((i * 100) / 250);
                     obj.pickuptype = -1;
                     treeNumber++;
                     list.addObject(obj);
                 }
-                if (images[i].Text.Equals("house"))
-                {
-                    obj = new StoredObject();
-                    obj.identifier = "house" + houseNumber.ToString();
-                    obj.type = "House";
-                    obj.gameModelNum = 2;
-                    obj.xWorldCoord = -125 + ((i * 100) / 250);
-                    obj.yWorldCoord = (float)-0.1;
-                    obj.zWorldCoord = 125 - ((i * 100) / 250);
-                    obj.pickuptype = -1;
-                    houseNumber++;
-                    list.addObject(obj);
-                }
-                if (images[i].Text.Equals("goodVibe"))
-                {
-                    obj = new StoredObject();
-                    obj.identifier = "Player";
-                    obj.type = "Good_Vibe";
-                    obj.gameModelNum = 4;
-                    obj.xWorldCoord = -125 + ((i * 100) / 250);
-                    obj.yWorldCoord = (float)-0.1;
-                    obj.zWorldCoord = 125 - ((i * 100) / 250);
-                    obj.pickuptype = -1;
-                    list.addObject(obj);
-                }
-                if (images[i].Text.Equals("pickup"))
-                {
-                    obj = new StoredObject();
-                    obj.identifier = "pickup"+pickupNumber.ToString();
-                    obj.type = "Pickup";
-                    obj.gameModelNum = 8;
-                    obj.xWorldCoord = -125 + ((i * 100) / 250);
-                    obj.yWorldCoord = (float)-0.1;
-                    obj.zWorldCoord = 125 - ((i * 100) / 250);
-                    obj.pickuptype = 1;
-                    pickupNumber++;
-                    list.addObject(obj);
-                }
+                
             }
             Serialize(list,"Level"+levelNumberTextBox.Text+".xml");
 
@@ -201,7 +214,7 @@ namespace LevelEditor
                     images[index].Location = new Point(x, y);
                     images[index].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
                     images[index].BackColor = System.Drawing.Color.Green;
-                    images[index].Text = "terrain";
+                    images[index].Text = "terrain64";
                     images[index].ForeColor = Color.Black;
                     images[index].AllowDrop = true;
                     images[index].Click += new EventHandler(insertObject);
@@ -227,42 +240,28 @@ namespace LevelEditor
             Label title = new Label();
             Label[] options = new Label[21];
 
+            
+
             title.Text = "Game Models";
             title.Location = new Point(70, 0);
             title.AutoSize = true;
             title.Font = new System.Drawing.Font("Arial", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
             int y = 20;
-            for (int i = 1; i <= 5 ; i++)
+            for (int i = 0; i < modelsList.Count ; i++)
             {
                 options[i] = new Label();
                 pictures[i] = new Label();
                 options[i].AutoSize = true;
-                options[i].Text = i.ToString() + " " + models[i];
+                options[i].Text = modelsList[i].name;
                 options[i].Location = new Point(0, y);
                 options[i].Font = new System.Drawing.Font("Arial", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 
                 pictures[i].Size = new Size(80, 20);
                 pictures[i].Location = new Point(150, y);                
                 pictures[i].BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-                
-              
-                
-
-
-                if (models[i].Equals("terrain") == true)
-                    pictures[i].BackColor = System.Drawing.Color.Green;
-                else if (models[i].Equals("house") == true)
-                    pictures[i].BackColor = System.Drawing.Color.Red;
-                else if (models[i].Equals("goodVibe") == true)
-                    pictures[i].BackColor = System.Drawing.Color.Blue;
-                else if (models[i].Equals("tree") == true)
-                    pictures[i].BackColor = System.Drawing.Color.Brown;
-                else if (models[i].Equals("pickup") == true)
-                    pictures[i].BackColor = System.Drawing.Color.Yellow;
-                else
-                    pictures[i].BackColor = System.Drawing.Color.Azure;
-                pictures[i].Text = models[i];
+                pictures[i].BackColor = modelsList[i].color;
+                pictures[i].Text = modelsList[i].name;
                 pictures[i].ForeColor = System.Drawing.Color.Black;
                 pictures[i].Click += new EventHandler(selectObject);
 
