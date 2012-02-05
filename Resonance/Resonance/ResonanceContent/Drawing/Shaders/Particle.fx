@@ -6,6 +6,7 @@ float3 AmbientLightColor;
 float3 DiffuseColor;
 float3 DiffuseLightColor;
 float3 CameraPosition;
+float4 Colour;
 
 sampler ColorTextureSampler : register(s0) = sampler_state
 {
@@ -44,15 +45,10 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
-	float3 finalColor;
-	float4 fullColor;
-	fullColor = tex2D(ColorTextureSampler, input.TexCoord);
-	finalColor = float3(fullColor.x, fullColor.y, fullColor.z);
-	float3 diffuse = AmbientLightColor;
-	finalColor = (finalColor*1) + DiffuseColor * diffuse * fullColor.a;
-	float3 view = normalize(input.View);
-	clip( fullColor.a < 0.1f ? -1:1 );
-    return float4(finalColor,fullColor.a);
+	float4 texColor = tex2D(ColorTextureSampler, input.TexCoord);
+	if(texColor.a == 0)
+		return float4(0,0,0,0);
+    return Colour;
 }
 
 technique StaticObject

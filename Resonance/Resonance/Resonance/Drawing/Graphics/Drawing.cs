@@ -253,7 +253,7 @@ namespace Resonance
             {
                 Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
                 Matrix texturePos = Matrix.CreateTranslation(pos);
-                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
+                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
                 texturePos = Matrix.Multiply(rotation, texturePos);
                 gameGraphics.drawTexture(ring, texturePos, 20, 20);
             }catch(Exception){}
@@ -270,12 +270,14 @@ namespace Resonance
                     try {
                         //Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
                         //pos += p.getPos();
-                        Vector3 pos  = p.getPos();
-                        float   size = p.getSize();
+                        Vector3 pos = p.getPos();
+                        float size = p.getSize();
+                        Color colour = Color.Blue;
+                        //colour.A = 128;
                         Matrix texturePos = Matrix.CreateTranslation(pos);
                         Matrix rotation = Matrix.CreateRotationX((float)(Math.PI / 2));
                         texturePos = Matrix.Multiply(rotation, texturePos);
-                        gameGraphics.drawParticle(e.getPTex(), texturePos, size, size);
+                        gameGraphics.drawParticle(e.getPTex(), texturePos, size, size, colour);
                     } catch (Exception) {}
                 }
             }
