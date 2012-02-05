@@ -35,6 +35,7 @@ namespace Resonance
         /// </summary>
         public static void update()
         {
+            youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(returnPickups());
             pickupCollision(returnPickups());
             updateTimeRemaining();
         }
@@ -77,6 +78,14 @@ namespace Resonance
             return pickups;
         }
 
+        private static void youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(List<Pickup> pickups)
+        {
+            for (int i = 0; i < pickups.Count; i++)
+            {
+                pickups[i].spinMe();
+            }
+        }
+
         /// <summary>
         /// Checks if Pickups intersect with GoodVibe and remove pickups with TimeToLive = 0
         /// </summary>
@@ -87,10 +96,10 @@ namespace Resonance
 
             for (int i = 0; i < pickups.Count; i++)
             {
-                Vector3 pickupPoint = pickups[i].OriginalPosition;
+                Vector3 pickupPoint = pickups[i].Body.Position;
                 double diff = Vector3.Distance(Game.getGV().Body.Position, pickupPoint);
 
-                if (diff < pickups[i].Size)
+                if (diff < pickups[i].Size+3) //TODO: fix with correct GV physics model
                 {
                     switch (pickups[i].PowerUpType)
                     {
