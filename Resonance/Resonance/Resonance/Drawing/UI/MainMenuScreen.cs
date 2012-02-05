@@ -12,9 +12,10 @@ namespace Resonance
     {
         private GraphicsDeviceManager graphics;
         private ContentManager content;
-        private Texture2D bg;
         private SpriteBatch spriteBatch;
         private SpriteFont font;
+
+        private List<Texture2D> bg;
 
         private List<MenuItem> currentMenu;
         private List<MenuItem> mainMenu;
@@ -37,6 +38,7 @@ namespace Resonance
             this.content = content;
             mainMenu = new List<MenuItem>();
             levelsMenu = new List<MenuItem>();
+            bg = new List<Texture2D>();
         }
 
         /// <summary>
@@ -44,7 +46,14 @@ namespace Resonance
         /// </summary>
         public void loadContent()
         {
-            bg = content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenu");
+            //bg.Add(content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenu"));
+            bg.Add(content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFirst"));
+            bg.Add(content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuSecond"));
+            bg.Add(content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuThird"));
+            bg.Add(content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFourth"));
+            bg.Add(content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFifth"));
+            bg.Add(content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuSixth"));
+
             font = content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
 
@@ -54,21 +63,14 @@ namespace Resonance
 
             //mainMenu.Add(new MenuItem("Enter the Resonance Chamber", levelsMenu));
             mainMenu.Add(new MenuItem("Enter the Resonance Chamber", new ItemDelegate(delegate { MenuActions.loadLevel(1); })));
+            //mainMenu.Add(new MenuItem("High Scores", levelsMenu));
+            //mainMenu.Add(new MenuItem("Credits", levelsMenu));
             mainMenu.Add(new MenuItem("Quit Game", new ItemDelegate(MenuActions.exit)));
 
             /*levelsMenu.Add(new MenuItem("Load Level 1", new ItemDelegate(delegate { MenuActions.loadLevel(1); })));
             levelsMenu.Add(new MenuItem("Load Level 2", new ItemDelegate(delegate { MenuActions.loadLevel(2); })));
-            levelsMenu.Add(new MenuItem("Back", pauseMenu));
+            levelsMenu.Add(new MenuItem("Back", pauseMenu));*/
 
-            pauseMenu.Add(new MenuItem("Resume", new ItemDelegate(MenuActions.resume)));
-            pauseMenu.Add(new MenuItem("Exit Game", new ItemDelegate(MenuActions.exit)));
-            pauseMenu.Add(new MenuItem("Add Bad Vibe (by the tree)", new ItemDelegate(MenuActions.addBadVibe)));
-            pauseMenu.Add(new MenuItem("Reset object positions", new ItemDelegate(MenuActions.softReset)));
-            pauseMenu.Add(new MenuItem("Kill all the Bad Vibes", new ItemDelegate(MenuActions.killBadVibes)));
-            pauseMenu.Add(new MenuItem("Give Good Vibe full health", new ItemDelegate(MenuActions.fullHealth)));
-            pauseMenu.Add(new MenuItem("Load a Level", levelsMenu));
-
-            currentMenu = pauseMenu;*/
             currentMenu = mainMenu;
         }
 
@@ -123,7 +125,7 @@ namespace Resonance
         {
             spriteBatch.Begin();
             string text = "Welcome to the Resonance Chamber";
-            spriteBatch.Draw(bg, new Rectangle(0, 0, Drawing.ScreenWidth+1, Drawing.ScreenHeight+1), Color.White);
+            spriteBatch.Draw(bg[selected], new Rectangle(0, 0, Drawing.ScreenWidth+1, Drawing.ScreenHeight+1), Color.White);
             spriteBatch.DrawString(font, text, new Vector2(Drawing.pixelsX(20), Drawing.pixelsY(30)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             int x = 1350;

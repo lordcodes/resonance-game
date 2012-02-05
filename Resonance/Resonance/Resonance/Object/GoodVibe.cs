@@ -24,7 +24,7 @@ namespace Resonance
         List<Shockwave> waves; // Resonance waves which currently exist
 
         private int totalScore; //total score value for the game
-        private int currentScore; //score for this sequence
+        //private int currentScore; //score for this sequence
         private int health; //health stored as an int between 0 - MAX_HEALTH.
         private int nitro; //speed boost between 0 - MAX_NITRO.
         private int shield; //shield between 0 - MAX_SHIELD.
@@ -113,7 +113,7 @@ namespace Resonance
         {
             waves = new List<Shockwave>();
             totalScore = 0;
-            currentScore = 0;
+            //currentScore = 0;
             health = MAX_HEALTH;
             nitro = MAX_NITRO / 2;
             shield = MAX_SHIELD / 2;

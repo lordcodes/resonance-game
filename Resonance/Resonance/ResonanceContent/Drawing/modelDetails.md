@@ -37,7 +37,7 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Texture delay(ms)-|--Start texture anim.--|-Model Animation (if needed)-|
 1,			tree,					1,		treePhysics,			1
 2,			house,					1,		house,					1
-3,			badVibe,			    0.1,	badVibePhysics,			0.1,			allColours,							0,						0,						1
+3,			badVibe,			    0.1,	badVibe,			    0.1,			allColours,							0,						0,						1
 4,			goodVibe,				0.35,	spaceShip,				0.35,			pulseGreyToRed,						40,						0,
 5,			terrain64,			    250,	terrain,			    250,			tronFloor,							0,						0,						0
 6,			house,					1,		house,					1,

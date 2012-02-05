@@ -107,19 +107,15 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
-            //long start = DateTime.Now.Ticks;
             BadVibe.initialiseBank();
-
             Drawing.loadContent();
             UI.init(Content, graphics);
             world = new World();
 
             //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
             if(!USE_MAIN_MENU) MenuActions.loadLevel(1);
-            ParticleEmitterManager.initialise(Content);
 
-            //double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
-            //DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
+            ParticleEmitterManager.initialise(Content);
         }
 
         /// <summary>
