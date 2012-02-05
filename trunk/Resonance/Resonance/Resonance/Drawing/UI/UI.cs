@@ -57,7 +57,7 @@ namespace Resonance
         /// </summary>
         public static void pause()
         {
-            paused = true;
+            if(!Game.onMainMenu) paused = true;
         }
 
         /// <summary>
@@ -65,8 +65,11 @@ namespace Resonance
         /// </summary>
         public static void play()
         {
-            paused = false;
-            currentMenu = pauseMenu;
+            if (!Game.onMainMenu)
+            {
+                paused = false;
+                currentMenu = pauseMenu;
+            }
         }
 
         /// <summary>
