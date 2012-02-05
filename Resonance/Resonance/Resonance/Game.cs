@@ -32,7 +32,7 @@ namespace Resonance
         public static GameMode mode;
         public static bool GV_KILLED = false;
 
-        public static bool USE_BV_SPAWNER = false;
+        public static bool USE_BV_SPAWNER = true;
         public static bool USE_PICKUP_SPAWNER = true;
         public static bool USE_MAIN_MENU = true;
 
@@ -160,6 +160,8 @@ namespace Resonance
                 }
                 else if (!UI.Paused)
                 {
+                    //float health = getGV().healthFraction();
+                    //if (health < 0.1) musicHandler.playSound("heart-beat");
                     //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
                     removeDeadBadVibes(deadVibes);
@@ -281,7 +283,7 @@ namespace Resonance
             {
                 if (USE_BV_SPAWNER) BVSpawnManager.vibeDied((BadVibe)World.getObject(deadVibes[i]));
                 World.removeObject(World.getObject(deadVibes[i]));
-                musicHandler.playSound("beast_dying");
+                musicHandler.playSound("beast-dying");
                 
             }
         }
