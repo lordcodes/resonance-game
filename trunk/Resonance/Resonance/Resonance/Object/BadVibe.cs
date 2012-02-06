@@ -42,6 +42,7 @@ namespace Resonance
             spawnerNumber = spawner;
             ai = new AIManager(this);
             deathAnimation = new GameModelInstance(GameModels.BV_Exploasion);
+            deathAnimation.pauseModelAnim();
         }
 
         public int SpawnerIndex
@@ -121,7 +122,8 @@ namespace Resonance
 
         public void kill()
         {
-            this.ModelInstance = new GameModelInstance(GameModels.BV_Exploasion);
+            this.ModelInstance = deathAnimation;
+            this.ModelInstance.playModelAnim();
             deathAnimationFrames--;
             new Explosion(Body.Position);
             state = State.DEAD;

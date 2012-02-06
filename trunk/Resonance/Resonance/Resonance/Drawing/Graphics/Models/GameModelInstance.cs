@@ -16,10 +16,13 @@ namespace Resonance
     {
         private GameModel gameModel;
         private AnimationPlayer animPlayer = null;
+        private AnimationClip clip;
         private int currentFrame = 0;
         private float timeElapsed;
         private bool textureAnimPaused = false;
         private bool textureAnimPlayOnce = false;
+        private bool modelAnimPaused = false;
+        private bool modelAnimPlayOnce = false;
 
         /// <summary>
         /// Returns the game model of this GameModelInstance.
@@ -69,6 +72,33 @@ namespace Resonance
         }
 
         /// <summary>
+        /// Play the model animation
+        /// </summary>
+        public void playModelAnim()
+        {
+            modelAnimPaused = false;
+        }
+
+        /// <summary>
+        /// Pause the model animation
+        /// </summary>
+        public void pauseModelAnim()
+        {
+            modelAnimPaused = true;
+        }
+
+        /// <summary>
+        /// Play the model animation once
+        /// </summary>
+        /*public void playModelAnimOnce()
+        {
+            modelAnimPaused = false;
+            modelAnimPlayOnce = true;
+            animPlayer.StartClip(clip);
+            modelAnimTime = clip.Duration.TotalMilliseconds;
+        }*/
+
+        /// <summary>
         /// Play the texture animation
         /// </summary>
         public void playTextureAnim()
@@ -115,7 +145,7 @@ namespace Resonance
                 if (skinningData != null)
                 {
                     animPlayer = new AnimationPlayer(skinningData);
-                    AnimationClip clip = skinningData.AnimationClips["Take 001"];
+                    clip = skinningData.AnimationClips["Take 001"];
                     animPlayer.StartClip(clip);
                 }
             }
@@ -126,12 +156,20 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Updates any anymations that is associated with this GameModelInstance
+        /// Updates any anymations that are associated with this GameModelInstance
         /// </summary>
         /// <param name="gameTime"></param>
         public override void Update(GameTime gameTime)
         {
-            if (animPlayer != null) animPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
+            if (animPlayer != null && !modelAnimPaused)
+            {
+                animPlayer.Update(gameTime.ElapsedGameTime, true, Matrix.Identity);
+                if (modelAnimPlayOnce)
+                {
+
+                }
+            }
+
             if (!textureAnimPaused && gameModel.FrameDelay > 0 && gameModel.TextureCount > 1)
             {
                 timeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
