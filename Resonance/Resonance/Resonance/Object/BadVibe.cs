@@ -20,9 +20,12 @@ namespace Resonance
         private const double REDUCTION_RATE = 15;
         private const double ATTACK_RANGE = 3;
         private const double ATTACK_RATE = 0.8;
+        private int deathAnimationFrames = 30;
 
         public static bool DRAW_HEALTH_AS_STRING = false;
         public static bool DRAW_HEALTH_VERTICALLY = true;
+
+        private GameModelInstance deathAnimation;
 
         AIManager ai;
 
@@ -38,6 +41,7 @@ namespace Resonance
             setColour();
             spawnerNumber = spawner;
             ai = new AIManager(this);
+            deathAnimation = new GameModelInstance(GameModels.BV_Exploasion);
         }
 
         public int SpawnerIndex
@@ -105,8 +109,20 @@ namespace Resonance
             }
         }
 
+        public int getAnimationCounter()
+        {
+            return deathAnimationFrames;
+        }
+
+        public void decrementAnimationCounter()
+        {
+            deathAnimationFrames--;
+        }
+
         public void kill()
         {
+            this.ModelInstance = deathAnimation;
+            deathAnimationFrames--;
             new Explosion(Body.Position);
             state = State.DEAD;
             Drawing.addWave(Body.Position);
