@@ -160,8 +160,9 @@ namespace Resonance
                 }
                 else if (!UI.Paused)
                 {
-                    //float health = getGV().healthFraction();
-                    //if (health < 0.1) musicHandler.playSound("heart-beat");
+                    float health = getGV().healthFraction();
+                    if (health < 0.1) musicHandler.HeartBeat = true;
+                    else musicHandler.HeartBeat = false;
                     //Update bad vibe positions
                     List<string> deadVibes = processBadVibes();
                     removeDeadBadVibes(deadVibes);

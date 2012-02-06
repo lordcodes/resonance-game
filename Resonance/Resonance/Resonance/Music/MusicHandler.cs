@@ -23,12 +23,14 @@ namespace Resonance
         public static string DING = "ding";
         public static string SHIMMER = "shimmer";
 
+        private static bool AUTO_MUSIC = false;
+
         MusicTrack bgMusic;
         private AudioEngine audioEngine;
         private WaveBank waveBank;
         private SoundBank soundBank;
-
-        bool autoPlayMusic = false;
+        private Cue heartBeat;
+        bool playHeartBeat = false;
 
         public MusicHandler(ContentManager newContent)
         {
@@ -36,8 +38,11 @@ namespace Resonance
             audioEngine = new AudioEngine("Content/SoundProject.xgs");
             waveBank = new WaveBank(audioEngine, "Content/Wave Bank.xwb");
             soundBank = new SoundBank(audioEngine, "Content/Sound Bank.xsb");
+            heartBeat = soundBank.GetCue("heart-beat");
+            heartBeat.Play();
+            heartBeat.Pause();
 
-            if (autoPlayMusic == true) bgMusic.playTrack();
+            if (AUTO_MUSIC) bgMusic.playTrack();
         }
 
         /// <summary>
@@ -51,13 +56,24 @@ namespace Resonance
 
         public void playSound(string sound)
         {
-            soundBank.PlayCue(sound);
+            Cue soundCue = soundBank.GetCue(sound);
+            soundCue.Play();
+        }
+
+        public bool HeartBeat
+        {
+            set
+            {
+                playHeartBeat = value;
+            }
         }
 
         public void Update()
         {
             audioEngine.Update();
             bgMusic.update();
+            if (playHeartBeat && heartBeat.IsPaused) heartBeat.Resume();
+            else if(!playHeartBeat && heartBeat.IsPlaying) heartBeat.Pause();
         }
     }
 }
