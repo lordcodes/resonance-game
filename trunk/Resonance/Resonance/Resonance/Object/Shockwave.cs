@@ -11,7 +11,7 @@ namespace Resonance
     {
         // Constants
         public static double INITIAL_RADIUS = 0.05;
-        public static double GROWTH_RATE = 0.3;
+        public static double GROWTH_RATE = 0.6;
 
         // Size at which wave 'dies'
         public static double MAX_RADIUS = 10;

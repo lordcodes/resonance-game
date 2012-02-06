@@ -261,12 +261,17 @@ namespace Resonance
 
             foreach (BadVibe bv in world.returnBadVibes())
             {
-                if (bv.Status == BadVibe.State.DEAD)
+                if (bv.Status == BadVibe.State.DEAD )
                 {
-                    deadVibes.Add(bv.returnIdentifier());
+                    if (bv.getAnimationCounter() <= 0)
+                    {
+                        deadVibes.Add(bv.returnIdentifier());
+                    }
+                    bv.decrementAnimationCounter();   
                 }
                 else if (bv.Status != BadVibe.State.DEAD)
                 {
+                   
                     bv.Move();
                 }
             }
