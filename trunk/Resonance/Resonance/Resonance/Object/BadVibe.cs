@@ -121,7 +121,7 @@ namespace Resonance
 
         public void kill()
         {
-            this.ModelInstance = deathAnimation;
+            this.ModelInstance = new GameModelInstance(GameModels.BV_Exploasion);
             deathAnimationFrames--;
             new Explosion(Body.Position);
             state = State.DEAD;
