@@ -37,6 +37,8 @@ namespace Resonance
         int offbeat = 0;
 
         const long WINDOW = 80000000;//45000000;
+        //const long EXTRA_OFF = 8000000;
+        const long EXTRA_OFF = 0;
 
         enum NoteMode { WHOLE, HALF, QUARTER };
         enum PlayState { PLAYING, PAUSED, STOPPED };
@@ -155,7 +157,7 @@ namespace Resonance
         {
             if (state == PlayState.PLAYING)
             {
-                long time = (DateTime.Now.Ticks * 100) - startTime;
+                long time = (DateTime.Now.Ticks * 100) - startTime + EXTRA_OFF;
                 float scoreWeight = -1f;
                 for (; ; lastI++)
                 {

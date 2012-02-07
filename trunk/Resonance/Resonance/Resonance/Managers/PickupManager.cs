@@ -101,6 +101,9 @@ namespace Resonance
 
                 if (diff < pickups[i].Size+3) //TODO: fix with correct GV physics model
                 {
+                    
+                    //new Explosion(pickups[i].Body.Position);
+
                     switch (pickups[i].PowerUpType)
                     {
                         case Pickup.NITROUS:
