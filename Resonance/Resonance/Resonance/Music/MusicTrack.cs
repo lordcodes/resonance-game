@@ -36,9 +36,10 @@ namespace Resonance
         int beats   = 0;
         int offbeat = 0;
 
-        const long WINDOW = 80000000;//45000000;
-        //const long EXTRA_OFF = 8000000;
-        const long EXTRA_OFF = 0;
+        //public const long WINDOW = 80000000;//45000000;
+        public const long WINDOW = 160000000;//45000000;
+        const long EXTRA_OFF = 250000000;
+        //const long EXTRA_OFF = 0;
 
         enum NoteMode { WHOLE, HALF, QUARTER };
         enum PlayState { PLAYING, PAUSED, STOPPED };
@@ -223,6 +224,78 @@ namespace Resonance
                 // Not playing. Return false.
                 //return false;
                 return -1f;
+            }
+        }
+
+        private static List<long> nexts = new List<long>();
+        private static List<long> lasts = new List<long>();
+
+        /// <summary>
+        /// TESTING ONLY!
+        /// </summary>
+        public void inTime2()
+        {
+            if (state == PlayState.PLAYING)
+            {
+                long time = (DateTime.Now.Ticks * 100) - startTime + EXTRA_OFF;
+                float scoreWeight = -1f;
+                for (; ; lastI++)
+                {
+                    long beatTime;
+                    long lastBeatTime;
+
+                    if (mode == NoteMode.WHOLE)
+                    {
+                        beatTime = offset + (lastI * beatLength);
+                        lastBeatTime = beatTime - beatLength;
+                    }
+                    else if (mode == NoteMode.HALF)
+                    {
+                        beatTime = offset + (lastI * halfBeatLength);
+                        lastBeatTime = beatTime - halfBeatLength;
+                    }
+                    else
+                    {
+                        beatTime = offset + (lastI * quarterBeatLength);
+                        lastBeatTime = beatTime - quarterBeatLength;
+                    }
+
+                    if (time < beatTime)
+                    {
+                        lasts.Add(time - lastBeatTime);
+                        nexts.Add(beatTime - time);
+
+                        long   nAv  = 0;
+                        long   lAv  = 0;
+                        double dNAv = 0d;
+                        double dLAv = 0d;
+
+                        for (int i = 0; i < lasts.Count; i++) {
+                            nAv += nexts.ElementAt(i);
+                            lAv += lasts.ElementAt(i);
+                        }
+
+                        dNAv = (double) nAv;
+                        dLAv = (double) lAv;
+
+                        dNAv /= (double) nexts.Count;
+                        dLAv /= (double) lasts.Count;
+
+                        DebugDisplay.update("Average next beat diff", dNAv.ToString());
+                        DebugDisplay.update("Average last beat diff", dLAv.ToString());
+                        //if (scoreWeight == -1f) offbeat++;
+
+                        //DebugDisplay.update("Beats    ",   beats.ToString());
+                        //DebugDisplay.update("Offbeats ", offbeat.ToString());
+                        break;
+                    }
+                }
+
+                //return scoreWeight;
+            } else {
+                // Not playing. Return false.
+                //return false;
+                //return -1f;
             }
         }
     }
