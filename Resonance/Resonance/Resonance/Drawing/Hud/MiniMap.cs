@@ -299,7 +299,7 @@ namespace Resonance
 
                     if (o is BadVibe) {
                         objR = -(Utility.QuaternionToEuler(v.Body.Orientation)).Y + (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
-                        objR += (float)Math.PI;
+                        //objR += (float)Math.PI;
                     }
                     
                     objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));

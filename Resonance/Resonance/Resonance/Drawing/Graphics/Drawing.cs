@@ -118,6 +118,7 @@ namespace Resonance
             }
         }
 
+
         public static void reset()
         {
             if (gameGraphics != null) gameGraphics.reset();

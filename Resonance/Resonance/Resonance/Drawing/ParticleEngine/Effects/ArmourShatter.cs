@@ -47,7 +47,7 @@ namespace Resonance {
                     if (gen.Next() % 2 == 0) iDir.X += (float) (gen.NextDouble() * radius); else iDir.X += (float) (gen.NextDouble() * radius);
                     if (gen.Next() % 2 == 0) iDir.Y += (float) (gen.NextDouble() * radius); else iDir.Y += (float) (gen.NextDouble() * radius);
                     if (gen.Next() % 2 == 0) iDir.Z += (float) (gen.NextDouble() * radius); else iDir.Z += (float) (gen.NextDouble() * radius);
-                    iDir.Y += 1f;
+                    iDir.Y += 3f;
                     iDir.Normalize();
 
                     float iSpd  = maxParticleSpd;//(float) gen.NextDouble() * maxParticleSpd;
