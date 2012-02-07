@@ -140,7 +140,7 @@ namespace Resonance
         }
 
         private void drawThrobber() {
-            if (Program.game.Music.getTrack().inTime() > 0.5f) {
+            if (Program.game.Music.getTrack().inTime() > 0.95f) {
                 spriteBatch.Draw(tempo, new Rectangle(Drawing.pixelsX(50), Drawing.pixelsY(1000), tempo.Width, tempo.Height), Color.White);
                 Game.getGV().showBeat();
             } else {
