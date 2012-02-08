@@ -21,7 +21,7 @@ namespace Resonance
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = true;
+            //graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = 1920;
             graphics.PreferredBackBufferHeight = 1080;
@@ -48,7 +48,7 @@ namespace Resonance
         /// </summary>
         protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.Clear(Color.Black);
+            //graphics.GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
         }
 

@@ -230,7 +230,8 @@ namespace Resonance
                     }
             }
             waves.Add(w);
-            Program.game.Components.Add(w);
+            //Program.game.Components.Add(w);
+            DrawableManager.Add(w);
         }
 
         /// <summary>
@@ -255,7 +256,8 @@ namespace Resonance
             {
                 if (waves[i].Radius >= Shockwave.MAX_RADIUS)
                 {
-                    Program.game.Components.Remove(waves[i]);
+                    //Program.game.Components.Remove(waves[i]);
+                    DrawableManager.Remove(waves[i]);
                     waves.RemoveAt(i);
                 }
 

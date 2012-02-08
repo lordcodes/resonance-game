@@ -80,6 +80,7 @@
     <Compile Include="Drawing\Graphics\DisplacementMap.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Drawing\Graphics\DrawableManager.cs" />
     <Compile Include="Drawing\Graphics\Drawing.cs">
       <SubType>Code</SubType>
     </Compile>

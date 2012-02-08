@@ -64,7 +64,7 @@ namespace Resonance
                 Drawing.Draw(((Shockwave)this).Transform, ((Shockwave)this).Position, this);
             }
 
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
         }
     }
 }

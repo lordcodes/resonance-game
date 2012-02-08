@@ -133,7 +133,8 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            //base.Update(gameTime);
+            DrawableManager.Update(gameTime);
 
             Drawing.Update(gameTime);
 
@@ -287,18 +288,18 @@ namespace Resonance
         public override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.Black);
-            if (Drawing.requestRender)
+            /*if (Drawing.requestRender)
             {
                 Drawing.drawReflection();
                 graphics.GraphicsDevice.Clear(Color.Black);
                 base.Draw(gameTime);
-            }
+            }*/
             Drawing.drawGame();
             graphics.GraphicsDevice.Clear(Color.Black);
-            base.Draw(gameTime);
+            //base.Draw(gameTime);
+            DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);
         }
-
 
     }
 }
