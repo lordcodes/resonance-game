@@ -19,14 +19,9 @@ namespace Resonance
         private static ContentManager content;
         private static Hud hud;
         private static Graphics gameGraphics;
-        private static LoadingScreen loadingScreen;
         private static int frameCounter;
         private static int frameTime;
         private static int currentFrameRate;
-        private static float screenWidth;
-        private static float screenHeight;
-        private static double widthRatio;
-        private static double heightRatio;
         private static Vector3 playerPos;
         private static Texture2D ring;
         private static Texture2D texPixel;
@@ -34,6 +29,11 @@ namespace Resonance
         private static RenderTarget2D mirrorRenderTarget;
         private static Texture2D shinyFloorTexture;
         private static int drawCount = 0;
+
+        public static ContentManager Content
+        {
+            get { return content; }
+        }
 
         public static bool requestRender
         {
@@ -51,38 +51,6 @@ namespace Resonance
         public static bool DoDisp
         {
             get;set;
-        }
-
-        public static int ScreenWidth
-        {
-            get
-            {
-                return (int)Math.Round(screenWidth);
-            }
-        }
-
-        public static int ScreenHeight
-        {
-            get
-            {
-                return (int)Math.Round(screenHeight);
-            }
-        }
-
-        public static double WidthRatio
-        {
-            get
-            {
-                return widthRatio;
-            }
-        }
-
-        public static double HeightRatio
-        {
-            get
-            {
-                return heightRatio;
-            }
         }
 
         public static bool DrawingReflection
@@ -106,15 +74,6 @@ namespace Resonance
             get
             {
                 return gameGraphics.CameraCoords;
-            }
-        }
-
-
-        public static ContentManager Content
-        {
-            get
-            {
-                return content;
             }
         }
 
@@ -175,7 +134,6 @@ namespace Resonance
             GameModels.Init(content);
             gameGraphics = new Graphics(content, graphics);
             hud = new Hud(content,graphics, gameGraphics);
-            loadingScreen = new LoadingScreen(content, graphics);
             playerPos = new Vector3(0,0,0);
             DoDisp = true;
         }
@@ -186,10 +144,6 @@ namespace Resonance
         /// </summary>
         public static void loadContent()
         {
-            screenWidth = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
-            screenHeight = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
-            widthRatio = screenWidth / 1920;
-            heightRatio = screenHeight / 1080;
             hud.loadContent();
             GameModels.Load();
             gameGraphics.loadContent(content, graphics.GraphicsDevice);
@@ -197,8 +151,6 @@ namespace Resonance
             texPixel = content.Load<Texture2D>("Drawing/Textures/texPixel");
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
             mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, 2048, 2048, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
-
-            loadingScreen.loadContent();
         }
 
         /// <summary>
@@ -207,14 +159,7 @@ namespace Resonance
         /// <param name="gameTime"></param>
         public static void Update(GameTime gameTime)
         {
-            if (Loading.isLoading)
-            {
-                loadingScreen.Update(gameTime);
-            }
-            else if (!UI.Paused)
-            {
-                gameGraphics.update(new Vector2(0f, 0f));
-            }
+            gameGraphics.update(new Vector2(0f, 0f));
         }
 
         public static Vector2 groundPos(Vector3 position3d, bool one)
@@ -251,7 +196,7 @@ namespace Resonance
         {
             try
             {
-                Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.2f, Game.getGV().Body.Position.Z);
+                Vector3 pos = new Vector3(GameScreen.getGV().Body.Position.X, 0.2f, GameScreen.getGV().Body.Position.Z);
                 Matrix texturePos = Matrix.CreateTranslation(pos);
                 Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
                 texturePos = Matrix.Multiply(rotation, texturePos);
@@ -292,32 +237,21 @@ namespace Resonance
         /// </summary>
         public static void Draw(GameTime gameTime)
         {
-            if (Game.onMainMenu)
-            {
-                UI.drawMainMenu();
-            }
-            else if (Loading.isLoading)
-            {
-                loadingScreen.Draw();
-            }
-            else
-            {
-                drawCount++;
-                /*Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.1f, Game.getGV().Body.Position.Z);
-                Matrix texturePos = Matrix.CreateTranslation(pos);
-                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2*3));
-                texturePos = Matrix.Multiply(rotation,texturePos);
-                gameGraphics.Draw2dTextures(shinyFloorTexture, texturePos, 20, 20);
-                */
-
+            drawCount++;
+            /*Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.1f, Game.getGV().Body.Position.Z);
+            Matrix texturePos = Matrix.CreateTranslation(pos);
+            Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2*3));
+            texturePos = Matrix.Multiply(rotation,texturePos);
+            gameGraphics.Draw2dTextures(shinyFloorTexture, texturePos, 20, 20);
+            */
 
                 //drawRangeIndicator();
                 drawParticles();
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
-                if (UI.Paused) hud.drawMenu(UI.getString());
+                //if (UI.Paused) hud.drawMenu(UI.getString());
                 checkFrameRate(gameTime);
-            }
+            
         }
 
         /// <summary>
@@ -377,26 +311,6 @@ namespace Resonance
         public static void UpdateCamera(Vector3 point, Vector3 cameraPosition)
         {
             gameGraphics.updateCamera(cameraPosition);
-        }
-
-        /// <summary>
-        /// Converts X pixel values from HD resolution to the current resolution which may not be HD
-        /// </summary>
-        /// <param name="input">X HD coordinate</param>
-        /// <returns>True coordinate</returns>
-        public static int pixelsX(int input)
-        {
-            return (int)Math.Round(input * widthRatio);
-        }
-
-        /// <summary>
-        /// Converts Y pixel values from HD resolution to the current resolution which may not be HD
-        /// </summary>
-        /// <param name="input">Y HD coordinate</param>
-        /// <returns>True coordinate</returns>
-        public static int pixelsY(int input)
-        {
-            return (int)Math.Round(input * heightRatio);
         }
 
         /// <summary>

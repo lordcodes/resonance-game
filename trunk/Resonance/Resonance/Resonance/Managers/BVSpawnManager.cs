@@ -25,7 +25,7 @@ namespace Resonance
             totalNumBVs = 0;
         }
 
-        public static void addNewSpawner(int totalBv, int radious, int totalActive,Vector3 position)
+        public static void addNewSpawner(int totalBv, int radius, int totalActive,Vector3 position)
         {
             Vector3 pos;
             if (debugSwtich)
@@ -36,8 +36,8 @@ namespace Resonance
             {
                 pos = position;
             }
-            BVSpawner spawn = new BVSpawner(GameModels.BV_SPAWNER, "BV_SPAWNER" + spawnerCount, pos, totalBv,radious,totalActive);
-            Program.game.World.addObject(spawn);
+            BVSpawner spawn = new BVSpawner(GameModels.BV_SPAWNER, "BV_SPAWNER" + spawnerCount, pos, totalBv,radius,totalActive);
+            ScreenManager.game.World.addObject(spawn);
             spawners.Add(spawn);
             spawnerCount++;
         }

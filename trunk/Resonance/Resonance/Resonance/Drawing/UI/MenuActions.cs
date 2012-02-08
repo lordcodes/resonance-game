@@ -18,7 +18,7 @@ namespace Resonance
         /// </summary>
         public static void fullHealth()
         {
-            Game.getGV().fullHealth();
+            GameScreen.getGV().fullHealth();
             UI.play();
         }
 
@@ -27,7 +27,7 @@ namespace Resonance
         /// </summary>
         public static void killBadVibes()
         {
-            Dictionary<string, Object> objects = Program.game.World.returnObjects();
+            Dictionary<string, Object> objects = ScreenManager.game.World.returnObjects();
             foreach (var entry in objects)
             {
                 if (entry.Value is BadVibe)
@@ -44,7 +44,7 @@ namespace Resonance
         public static void addBadVibe()
         {
             BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + genNumber, new Vector3(0, 1, -2), 0);
-            Program.game.World.addObject(bv);
+            ScreenManager.game.World.addObject(bv);
             genNumber++;
             UI.play();
         }
@@ -71,7 +71,7 @@ namespace Resonance
         /// <param name="level">Number representing level, int corresponds the the name of the level e.g Level1.xml</param>
         public static void loadLevel(int level)
         {
-            Loading.load(delegate { Program.game.loadLevel(level); }, "Level " + level);
+            Loading.load(delegate { ScreenManager.game.loadLevel(level); }, "Level " + level);
             Drawing.reset();
         }
 
@@ -80,7 +80,7 @@ namespace Resonance
         /// </summary>
         public static void softReset()
         {
-            Program.game.World.reset();
+            ScreenManager.game.World.reset();
             UI.play();
         }
     }

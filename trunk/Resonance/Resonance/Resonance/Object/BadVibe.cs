@@ -242,32 +242,32 @@ namespace Resonance
                 Random generator = new Random();
                 int x = generator.Next();
 
-                if (Resonance.Game.DIFFICULTY == Resonance.Game.BEGINNER)
+                if (GameScreen.DIFFICULTY == GameScreen.BEGINNER)
                 {
                     x %= BEGINNER_COUNT;
                     return new ArmourSequence(beginnerBank[x].Sequence.ToArray());
                 }
-                else if (Resonance.Game.DIFFICULTY == Resonance.Game.EASY)
+                else if (GameScreen.DIFFICULTY == GameScreen.EASY)
                 {
                     x %= EASY_COUNT;
                     return new ArmourSequence(easyBank[x].Sequence.ToArray());
                 }
-                else if (Resonance.Game.DIFFICULTY == Resonance.Game.MEDIUM)
+                else if (GameScreen.DIFFICULTY == GameScreen.MEDIUM)
                 {
                     x %= MEDIUM_COUNT;
                     return new ArmourSequence(mediumBank[x].Sequence.ToArray());
                 }
-                else if (Resonance.Game.DIFFICULTY == Resonance.Game.HARD)
+                else if (GameScreen.DIFFICULTY == GameScreen.HARD)
                 {
                     x %= HARD_COUNT;
                     return new ArmourSequence(hardBank[x].Sequence.ToArray());
                 }
-                else if (Resonance.Game.DIFFICULTY == Resonance.Game.EXPERT)
+                else if (GameScreen.DIFFICULTY == GameScreen.EXPERT)
                 {
                     x %= EXPERT_COUNT;
                     return new ArmourSequence(expertBank[x].Sequence.ToArray());
                 }
-                else if (Resonance.Game.DIFFICULTY == Resonance.Game.INSANE)
+                else if (GameScreen.DIFFICULTY == GameScreen.INSANE)
                 {
                     return generateRandom();
                 }
@@ -288,31 +288,31 @@ namespace Resonance
                     {
                         case Shockwave.GREEN:
                             {
-                                Resonance.Game.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore(1);
                                 c = new Color(0f, 1f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.YELLOW:
                             {
-                                Resonance.Game.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore(1);
                                 c = new Color(1f, 1f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.BLUE:
                             {
-                                Resonance.Game.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore(1);
                                 c = new Color(0f, 0f, 1f, 1f);
                                 break;
                             }
                         case Shockwave.RED:
                             {
-                                Resonance.Game.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore(1);
                                 c = new Color(1f, 0f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.CYMBAL:
                             {
-                                Resonance.Game.getGV().adjustScore(5);
+                                GameScreen.getGV().adjustScore(5);
                                 break;
                             }
                         case Shockwave.REST:
@@ -329,7 +329,7 @@ namespace Resonance
                 }
                 if (sequence.Count == 0)
                 {
-                    Resonance.Game.getGV().adjustScore(10);
+                    GameScreen.getGV().adjustScore(10);
                     vibe.kill();
                 }
             }

@@ -11,17 +11,17 @@ namespace Resonance
     class MiniMap
     {
         /// Constants
-        public static int   MAP_X                = Drawing.pixelsX(1920 - 250);
-        public static int   MAP_Y                = Drawing.pixelsY(1080 - 250);
+        public static int MAP_X = ScreenManager.pixelsX(1920 - 250);
+        public static int MAP_Y = ScreenManager.pixelsY(1080 - 250);
 
-        public static int   LARGE_MAP_X          = Drawing.pixelsX(585);
-        public static int   LARGE_MAP_Y          = Drawing.pixelsY(165);
+        public static int LARGE_MAP_X = ScreenManager.pixelsX(585);
+        public static int LARGE_MAP_Y = ScreenManager.pixelsY(165);
 
-        public static int   MAP_WIDTH            = Drawing.pixelsX(220);
-        public static int   MAP_HEIGHT           = Drawing.pixelsY(220);
+        public static int MAP_WIDTH = ScreenManager.pixelsX(220);
+        public static int MAP_HEIGHT = ScreenManager.pixelsY(220);
 
-        public static int   LARGE_MAP_WIDTH      = Drawing.pixelsX(750);
-        public static int   LARGE_MAP_HEIGHT     = Drawing.pixelsY(750);
+        public static int LARGE_MAP_WIDTH = ScreenManager.pixelsX(750);
+        public static int LARGE_MAP_HEIGHT = ScreenManager.pixelsY(750);
 
         public static int   VIBE_WIDTH           = 16;
         public static int   VIBE_HEIGHT          = 20;
@@ -209,7 +209,7 @@ namespace Resonance
                 scaleFactor = (LARGE_MAP_WIDTH / (2 * DEFAULT_ZOOM));
             }*/
 
-            gVRef = (GoodVibe) Program.game.World.getObject("Player");
+            gVRef = (GoodVibe) ScreenManager.game.World.getObject("Player");
 
             if (AUTO_ZOOM) {
                 //float speed = gVRef.Body.MotionState.LinearVelocity.Length();
@@ -243,7 +243,7 @@ namespace Resonance
             }
 
             // Draw world
-            if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)Program.game.World.getObject("Ground")).Body.BoundingBox);
+            if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox);
 
             // Draw good vibe
             int gvx = mapX + (int) ((mapW / 2f) - (VIBE_WIDTH / 2f));
@@ -253,7 +253,7 @@ namespace Resonance
             spriteBatch.Draw(vibe, new Vector2(gvx, gvy), null, GOOD_VIBE_COLOUR, r, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             // Loop through and draw bad vibes.
-            List<BadVibe> badVibes = Program.game.World.returnBadVibes();
+            List<BadVibe> badVibes = ScreenManager.game.World.returnBadVibes();
             List<Pickup> pickups = PickupManager.returnPickups();
             List<Object>  toDraw   = new List<Object>();
 
@@ -311,7 +311,7 @@ namespace Resonance
                         spriteBatch.Draw(pickup, new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, PICKUP_COLOUR,   objR, centre, 1f, SpriteEffects.None, 0f);
                     }
                 } else if ((o is BadVibe) && (inXRange ^ inYRange)) {
-                    float dist = Vector3.Distance(Resonance.Game.getGV().Body.Position, v.Body.Position);
+                    float dist = Vector3.Distance(GameScreen.getGV().Body.Position, v.Body.Position);
                     Vector2 bVPos = objPos;
                     Vector2 bVScreenPos = objScreenPos;
                     bool visible = true;
@@ -345,7 +345,7 @@ namespace Resonance
 
                     // Draw in corresponding corner, transparency proportional to distance.
 
-                    float dist = Vector3.Distance(Resonance.Game.getGV().Body.Position, v.Body.Position);
+                    float dist = Vector3.Distance(GameScreen.getGV().Body.Position, v.Body.Position);
                     bool visible = true;
 
                     // Calculate the alpha transparency that the distant vibe should have. Determine whether it is visible or not.

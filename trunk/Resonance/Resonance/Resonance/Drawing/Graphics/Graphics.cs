@@ -105,9 +105,9 @@ namespace Resonance
         public void updateCamera(Vector3 newCameraPosition)
         {
             cameraCoords = newCameraPosition;
-            Quaternion orientation = Game.getGV().Body.Orientation;
+            Quaternion orientation = GameScreen.getGV().Body.Orientation;
             Vector3 rotation = Utility.QuaternionToEuler(orientation);
-            Vector3 position = Game.getGV().Body.Position;
+            Vector3 position = GameScreen.getGV().Body.Position;
             Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
             cameraPosition = Vector3.Transform(cameraCoords, goodVibeRotation) + position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
@@ -224,8 +224,7 @@ namespace Resonance
 
             if (drawingReflection)
             {
-                
-                Vector3 target = Game.getGV().Body.Position;
+                Vector3 target = GameScreen.getGV().Body.Position;
                 Vector3 cameraCoords = new Vector3(cameraPosition.X, -cameraPosition.Y, cameraPosition.Z + 0.1f);
                 theView = Matrix.CreateLookAt(cameraCoords, target, Vector3.Down);
                 float dimension = 2.2f;
@@ -240,7 +239,7 @@ namespace Resonance
 
                 try
                 {
-                    ((GroundShader)currentShader).GoodVibePos = Drawing.groundPos(Game.getGV().Body.Position, true);
+                    ((GroundShader)currentShader).GoodVibePos = Drawing.groundPos(GameScreen.getGV().Body.Position, true);
                     ((GroundShader)currentShader).CameraPos = Drawing.groundPos(cameraPosition, true);
                 }
                 catch (Exception)

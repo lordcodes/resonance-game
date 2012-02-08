@@ -65,7 +65,7 @@ namespace Resonance
         {
             List<Pickup> pickups = new List<Pickup>();
 
-            foreach (KeyValuePair<string, Object> kVP in Program.game.World.returnObjects())
+            foreach (KeyValuePair<string, Object> kVP in ScreenManager.game.World.returnObjects())
             {
                 Object obj = kVP.Value;
 
@@ -97,7 +97,7 @@ namespace Resonance
             for (int i = 0; i < pickups.Count; i++)
             {
                 Vector3 pickupPoint = pickups[i].Body.Position;
-                double diff = Vector3.Distance(Game.getGV().Body.Position, pickupPoint);
+                double diff = Vector3.Distance(GameScreen.getGV().Body.Position, pickupPoint);
 
                 if (diff < pickups[i].Size+3) //TODO: fix with correct GV physics model
                 {
@@ -108,28 +108,28 @@ namespace Resonance
                     {
                         case Pickup.NITROUS:
                             {
-                                Program.game.Music.playSound(MusicHandler.CHINK);
+                                ScreenManager.game.Music.playSound(MusicHandler.CHINK);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustNitro(10);
                                 break;
                             }
                         case Pickup.SHIELD:
                             {
-                                Program.game.Music.playSound(MusicHandler.DING);
+                                ScreenManager.game.Music.playSound(MusicHandler.DING);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustShield(5);
                                 break;
                             }
                         case Pickup.HEALTH:
                             {
-                                Program.game.Music.playSound(MusicHandler.SHIMMER);
+                                ScreenManager.game.Music.playSound(MusicHandler.SHIMMER);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().AdjustHealth(5);
                                 break;
                             }
                         case Pickup.FREEZE:
                             {
-                                Program.game.Music.playSound(MusicHandler.RED);
+                                ScreenManager.game.Music.playSound(MusicHandler.RED);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustFreeze(5);
                                 break;
@@ -142,16 +142,16 @@ namespace Resonance
                     }
 
                     //Drawing.addWave(pickupPoint);
-                    Program.game.World.removeObject(pickups[i]);
-                    Program.game.pickupSpawner.pickupPickedUp();
+                    ScreenManager.game.World.removeObject(pickups[i]);
+                    ScreenManager.game.pickupSpawner.pickupPickedUp();
                     continue;
                 }
 
                 pickups[i].TimeToLive--;
                 if (pickups[i].TimeToLive == 0)
                 {
-                    Program.game.World.removeObject(pickups[i]);
-                    Program.game.pickupSpawner.pickupPickedUp();
+                    ScreenManager.game.World.removeObject(pickups[i]);
+                    ScreenManager.game.pickupSpawner.pickupPickedUp();
                 }
             }
         }

@@ -57,7 +57,7 @@ namespace Resonance
         /// </summary>
         public static void pause()
         {
-            if(!Game.onMainMenu) paused = true;
+            paused = true;
         }
 
         /// <summary>
@@ -65,11 +65,8 @@ namespace Resonance
         /// </summary>
         public static void play()
         {
-            if (!Game.onMainMenu)
-            {
-                paused = false;
-                currentMenu = pauseMenu;
-            }
+            paused = false;
+            currentMenu = pauseMenu;
         }
 
         /// <summary>
@@ -82,10 +79,6 @@ namespace Resonance
                 selected--;
                 if (selected < 0) selected = currentMenu.Count - 1;
             }
-            else if (Game.onMainMenu)
-            {
-                mainMenu.moveUp();
-            }
         }
 
         /// <summary>
@@ -97,10 +90,6 @@ namespace Resonance
             {
                 selected++;
                 if (selected >= currentMenu.Count) selected = 0;
-            }
-            else if (Game.onMainMenu)
-            {
-                mainMenu.moveDown();
             }
         }
 
@@ -121,10 +110,6 @@ namespace Resonance
                 {
                     selection.CallBack();
                 }
-            }
-            else if (Game.onMainMenu)
-            {
-                mainMenu.select();
             }
         }
 

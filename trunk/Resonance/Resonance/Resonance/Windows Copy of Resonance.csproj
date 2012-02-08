@@ -80,6 +80,7 @@
     <Compile Include="Drawing\Graphics\DisplacementMap.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Drawing\Graphics\DrawableManager.cs" />
     <Compile Include="Drawing\Graphics\Drawing.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,10 +110,14 @@
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Particle.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />
-    <Compile Include="Drawing\UI\LoadingScreen.cs" />
     <Compile Include="Drawing\UI\MainMenuScreen.cs" />
     <Compile Include="Drawing\UI\MenuActions.cs" />
     <Compile Include="Drawing\UI\MenuItem.cs" />
+    <Compile Include="Drawing\UI\Screens\GameScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\LoadingScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\MainMenu.cs" />
+    <Compile Include="Drawing\UI\Screens\MenuElement.cs" />
+    <Compile Include="Drawing\UI\Screens\MenuScreen.cs" />
     <Compile Include="Drawing\UI\UI.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="Managers\AIManager.cs" />
@@ -121,10 +126,14 @@
     <Compile Include="Managers\DrumManager.cs" />
     <Compile Include="Managers\GVManager.cs" />
     <Compile Include="Managers\GVMotionManager.cs" />
-    <Compile Include="Managers\MenuControlManager.cs" />
     <Compile Include="Managers\ParticleEmitterManager.cs" />
     <Compile Include="Managers\PickupManager.cs" />
     <Compile Include="Managers\PickupSpawnManager.cs" />
+    <Compile Include="Managers\ScreenManager\InputDevices.cs" />
+    <Compile Include="Managers\ScreenManager\Screen.cs" />
+    <Compile Include="Managers\ScreenManager\ScreenManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Managers\Utility.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Object\BVSpawner.cs" />
@@ -139,7 +148,7 @@
     <Compile Include="Object\World.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Game.cs" />
+    <Compile Include="ResonanceGame.cs" />
     <Compile Include="ThreadRun.cs" />
   </ItemGroup>
   <ItemGroup>

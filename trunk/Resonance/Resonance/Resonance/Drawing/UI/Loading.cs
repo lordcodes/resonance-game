@@ -43,7 +43,6 @@ namespace Resonance
         private static void finished()
         {
             loading = false;
-            UI.play();
         }
 
     }

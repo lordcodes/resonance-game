@@ -29,16 +29,18 @@ namespace Resonance
         private static Vector3 targetPosition = defaultPos;
         private static Vector3 currentTarget;
 
-        public static KeyboardState lastKbd;
-        public static GamePadState lastPad;
-
         private static bool targetSet = false;
 
-        public static void update(GamePadState pad, KeyboardState kbd)
+        public static void update(InputDevices input)
         {
+            KeyboardState lastKbd = input.LastKeys;
+            KeyboardState kbd = input.Keys;
+            GamePadState lastPad = input.LastPlayerOne;
+            GamePadState pad = input.PlayerOne;
+
             if (!targetSet)
             {
-                currentTarget = Game.getGV().Body.Position;
+                currentTarget = GameScreen.getGV().Body.Position;
                 targetSet = true;
             }
 
@@ -56,9 +58,6 @@ namespace Resonance
             else if (views[view] == TOPDOWN) topDownGV();
 
             updateCamera(currentTarget);
-
-            lastKbd = kbd;
-            lastPad = pad;
         }
 
         /// <summary>
@@ -77,19 +76,19 @@ namespace Resonance
 
         private static void defaultGV()
         {
-            currentTarget = Game.getGV().Body.Position;
+            currentTarget = GameScreen.getGV().Body.Position;
             targetPosition = defaultPos;
         }
 
         private static void closeGV()
         {
-            currentTarget = Game.getGV().Body.Position;
+            currentTarget = GameScreen.getGV().Body.Position;
             targetPosition = closePos;
         }
 
         private static void topDownGV()
         {
-            currentTarget = Game.getGV().Body.Position;
+            currentTarget = GameScreen.getGV().Body.Position;
             targetPosition = topDownPos;
         }
 

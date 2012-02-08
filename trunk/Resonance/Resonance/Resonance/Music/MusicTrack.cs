@@ -52,8 +52,8 @@ namespace Resonance
             String path = newContent.RootDirectory + "/Music/song.timing";
 
             //mode = NoteMode.QUARTER;
-                 if (Game.DIFFICULTY == Game.BEGINNER) mode = NoteMode.WHOLE;
-            else if (Game.DIFFICULTY <= Game.MEDIUM)   mode = NoteMode.HALF;
+                 if (GameScreen.DIFFICULTY == GameScreen.BEGINNER) mode = NoteMode.WHOLE;
+            else if (GameScreen.DIFFICULTY <= GameScreen.MEDIUM)   mode = NoteMode.HALF;
             else                                       mode = NoteMode.QUARTER;
 
                  //mode = NoteMode.WHOLE;
@@ -71,7 +71,7 @@ namespace Resonance
             //DebugDisplay.update("Half Beat Length", halfBeatLength.ToString());
             //DebugDisplay.update("Window Size     ", WINDOW.ToString());
 
-            if (Game.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
+            if (GameScreen.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
         }
 
         /// <summary>

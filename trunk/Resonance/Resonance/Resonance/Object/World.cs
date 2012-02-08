@@ -66,7 +66,9 @@ namespace Resonance
                     MAP_X = Math.Abs(max.X - min.X);
                 }
             }
-            Program.game.Components.Add(obj);
+            //Program.game.Components.Add(obj);
+
+            DrawableManager.Add(obj);
         }
 
         public void addToSpace(ISpaceObject obj)
@@ -165,7 +167,8 @@ namespace Resonance
             {
                 space.Remove(((StaticObject)obj).Body);
             }
-            Program.game.Components.Remove(obj);
+            //Program.game.Components.Remove(obj);
+            DrawableManager.Remove(obj);
         }
 
         public Object getObject(String name)
@@ -209,7 +212,7 @@ namespace Resonance
             StaticObject tree = null;
             StaticObject mush = null;
             GoodVibe player = null;
-            BadVibe bv = null;
+            //BadVibe bv = null;
             //Pickup p = null;
             StoredObjects obj = Content.Load<StoredObjects>(levelName);
             clear();

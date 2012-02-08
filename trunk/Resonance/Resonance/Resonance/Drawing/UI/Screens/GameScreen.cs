@@ -13,14 +13,14 @@ using ResonanceLibrary;
 using BEPUphysics.Paths.PathFollowing;
 using System.IO;
 using AnimationLibrary;
+
 namespace Resonance
 {
     /// <summary>
     /// This is the main type for your game
     /// </summary>
-    class Game : Microsoft.Xna.Framework.Game
+    class GameScreen : Screen
     {
-
         public const int BEGINNER = 0;
         public const int EASY     = 1;
         public const int MEDIUM   = 2;
@@ -34,12 +34,8 @@ namespace Resonance
 
         public static bool USE_BV_SPAWNER = true;
         public static bool USE_PICKUP_SPAWNER = true;
-        public static bool USE_MAIN_MENU = true;
-
-        public static bool onMainMenu = false;
 
         GraphicsDeviceManager graphics;
-
         private MusicHandler musicHandler;
 
         World world;
@@ -49,44 +45,18 @@ namespace Resonance
         // Testing variable
         bool beatTested = false;
 
-        public Game()
+        bool isLoaded = false;
+
+        public GameScreen(ScreenManager scrManager)
         {
+            ScreenManager = scrManager;
             mode = new GameMode(GameMode.TIME_ATTACK);
-            graphics = new GraphicsDeviceManager(this);
-            Content.RootDirectory = "Content";
-            Drawing.Init(Content, graphics);
-            musicHandler = new MusicHandler(Content);
+            graphics = Program.game.GraphicsManager;
+            Drawing.Init(ScreenManager.Content, graphics);
+            musicHandler = new MusicHandler(ScreenManager.Content);
 
             if(USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if(USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
-
-            if (USE_MAIN_MENU) onMainMenu = true;
-
-            initKeyCache();
-
-            //Allows you to set the resolution of the game (not tested on Xbox yet)
-            IsMouseVisible = false;
-            IsFixedTimeStep = true;
-            graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = true;
-            graphics.PreferMultiSampling = true;
-            graphics.PreferredBackBufferWidth = 1920;
-            graphics.PreferredBackBufferHeight = 1080;
-            Window.AllowUserResizing = true;
-        }
-
-        private void initKeyCache()
-        {
-            KeyboardState kbd = Keyboard.GetState();
-            GamePadState one = GamePad.GetState(PlayerIndex.One);
-            GamePadState two = GamePad.GetState(PlayerIndex.Two);
-
-            DrumManager.lastKbd = kbd;
-            DrumManager.lastPad = two;
-            GVManager.lastKbd = kbd;
-            GVManager.lastPad = one;
-            CameraMotionManager.lastKbd = kbd;
-            CameraMotionManager.lastPad = one;
         }
 
         /// <summary>
@@ -95,27 +65,33 @@ namespace Resonance
         /// related content.  Calling base.Initialize will enumerate through any components
         /// and initialize them as well.
         /// </summary>
-        protected override void Initialize()
+        protected void Initialize()
         {
             // TODO: Add your initialization logic here
-            base.Initialize();
+            //base.Initialize();
         }
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        protected override void LoadContent()
+        public override void LoadContent()
         {
-            BadVibe.initialiseBank();
-            Drawing.loadContent();
-            UI.init(Content, graphics);
-            world = new World();
+            if (!isLoaded)
+            {
+                BadVibe.initialiseBank();
+                Drawing.loadContent();
+                UI.init(ScreenManager.Content, graphics);
+                world = new World();
 
-            //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
-            if(!USE_MAIN_MENU) MenuActions.loadLevel(1);
+                //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
+                //MenuActions.loadLevel(1);
+                Loading.load(delegate { loadLevel(1); }, "Level " + 1);
+                Drawing.reset();
 
-            ParticleEmitterManager.initialise(Content);
+                ParticleEmitterManager.initialise(ScreenManager.Content);
+                isLoaded = true;
+            }
         }
 
         /// <summary>
@@ -125,10 +101,8 @@ namespace Resonance
         /// <param name="i">Int number of the level, taken from the level name, i.e Level1.xml</param>
         public void loadLevel(int i)
         {
-            onMainMenu = false;
-
             string level = "Levels/Level"+i;
-            world.readXmlFile(level, Content);
+            world.readXmlFile(level, ScreenManager.Content);
 
             GVMotionManager.initialised = false;
         }
@@ -137,9 +111,19 @@ namespace Resonance
         /// UnloadContent will be called once per game and is the place to unload
         /// all content.
         /// </summary>
-        protected override void UnloadContent()
+        public override void UnloadContent()
         {
             // TODO: Unload any non ContentManager content here
+        }
+
+        public override void HandleInput(InputDevices input)
+        {
+            //Camera
+            CameraMotionManager.update(input);
+            //Player One
+            GVManager.input(input);
+            //Player Two
+            DrumManager.input(input);
         }
 
         /// <summary>
@@ -147,76 +131,66 @@ namespace Resonance
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+            //base.Update(gameTime);
+            DrawableManager.Update(gameTime);
+
             Drawing.Update(gameTime);
 
-            if (!Loading.isLoading)
-            {
-                keyInput();
-                if (USE_MAIN_MENU && onMainMenu)
-                {
+            float health = getGV().healthFraction();
+            if (health < 0.1) musicHandler.HeartBeat = true;
+            else musicHandler.HeartBeat = false;
+            //Update bad vibe positions
+            List<string> deadVibes = processBadVibes();
+            removeDeadBadVibes(deadVibes);
 
-                }
-                else if (!UI.Paused)
-                {
-                    float health = getGV().healthFraction();
-                    if (health < 0.1) musicHandler.HeartBeat = true;
-                    else musicHandler.HeartBeat = false;
-                    //Update bad vibe positions
-                    List<string> deadVibes = processBadVibes();
-                    removeDeadBadVibes(deadVibes);
+            //Break rest layers
+            if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
 
-                    //Break rest layers
-                    if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
+            // Update shockwaves
+            getGV().updateWaves();
 
-                    // Update shockwaves
-                    getGV().updateWaves();
+            //Check if combat and freeze range
+            getGV().detectCombatAndFreeze();
 
-                    //Check if combat and freeze range
-                    getGV().detectCombatAndFreeze();
+            //Update pickups
+            PickupManager.update();
+            //List<Pickup> pickups = world.returnPickups();
+            //world.updatePickups(pickups);
+            //PickupManager.updateTimeRemaining();
 
-                    //Update pickups
-                    PickupManager.update();
-                    //List<Pickup> pickups = world.returnPickups();
-                    //world.updatePickups(pickups);
-                    //PickupManager.updateTimeRemaining();
-
-
-                    world.update();
+            world.update();
                     
-                    musicHandler.Update();
+            musicHandler.Update();
 
-                    //Update Spawners
-                    if (USE_BV_SPAWNER) BVSpawnManager.update();
-                    if(USE_PICKUP_SPAWNER) pickupSpawner.update();
-
-                    base.Update(gameTime);
-                }
+            //Update Spawners
+            if (USE_BV_SPAWNER) BVSpawnManager.update();
+            if(USE_PICKUP_SPAWNER) pickupSpawner.update();
                 
-                if (GV_KILLED || mode.terminated()) {
-                    endGame();
-                }
-
-                //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
-
-                // Recoded in Hud.cs
-                /*if (musicHandler.getTrack().inTime() > 0.8f) {
-                    if (!beatTested) {
-                        //musicHandler.playSound("chink");
-                        DebugDisplay.update("Hit", "Now!");
-                        beatTested = true;
-
-                        Game.getGV().showBeat();
-                    }
-                } else {
-                    if (beatTested) {
-                        beatTested = false;
-                        //musicHandler.playSound("chink");
-                        DebugDisplay.update("Hit", "Not now!");
-                    }
-                }*/
+            if (GV_KILLED || mode.terminated()) {
+                endGame();
             }
+
+            //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
+
+            // Recoded in Hud.cs
+            /*if (musicHandler.getTrack().inTime() > 0.8f) {
+                if (!beatTested) {
+                    //musicHandler.playSound("chink");
+                    DebugDisplay.update("Hit", "Now!");
+                    beatTested = true;
+
+                    Game.getGV().showBeat();
+                }
+            } else {
+                if (beatTested) {
+                    beatTested = false;
+                    //musicHandler.playSound("chink");
+                    DebugDisplay.update("Hit", "Not now!");
+                }
+            }*/
+        //}
         }
 
         // Called when game finished (won or lost).
@@ -228,28 +202,6 @@ namespace Resonance
             DebugDisplay.update("Game Over! State", r);
             DebugDisplay.update("Final Score", finalScore.ToString());
             UI.pause();
-        }
-
-        private void keyInput()
-        {
-            GamePadState playerOne = GamePad.GetState(PlayerIndex.One);
-            GamePadState playerTwo = GamePad.GetState(PlayerIndex.Two);
-            KeyboardState keyboard = Keyboard.GetState();
-
-            MenuControlManager.input(playerOne, keyboard);
-            if (USE_MAIN_MENU && onMainMenu)
-            {
-
-            }
-            else if (!UI.Paused)
-            {
-                //Camera
-                CameraMotionManager.update(playerOne, keyboard);
-                //Player One
-                GVManager.input(playerOne, keyboard);
-                //Player Two
-                DrumManager.input(playerTwo, keyboard);
-            }
         }
 
         /// <summary>
@@ -310,7 +262,7 @@ namespace Resonance
 
         public static GoodVibe getGV()
         {
-            return (GoodVibe)Program.game.World.getObject("Player");
+            return (GoodVibe)ScreenManager.game.World.getObject("Player");
         }
 
         public World World
@@ -333,21 +285,23 @@ namespace Resonance
         /// This is called when the game should draw itself.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        protected override void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            graphics.GraphicsDevice.Clear(Color.Black);
             if (Drawing.requestRender)
             {
                 Drawing.drawReflection();
-                GraphicsDevice.Clear(Color.Black);
-                base.Draw(gameTime);
+                graphics.GraphicsDevice.Clear(Color.Black);
+                Drawing.drawGame();
             }
             Drawing.drawGame();
-            GraphicsDevice.Clear(Color.Black);
-            base.Draw(gameTime);
+            graphics.GraphicsDevice.Clear(Color.Black);
+            //base.Draw(gameTime);
+            DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);
-        }
 
+            UI.pause();
+        }
 
     }
 }
