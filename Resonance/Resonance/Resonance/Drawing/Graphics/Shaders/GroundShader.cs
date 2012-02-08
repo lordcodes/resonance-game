@@ -10,13 +10,21 @@ namespace Resonance
     class GroundShader : Shader
     {
 
-        public GroundShader(string file) : base(file){}
+        public GroundShader(string file) : base(file) { }
 
         public Vector2 GoodVibePos
         {
             set
             {
                 Effect.Parameters["gvPos"].SetValue(value);
+            }
+        }
+
+        public Vector2 CameraPos
+        {
+            set
+            {
+                Effect.Parameters["camPos"].SetValue(value);
             }
         }
 
