@@ -1,0 +1,7 @@
+﻿---Name---||---ModelNumber----||----Color----||------Pickup-----||
+tree             1                 Brown             No
+house            2                 Red               No
+goodVibe         4                 White             No
+terrain64        5                 Green             No
+box              8                 Yellow            Yes
+BV_Spawner       10                Silver            No
