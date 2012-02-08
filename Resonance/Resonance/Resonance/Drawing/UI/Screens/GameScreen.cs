@@ -292,11 +292,10 @@ namespace Resonance
             {
                 Drawing.drawReflection();
                 graphics.GraphicsDevice.Clear(Color.Black);
-                Drawing.drawGame();
+                DrawableManager.Draw(gameTime);
             }
             Drawing.drawGame();
             graphics.GraphicsDevice.Clear(Color.Black);
-            //base.Draw(gameTime);
             DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);
         }
