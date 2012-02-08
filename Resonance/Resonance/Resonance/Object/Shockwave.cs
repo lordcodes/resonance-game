@@ -95,7 +95,7 @@ namespace Resonance
 
         public void checkBadVibes()
         {
-            foreach (BadVibe bv in Program.game.World.returnBadVibes())
+            foreach (BadVibe bv in ScreenManager.game.World.returnBadVibes())
             {
                 if (bv.Status != BadVibe.State.DEAD && !bVibes.Contains(bv))
                 {

@@ -90,7 +90,7 @@ namespace Resonance
             // Draw the full gauge to our buffer, no blending
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
             //spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
-            spriteBatch.Draw(HUDTexture, new Vector2(Drawing.pixelsX(10), Drawing.pixelsY(10)), new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight), Color.White);
+            spriteBatch.Draw(HUDTexture, new Vector2(ScreenManager.pixelsX(10), ScreenManager.pixelsY(10)), new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight), Color.White);
             spriteBatch.End();
 
             // Then draw the gauge mask in the correct place
@@ -102,7 +102,7 @@ namespace Resonance
 //gd.BlendState.ColorDestinationBlend = Blend.InverseSourceColor;
             //gd.RenderState.SourceBlend = Blend.InverseSourceColor;
             //gd.RenderState.DestinationBlend = Blend.InverseSourceColor;
-            spriteBatch.Draw(HUDTexture, new Vector2(Math.Max(ms.X, Drawing.pixelsX(0)), Drawing.pixelsY(0)), new Rectangle(0, HUDTextureHeight * 2, HUDTexture.Width, HUDTextureHeight), Color.White);
+            spriteBatch.Draw(HUDTexture, new Vector2(Math.Max(ms.X, ScreenManager.pixelsX(0)), ScreenManager.pixelsY(0)), new Rectangle(0, HUDTextureHeight * 2, HUDTexture.Width, HUDTextureHeight), Color.White);
             spriteBatch.End();
 
             // Have to resolve the render target to use it    
@@ -122,7 +122,7 @@ namespace Resonance
 
             // Finally draw the hud and the gauge on top of it using alphablending (on by default)
             spriteBatch.Begin();
-            Vector2 pos = new Vector2(Drawing.pixelsX(10), Drawing.pixelsY(10));
+            Vector2 pos = new Vector2(ScreenManager.pixelsX(10), ScreenManager.pixelsY(10));
             spriteBatch.Draw(HUDTexture, pos, new Rectangle(0, 0, HUDTexture.Width, HUDTexture.Height), Color.White);
             //spriteBatch.Draw(HUDTexture, pos, new Rectangle(0, 0, HUDTexture.Width, HUDTextureHeight), Color.White);
             // Use GetTexture to return the texture of our RenderTarget2D

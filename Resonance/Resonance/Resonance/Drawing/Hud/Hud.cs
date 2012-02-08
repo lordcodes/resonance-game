@@ -58,8 +58,6 @@ namespace Resonance
         /// </summary>
         public void loadContent()
         {
-            spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
-
             font        = Content.Load<SpriteFont>         ("Drawing/Fonts/DebugFont");
             healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
             healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
@@ -85,7 +83,7 @@ namespace Resonance
         /// <param name="text">Text string to display</param>
         public void drawDebugInfo(String text)
         {
-            Vector2 coords = new Vector2(Drawing.pixelsX(17), Drawing.pixelsY(300));
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(17), ScreenManager.pixelsY(300));
             Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
             drawText(coords2, text, Color.Black);
             drawText(coords, text, Color.White);
@@ -97,7 +95,7 @@ namespace Resonance
         /// <param name="text">Text to display</param>
         public void drawMenu(String text)
         {
-            Vector2 coords = new Vector2(Drawing.pixelsX(800), Drawing.pixelsY(400));
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(800), ScreenManager.pixelsY(400));
             Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
             drawText(coords2, text, Color.Black);
             drawText(coords, text, Color.White);
@@ -123,9 +121,11 @@ namespace Resonance
         /// </summary>
         public void Draw()
         {
+            if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
+            spriteBatch.Begin();
+
             drawBadVibeArmour();
             drawHealthBar();
-            spriteBatch.Begin();
             highlightedPower();
             drawNitroBar();
             drawShieldBar();
@@ -134,17 +134,17 @@ namespace Resonance
             drawThrobber();
             //tEmm.pos.X += 5;
             //tEmm.update(spriteBatch);
-            scoreFont.drawLeft(Drawing.pixelsX(1890), Drawing.pixelsY(15), Drawing.WidthRatio, Drawing.HeightRatio, score.ToString(), spriteBatch);
+            scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
             spriteBatch.End();
             Drawing.resetGraphics();
         }
 
         private void drawThrobber() {
-            if (Program.game.Music.getTrack().inTime() > 0.95f) {
-                spriteBatch.Draw(tempo, new Rectangle(Drawing.pixelsX(50), Drawing.pixelsY(1000), tempo.Width, tempo.Height), Color.White);
-                Game.getGV().showBeat();
+            if (ScreenManager.game.Music.getTrack().inTime() > 0.5f) {
+                spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(50), ScreenManager.pixelsY(1000), tempo.Width, tempo.Height), Color.White);
+                GameScreen.getGV().showBeat();
             } else {
-                spriteBatch.Draw(tempo, new Rectangle(Drawing.pixelsX(50), Drawing.pixelsY(1000), tempo.Width, tempo.Height), Color.Black);
+                spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(50), ScreenManager.pixelsY(1000), tempo.Width, tempo.Height), Color.Black);
             }
         }
 
@@ -156,7 +156,7 @@ namespace Resonance
         /// <param name="armour">List of armour values</param>
         public void updateEnemy(string name, Vector3 pos, List<int> armour)
         {
-            int bvDist = (int)Vector3.Distance(Resonance.Game.getGV().Body.Position, pos);
+            int bvDist = (int)Vector3.Distance(GameScreen.getGV().Body.Position, pos);
 
             if (bvDist <= BadVibe.MAX_ARMOUR_DISPLAY_DIST) {
                 if (BadVibe.DRAW_HEALTH_AS_STRING) {
@@ -237,8 +237,6 @@ namespace Resonance
         }
 
         public void drawBadVibeHealth(List<int> arm, Vector2 pos, int bvDist) {
-            spriteBatch.Begin();
-
             int posX = (int) pos.X;
             int posY = (int) pos.Y;
 
@@ -314,8 +312,6 @@ namespace Resonance
                     posY -= (int) (drumPad.Height * ARMOUR_SCALE) + BadVibe.ARMOUR_SPACING;
                 }
             }
-
-            spriteBatch.End();
             Drawing.resetGraphics();
         }
 
@@ -327,9 +323,7 @@ namespace Resonance
         /// <param name="coords">Coords to display the armour levels</param>
         public void drawBadVibeHealthString(String name, string armour, Vector2 coords)
         {
-            spriteBatch.Begin();
             spriteBatch.DrawString(font, armour, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.End();
             Drawing.resetGraphics();
         }
 
@@ -340,44 +334,42 @@ namespace Resonance
         {
             //healthBarClass.draw(spriteBatch);
 
-            int x = Drawing.pixelsX(10);
-            int y = Drawing.pixelsY(10);
-            int width = Drawing.pixelsX(healthBar.Width);
-            int height = Drawing.pixelsY(healthBar.Height);
-            int sliceX = x + Drawing.pixelsX(9);
-            int sliceY = y + Drawing.pixelsY(9);
+            int x = ScreenManager.pixelsX(10);
+            int y = ScreenManager.pixelsY(10);
+            int width = ScreenManager.pixelsX(healthBar.Width);
+            int height = ScreenManager.pixelsY(healthBar.Height);
+            int sliceX = x + ScreenManager.pixelsX(9);
+            int sliceY = y + ScreenManager.pixelsY(9);
             int sliceWidth = 1;
-            int sliceHeight = Drawing.pixelsY(healthSlice.Height);
-            int limit = (int)Math.Round((float)Drawing.pixelsX(582) * health / GoodVibe.MAX_HEALTH);
+            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height);
+            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582) * health / GoodVibe.MAX_HEALTH);
 
             float greenValue;
             Color c;
-            spriteBatch.Begin();
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
             for (int i = 0; i < limit; i++)
             {
-                greenValue = (float)i / Drawing.pixelsX(582);
+                greenValue = (float)i / ScreenManager.pixelsX(582);
                 float red = (float)(greenValue > 0.5 ? 1 - 2 * (greenValue - 0.5) : 1.0);
                 float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
                 c = new Color(red, green, 0f);
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
             }
-            spriteBatch.End();
         }
 
         private void drawNitroBar()
         {
-            int x = Drawing.pixelsX(14);
-            int y = Drawing.pixelsY(healthBar.Height + 5);
-            int width = Drawing.pixelsX(healthBar.Width /2);
-            int height = Drawing.pixelsY(healthBar.Height /2);
+            int x = ScreenManager.pixelsX(14);
+            int y = ScreenManager.pixelsY(healthBar.Height + 5);
+            int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            int height = ScreenManager.pixelsY(healthBar.Height / 2);
 
-            int sliceX = x + Drawing.pixelsX(4);
-            int sliceY = y + Drawing.pixelsY(5);
+            int sliceX = x + ScreenManager.pixelsX(4);
+            int sliceY = y + ScreenManager.pixelsY(5);
             int sliceWidth = 1;
-            int sliceHeight = Drawing.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)Drawing.pixelsX(582 / 2) * nitro / GoodVibe.MAX_NITRO);
+            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * nitro / GoodVibe.MAX_NITRO);
 
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
 
@@ -392,16 +384,16 @@ namespace Resonance
 
         private void drawShieldBar()
         {
-            int x = Drawing.pixelsX(14);
-            int y = Drawing.pixelsY(healthBar.Height + 5 + healthBar.Height / 2);
-            int width = Drawing.pixelsX(healthBar.Width / 2);
-            int height = Drawing.pixelsY(healthBar.Height / 2);
+            int x = ScreenManager.pixelsX(14);
+            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height / 2);
+            int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            int height = ScreenManager.pixelsY(healthBar.Height / 2);
 
-            int sliceX = x + Drawing.pixelsX(4);
-            int sliceY = y + Drawing.pixelsY(5);
+            int sliceX = x + ScreenManager.pixelsX(4);
+            int sliceY = y + ScreenManager.pixelsY(5);
             int sliceWidth = 1;
-            int sliceHeight = Drawing.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)Drawing.pixelsX(582 / 2) * shield / GoodVibe.MAX_SHIELD);
+            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * shield / GoodVibe.MAX_SHIELD);
 
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
 
@@ -416,16 +408,16 @@ namespace Resonance
 
         private void drawFreezeBar()
         {
-            int x = Drawing.pixelsX(14);
-            int y = Drawing.pixelsY(healthBar.Height + 5 + healthBar.Height);
-            int width = Drawing.pixelsX(healthBar.Width / 2);
-            int height = Drawing.pixelsY(healthBar.Height / 2);
+            int x = ScreenManager.pixelsX(14);
+            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height);
+            int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            int height = ScreenManager.pixelsY(healthBar.Height / 2);
 
-            int sliceX = x + Drawing.pixelsX(4);
-            int sliceY = y + Drawing.pixelsY(5);
+            int sliceX = x + ScreenManager.pixelsX(4);
+            int sliceY = y + ScreenManager.pixelsY(5);
             int sliceWidth = 1;
-            int sliceHeight = Drawing.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)Drawing.pixelsX(582 / 2) * freeze / GoodVibe.MAX_FREEZE);
+            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * freeze / GoodVibe.MAX_FREEZE);
 
             spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
 
@@ -462,17 +454,17 @@ namespace Resonance
 
         public void highlightedPower()
         {
-            if (Game.getGV().selectedPower == 0)
+            if (GameScreen.getGV().selectedPower == 0)
             {
                 DebugDisplay.update("SELECTED POWER", "NITROUS");
             }
 
-            if (Game.getGV().selectedPower == 1)
+            if (GameScreen.getGV().selectedPower == 1)
             {
                 DebugDisplay.update("SELECTED POWER", "SHIELD");
             }
 
-            if (Game.getGV().selectedPower == 2)
+            if (GameScreen.getGV().selectedPower == 2)
             {
                 DebugDisplay.update("SELECTED POWER", "FREEZE");
             }

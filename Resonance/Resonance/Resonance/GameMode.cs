@@ -26,14 +26,14 @@ namespace Resonance {
         public bool terminated() {
             switch (MODE) {
                 case TIME_ATTACK: {
-                    if (Program.game.Music.getTrack().SONG_ENDED) TERMINATION_CRITERION_MET = true;
+                    if (ScreenManager.game.Music.getTrack().SONG_ENDED) TERMINATION_CRITERION_MET = true;
                     break;
                 }
                 case SURVIVAL:    { // TODO: Survival mode termination criteria (Nothing: Only way to end is for GV to be dead. Handled separately)
                     break;
                 }
                 case ELIMINATION: { // TODO: Elimination mode termination criteria (no BV left)
-                    if (Program.game.World.returnBadVibes().Count == 0) TERMINATION_CRITERION_MET = true;
+                    if (ScreenManager.game.World.returnBadVibes().Count == 0) TERMINATION_CRITERION_MET = true;
                     break;
                 }
             }

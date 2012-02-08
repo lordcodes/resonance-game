@@ -29,7 +29,6 @@ namespace Resonance
         public static readonly int BV_Exploasion    = 12;
 
         private static ContentManager Content;
-
         private static ImportedGameModels importedGameModels;
 
         /// <summary>

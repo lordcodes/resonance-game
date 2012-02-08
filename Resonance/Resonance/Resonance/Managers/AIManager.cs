@@ -51,7 +51,7 @@ namespace Resonance
             servo.Settings.Servo.SpringSettings.DampingConstant *= 1f;
             servo.Settings.Servo.SpringSettings.StiffnessConstant *= 5f;
             servo.Settings.Servo.Goal = orientation;
-            Program.game.World.addToSpace(servo);
+            ScreenManager.game.World.addToSpace(servo);
         }
 
         public void moveManager()
@@ -76,7 +76,7 @@ namespace Resonance
                 else
                 {
                     //Rotate to face GV and attack it
-                    Vector3 point = Game.getGV().Body.Position;
+                    Vector3 point = GameScreen.getGV().Body.Position;
                     rotateToFacePoint(point);
                     attack();
                 }
@@ -99,7 +99,7 @@ namespace Resonance
 
         private void moveToGV()
         {
-            Vector3 point = Game.getGV().Body.Position;
+            Vector3 point = GameScreen.getGV().Body.Position;
             rotateToFacePoint(point);
             move(1f);
         }
@@ -203,7 +203,7 @@ namespace Resonance
         public void attack()
         {
             // Make sure BV is facing GV
-            Vector3 posDiff = bv.Body.Position - Game.getGV().Body.Position;
+            Vector3 posDiff = bv.Body.Position - GameScreen.getGV().Body.Position;
             Vector3 bvf = bv.Body.OrientationMatrix.Forward;
             posDiff.Normalize();
             bvf.Normalize();
@@ -217,14 +217,14 @@ namespace Resonance
                 int chance = r.Next(0, 100);
                 if (chance > CHANCE_MISS)
                 {
-                    Game.getGV().AdjustHealth(-1);
+                    GameScreen.getGV().AdjustHealth(-1);
                 }
             }
         }
 
         private bool closeToEdge()
         {
-            BoundingBox box = ((StaticObject)Program.game.World.getObject("Ground")).Body.BoundingBox;
+            BoundingBox box = ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox;
             Vector3 max = box.Max;
             Vector3 min = box.Min;
 
@@ -245,7 +245,7 @@ namespace Resonance
 
         private bool inTargetRange()
         {
-            if (Vector3.Distance(Game.getGV().Body.Position, bv.Body.Position) < TARGET_RANGE)
+            if (Vector3.Distance(GameScreen.getGV().Body.Position, bv.Body.Position) < TARGET_RANGE)
             {
                 return true;
             }
@@ -257,7 +257,7 @@ namespace Resonance
 
         private bool inAttackRange()
         {
-            if (Vector3.Distance(Game.getGV().Body.Position, bv.Body.Position) < ATTACK_RANGE)
+            if (Vector3.Distance(GameScreen.getGV().Body.Position, bv.Body.Position) < ATTACK_RANGE)
             {
                 return true;
             }
@@ -313,12 +313,12 @@ namespace Resonance
         
         private List<Object> rayCast(Vector3 position, Vector3 direction)
         {
-            return Program.game.World.rayCastObjects(position, direction, SPOT_RANGE, RayCastFilter);
+            return ScreenManager.game.World.rayCastObjects(position, direction, SPOT_RANGE, RayCastFilter);
         }
 
         private List<RayHit> rayCastHits(Vector3 position, Vector3 direction)
         {
-            return Program.game.World.rayCastHitData(position, direction, SPOT_RANGE, RayCastFilter);
+            return ScreenManager.game.World.rayCastHitData(position, direction, SPOT_RANGE, RayCastFilter);
         }
 
         bool RayCastFilter(BroadPhaseEntry entry)

@@ -125,16 +125,16 @@ namespace Resonance
         {
             spriteBatch.Begin();
             string text = "Welcome to the Resonance Chamber";
-            spriteBatch.Draw(bg[selected], new Rectangle(0, 0, Drawing.ScreenWidth+1, Drawing.ScreenHeight+1), Color.White);
-            spriteBatch.DrawString(font, text, new Vector2(Drawing.pixelsX(20), Drawing.pixelsY(30)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(bg[selected], new Rectangle(0, 0, ScreenManager.ScreenWidth + 1, ScreenManager.ScreenHeight + 1), Color.White);
+            spriteBatch.DrawString(font, text, new Vector2(ScreenManager.pixelsX(20), ScreenManager.pixelsY(30)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             int x = 1350;
             int y = 300;
             int i = 0;
             for(int index = 0; index < currentMenu.Count; index++)
             {
-                if(index == selected) spriteBatch.DrawString(font, currentMenu[index].Text, new Vector2(Drawing.pixelsX(x), Drawing.pixelsY(y + i)), Color.Yellow, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                else spriteBatch.DrawString(font, currentMenu[index].Text, new Vector2(Drawing.pixelsX(x), Drawing.pixelsY(y + i)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                if (index == selected) spriteBatch.DrawString(font, currentMenu[index].Text, new Vector2(ScreenManager.pixelsX(x), ScreenManager.pixelsY(y + i)), Color.Yellow, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                else spriteBatch.DrawString(font, currentMenu[index].Text, new Vector2(ScreenManager.pixelsX(x), ScreenManager.pixelsY(y + i)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 i += 75;
             }
 

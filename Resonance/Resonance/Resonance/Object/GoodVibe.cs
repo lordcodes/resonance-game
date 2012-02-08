@@ -153,7 +153,7 @@ namespace Resonance
         {
             health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);        
 
-            if (health <= 0) Resonance.Game.GV_KILLED = true;
+            if (health <= 0) GameScreen.GV_KILLED = true;
         }
 
         /// <summary>
@@ -230,7 +230,8 @@ namespace Resonance
                     }
             }
             waves.Add(w);
-            Program.game.Components.Add(w);
+            //Program.game.Components.Add(w);
+            DrawableManager.Add(w);
         }
 
         /// <summary>
@@ -255,7 +256,8 @@ namespace Resonance
             {
                 if (waves[i].Radius >= Shockwave.MAX_RADIUS)
                 {
-                    Program.game.Components.Remove(waves[i]);
+                    //Program.game.Components.Remove(waves[i]);
+                    DrawableManager.Remove(waves[i]);
                     waves.RemoveAt(i);
                 }
 
@@ -269,7 +271,7 @@ namespace Resonance
         public void detectCombatAndFreeze()
         {
             isInCombat = false;
-            foreach (BadVibe bv in Program.game.World.returnBadVibes())
+            foreach (BadVibe bv in ScreenManager.game.World.returnBadVibes())
             {
                 double dx = this.Body.Position.X - bv.Body.Position.X;
                 double dz = this.Body.Position.Z - bv.Body.Position.Z;
@@ -293,7 +295,7 @@ namespace Resonance
         public void freezeBadVibes()
         {
             isInCombat = false;
-            foreach (BadVibe bv in Program.game.World.returnBadVibes())
+            foreach (BadVibe bv in ScreenManager.game.World.returnBadVibes())
             {
                 double dx = this.Body.Position.X - bv.Body.Position.X;
                 double dz = this.Body.Position.Z - bv.Body.Position.Z;

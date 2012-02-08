@@ -48,7 +48,7 @@ namespace Resonance
 
             Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
             servo.Settings.Servo.Goal = orientation;
-            Program.game.World.addToSpace(servo);
+            ScreenManager.game.World.addToSpace(servo);
         }
 
         /// <summary>

@@ -45,7 +45,7 @@ namespace Resonance {
         /// Methods
 
         public static void init() {
-            gv = (GoodVibe)Program.game.World.getObject("Player");
+            gv = (GoodVibe)ScreenManager.game.World.getObject("Player");
 
             gv.Body.Material.KineticFriction *= 2f;
             gv.Body.Material.StaticFriction  *= 2f;
@@ -59,7 +59,7 @@ namespace Resonance {
             servo.Settings.Servo.SpringSettings.DampingConstant   *= 10f;
             servo.Settings.Servo.SpringSettings.StiffnessConstant *= 100f;
 
-            Program.game.World.addToSpace(servo);
+            ScreenManager.game.World.addToSpace(servo);
 
 
             // ADD LINEARAXISMOTORs TO GV
@@ -69,7 +69,7 @@ namespace Resonance {
             lamZ.ConnectionB   = gv.Body;
             lamZ.Axis          = new Vector3(0f, 0f, 1f);
             lamZ.IsActive      = true;
-            Program.game.World.addToSpace(lamZ);
+            ScreenManager.game.World.addToSpace(lamZ);
 
             lamX               = new LinearAxisMotor();
             lamX.Settings.Mode = MotorMode.VelocityMotor;
@@ -77,7 +77,7 @@ namespace Resonance {
             lamX.ConnectionB   = gv.Body;
             lamX.Axis          = new Vector3(0f, 0f, 1f);
             lamX.IsActive      = true;
-            Program.game.World.addToSpace(lamX);
+            ScreenManager.game.World.addToSpace(lamX);
 
             // INITIALISATION COMPLETE
             initialised = true;

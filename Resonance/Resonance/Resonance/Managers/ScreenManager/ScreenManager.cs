@@ -1,0 +1,163 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Content;
+
+namespace Resonance
+{
+    class ScreenManager : DrawableGameComponent
+    {
+        List<Screen> screens;
+        List<Screen> updateScreens;
+
+        SpriteBatch spriteBatch;
+        ContentManager content;
+        InputDevices input;
+
+        bool initialised = false;
+
+        private static float screenWidth;
+        private static float screenHeight;
+        private static double widthRatio;
+        private static double heightRatio;
+
+        public static GameScreen game;
+
+
+        public ScreenManager(ResonanceGame game)
+            : base(game)
+        {
+            screens = new List<Screen>();
+            updateScreens = new List<Screen>();
+            input = new InputDevices();
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            initialised = true;
+        }
+
+        protected override void LoadContent()
+        {
+            content = Game.Content;
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            screenWidth = GraphicsDevice.PresentationParameters.BackBufferWidth;
+            screenHeight = GraphicsDevice.PresentationParameters.BackBufferHeight;
+            widthRatio = screenWidth / 1920;
+            heightRatio = screenHeight / 1080;
+
+            foreach(Screen screen in screens)
+            {
+                screen.LoadContent();
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            input.Update();
+
+            updateScreens.Clear();
+            foreach (Screen screen in screens)
+            {
+                updateScreens.Add(screen);
+            }
+
+            bool takeInput = true;
+
+            while (updateScreens.Count > 0)
+            {
+                Screen screen = updateScreens[updateScreens.Count - 1];
+                updateScreens.RemoveAt(updateScreens.Count - 1);
+                screen.Update(gameTime);
+
+                if (takeInput)
+                {
+                    screen.HandleInput(input);
+                    takeInput = false;
+                }
+            }
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            foreach (Screen screen in screens)
+            {
+                screen.Draw(gameTime);
+            }
+        }
+
+        public void addScreen(Screen screen)
+        {
+            screen.ScreenManager = this;
+
+            if(initialised) screen.LoadContent();
+            screens.Add(screen);
+        }
+
+        public void removeScreen(Screen screen)
+        {
+            screens.Remove(screen);
+            updateScreens.Remove(screen);
+        }
+
+        public Screen[] getScreens()
+        {
+            return screens.ToArray<Screen>();
+        }
+
+        public SpriteBatch SpriteBatch
+        {
+            get { return spriteBatch; }
+        }
+
+        public ContentManager Content
+        {
+            get { return content; }
+        }
+
+        /// <summary>
+        /// Converts X pixel values from HD resolution to the current resolution which may not be HD
+        /// </summary>
+        /// <param name="input">X HD coordinate</param>
+        /// <returns>True coordinate</returns>
+        public static int pixelsX(int input)
+        {
+            return (int)Math.Round(input * widthRatio);
+        }
+
+        /// <summary>
+        /// Converts Y pixel values from HD resolution to the current resolution which may not be HD
+        /// </summary>
+        /// <param name="input">Y HD coordinate</param>
+        /// <returns>True coordinate</returns>
+        public static int pixelsY(int input)
+        {
+            return (int)Math.Round(input * heightRatio);
+        }
+
+        public static int ScreenWidth
+        {
+            get { return (int)Math.Round(screenWidth); }
+        }
+
+        public static int ScreenHeight
+        {
+            get { return (int)Math.Round(screenHeight); }
+        }
+
+        public static double HeightRatio
+        {
+            get { return heightRatio; }
+        }
+
+        public static double WidthRatio
+        {
+            get { return widthRatio; }
+        }
+    }
+}

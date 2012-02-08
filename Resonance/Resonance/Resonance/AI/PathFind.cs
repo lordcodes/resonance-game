@@ -44,7 +44,7 @@ namespace Resonance
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    map[i, j] = Program.game.World.querySpace(new Vector3((i - xDir), 0.5f, (j - zDir)));
+                    map[i, j] = ScreenManager.game.World.querySpace(new Vector3((i - xDir), 0.5f, (j - zDir)));
                 }
             }
         }

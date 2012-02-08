@@ -152,7 +152,8 @@ namespace Resonance
 
             textureAnimPaused = !gameModel.TextureAnimationStart;
 
-            Program.game.Components.Add(this);
+            //Program.game.Components.Add(this);
+            DrawableManager.Add(this);
         }
 
         /// <summary>

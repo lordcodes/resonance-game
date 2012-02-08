@@ -22,29 +22,34 @@ namespace Resonance
         public static GamePadState lastPad;
         public static KeyboardState lastKbd;
 
-        public static void input(GamePadState pad, KeyboardState kbd)
+        public static void input(InputDevices input)
         {
+            KeyboardState kbd = input.Keys;
+            KeyboardState lastKbd = input.LastKeys;
+            GamePadState pad = input.PlayerOne;
+            GamePadState lastPad = input.LastPlayerOne;
+
             if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) ||
                 (pad.Buttons.LeftShoulder == ButtonState.Pressed && lastPad.Buttons.LeftShoulder != ButtonState.Pressed))
             {
                 Drawing.DoDisp = true;
-                Drawing.addWave(Game.getGV().Body.Position);
+                Drawing.addWave(GameScreen.getGV().Body.Position);
             }
             if ((kbd.IsKeyDown(Keys.L) && !lastKbd.IsKeyDown(Keys.L)))
             {
-                Game.getGV().showBeat();
+                GameScreen.getGV().showBeat();
             }
             if ((pad.Buttons.Start == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
             {
-                Program.game.Music.getTrack().playTrack();
+                ScreenManager.game.Music.getTrack().playTrack();
             }
             if ((pad.Buttons.A == ButtonState.Pressed) || kbd.IsKeyDown(Keys.S))
             {
-                Program.game.Music.getTrack().stopTrack();
+                ScreenManager.game.Music.getTrack().stopTrack();
             }
             if (pad.Buttons.B == ButtonState.Pressed || kbd.IsKeyDown(Keys.P))
             {
-                Program.game.Music.getTrack().pauseTrack();
+                ScreenManager.game.Music.getTrack().pauseTrack();
             }
             if (pad.Buttons.LeftShoulder == ButtonState.Pressed || kbd.IsKeyDown(Keys.M))
             {
@@ -57,26 +62,26 @@ namespace Resonance
 
             if (pad.Buttons.X == ButtonState.Pressed || kbd.IsKeyDown(Keys.J))
             {
-                Game.getGV().selectedPower = SHIELD;
+                GameScreen.getGV().selectedPower = SHIELD;
             }
 
             if (pad.Buttons.Y == ButtonState.Pressed || kbd.IsKeyDown(Keys.K))
             {
-                Game.getGV().selectedPower = NITROUS;
+                GameScreen.getGV().selectedPower = NITROUS;
             }
 
             if (pad.Buttons.B == ButtonState.Pressed || kbd.IsKeyDown(Keys.L))
             {
-                Game.getGV().selectedPower = FREEZE;
+                GameScreen.getGV().selectedPower = FREEZE;
             }
 
             if (pad.Triggers.Right > 0.1 || kbd.IsKeyDown(Keys.T))
             {
-               usePower(Game.getGV().selectedPower);
+               usePower(GameScreen.getGV().selectedPower);
             }
             else //if ((pad.Triggers.Right > 0 && pad.Triggers.Right < 0.1) || kbd.IsKeyUp(Keys.T))
             {
-                Game.getGV().shieldDown();
+                GameScreen.getGV().shieldDown();
                 GVMotionManager.resetBoost();
             }
             GVMotionManager.input(kbd, pad);
@@ -90,23 +95,23 @@ namespace Resonance
             if (power == SHIELD)
             {
 
-                if (Game.getGV().Shield > 0)
+                if (GameScreen.getGV().Shield > 0)
                 {
-                    Game.getGV().adjustShield(-1);
-                    Game.getGV().shieldUp();
+                    GameScreen.getGV().adjustShield(-1);
+                    GameScreen.getGV().shieldUp();
                 }
                 else
                 {
-                    Game.getGV().shieldDown();
+                    GameScreen.getGV().shieldDown();
                 }
             }
 
             if (power == FREEZE)
             {
-                if (Game.getGV().Freeze > 0)
+                if (GameScreen.getGV().Freeze > 0)
                 {
-                    Game.getGV().freezeBadVibes();
-                    Game.getGV().adjustFreeze(-1);
+                    GameScreen.getGV().freezeBadVibes();
+                    GameScreen.getGV().adjustFreeze(-1);
                 }
 
             }
@@ -114,9 +119,9 @@ namespace Resonance
             if (power == NITROUS)
             {
                
-                if (Game.getGV().Nitro > 0.1)
+                if (GameScreen.getGV().Nitro > 0.1)
                 {
-                    Game.getGV().adjustNitro(-1);
+                    GameScreen.getGV().adjustNitro(-1);
                     //GVMotionManager.boost();
                     GVMotionManager.BOOSTING = true;
                 }
