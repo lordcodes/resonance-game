@@ -288,17 +288,19 @@ namespace Resonance
         public override void Draw(GameTime gameTime)
         {
             graphics.GraphicsDevice.Clear(Color.Black);
-            /*if (Drawing.requestRender)
+            if (Drawing.requestRender)
             {
                 Drawing.drawReflection();
                 graphics.GraphicsDevice.Clear(Color.Black);
-                base.Draw(gameTime);
-            }*/
+                Drawing.drawGame();
+            }
             Drawing.drawGame();
             graphics.GraphicsDevice.Clear(Color.Black);
             //base.Draw(gameTime);
             DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);
+
+            UI.pause();
         }
 
     }
