@@ -13,7 +13,7 @@ namespace Resonance
         public static readonly int SHIELD = 1;
         public static readonly int FREEZE = 2;
 
-        public static int MAX_HEALTH = 100000;
+        public static int MAX_HEALTH = 100;
         public static int MAX_NITRO = 200;
         public static int MAX_SHIELD = 100;
         public static int MAX_FREEZE = 200;
