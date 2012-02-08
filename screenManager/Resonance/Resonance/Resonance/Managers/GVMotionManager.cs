@@ -225,6 +225,8 @@ namespace Resonance {
                 if (rightX != 0) power = rightX; else power = 1f;
                 if (power < 0) power *= -1;
 
+                //power = (float) Math.Sin(power * (Math.PI / 2));
+
                 if (backward) {
                     if (rotateL) rotate(power); else rotate(-power);
                 }
@@ -249,6 +251,8 @@ namespace Resonance {
                 if (leftY != 0) power = leftY; else power = 1f;
                 if (power < 0) power *= -1;
 
+                //power = (float) Math.Sin(power * (Math.PI / 2));
+
                 if (forward) {
                     move(power);
                 } else {
@@ -267,6 +271,8 @@ namespace Resonance {
                 float power;
                 if (leftX != 0) power = leftX; else power = 1f;
                 if (power < 0) power *= -1;
+
+                //power = (float) Math.Sin(power * (Math.PI / 2));
 
                 if (strafeL) {
                     strafe(power);

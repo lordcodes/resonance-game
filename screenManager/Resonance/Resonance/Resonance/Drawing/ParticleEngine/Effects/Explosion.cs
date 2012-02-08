@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance {
     class Explosion : Emitter {
@@ -15,6 +16,8 @@ namespace Resonance {
             maxParticleLife    = 30;
             iColour            = Color.White;
             iPSize             = 0.1f;
+            
+            //pTex               = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/HUD/Textures/pickup");
         }
 
         protected override void generateParticles() {

@@ -77,6 +77,7 @@ namespace Resonance
             }
         }
 
+
         public static void reset()
         {
             if (gameGraphics != null) gameGraphics.reset();
@@ -96,8 +97,7 @@ namespace Resonance
                 shinyFloorTexture = (Texture2D)mirrorRenderTarget;
                 try
                 {
-                    GameModel ground = GameModels.getModel(GameModels.GROUND);
-                    ground.setTexture(0, shinyFloorTexture);
+                    ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
                 }catch(Exception){}
                 drawingReflection = false;
             }
@@ -176,7 +176,7 @@ namespace Resonance
             }
             else
             {
-                playerGroundPos.X = (float)(xDis / groundWidth);
+                playerGroundPos.X = 1-(float)(xDis / groundWidth);
                 playerGroundPos.Y = (float)(yDis / groundHeight);
 
             }
@@ -245,13 +245,13 @@ namespace Resonance
             gameGraphics.Draw2dTextures(shinyFloorTexture, texturePos, 20, 20);
             */
 
-
-            drawRangeIndicator();
-            drawParticles();
-            hud.Draw();
-            hud.drawDebugInfo(DebugDisplay.getString());
-            //if (UI.Paused) hud.drawMenu(UI.getString());
-            checkFrameRate(gameTime);
+                //drawRangeIndicator();
+                drawParticles();
+                hud.Draw();
+                hud.drawDebugInfo(DebugDisplay.getString());
+                //if (UI.Paused) hud.drawMenu(UI.getString());
+                checkFrameRate(gameTime);
+            
         }
 
         /// <summary>

@@ -73,7 +73,12 @@ namespace Resonance
                 GameScreen.getGV().createShockwave(Shockwave.CYMBAL);
             }
 
+
             if (green | blue | yellow | red | cymbal) DebugDisplay.update("In time", ScreenManager.game.Music.getTrack().inTime().ToString());
+
+            //if (green | blue | yellow | red | cymbal) Program.game.Music.getTrack().inTime2();
+            lastPad = pad;
+            lastKbd = kbd;
         }
 
         public static void increaseHealth()
