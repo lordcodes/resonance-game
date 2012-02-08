@@ -15,6 +15,7 @@ float3 SpecularLightColor;
 float3 CameraPosition;
 float4x3 xBones[60];
 float2 gvPos;
+float2 camPos;
 float groundSize;
 
 sampler DispMapSampler = sampler_state
@@ -141,14 +142,14 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	clip( fullColor.a < 0.1f ? -1:1 );
     fullColor =  float4(finalColor,fullColor.a);
 
-	float hx = input.TexCoord.x + 0.05;
-	float lx = input.TexCoord.x - 0.05;
-	float hy = input.TexCoord.y + 0.05;
-	float ly = input.TexCoord.y - 0.05;
+	float hx = input.TexCoord.x + 0.1;
+	float lx = input.TexCoord.x - 0.1;
+	float hy = input.TexCoord.y + 0.1;
+	float ly = input.TexCoord.y - 0.1;
 
-	if(gvPos.x < hx &&  gvPos.x > lx )
+	if(camPos.x < hx &&  camPos.x > lx )
 	{
-		if(gvPos.y < hy &&  gvPos.y > ly)
+		if(camPos.y < hy &&  camPos.y > ly)
 		{
 			float xv = (gvPos.x-lx)/(hx-lx);
 			float yv = (gvPos.y-ly)/(hy-ly);
@@ -156,7 +157,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 			nc = tex2D(ReflectionTextureSampler, float2(1-xv,1-yv));
 			if(nc[0] != 0 && nc[1] != 0 && nc[2] != 0)
 			{
-				nc = float4(-0.05,-0.05,-0.05,1);
+				//nc = float4(-0.05,-0.05,-0.05,1);
 				nc.w = nc.w*0.2;
 				fullColor += nc;
 			}
