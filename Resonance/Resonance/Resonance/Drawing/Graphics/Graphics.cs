@@ -58,6 +58,14 @@ namespace Resonance
             }
         }
 
+        public Shaders CustomShaders
+        {
+            get
+            {
+                return shaders;
+            }
+        }
+
 
         public Graphics(ContentManager newContent, GraphicsDeviceManager newGraphics)
         {
@@ -216,14 +224,16 @@ namespace Resonance
 
             if (drawingReflection)
             {
-                Vector3 cameraCoords = new Vector3(0, -10f, 0.1f);
+                
+                Vector3 position = Game.getGV().Body.Position;
+                Vector3 cameraCoords = new Vector3(position.X, -position.Y, position.Z + 0.1f);
                 Quaternion orientation = Game.getGV().Body.Orientation;
                 Vector3 rotation = Vector3.Zero;
-                Vector3 position = Game.getGV().Body.Position;
                 Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-                theView = Matrix.CreateLookAt(cameraCoords, Vector3.Zero, Vector3.Down);
+                theView = Matrix.CreateLookAt(cameraCoords, position, Vector3.Down);
                 float plus = -2.0f;
-                projection2 = Matrix.CreateOrthographic(World.MAP_X+plus, World.MAP_Z+plus, 1.0f, 1000.0f);
+                float dimension = 50;
+                projection2 = Matrix.CreateOrthographic(dimension, dimension, 1.0f, 2000.0f);
             }
 
 
@@ -241,6 +251,7 @@ namespace Resonance
                 {
                     ((GroundShader)currentShader).GoodVibePos = Vector2.Zero;
                 }
+                
             }
             else
             {

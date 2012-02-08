@@ -138,8 +138,7 @@ namespace Resonance
                 shinyFloorTexture = (Texture2D)mirrorRenderTarget;
                 try
                 {
-                    GameModel ground = GameModels.getModel(GameModels.GROUND);
-                    ground.setTexture(0, shinyFloorTexture);
+                    ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
                 }catch(Exception){}
                 drawingReflection = false;
             }
@@ -232,7 +231,7 @@ namespace Resonance
             }
             else
             {
-                playerGroundPos.X = (float)(xDis / groundWidth);
+                playerGroundPos.X = 1-(float)(xDis / groundWidth);
                 playerGroundPos.Y = (float)(yDis / groundHeight);
 
             }
@@ -312,7 +311,7 @@ namespace Resonance
                 */
 
 
-                drawRangeIndicator();
+                //drawRangeIndicator();
                 drawParticles();
                 hud.Draw();
                 hud.drawDebugInfo(DebugDisplay.getString());
