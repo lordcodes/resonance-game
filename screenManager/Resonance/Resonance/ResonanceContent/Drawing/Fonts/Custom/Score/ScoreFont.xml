@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="System.String[]">
+    <Item>Drawing/Fonts/Custom/Score/Images/0.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/1.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/2.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/3.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/4.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/5.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/6.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/7.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/8.png</Item>
+    <Item>Drawing/Fonts/Custom/Score/Images/9.png</Item>
+  </Asset>
+</XnaContent>
