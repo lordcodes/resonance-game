@@ -98,7 +98,8 @@ namespace Resonance
                 try
                 {
                     ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
-                }catch(Exception){}
+                }catch(Exception){
+                }
                 drawingReflection = false;
             }
         }
@@ -238,12 +239,12 @@ namespace Resonance
         public static void Draw(GameTime gameTime)
         {
             drawCount++;
-            /*Vector3 pos = new Vector3(Game.getGV().Body.Position.X, 0.1f, Game.getGV().Body.Position.Z);
+            /*Vector3 pos = new Vector3(GameScreen.getGV().Body.Position.X, 0.1f, GameScreen.getGV().Body.Position.Z);
             Matrix texturePos = Matrix.CreateTranslation(pos);
             Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2*3));
             texturePos = Matrix.Multiply(rotation,texturePos);
-            gameGraphics.Draw2dTextures(shinyFloorTexture, texturePos, 20, 20);
-            */
+            gameGraphics.drawTexture(shinyFloorTexture, texturePos, 20, 20);*/
+            
 
                 //drawRangeIndicator();
                 drawParticles();
