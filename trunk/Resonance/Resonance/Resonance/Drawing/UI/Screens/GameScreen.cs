@@ -299,8 +299,6 @@ namespace Resonance
             //base.Draw(gameTime);
             DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);
-
-            UI.pause();
         }
 
     }
