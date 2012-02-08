@@ -68,6 +68,7 @@ namespace Resonance
             Ground.Parameters["SpecularLightColor"].SetValue(specularLightColor);
             Ground.Parameters["SpecularColorPower"].SetValue(specularColorPower);
             Ground.Parameters["DiffuseColor"].SetValue(diffuseColor);
+            Ground.Parameters["groundSize"].SetValue(World.MAP_X);
 
             Particle.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
             Particle.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);

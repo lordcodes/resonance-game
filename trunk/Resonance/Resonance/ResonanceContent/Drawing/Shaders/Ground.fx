@@ -2,6 +2,7 @@ float4x4 World;
 float4x4 View;
 float4x4 Projection;
 texture ColorTexture;
+texture ReflectionTexture;
 texture DispMap;
 float3 AmbientLightColor;
 float3 DiffuseColor;
@@ -14,6 +15,7 @@ float3 SpecularLightColor;
 float3 CameraPosition;
 float4x3 xBones[60];
 float2 gvPos;
+float groundSize;
 
 sampler DispMapSampler = sampler_state
 {
@@ -28,6 +30,16 @@ sampler DispMapSampler = sampler_state
 sampler ColorTextureSampler : register(s0) = sampler_state
 {
 	Texture = (ColorTexture);
+	MinFilter = Linear;
+	MagFilter = Linear;
+	MipFilter = Linear;
+	AddressU = Wrap;
+	AddressV = Wrap;
+};
+
+sampler ReflectionTextureSampler : register(s1) = sampler_state
+{
+	Texture = (ReflectionTexture);
 	MinFilter = Linear;
 	MagFilter = Linear;
 	MipFilter = Linear;
@@ -95,19 +107,22 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float3 normal = normalize(input.Normal);
 	float3 finalColor;
 	float4 fullColor;
+	float scale = 0.5;
 
 
+	float padding = 0.00035;
+	fullColor = tex2D(ColorTextureSampler, input.TexCoord.xy);
+	
+	
+	
 
-		float padding = 0.00035;
-		fullColor = float4(0,0,0,0);
-		fullColor = tex2D(ColorTextureSampler, input.TexCoord.xy);
-		fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy+(padding));
-		fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy-(padding));
-		input.TexCoord.x += padding;
-		fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy);
-		input.TexCoord.x -= 2*padding;
-		fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy);
-		fullColor = fullColor/5;
+	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy+(padding));
+	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy-(padding));
+	//input.TexCoord.x += padding;
+	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy);
+	//input.TexCoord.x -= 2*padding;
+	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy);
+	//fullColor = fullColor/5;
 
 
 	finalColor = float3(fullColor.x, fullColor.y, fullColor.z);
@@ -124,7 +139,43 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	if (NdotL != 0) specular += pow(NdotH, SpecularColorPower.w) * SpecularLightColor;
 	finalColor += SpecularColorPower.xyz * specular * fullColor.a;
 	clip( fullColor.a < 0.1f ? -1:1 );
-    return float4(finalColor,fullColor.a);
+    fullColor =  float4(finalColor,fullColor.a);
+
+	float hx = input.TexCoord.x + 0.05;
+	float lx = input.TexCoord.x - 0.05;
+	float hy = input.TexCoord.y + 0.05;
+	float ly = input.TexCoord.y - 0.05;
+
+	if(gvPos.x < hx &&  gvPos.x > lx )
+	{
+		if(gvPos.y < hy &&  gvPos.y > ly)
+		{
+			float xv = (gvPos.x-lx)/(hx-lx);
+			float yv = (gvPos.y-ly)/(hy-ly);
+			float4
+			nc = tex2D(ReflectionTextureSampler, float2(1-xv,1-yv));
+			if(nc[0] != 0 && nc[1] != 0 && nc[2] != 0)
+			{
+				nc = float4(-0.05,-0.05,-0.05,1);
+				nc.w = nc.w*0.2;
+				fullColor += nc;
+			}
+		}
+	}
+	if(gvPos.x < input.TexCoord.x + 0.02 &&  gvPos.x > input.TexCoord.x-0.02)
+	{
+		if(gvPos.y < input.TexCoord.y + 0.02 &&  gvPos.y > input.TexCoord.y-0.02)
+		{
+			//fullColor += float4(0.2,0,0,1);
+			float ds = distance(input.TexCoord, gvPos);
+			if(ds < 0.02 && ds > 0.018)
+			{
+				fullColor += float4(0.2,0,0,1);
+			}
+		}
+	}
+
+	return fullColor;
 }
 
 
@@ -174,13 +225,7 @@ VertexShaderOutput AnimationVertexShader(VSInputNmTxWeights input)
 	output.View = CameraPosition - worldPosition;
 	output.height = 0;
     return output;  
-}  
- 
-float4 AnimationPixelShader(Animation_VSOut PSIn) : Color  
-{       
-    float4 diffuseColor = tex2D(ColorTextureSampler, PSIn.TexCoords);
-    return diffuseColor;  
-}  
+}
  
 technique Animation 
 {  

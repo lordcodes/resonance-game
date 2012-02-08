@@ -25,5 +25,10 @@ namespace Resonance
             Effect.Parameters["DispMap"].SetValue(map);
         }
 
+        public void setReflectionTexture(Texture2D map)
+        {
+            Effect.Parameters["ReflectionTexture"].SetValue(map);
+        }
+
     }
 }
