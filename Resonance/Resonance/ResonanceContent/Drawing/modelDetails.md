@@ -20,7 +20,7 @@ BV_Explosion, Models\BVExplosion.fbx
 
 TEXTURES
 -Texture Ref-|--Files Name(s)--|
-tronFloor,		Textures\texTronFloor.png
+tronFloor,		Textures\texOrganicGround.png
 green,			Textures\texGreen.jpg
 yellow,			Textures\texYellow.jpg
 blue,			Textures\texBlue.jpg
