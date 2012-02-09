@@ -78,6 +78,9 @@ namespace Resonance
         /// </summary>
         public override void LoadContent()
         {
+            //Clear any pre-existing GameComponents from the manager
+            DrawableManager.Clear();
+
             if (!isLoaded)
             {
                 BadVibe.initialiseBank();

@@ -59,5 +59,13 @@ namespace Resonance
         {
             components.Remove(component);
         }
+
+        /// <summary>
+        /// Remove all GameComponenets
+        /// </summary>
+        public static void Clear()
+        {
+            components.Clear();
+        }
     }
 }
