@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+delegate void ItemDelegate();
 
 namespace Resonance
 {
@@ -12,20 +13,11 @@ namespace Resonance
         string text;
         Vector2 position;
         private ItemDelegate callBack;
-        private List<MenuItem> nextMenu = new List<MenuItem>();
-        private bool isMenu = false;
 
         public MenuElement(string text, ItemDelegate callBack)
         {
             this.text = text;
             this.callBack = callBack;
-        }
-
-        public MenuElement(string text, List<MenuItem> nextMenu)
-        {
-            this.text = text;
-            this.nextMenu = nextMenu;
-            isMenu = true;
         }
 
         public void Update(MenuScreen screen, GameTime gameTime, bool selected)
@@ -50,16 +42,6 @@ namespace Resonance
         {
             get { return position; }
             set { position = value; }
-        }
-
-        public List<MenuItem> NextMenu
-        {
-            get { return nextMenu; }
-        }
-
-        public bool IsMenu
-        {
-            get { return isMenu; }
         }
 
         public ItemDelegate CallBack

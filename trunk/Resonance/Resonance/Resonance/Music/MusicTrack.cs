@@ -238,7 +238,7 @@ namespace Resonance
             if (state == PlayState.PLAYING)
             {
                 long time = (DateTime.Now.Ticks * 100) - startTime + EXTRA_OFF;
-                float scoreWeight = -1f;
+                //float scoreWeight = -1f;
                 for (; ; lastI++)
                 {
                     long beatTime;

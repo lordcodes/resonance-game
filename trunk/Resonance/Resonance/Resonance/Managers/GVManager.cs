@@ -19,9 +19,6 @@ namespace Resonance
         public static readonly int SHIELD = 1;
         public static readonly int FREEZE = 2;
 
-        public static GamePadState lastPad;
-        public static KeyboardState lastKbd;
-
         public static void input(InputDevices input)
         {
             KeyboardState kbd = input.Keys;

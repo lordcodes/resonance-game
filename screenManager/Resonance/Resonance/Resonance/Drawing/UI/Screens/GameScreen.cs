@@ -43,7 +43,7 @@ namespace Resonance
         public PickupSpawnManager pickupSpawner;
 
         // Testing variable
-        bool beatTested = false;
+        //bool beatTested = false;
 
         bool isLoaded = false;
 
@@ -81,7 +81,6 @@ namespace Resonance
             {
                 BadVibe.initialiseBank();
                 Drawing.loadContent();
-                UI.init(ScreenManager.Content, graphics);
                 world = new World();
 
                 //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
@@ -118,6 +117,14 @@ namespace Resonance
 
         public override void HandleInput(InputDevices input)
         {
+            bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);
+
+            if (!input.PlayerOneConnected || pause)
+            {
+                ScreenManager.addScreen(new PauseMenu());
+            }
+
             //Camera
             CameraMotionManager.update(input);
             //Player One
@@ -201,7 +208,6 @@ namespace Resonance
             finalScore = mode.finaliseScore(GV_KILLED, getGV().TotalScore);
             DebugDisplay.update("Game Over! State", r);
             DebugDisplay.update("Final Score", finalScore.ToString());
-            UI.pause();
         }
 
         /// <summary>
@@ -296,11 +302,8 @@ namespace Resonance
             }
             Drawing.drawGame();
             graphics.GraphicsDevice.Clear(Color.Black);
-            //base.Draw(gameTime);
             DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);
-
-            UI.pause();
         }
 
     }

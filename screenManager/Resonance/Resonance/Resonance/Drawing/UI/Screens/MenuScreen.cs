@@ -31,7 +31,7 @@ namespace Resonance
             bool select = (!input.LastKeys.IsKeyDown(Keys.Enter) && input.LastPlayerOne.Buttons.A != ButtonState.Pressed) &&
                           (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.Buttons.A == ButtonState.Pressed);
             bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
-                         (input.LastKeys.IsKeyDown(Keys.Escape) || input.LastPlayerOne.Buttons.Start == ButtonState.Pressed);
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);
             if (pause)
             {
                 //Bring up pop-up to ask if you want to close the screen

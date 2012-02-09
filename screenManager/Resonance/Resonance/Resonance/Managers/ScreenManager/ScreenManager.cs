@@ -17,6 +17,8 @@ namespace Resonance
         ContentManager content;
         InputDevices input;
 
+        Texture2D blankTex;
+
         bool initialised = false;
 
         private static float screenWidth;
@@ -51,6 +53,7 @@ namespace Resonance
             widthRatio = screenWidth / 1920;
             heightRatio = screenHeight / 1080;
 
+            blankTex = content.Load<Texture2D>("Drawing/Textures/texPixel");
             foreach(Screen screen in screens)
             {
                 screen.LoadContent();
@@ -108,6 +111,13 @@ namespace Resonance
         public Screen[] getScreens()
         {
             return screens.ToArray<Screen>();
+        }
+
+        public void darkenBackground(float alpha)
+        {
+            spriteBatch.Begin();
+            spriteBatch.Draw(blankTex, new Rectangle(0,0, (int)screenWidth+1, (int)screenHeight+1), Color.Black * alpha);
+            spriteBatch.End();
         }
 
         public SpriteBatch SpriteBatch

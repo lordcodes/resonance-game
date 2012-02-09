@@ -17,6 +17,9 @@ namespace Resonance
         private GamePadState lastPad1;
         private GamePadState lastPad2;
 
+        bool pad1PluggedEver = false;
+        bool pad2PluggedEver = false;
+
         public InputDevices()
         {
         }
@@ -30,6 +33,9 @@ namespace Resonance
             kbd = Keyboard.GetState();
             pad1 = GamePad.GetState(PlayerIndex.One);
             pad2 = GamePad.GetState(PlayerIndex.Two);
+
+            if (pad1.IsConnected) pad1PluggedEver = true;
+            if (pad2.IsConnected) pad2PluggedEver = true;
         }
 
         public KeyboardState Keys
@@ -60,6 +66,16 @@ namespace Resonance
         public GamePadState LastPlayerTwo
         {
             get { return lastPad2; }
+        }
+
+        public bool PlayerOneConnected
+        {
+            get { return PlayerOne.IsConnected && pad1PluggedEver; }
+        }
+
+        public bool PlayerTwoConnected
+        {
+            get { return PlayerTwo.IsConnected && pad2PluggedEver; }
         }
 
     }
