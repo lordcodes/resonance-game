@@ -224,10 +224,10 @@ namespace Resonance
 
             if (drawingReflection)
             {
-                Vector3 target = GameScreen.getGV().Body.Position;
-                Vector3 cameraCoords = new Vector3(cameraPosition.X, -cameraPosition.Y, cameraPosition.Z + 0.1f);
-                theView = Matrix.CreateLookAt(cameraCoords, target, Vector3.Down);
-                float dimension = 2.2f;
+                float h = -12.7f;
+                float dimension = 7.9f;
+                Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, h, cameraPosition.Z + 0.1f);
+                theView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
                 projection2 = Matrix.CreatePerspective(dimension, dimension, 1.0f, 2000.0f);
             }
 

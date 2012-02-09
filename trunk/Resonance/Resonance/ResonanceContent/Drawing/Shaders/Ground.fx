@@ -151,14 +151,13 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	{
 		if(camPos.y < hy &&  camPos.y > ly)
 		{
-			float xv = (gvPos.x-lx)/(hx-lx);
-			float yv = (gvPos.y-ly)/(hy-ly);
-			float4 nc = tex2D(ReflectionTextureSampler, float2(1-xv,1-yv));
-			//fullColor = float4(0,0,0,1);
+			float xv = (camPos.x-lx)/(hx-lx);
+			float yv = (camPos.y-ly)/(hy-ly);
+			float4 nc = tex2D(ReflectionTextureSampler, float2(xv,yv));
 			if(nc[0] != 0 && nc[1] != 0 && nc[2] != 0)
 			{
 				//nc = float4(-0.05,-0.05,-0.05,1);
-				//nc.w = nc.w*0.2;
+				nc.xyzw = nc.xyzw*0.2;
 				fullColor += nc;
 			}
 		}
