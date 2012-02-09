@@ -58,14 +58,8 @@ namespace Resonance
 
         private void success()
         {
-            if (action == 0)
-            {
-                LoadingScreen.LoadAScreen(ScreenManager, false, new MainMenu());
-            }
-            else if (action == 1)
-            {
-                ScreenManager.Game.Exit();
-            }
+            if (action == 0) LoadingScreen.LoadAScreen(ScreenManager, false, new MainMenu());
+            else if (action == 1) ScreenManager.Game.Exit();
             ExitScreen();
         }
 
