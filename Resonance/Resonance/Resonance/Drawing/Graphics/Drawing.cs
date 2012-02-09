@@ -13,7 +13,7 @@ namespace Resonance
 {
     class Drawing
     {
-        private static bool FLOOR_REFLECTIONS = false;
+        private static bool FLOOR_REFLECTIONS = true;
 
         private static GraphicsDeviceManager graphics;
         private static ContentManager content;
