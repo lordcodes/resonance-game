@@ -138,6 +138,7 @@
     <Compile Include="Managers\ScreenManager\ScreenManager.cs" />
     <Compile Include="Managers\Utility.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
+    <Compile Include="Managers\WeatherManager.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shaders.cs" />

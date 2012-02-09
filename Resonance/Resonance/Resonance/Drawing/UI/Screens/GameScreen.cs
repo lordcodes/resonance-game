@@ -92,7 +92,6 @@ namespace Resonance
                 Loading.load(delegate { loadLevel(1); }, "Level " + 1);
                 Drawing.reset();
 
-                ParticleEmitterManager.initialise(ScreenManager.Content);
                 isLoaded = true;
             }
         }
@@ -108,6 +107,8 @@ namespace Resonance
             world.readXmlFile(level, ScreenManager.Content);
 
             GVMotionManager.initialised = false;
+            ParticleEmitterManager.initialise();
+            WeatherManager.initialise();
         }
 
         /// <summary>

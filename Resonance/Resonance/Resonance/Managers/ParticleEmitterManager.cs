@@ -23,8 +23,8 @@ namespace Resonance {
             return emitters;
         }
 
-        public static void initialise(ContentManager c) {
-            Content = c;
+        public static void initialise() {
+            Content = ScreenManager.game.ScreenManager.Content;
             particlePool = new List<Particle>();
             emitters = new List<Emitter>();
         }

@@ -140,6 +140,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Managers\Utility.cs" />
+    <Compile Include="Managers\WeatherManager.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="Object\DynamicObject.cs" />
