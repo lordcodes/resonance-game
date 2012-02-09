@@ -16,17 +16,34 @@ namespace Resonance {
         // Holds all currently existing emitters.
         private static List<Emitter> emitters;
 
+        // Particle 'pool'. Any particles generated are never deleted; they are instead put here, available for recycling.
+        public static List<Particle> particlePool;
+
         public static List<Emitter> getEmitters() {
             return emitters;
         }
 
         public static void initialise(ContentManager c) {
             Content = c;
+            particlePool = new List<Particle>();
             emitters = new List<Emitter>();
         }
 
         public static void addEmitter(Emitter e) {
             emitters.Add(e);
+        }
+
+        public static void addToPool(Particle p) {
+            particlePool.Add(p);
+        }
+
+        public static Particle getParticle() {
+            Particle p;
+            if (particlePool.Count > 0) {
+                p = particlePool.Last();
+                particlePool.Remove(p);
+                return p;
+            } else return new Particle();
         }
 
         public static void update() {
