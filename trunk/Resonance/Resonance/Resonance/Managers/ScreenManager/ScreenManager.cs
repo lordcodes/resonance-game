@@ -96,9 +96,12 @@ namespace Resonance
 
         public void addScreen(Screen screen)
         {
-            screen.ScreenManager = this;
+            if (!screen.LoadedUsingLoading)
+            {
+                screen.ScreenManager = this;
 
-            if (initialised) screen.LoadContent();
+                if (initialised) screen.LoadContent();
+            }
             screens.Add(screen);
         }
 

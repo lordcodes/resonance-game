@@ -45,11 +45,12 @@ namespace Resonance
         // Testing variable
         //bool beatTested = false;
 
-        bool isLoaded = false;
+        bool isLoaded;
 
-        public GameScreen(ScreenManager scrManager)
+        public GameScreen(ScreenManager scrn)
         {
-            ScreenManager = scrManager;
+            isLoaded = false;
+            this.ScreenManager = scrn;
             mode = new GameMode(GameMode.TIME_ATTACK);
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);

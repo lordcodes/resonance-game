@@ -50,7 +50,9 @@ namespace Resonance
 
             if (startLoading)
             {
+                screenToLoad.ScreenManager = ScreenManager;
                 screenToLoad.LoadContent();
+                screenToLoad.LoadedUsingLoading = true;
                 startLoading = false;
             }
             if (!Loading.isLoading)
