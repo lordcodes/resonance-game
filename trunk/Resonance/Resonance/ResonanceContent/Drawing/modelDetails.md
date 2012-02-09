@@ -29,6 +29,7 @@ cymbal,			Textures\texCymbal.jpg
 pulseGreyToRed,	Textures\pulseGreyToRed\pulseGreyToRed0001.jpg;Textures\pulseGreyToRed\pulseGreyToRed0004.jpg;Textures\pulseGreyToRed\pulseGreyToRed0003.jpg;Textures\pulseGreyToRed\pulseGreyToRed0002.jpg;Textures\pulseGreyToRed\pulseGreyToRed0001.jpg
 allColours,		Textures\texGreen.jpg;Textures\texYellow.jpg;Textures\texBlue.jpg;Textures\texRed.jpg;Textures\texCymbal.jpg
 animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTest\animationTest0002.jpg;Textures\animationTest\animationTest0003.jpg;Textures\animationTest\animationTest0004.jpg;Textures\animationTest\animationTest0005.jpg;Textures\animationTest\animationTest0006.jpg;Textures\animationTest\animationTest0007.jpg;Textures\animationTest\animationTest0008.jpg;Textures\animationTest\animationTest0009.jpg;Textures\animationTest\animationTest0010.jpg;Textures\animationTest\animationTest0011.jpg;Textures\animationTest\animationTest0012.jpg;Textures\animationTest\animationTest0013.jpg;Textures\animationTest\animationTest0014.jpg;Textures\animationTest\animationTest0015.jpg;Textures\animationTest\animationTest0016.jpg;Textures\animationTest\animationTest0017.jpg;Textures\animationTest\animationTest0018.jpg;Textures\animationTest\animationTest0019.jpg;Textures\animationTest\animationTest0020.jpg;Textures\animationTest\animationTest0021.jpg;Textures\animationTest\animationTest0022.jpg;Textures\animationTest\animationTest0023.jpg;Textures\animationTest\animationTest0024.jpg
+goodVibeTexture, Textures\GoodVibeTexture.jpg
 
 ---You can use dashes at the start of lines for comments
 
@@ -40,7 +41,7 @@ animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTe
 1,			tree,					1,		treePhysics,			1
 2,			house,					1,		house,					1
 3,			badVibe,			    0.1,	badVibe,			    0.1,			allColours,							0,						0,						1
-4,			goodVibe,				0.35,	spaceShip,				0.35,			pulseGreyToRed,						40,						0,
+4,			goodVibe,				0.35,	spaceShip,				0.35,			goodVibeTexture,					40,						0,
 5,			terrain64,			    250,	terrain,			    250,			tronFloor,							0,						0,						0
 6,			house,					1,		house,					1,
 7,			wave,					1,		wave,					1,				allColours,							0,						
