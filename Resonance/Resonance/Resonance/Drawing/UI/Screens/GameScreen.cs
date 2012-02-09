@@ -119,8 +119,11 @@ namespace Resonance
         {
             bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
                          (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);
+            bool pad1Ever = input.PlayerOneHasBeenConnected;
+            bool pad2Ever = input.PlayerTwoHasBeenConnected;
+            bool connected = input.PlayerOne.IsConnected;
 
-            if (pause)
+            if ((pad1Ever && !connected) || pause)
             {
                 ScreenManager.addScreen(new PauseMenu());
             }
@@ -140,7 +143,6 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            //base.Update(gameTime);
             DrawableManager.Update(gameTime);
 
             Drawing.Update(gameTime);

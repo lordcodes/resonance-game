@@ -68,14 +68,14 @@ namespace Resonance
             get { return lastPad2; }
         }
 
-        public bool PlayerOneConnected
+        public bool PlayerOneHasBeenConnected
         {
-            get { return PlayerOne.IsConnected && pad1PluggedEver; }
+            get { return pad1PluggedEver; }
         }
 
-        public bool PlayerTwoConnected
+        public bool PlayerTwoHasBeenConnected
         {
-            get { return PlayerTwo.IsConnected && pad2PluggedEver; }
+            get { return pad2PluggedEver; }
         }
 
     }
