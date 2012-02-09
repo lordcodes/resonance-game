@@ -118,11 +118,11 @@
     <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
     <Compile Include="Drawing\ParticleEngine\Particle.cs" />
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
-    <Compile Include="Drawing\UI\Screens\PauseMenu.cs" />
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MainMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MenuElement.cs" />
     <Compile Include="Drawing\UI\Screens\MenuScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\PauseMenu.cs" />
     <Compile Include="Drawing\UI\Screens\PopupScreen.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />

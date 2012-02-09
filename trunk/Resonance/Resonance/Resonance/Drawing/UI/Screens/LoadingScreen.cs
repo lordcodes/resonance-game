@@ -44,7 +44,7 @@ namespace Resonance
             if (timeElapsed > timeToUpdate)
             {
                 timeElapsed -= timeToUpdate;
-                if (frameNumber < 3)frameNumber++;
+                if (frameNumber < 3) frameNumber++;
                 else frameNumber = 0;
             }
 
