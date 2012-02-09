@@ -9,6 +9,7 @@ namespace Resonance
     abstract class Screen
     {
         ScreenManager screenManager;
+        bool loadedUsingLoading = false;
 
         public virtual void LoadContent() { }
         public virtual void UnloadContent() { }
@@ -32,6 +33,12 @@ namespace Resonance
         {
             get { return screenManager; }
             set { screenManager = value; }
+        }
+
+        public bool LoadedUsingLoading
+        {
+            get { return loadedUsingLoading; }
+            set { loadedUsingLoading = value; }
         }
     }
 }

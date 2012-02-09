@@ -24,14 +24,27 @@ namespace Resonance
 
         public override void HandleInput(InputDevices input)
         {
-            bool up = (!input.LastKeys.IsKeyDown(Keys.Up) && input.LastPlayerOne.DPad.Up != ButtonState.Pressed) &&
+            bool up = (!input.LastKeys.IsKeyDown(Keys.Up) && !input.LastPlayerOne.IsButtonDown(Buttons.DPadUp) &&
+                       !input.LastPlayerOne.IsButtonDown(Buttons.LeftThumbstickUp)) &&
+                      (input.Keys.IsKeyDown(Keys.Up) || input.PlayerOne.IsButtonDown(Buttons.DPadUp) ||
+                       input.PlayerOne.IsButtonDown(Buttons.LeftThumbstickUp));
+            bool down = (!input.LastKeys.IsKeyDown(Keys.Down) && !input.LastPlayerOne.IsButtonDown(Buttons.DPadDown) &&
+                       !input.LastPlayerOne.IsButtonDown(Buttons.LeftThumbstickDown)) &&
+                      (input.Keys.IsKeyDown(Keys.Down) || input.PlayerOne.IsButtonDown(Buttons.DPadDown) ||
+                       input.PlayerOne.IsButtonDown(Buttons.LeftThumbstickDown));
+            bool select = (!input.LastKeys.IsKeyDown(Keys.Enter) && input.LastPlayerOne.Buttons.A != ButtonState.Pressed) &&
+                          (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.Buttons.A == ButtonState.Pressed);
+            bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);
+            
+            /*bool up = (!input.LastKeys.IsKeyDown(Keys.Up) && input.LastPlayerOne.DPad.Up != ButtonState.Pressed
                       (input.Keys.IsKeyDown(Keys.Up) || input.PlayerOne.DPad.Up == ButtonState.Pressed);
             bool down = (!input.LastKeys.IsKeyDown(Keys.Down) && input.LastPlayerOne.DPad.Down != ButtonState.Pressed) &&
                         (input.Keys.IsKeyDown(Keys.Down) || input.PlayerOne.DPad.Down == ButtonState.Pressed);
             bool select = (!input.LastKeys.IsKeyDown(Keys.Enter) && input.LastPlayerOne.Buttons.A != ButtonState.Pressed) &&
                           (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.Buttons.A == ButtonState.Pressed);
             bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
-                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);*/
             if (pause)
             {
                 //Bring up pop-up to ask if you want to close the screen

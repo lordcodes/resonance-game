@@ -32,10 +32,10 @@ namespace Resonance
 
         public override void HandleInput(InputDevices input)
         {
-            bool ok = (!input.LastKeys.IsKeyDown(Keys.Enter) && input.LastPlayerOne.Buttons.A != ButtonState.Pressed) &&
-                          (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.Buttons.A == ButtonState.Pressed);
-            bool back = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.B != ButtonState.Pressed) &&
-                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.B == ButtonState.Pressed);
+            bool ok = (!input.LastKeys.IsKeyDown(Keys.Enter) && !input.LastPlayerOne.IsButtonDown(Buttons.A)) &&
+                          (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.IsButtonDown(Buttons.A));
+            bool back = (!input.LastKeys.IsKeyDown(Keys.Escape) && !input.LastPlayerOne.IsButtonDown(Buttons.B)) &&
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.IsButtonDown(Buttons.B));
 
             if (ok) success();
             else if (back) cancel();
@@ -50,8 +50,8 @@ namespace Resonance
             Vector2 msgPos = (screenSize - msgSize) / 2;
 
             ScreenManager.SpriteBatch.Begin();
-            ScreenManager.SpriteBatch.Draw(background, new Rectangle((int)msgPos.X - 25, (int)msgPos.Y - 15,
-                (int)msgSize.X + 50, (int)msgSize.Y + 30), Color.White);
+            ScreenManager.SpriteBatch.Draw(background, new Rectangle((int)msgPos.X - 35, (int)msgPos.Y - 25,
+                (int)msgSize.X + 70, (int)msgSize.Y + 50), Color.White);
             ScreenManager.SpriteBatch.DrawString(font, text, msgPos, Color.White);
             ScreenManager.SpriteBatch.End();
         }
