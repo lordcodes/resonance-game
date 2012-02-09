@@ -7,15 +7,16 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance
 {
-    class MainMenu : MenuScreen
+    class PauseMenu : MenuScreen
     {
-        public MainMenu()
-            : base("Welcome to the Resonance Chamber")
+        public PauseMenu()
+            : base("Paused")
         {
-            MenuElement play = new MenuElement("Enter the Resonance Chamber", new ItemDelegate(delegate { startGame(); }));
-            MenuElement quit = new MenuElement("Quit Game", new ItemDelegate(new ItemDelegate(delegate { quitGame(); })));
+            //Resume
+            //Quit to Main Menu
 
-            MenuItems.Add(play);
+            MenuElement quit = new MenuElement("Quit Game", new ItemDelegate(delegate { quitGame(); }));
+
             MenuItems.Add(quit);
         }
 
@@ -26,8 +27,6 @@ namespace Resonance
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuSecond"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuThird"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFourth"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFifth"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuSixth"));
         }
 
         protected override void updateItemLocations()
@@ -43,19 +42,9 @@ namespace Resonance
             }
         }
 
-        private void startGame()
-        {
-            ScreenManager.game = new GameScreen(ScreenManager);
-            LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
-        }
-
         private void quitGame()
         {
-            string msg = "Are you sure you want to quit the game?\n";
-            msg += "A button or Enter - OK\n";
-            msg += "B button or Escape - Cancel";
-
-            ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
+            ScreenManager.Game.Exit();
         }
     }
 }

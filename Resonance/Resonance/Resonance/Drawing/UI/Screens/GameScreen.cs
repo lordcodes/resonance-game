@@ -22,11 +22,11 @@ namespace Resonance
     class GameScreen : Screen
     {
         public const int BEGINNER = 0;
-        public const int EASY     = 1;
-        public const int MEDIUM   = 2;
-        public const int HARD     = 3;
-        public const int EXPERT   = 4;
-        public const int INSANE   = 5;
+        public const int EASY = 1;
+        public const int MEDIUM = 2;
+        public const int HARD = 3;
+        public const int EXPERT = 4;
+        public const int INSANE = 5;
 
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode;
@@ -43,7 +43,7 @@ namespace Resonance
         public PickupSpawnManager pickupSpawner;
 
         // Testing variable
-        bool beatTested = false;
+        //bool beatTested = false;
 
         bool isLoaded = false;
 
@@ -55,8 +55,8 @@ namespace Resonance
             Drawing.Init(ScreenManager.Content, graphics);
             musicHandler = new MusicHandler(ScreenManager.Content);
 
-            if(USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
-            if(USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
+            if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
+            if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
         }
 
         /// <summary>
@@ -81,7 +81,6 @@ namespace Resonance
             {
                 BadVibe.initialiseBank();
                 Drawing.loadContent();
-                UI.init(ScreenManager.Content, graphics);
                 world = new World();
 
                 //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
@@ -101,7 +100,7 @@ namespace Resonance
         /// <param name="i">Int number of the level, taken from the level name, i.e Level1.xml</param>
         public void loadLevel(int i)
         {
-            string level = "Levels/Level"+i;
+            string level = "Levels/Level" + i;
             world.readXmlFile(level, ScreenManager.Content);
 
             GVMotionManager.initialised = false;
@@ -118,6 +117,14 @@ namespace Resonance
 
         public override void HandleInput(InputDevices input)
         {
+            bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);
+
+            if (pause)
+            {
+                ScreenManager.addScreen(new PauseMenu());
+            }
+
             //Camera
             CameraMotionManager.update(input);
             //Player One
@@ -161,14 +168,15 @@ namespace Resonance
             //PickupManager.updateTimeRemaining();
 
             world.update();
-                    
+
             musicHandler.Update();
 
             //Update Spawners
             if (USE_BV_SPAWNER) BVSpawnManager.update();
-            if(USE_PICKUP_SPAWNER) pickupSpawner.update();
-                
-            if (GV_KILLED || mode.terminated()) {
+            if (USE_PICKUP_SPAWNER) pickupSpawner.update();
+
+            if (GV_KILLED || mode.terminated())
+            {
                 endGame();
             }
 
@@ -190,18 +198,18 @@ namespace Resonance
                     DebugDisplay.update("Hit", "Not now!");
                 }
             }*/
-        //}
+            //}
         }
 
         // Called when game finished (won or lost).
-        private void endGame() {
+        private void endGame()
+        {
             String r;
             int finalScore;
             if (GV_KILLED) r = "GV Killed."; else r = "Game won!";
             finalScore = mode.finaliseScore(GV_KILLED, getGV().TotalScore);
             DebugDisplay.update("Game Over! State", r);
             DebugDisplay.update("Final Score", finalScore.ToString());
-            UI.pause();
         }
 
         /// <summary>
@@ -214,17 +222,17 @@ namespace Resonance
 
             foreach (BadVibe bv in world.returnBadVibes())
             {
-                if (bv.Status == BadVibe.State.DEAD )
+                if (bv.Status == BadVibe.State.DEAD)
                 {
                     if (bv.getAnimationCounter() <= 0)
                     {
                         deadVibes.Add(bv.returnIdentifier());
                     }
-                    bv.decrementAnimationCounter();   
+                    bv.decrementAnimationCounter();
                 }
                 else if (bv.Status != BadVibe.State.DEAD)
                 {
-                   
+
                     bv.Move();
                 }
             }
@@ -242,7 +250,7 @@ namespace Resonance
                 if (USE_BV_SPAWNER) BVSpawnManager.vibeDied((BadVibe)World.getObject(deadVibes[i]));
                 World.removeObject(World.getObject(deadVibes[i]));
                 musicHandler.playSound("beast-dying");
-                
+
             }
         }
 
@@ -292,7 +300,7 @@ namespace Resonance
             {
                 Drawing.drawReflection();
                 graphics.GraphicsDevice.Clear(Color.Black);
-                DrawableManager.Draw(gameTime);
+                Drawing.drawGame();
             }
             Drawing.drawGame();
             graphics.GraphicsDevice.Clear(Color.Black);

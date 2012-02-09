@@ -110,14 +110,20 @@
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Particle.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />
-    <Compile Include="Drawing\UI\Screens\DebugMenu.cs" />
+    <Compile Include="Drawing\UI\Screens\DebugMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Drawing\UI\Screens\GameScreen.cs" />
     <Compile Include="Drawing\UI\Screens\LoadingScreen.cs" />
     <Compile Include="Drawing\UI\Screens\MainMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MenuElement.cs" />
     <Compile Include="Drawing\UI\Screens\MenuScreen.cs" />
-    <Compile Include="Drawing\UI\Screens\PauseMenu.cs" />
-    <Compile Include="Drawing\UI\Screens\PopupScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\PauseMenu.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Drawing\UI\Screens\PopupScreen.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GameMode.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
