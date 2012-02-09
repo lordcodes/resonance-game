@@ -75,7 +75,10 @@ namespace Resonance {
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-                    particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero, deceleration, false));
+
+                    Particle p = ParticleEmitterManager.getParticle();
+                    p.init(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero, deceleration, false);
+                    particles.Add(p);
                     particlesLeft--;
 
                     if (particlesLeft <= 0) break;
@@ -89,12 +92,15 @@ namespace Resonance {
         public virtual void update() {
             // Remove dead particles and update alive ones.
             int killed = 0;
+            Particle p;
             for (int i = 0; i < particles.Count; ++i) {
-                if (particles.ElementAt(i - killed).isDead()) {
+                p = particles.ElementAt(i - killed);
+                if (p.isDead()) {
+                    ParticleEmitterManager.addToPool(p);
                     particles.RemoveAt(i - killed);
                     killed++;
                 } else {
-                    particles.ElementAt(i - killed).update();
+                    p.update();
                 }
             }
 

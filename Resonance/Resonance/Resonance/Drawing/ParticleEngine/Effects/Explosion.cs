@@ -40,9 +40,13 @@ namespace Resonance {
                     Vector3 gravity = new Vector3(0f, -0.05f, 0f);
 
                     if (gen.Next() % 4 == 0) { 
-                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, true));
+                        Particle p = ParticleEmitterManager.getParticle();
+                        p.init(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, true);
+                        particles.Add(p);
                     } else {
-                        particles.Add(new Particle(pos, iDir, iSpd, iPSize, iLife, Color.Black, 1f, gravity, deceleration, true));
+                        Particle p = ParticleEmitterManager.getParticle();
+                        p.init(pos, iDir, iSpd, iPSize, iLife, Color.Black, 1f, gravity, deceleration, true);
+                        particles.Add(p);
                     }
                     particlesLeft--;
 

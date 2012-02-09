@@ -76,6 +76,24 @@ namespace Resonance {
             bounce       = b;
         }
 
+        public Particle() {
+        }
+
+        public void init(Vector3 p, Vector3 iDirection, float iSpeed, float s, int iLife, Color c, float iAlpha, Vector3 f, float d, bool b) {
+            speed        = iSpeed;
+            pos          = p;
+            direction    = iDirection;
+            size         = s;
+            lifespan     = iLife;
+            colour       = c;
+            dAlpha       = iAlpha / iLife;
+            rotation     = Vector3.Zero;
+            spin         = new Vector3(1f, 1f, 1f);
+            force        = f;
+            deceleration = d;
+            bounce       = b;
+        }
+
 
         // s only used for testing
         public void update() {
