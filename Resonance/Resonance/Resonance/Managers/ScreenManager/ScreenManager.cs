@@ -76,21 +76,40 @@ namespace Resonance
             {
                 Screen screen = updateScreens[updateScreens.Count - 1];
                 updateScreens.RemoveAt(updateScreens.Count - 1);
-                screen.Update(gameTime);
-
                 if (takeInput)
                 {
                     screen.HandleInput(input);
+                    screen.Update(gameTime);
                     takeInput = false;
+                }
+                else
+                {
+                    bool doUpdate = (screen is GameScreen);
+                    if (!doUpdate)
+                    {
+                        screen.Update(gameTime);
+                    }
                 }
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
+            bool first = true;
             foreach (Screen screen in screens)
             {
-                screen.Draw(gameTime);
+                if (first)
+                {
+                    screen.Draw(gameTime);
+                }
+                else
+                {
+                    bool doDraw = (screen is GameScreen);
+                    if (!doDraw)
+                    {
+                        screen.Draw(gameTime);
+                    }
+                }
             }
         }
 
