@@ -20,7 +20,7 @@ namespace Resonance {
         static long  thunderOffset;   // Avg temporal thunder offset after lightning.
         static float lightningAlpha;  // Alpha (brightness) of lightning. 
 
-        const  float maxCloudCover     = 1f;
+        const  float maxCloudCover     = 1.8f;
         const  float maxCloudHeaviness = 0.75f;
         const  int   maxRainfall       = 15;
         const  float maxRaindropSize   = 0.4f;
@@ -37,7 +37,7 @@ namespace Resonance {
         public const float loudLightningStart  = 0.1f;
 
         // Max no of ticks which have to pass between 2 lightning strikes.
-        private const long maxLightningSep = 100000000000; // 1 second.
+        private const long maxLightningSep = 10000000; // 1 second.
 
         // True if thunder / lightning is happening. Reset to false when lightning ends and maxLightningSep has passed. 
         private static bool lightningHappening;
@@ -73,6 +73,8 @@ namespace Resonance {
             lCue = null;
 
             rain = new Rain(new Vector3(0f, 10f, 0f));
+
+            Drawing.setAmbientLight(new Vector3(0.1f, 0.1f, 0.1f));
         }
 
         public static void setParams() {
@@ -83,6 +85,7 @@ namespace Resonance {
                 // Set cloudCover and cloudHeaviness
                 factor = 1f / cloudStart;
                 cloudHeaviness = maxCloudHeaviness - (factor * health * maxCloudHeaviness);
+                cloudCover = maxCloudCover - (factor * health * maxCloudCover);
                 if (health < rainStart) {
                     // Set rainfall and randropSize
                     factor = 1f / rainStart;
@@ -152,7 +155,7 @@ namespace Resonance {
 
             // Lightning
 
-            if (!lightningHappening) {
+            if ((gVRef.healthFraction() < quietLightningStart) && !lightningHappening) {
                 // Flash, then wait for offset before playing sound.
 
                 lastLightningStarted = DateTime.Now.Ticks;
@@ -170,7 +173,8 @@ namespace Resonance {
             if (lastLightningStarted > DateTime.Now.Ticks - lightningLength) {
                 Drawing.setAmbientLight(new Vector3(lightningAlpha, lightningAlpha, lightningAlpha));
             } else {
-                Drawing.setAmbientLight(new Vector3(0.01f, 0.01f, 0.01f));
+                //Drawing.setAmbientLight(new Vector3(0.01f, 0.01f, 0.01f));
+                Drawing.setAmbientLight(new Vector3(0.1f - cloudCover, 0.1f - cloudCover, 0.1f - cloudCover));
             }
         }
     }
