@@ -19,6 +19,14 @@ namespace Resonance
             }
         }
 
+        public Vector3 AmbientLightColour
+        {
+            set
+            {
+                Effect.Parameters["AmbientLightColor"].SetValue(value);
+            }
+        }
+
         public Effect Effect
         {
             get

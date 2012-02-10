@@ -70,6 +70,7 @@ namespace Resonance
         {
             // TODO: Add your initialization logic here
             //base.Initialize();
+
         }
 
         /// <summary>
@@ -309,6 +310,9 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Draw(GameTime gameTime)
         {
+            //Set the ambient light of the 3D scene, default is new Vector3(0.1f, 0.1f, 0.1f)
+            Drawing.setAmbientLight(new Vector3(2f, 2f, 2f));
+
             graphics.GraphicsDevice.Clear(Color.Black);
             if (Drawing.requestRender)
             {

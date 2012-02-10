@@ -36,6 +36,12 @@ namespace Resonance
             }
         }
 
+        public void setAmbientLight(Vector3 light)
+        {
+            Default.AmbientLightColour = light;
+            Ground.AmbientLightColour = light;
+        }
+
         public Shaders()
         {
             defaultShader = new DefaultShader("Drawing/Shaders/Default");

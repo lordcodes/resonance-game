@@ -30,6 +30,11 @@ namespace Resonance
         private static Texture2D shinyFloorTexture;
         private static int drawCount = 0;
 
+        public static void setAmbientLight(Vector3 light)
+        {
+            gameGraphics.CustomShaders.setAmbientLight(light);
+        }
+
         public static ContentManager Content
         {
             get { return content; }
