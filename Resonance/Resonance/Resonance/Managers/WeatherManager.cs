@@ -28,7 +28,7 @@ namespace Resonance {
         const  float minLightningFreq  = 0.1f;
         const  float maxLightningVol   = 20f;
         const  long  maxThunderOffset  = 300000000000;
-        const  float maxLightningAlpha = 0.9f;
+        const  float maxLightningAlpha = 1.8f;
 
         public const float cloudStart          = 0.80f;
         public const float rainStart           = 0.60f;
@@ -96,9 +96,10 @@ namespace Resonance {
                         factor = 1f / quietLightningStart;
                         lightningFreq = maxLightningFreq - (factor * health * (maxLightningFreq - minLightningFreq)) + minLightningFreq;
                         lightningVol  = maxLightningVol - (factor * health * maxLightningVol);
-                        DebugDisplay.update("Lightning vol", lightningVol.ToString());
-                        DebugDisplay.update("Lightning frq", lightningFreq.ToString());
+                        //DebugDisplay.update("Lightning vol", lightningVol.ToString());
+                        //DebugDisplay.update("Lightning frq", lightningFreq.ToString());
                         thunderOffset = (long) (maxThunderOffset * factor * health);
+                        lightningAlpha = maxLightningAlpha - (factor * health * maxLightningAlpha);
                     } else {
                         lightningFreq = 0f;
                     }
@@ -165,6 +166,9 @@ namespace Resonance {
         public static void drawLightning(SpriteBatch s, Texture2D tex) {
             //lightningAlpha = 0.1f;
             //s.Draw(tex, new Rectangle(0, 0, 10000, 10000), new Color(1f, 1f, 1f, lightningAlpha));
+            //DebugDisplay.update("LBright", lightningAlpha.ToString());
+            Drawing.setAmbientLight(new Vector3(lightningAlpha, lightningAlpha, lightningAlpha));
+            //Drawing.setAmbientLight(new Vector3(0.01f, 0.01f, 0.01f));
         }
     }
 }
