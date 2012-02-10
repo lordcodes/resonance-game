@@ -69,16 +69,16 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Models\BV_Spawner.fbx">
-      <Name>BV_Spawner</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <None Include="Drawing\Models\BVExplosion.fbx">
       <Name>BVExplosion</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
+    <Compile Include="Drawing\Models\BV_Spawner.fbx">
+      <Name>BV_Spawner</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\GoodVibe.fbx">
       <Name>GoodVibe</Name>
       <Importer>FbxImporter</Importer>

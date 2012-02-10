@@ -8,10 +8,6 @@ namespace Resonance
 {
     class BVSpawnManager
     {
-        //private static int MIN_BVS = 15;
-
-        //private static int numBVs = 0;
-        //private static int totalNumBVs = 0;
         private static int spawnerCount = 2;
         private static int bvcount = 0;
         private static List<BVSpawner> spawners = new List<BVSpawner>();
