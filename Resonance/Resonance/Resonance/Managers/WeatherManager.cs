@@ -15,6 +15,7 @@ namespace Resonance {
         static float cloudHeaviness;  // Opacity of cloud 0 - 1.
         static int   rainfall;        // Avg raindrops per sec.
         static float raindropSize;    // Size of raindrops.
+        static float rainVol;         // Rain volume
         static float lightningFreq;   // Avg lightning per sec.
         static float lightningVol;    // Volume of thunder
         static long  thunderOffset;   // Avg temporal thunder offset after lightning.
@@ -24,17 +25,20 @@ namespace Resonance {
         const  float maxCloudHeaviness = 0.75f;
         const  int   maxRainfall       = 15;
         const  float maxRaindropSize   = 0.4f;
+        const  float maxRainVol        = 1f;
         const  float maxLightningFreq  = 0.3f;
         const  float minLightningFreq  = 0.1f;
         const  float maxLightningVol   = 20f;
         const  long  maxThunderOffset  = 20000000; // 2 secs
         const  float maxLightningAlpha = 2.8f;
 
-        public const float cloudStart          = 0.80f;
-        public const float rainStart           = 0.60f;
-        public const float quietLightningStart = 0.4f;
-        public const float midLightningStart   = 0.25f;
-        public const float loudLightningStart  = 0.1f;
+        public const float cloudStart           = 0.85f;
+        public const float rainStart            = 0.70f;
+        public const float rainMaxAt            = 0.57f;
+        public const float gentleLightningStart = 0.55f;
+        public const float quietLightningStart  = 0.4f;
+        public const float midLightningStart    = 0.25f;
+        public const float loudLightningStart   = 0.1f;
 
         // Max no of ticks which have to pass between 2 lightning strikes.
         private const long maxLightningSep = 10000000; // 1 second.
@@ -96,6 +100,7 @@ namespace Resonance {
                     rainfall = maxRainfall - (int) (factor * health * (float) maxRainfall);
                     raindropSize = maxRaindropSize - (factor * health * maxRaindropSize);
 
+                    //rainVol = (maxRainVol) - ();
                     rain.setEmissionsPerUpdate(rainfall);
                     rain.setRaindropSize(raindropSize);
 
@@ -152,23 +157,32 @@ namespace Resonance {
 
         public static void update() {
             setParams();
+            float health = gVRef.healthFraction();
 
             // Cloud
 
             // Rain
 
+            if (health < rainStart) {
+                if (rCue == null || !rCue.IsPlaying) {
+                    if (health < gentleLightningStart) {
+                        rCue = ScreenManager.game.Music.playSound("rainAndThunder");
+                    } else {
+                        rCue = ScreenManager.game.Music.playSound("rainLight");
+                    }
+                }
+            }
+
             // Lightning
 
-            if ((gVRef.healthFraction() < quietLightningStart) && !lightningHappening) {
+            if ((health < quietLightningStart) && !lightningHappening) {
                 // Flash, then wait for offset before playing sound.
 
                 lastLightningStarted = DateTime.Now.Ticks;
                 thunderStarted = false;
-                //playLightning();
                 lightningHappening = true;
             } else {
                 if (lCue != null && (!lCue.IsPlaying && thunderStarted)) {
-                    // TODO: Add some random delay to this.
                     lightningHappening = false;
                 }
             }

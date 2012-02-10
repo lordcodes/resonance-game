@@ -15,8 +15,8 @@ namespace Resonance
         private int spawnerNumber;
 
         public const int ARMOUR_SPACING = 3;
-        public const int MAX_ARMOUR_DISPLAY_DIST = 20;
-        public const int MAX_ARMOUR_TRANSPARENCY_DIST = 8;
+        public const int MAX_ARMOUR_DISPLAY_DIST = 40;
+        public const int MAX_ARMOUR_TRANSPARENCY_DIST = 12;
         private const double REDUCTION_RATE = 15;
         private const double ATTACK_RANGE = 3;
         private const double ATTACK_RATE = 0.8;
