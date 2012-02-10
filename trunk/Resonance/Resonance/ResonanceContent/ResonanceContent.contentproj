@@ -877,11 +877,6 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sounds\Weather\Thunder\thunderLoud3.wav">
-      <Name>thunderLoud3</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Sounds\Weather\Thunder\thunderMid1.wav">
@@ -889,23 +884,8 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sounds\Weather\Thunder\thunderMid2.wav">
-      <Name>thunderMid2</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sounds\Weather\Thunder\thunderMid3.wav">
-      <Name>thunderMid3</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\Weather\Thunder\thunderQuiet1.wav">
-      <Name>thunderQuiet1</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
     <Compile Include="Sounds\Weather\Thunder\thunderQuiet2.wav">
       <Name>thunderQuiet2</Name>
       <Importer>WavImporter</Importer>
