@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance {
     class Rain : Emitter {
@@ -10,12 +11,14 @@ namespace Resonance {
         Random gen;
 
         public Rain(Vector3 p) : base(p) {
+            pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/HUD/Textures/map_distant_vibe");
+
             emissionsPerUpdate = 0;
             particlesLeft      = 5000; // This will always be reset anyway as there is (potentially) infinite rain.
             maxParticleSpd     = 2f;
             maxParticleLife    = 1000; // Particles are removed after they hit the ground.
             iPSize             = 0f;
-            iColour            = Color.Blue;
+            iColour            = new Color(0f, 0f, 1f, 0.5f);
             deceleration       = 0f;
 
             gen = new Random();
@@ -32,12 +35,10 @@ namespace Resonance {
         protected override void generateParticles() {
             for (int i = 0; i < emissionsPerUpdate; ++i) {
                 Vector3 iDir = Vector3.Down;
-                //float mapW = World.MAP_X;
-                //float mapD = World.MAP_Z;
 
                 // These only have to represent the area of screen you can see at one time, as Rain follows the GV
-                float mapW = 50f;
-                float mapD = 50f;
+                float mapW = 40f;
+                float mapD = 40f;
 
                 float iSpd  = maxParticleSpd;
                 int   iLife = maxParticleLife;
@@ -51,6 +52,7 @@ namespace Resonance {
                 Particle p = ParticleEmitterManager.getParticle();
                 p.init(pos + posOffset, gravity, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, false);
                 p.setDieOnFloor(true);
+                p.setSpin(Vector3.Zero);
                 particles.Add(p);
             }
         }

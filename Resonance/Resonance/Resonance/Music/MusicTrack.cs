@@ -58,7 +58,7 @@ namespace Resonance
 
                  //mode = NoteMode.WHOLE;
 
-            //MediaPlayer.Volume /= 10;
+            MediaPlayer.Volume /= 5;
             StreamReader reader = new StreamReader(path);
             beatLength = Convert.ToInt32(reader.ReadLine());
             halfBeatLength = beatLength >> 1;

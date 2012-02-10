@@ -19,6 +19,8 @@ namespace Resonance {
         int lifespan; // Number of frames for which this particle is alive.
         Color colour;
         float size;
+        //float width;
+        //float height;
         Vector3 rotation;
         Vector3 spin;
         Vector3 force;
@@ -53,6 +55,10 @@ namespace Resonance {
 
         public void setDieOnFloor(bool b) {
             dieOnFloor = b;
+        }
+
+        public void setSpin(Vector3 newSpin) {
+            spin = newSpin;
         }
 
         /// <summary>

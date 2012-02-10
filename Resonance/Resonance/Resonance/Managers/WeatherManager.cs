@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance {
     class WeatherManager {
@@ -21,8 +22,8 @@ namespace Resonance {
 
         const  float maxCloudCover     = 1f;
         const  float maxCloudHeaviness = 0.75f;
-        const  int   maxRainfall       = 25;
-        const  float maxRaindropSize   = 0.25f;
+        const  int   maxRainfall       = 15;
+        const  float maxRaindropSize   = 0.4f;
         const  float maxLightningFreq  = 0.3f;
         const  float minLightningFreq  = 0.1f;
         const  float maxLightningVol   = 20f;
@@ -149,6 +150,8 @@ namespace Resonance {
             // Lightning
 
             if (!lightningHappening) {
+                // Flash, then wait for offset before playing sound.
+
                 playLightning();
                 lightningHappening = true;
             } else {
@@ -157,6 +160,11 @@ namespace Resonance {
                     lightningHappening = false;
                 }
             }
+        }
+
+        public static void drawLightning(SpriteBatch s, Texture2D tex) {
+            //lightningAlpha = 0.1f;
+            //s.Draw(tex, new Rectangle(0, 0, 10000, 10000), new Color(1f, 1f, 1f, lightningAlpha));
         }
     }
 }
