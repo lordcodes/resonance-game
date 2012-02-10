@@ -251,6 +251,7 @@ namespace Resonance
                 {
                     ((GroundShader)currentShader).GoodVibePos = Drawing.groundPos(GameScreen.getGV().Body.Position, true);
                     ((GroundShader)currentShader).CameraPos = Drawing.groundPos(cameraPosition, true);
+                    //DebugDisplay.update("GVP",Drawing.groundPos(cameraPosition, true)+"");
                 }
                 catch (Exception)
                 {

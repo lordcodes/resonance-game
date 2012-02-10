@@ -166,10 +166,11 @@ namespace Resonance
         public static Vector2 groundPos(Vector3 position3d, bool one)
         {
             Vector2 playerGroundPos = new Vector2();
-            float groundWidth = World.MAP_X;
-            float groundHeight = World.MAP_Z;
-            float xDis = Math.Abs(position3d.X - World.MAP_MIN_X);
-            float yDis = Math.Abs(position3d.Z - World.MAP_MIN_Z);
+            float pad = -2f;
+            float groundWidth = World.MAP_X+pad;
+            float groundHeight = World.MAP_Z+pad;
+            float xDis = Math.Abs(position3d.X - World.MAP_MIN_X + pad/2);
+            float yDis = Math.Abs(position3d.Z - World.MAP_MIN_Z + pad/2);
             if (!one)
             {
                 playerGroundPos.X = (float)Math.Round(Graphics.DISP_WIDTH * (xDis / groundWidth));

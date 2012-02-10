@@ -108,24 +108,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float3 normal = normalize(input.Normal);
 	float3 finalColor;
 	float4 fullColor;
-	float scale = 0.5;
-
-
-	float padding = 0.00035;
 	fullColor = tex2D(ColorTextureSampler, input.TexCoord.xy);
-	
-	
-	
-
-	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy+(padding));
-	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy-(padding));
-	//input.TexCoord.x += padding;
-	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy);
-	//input.TexCoord.x -= 2*padding;
-	//fullColor += tex2D(ColorTextureSampler, input.TexCoord.xy);
-	//fullColor = fullColor/5;
-
-
 	finalColor = float3(fullColor.x, fullColor.y, fullColor.z);
 	float3 diffuse = AmbientLightColor;
 	float NdotL = saturate(dot(normal,LightDirection));
@@ -172,6 +155,14 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 			{
 				fullColor += float4(0.2,0,0,1);
 			}
+			/*if(gvPos.y < input.TexCoord.y + 0.0005 &&  gvPos.y > input.TexCoord.y-0.0005)
+			{
+				fullColor += float4(1,0,0,1);
+			}
+			if(gvPos.x < input.TexCoord.x + 0.0005 &&  gvPos.x > input.TexCoord.x-0.0005)
+			{
+				fullColor += float4(1,0,0,1);
+			}*/
 		}
 	}
 
