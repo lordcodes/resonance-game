@@ -9,6 +9,8 @@ namespace Resonance
 {
     class MainMenu : MenuScreen
     {
+        Texture2D textBG;
+
         public MainMenu()
             : base("Welcome to the Resonance Chamber")
         {
@@ -28,17 +30,20 @@ namespace Resonance
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFourth"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFifth"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuSixth"));
+            textBG = this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MenuItemBG");
         }
 
         protected override void updateItemLocations()
         {
             base.updateItemLocations();
 
-            int x = 1350;
+            int x = 1400;
             int y = 300;
             for (int i = 0; i < MenuItems.Count; i++)
             {
                 MenuItems[i].Position = new Vector2(ScreenManager.pixelsX(x), ScreenManager.pixelsY(y));
+                MenuItems[i].Background = textBG;
+                MenuItems[i].MainMenu = false;
                 y += 75;
             }
         }
