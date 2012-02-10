@@ -22,10 +22,10 @@ namespace Resonance {
         const  float maxCloudCover     = 1f;
         const  float maxCloudHeaviness = 0.75f;
         const  int   maxRainfall       = 25;
-        const  float maxRaindropSize   = 1f;
+        const  float maxRaindropSize   = 0.25f;
         const  float maxLightningFreq  = 0.3f;
         const  float minLightningFreq  = 0.1f;
-        const  float maxLightningVol   = 10f;
+        const  float maxLightningVol   = 20f;
         const  long  maxThunderOffset  = 300000000000;
         const  float maxLightningAlpha = 0.9f;
 
@@ -88,11 +88,15 @@ namespace Resonance {
 
                     rain.setEmissionsPerUpdate(rainfall);
                     rain.setRaindropSize(raindropSize);
+
+                    rain.setPos(new Vector3 (gVRef.Body.Position.X, 10f, gVRef.Body.Position.Z));
                     if (health < quietLightningStart) {
                         // Set lightningFreq etc
                         factor = 1f / quietLightningStart;
                         lightningFreq = maxLightningFreq - (factor * health * (maxLightningFreq - minLightningFreq)) + minLightningFreq;
                         lightningVol  = maxLightningVol - (factor * health * maxLightningVol);
+                        DebugDisplay.update("Lightning vol", lightningVol.ToString());
+                        DebugDisplay.update("Lightning frq", lightningFreq.ToString());
                         thunderOffset = (long) (maxThunderOffset * factor * health);
                     } else {
                         lightningFreq = 0f;

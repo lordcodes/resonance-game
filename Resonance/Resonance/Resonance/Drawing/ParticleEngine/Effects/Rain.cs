@@ -35,21 +35,21 @@ namespace Resonance {
                 //float mapW = World.MAP_X;
                 //float mapD = World.MAP_Z;
 
-                float mapW = 5f;
-                float mapD = 5f;
+                // These only have to represent the area of screen you can see at one time, as Rain follows the GV
+                float mapW = 50f;
+                float mapD = 50f;
 
                 float iSpd  = maxParticleSpd;
                 int   iLife = maxParticleLife;
 
                 Vector3 posOffset = new Vector3((float) gen.Next((int) (mapW / 2)), 0f, (float) gen.Next((int) (mapD / 2)));
                 if (gen.Next() % 2 == 0) posOffset.X *= -1;
-                if (gen.Next() % 2 == 0) posOffset.Z *= -1; 
-                pos += posOffset;
+                if (gen.Next() % 2 == 0) posOffset.Z *= -1;
 
                 Vector3 gravity = new Vector3(0f, -0.05f, 0f);
 
                 Particle p = ParticleEmitterManager.getParticle();
-                p.init(pos, gravity, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, false);
+                p.init(pos + posOffset, gravity, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, false);
                 p.setDieOnFloor(true);
                 particles.Add(p);
             }
