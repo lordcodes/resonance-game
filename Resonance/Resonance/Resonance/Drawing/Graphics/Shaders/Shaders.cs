@@ -40,6 +40,7 @@ namespace Resonance
         {
             Default.AmbientLightColour = light;
             Ground.AmbientLightColour = light;
+            Particle.AmbientLightColour = light;
         }
 
         public Shaders()

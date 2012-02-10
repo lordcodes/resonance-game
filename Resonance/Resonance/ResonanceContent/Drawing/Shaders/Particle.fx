@@ -48,6 +48,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float4 texColor = tex2D(ColorTextureSampler, input.TexCoord);
 	if(texColor.a == 0)
 		return float4(0,0,0,0);
+	texColor.xyz += AmbientLightColor;
     return Colour;
 }
 
