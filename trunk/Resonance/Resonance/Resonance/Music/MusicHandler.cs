@@ -61,6 +61,22 @@ namespace Resonance
             return soundCue;
         }
 
+        /// <summary>
+        /// Play a sound and choose the volume
+        /// </summary>
+        /// <param name="sound">the string for the sound file</param>
+        /// <param name="volume">value between 0 and 100</param>
+        /// <returns></returns>
+        public Cue playSound(string sound, int volume)
+        {
+            float vol = (float)(volume - 94);
+
+            Cue soundCue = soundBank.GetCue(sound);
+            soundCue.SetVariable("Volume", vol);
+            soundCue.Play();
+            return soundCue;
+        }
+
         public bool HeartBeat
         {
             set

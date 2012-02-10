@@ -214,6 +214,56 @@ Global Settings
         Min = 0.000000;
         Max = 1000000.000000;
     }
+
+    Variable
+    {
+        Name = Volume;
+        Public = 1;
+        Global = 0;
+        Internal = 0;
+        External = 0;
+        Monitored = 1;
+        Reserved = 0;
+        Read Only = 0;
+        Time = 0;
+        Value = 0.000000;
+        Initial Value = 0.000000;
+        Min = -96.000000;
+        Max = 6.000000;
+    }
+
+    RPC
+    {
+        Name = VolumeVariation;
+
+        RPC Curve
+        {
+            Name = Sound::123ddae4-2e67-4fed-a2fb-19432aa2d452;
+            Property = 0;
+            Sound = 1;
+            Line Color = 4282020790;
+            Viewable = 1;
+
+            Variable Entry
+            {
+                Name = Volume;
+            }
+
+            RPC Point
+            {
+                X = -96.000000;
+                Y = -9600.000000;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 6.000000;
+                Y = 600.000000;
+                Curve = 0;
+            }
+        }
+    }
 }
 
 Wave Bank
@@ -225,6 +275,12 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 2777192806;
     Bank Last Revised High = 30205949;
 
@@ -581,6 +637,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -1065,6 +1123,11 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
+        }
+
         Track
         {
             Volume = 0;
@@ -1110,6 +1173,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
         }
 
         Track
@@ -1159,6 +1227,11 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
+        }
+
         Track
         {
             Volume = 0;
@@ -1206,6 +1279,11 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
+        }
+
         Track
         {
             Volume = 0;
@@ -1251,6 +1329,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
         }
 
         Track
