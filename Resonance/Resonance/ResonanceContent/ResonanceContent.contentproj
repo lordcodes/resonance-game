@@ -79,16 +79,21 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\GoodVibe.fbx">
+    <Compile Include="Drawing\Models\GoodVibe.fbx">
       <Name>GoodVibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </None>
+    </Compile>
     <None Include="Drawing\Models\GoodVibeShield.fbx">
       <Name>GoodVibeShield</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
+    <Compile Include="Drawing\Models\Neurons.fbx">
+      <Name>Neurons</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\spaceShip.fbx">
       <Name>spaceShip</Name>
       <Importer>FbxImporter</Importer>
