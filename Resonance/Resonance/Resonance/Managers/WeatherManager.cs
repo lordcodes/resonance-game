@@ -27,7 +27,7 @@ namespace Resonance {
         const  float maxLightningFreq  = 0.3f;
         const  float minLightningFreq  = 0.1f;
         const  float maxLightningVol   = 20f;
-        const  long  maxThunderOffset  = 300000000000;
+        const  long  maxThunderOffset  = 20000000; // 2 secs
         const  float maxLightningAlpha = 2.8f;
 
         public const float cloudStart          = 0.80f;
@@ -55,6 +55,8 @@ namespace Resonance {
 
         private static Rain rain;
 
+        private static bool thunderStarted;
+
         public static void initialise() {
             gVRef = GameScreen.getGV();
             gen = new Random();
@@ -71,6 +73,8 @@ namespace Resonance {
             lightningHappening = false;
             lastLightning = -1;
             lCue = null;
+
+            thunderStarted = false;
 
             rain = new Rain(new Vector3(0f, 10f, 0f));
 
@@ -159,19 +163,28 @@ namespace Resonance {
                 // Flash, then wait for offset before playing sound.
 
                 lastLightningStarted = DateTime.Now.Ticks;
-                playLightning();
+                thunderStarted = false;
+                //playLightning();
                 lightningHappening = true;
             } else {
-                if (lCue == null || !lCue.IsPlaying) {
+                if (lCue != null && (!lCue.IsPlaying && thunderStarted)) {
                     // TODO: Add some random delay to this.
                     lightningHappening = false;
+                }
+            }
+
+            // Thunder
+            if (lightningHappening && !thunderStarted) {
+                if (DateTime.Now.Ticks > lastLightningStarted + thunderOffset) {
+                    playLightning();
+                    thunderStarted = true;
                 }
             }
         }
 
         public static void drawLightning(SpriteBatch s, Texture2D tex) {
             if (lastLightningStarted > DateTime.Now.Ticks - lightningLength) {
-                Drawing.setAmbientLight(new Vector3(lightningAlpha, lightningAlpha, lightningAlpha));
+                Drawing.setAmbientLight(new Vector3(lightningAlpha, lightningAlpha, lightningAlpha + 1));
             } else {
                 //Drawing.setAmbientLight(new Vector3(0.01f, 0.01f, 0.01f));
                 Drawing.setAmbientLight(new Vector3(0.1f - cloudCover, 0.1f - cloudCover, 0.1f - cloudCover));
