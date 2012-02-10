@@ -879,6 +879,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Sounds\Weather\Thunder\thunderLoud3.wav">
+      <Name>thunderLoud3</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
     <Compile Include="Sounds\Weather\Thunder\thunderMid1.wav">
       <Name>thunderMid1</Name>
       <Importer>WavImporter</Importer>

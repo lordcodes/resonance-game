@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Resonance {
     class WeatherManager {
@@ -27,9 +28,11 @@ namespace Resonance {
         const  long  maxThunderOffset  = 300000000000;
         const  float maxLightningAlpha = 0.9f;
 
-        public const float cloudStart     = 0.80f;
-        public const float rainStart      = 0.60f;
-        public const float lightningStart = 0.25f;
+        public const float cloudStart          = 0.80f;
+        public const float rainStart           = 0.60f;
+        public const float quietLightningStart = 0.4f;
+        public const float midLightningStart   = 0.25f;
+        public const float loudLightningStart  = 0.1f;
 
         // Max no of ticks which have to pass between 2 lightning strikes.
         private const long maxLightningSep = 100000000000; // 1 second.
@@ -39,8 +42,14 @@ namespace Resonance {
 
         private static long lastLightning = 0;
 
+        private static Cue lCue;
+
+        // Random number generator
+        static Random gen;
+
         public static void initialise() {
             gVRef = GameScreen.getGV();
+            gen = new Random();
 
             cloudCover     = 0f;
             cloudHeaviness = 0f;
@@ -50,6 +59,10 @@ namespace Resonance {
             lightningVol   = 0f;
             thunderOffset  = maxThunderOffset;
             lightningAlpha = 0f;
+
+            lightningHappening = false;
+            lastLightning = -1;
+            lCue = null;
         }
 
         public static void setParams() {
@@ -59,17 +72,17 @@ namespace Resonance {
             if (health < cloudStart) {
                 // Set cloudCover and cloudHeaviness
                 factor = 1f / cloudStart;
-                cloudHeaviness = factor * health;
+                cloudHeaviness = maxCloudHeaviness - (factor * health * maxCloudHeaviness);
                 if (health < rainStart) {
                     // Set rainfall and randropSize
                     factor = 1f / rainStart;
-                    rainfall = (int) (factor * health * (float) maxRainfall);
-                    raindropSize = (factor * (1f - health) * maxRaindropSize);
-                    if (health < lightningStart) {
+                    rainfall = maxRainfall - (int) (factor * health * (float) maxRainfall);
+                    raindropSize = maxRaindropSize - (factor * health * maxRaindropSize);
+                    if (health < quietLightningStart) {
                         // Set lightningFreq etc
-                        factor = 1f / lightningStart;
-                        lightningFreq = minLightningFreq + ((1f - health) * factor * (maxLightningFreq - minLightningFreq));
-                        lightningVol  = factor * (1f - health) * maxLightningVol;
+                        factor = 1f / quietLightningStart;
+                        lightningFreq = maxLightningFreq - (factor * health * (maxLightningFreq - minLightningFreq)) + minLightningFreq;
+                        lightningVol  = maxLightningVol - (factor * health * maxLightningVol);
                         thunderOffset = (long) (maxThunderOffset * factor * health);
                     } else {
                         lightningFreq = 0f;
@@ -83,6 +96,25 @@ namespace Resonance {
             }
         }
 
+        private static void playLightning() {
+            float health = gVRef.healthFraction();
+
+            if (health < loudLightningStart) {
+                int x = gen.Next();
+                if (x % 3 == 0) {
+                    lCue = ScreenManager.game.Music.playSound("thunderLoud1");
+                } else if (x % 3 == 1) {
+                    lCue = ScreenManager.game.Music.playSound("thunderLoud2");
+                } else {
+                    lCue = ScreenManager.game.Music.playSound("thunderLoud3");
+                }
+            } else if (health < midLightningStart) {
+                lCue = ScreenManager.game.Music.playSound("thunderMid1");
+            } else if (health < quietLightningStart) {
+                lCue = ScreenManager.game.Music.playSound("thunderQuiet2");
+            }
+        }
+
         public static void update() {
             setParams();
 
@@ -91,6 +123,15 @@ namespace Resonance {
             // Rain
 
             // Lightning
+
+            if (!lightningHappening) {
+                playLightning();
+                lightningHappening = true;
+            } else {
+                if (lCue == null || !lCue.IsPlaying) {
+                    lightningHappening = false;
+                }
+            }
         }
     }
 }
