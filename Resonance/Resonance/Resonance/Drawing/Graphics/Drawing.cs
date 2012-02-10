@@ -30,6 +30,10 @@ namespace Resonance
         private static Texture2D shinyFloorTexture;
         private static int drawCount = 0;
 
+        /// <summary>
+        /// Change the ambient light level of the scene, use positive values to make it brighter, negative values to make it darker.  
+        /// </summary>
+        /// <param name="light">Vector3 of the additions that should be made to the RGB of the ambient light</param>
         public static void setAmbientLight(Vector3 light)
         {
             gameGraphics.CustomShaders.setAmbientLight(light);
