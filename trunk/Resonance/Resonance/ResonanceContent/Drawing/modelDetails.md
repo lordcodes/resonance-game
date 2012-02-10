@@ -1,6 +1,6 @@
 ﻿MODELS
 -Model Ref-|--File name
-tree,		Models\tree.fbx
+tree,		Models\Neurons.fbx
 treePhysics,Models\tree-physics.fbx
 house,		Models\house.fbx
 goodVibe,	Models\GoodVibe.fbx
@@ -38,7 +38,7 @@ goodVibeTexture, Textures\GoodVibeTexture.jpg
 ---If "Start texture anim." is set to 1 the animation will start automatically.
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Texture delay(ms)-|--Start texture anim.--|-Model Animation (if needed)-|
-1,			tree,					1,		treePhysics,			1
+1,			tree,					1,		treePhysics,			0.1
 2,			house,					1,		house,					1
 3,			badVibe,			    0.1,	badVibe,			    0.1,			allColours,							0,						0,						1
 4,			goodVibe,				0.35,	spaceShip,				0.35,			goodVibeTexture,					40,						0,
