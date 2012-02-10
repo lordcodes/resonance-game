@@ -898,6 +898,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\UI\MainMenu\Textures\MenuItemBG.png">
+      <Name>MenuItemBG</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Sounds\Weather\Thunder\thunderMid2.wav">
       <Name>thunderMid2</Name>
       <Importer>WavImporter</Importer>
