@@ -132,9 +132,8 @@ namespace Resonance
             drawFreezeBar();
             drawMiniMap();
             drawThrobber();
-            //tEmm.pos.X += 5;
-            //tEmm.update(spriteBatch);
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
+            drawLightning();
             spriteBatch.End();
             Drawing.resetGraphics();
         }
@@ -436,6 +435,10 @@ namespace Resonance
         public void drawMiniMap()
         {
             miniMap.draw(spriteBatch);
+        }
+
+        public void drawLightning() {
+            WeatherManager.drawLightning(spriteBatch, block);
         }
 
         /// <summary>

@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using BEPUphysics;
 
 namespace Resonance
 {
@@ -228,13 +229,35 @@ namespace Resonance
                         float size = p.getSize();
                         Matrix texturePos = Matrix.CreateTranslation(pos);
 
-                        Vector3 rotation = p.getRotation();
+                        Vector3 rotation;
 
-                        if (rotation != Vector3.Zero) {
-                            Matrix rX = Matrix.CreateRotationX(rotation.X);
-                            Matrix rY = Matrix.CreateRotationY(rotation.Y);
-                            Matrix rZ = Matrix.CreateRotationZ(rotation.Z);
-                            texturePos = Matrix.Multiply(rX, Matrix.Multiply(rY, Matrix.Multiply(rZ, texturePos)));
+                        if (!(e is Rain)) {
+                            rotation = p.getRotation();
+
+                           if (rotation != Vector3.Zero) {
+                                Matrix rX = Matrix.CreateRotationX(rotation.X);
+                                Matrix rY = Matrix.CreateRotationY(rotation.Y);
+                                Matrix rZ = Matrix.CreateRotationZ(rotation.Z);
+                                texturePos = Matrix.Multiply(rX, Matrix.Multiply(rY, Matrix.Multiply(rZ, texturePos)));
+                            }
+                        } else {
+                            Vector3 gVFwd = GameScreen.getGV().Body.OrientationMatrix.Forward;
+                            Vector3 gVRdp = p.getPos() - GameScreen.getGV().Body.Position;
+                            gVFwd.Normalize();
+                            gVRdp.Normalize();
+
+                            rotation = Utility.QuaternionToEuler(GameScreen.getGV().Body.Orientation);
+                            Quaternion ang;
+
+                            if (rotation != Vector3.Zero) {
+                                Matrix rX = Matrix.CreateRotationX(rotation.X);
+                                Matrix rY = Matrix.CreateRotationY(rotation.Y + 1.5f);
+                                Matrix rZ = Matrix.CreateRotationZ(rotation.Z);
+                                Toolbox.GetQuaternionBetweenNormalizedVectors(ref gVFwd, ref gVRdp, out ang);
+                                Vector3 angV = Utility.QuaternionToEuler(ang);
+                                Matrix rR = Matrix.CreateRotationY(ang.Y);
+                                texturePos = Matrix.Multiply(rX, Matrix.Multiply(rY, Matrix.Multiply(rZ, Matrix.Multiply(rR, texturePos))));
+                            }
                         }
 
                         gameGraphics.drawParticle(e.getPTex(), texturePos, size, size, p.getColour());
