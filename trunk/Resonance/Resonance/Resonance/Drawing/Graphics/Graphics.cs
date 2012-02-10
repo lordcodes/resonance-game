@@ -98,6 +98,15 @@ namespace Resonance
             if (dispMap != null) dispMap.reset();
         }
 
+        private Vector3 getCamPos(Vector3 newCameraPosition)
+        {
+            Quaternion orientation = GameScreen.getGV().Body.Orientation;
+            Vector3 rotation = Utility.QuaternionToEuler(orientation);
+            Vector3 position = GameScreen.getGV().Body.Position;
+            Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
+            return Vector3.Transform(newCameraPosition, goodVibeRotation) + position;
+        }
+
         /// <summary>
         /// Updates Camera and HUD based of player position
         /// </summary>
@@ -105,11 +114,8 @@ namespace Resonance
         public void updateCamera(Vector3 newCameraPosition)
         {
             cameraCoords = newCameraPosition;
-            Quaternion orientation = GameScreen.getGV().Body.Orientation;
-            Vector3 rotation = Utility.QuaternionToEuler(orientation);
+            cameraPosition = getCamPos(cameraCoords);
             Vector3 position = GameScreen.getGV().Body.Position;
-            Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-            cameraPosition = Vector3.Transform(cameraCoords, goodVibeRotation) + position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
@@ -224,11 +230,15 @@ namespace Resonance
 
             if (drawingReflection)
             {
-                float h = -12.7f;
+                float height = 12.7f;
                 float dimension = 7.9f;
-                Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, h, cameraPosition.Z + 0.1f);
+                float scale = (float)(10.4 * Math.Pow((cameraPosition.Y), -0.9));
+                Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -height, cameraPosition.Z + 0.1f);
+                cameraPosition2 = reflecCameraCoords;
                 theView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
-                projection2 = Matrix.CreatePerspective(dimension, dimension, 1.0f, 2000.0f);
+                projection2 = Matrix.CreatePerspective(dimension, dimension, 1.0f, 100.0f);
+                Matrix heightScale = Matrix.CreateScale(1f, scale, 1f);
+                world = Matrix.Multiply(heightScale, world);
             }
 
 
