@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework;
 
 namespace Resonance {
     class WeatherManager {
@@ -43,9 +44,13 @@ namespace Resonance {
         private static long lastLightning = 0;
 
         private static Cue lCue;
+        private static Cue rCue;
+        private static Cue lRCue;
 
         // Random number generator
         static Random gen;
+
+        private static Rain rain;
 
         public static void initialise() {
             gVRef = GameScreen.getGV();
@@ -63,6 +68,8 @@ namespace Resonance {
             lightningHappening = false;
             lastLightning = -1;
             lCue = null;
+
+            rain = new Rain(new Vector3(0f, 10f, 0f));
         }
 
         public static void setParams() {
@@ -78,6 +85,9 @@ namespace Resonance {
                     factor = 1f / rainStart;
                     rainfall = maxRainfall - (int) (factor * health * (float) maxRainfall);
                     raindropSize = maxRaindropSize - (factor * health * maxRaindropSize);
+
+                    rain.setEmissionsPerUpdate(rainfall);
+                    rain.setRaindropSize(raindropSize);
                     if (health < quietLightningStart) {
                         // Set lightningFreq etc
                         factor = 1f / quietLightningStart;
@@ -98,9 +108,9 @@ namespace Resonance {
 
         private static void playLightning() {
             float health = gVRef.healthFraction();
+            int x = gen.Next();
 
             if (health < loudLightningStart) {
-                int x = gen.Next();
                 if (x % 3 == 0) {
                     lCue = ScreenManager.game.Music.playSound("thunderLoud1");
                 } else if (x % 3 == 1) {
@@ -109,9 +119,19 @@ namespace Resonance {
                     lCue = ScreenManager.game.Music.playSound("thunderLoud3");
                 }
             } else if (health < midLightningStart) {
-                lCue = ScreenManager.game.Music.playSound("thunderMid1");
+                if (x % 3 == 0) {
+                    lCue = ScreenManager.game.Music.playSound("thunderMid1");
+                } else if (x % 3 == 1) {
+                    lCue = ScreenManager.game.Music.playSound("thunderMid2");
+                } else {
+                    lCue = ScreenManager.game.Music.playSound("thunderMid3");
+                }
             } else if (health < quietLightningStart) {
-                lCue = ScreenManager.game.Music.playSound("thunderQuiet2");
+                if (x % 2 == 0) {
+                    lCue = ScreenManager.game.Music.playSound("thunderQuiet1");
+                } else {
+                    lCue = ScreenManager.game.Music.playSound("thunderQuiet2");
+                }
             }
         }
 
@@ -129,6 +149,7 @@ namespace Resonance {
                 lightningHappening = true;
             } else {
                 if (lCue == null || !lCue.IsPlaying) {
+                    // TODO: Add some random delay to this.
                     lightningHappening = false;
                 }
             }
