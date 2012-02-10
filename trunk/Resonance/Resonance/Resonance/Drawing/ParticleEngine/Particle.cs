@@ -24,6 +24,7 @@ namespace Resonance {
         Vector3 force;
         float deceleration;
         bool bounce;
+        bool dieOnFloor = false;
 
         float dAlpha;
 
@@ -48,6 +49,10 @@ namespace Resonance {
 
         public Color getColour() {
             return colour;
+        }
+
+        public void setDieOnFloor(bool b) {
+            dieOnFloor = b;
         }
 
         /// <summary>
@@ -110,7 +115,10 @@ namespace Resonance {
                 speed -= deceleration;
             }
 
-            if (bounce && (pos.Y <= 0)) direction.Y *= -1;
+            if (pos.Y <= 0) {
+                if (bounce) direction.Y *= -1;
+                if (dieOnFloor) lifespan = 0;
+            }
         }
     }
 }
