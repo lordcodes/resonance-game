@@ -54,10 +54,11 @@ namespace Resonance
             return bgMusic;
         }
 
-        public void playSound(string sound)
+        public Cue playSound(string sound)
         {
             Cue soundCue = soundBank.GetCue(sound);
             soundCue.Play();
+            return soundCue;
         }
 
         public bool HeartBeat

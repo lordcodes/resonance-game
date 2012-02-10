@@ -178,6 +178,8 @@ namespace Resonance
 
             musicHandler.Update();
 
+            WeatherManager.update();
+
             //Update Spawners
             if (USE_BV_SPAWNER) BVSpawnManager.update();
             if (USE_PICKUP_SPAWNER) pickupSpawner.update();
