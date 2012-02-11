@@ -74,13 +74,13 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
-    <Compile Include="Drawing\Models\BV_Spawner.fbx">
-      <Name>BV_Spawner</Name>
+    <Compile Include="Drawing\Models\GoodVibe.fbx">
+      <Name>GoodVibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\GoodVibe.fbx">
-      <Name>GoodVibe</Name>
+    <Compile Include="Drawing\Models\BV_Spawner.fbx">
+      <Name>BV_Spawner</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
