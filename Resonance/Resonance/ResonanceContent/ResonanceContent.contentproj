@@ -938,7 +938,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\Weather\Thunder\Snare.wav">
+    <Compile Include="Sounds\Snare.wav">
       <Name>Snare</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
