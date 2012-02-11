@@ -125,26 +125,20 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	clip( fullColor.a < 0.1f ? -1:1 );
     fullColor =  float4(finalColor,fullColor.a);
 
-	float hx = input.TexCoord.x + 0.15;
-	float lx = input.TexCoord.x - 0.15;
-	float hy = input.TexCoord.y + 0.15;
-	float ly = input.TexCoord.y - 0.15;
-
-	if(gvPos.x < hx &&  gvPos.x > lx )
+	float hx = input.TexCoord.x + 0.19;
+	float lx = input.TexCoord.x - 0.19;
+	float hy = input.TexCoord.y + 0.19;
+	float ly = input.TexCoord.y - 0.19;
+	
+	if(camPos.x < hx &&  camPos.x > lx && camPos.y < hy &&  camPos.y > ly)
 	{
-		if(gvPos.y < hy &&  gvPos.y > ly)
-		{
-			float xv = (camPos.x-lx)/(hx-lx);
-			float yv = (camPos.y-ly)/(hy-ly);
-			float4 nc = tex2D(ReflectionTextureSampler, float2(xv,yv));
-			//if(nc[0] != 0 && nc[1] != 0 && nc[2] != 0)
-			//{
-				//nc = float4(-1,-1,-1,1);
-				nc.xyzw = nc.xyzw*0.2;
-				fullColor += nc;
-			//}
-		}
+		float xv = (camPos.x-lx)/(hx-lx);
+		float yv = (camPos.y-ly)/(hy-ly);
+		float4 nc = tex2D(ReflectionTextureSampler, float2(xv,yv));
+		nc.xyzw = nc.xyzw*0.2;
+		fullColor += nc;
 	}
+
 	if(gvPos.x < input.TexCoord.x + 0.02 &&  gvPos.x > input.TexCoord.x-0.02)
 	{
 		if(gvPos.y < input.TexCoord.y + 0.02 &&  gvPos.y > input.TexCoord.y-0.02)
