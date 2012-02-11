@@ -219,7 +219,8 @@ namespace Resonance
             if (drawingReflection)
             {
                 float height = 11.5f;
-                float dimension = 12.7f;
+                //float dimension = 12.7f for 0.1 square;
+                float dimension = 16.5f;
                 float scale = (float)(10.4 * Math.Pow((cameraPosition.Y), -0.9));
                 Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -height, cameraPosition.Z + 0.1f);
                 cameraPosition2 = reflecCameraCoords;
