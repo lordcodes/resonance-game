@@ -22,6 +22,11 @@ namespace Resonance
         private static Vector3 cameraPosition;
         private static Vector3 cameraCoords;
         private static DisplacementMap dispMap;
+        private static VertexDeclaration particleVertexDeclaration;
+        private static VertexBuffer particleVertexBuffer;
+        private static IndexBuffer particleIndexBuffer;
+        private static short[] particleIndices = new short[] { 0, 1, 2, 1, 3, 2 };
+        private static VertexPositionNormalTexture[] particleVertices = new VertexPositionNormalTexture[4];
 
         // Reduce this variable if the shockwave is causing frame rate to suffer
         public static int DISP_WIDTH = 32;
@@ -86,6 +91,29 @@ namespace Resonance
             shaders.Default.sceneSetup(world, view, projection, Vector3.Zero);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
             dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
+
+            particleVertexDeclaration = new VertexDeclaration(new VertexElement[]
+            {
+                new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
+                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
+                new VertexElement(24, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
+            }
+            );
+
+            particleVertexBuffer = new VertexBuffer(
+                graphics.GraphicsDevice,
+                particleVertexDeclaration,
+                4,
+                BufferUsage.None
+            );
+
+            particleIndexBuffer = new IndexBuffer(graphics.GraphicsDevice,
+                IndexElementSize.SixteenBits,
+                6,
+                BufferUsage.None
+                );
+
+            particleIndexBuffer.SetData<short>(particleIndices);
         }
 
         public void addWave(Vector2 position)
@@ -144,27 +172,10 @@ namespace Resonance
             shader.sceneSetup(world, view, projection, cameraPosition, texture);
             shader.applyTechnique(shader.Techniques["StaticObject"]);
 
-            int number_of_vertices = 4;
-            int number_of_indices = 6;
-            VertexDeclaration vertexDeclaration;
-            VertexPositionNormalTexture[] vertices;
-            VertexBuffer vertexBuffer;
-            short[] indices;
-            IndexBuffer indexBuffer;
-
             if(shader is ParticleShader)
             {
                 ((ParticleShader)shader).setColour(colour);
             }
-
-            vertexDeclaration = new VertexDeclaration(new VertexElement[]
-            {
-                new VertexElement(0, VertexElementFormat.Vector3, VertexElementUsage.Position, 0),
-                new VertexElement(12, VertexElementFormat.Vector3, VertexElementUsage.Normal, 0),
-                new VertexElement(24, VertexElementFormat.Vector2, VertexElementUsage.TextureCoordinate, 0)
-            }
-            );
-
 
             float halfWidth = width / 2;
             float halfHeight = height / 2;
@@ -173,45 +184,22 @@ namespace Resonance
             Vector3 topRight = new Vector3(halfWidth,halfHeight, 0);
             Vector3 bottomRight = new Vector3(halfWidth, -halfHeight, 0);
 
-            vertices = new VertexPositionNormalTexture[4];
-            vertices[0] = new VertexPositionNormalTexture(topLeft, Vector3.Zero, new Vector2(0, 1));
-            vertices[1] = new VertexPositionNormalTexture(topRight, Vector3.Zero, new Vector2(1,1));
-            vertices[2] = new VertexPositionNormalTexture(bottomLeft, Vector3.Zero, new Vector2(0, 0));
-            vertices[3] = new VertexPositionNormalTexture(bottomRight, Vector3.Zero, new Vector2(1, 0));
+            particleVertices[0] = new VertexPositionNormalTexture(topLeft, Vector3.Zero, new Vector2(0, 1));
+            particleVertices[1] = new VertexPositionNormalTexture(topRight, Vector3.Zero, new Vector2(1,1));
+            particleVertices[2] = new VertexPositionNormalTexture(bottomLeft, Vector3.Zero, new Vector2(0, 0));
+            particleVertices[3] = new VertexPositionNormalTexture(bottomRight, Vector3.Zero, new Vector2(1, 0));
 
-            indices = new short[] {  0,  1,  2,
-                                     1,  3,  2};
-
-            vertexBuffer = new VertexBuffer(
-                graphics.GraphicsDevice,
-                vertexDeclaration,
-                number_of_vertices,
-                BufferUsage.None
-            );
-
-            vertexBuffer.SetData<VertexPositionNormalTexture>(vertices);
-
-            indexBuffer = new IndexBuffer(graphics.GraphicsDevice,
-                IndexElementSize.SixteenBits,
-                number_of_indices,
-                BufferUsage.None
-                );
-
-            indexBuffer.SetData<short>(indices);
+            particleVertexBuffer.SetData<VertexPositionNormalTexture>(particleVertices);
             RasterizerState rasterizerState = new RasterizerState();
             rasterizerState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RasterizerState = rasterizerState;
-            graphics.GraphicsDevice.SetVertexBuffer(vertexBuffer);
-
-            //graphics.GraphicsDevice.BlendState = BlendState.Additive;
+            graphics.GraphicsDevice.SetVertexBuffer(particleVertexBuffer);
 
             foreach (EffectPass pass in shader.Passes)
             {
                 pass.Apply();
-                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList,vertices,0,4,indices,0,2);
+                graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList,particleVertices,0,4,particleIndices,0,2);
             }
-
-            //graphics.GraphicsDevice.BlendState = BlendState.Opaque;
         }
 
 
@@ -230,8 +218,8 @@ namespace Resonance
 
             if (drawingReflection)
             {
-                float height = 12.7f;
-                float dimension = 7.9f;
+                float height = 11.5f;
+                float dimension = 12.7f;
                 float scale = (float)(10.4 * Math.Pow((cameraPosition.Y), -0.9));
                 Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -height, cameraPosition.Z + 0.1f);
                 cameraPosition2 = reflecCameraCoords;
