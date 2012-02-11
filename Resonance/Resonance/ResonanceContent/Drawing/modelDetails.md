@@ -47,6 +47,6 @@ goodVibeTexture, Textures\GoodVibeTexture.jpg
 7,			wave,					1,		wave,					1,				allColours,							0,						
 8,			box,					2,		pickup,					2,				animationTest,						80,						1
 9,          ShieldGoodVibe,         0.5,    spaceShip,              0.2
-10,         BV_Spawner,             0.5,    box,                    0.5
+10,         BV_Spawner,             0.6,    box,                    0.6
 11,			x2,						0.5,		x2,						0.5
 12,         BV_Explosion,           0.1,    BV_Explosion,           0.1,                          ,                     0,                      0,                      1
