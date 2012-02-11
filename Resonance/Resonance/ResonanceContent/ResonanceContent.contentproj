@@ -483,11 +483,6 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-    <Compile Include="Sounds\Snare.wav">
-      <Name>Snare</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing\Textures\texTronFloorBottom.png">
@@ -938,6 +933,13 @@
   <ItemGroup>
     <Compile Include="Sounds\Weather\Rain\rainAndThunder.wav">
       <Name>rainAndThunder</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Sounds\Weather\Thunder\Snare.wav">
+      <Name>Snare</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
