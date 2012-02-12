@@ -32,9 +32,6 @@ namespace Resonance
         private static RasterizerState particleRasterizerState;
         private static float particleHalfHeight = 0;
         private static float particleHalfWidth = 0;
-
-
-        // Reduce this variable if the shockwave is causing frame rate to suffer
         public static int DISP_WIDTH = 32;
 
         public Matrix Projection
@@ -184,7 +181,7 @@ namespace Resonance
         private void draw2dTexture(Shader shader, Texture2D texture, Matrix world, float width, float height, Color colour)
         {
             shader.sceneSetup(world, view, projection, cameraPosition, texture);
-            shader.applyTechnique(shader.Techniques["StaticObject"]);
+            shader.Technique = "StaticObject";
 
             if(shader is ParticleShader)
             {
@@ -221,7 +218,6 @@ namespace Resonance
 
         private void drawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
         {
-            //graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
             Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
@@ -256,7 +252,6 @@ namespace Resonance
                 {
                     ((GroundShader)currentShader).GoodVibePos = Drawing.groundPos(GameScreen.getGV().Body.Position, true);
                     ((GroundShader)currentShader).CameraPos = Drawing.groundPos(cameraPosition, true);
-                    //DebugDisplay.update("GVP",Drawing.groundPos(cameraPosition, true)+"");
                 }
                 catch (Exception)
                 {
@@ -280,13 +275,12 @@ namespace Resonance
 
                 if (gmodel.ModelAnimation)
                 {
-                    currentShader.applyTechnique(currentShader.Techniques["Animation"]);
-                    Matrix[] bones = modelVariables.Bones;
-                    ((DefaultShader)currentShader).Bones = bones;
+                    currentShader.Technique = "Animation";
+                    ((DefaultShader)currentShader).Bones = modelVariables.Bones;
                 }
                 else
                 {
-                    currentShader.applyTechnique(currentShader.Techniques["StaticObject"]);
+                    currentShader.Technique = "StaticObject";
                 }
 
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)

@@ -24,8 +24,6 @@ namespace Resonance
         private static int frameTime;
         private static int currentFrameRate;
         private static Vector3 playerPos;
-        private static Texture2D ring;
-        private static Texture2D texPixel;
         private static bool drawingReflection = false;
         private static RenderTarget2D mirrorRenderTarget;
         private static Texture2D shinyFloorTexture;
@@ -158,10 +156,8 @@ namespace Resonance
             hud.loadContent();
             GameModels.Load();
             gameGraphics.loadContent(content, graphics.GraphicsDevice);
-            ring = content.Load<Texture2D>("Drawing/Textures/texRing");
-            texPixel = content.Load<Texture2D>("Drawing/Textures/texPixel");
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
-            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, 2048, 2048, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
+            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
         }
 
         /// <summary>
@@ -202,18 +198,6 @@ namespace Resonance
         public static void addWave(Vector3 position3d)
         {
             gameGraphics.addWave(groundPos(position3d, false));
-        }
-
-        private static void drawRangeIndicator()
-        {
-            try
-            {
-                Vector3 pos = new Vector3(GameScreen.getGV().Body.Position.X, 0.2f, GameScreen.getGV().Body.Position.Z);
-                Matrix texturePos = Matrix.CreateTranslation(pos);
-                Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2));
-                texturePos = Matrix.Multiply(rotation, texturePos);
-                gameGraphics.drawTexture(ring, texturePos, 20, 20);
-            }catch(Exception){}
         }
 
         /// <summary>

@@ -16,6 +16,19 @@ namespace Resonance
         private Matrix currentProjection;
         private Vector3 currentAmbientLight;
         private Vector3 currentCameraPosition;
+        private string currentTechnique = "";
+
+        public string Technique
+        {
+            set
+            {
+                if (!currentTechnique.Equals(value))
+                {
+                    currentTechnique = value;
+                    Effect.CurrentTechnique = customEffect.Techniques[value];
+                }
+            }
+        }
 
         public Texture ColourTexture
         {
@@ -119,11 +132,6 @@ namespace Resonance
             {
                 return Effect.CurrentTechnique.Passes;
             }
-        }
-
-        public void applyTechnique(EffectTechnique technique)
-        {
-            Effect.CurrentTechnique = technique;
         }
 
         public void applyPass(int pass)

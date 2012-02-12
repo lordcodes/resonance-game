@@ -87,6 +87,7 @@
     <Compile Include="Drawing\Graphics\Graphics.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Drawing\Graphics\GraphicsSettings.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModel.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModelInstance.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModels.cs" />
