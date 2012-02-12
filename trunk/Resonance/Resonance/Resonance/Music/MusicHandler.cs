@@ -41,7 +41,7 @@ namespace Resonance
             heartBeat = soundBank.GetCue("heart-beat");
             heartBeat.Play();
             heartBeat.Pause();
-
+            
             if (AUTO_MUSIC) bgMusic.playTrack();
         }
 

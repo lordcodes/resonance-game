@@ -86,7 +86,7 @@ namespace Resonance
                 currentBeatCount = 0;
                 state = PlayState.PLAYING;
                 startTime = DateTime.Now.Ticks * 100;
-                MediaPlayer.Play(song);
+                MediaPlayer.Play(song);                
             }
             else if (state == PlayState.PAUSED)
             {
@@ -225,6 +225,11 @@ namespace Resonance
                 //return false;
                 return -1f;
             }
+        }
+
+        void distortSound()
+        {
+            MediaPlayer.Volume = 50;
         }
 
         private static List<long> nexts = new List<long>();
