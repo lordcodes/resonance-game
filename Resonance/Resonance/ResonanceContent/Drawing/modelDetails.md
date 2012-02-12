@@ -1,6 +1,6 @@
 ﻿MODELS
 -Model Ref-|--File name
-tree,		Models\tree.fbx
+tree,		Models\Neurons.fbx
 treePhysics,Models\tree-physics.fbx
 house,		Models\house.fbx
 goodVibe,	Models\GoodVibe.fbx
@@ -30,6 +30,7 @@ pulseGreyToRed,	Textures\pulseGreyToRed\pulseGreyToRed0001.jpg;Textures\pulseGre
 allColours,		Textures\texGreen.jpg;Textures\texYellow.jpg;Textures\texBlue.jpg;Textures\texRed.jpg;Textures\texCymbal.jpg
 animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTest\animationTest0002.jpg;Textures\animationTest\animationTest0003.jpg;Textures\animationTest\animationTest0004.jpg;Textures\animationTest\animationTest0005.jpg;Textures\animationTest\animationTest0006.jpg;Textures\animationTest\animationTest0007.jpg;Textures\animationTest\animationTest0008.jpg;Textures\animationTest\animationTest0009.jpg;Textures\animationTest\animationTest0010.jpg;Textures\animationTest\animationTest0011.jpg;Textures\animationTest\animationTest0012.jpg;Textures\animationTest\animationTest0013.jpg;Textures\animationTest\animationTest0014.jpg;Textures\animationTest\animationTest0015.jpg;Textures\animationTest\animationTest0016.jpg;Textures\animationTest\animationTest0017.jpg;Textures\animationTest\animationTest0018.jpg;Textures\animationTest\animationTest0019.jpg;Textures\animationTest\animationTest0020.jpg;Textures\animationTest\animationTest0021.jpg;Textures\animationTest\animationTest0022.jpg;Textures\animationTest\animationTest0023.jpg;Textures\animationTest\animationTest0024.jpg
 goodVibeTexture, Textures\GoodVibeTexture.jpg
+neuronTexture, Textures\neuronTexture.jpg
 
 ---You can use dashes at the start of lines for comments
 
@@ -38,7 +39,7 @@ goodVibeTexture, Textures\GoodVibeTexture.jpg
 ---If "Start texture anim." is set to 1 the animation will start automatically.
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Texture delay(ms)-|--Start texture anim.--|-Model Animation (if needed)-|
-1,			tree,					1,		treePhysics,			0.1
+1,			tree,					0.5,		treePhysics,			0.1,        neuronTexture
 2,			house,					1,		house,					1
 3,			badVibe,			    0.1,	badVibe,			    0.1,			allColours,							0,						0,						1
 4,			goodVibe,				0.35,	spaceShip,				0.35,			goodVibeTexture,					40,						0,
