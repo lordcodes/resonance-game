@@ -10,12 +10,17 @@ namespace Resonance
     class ParticleShader : Shader
     {
         public ParticleShader(string file) : base(file){}
+        private Color currentColour;
 
         public void setColour(Color colour)
         {
-            Vector4 vc = colour.ToVector4();
-            float[] c = { vc.X * vc.W, vc.Y * vc.W, vc.Z * vc.W, vc.W };
-            Effect.Parameters["Colour"].SetValue(c);
+            if (currentColour != colour)
+            {
+                currentColour = colour;
+                Vector4 vc = colour.ToVector4();
+                float[] c = { vc.X * vc.W, vc.Y * vc.W, vc.Z * vc.W, vc.W };
+                Effect.Parameters["Colour"].SetValue(c);
+            }
         }
     }
 }

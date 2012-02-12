@@ -27,6 +27,12 @@ namespace Resonance
         private static IndexBuffer particleIndexBuffer;
         private static short[] particleIndices = new short[] { 0, 1, 2, 1, 3, 2 };
         private static VertexPositionNormalTexture[] particleVertices = new VertexPositionNormalTexture[4];
+        private static float particleWidth = 0;
+        private static float particleHeight = 0;
+        private static RasterizerState particleRasterizerState;
+        private static float particleHalfHeight = 0;
+        private static float particleHalfWidth = 0;
+
 
         // Reduce this variable if the shockwave is causing frame rate to suffer
         public static int DISP_WIDTH = 32;
@@ -114,6 +120,14 @@ namespace Resonance
                 );
 
             particleIndexBuffer.SetData<short>(particleIndices);
+            particleRasterizerState = new RasterizerState();
+            particleRasterizerState.CullMode = CullMode.None;
+            graphics.GraphicsDevice.RasterizerState = particleRasterizerState;
+
+            particleVertices[0] = new VertexPositionNormalTexture(new Vector3(0,0,0), Vector3.Zero, new Vector2(0, 1));
+            particleVertices[1] = new VertexPositionNormalTexture(new Vector3(0, 0, 0), Vector3.Zero, new Vector2(1, 1));
+            particleVertices[2] = new VertexPositionNormalTexture(new Vector3(0, 0, 0), Vector3.Zero, new Vector2(0, 0));
+            particleVertices[3] = new VertexPositionNormalTexture(new Vector3(0, 0, 0), Vector3.Zero, new Vector2(1, 0));
         }
 
         public void addWave(Vector2 position)
@@ -177,23 +191,25 @@ namespace Resonance
                 ((ParticleShader)shader).setColour(colour);
             }
 
-            float halfWidth = width / 2;
-            float halfHeight = height / 2;
-            Vector3 topLeft = new Vector3(-halfWidth, halfHeight, 0);
-            Vector3 bottomLeft = new Vector3(-halfWidth, -halfHeight, 0);
-            Vector3 topRight = new Vector3(halfWidth,halfHeight, 0);
-            Vector3 bottomRight = new Vector3(halfWidth, -halfHeight, 0);
+            if (particleHeight != height || particleWidth != width)
+            {
+                particleHeight = height;
+                particleWidth = width;
 
-            particleVertices[0] = new VertexPositionNormalTexture(topLeft, Vector3.Zero, new Vector2(0, 1));
-            particleVertices[1] = new VertexPositionNormalTexture(topRight, Vector3.Zero, new Vector2(1,1));
-            particleVertices[2] = new VertexPositionNormalTexture(bottomLeft, Vector3.Zero, new Vector2(0, 0));
-            particleVertices[3] = new VertexPositionNormalTexture(bottomRight, Vector3.Zero, new Vector2(1, 0));
+                particleHalfWidth = width / 2;
+                particleHalfHeight = height / 2;
 
-            particleVertexBuffer.SetData<VertexPositionNormalTexture>(particleVertices);
-            RasterizerState rasterizerState = new RasterizerState();
-            rasterizerState.CullMode = CullMode.None;
-            graphics.GraphicsDevice.RasterizerState = rasterizerState;
-            graphics.GraphicsDevice.SetVertexBuffer(particleVertexBuffer);
+                particleVertices[0].Position.X = -particleHalfWidth;
+                particleVertices[0].Position.Y = particleHalfHeight;
+                particleVertices[1].Position.X = particleHalfWidth;
+                particleVertices[1].Position.Y = particleHalfHeight;
+                particleVertices[2].Position.X = -particleHalfWidth;
+                particleVertices[2].Position.Y = -particleHalfHeight;
+                particleVertices[3].Position.X = particleHalfWidth;
+                particleVertices[3].Position.Y = -particleHalfHeight;
+                particleVertexBuffer.SetData<VertexPositionNormalTexture>(particleVertices);
+                graphics.GraphicsDevice.SetVertexBuffer(particleVertexBuffer);
+            }
 
             foreach (EffectPass pass in shader.Passes)
             {
