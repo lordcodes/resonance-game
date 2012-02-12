@@ -10,12 +10,58 @@ namespace Resonance
     class Shader
     {
         private Effect customEffect;
+        private Texture currentTexture;
+        private Matrix currentWorld;
+        private Matrix currentView;
+        private Matrix currentProjection;
+        private Vector3 currentAmbientLight;
+        private Vector3 currentCameraPosition;
+
+        public Texture ColourTexture
+        {
+            set
+            {
+                if (currentTexture != value)
+                {
+                    currentTexture = value;
+                    Effect.Parameters["ColorTexture"].SetValue(value);
+                }
+            }
+        }
 
         public Matrix World
         {
             set
             {
-                Effect.Parameters["World"].SetValue(value);
+                if (value != currentWorld)
+                {
+                    currentWorld = value;
+                    Effect.Parameters["World"].SetValue(value);
+                }
+            }
+        }
+
+        public Matrix View
+        {
+            set
+            {
+                if (value != currentView)
+                {
+                    currentView = value;
+                    Effect.Parameters["View"].SetValue(value);
+                }
+            }
+        }
+
+        public Matrix Projection
+        {
+            set
+            {
+                if (value != currentProjection)
+                {
+                    currentProjection= value;
+                    Effect.Parameters["Projection"].SetValue(value);
+                }
             }
         }
 
@@ -23,7 +69,23 @@ namespace Resonance
         {
             set
             {
-                Effect.Parameters["AmbientLightColor"].SetValue(value);
+                if (value != currentAmbientLight)
+                {
+                    currentAmbientLight = value;
+                    Effect.Parameters["AmbientLightColor"].SetValue(value);
+                }
+            }
+        }
+
+        public Vector3 CameraPosition
+        {
+            set
+            {
+                if (value != currentCameraPosition)
+                {
+                    currentCameraPosition = value;
+                    Effect.Parameters["CameraPosition"].SetValue(value);
+                }
             }
         }
 
@@ -71,26 +133,26 @@ namespace Resonance
 
         public void sceneSetup(Matrix view, Matrix projection, Vector3 camera)
         {
-            Effect.Parameters["View"].SetValue(view);
-            Effect.Parameters["Projection"].SetValue(projection);
-            Effect.Parameters["CameraPosition"].SetValue(camera);
+            View = view;
+            Projection = projection;
+            CameraPosition = camera;
         }
 
         public void sceneSetup(Matrix world, Matrix view, Matrix projection, Vector3 camera)
         {
-            Effect.Parameters["World"].SetValue(world);
+            World = world;
             sceneSetup(view, projection, camera);
         }
 
         public void sceneSetup(Matrix world, Matrix view, Matrix projection, Vector3 camera, Texture2D texture)
         {
-            Effect.Parameters["ColorTexture"].SetValue(texture);
+            ColourTexture = texture;
             sceneSetup(world, view, projection, camera);
         }
 
         public void sceneSetup(Matrix view, Matrix projection, Vector3 camera, Texture2D texture)
         {
-            Effect.Parameters["ColorTexture"].SetValue(texture);
+            ColourTexture = texture;
             sceneSetup(view, projection, camera);
         }
 
