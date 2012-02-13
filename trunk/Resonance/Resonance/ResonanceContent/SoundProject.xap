@@ -232,13 +232,47 @@ Global Settings
         Max = 6.000000;
     }
 
+    Variable
+    {
+        Name = Global;
+        Public = 1;
+        Global = 1;
+        Internal = 0;
+        External = 0;
+        Monitored = 1;
+        Reserved = 0;
+        Read Only = 0;
+        Time = 0;
+        Value = 0.000000;
+        Initial Value = 0.000000;
+        Min = 0.000000;
+        Max = 100.000000;
+    }
+
+    Variable
+    {
+        Name = Microsoft Reverb;
+        Public = 1;
+        Global = 1;
+        Internal = 0;
+        External = 0;
+        Monitored = 1;
+        Reserved = 0;
+        Read Only = 0;
+        Time = 0;
+        Value = 100.000000;
+        Initial Value = 0.000000;
+        Min = 0.000000;
+        Max = 100.000000;
+    }
+
     RPC
     {
         Name = VolumeVariation;
 
         RPC Curve
         {
-            Name = Sound::5167f456-5768-41a5-a04d-329af55fb11e;
+            Name = Sound::8a766adc-dc0d-4392-8418-8dd372475467;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -264,6 +298,260 @@ Global Settings
             }
         }
     }
+
+    RPC
+    {
+        Name = RPC Preset;
+    }
+
+    RPC
+    {
+        Name = Microsoft Reverb;
+
+        RPC Curve
+        {
+            Name = Effect::8b308724-c8c4-4ec2-bce7-bb5988b20ceb;
+            Property = 5;
+            Sound = 0;
+            Line Color = 4292328747;
+            Viewable = 1;
+
+            Variable Entry
+            {
+                Name = Microsoft Reverb;
+            }
+
+            Effect Parameter Entry
+            {
+                Effect Name = Microsoft Reverb;
+                Parameter Name = Reverb Delay;
+            }
+
+            RPC Point
+            {
+                X = 0.000000;
+                Y = 2.058824;
+                Curve = 0;
+            }
+
+            RPC Point
+            {
+                X = 100.000000;
+                Y = 85.000000;
+                Curve = 0;
+            }
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+    }
+
+    Effect
+    {
+        Name = Microsoft Reverb;
+        Global = 1;
+        Parameter Preset = Concert Hall;
+
+        Effect Parameter
+        {
+            Name = Reflections Delay;
+            Minimum = 0.000000;
+            Maximum = 300.000000;
+            Value = 20.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Reverb Delay;
+            Minimum = 0.000000;
+            Maximum = 85.000000;
+            Value = 29.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Position Left;
+            Minimum = 0.000000;
+            Maximum = 30.000000;
+            Value = 6.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Position Right;
+            Minimum = 0.000000;
+            Maximum = 30.000000;
+            Value = 6.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Position Left Matrix;
+            Minimum = 0.000000;
+            Maximum = 30.000000;
+            Value = 27.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Position Right Matrix;
+            Minimum = 0.000000;
+            Maximum = 30.000000;
+            Value = 27.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Early Diffusion;
+            Minimum = 0.000000;
+            Maximum = 15.000000;
+            Value = 15.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Late Diffusion;
+            Minimum = 0.000000;
+            Maximum = 15.000000;
+            Value = 15.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Low EQ Gain;
+            Minimum = 0.000000;
+            Maximum = 12.000000;
+            Value = 8.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Low EQ Cutoff;
+            Minimum = 0.000000;
+            Maximum = 9.000000;
+            Value = 4.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = High EQ Gain;
+            Minimum = 0.000000;
+            Maximum = 8.000000;
+            Value = 8.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = High EQ Cutoff;
+            Minimum = 0.000000;
+            Maximum = 14.000000;
+            Value = 6.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Rear Delay;
+            Minimum = 0.000000;
+            Maximum = 5.000000;
+            Value = 5.000000;
+            Type = 1;
+        }
+
+        Effect Parameter
+        {
+            Name = Room Filter Frequency;
+            Minimum = 20.000000;
+            Maximum = 20000.000000;
+            Value = 5000.000000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Room Filter Main;
+            Minimum = -100.000000;
+            Maximum = 0.000000;
+            Value = -10.000000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Room Filter High Frequency;
+            Minimum = -100.000000;
+            Maximum = 0.000000;
+            Value = -5.000000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Reflections Gain;
+            Minimum = -100.000000;
+            Maximum = 20.000000;
+            Value = -12.300000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Reverb Gain;
+            Minimum = -100.000000;
+            Maximum = 20.000000;
+            Value = -0.020000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Decay Time;
+            Minimum = 0.100000;
+            Maximum = 30.000000;
+            Value = 3.920000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Density;
+            Minimum = 0.000000;
+            Maximum = 100.000000;
+            Value = 100.000000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Room Size;
+            Minimum = 1.000000;
+            Maximum = 100.000000;
+            Value = 100.000000;
+            Type = 0;
+        }
+
+        Effect Parameter
+        {
+            Name = Wet/Dry Mix;
+            Minimum = 0.000000;
+            Maximum = 100.000000;
+            Value = 100.000000;
+            Type = 0;
+        }
+    }
 }
 
 Wave Bank
@@ -275,8 +563,14 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 1457340307;
-    Bank Last Revised High = 30206010;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 2717942510;
+    Bank Last Revised High = 30206534;
 
     Wave
     {
@@ -296,8 +590,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3681132125;
-            Last Modified High = 30204532;
+            Last Modified Low = 3947723855;
+            Last Modified High = 30204354;
         }
     }
 
@@ -319,8 +613,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3681288125;
-            Last Modified High = 30204532;
+            Last Modified Low = 3947793859;
+            Last Modified High = 30204354;
         }
     }
 
@@ -342,8 +636,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3681132125;
-            Last Modified High = 30204532;
+            Last Modified Low = 3947683853;
+            Last Modified High = 30204354;
         }
     }
 
@@ -365,8 +659,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3681132125;
-            Last Modified High = 30204532;
+            Last Modified Low = 3947763857;
+            Last Modified High = 30204354;
         }
     }
 
@@ -384,12 +678,12 @@ Wave Bank
             Sampling Rate = 44100;
             Bits Per Sample = 1;
             Play Region Offset = 44;
-            Play Region Length = 26462;
+            Play Region Length = 25578;
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3680976125;
-            Last Modified High = 30204532;
+            Last Modified Low = 2466338579;
+            Last Modified High = 30206167;
         }
     }
 
@@ -411,8 +705,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3680976125;
-            Last Modified High = 30204532;
+            Last Modified Low = 3947653851;
+            Last Modified High = 30204354;
         }
     }
 
@@ -434,8 +728,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3681288125;
-            Last Modified High = 30204532;
+            Last Modified Low = 3947823861;
+            Last Modified High = 30204354;
         }
     }
 
@@ -457,8 +751,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3680820125;
-            Last Modified High = 30204532;
+            Last Modified Low = 3947583847;
+            Last Modified High = 30204354;
         }
     }
 
@@ -480,8 +774,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1883396773;
-            Last Modified High = 30204985;
+            Last Modified Low = 292992912;
+            Last Modified High = 30204991;
         }
     }
 
@@ -503,8 +797,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 2240123820;
-            Last Modified High = 30204987;
+            Last Modified Low = 292892907;
+            Last Modified High = 30204991;
         }
     }
 
@@ -526,8 +820,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3540418348;
-            Last Modified High = 30205793;
+            Last Modified Low = 3534142662;
+            Last Modified High = 30205995;
         }
     }
 
@@ -549,8 +843,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3540418348;
-            Last Modified High = 30205793;
+            Last Modified Low = 3534212666;
+            Last Modified High = 30205995;
         }
     }
 
@@ -572,8 +866,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3620608605;
-            Last Modified High = 30205793;
+            Last Modified Low = 3534062657;
+            Last Modified High = 30205995;
         }
     }
 
@@ -595,8 +889,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 3756010384;
-            Last Modified High = 30205793;
+            Last Modified Low = 3534042656;
+            Last Modified High = 30205995;
         }
     }
 
@@ -618,8 +912,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1305600589;
-            Last Modified High = 30205949;
+            Last Modified Low = 3534262669;
+            Last Modified High = 30205995;
         }
     }
 
@@ -641,8 +935,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1971534340;
-            Last Modified High = 30205952;
+            Last Modified Low = 3534292670;
+            Last Modified High = 30205995;
         }
     }
 
@@ -664,8 +958,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1814168519;
-            Last Modified High = 30205952;
+            Last Modified Low = 3534092659;
+            Last Modified High = 30205995;
         }
     }
 
@@ -687,8 +981,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1820668528;
-            Last Modified High = 30205952;
+            Last Modified Low = 3534112660;
+            Last Modified High = 30205995;
         }
     }
 
@@ -710,8 +1004,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1146348985;
-            Last Modified High = 30206010;
+            Last Modified Low = 2644182276;
+            Last Modified High = 30206013;
         }
     }
 
@@ -733,8 +1027,8 @@ Wave Bank
             Loop Region Offset = 0;
             Loop Region Length = 0;
             File Type = 1;
-            Last Modified Low = 1052083208;
-            Last Modified High = 30206010;
+            Last Modified Low = 2644262281;
+            Last Modified High = 30206013;
         }
     }
 }
@@ -746,6 +1040,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -757,6 +1053,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -806,6 +1107,11 @@ Sound Bank
             Name = Default;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -851,6 +1157,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -900,6 +1211,11 @@ Sound Bank
             Name = Default;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -945,6 +1261,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -994,6 +1315,11 @@ Sound Bank
             Name = Default;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -1039,6 +1365,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -1088,6 +1419,11 @@ Sound Bank
             Name = Default;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -1133,6 +1469,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -1181,6 +1522,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -1235,6 +1581,11 @@ Sound Bank
             RPC Name = VolumeVariation;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -1285,6 +1636,11 @@ Sound Bank
         RPC Entry
         {
             RPC Name = VolumeVariation;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -1339,6 +1695,11 @@ Sound Bank
             RPC Name = VolumeVariation;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -1389,6 +1750,11 @@ Sound Bank
         RPC Entry
         {
             RPC Name = VolumeVariation;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -1443,6 +1809,11 @@ Sound Bank
             RPC Name = VolumeVariation;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -1488,6 +1859,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -1537,6 +1913,11 @@ Sound Bank
             Name = Default;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -1582,6 +1963,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track
@@ -1631,6 +2017,11 @@ Sound Bank
             Name = Default;
         }
 
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
+        }
+
         Track
         {
             Volume = 0;
@@ -1676,6 +2067,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        Effect Entry
+        {
+            Effect Name = Microsoft Reverb;
         }
 
         Track

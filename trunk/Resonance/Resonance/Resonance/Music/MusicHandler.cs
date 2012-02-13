@@ -29,6 +29,8 @@ namespace Resonance
         private AudioEngine audioEngine;
         private WaveBank waveBank;
         private SoundBank soundBank;
+        
+        
         private Cue heartBeat;
         bool playHeartBeat = false;
 
@@ -39,8 +41,7 @@ namespace Resonance
             waveBank = new WaveBank(audioEngine, "Content/Wave Bank.xwb");
             soundBank = new SoundBank(audioEngine, "Content/Sound Bank.xsb");
             heartBeat = soundBank.GetCue("heart-beat");
-            heartBeat.Play();
-            heartBeat.Pause();
+            audioEngine.SetGlobalVariable("Microsoft Reverb", 50);
             
             if (AUTO_MUSIC) bgMusic.playTrack();
         }
@@ -57,6 +58,8 @@ namespace Resonance
         public Cue playSound(string sound)
         {
             Cue soundCue = soundBank.GetCue(sound);
+           
+
             soundCue.Play();
             return soundCue;
         }
@@ -88,6 +91,7 @@ namespace Resonance
         public void Update()
         {
             audioEngine.Update();
+            
             bgMusic.update();
             if (playHeartBeat && heartBeat.IsPaused) heartBeat.Resume();
             else if(!playHeartBeat && heartBeat.IsPlaying) heartBeat.Pause();
