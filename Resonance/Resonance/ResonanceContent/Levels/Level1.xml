@@ -32,8 +32,26 @@
       <Item>
         <identifier>house0</identifier>
         <type>House</type>
-        <xWorldCoord>5</xWorldCoord>
-        <zWorldCoord>5</zWorldCoord>
+        <xWorldCoord>30</xWorldCoord>
+        <zWorldCoord>30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>house1</identifier>
+        <type>House</type>
+        <xWorldCoord>-30</xWorldCoord>
+        <zWorldCoord>-30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>house2</identifier>
+        <type>House</type>
+        <xWorldCoord>-15</xWorldCoord>
+        <zWorldCoord>15</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>2</gameModelNum>
         <pickuptype>-1</pickuptype>
