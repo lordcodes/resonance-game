@@ -31,13 +31,13 @@ namespace Resonance
 
         public void update()
         {
-            //DebugDisplay.update("num pickups", numPickups.ToString());
-            //DebugDisplay.update("total pickups", totalNumPickups.ToString());
+            DebugDisplay.update("num pickups", numPickups.ToString());
+            DebugDisplay.update("total pickups", totalNumPickups.ToString());
             if (numPickups < MIN_PICKUPS)
             {
                 bool placed = false;
 
-                while (!placed)
+                //while (!placed)
                 {
                     Vector3 gvPos = GameScreen.getGV().Body.Position;
 
@@ -54,30 +54,24 @@ namespace Resonance
                     if (maxZ > (int)World.MAP_Z) maxZ = (int)World.MAP_Z;
 
                     Random r = new Random((int)DateTime.Now.Ticks);
-                    //int x = r.Next((int)-World.MAP_X, (int)World.MAP_X);
-                    //int z = r.Next((int)-World.MAP_Z, (int)World.MAP_Z);
 
                     int x = r.Next(minX, maxX);
                     int z = r.Next(minZ, maxZ);
 
                     Vector3 pos = new Vector3((float)x, 0.5f, (float)z);
-                    double distance = Vector3.Distance(gvPos, pos);
 
-                    //if (distance < 100)
-                    //{
                     if (!ScreenManager.game.World.querySpace(pos))
-                        {
-                            placed = true;
+                    {
+                        placed = true;
 
-                            Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(0,16)%4+2, r.Next(MIN_PICKUP_TIME_LIVE, MAX_PICKUP_TIME_LIVE), r.Next(MIN_PICKUP_TIME_EFFECT,MAX_PICKUP_TIME_EFFECT));
-                            ScreenManager.game.World.addObject(p);
-                            p.calculateSize();
-                            //DebugDisplay.update("size", p.Size.ToString());
+                        Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(0,16)%4+2, r.Next(MIN_PICKUP_TIME_LIVE, MAX_PICKUP_TIME_LIVE), r.Next(MIN_PICKUP_TIME_EFFECT,MAX_PICKUP_TIME_EFFECT));
+                        ScreenManager.game.World.addObject(p);
+                        p.calculateSize();
+                        //DebugDisplay.update("size", p.Size.ToString());
 
-                            totalNumPickups++;
-                            numPickups++;
-                        }
-                    //}
+                        totalNumPickups++;
+                        numPickups++;
+                    }
                 }
             }
         }
