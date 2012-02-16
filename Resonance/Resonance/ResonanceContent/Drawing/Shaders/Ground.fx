@@ -147,7 +147,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 			float ds = distance(input.TexCoord, gvPos);
 			if(ds < 0.02 && ds > 0.018)
 			{
-				fullColor += float4(0.2,0,0,1);
+				fullColor += float4(0.1,0.1,0.1,0.1);
 			}
 			/*if(gvPos.y < input.TexCoord.y + 0.0005 &&  gvPos.y > input.TexCoord.y-0.0005)
 			{
