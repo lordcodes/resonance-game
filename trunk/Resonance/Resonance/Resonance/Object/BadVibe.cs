@@ -313,6 +313,7 @@ namespace Resonance
                         case Shockwave.CYMBAL:
                             {
                                 GameScreen.getGV().adjustScore(5);
+                                GameScreen.musicHandler.playSound("beast-dying");
                                 break;
                             }
                         case Shockwave.REST:
