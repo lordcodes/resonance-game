@@ -127,6 +127,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GameMode.cs" />
+    <Compile Include="GameStats.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />

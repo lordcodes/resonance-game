@@ -30,13 +30,14 @@ namespace Resonance
 
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode;
-        public static bool GV_KILLED = false;
+        public static GameStats stats;
+        public static MusicHandler musicHandler;
 
+        public static bool GV_KILLED = false;
         public static bool USE_BV_SPAWNER = true;
         public static bool USE_PICKUP_SPAWNER = true;
 
         GraphicsDeviceManager graphics;
-        private MusicHandler musicHandler;
 
         World world;
         BVSpawnManager bvSpawner;
@@ -52,6 +53,7 @@ namespace Resonance
             isLoaded = false;
             this.ScreenManager = scrn;
             mode = new GameMode(GameMode.TIME_ATTACK);
+            stats = new GameStats();
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
             musicHandler = new MusicHandler(ScreenManager.Content);
@@ -222,9 +224,13 @@ namespace Resonance
             String r;
             int finalScore;
             if (GV_KILLED) r = "GV Killed."; else r = "Game won!";
-            finalScore = mode.finaliseScore(GV_KILLED, getGV().TotalScore);
+            finalScore = mode.finaliseScore(GV_KILLED, stats.Score);
             DebugDisplay.update("Game Over! State", r);
             DebugDisplay.update("Final Score", finalScore.ToString());
+        }
+
+        private void updateStats()
+        {
         }
 
         /// <summary>
@@ -247,7 +253,6 @@ namespace Resonance
                 }
                 else if (bv.Status != BadVibe.State.DEAD)
                 {
-
                     bv.Move();
                 }
             }
@@ -264,8 +269,7 @@ namespace Resonance
             {
                 if (USE_BV_SPAWNER) BVSpawnManager.vibeDied((BadVibe)World.getObject(deadVibes[i]));
                 World.removeObject(World.getObject(deadVibes[i]));
-                musicHandler.playSound("beast-dying");
-
+                stats.addBV();
             }
         }
 
@@ -293,14 +297,6 @@ namespace Resonance
             get
             {
                 return world;
-            }
-        }
-
-        public MusicHandler Music
-        {
-            get
-            {
-                return musicHandler;
             }
         }
 

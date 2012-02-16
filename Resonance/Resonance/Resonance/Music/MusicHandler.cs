@@ -72,11 +72,17 @@ namespace Resonance
         /// <returns></returns>
         public Cue playSound(string sound, int volume)
         {
+            Cue soundCue = soundBank.GetCue(sound);
+            soundCue = adjustVolume(soundCue, volume);
+            soundCue.Play();
+            return soundCue;
+        }
+
+        public Cue adjustVolume(Cue soundCue, int volume)
+        {
             float vol = (float)(volume - 94);
 
-            Cue soundCue = soundBank.GetCue(sound);
             soundCue.SetVariable("Volume", vol);
-            soundCue.Play();
             return soundCue;
         }
 

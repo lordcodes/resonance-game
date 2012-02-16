@@ -105,8 +105,6 @@ namespace Resonance
                 ScreenManager.darkenBackground(0.75f);
                 ScreenManager.SpriteBatch.Begin();
             }
-            int x = 0;
-            int y = 0;
             // Draw each menu entry in turn.
             for (int i = 0; i < menuItems.Count; i++)
             {

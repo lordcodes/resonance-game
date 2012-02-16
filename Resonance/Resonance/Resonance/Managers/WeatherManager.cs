@@ -132,25 +132,25 @@ namespace Resonance {
 
             if (health < loudLightningStart) {
                 if (x % 3 == 0) {
-                    lCue = ScreenManager.game.Music.playSound("thunderLoud1");
+                    lCue = GameScreen.musicHandler.playSound("thunderLoud1");
                 } else if (x % 3 == 1) {
-                    lCue = ScreenManager.game.Music.playSound("thunderLoud2");
+                    lCue = GameScreen.musicHandler.playSound("thunderLoud2");
                 } else {
-                    lCue = ScreenManager.game.Music.playSound("thunderLoud3");
+                    lCue = GameScreen.musicHandler.playSound("thunderLoud3");
                 }
             } else if (health < midLightningStart) {
                 if (x % 3 == 0) {
-                    lCue = ScreenManager.game.Music.playSound("thunderMid1");
+                    lCue = GameScreen.musicHandler.playSound("thunderMid1");
                 } else if (x % 3 == 1) {
-                    lCue = ScreenManager.game.Music.playSound("thunderMid2");
+                    lCue = GameScreen.musicHandler.playSound("thunderMid2");
                 } else {
-                    lCue = ScreenManager.game.Music.playSound("thunderMid3");
+                    lCue = GameScreen.musicHandler.playSound("thunderMid3");
                 }
             } else if (health < quietLightningStart) {
                 if (x % 2 == 0) {
-                    lCue = ScreenManager.game.Music.playSound("thunderQuiet1");
+                    lCue = GameScreen.musicHandler.playSound("thunderQuiet1");
                 } else {
-                    lCue = ScreenManager.game.Music.playSound("thunderQuiet2");
+                    lCue = GameScreen.musicHandler.playSound("thunderQuiet2");
                 }
             }
         }
@@ -166,9 +166,9 @@ namespace Resonance {
             if (health < rainStart) {
                 if (rCue == null || !rCue.IsPlaying) {
                     if (health < gentleLightningStart) {
-                        rCue = ScreenManager.game.Music.playSound("rainAndThunder");
+                        rCue = GameScreen.musicHandler.playSound("rainAndThunder");
                     } else {
-                        rCue = ScreenManager.game.Music.playSound("rainLight");
+                        rCue = GameScreen.musicHandler.playSound("rainLight");
                     }
                 }
             }

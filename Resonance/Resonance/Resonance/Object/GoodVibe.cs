@@ -23,7 +23,6 @@ namespace Resonance
 
         List<Shockwave> waves; // Resonance waves which currently exist
 
-        private int totalScore; //total score value for the game
         //private int currentScore; //score for this sequence
         private int health; //health stored as an int between 0 - MAX_HEALTH.
         private int nitro; //speed boost between 0 - MAX_NITRO.
@@ -61,25 +60,17 @@ namespace Resonance
             }
         }
 
-        public int TotalScore
+        /*public int CurrentScore
         {
             get
             {
-                return totalScore;
+                return currentScore;
             }
-        }
-
-        //public int CurrentScore
-        //{
-        //    get
-        //    {
-        //        return currentScore;
-        //    }
-        //    set
-        //    {
-        //        currentScore = value;
-        //    }
-        //}
+            set
+            {
+                currentScore = value;
+            }
+        }*/
 
         public int Nitro
         {
@@ -112,7 +103,6 @@ namespace Resonance
             : base(modelNum, name, pos)
         {
             waves = new List<Shockwave>();
-            totalScore = 0;
             //currentScore = 0;
             health = MAX_HEALTH;
             nitro = MAX_NITRO / 2;
@@ -129,7 +119,7 @@ namespace Resonance
         /// <param name="change">Amount to adjust the score</param>
         public void adjustScore(int change)
         {
-            totalScore += (change * PickupManager.currentMultipler);
+            GameScreen.stats.addScore(change * PickupManager.currentMultipler);
         }
 
         /// <summary>
@@ -316,6 +306,7 @@ namespace Resonance
         {
             //this.gameModelNum = GameModels.SHIELD_GV;
             this.ModelInstance = sheildUpModel;
+            GameScreen.stats.usedShield();
         }
 
         /// <summary>

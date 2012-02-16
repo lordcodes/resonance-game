@@ -40,41 +40,41 @@ namespace Resonance
 
             if (green)
             {
-                ScreenManager.game.Music.playSound(MusicHandler.GREEN);
-                ScreenManager.game.Music.getTrack().inTime();
+                GameScreen.musicHandler.playSound(MusicHandler.GREEN);
+                GameScreen.musicHandler.getTrack().inTime();
                 increaseHealth();
                 GameScreen.getGV().createShockwave(Shockwave.GREEN);
             }
             if (yellow)
             {
-                ScreenManager.game.Music.playSound(MusicHandler.YELLOW);
-                ScreenManager.game.Music.getTrack().inTime();
+                GameScreen.musicHandler.playSound(MusicHandler.YELLOW);
+                GameScreen.musicHandler.getTrack().inTime();
                 increaseSpeed();
                 GameScreen.getGV().createShockwave(Shockwave.YELLOW);
             }
             if (blue)
             {
-                ScreenManager.game.Music.playSound(MusicHandler.BLUE);
-                ScreenManager.game.Music.getTrack().inTime();
+                GameScreen.musicHandler.playSound(MusicHandler.BLUE);
+                GameScreen.musicHandler.getTrack().inTime();
                 increaseShield();
                 GameScreen.getGV().createShockwave(Shockwave.BLUE);
             }
             if (red)
             {
-                ScreenManager.game.Music.playSound(MusicHandler.RED);
-                ScreenManager.game.Music.getTrack().inTime();
+                GameScreen.musicHandler.playSound(MusicHandler.RED);
+                GameScreen.musicHandler.getTrack().inTime();
                 increaseFreeze();
                 GameScreen.getGV().createShockwave(Shockwave.RED);
             }
             if (cymbal)
             {
-                ScreenManager.game.Music.playSound(MusicHandler.CYMBAL);
-                ScreenManager.game.Music.getTrack().inTime();
+                GameScreen.musicHandler.playSound(MusicHandler.CYMBAL);
+                GameScreen.musicHandler.getTrack().inTime();
                 GameScreen.getGV().createShockwave(Shockwave.CYMBAL);
             }
 
 
-            if (green | blue | yellow | red | cymbal) DebugDisplay.update("In time", ScreenManager.game.Music.getTrack().inTime().ToString());
+            if (green | blue | yellow | red | cymbal) DebugDisplay.update("In time", GameScreen.musicHandler.getTrack().inTime().ToString());
 
             //if (green | blue | yellow | red | cymbal) Program.game.Music.getTrack().inTime2();
             lastPad = pad;
