@@ -25,7 +25,7 @@ namespace Resonance {
         const  float maxCloudHeaviness = 0.75f;
         const  int   maxRainfall       = 15;
         const  float maxRaindropSize   = 0.4f;
-        const  float maxRainVol        = 1f;
+        const  float maxRainVol        = 10f;
         const  float maxLightningFreq  = 0.3f;
         const  float minLightningFreq  = 0.1f;
         const  float maxLightningVol   = 20f;
@@ -100,7 +100,7 @@ namespace Resonance {
                     rainfall = maxRainfall - (int) (factor * health * (float) maxRainfall);
                     raindropSize = maxRaindropSize - (factor * health * maxRaindropSize);
 
-                    //rainVol = (maxRainVol) - ();
+                    rainVol = maxRainVol - (factor * health * maxRainVol);
                     rain.setEmissionsPerUpdate(rainfall);
                     rain.setRaindropSize(raindropSize);
 
@@ -165,12 +165,21 @@ namespace Resonance {
 
             if (health < rainStart) {
                 if (rCue == null || !rCue.IsPlaying) {
+                    //rainVol = -90f;
                     if (health < gentleLightningStart) {
-                        rCue = GameScreen.musicHandler.playSound("rainAndThunder");
+                        rCue = GameScreen.musicHandler.playSound("rainAndThunder", rainVol);
+                        GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
                     } else {
-                        rCue = GameScreen.musicHandler.playSound("rainLight");
+                        rCue = GameScreen.musicHandler.playSound("rainLight", rainVol);
+                        GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
                     }
                 }
+
+                if ((rCue != null) && (rCue.IsPlaying)) {
+                    rCue = GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
+                }
+
+                 DebugDisplay.update("rainVol", rainVol.ToString());
             }
 
             // Lightning
