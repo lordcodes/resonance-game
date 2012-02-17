@@ -34,6 +34,7 @@ namespace Resonance
 
         public enum State { NORMAL, DEAD, FROZEN };
 
+
         public BadVibe(int modelNum, String name, Vector3 pos, int spawner)
             : base(modelNum, name, pos)
         {

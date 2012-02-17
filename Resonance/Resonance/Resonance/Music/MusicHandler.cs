@@ -55,11 +55,15 @@ namespace Resonance
             return bgMusic;
         }
 
+        public Cue getCue(string name)
+        {
+            return soundBank.GetCue(name);
+        }
+
         public Cue playSound(string sound)
         {
             Cue soundCue = soundBank.GetCue(sound);
            
-
             soundCue.Play();
             return soundCue;
         }
@@ -73,19 +77,18 @@ namespace Resonance
         public Cue playSound(string sound, float volume)
         {
             Cue soundCue = soundBank.GetCue(sound);
-            soundCue = adjustVolume(soundCue, volume);
+            adjustVolume(soundCue, volume);
             soundCue.Play();
             return soundCue;
         }
 
-        public Cue adjustVolume(Cue soundCue, float volume)
+        public void adjustVolume(Cue soundCue, float volume)
         {
-            float vol = 0;
+            /*float vol = 0;
             if (volume < -94) vol = -94;
             else if (volume > 6) vol = 6;
-            else vol = volume;
-            soundCue.SetVariable("Volume", vol);
-            return soundCue;
+            else vol = volume;*/
+            soundCue.SetVariable("Volume", volume);
         }
 
         public bool HeartBeat
