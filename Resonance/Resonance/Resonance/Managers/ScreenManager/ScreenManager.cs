@@ -95,21 +95,23 @@ namespace Resonance
 
         public override void Draw(GameTime gameTime)
         {
-            bool first = true;
+            //bool first = true;
             foreach (Screen screen in screens)
             {
-                if (first)
-                {
+                //if (first)
+                //{
                     screen.Draw(gameTime);
-                }
-                else
-                {
-                    bool doDraw = (screen is GameScreen);
-                    if (!doDraw)
-                    {
-                        screen.Draw(gameTime);
-                    }
-                }
+
+                    //first = false;
+                //}
+                //else
+                //{
+                    //bool doDraw = (screen is GameScreen);
+                    //if (!doDraw)
+                    //{
+                        //screen.Draw(gameTime);
+                    //}
+                //}
             }
         }
 

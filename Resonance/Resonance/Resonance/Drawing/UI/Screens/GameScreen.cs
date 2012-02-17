@@ -112,6 +112,7 @@ namespace Resonance
             GVMotionManager.initialised = false;
             ParticleEmitterManager.initialise();
             WeatherManager.initialise();
+            CameraMotionManager.initialise();
         }
 
         /// <summary>

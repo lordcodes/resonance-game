@@ -22,6 +22,7 @@ namespace Resonance
 
         bool displaySplash;
         bool startLoading = true;
+        bool loadingDone = false;
 
         public LoadingScreen(bool displayScreen, Screen loadScreen)
         {
@@ -55,7 +56,7 @@ namespace Resonance
                 screenToLoad.LoadedUsingLoading = true;
                 startLoading = false;
             }
-            if (!Loading.isLoading)
+            if (loadingDone)
             {
                 ScreenManager.removeScreen(this);
                 ScreenManager.addScreen(screenToLoad);
@@ -72,6 +73,11 @@ namespace Resonance
                 ScreenManager.SpriteBatch.Draw(splash, new Rectangle(0, 0, ScreenManager.ScreenWidth + 1, ScreenManager.ScreenHeight + 1), Color.White);
                 ScreenManager.SpriteBatch.DrawString(font, text, new Vector2(ScreenManager.pixelsX(100), ScreenManager.pixelsY(950)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 ScreenManager.SpriteBatch.End();
+            }
+
+            if (!Loading.isLoading && !startLoading)
+            {
+                loadingDone = true;
             }
         }
 
