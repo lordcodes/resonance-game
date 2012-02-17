@@ -964,8 +964,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\MainMenu\Textures\PauseMenuBG.png">
-      <Name>PauseMenuBG</Name>
+    <Compile Include="Drawing\UI\MainMenu\Textures\PauseMenuBox.png">
+      <Name>PauseMenuBox</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

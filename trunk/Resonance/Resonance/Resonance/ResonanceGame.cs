@@ -33,6 +33,11 @@ namespace Resonance
             screenManager.addScreen(new MainMenu());
         }
 
+        protected override void Initialize()
+        {
+            base.Initialize();
+        }
+
 
         /// <summary>
         /// Loads graphics content.
@@ -48,7 +53,7 @@ namespace Resonance
         /// </summary>
         protected override void Draw(GameTime gameTime)
         {
-            //graphics.GraphicsDevice.Clear(Color.Black);
+            graphics.GraphicsDevice.Clear(Color.Black);
             base.Draw(gameTime);
         }
 

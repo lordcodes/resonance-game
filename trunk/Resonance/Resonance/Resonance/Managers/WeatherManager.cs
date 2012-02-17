@@ -176,7 +176,7 @@ namespace Resonance {
                 }
 
                 if ((rCue != null) && (rCue.IsPlaying)) {
-                    rCue = GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
+                    GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
                 }
 
                  DebugDisplay.update("rainVol", rainVol.ToString());

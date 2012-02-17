@@ -29,7 +29,11 @@ namespace Resonance
         private static Vector3 targetPosition = defaultPos;
         private static Vector3 currentTarget;
 
-        private static bool targetSet = false;
+        public static void initialise()
+        {
+            currentTarget = GameScreen.getGV().Body.Position;
+            updateCamera(currentTarget);
+        }
 
         public static void update(InputDevices input)
         {
@@ -37,13 +41,6 @@ namespace Resonance
             KeyboardState kbd = input.Keys;
             GamePadState lastPad = input.LastPlayerOne;
             GamePadState pad = input.PlayerOne;
-
-            if (!targetSet)
-            {
-                currentTarget = GameScreen.getGV().Body.Position;
-                targetSet = true;
-            }
-
             
             if (!lastKbd.IsKeyDown(Keys.Back) && !(lastPad.Buttons.Back == ButtonState.Pressed))
             {
