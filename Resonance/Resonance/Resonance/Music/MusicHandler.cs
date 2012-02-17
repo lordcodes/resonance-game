@@ -68,9 +68,9 @@ namespace Resonance
         /// Play a sound and choose the volume
         /// </summary>
         /// <param name="sound">the string for the sound file</param>
-        /// <param name="volume">value between 0 and 100</param>
+        /// <param name="volume">value between -94 and +6 (0 is default sound level)</param>
         /// <returns></returns>
-        public Cue playSound(string sound, int volume)
+        public Cue playSound(string sound, float volume)
         {
             Cue soundCue = soundBank.GetCue(sound);
             soundCue = adjustVolume(soundCue, volume);
@@ -78,10 +78,12 @@ namespace Resonance
             return soundCue;
         }
 
-        public Cue adjustVolume(Cue soundCue, int volume)
+        public Cue adjustVolume(Cue soundCue, float volume)
         {
-            float vol = (float)(volume - 94);
-
+            float vol = 0;
+            if (volume < -94) vol = -94;
+            else if (volume > 6) vol = 6;
+            else vol = volume;
             soundCue.SetVariable("Volume", vol);
             return soundCue;
         }
