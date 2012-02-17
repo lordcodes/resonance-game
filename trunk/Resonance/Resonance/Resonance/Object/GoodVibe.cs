@@ -297,6 +297,7 @@ namespace Resonance
                     bv.Status = BadVibe.State.FROZEN;
                 }
             }
+            GameScreen.stats.usedFreeze();
         }
 
         /// <summary>

@@ -50,7 +50,7 @@ namespace Resonance
 
             double time = gameTime.TotalGameTime.TotalSeconds;
             float pulse = (float)Math.Sin(time * 6) + 1;
-            float scale = 1 + pulse * 0.075f * fade;
+            float scale = 1 + pulse * 0.05f * fade;
 
             SpriteFont font = screen.Font;
             Vector2 msgSize = font.MeasureString(text);
@@ -64,7 +64,7 @@ namespace Resonance
                 }
             }
 
-            Vector2 textOrigin = new Vector2(msgSize.X / 2, font.LineSpacing / 2);
+            Vector2 textOrigin = new Vector2(0, font.LineSpacing / 2);
             screen.ScreenManager.SpriteBatch.DrawString(font, text, position, colour, 0f, textOrigin, scale, SpriteEffects.None, 0f);
         }
 
@@ -87,6 +87,11 @@ namespace Resonance
         public bool MainMenu
         {
             set { mainMenu = value; }
+        }
+
+        public Vector2 Size(MenuScreen screen)
+        {
+            return screen.Font.MeasureString(text);
         }
     }
 }

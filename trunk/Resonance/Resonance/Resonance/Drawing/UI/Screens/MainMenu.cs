@@ -42,8 +42,6 @@ namespace Resonance
             for (int i = 0; i < MenuItems.Count; i++)
             {
                 MenuItems[i].Position = new Vector2(ScreenManager.pixelsX(x), ScreenManager.pixelsY(y));
-                MenuItems[i].Background = textBG;
-                MenuItems[i].MainMenu = false;
                 y += 75;
             }
         }
