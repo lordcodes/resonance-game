@@ -129,6 +129,29 @@ namespace Resonance
 
         }
 
+        private void positionPauseMenu()
+        {
+            //410 width by 540 height
+            //Ratio 1.32 (H / W)
+
+            int x = 0;
+            Vector2 textSize = new Vector2(0, 0);
+            Vector2 position = new Vector2(ScreenManager.pixelsX(200), ScreenManager.pixelsY(400));
+            for (int i = 0; i < menuItems.Count; i++)
+            {
+                //textSize.Y += menuItems[i].Size(this).Y + 25;
+                x = Math.Max(x, (int)menuItems[i].Size(this).X);
+            }
+
+            /*Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth, ScreenManager.ScreenHeight);
+            Vector2 msgSize = font.MeasureString(text);
+            Vector2 msgPos = (screenSize - msgSize) / 2;
+
+            ScreenManager.SpriteBatch.Begin();
+            ScreenManager.SpriteBatch.Draw(background, new Rectangle((int)msgPos.X - 35, (int)msgPos.Y - 25,
+                (int)msgSize.X + 70, (int)msgSize.Y + 50), Color.White);*/
+        }
+
         public SpriteFont Font
         {
             get { return font; }
