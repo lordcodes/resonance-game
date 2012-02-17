@@ -156,6 +156,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
+
             DrawableManager.Update(gameTime);
 
             Drawing.Update(gameTime);

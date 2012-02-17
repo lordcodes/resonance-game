@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::8a766adc-dc0d-4392-8418-8dd372475467;
+            Name = Sound::884fc9f9-8609-4409-85c4-633ba9a74ec7;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::8b308724-c8c4-4ec2-bce7-bb5988b20ceb;
+            Name = Effect::9dd0d336-2c72-47ba-beb6-f8f880289927;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -1462,7 +1462,7 @@ Sound Bank
     Sound
     {
         Name = heart-beat;
-        Volume = -1200;
+        Volume = 0;
         Pitch = 0;
         Priority = 0;
 
@@ -2017,6 +2017,11 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
+        }
+
         Effect Entry
         {
             Effect Name = Microsoft Reverb;
@@ -2029,6 +2034,7 @@ Sound Bank
 
             Play Wave Event
             {
+                Loop Count = 255;
                 Break Loop = 0;
                 Use Speaker Position = 0;
                 Use Center Speaker = 1;
