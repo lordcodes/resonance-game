@@ -140,7 +140,7 @@ namespace Resonance
                                 break;
                             }
                     }
-
+                    GameScreen.stats.gotPowerup();
                     //Drawing.addWave(pickupPoint);
                     ScreenManager.game.World.removeObject(pickups[i]);
                     ScreenManager.game.pickupSpawner.pickupPickedUp();

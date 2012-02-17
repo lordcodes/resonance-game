@@ -119,8 +119,8 @@ namespace Resonance
                 if (GameScreen.getGV().Nitro > 0.1)
                 {
                     GameScreen.getGV().adjustNitro(-1);
-                    //GVMotionManager.boost();
                     GVMotionManager.BOOSTING = true;
+                    GameScreen.stats.usedNitro();
                 }
                 
             }

@@ -90,21 +90,30 @@ namespace Resonance
 
         public override void Draw(GameTime gameTime)
         {
-            bool debugScreen = (this is DebugMenu);
-
             updateItemLocations();
 
-            if (!debugScreen)
+            bool debugScreen = (this is DebugMenu);
+            bool pauseScreen = (this is PauseMenu);
+
+            if(pauseScreen)
+            {
+                ScreenManager.darkenBackground(0.9f);
+                ScreenManager.SpriteBatch.Begin();
+                ScreenManager.SpriteBatch.Draw(bg[0], new Rectangle(0, 0, ScreenManager.ScreenWidth + 1,
+                    ScreenManager.ScreenHeight + 1), Color.White);
+            }
+            else if (debugScreen)
+            {
+                ScreenManager.darkenBackground(0.75f);
+                ScreenManager.SpriteBatch.Begin();
+            }
+            else
             {
                 ScreenManager.SpriteBatch.Begin();
                 ScreenManager.SpriteBatch.Draw(bg[selected], new Rectangle(0, 0, ScreenManager.ScreenWidth + 1,
                     ScreenManager.ScreenHeight + 1), Color.White);
             }
-            else
-            {
-                ScreenManager.darkenBackground(0.75f);
-                ScreenManager.SpriteBatch.Begin();
-            }
+
             // Draw each menu entry in turn.
             for (int i = 0; i < menuItems.Count; i++)
             {

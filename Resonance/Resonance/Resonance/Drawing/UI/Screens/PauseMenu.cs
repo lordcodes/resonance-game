@@ -13,8 +13,8 @@ namespace Resonance
             : base("Paused")
         {
             MenuElement resume = new MenuElement("Resume", new ItemDelegate(delegate { resumeGame(); }));
-            MenuElement quit = new MenuElement("Quit to Main Menu", new ItemDelegate(delegate { quitGame(); }));
-            MenuElement quitCompletely = new MenuElement("Quit Game (For now until I add debug menu)", new ItemDelegate(delegate { quitGameCompletely(); }));
+            MenuElement quit = new MenuElement("Back to Main Menu", new ItemDelegate(delegate { quitGame(); }));
+            MenuElement quitCompletely = new MenuElement("Quit Game", new ItemDelegate(delegate { quitGameCompletely(); }));
 
             MenuItems.Add(resume);
             MenuItems.Add(quit);
@@ -24,22 +24,21 @@ namespace Resonance
         public override void LoadContent()
         {
             Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFirst"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuSecond"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuThird"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/MainMenuFourth"));
+            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/PauseMenuBG"));
         }
 
         protected override void updateItemLocations()
         {
             base.updateItemLocations();
 
-            int x = 1350;
-            int y = 300;
+            //Centre in x is 400
+            Vector2 position = new Vector2(0f, ScreenManager.pixelsY(400));
             for (int i = 0; i < MenuItems.Count; i++)
             {
-                MenuItems[i].Position = new Vector2(ScreenManager.pixelsX(x), ScreenManager.pixelsY(y));
-                y += 75;
+                position.X = ScreenManager.pixelsX(400 - (int)MenuItems[i].Size(this).X / 2);
+                MenuItems[i].Position = position;
+
+                position.Y += MenuItems[i].Size(this).Y + 25;
             }
         }
 
