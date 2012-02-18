@@ -791,39 +791,39 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MainMenu.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu.png">
       <Name>MainMenu</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MainMenuFifth.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenuFifth.png">
       <Name>MainMenuFifth</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MainMenuFirst.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenuFirst.png">
       <Name>MainMenuFirst</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MainMenuFourth.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenuFourth.png">
       <Name>MainMenuFourth</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MainMenuSecond.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenuSecond.png">
       <Name>MainMenuSecond</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MainMenuSixth.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenuSixth.png">
       <Name>MainMenuSixth</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MainMenuThird.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenuThird.png">
       <Name>MainMenuThird</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -903,7 +903,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\MainMenu\Textures\MenuItemBG.png">
+    <Compile Include="Drawing\UI\Menus\Textures\MenuItemBG.png">
       <Name>MenuItemBG</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
@@ -964,22 +964,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\MainMenu\Textures\Controller-Small.png">
+    <Compile Include="Drawing\UI\Menus\Textures\Controller-Small.png">
       <Name>Controller-Small</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\MainMenu\Textures\PauseMenuStatsBox.png">
+    <Compile Include="Drawing\UI\Menus\Textures\PauseMenuStatsBox.png">
       <Name>PauseMenuStatsBox</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\MainMenu\Textures\PauseMenuBox.png">
+    <Compile Include="Drawing\UI\Menus\Textures\PauseMenuBox.png">
       <Name>PauseMenuBox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\UI\Menus\Textures\Popup.png">
+      <Name>Popup</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

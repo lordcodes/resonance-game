@@ -137,17 +137,17 @@ namespace Resonance
             int x = (int)screenSize.X / 2 - 200;
             int y = (int)screenSize.Y / 2 - 240;
 
-            ScreenManager.SpriteBatch.Draw(bg[0], new Rectangle(x, y, 400, 480), Color.White);
+            ScreenManager.SpriteBatch.Draw(bg[0], new Vector2(x, y), Color.White);
 
             x = (int)((screenSize.X * 2) * 0.75f - 360);
             y = (int)screenSize.Y / 2 - 250;
 
-            ScreenManager.SpriteBatch.Draw(bg[1], new Rectangle(x, y, 720, 500), Color.White);
+            ScreenManager.SpriteBatch.Draw(bg[1], new Vector2(x, y), Color.White);
 
             x += 30;
             y += 50;
 
-            ScreenManager.SpriteBatch.Draw(bg[2], new Rectangle(x, y, 664, 346), Color.White);
+            ScreenManager.SpriteBatch.Draw(bg[2], new Vector2(x, y), Color.White);
         }
 
         public SpriteFont Font
