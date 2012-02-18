@@ -34,8 +34,8 @@ namespace Resonance
                        input.PlayerOne.IsButtonDown(Buttons.LeftThumbstickDown));
             bool select = (!input.LastKeys.IsKeyDown(Keys.Enter) && input.LastPlayerOne.Buttons.A != ButtonState.Pressed) &&
                           (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.Buttons.A == ButtonState.Pressed);
-            bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
-                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);
+            bool back = (!input.LastKeys.IsKeyDown(Keys.Escape) && !input.LastPlayerOne.IsButtonDown(Buttons.B)) &&
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.IsButtonDown(Buttons.B));
             
             /*bool up = (!input.LastKeys.IsKeyDown(Keys.Up) && input.LastPlayerOne.DPad.Up != ButtonState.Pressed
                       (input.Keys.IsKeyDown(Keys.Up) || input.PlayerOne.DPad.Up == ButtonState.Pressed);
@@ -45,9 +45,19 @@ namespace Resonance
                           (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.Buttons.A == ButtonState.Pressed);
             bool pause = (!input.LastKeys.IsKeyDown(Keys.Escape) && input.LastPlayerOne.Buttons.Start != ButtonState.Pressed) &&
                          (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.Buttons.Start == ButtonState.Pressed);*/
-            if (pause)
+            if (back)
             {
-                //Bring up pop-up to ask if you want to close the screen
+                if (this is MainMenu)
+                {
+                    string msg = "Are you sure you want to quit the game?\n";
+                    msg += "(Enter - OK, Escape - Cancel)";
+
+                    ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
+                }
+                else
+                {
+                    ExitScreen();
+                }
             }
 
             if (up) moveUp();

@@ -36,15 +36,15 @@ namespace Resonance
             {
                 GameScreen.getGV().showBeat();
             }
-            if ((pad.Buttons.Start == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
+            if ((pad.Buttons.LeftShoulder == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
             {
                 GameScreen.musicHandler.getTrack().playTrack();
             }
-            if ((pad.Buttons.A == ButtonState.Pressed) || kbd.IsKeyDown(Keys.S))
+            if ((pad.Buttons.RightShoulder == ButtonState.Pressed) || kbd.IsKeyDown(Keys.S))
             {
                 GameScreen.musicHandler.getTrack().stopTrack();
             }
-            if (pad.Buttons.B == ButtonState.Pressed || kbd.IsKeyDown(Keys.P))
+            if (kbd.IsKeyDown(Keys.P))
             {
                 GameScreen.musicHandler.getTrack().pauseTrack();
             }
