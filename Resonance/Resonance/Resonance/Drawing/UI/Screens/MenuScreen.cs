@@ -133,42 +133,21 @@ namespace Resonance
             //410 width by 540 height
             //Ratio 1.32 (H / W)
 
-            /*Vector2 textSize = new Vector2(0, 0);
-            for (int i = 0; i < menuItems.Count; i++)
-            {
-                textSize.Y += menuItems[i].Size(this).Y + 25;
-                textSize.X = Math.Max(textSize.X, menuItems[i].Size(this).X);
-            }
-            textSize.Y -= 25f;*/
-
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-            int x = (int)screenSize.X / 2 - 205;
-            int y = (int)screenSize.Y / 2 - 270;
-            /*Vector2 textPos = (screenSize - textSize) / 2;
+            int x = (int)screenSize.X / 2 - 200;
+            int y = (int)screenSize.Y / 2 - 240;
 
-            int x = (int)textPos.X - 40;
-            int y = (int)textPos.Y - 30;
+            ScreenManager.SpriteBatch.Draw(bg[0], new Rectangle(x, y, 400, 480), Color.White);
 
-            int width = (int)textSize.X + 80;
-            int height = (int)Math.Round((float)width * 1.32);*/
+            x = (int)((screenSize.X * 2) * 0.75f - 360);
+            y = (int)screenSize.Y / 2 - 250;
 
-            ScreenManager.SpriteBatch.Draw(bg[0], new Rectangle(x, y, 410, 540), Color.White);
+            ScreenManager.SpriteBatch.Draw(bg[1], new Rectangle(x, y, 720, 500), Color.White);
 
-            //int centreX = (int)textSize.X / 2;
-            //int centreY = (int)textSize.Y / 2;
+            x += 30;
+            y += 50;
 
-            //int x1 = centreX - 405;
-            //int y1 = centreY - 270;
-
-            //ScreenManager.SpriteBatch.Draw(bg[0], new Rectangle(x1, y1, 410, 570), Color.White);
-            //
-            /*Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth, ScreenManager.ScreenHeight);
-            Vector2 msgSize = font.MeasureString(text);
-            Vector2 msgPos = (screenSize - msgSize) / 2;
-
-            ScreenManager.SpriteBatch.Begin();
-            ScreenManager.SpriteBatch.Draw(background, new Rectangle((int)msgPos.X - 35, (int)msgPos.Y - 25,
-                (int)msgSize.X + 70, (int)msgSize.Y + 50), Color.White);*/
+            ScreenManager.SpriteBatch.Draw(bg[2], new Rectangle(x, y, 664, 346), Color.White);
         }
 
         public SpriteFont Font

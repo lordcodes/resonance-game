@@ -25,6 +25,8 @@ namespace Resonance
         {
             Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/PauseMenuBox"));
+            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/PauseMenuStatsBox"));
+            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/Controller-Small"));
         }
 
         protected override void updateItemLocations()
