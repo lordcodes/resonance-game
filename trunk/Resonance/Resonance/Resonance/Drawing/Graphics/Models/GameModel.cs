@@ -25,33 +25,15 @@ namespace Resonance
         private Matrix graphicsScale;
         private Matrix physicsScale;
         private Matrix[] modelTransforms;
-        private List<Texture2D> textures = new List<Texture2D>();
         bool modelAnimation;
         private float mass;
-        private float frameDelay;
-        private bool textureAnimationStart;
+        private TextureAnimation textureAnimation;
 
-        public bool TextureAnimationStart
+        public TextureAnimation TextureAnimation
         {
             get
             {
-                return textureAnimationStart;
-            }
-        }
-
-        public int TextureCount
-        {
-            get
-            {
-                return textures.Count;
-            }
-        }
-
-        public float FrameDelay
-        {
-            get
-            {
-                return frameDelay;
+                return textureAnimation;
             }
         }
 
@@ -112,33 +94,16 @@ namespace Resonance
             }
         }
 
-        public Texture2D getTexture(int index)
-        {
-            if (index < textures.Count)
-            {
-                return textures[index];
-            }
-            return null;
-        }
-
-        public void setTexture(int index, Texture2D texture)
-        {
-            if(index<textures.Count)
-                textures[index] = texture;
-        }
-
-        public GameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, List<Texture2D> newTextures, bool modelAnimation, float frameDelay, bool textureAnimStart)
+        public GameModel(Model newGraphicsModel, Matrix graphicsModelScale, Model newPhysicsModel, Matrix physicsModelScale, TextureAnimation textureAnimation, bool modelAnimation)
         {
             graphicsModel = newGraphicsModel;
             physicsModel = newPhysicsModel;
-            textures = newTextures;
             modelTransforms = new Matrix[GraphicsModel.Bones.Count];
             GraphicsModel.CopyAbsoluteBoneTransformsTo(ModelTransforms);
             graphicsScale = graphicsModelScale;
             physicsScale = physicsModelScale;
             this.modelAnimation = modelAnimation;
-            this.frameDelay = frameDelay;
-            this.textureAnimationStart = textureAnimStart;
+            this.textureAnimation = textureAnimation;
             mass = 25f;
         }
 

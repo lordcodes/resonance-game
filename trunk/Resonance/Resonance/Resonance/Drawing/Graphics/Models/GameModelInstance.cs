@@ -17,10 +17,7 @@ namespace Resonance
         private GameModel gameModel;
         private AnimationPlayer animPlayer = null;
         private AnimationClip clip;
-        private int currentFrame = 0;
-        private float timeElapsed;
-        private bool textureAnimPaused = false;
-        private bool textureAnimPlayOnce = false;
+        private TextureAnimation textureAnimation;
         private bool modelAnimPaused = false;
         private bool modelAnimPlayOnce = false;
 
@@ -43,7 +40,7 @@ namespace Resonance
         {
             get
             {
-                return gameModel.getTexture(currentFrame);
+                return textureAnimation.Texture;
             }
         }
 
@@ -65,10 +62,7 @@ namespace Resonance
         /// <param name="index">Index of the texture.</param>
         public void setTexture(int index)
         {
-            if (index < gameModel.TextureCount)
-            {
-                currentFrame = index;
-            }
+            textureAnimation.setTexture(index);
         }
 
         /// <summary>
@@ -88,22 +82,11 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Play the model animation once
-        /// </summary>
-        /*public void playModelAnimOnce()
-        {
-            modelAnimPaused = false;
-            modelAnimPlayOnce = true;
-            animPlayer.StartClip(clip);
-            modelAnimTime = clip.Duration.TotalMilliseconds;
-        }*/
-
-        /// <summary>
         /// Play the texture animation
         /// </summary>
         public void playTextureAnim()
         {
-            textureAnimPaused = false;
+            textureAnimation.playTextureAnim();
         }
 
         /// <summary>
@@ -111,8 +94,7 @@ namespace Resonance
         /// </summary>
         public void playTextureAnimOnce()
         {
-            textureAnimPaused = false;
-            textureAnimPlayOnce = true;
+            textureAnimation.playTextureAnimOnce();
         }
 
         /// <summary>
@@ -120,12 +102,7 @@ namespace Resonance
         /// </summary>
         public void pauseTextureAnim()
         {
-            textureAnimPaused = true;
-        }
-
-        public void setTexture(int index, Texture2D texture)
-        {
-            gameModel.setTexture(index, texture);
+            textureAnimation.pauseTextureAnim();
         }
 
         /// <summary>
@@ -150,8 +127,8 @@ namespace Resonance
                 }
             }
 
-            textureAnimPaused = !gameModel.TextureAnimationStart;
-
+            textureAnimation = gameModel.TextureAnimation.Copy;
+            
             //Program.game.Components.Add(this);
             DrawableManager.Add(this);
         }
@@ -171,25 +148,7 @@ namespace Resonance
                 }
             }
 
-            if (!textureAnimPaused && gameModel.FrameDelay > 0 && gameModel.TextureCount > 1)
-            {
-                timeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
-
-                if (timeElapsed > gameModel.FrameDelay)
-                {
-                    timeElapsed -= gameModel.FrameDelay;
-                    currentFrame++;
-                    if (currentFrame >= gameModel.TextureCount)
-                    {
-                        currentFrame = 0;
-                        if (textureAnimPlayOnce)
-                        {
-                            textureAnimPlayOnce = false;
-                            textureAnimPaused = true;
-                        }
-                    }
-                }
-            }
+            textureAnimation.Update(gameTime);
         }
     }
 }

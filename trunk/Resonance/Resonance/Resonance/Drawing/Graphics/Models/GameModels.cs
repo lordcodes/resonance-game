@@ -31,6 +31,11 @@ namespace Resonance
         private static ContentManager Content;
         private static ImportedGameModels importedGameModels;
 
+        public static TextureAnimation getTextureAnimationInstance(string id)
+        {
+            return importedGameModels.getTextureAnimationInstance(id);
+        }
+
         /// <summary>
         /// Creates a new GameModels object and stores all the GameModel objects in one place
         /// to be grabbed by the Drawing class

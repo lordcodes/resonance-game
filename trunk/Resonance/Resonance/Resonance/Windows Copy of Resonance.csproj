@@ -98,6 +98,7 @@
     <Compile Include="Drawing\Graphics\Shaders\ParticleShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shaders.cs" />
+    <Compile Include="Drawing\Graphics\TextureAnimation.cs" />
     <Compile Include="Drawing\Hud\DebugDisplay.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />

@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Content.Pipeline.Processors;
 using Microsoft.Xna.Framework.Content.Pipeline.Serialization.Compiler;
 using System.ComponentModel;
 using AnimationLibrary;
+using System.Diagnostics;
 
 namespace ContentPipelineExtension
 {
@@ -18,7 +19,6 @@ namespace ContentPipelineExtension
     class ModelImporter : ContentImporter<ImportedGameModels>
     {
         Dictionary<string, int> gameModels = new Dictionary<string, int>();
-        Dictionary<string, List<string>> textureDictionary = new Dictionary<string, List<string>>();
 
         public override ImportedGameModels Import(string filename, ContentImporterContext context)
         {
@@ -41,10 +41,11 @@ namespace ContentPipelineExtension
                             string title = values[0];
                             if (title.Equals("MODELS") || title.Equals("TEXTURES")) section++;
                         }
-                        else if (values.Length == 2)
+                        else if (values.Length <= 4 && values.Length >= 2)
                         {
                             if (section == 1)
                             {
+                                // MODELS
                                 string modelFile = getPath(filename, values[1]);
                                 gameModels.Add(values[0], modelCount);
                                 models.addModelRef(modelCount, modelFile);
@@ -52,13 +53,27 @@ namespace ContentPipelineExtension
                             }
                             else if (section == 2)
                             {
+                                // TEXTURES
                                 List<string> textureFiles = new List<string>();
                                 string[] files = values[1].Split(';');
+                                float delay = 0;
+                                bool start = false;
                                 for (int i = 0; i < files.Length; i++)
                                 {
                                     textureFiles.Add(getPath(filename,files[i]));
                                 }
-                                textureDictionary.Add(values[0], textureFiles);
+
+                                if (values.Length > 2)
+                                {
+                                    delay = float.Parse(values[2]);
+                                }
+                                if (values.Length > 3)
+                                {
+                                    start = values[3].Equals("1");
+                                }
+
+                                ImportedTextureAnimation textureAnimation = new ImportedTextureAnimation(textureFiles, delay, !start);
+                                models.addTextureAnimation(values[0], textureAnimation);
                             }
                         }
                         else if (values.Length > 4)
@@ -70,27 +85,17 @@ namespace ContentPipelineExtension
                             float physicsScale = float.Parse(values[4]);
                             List<string> textures = new List<string>();
                             bool animation = false;
-                            bool textureAnimationStart = false;
-                            double frameDelay = 0;
+                            string textureRef = "";
                             if (values.Length > 5)
                             {
-                                string textureRef = values[5];
-                                if (!textureRef.Equals(""))
-                                {
-                                    textures = textureDictionary[textureRef];
-                                }
+                                textureRef = values[5];
                             }
                             if (values.Length > 6)
                             {
-                                string delay = values[6];
-                                if (!delay.Equals(""))
-                                {
-                                    frameDelay = Convert.ToDouble(delay);
-                                }
+                                animation = values[6].Equals("1");
                             }
-                            if (values.Length > 7) textureAnimationStart = values[7].Equals("1");
-                            if (values.Length > 8) animation = values[8].Equals("1");
-                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, textures, animation, frameDelay, textureAnimationStart);
+                            
+                            ImportedGameModel model = new ImportedGameModel(graphicsModel, graphicsScale, physicsModel, physicsScale, textureRef, animation);
                             models.addModel(model, modelNum);
                             count++;
                         }
@@ -118,6 +123,7 @@ namespace ContentPipelineExtension
         {
             ImportedGameModels models = new ImportedGameModels();
             Dictionary<int, ImportedGameModel> gameModels = input.getModels();
+            Dictionary<string, ImportedTextureAnimation> gameTextures = input.getTextures();
             Dictionary<int, string> modelsRef = input.getModelStringDic();
             foreach (KeyValuePair<int, string> pair in modelsRef)
             {
@@ -178,22 +184,35 @@ namespace ContentPipelineExtension
                 
             }
 
+            foreach (KeyValuePair<string, ImportedTextureAnimation> pair in gameTextures)
+            {
+                ImportedTextureAnimation textureAnim = pair.Value;
+                List<TextureContent> textures = new List<TextureContent>();
+                List<string> textureFiles = new List<string>();
+                ExternalReference<TextureContent> textureContRef;
+                string textureRef = pair.Key;
+                double frameDelay = 0;
+                bool animationStart = false;
+                textureFiles = textureAnim.TextureStrings;
+                frameDelay = textureAnim.FrameDelay;
+                animationStart = !textureAnim.Paused;
+                foreach (string textureFile in textureFiles)
+                {
+                    textureContRef = new ExternalReference<TextureContent>(textureFile);
+                    textures.Add(context.BuildAndLoadAsset<TextureContent, TextureContent>(textureContRef, "TextureProcessor"));
+                }
+                ImportedTextureAnimation textureAnimation = new ImportedTextureAnimation(textures, frameDelay, animationStart);
+                models.addTextureAnimation(textureRef, textureAnimation);
+            }
+
             foreach (KeyValuePair<int, ImportedGameModel> pair in gameModels)
             {
                 ImportedGameModel model = pair.Value;
-                ExternalReference<TextureContent> textureRef;
-                List<TextureContent> textures = new List<TextureContent>();
-                List<string> textureFiles = model.TextureFiles;
-                foreach(string textureFile in textureFiles)
-                {
-                    textureRef = new ExternalReference<TextureContent>(textureFile);
-                    textures.Add(context.BuildAndLoadAsset<TextureContent, TextureContent>(textureRef, "TextureProcessor"));
-                }
                 int graphicsModel = model.GraphicsModelFile;
                 int physicsModel = model.PhysicsModelFile;
                 bool animation = model.Animation;
 
-                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, textures, animation, model.FrameDelay, model.TextureAnimationStart);
+                ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, model.TextureRef, animation);
                 models.addModel(newModel, pair.Key);
             }
             return models;
@@ -203,6 +222,7 @@ namespace ContentPipelineExtension
         {
             return context.BuildAndLoadAsset<NodeContent, ModelContent>(new ExternalReference<NodeContent>(file), "ModelProcessor");
         }
+
         /// <summary>
         /// Converts an intermediate format content pipeline AnimationContentDictionary
         /// object to our runtime AnimationClip format.
@@ -405,6 +425,23 @@ namespace ContentPipelineExtension
         {
             Dictionary<int, ImportedGameModel> gameModels = value.getModels();
             Dictionary<int, ModelContent> models = value.getModelDic();
+            Dictionary<string, ImportedTextureAnimation> textureAnimations = value.TextureAnimations;
+
+            output.Write(textureAnimations.Count);
+            foreach (KeyValuePair<string, ImportedTextureAnimation> pair in textureAnimations)
+            {
+                ImportedTextureAnimation textureAnimation = pair.Value;
+                string textureRef = pair.Key;
+                output.Write(textureRef);
+                output.Write(textureAnimation.FrameDelay);
+                output.Write(textureAnimation.Paused);
+                output.Write(textureAnimation.TextureContents.Count);
+                foreach (TextureContent texture in textureAnimation.TextureContents)
+                {
+                    output.WriteObject<TextureContent>(texture);
+                }
+            }
+
             output.Write(models.Count);
             foreach (KeyValuePair<int, ModelContent> pair in models)
             {
@@ -419,13 +456,7 @@ namespace ContentPipelineExtension
                 output.WriteObject<Matrix>(model.GraphicsScale);
                 output.Write(model.PhysicsModel);
                 output.WriteObject<Matrix>(model.PhysicsScale);
-                output.Write(model.FrameDelay);
-                output.Write(model.TextureAnimationStart);
-                output.Write(model.Textures.Count);
-                foreach (TextureContent texture in model.Textures)
-                {
-                    output.WriteObject<TextureContent>(texture);
-                }
+                output.Write(model.TextureRef);
                 output.Write(model.Animation);
                 output.Write(pair.Key);
             }

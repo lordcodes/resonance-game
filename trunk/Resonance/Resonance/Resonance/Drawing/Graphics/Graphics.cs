@@ -208,11 +208,15 @@ namespace Resonance
                 graphics.GraphicsDevice.SetVertexBuffer(particleVertexBuffer);
             }
 
+            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+
             foreach (EffectPass pass in shader.Passes)
             {
                 pass.Apply();
                 graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList,particleVertices,0,4,particleIndices,0,2);
             }
+
+            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
         }
 
 
