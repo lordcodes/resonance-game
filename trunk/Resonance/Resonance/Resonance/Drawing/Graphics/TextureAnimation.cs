@@ -50,7 +50,8 @@ namespace Resonance
         {
             get
             {
-                return textures[currentFrame];
+                if(currentFrame<textures.Count)return textures[currentFrame];
+                return null;
             }
         }
 
