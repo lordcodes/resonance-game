@@ -29,6 +29,8 @@ namespace Resonance
         private static Texture2D shinyFloorTexture;
         private static int drawCount = 0;
 
+        private static TextureAnimation sampleTexture;
+
         /// <summary>
         /// Change the ambient light level of the scene, use positive values to make it brighter, negative values to make it darker.  
         /// </summary>
@@ -158,6 +160,8 @@ namespace Resonance
             gameGraphics.loadContent(content, graphics.GraphicsDevice);
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
             mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
+            //sampleTexture = new TextureAnimation(content.Load<Texture2D>("Drawing/textures/texMissing"));
+            //sampleTexture = GameModels.getTextureAnimationInstance("fireAnimation");
         }
 
         /// <summary>
@@ -167,6 +171,7 @@ namespace Resonance
         public static void Update(GameTime gameTime)
         {
             gameGraphics.update(new Vector2(0f, 0f));
+            //sampleTexture.Update(gameTime);
         }
 
         public static Vector2 groundPos(Vector3 position3d, bool one)
@@ -260,12 +265,12 @@ namespace Resonance
         public static void Draw(GameTime gameTime)
         {
             drawCount++;
-            /*Vector3 pos = new Vector3(GameScreen.getGV().Body.Position.X, 0.1f, GameScreen.getGV().Body.Position.Z);
+            /*Vector3 pos = new Vector3(0, 2f, 0);
             Matrix texturePos = Matrix.CreateTranslation(pos);
-            Matrix rotation = Matrix.CreateRotationX((float)(Math.PI/2*3));
+            Matrix rotation = Matrix.CreateRotationX((float)(Math.PI));
             texturePos = Matrix.Multiply(rotation,texturePos);
-            gameGraphics.drawTexture(shinyFloorTexture, texturePos, 20, 20);*/
-            
+            gameGraphics.drawTexture(sampleTexture.Texture, texturePos, 3, 3);
+            */
 
                 //drawRangeIndicator();
                 drawParticles();

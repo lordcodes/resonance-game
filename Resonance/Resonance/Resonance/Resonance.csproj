@@ -104,6 +104,7 @@
     <Compile Include="Drawing\Graphics\Shaders\DefaultShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\GroundShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shader.cs" />
+    <Compile Include="Drawing\Graphics\TextureAnimation.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
     <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
     <Compile Include="Drawing\Graphics\DisplacementMap.cs" />

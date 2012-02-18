@@ -53,6 +53,7 @@
     <Compile Include="Drawing\Custom Fonts\CustomFontImporter.cs" />
     <Compile Include="Drawing\Game Models\ImportedGameModel.cs" />
     <Compile Include="Drawing\Game Models\ImportedGameModels.cs" />
+    <Compile Include="Drawing\Game Models\ImportedTextureAnimation.cs" />
     <Compile Include="Drawing\Game Models\ModelImporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

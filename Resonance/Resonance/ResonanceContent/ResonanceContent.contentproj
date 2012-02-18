@@ -984,6 +984,258 @@
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 01.png">
+      <Name>fire1_ 01</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 02.png">
+      <Name>fire1_ 02</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 03.png">
+      <Name>fire1_ 03</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 04.png">
+      <Name>fire1_ 04</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 05.png">
+      <Name>fire1_ 05</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 06.png">
+      <Name>fire1_ 06</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 07.png">
+      <Name>fire1_ 07</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 08.png">
+      <Name>fire1_ 08</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 09.png">
+      <Name>fire1_ 09</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 10.png">
+      <Name>fire1_ 10</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 11.png">
+      <Name>fire1_ 11</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 12.png">
+      <Name>fire1_ 12</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 13.png">
+      <Name>fire1_ 13</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 14.png">
+      <Name>fire1_ 14</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 15.png">
+      <Name>fire1_ 15</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 16.png">
+      <Name>fire1_ 16</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 17.png">
+      <Name>fire1_ 17</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 18.png">
+      <Name>fire1_ 18</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 19.png">
+      <Name>fire1_ 19</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 20.png">
+      <Name>fire1_ 20</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 21.png">
+      <Name>fire1_ 21</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 22.png">
+      <Name>fire1_ 22</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 23.png">
+      <Name>fire1_ 23</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 24.png">
+      <Name>fire1_ 24</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 25.png">
+      <Name>fire1_ 25</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 26.png">
+      <Name>fire1_ 26</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 27.png">
+      <Name>fire1_ 27</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 28.png">
+      <Name>fire1_ 28</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 29.png">
+      <Name>fire1_ 29</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 30.png">
+      <Name>fire1_ 30</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 31.png">
+      <Name>fire1_ 31</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 32.png">
+      <Name>fire1_ 32</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 33.png">
+      <Name>fire1_ 33</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 34.png">
+      <Name>fire1_ 34</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 35.png">
+      <Name>fire1_ 35</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 36.png">
+      <Name>fire1_ 36</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 37.png">
+      <Name>fire1_ 37</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 38.png">
+      <Name>fire1_ 38</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 39.png">
+      <Name>fire1_ 39</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 40.png">
+      <Name>fire1_ 40</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 41.png">
+      <Name>fire1_ 41</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 42.png">
+      <Name>fire1_ 42</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 43.png">
+      <Name>fire1_ 43</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 44.png">
+      <Name>fire1_ 44</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 45.png">
+      <Name>fire1_ 45</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 46.png">
+      <Name>fire1_ 46</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 47.png">
+      <Name>fire1_ 47</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 48.png">
+      <Name>fire1_ 48</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 49.png">
+      <Name>fire1_ 49</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+    <None Include="Drawing\Textures\fireAnimation\fire1_ 50.png">
+      <Name>fire1_ 50</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
   <!--  To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

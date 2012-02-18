@@ -14,6 +14,24 @@ namespace Resonance
         {
             Dictionary<string, Model> gameModels = new Dictionary<string, Model>();
             ImportedGameModels models = new ImportedGameModels();
+
+            int textureCount = input.ReadInt32();
+            for (int i = 0; i < textureCount; i++)
+            {
+                string textureRef = input.ReadString();
+                double frameDelay = input.ReadDouble();
+                bool paused = input.ReadBoolean();
+                int frameCount = input.ReadInt32();
+                List<Texture2D> frameList = new List<Texture2D>();
+                for (int j = 0; j < frameCount; j++)
+                {
+                    frameList.Add(input.ReadObject<Texture2D>());
+                }
+                TextureAnimation textureAnimation = new TextureAnimation(frameList, TextureAnimation.START.PLAYING, frameDelay);
+                models.addTextureAnimation(textureRef, textureAnimation);
+            }
+
+
             int count = input.ReadInt32();
             for (int i = 0; i < count; i++)
             {
@@ -28,26 +46,17 @@ namespace Resonance
                 Matrix graphicsScale;
                 int physicsModel;
                 Matrix physicsScale;
-                List<Texture2D> textures = new List<Texture2D>();
                 bool animation;
                 int gameModelNum;
-                int numberTextures;
-                float frameDelay = 0;
-                bool textureAnimStart;
+                string textureRef;
                 graphicsModel = input.ReadInt32();
                 graphicsScale = input.ReadObject<Matrix>();
                 physicsModel = input.ReadInt32();
                 physicsScale = input.ReadObject<Matrix>();
-                frameDelay = (float)input.ReadDouble();
-                textureAnimStart = input.ReadBoolean();
-                numberTextures = input.ReadInt32();
-                for (int j = 0; j < numberTextures; j++)
-                {
-                    textures.Add(input.ReadObject<Texture2D>());
-                }
+                textureRef = input.ReadString();
                 animation = input.ReadBoolean();
                 gameModelNum = input.ReadInt32();
-                GameModel newModel = new GameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, textures, animation, frameDelay, textureAnimStart);
+                GameModel newModel = new GameModel(models.addModelFromRef(graphicsModel), graphicsScale, models.addModelFromRef(physicsModel), physicsScale, models.getTextureAnimationOriginal(textureRef), animation);
                 
                 models.addModel(newModel, gameModelNum);
             }
