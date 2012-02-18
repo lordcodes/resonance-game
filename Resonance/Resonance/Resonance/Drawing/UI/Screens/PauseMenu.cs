@@ -24,9 +24,9 @@ namespace Resonance
         public override void LoadContent()
         {
             Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/PauseMenuBox"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/PauseMenuStatsBox"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/MainMenu/Textures/Controller-Small"));
+            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuBox"));
+            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuStatsBox"));
+            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/Controller-Small"));
         }
 
         protected override void updateItemLocations()
@@ -34,7 +34,6 @@ namespace Resonance
             base.updateItemLocations();
 
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-            //Vector2 textPos = (screenSize - textSize) / 2;
 
             //Centre in x is 400
             Vector2 position = new Vector2(0f, screenSize.Y / 2 - 100 - Font.LineSpacing);
@@ -55,17 +54,15 @@ namespace Resonance
         private void quitGame()
         {
             string msg = "Are you sure you want to quit to the main menu?\n";
-            msg += "A button or Enter - OK\n";
-            msg += "B button or Escape - Cancel";
+            msg += "(Enter - OK, Escape - Cancel)";
 
             ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.TO_MAIN_MENU));
         }
 
         private void quitGameCompletely()
         {
-            string msg = "Are you sure you want to quit to the main menu?\n";
-            msg += "A button or Enter - OK\n";
-            msg += "B button or Escape - Cancel";
+            string msg = "Are you sure you want to quit the game?\n";
+            msg += "(Enter - OK, Escape - Cancel)";
 
             ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
         }

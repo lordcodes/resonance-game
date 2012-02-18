@@ -26,7 +26,7 @@ namespace Resonance
 
         public override void LoadContent()
         {
-            background = ScreenManager.Game.Content.Load<Texture2D>("Drawing/Textures/texPopup");
+            background = ScreenManager.Game.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/Popup");
             font = ScreenManager.Game.Content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
         }
 
@@ -50,8 +50,9 @@ namespace Resonance
             Vector2 msgPos = (screenSize - msgSize) / 2;
 
             ScreenManager.SpriteBatch.Begin();
-            ScreenManager.SpriteBatch.Draw(background, new Rectangle((int)msgPos.X - 35, (int)msgPos.Y - 25,
-                (int)msgSize.X + 70, (int)msgSize.Y + 50), Color.White);
+            //ScreenManager.SpriteBatch.Draw(background, new Rectangle((int)msgPos.X - 35, (int)msgPos.Y - 25,
+                //(int)msgSize.X + 70, (int)msgSize.Y + 50), Color.White);
+            ScreenManager.SpriteBatch.Draw(background, new Vector2(msgPos.X - 35, msgPos.Y - 25), Color.White);
             ScreenManager.SpriteBatch.DrawString(font, text, msgPos, Color.White);
             ScreenManager.SpriteBatch.End();
         }
