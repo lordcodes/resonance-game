@@ -964,6 +964,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\UI\MainMenu\Textures\Controller-Small.png">
+      <Name>Controller-Small</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\UI\MainMenu\Textures\PauseMenuStatsBox.png">
+      <Name>PauseMenuStatsBox</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\UI\MainMenu\Textures\PauseMenuBox.png">
       <Name>PauseMenuBox</Name>
       <Importer>TextureImporter</Importer>
