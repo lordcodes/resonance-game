@@ -9,6 +9,11 @@ namespace Resonance
     {
         private static Dictionary<string, string> dictionary = new Dictionary<string, string>();
 
+        public static void clear()
+        {
+            dictionary.Clear();
+        }
+
         /// <summary>
         /// This is called when you would like to display/update debug info.
         /// </summary>
