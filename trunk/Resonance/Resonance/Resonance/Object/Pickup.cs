@@ -30,31 +30,23 @@ namespace Resonance
         public Pickup(int modelNum, String name, Vector3 pos, int length, int time)
             : base(modelNum, name, pos)
         {
-            switch (modelNum)
+            if (modelNum == GameModels.X2)
             {
-                case 12: //TODO: SORT THIS CRAP OUT
-                    {
-                        powerupType = 2;
-                        break;
-                    }
-                case 13:
-                    {
-                        powerupType = 3;
-                        break;
-                    }
-                case 14:
-                    {
-                        powerupType = 4;
-                        break;
-                    }
-                case 15:
-                    {
-                        powerupType = 5;
-                        break;
-                    }
+                powerupType = 2;
+            }
+            else if (modelNum == GameModels.X3)
+            {
+                powerupType = 3;
+            }
+            else if (modelNum == GameModels.PLUS4)
+            {
+                powerupType = 4;
+            }
+            else if (modelNum == GameModels.PLUS5)
+            {
+                powerupType = 5;
             }
 
-            //powerupType = power;
             powerupLength = length;
             initialTime = time;
             timeToLive = time;
