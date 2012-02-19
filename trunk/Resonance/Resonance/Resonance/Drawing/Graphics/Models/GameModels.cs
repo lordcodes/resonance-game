@@ -22,11 +22,14 @@ namespace Resonance
         public static readonly int GROUND           = 5;
         public static readonly int MUSHROOM         = 6;
         public static readonly int SHOCKWAVE        = 7;
-        public static readonly int PICKUP           = 11;//TODO:change back to 8
+        public static readonly int PICKUP           = 8;
         public static readonly int SHIELD_GV        = 9;
         public static readonly int BV_SPAWNER       = 10;
-        public static readonly int X2               = 11;
-        public static readonly int BV_Exploasion    = 12;
+        public static readonly int BV_Explosion     = 11;
+        public static readonly int X2               = 12;
+        public static readonly int X3               = 13;
+        public static readonly int PLUS4            = 14;
+        public static readonly int PLUS5            = 15;
 
         private static ContentManager Content;
         private static ImportedGameModels importedGameModels;
