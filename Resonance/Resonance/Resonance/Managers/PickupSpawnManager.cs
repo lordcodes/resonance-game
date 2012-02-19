@@ -31,8 +31,8 @@ namespace Resonance
 
         public void update()
         {
-            DebugDisplay.update("num pickups", numPickups.ToString());
-            DebugDisplay.update("total pickups", totalNumPickups.ToString());
+            //DebugDisplay.update("num pickups", numPickups.ToString());
+            //DebugDisplay.update("total pickups", totalNumPickups.ToString());
             if (numPickups < MIN_PICKUPS)
             {
                 bool placed = false;
@@ -64,7 +64,33 @@ namespace Resonance
                     {
                         placed = true;
 
-                        Pickup p = new Pickup(GameModels.PICKUP, "Pickup" + totalNumPickups, pos, r.Next(0,16)%4+2, r.Next(MIN_PICKUP_TIME_LIVE, MAX_PICKUP_TIME_LIVE), r.Next(MIN_PICKUP_TIME_EFFECT,MAX_PICKUP_TIME_EFFECT));
+                        int rand = r.Next(0, 16) % 4 + 2;
+                        int model = 2;
+                        switch (rand)
+                        {
+                            case 2:
+                                {
+                                    model = GameModels.X2;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    model = GameModels.X3;
+                                    break;
+                                }
+                            case 4:
+                                {
+                                    model = GameModels.PLUS4;
+                                    break;
+                                }
+                            case 5:
+                                {
+                                    model = GameModels.PLUS5;
+                                    break;
+                                }
+                        }
+
+                        Pickup p = new Pickup(model, "Pickup" + totalNumPickups, pos, /*r.Next(0,16)%4+2,*/ r.Next(MIN_PICKUP_TIME_LIVE, MAX_PICKUP_TIME_LIVE), r.Next(MIN_PICKUP_TIME_EFFECT, MAX_PICKUP_TIME_EFFECT));
                         ScreenManager.game.World.addObject(p);
                         p.calculateSize();
                         //DebugDisplay.update("size", p.Size.ToString());

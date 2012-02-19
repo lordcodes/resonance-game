@@ -15,8 +15,11 @@ badVibe, Models\BadVibe.fbx
 badVibePhysics, Models\BadVibe-physics.fbx
 BV_Spawner, Models\BV_Spawner.fbx
 --dude        Models\dude.fbx
-x2,			Models\x2.fbx
 BV_Explosion, Models\BVExplosion.fbx
+x2,			Models\x2.fbx
+x3,			Models\x3.fbx
+plus4,		Models\plus4.fbx
+plus5,		Models\plus5.fbx
 
 TEXTURES
 -Texture Ref-|----------------------------Files Name(s)--------------------------------------------------------------------|-Texture delay(ms)-|--Start texture anim.--|
@@ -51,5 +54,8 @@ spawnTexture,	Textures\TextureHouse.jpg
 8,			box,					2,			pickup,					2,				animationTest
 9,          ShieldGoodVibe,         0.35,		spaceShip,              0,				goodVibeTexture
 10,         BV_Spawner,             0.6,		box,                    0.6,            spawnTexture
-11,			x2,						0.5,		x2,						0.5
-12,         BV_Explosion,           0.1,		BV_Explosion,           0.1,                          ,							1
+11,         BV_Explosion,           0.1,		BV_Explosion,           0.1,                          ,							1
+12,			x2,						0.5,		x2,						0.5
+13,			x3,						0.5,		x3,						0.5
+14,			plus4,					0.5,		plus4,					0.5
+15,			plus5,					0.5,		plus5,					0.5
