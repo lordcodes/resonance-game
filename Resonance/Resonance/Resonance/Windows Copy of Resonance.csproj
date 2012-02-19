@@ -112,6 +112,8 @@
     <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Particle.cs" />
+    <Compile Include="Drawing\TextureEffects\FireTextureEffect.cs" />
+    <Compile Include="Drawing\TextureEffects\TextureEffect.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs">
       <SubType>Code</SubType>

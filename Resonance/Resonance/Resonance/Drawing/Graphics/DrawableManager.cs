@@ -13,6 +13,7 @@ namespace Resonance
     class DrawableManager
     {
         private static HashSet<GameComponent> components = new HashSet<GameComponent>();
+        private static HashSet<GameComponent> componentsSecondary = new HashSet<GameComponent>();
 
         /// <summary>
         /// Add a game component
@@ -20,7 +21,14 @@ namespace Resonance
         /// <param name="component">The GameComponent you wish to add</param>
         public static void Add(GameComponent component)
         {
-            components.Add(component);
+            if (component is TextureEffect)
+            {
+                componentsSecondary.Add(component);
+            }
+            else
+            {
+                components.Add(component);
+            }
         }
 
         /// <summary>
@@ -32,6 +40,13 @@ namespace Resonance
             foreach (GameComponent component in components)
             {
                 if (component is DrawableGameComponent) ((DrawableGameComponent)component).Draw(time);
+            }
+            foreach (GameComponent component in componentsSecondary)
+            {
+                if (component is DrawableGameComponent)
+                {
+                    ((DrawableGameComponent)component).Draw(time);
+                }
             }
         }
 
@@ -49,6 +64,15 @@ namespace Resonance
                 }
                 catch (Exception) { }
             }
+
+            foreach (GameComponent component in componentsSecondary)
+            {
+                try
+                {
+                    component.Update(time);
+                }
+                catch (Exception) { }
+            }
         }
 
         /// <summary>
@@ -57,7 +81,14 @@ namespace Resonance
         /// <param name="component"></param>
         public static void Remove(GameComponent component)
         {
-            components.Remove(component);
+            if (components.Contains(component))
+            {
+                components.Remove(component);
+            }
+            else
+            {
+                componentsSecondary.Remove(component);
+            }
         }
 
         /// <summary>
@@ -66,6 +97,8 @@ namespace Resonance
         public static void Clear()
         {
             components.Clear();
+            componentsSecondary.Clear();
+            DebugDisplay.clear();
         }
     }
 }

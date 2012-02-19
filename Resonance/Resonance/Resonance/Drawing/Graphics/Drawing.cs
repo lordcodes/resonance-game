@@ -28,8 +28,7 @@ namespace Resonance
         private static RenderTarget2D mirrorRenderTarget;
         private static Texture2D shinyFloorTexture;
         private static int drawCount = 0;
-
-        private static TextureAnimation sampleTexture;
+        static Texture2D sampleTexture;
 
         /// <summary>
         /// Change the ambient light level of the scene, use positive values to make it brighter, negative values to make it darker.  
@@ -155,13 +154,12 @@ namespace Resonance
         /// </summary>
         public static void loadContent()
         {
+            sampleTexture = content.Load<Texture2D>("Drawing/Textures/texMissing");
             hud.loadContent();
             GameModels.Load();
             gameGraphics.loadContent(content, graphics.GraphicsDevice);
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
             mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
-            //sampleTexture = new TextureAnimation(content.Load<Texture2D>("Drawing/textures/texMissing"));
-            //sampleTexture = GameModels.getTextureAnimationInstance("fireAnimation");
         }
 
         /// <summary>
@@ -170,8 +168,19 @@ namespace Resonance
         /// <param name="gameTime"></param>
         public static void Update(GameTime gameTime)
         {
+            // Fire traile experiment
+            if (GVMotionManager.BOOSTING)
+            {
+                Random randomGen = new Random();
+                int num = randomGen.Next(3);
+                if (num == 1)
+                {
+                    new FireTextureEffect(1, 1, new Vector3(GameScreen.getGV().Body.Position.X + 1/(randomGen.Next(-3,2)+1f), 0.3f, GameScreen.getGV().Body.Position.Z));
+                }
+            }
+
+
             gameGraphics.update(new Vector2(0f, 0f));
-            //sampleTexture.Update(gameTime);
         }
 
         public static Vector2 groundPos(Vector3 position3d, bool one)
@@ -259,26 +268,21 @@ namespace Resonance
             }
         }
 
+        public static void DrawTexture(Texture2D texture, Matrix position, float width, float height)
+        {
+            gameGraphics.drawTexture(texture, position, width, height, drawingReflection);
+        }
+
         /// <summary>
         /// This is called when the character and the HUD should be drawn.
         /// </summary>
         public static void Draw(GameTime gameTime)
         {
             drawCount++;
-            /*Vector3 pos = new Vector3(0, 2f, 0);
-            Matrix texturePos = Matrix.CreateTranslation(pos);
-            Matrix rotation = Matrix.CreateRotationX((float)(Math.PI));
-            texturePos = Matrix.Multiply(rotation,texturePos);
-            gameGraphics.drawTexture(sampleTexture.Texture, texturePos, 3, 3);
-            */
-
-                //drawRangeIndicator();
-                drawParticles();
-                hud.Draw();
-                hud.drawDebugInfo(DebugDisplay.getString());
-                //if (UI.Paused) hud.drawMenu(UI.getString());
-                checkFrameRate(gameTime);
-            
+            drawParticles();
+            hud.Draw();
+            hud.drawDebugInfo(DebugDisplay.getString());
+            checkFrameRate(gameTime);
         }
 
         /// <summary>

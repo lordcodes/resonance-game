@@ -79,21 +79,12 @@ namespace Resonance
         {
             content = newContent;
             graphics = newGraphics;
-        } 
+        }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content needed for drawing the world.
-        /// </summary>
-        public void loadContent(ContentManager content, GraphicsDevice graphicsDevice)
+        public void init2dTextures()
         {
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
-            view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
-            world = Matrix.Identity;
-            shaders = new Shaders();
-            shaders.Default.sceneSetup(world, view, projection, Vector3.Zero);
-            graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
+            particleHeight = -1;
+            particleWidth = -1;
 
             particleVertexDeclaration = new VertexDeclaration(new VertexElement[]
             {
@@ -121,10 +112,26 @@ namespace Resonance
             particleRasterizerState.CullMode = CullMode.None;
             graphics.GraphicsDevice.RasterizerState = particleRasterizerState;
 
-            particleVertices[0] = new VertexPositionNormalTexture(new Vector3(0,0,0), Vector3.Zero, new Vector2(0, 1));
+            particleVertices[0] = new VertexPositionNormalTexture(new Vector3(0, 0, 0), Vector3.Zero, new Vector2(0, 1));
             particleVertices[1] = new VertexPositionNormalTexture(new Vector3(0, 0, 0), Vector3.Zero, new Vector2(1, 1));
             particleVertices[2] = new VertexPositionNormalTexture(new Vector3(0, 0, 0), Vector3.Zero, new Vector2(0, 0));
             particleVertices[3] = new VertexPositionNormalTexture(new Vector3(0, 0, 0), Vector3.Zero, new Vector2(1, 0));
+        }
+
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content needed for drawing the world.
+        /// </summary>
+        public void loadContent(ContentManager content, GraphicsDevice graphicsDevice)
+        {
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
+            view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
+            world = Matrix.Identity;
+            shaders = new Shaders();
+            shaders.Default.sceneSetup(world, view, projection, Vector3.Zero);
+            graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
+            dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
+            init2dTextures();
         }
 
         public void addWave(Vector2 position)
@@ -135,6 +142,7 @@ namespace Resonance
         public void reset()
         {
             if (dispMap != null) dispMap.reset();
+            init2dTextures();
         }
 
         private Vector3 getCamPos(Vector3 newCameraPosition)
@@ -170,17 +178,33 @@ namespace Resonance
 
         public void drawParticle(Texture2D texture, Matrix world, float width, float height, Color colour)
         {
-            draw2dTexture(shaders.Particle, texture, world, width, height, colour);
+            draw2dTexture(shaders.Particle, texture, world, width, height, colour, false);
         }
 
-        public void drawTexture(Texture2D texture, Matrix world, float width, float height)
+        public void drawTexture(Texture2D texture, Matrix world, float width, float height, bool drawingReflection)
         {
-            draw2dTexture(shaders.Default, texture, world, width, height, Color.White);
+            draw2dTexture(shaders.Default, texture, world, width, height, Color.White, drawingReflection);
         }
 
-        private void draw2dTexture(Shader shader, Texture2D texture, Matrix world, float width, float height, Color colour)
+        private void draw2dTexture(Shader shader, Texture2D texture, Matrix world, float width, float height, Color colour, bool drawingReflection)
         {
-            shader.sceneSetup(world, view, projection, cameraPosition, texture);
+            Matrix theView = view;
+            Vector3 cameraPosition2 = cameraPosition;
+            Matrix projection2 = projection;
+            if (drawingReflection)
+            {
+                float heightDisp = 11.5f;
+                float dimension = 16.5f;
+                float scale = (float)(10.4 * Math.Pow((cameraPosition.Y), -0.9));
+                Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -heightDisp, cameraPosition.Z + 0.1f);
+                cameraPosition2 = reflecCameraCoords;
+                theView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
+                projection2 = Matrix.CreatePerspective(dimension, dimension, 1.0f, 100.0f);
+                Matrix heightScale = Matrix.CreateScale(1f, scale, 1f);
+                world = Matrix.Multiply(heightScale, world);
+            }
+
+            shader.sceneSetup(world, theView, projection2, cameraPosition, texture);
             shader.Technique = "StaticObject";
 
             if(shader is ParticleShader)
