@@ -189,8 +189,7 @@ namespace Resonance
         /// <summary>
         /// Returns all bad vibes as a list.
         /// </summary>
-        public List<BadVibe> returnBadVibes()
-        {
+        public List<BadVibe> returnBadVibes() {
             List<BadVibe> badVibes = new List<BadVibe>();
  
             foreach(KeyValuePair<string, Object> kVP in objects) {
@@ -203,6 +202,24 @@ namespace Resonance
             }
 
             return badVibes;
+        }
+
+        /// <summary>
+        /// Returns all bad vibe spawners as a list.
+        /// </summary>
+        public List<BVSpawner> returnSpawners() {
+            List<BVSpawner> bVSpawners = new List<BVSpawner>();
+ 
+            foreach(KeyValuePair<string, Object> kVP in objects) {
+                Object obj = kVP.Value;
+
+                if (obj is BVSpawner)
+                {
+                    bVSpawners.Add((BVSpawner) obj);
+                }
+            }
+
+            return bVSpawners;
         }
 
         public void readXmlFile(string levelName, ContentManager Content)
