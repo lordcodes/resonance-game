@@ -119,7 +119,27 @@ namespace Resonance
         /// <param name="change">Amount to adjust the score</param>
         public void adjustScore(int change)
         {
-            GameScreen.stats.addScore(change * PickupManager.currentMultipler);
+            if (PickupManager.pickupType == -1)
+            {
+                GameScreen.stats.addScore(change);
+            }
+            else if (PickupManager.pickupType == Pickup.X2)
+            {
+                GameScreen.stats.addScore(change * 2);
+            }
+            else if (PickupManager.pickupType == Pickup.X3)
+            {
+                GameScreen.stats.addScore(change * 3);
+            }
+            else if (PickupManager.pickupType == Pickup.PLUS4)
+            {
+                GameScreen.stats.addScore(change + 4);
+            }
+            else if (PickupManager.pickupType == Pickup.PLUS5)
+            {
+                GameScreen.stats.addScore(change + 5);
+            }
+            //GameScreen.stats.addScore(change * PickupManager.currentMultipler);
         }
 
         /// <summary>

@@ -25,7 +25,7 @@ namespace Resonance
         public static readonly int PICKUP           = 8;
         public static readonly int SHIELD_GV        = 9;
         public static readonly int BV_SPAWNER       = 10;
-        public static readonly int BV_Explosion     = 11;
+        public static readonly int BV_EXPLOSION     = 11;
         public static readonly int X2               = 12;
         public static readonly int X3               = 13;
         public static readonly int PLUS4            = 14;

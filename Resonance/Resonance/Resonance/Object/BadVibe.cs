@@ -42,7 +42,7 @@ namespace Resonance
             setColour();
             spawnerNumber = spawner;
             ai = new AIManager(this);
-            deathAnimation = new GameModelInstance(GameModels.BV_Explosion);
+            deathAnimation = new GameModelInstance(GameModels.BV_EXPLOSION);
             deathAnimation.pauseModelAnim();
         }
 

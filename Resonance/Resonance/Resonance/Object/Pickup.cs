@@ -15,14 +15,13 @@ namespace Resonance
 {
     class Pickup : DynamicObject
     {
-        //for reference
-        public const int HEALTH = 2;
-        public const int NITROUS = 3;
-        public const int SHIELD = 4;
-        public const int FREEZE = 5;
+        public const int X2 = 0;
+        public const int X3 = 1;
+        public const int PLUS4 = 2;
+        public const int PLUS5 = 3;
 
-        private int powerupType;
-        private int powerupLength; //length of time the powerup has an effect
+        private int pickupType;
+        private int pickupLength; //length of time the pickup has an effect
         private int initialTime; //initial time
         private int timeToLive; //current time left
         private SingleEntityAngularMotor servo;
@@ -32,22 +31,22 @@ namespace Resonance
         {
             if (modelNum == GameModels.X2)
             {
-                powerupType = 2;
+                pickupType = X2;
             }
             else if (modelNum == GameModels.X3)
             {
-                powerupType = 3;
+                pickupType = X3;
             }
             else if (modelNum == GameModels.PLUS4)
             {
-                powerupType = 4;
+                pickupType = PLUS4;
             }
             else if (modelNum == GameModels.PLUS5)
             {
-                powerupType = 5;
+                pickupType = PLUS5;
             }
 
-            powerupLength = length;
+            pickupLength = length;
             initialTime = time;
             timeToLive = time;
 
@@ -90,7 +89,7 @@ namespace Resonance
         {
             get
             {
-                return powerupType;
+                return pickupType;
             }
         }
 
@@ -98,7 +97,7 @@ namespace Resonance
         {
             get
             {
-                return powerupLength;
+                return pickupLength;
             }
         }
 

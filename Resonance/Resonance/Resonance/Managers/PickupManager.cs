@@ -8,7 +8,8 @@ namespace Resonance
 {
     class PickupManager
     {
-        public static int currentMultipler = 1;
+        //public static int currentMultipler = 1;
+        public static int pickupType;
         private static int timeRemaining = 0;
         //List<int> multiplierValues;
 
@@ -22,11 +23,12 @@ namespace Resonance
         /// <summary>
         /// Adds the new multiplier values when it is hit
         /// </summary>
-        /// <param name="multipler">Multiplier amount</param>
+        /// <param name="pickupType">Multiplier amount</param>
         /// <param name="time">How long this multiplier will last</param>
-        public static void newMultiplier(int multipler, int time)
+        public static void newMultiplier(int ppickupType, int time)
         {
-            currentMultipler = multipler;
+            //currentMultipler = pickupType;
+            pickupType = ppickupType;
             timeRemaining = time;
         }
 
@@ -45,15 +47,16 @@ namespace Resonance
         /// </summary>
         private static void updateTimeRemaining()
         {
-            //DebugDisplay.update("multiplier time left", timeRemaining.ToString());
-            //DebugDisplay.update("multiplier", currentMultipler.ToString());
+            DebugDisplay.update("multiplier time left", timeRemaining.ToString());
+            DebugDisplay.update("multiplierindex", pickupType.ToString());
             if (timeRemaining > 0)
             {
                 timeRemaining--;
             }
             else
             {
-                currentMultipler = 1;
+                pickupType = -1;
+                //currentMultipler = 1;
             }
         }
         
@@ -106,28 +109,28 @@ namespace Resonance
 
                     switch (pickups[i].PowerUpType)
                     {
-                        case Pickup.NITROUS:
+                        case Pickup.X3:
                             {
                                 GameScreen.musicHandler.playSound(MusicHandler.CHINK);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustNitro(10);
                                 break;
                             }
-                        case Pickup.SHIELD:
+                        case Pickup.PLUS4:
                             {
                                 GameScreen.musicHandler.playSound(MusicHandler.DING);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustShield(5);
                                 break;
                             }
-                        case Pickup.HEALTH:
+                        case Pickup.X2:
                             {
                                 GameScreen.musicHandler.playSound(MusicHandler.SHIMMER);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().AdjustHealth(5);
                                 break;
                             }
-                        case Pickup.FREEZE:
+                        case Pickup.PLUS5:
                             {
                                 GameScreen.musicHandler.playSound(MusicHandler.RED);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);

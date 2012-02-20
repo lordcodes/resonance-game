@@ -64,26 +64,26 @@ namespace Resonance
                     {
                         placed = true;
 
-                        int rand = r.Next(0, 16) % 4 + 2;
+                        int rand = r.Next(0, 16) % 4;
                         int model;
                         switch (rand)
                         {
-                            case 2:
+                            case 0:
                                 {
                                     model = GameModels.X2;
                                     break;
                                 }
-                            case 3:
+                            case 1:
                                 {
                                     model = GameModels.X3;
                                     break;
                                 }
-                            case 4:
+                            case 2:
                                 {
                                     model = GameModels.PLUS4;
                                     break;
                                 }
-                            case 5:
+                            case 3:
                                 {
                                     model = GameModels.PLUS5;
                                     break;
