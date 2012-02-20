@@ -31,6 +31,7 @@ namespace Resonance
 
         public static bool  AUTO_ZOOM            = true;
         public static float MIN_ZOOM_SPEED       = 2f;
+        public static float AUTO_ZOOM_STRENGTH   = 2f;
 
         public static bool  DRAW_SCALE_LINES     = true;
         public static int   SCALE_LINE_INTERVAL  = 12;
@@ -220,7 +221,7 @@ namespace Resonance
                 float speed = estimateSpeed(gVRef);
 
                 if (speed > MIN_ZOOM_SPEED)  {
-                    ZOOM = DEFAULT_ZOOM + ((speed - MIN_ZOOM_SPEED) * 5);
+                    ZOOM = DEFAULT_ZOOM + ((speed - MIN_ZOOM_SPEED) * AUTO_ZOOM_STRENGTH);
                 } else {
                     ZOOM = DEFAULT_ZOOM;
                 }
