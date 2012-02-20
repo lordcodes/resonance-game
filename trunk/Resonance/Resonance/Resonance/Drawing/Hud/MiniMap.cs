@@ -27,7 +27,7 @@ namespace Resonance
         public static int   VIBE_HEIGHT          = 20;
 
         public static float ZOOM                 = 40f;
-        public static float DEFAULT_ZOOM         = 40f;
+        public static float DEFAULT_ZOOM         = 80f;
 
         public static bool  AUTO_ZOOM            = true;
         public static float MIN_ZOOM_SPEED       = 2f;
