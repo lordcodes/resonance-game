@@ -41,7 +41,7 @@ namespace Resonance
         public static int   SWEEPER_LENGTH       = 20;
 
         public static bool  DRAW_WORLD_BOX       = true;
-        public static int   WORLD_BOX_THICKNESS  = 4;
+        public static int   WORLD_BOX_THICKNESS  = 12;
 
 
         // Distance outside radar at which distant Vibe marker fades. 
@@ -60,7 +60,7 @@ namespace Resonance
         public static Color    SPAWNER_COLOUR = new Color(0.7f, 0.7f, 0.0f, SPAWNER_ALPHA);
         public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
         public static Color    SWEEPER_COLOUR = new Color(0.0f, 0.0f, 0.9f, 0.5f);
-        public static Color  WORLD_BOX_COLOUR = new Color(0.0f, 0.0f, 0.6f, 0.5f);
+        public static Color  WORLD_BOX_COLOUR = new Color(0.0f, 0.0f, 0.5f, 0.05f);
 
         /// Fields
 
@@ -196,7 +196,10 @@ namespace Resonance
                 cnrScrPos[i] = new Vector2(gvx + ((objPos.X - gVPos2D.X) * scaleFactor), gvy + ((objPos.Y - gVPos2D.Y) * scaleFactor));
             }
 
-            Utility.drawBox(spriteBatch, texPixel, cnrScrPos, WORLD_BOX_COLOUR, WORLD_BOX_THICKNESS);
+            for (int i = 0; i < WORLD_BOX_THICKNESS; i++) {
+                Color c = new Color(0f, 0f, WORLD_BOX_COLOUR.B / (255f * i), WORLD_BOX_COLOUR.A / 255f);
+                Utility.drawBox(spriteBatch, texPixel, cnrScrPos, c, i);
+            }
 
             for (int i = 0; i < 4; i++) {
 
