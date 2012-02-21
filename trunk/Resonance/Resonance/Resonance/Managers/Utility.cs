@@ -76,6 +76,7 @@ namespace Resonance
 
         /// <summary>
         /// Exactly the same as above, only a line's thickness is added to the length so that the box corners will be flush.
+        /// This has deliberately been declared private to avoid confusion. It should only be called from Utility.drawBox().
         /// </summary>
         private static void drawBoxEdge(SpriteBatch spriteBatch, Texture2D tex, Vector2 p1, Vector2 p2, Color c, int thickness) {
             float length = (float) Math.Sqrt(Math.Pow((p1.X - p2.X), 2d) + Math.Pow((p1.Y - p2.Y), 2d));
