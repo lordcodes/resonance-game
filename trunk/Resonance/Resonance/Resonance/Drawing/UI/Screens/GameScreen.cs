@@ -242,8 +242,8 @@ namespace Resonance
         private List<string> processBadVibes()
         {
             List<string> deadVibes = new List<string>();
-
-            foreach (BadVibe bv in world.returnBadVibes())
+            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+            foreach (BadVibe bv in bvs)
             {
                 if (bv.Status == BadVibe.State.DEAD)
                 {
@@ -280,7 +280,8 @@ namespace Resonance
         /// </summary>
         private void breakRestLayers()
         {
-            foreach (BadVibe bv in World.returnBadVibes())
+            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+            foreach (BadVibe bv in bvs)
             {
                 if (bv.Status != BadVibe.State.DEAD)
                 {

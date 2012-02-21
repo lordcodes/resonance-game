@@ -33,7 +33,8 @@ namespace Resonance {
                     break;
                 }
                 case ELIMINATION: { // TODO: Elimination mode termination criteria (no BV left)
-                    if (ScreenManager.game.World.returnBadVibes().Count == 0) TERMINATION_CRITERION_MET = true;
+                    List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+                    if (bvs.Count == 0) TERMINATION_CRITERION_MET = true;
                     break;
                 }
             }

@@ -281,7 +281,9 @@ namespace Resonance
         public void detectCombatAndFreeze()
         {
             isInCombat = false;
-            foreach (BadVibe bv in ScreenManager.game.World.returnBadVibes())
+            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+
+            foreach (BadVibe bv in bvs)
             {
                 double dx = this.Body.Position.X - bv.Body.Position.X;
                 double dz = this.Body.Position.Z - bv.Body.Position.Z;
@@ -305,7 +307,9 @@ namespace Resonance
         public void freezeBadVibes()
         {
             isInCombat = false;
-            foreach (BadVibe bv in ScreenManager.game.World.returnBadVibes())
+            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+
+            foreach (BadVibe bv in bvs)
             {
                 double dx = this.Body.Position.X - bv.Body.Position.X;
                 double dz = this.Body.Position.Z - bv.Body.Position.Z;
