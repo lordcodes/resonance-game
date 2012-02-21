@@ -43,6 +43,12 @@ namespace Resonance
             Particle.AmbientLightColour = light;
         }
 
+        public void setPointLightPos(Vector3 pos)
+        {
+            defaultShader.PointLightPosition = pos;
+            groundShader.PointLightPosition = pos;
+        }
+
         public Shaders()
         {
             defaultShader = new DefaultShader("Drawing/Shaders/Default");
@@ -57,6 +63,16 @@ namespace Resonance
             Vector3 diffuseLightColor2 = new Vector3(0.4f, 0.35f, 0.4f);
             Vector4 specularColorPower = new Vector4(1, 1, 1, 128.0f);
             Vector3 specularLightColor = new Vector3(0.15f, 0.15f, 0.15f);
+
+            Vector3 pointLightPos = new Vector3(0, 7, 0);
+            float pointLightPower = 1;
+            float pointLightAmbient = 0.4f;
+            Default.Parameters["xLightPos"].SetValue(pointLightPos);
+            Default.Parameters["xLightPower"].SetValue(pointLightPower);
+            Default.Parameters["xAmbient"].SetValue(pointLightAmbient);
+            Ground.Parameters["xLightPos"].SetValue(pointLightPos);
+            Ground.Parameters["xLightPower"].SetValue(pointLightPower);
+            Ground.Parameters["xAmbient"].SetValue(pointLightAmbient);
 
             Default.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
             Default.Parameters["LightDirection"].SetValue(-lightDirection);

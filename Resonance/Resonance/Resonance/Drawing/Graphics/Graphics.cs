@@ -34,6 +34,14 @@ namespace Resonance
         private static float particleHalfWidth = 0;
         public static int DISP_WIDTH = 32;
 
+        public Shaders Shaders
+        {
+            get
+            {
+                return shaders;
+            }
+        }
+
         public Matrix Projection
         {
             get
