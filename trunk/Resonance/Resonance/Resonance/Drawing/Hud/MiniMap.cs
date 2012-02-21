@@ -318,8 +318,12 @@ namespace Resonance
             float r = 0f;// gVRef.Body.Orientation.Y;
             spriteBatch.Draw(vibe, new Vector2(gvx, gvy), null, GOOD_VIBE_COLOUR, r, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            // Loop through and draw bad vibes.
-            List<Object>    badVibes = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+            // Loop through and draw stuff.
+
+            List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup)};
+            List<Object> toDraw = ScreenManager.game.World.returnObjectSubset(drawnTypes);
+
+            /*List<Object>    badVibes = ScreenManager.game.World.returnObjectSubset<BadVibe>();
             List<Object>    spawners = ScreenManager.game.World.returnObjectSubset<BVSpawner>();
             List<Object>    pickups  = ScreenManager.game.World.returnObjectSubset<Pickup>();
             List<Object>    toDraw   = new List<Object>();
@@ -332,7 +336,7 @@ namespace Resonance
             }
             foreach (BVSpawner s in spawners) {
                 toDraw.Add((Object) s);
-            }
+            }*/
 
             Vector2 gVPos = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
 

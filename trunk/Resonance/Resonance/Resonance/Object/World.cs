@@ -216,6 +216,19 @@ namespace Resonance
             return objs;
         }
 
+        public List<Object> returnObjectSubset(List<Type> types) {
+            List<Object> objs = new List<Object>();
+
+            foreach(KeyValuePair<string, Object> kVP in objects) {
+                Object o = kVP.Value;
+                foreach (Type t in types) {
+                    if (t.Equals(o.GetType())) objs.Add(o);
+                }
+            }
+
+            return objs;
+        }
+
         public void readXmlFile(string levelName, ContentManager Content)
         {
             //to test the level editor uncomment the next two lines
