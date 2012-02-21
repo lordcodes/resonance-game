@@ -298,8 +298,11 @@ namespace Resonance
             }
 
             // GV's position on screen.
-            int gvx = mapX + (int) ((mapW / 2f) - (VIBE_WIDTH / 2f));
-            int gvy = mapY + (int) ((mapH / 2f) - (VIBE_HEIGHT / 2f));
+            /*int gvx = mapX + (int) ((mapW / 2f) - (VIBE_WIDTH / 2f));
+            int gvy = mapY + (int) ((mapH / 2f) - (VIBE_HEIGHT / 2f));*/
+
+            int gvx = mapX + (int) (mapW / 2f);
+            int gvy = mapY + (int) (mapH / 2f);
 
             // Draw world
             if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox, gvx, gvy);
@@ -315,8 +318,14 @@ namespace Resonance
             }
 
             // Draw good vibe
-            float r = 0f;// gVRef.Body.Orientation.Y;
-            spriteBatch.Draw(vibe, new Vector2(gvx, gvy), null, GOOD_VIBE_COLOUR, r, new Vector2((vibe.Width / 2f) * scaleFactor, (vibe.Height / 2f) * scaleFactor), scaleFactor, SpriteEffects.None, 0f);
+            float r = 0f;// gVRef.Body.Orientation.Y;new Vector2((vibe.Width / 2f) * scaleFactor, (vibe.Height / 2f) * scaleFactor)
+            Vector2 drawPos = new Vector2(gvx - (vibe.Width / 2f), gvy - (vibe.Height / 2f));
+            DebugDisplay.update("W", vibe.Width.ToString());
+            DebugDisplay.update("H", vibe.Height.ToString());
+            Vector2 origin = new Vector2(vibe.Width * scaleFactor / 2f, vibe.Height * scaleFactor / 2f);
+            origin = new Vector2(4.5f, 7.5f);
+            origin = new Vector2(0f, 0f);
+            spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, 1f, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.
             List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup)};
@@ -368,14 +377,17 @@ namespace Resonance
                     Vector2 centre;
 
                     if (o is BadVibe) {
+                        //centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f) * scaleFactor / 2f;
                         centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f);
-                        spriteBatch.Draw(vibe,    new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, BAD_VIBE_COLOUR, objR, centre, scaleFactor, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(vibe,    new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, BAD_VIBE_COLOUR, objR, centre, 1f, SpriteEffects.None, 0f);
                     } else if (o is Pickup) {
+                        //centre = new Vector2(pickup.Width / 2f, pickup.Height / 2f) * scaleFactor / 2f;
                         centre = new Vector2(pickup.Width / 2f, pickup.Height / 2f);
-                        spriteBatch.Draw(pickup,  new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, PICKUP_COLOUR,   objR, centre, scaleFactor, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(pickup,  new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, PICKUP_COLOUR,   objR, centre, 1f, SpriteEffects.None, 0f);
                     } else if (o is BVSpawner) {
+                        //centre = new Vector2(spawner.Width / 2f, spawner.Height / 2f) * scaleFactor / 2f;
                         centre = new Vector2(spawner.Width / 2f, spawner.Height / 2f);
-                        spriteBatch.Draw(spawner, new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, SPAWNER_COLOUR,  objR, centre, scaleFactor, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(spawner, new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, SPAWNER_COLOUR,  objR, centre, 1f, SpriteEffects.None, 0f);
                     }
                 } else if ((o is BadVibe) && (inXRange ^ inYRange)) {
                     float dist = Vector3.Distance(GameScreen.getGV().Body.Position, v.Body.Position);
