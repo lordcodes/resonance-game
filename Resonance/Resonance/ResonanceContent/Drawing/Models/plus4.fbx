@@ -11,10 +11,10 @@ FBXHeaderExtension:  {
 		Year: 2012
 		Month: 2
 		Day: 21
-		Hour: 11
-		Minute: 34
-		Second: 35
-		Millisecond: 580
+		Hour: 16
+		Minute: 9
+		Second: 9
+		Millisecond: 186
 	}
 	Creator: "FBX SDK/FBX Plugins version 2012.1"
 	SceneInfo: "SceneInfo::GlobalInfo", "UserData" {
@@ -30,19 +30,19 @@ FBXHeaderExtension:  {
 			Comment: ""
 		}
 		Properties70:  {
-			P: "DocumentUrl", "KString", "Url", "", "C:\Users\Alex\Documents\Visual Studio 2010\Projects\resonance-game\Resonance\Resonance\ResonanceContent\Drawing\Models\plus42.fbx"
-			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\Alex\Documents\Visual Studio 2010\Projects\resonance-game\Resonance\Resonance\ResonanceContent\Drawing\Models\plus42.fbx"
+			P: "DocumentUrl", "KString", "Url", "", "C:\Users\Alex\Documents\Visual Studio 2010\Projects\resonance-game\Resonance\Resonance\ResonanceContent\Drawing\Models\plus4.fbx"
+			P: "SrcDocumentUrl", "KString", "Url", "", "C:\Users\Alex\Documents\Visual Studio 2010\Projects\resonance-game\Resonance\Resonance\ResonanceContent\Drawing\Models\plus4.fbx"
 			P: "Original", "Compound", "", ""
 			P: "Original|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "Original|ApplicationName", "KString", "", "", "Maya"
 			P: "Original|ApplicationVersion", "KString", "", "", "2012"
-			P: "Original|DateTime_GMT", "DateTime", "", "", "21/02/2012 11:34:35.571"
-			P: "Original|FileName", "KString", "", "", "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/plus42.fbx"
+			P: "Original|DateTime_GMT", "DateTime", "", "", "21/02/2012 16:09:09.183"
+			P: "Original|FileName", "KString", "", "", "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/plus4.fbx"
 			P: "LastSaved", "Compound", "", ""
 			P: "LastSaved|ApplicationVendor", "KString", "", "", "Autodesk"
 			P: "LastSaved|ApplicationName", "KString", "", "", "Maya"
 			P: "LastSaved|ApplicationVersion", "KString", "", "", "2012"
-			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "21/02/2012 11:34:35.571"
+			P: "LastSaved|DateTime_GMT", "DateTime", "", "", "21/02/2012 16:09:09.183"
 		}
 	}
 }
@@ -73,7 +73,7 @@ GlobalSettings:  {
 
 Documents:  {
 	Count: 1
-	Document: 1020511760, "", "Scene" {
+	Document: 1094209216, "", "Scene" {
 		Properties70:  {
 			P: "SourceObject", "object", "", ""
 			P: "ActiveAnimStackName", "KString", "", "", "Take 001"
@@ -293,7 +293,7 @@ Definitions:  {
 ;------------------------------------------------------------------
 
 Objects:  {
-	Geometry: 374666048, "Geometry::", "Mesh" {
+	Geometry: 374713648, "Geometry::", "Mesh" {
 		Vertices: *1620 {
 			a: 3.91562533378601,3.98437786102295,0,3.91562533378601,3.98437786102295,1.25,4.68437767028809,3.21562528610229,0,4.68437767028809,3.21562528610229,1.25,3.91562533378601,3.21562528610229,0,3.91562533378601,3.21562528610229,1.25,3.79062533378601,3.09062528610229,0.125,3.79062533378601,4.10937786102295,0.125,0.675689220428467,3.60000157356262,0,0.550689220428467,3.60000157356262,0.125,0.488189220428467,3.60000157356262,-0.0625,3.72812533378601,4.17187786102295,-0.0625,2.29565763473511,3.98437786102295,0,2.10815763473511,4.17187786102295,-0.0625,2.22534513473511,4.05469036102295,-0.1015625,3.84531283378601,4.05469036102295,-0.1015625,0.605376720428467,3.60000157356262,-0.1015625,0.675689220428467,3.98437786102295,0,0.605376720428467,4.05469036102295,-0.1015625,0.488189220428467,4.17187786102295,-0.0625,2.17065763473511,4.10937786102295,0.125,3.68906283378601,4.21094036102295,0.0546875,2.06909513473511,4.21094036102295,0.0546875,0.449126720428467,3.60000157356262,0.0546875,0.449126720428467,4.21094036102295,0.0546875,0.550689220428467,4.10937786102295,0.125,3.72812533378601,3.02812528610229,-0.0625,0.675689220428467,3.21562528610229,0,0.488189220428467,3.02812528610229,-0.0625,0.605376720428467,3.14531278610229,-0.1015625,3.84531283378601,3.14531278610229,-0.1015625,2.29565763473511,3.21562528610229,0,2.22534513473511,3.14531278610229,-0.1015625,2.10815763473511,3.02812528610229,-0.0625,0.550689220428467,3.09062528610229,0.125,0.449126720428467,2.98906278610229,0.0546875,3.68906283378601,2.98906278610229,0.0546875,2.06909513473511,2.98906278610229,0.0546875,2.17065763473511,3.09062528610229,0.125,0.675689220428467,3.60000157356262,1.25,3.68906283378601,4.21094036102295,1.1953125,0.449126720428467,3.60000157356262,1.1953125,2.06909513473511,4.21094036102295,1.1953125,3.79062533378601,4.10937786102295,1.125,2.17065763473511,4.10937786102295,1.125,0.550689220428467,3.60000157356262,1.125,0.550689220428467,4.10937786102295,1.125,0.449126720428467,4.21094036102295,1.1953125,3.72812533378601,4.17187786102295,1.3125,
 0.488189220428467,3.60000157356262,1.3125,2.10815763473511,4.17187786102295,1.3125,0.488189220428467,4.17187786102295,1.3125,2.29565763473511,3.98437786102295,1.25,3.84531283378601,4.05469036102295,1.3515625,2.22534513473511,4.05469036102295,1.3515625,0.605376720428467,3.60000157356262,1.3515625,0.605376720428467,4.05469036102295,1.3515625,0.675689220428467,3.98437786102295,1.25,3.68906283378601,2.98906278610229,1.1953125,0.449126720428467,2.98906278610229,1.1953125,0.550689220428467,3.09062528610229,1.125,3.79062533378601,3.09062528610229,1.125,2.17065763473511,3.09062528610229,1.125,2.06909513473511,2.98906278610229,1.1953125,3.72812533378601,3.02812528610229,1.3125,0.488189220428467,3.02812528610229,1.3125,2.10815763473511,3.02812528610229,1.3125,0.675689220428467,3.21562528610229,1.25,0.605376720428467,3.14531278610229,1.3515625,3.84531283378601,3.14531278610229,1.3515625,2.22534513473511,3.14531278610229,1.3515625,2.29565763473511,3.21562528610229,1.25,4.80937767028809,3.09062528610229,0.125,4.30000162124634,0.00624856958165765,0,4.30000162124634,-0.118751429021358,0.125,4.30000162124634,-0.181251436471939,-0.0625,3.91562533378601,1.61093688011169,0,3.72812533378601,1.42343688011169,-0.0625,3.84531283378601,1.54062438011169,-0.1015625,4.30000162124634,-0.0640639290213585,-0.1015625,3.91562533378601,0.00624856958165765,0,3.84531283378601,-0.0640639290213585,-0.1015625,3.72812533378601,-0.181251436471939,-0.0625,3.79062533378601,1.48593688011169,0.125,3.68906283378601,1.38437438011169,0.0546875,4.30000162124634,-0.220313936471939,0.0546875,3.68906283378601,-0.220313936471939,0.0546875,3.79062533378601,-0.118751429021358,0.125,4.87187767028809,3.02812528610229,-0.0625,4.68437767028809,0.00624856958165765,0,4.87187767028809,-0.181251436471939,-0.0625,4.75469017028809,-0.0640639290213585,-0.1015625,4.75469017028809,3.14531278610229,-0.1015625,4.68437767028809,1.61093688011169,0,4.75469017028809,1.54062438011169,-0.1015625,4.87187767028809,1.42343688011169,-0.0625,4.80937767028809,-0.118751429021358,0.125,4.91094017028809,-0.220313936471939,0.0546875,
@@ -426,7 +426,7 @@ Objects:  {
 			}
 		}
 	}
-	Geometry: 374684048, "Geometry::", "Mesh" {
+	Geometry: 374706448, "Geometry::", "Mesh" {
 		Vertices: *24 {
 			a: -0.5,-0.5,0.5,0.5,-0.5,0.5,-0.5,0.500000238418579,0.5,0.5,0.500000238418579,0.5,-0.5,0.500000238418579,-0.5,0.5,0.500000238418579,-0.5,-0.5,-0.5,-0.5,0.5,-0.5,-0.5
 		} 
@@ -483,24 +483,25 @@ Objects:  {
 			}
 		}
 	}
-	Model: 1022999824, "Model::plus4", "Mesh" {
+	Model: 1099772448, "Model::plus4", "Mesh" {
 		Version: 232
 		Properties70:  {
-			P: "RotationPivot", "Vector3D", "Vector", "",7.022,0,0.625000022351742
-			P: "ScalingPivot", "Vector3D", "Vector", "",7.022,0,0.625000022351742
+			P: "RotationPivot", "Vector3D", "Vector", "",7.68135281658173,2.52500035613775,0.662109386175871
+			P: "ScalingOffset", "Vector3D", "Vector", "",-0.659352816581726,-2.52500035613775,-0.0371093638241291
+			P: "ScalingPivot", "Vector3D", "Vector", "",8.34070563316345,5.05000071227551,0.69921875
 			P: "RotationActive", "bool", "", "",1
 			P: "InheritType", "enum", "", "",1
 			P: "ScalingMax", "Vector3D", "Vector", "",0,0,0
 			P: "DefaultAttributeIndex", "int", "Integer", "",0
-			P: "Lcl Translation", "Lcl Translation", "", "A",-7.022,7.12935029007067,-0.588
-			P: "Lcl Scaling", "Lcl Scaling", "", "A",0.5,0.5,0.5
+			P: "Lcl Translation", "Lcl Translation", "", "A",-7.68135281658173,1.18982563225942,-0.588
+			P: "Lcl Scaling", "Lcl Scaling", "", "A",0.4,0.4,0.4
 		}
 		MultiLayer: 0
 		MultiTake: 1
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Model: 1023015344, "Model::pCube1", "Mesh" {
+	Model: 1099787968, "Model::pCube1", "Mesh" {
 		Version: 232
 		Properties70:  {
 			P: "RotationActive", "bool", "", "",1
@@ -515,7 +516,7 @@ Objects:  {
 		Shading: T
 		Culling: "CullingOff"
 	}
-	Material: 374685648, "Material::plus4blinn", "" {
+	Material: 374712848, "Material::plus4blinn", "" {
 		Version: 102
 		ShadingModel: "phong"
 		MultiLayer: 0
@@ -535,22 +536,28 @@ Objects:  {
 			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Material: 1017608736, "Material::lambert1", "" {
+	Material: 374706048, "Material::blinn4", "" {
 		Version: 102
-		ShadingModel: "lambert"
+		ShadingModel: "phong"
 		MultiLayer: 0
 		Properties70:  {
 			P: "AmbientColor", "ColorRGB", "Color", "",0,0,0
 			P: "DiffuseColor", "ColorRGB", "Color", "",1,1,1
 			P: "DiffuseFactor", "double", "Number", "",0.800000011920929
 			P: "TransparencyFactor", "double", "Number", "",1
+			P: "SpecularColor", "ColorRGB", "Color", "",0.5,0.5,0.5
+			P: "ShininessExponent", "double", "Number", "",1.24573092330083
+			P: "ReflectionFactor", "double", "Number", "",0.5
 			P: "Emissive", "Vector3D", "Vector", "",0,0,0
 			P: "Ambient", "Vector3D", "Vector", "",0,0,0
 			P: "Diffuse", "Vector3D", "Vector", "",0.800000011920929,0.800000011920929,0.800000011920929
+			P: "Specular", "Vector3D", "Vector", "",0.5,0.5,0.5
+			P: "Shininess", "double", "Number", "",1.24573092330083
 			P: "Opacity", "double", "Number", "",1
+			P: "Reflectivity", "double", "Number", "",0
 		}
 	}
-	Video: 374686848, "Video::file2", "Clip" {
+	Video: 374706848, "Video::file2", "Clip" {
 		Type: "Clip"
 		Properties70:  {
 			P: "Path", "KString", "XRefUrl", "", "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/plus4.png"
@@ -559,16 +566,16 @@ Objects:  {
 		Filename: "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/plus4.png"
 		RelativeFilename: "plus4.png"
 	}
-	Video: 374687248, "Video::file5", "Clip" {
+	Video: 374710448, "Video::file6", "Clip" {
 		Type: "Clip"
 		Properties70:  {
-			P: "Path", "KString", "XRefUrl", "", "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/crate.jpg"
+			P: "Path", "KString", "XRefUrl", "", "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/crate.png"
 		}
 		UseMipMap: 0
-		Filename: "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/crate.jpg"
-		RelativeFilename: "crate.jpg"
+		Filename: "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/crate.png"
+		RelativeFilename: "crate.png"
 	}
-	Texture: 1015913280, "Texture::file2", "" {
+	Texture: 1096245280, "Texture::file2", "" {
 		Type: "TextureVideoClip"
 		Version: 202
 		TextureName: "Texture::file2"
@@ -585,24 +592,24 @@ Objects:  {
 		Texture_Alpha_Source: "None"
 		Cropping: 0,0,0,0
 	}
-	Texture: 1015912768, "Texture::file5", "" {
+	Texture: 1096243232, "Texture::file6", "" {
 		Type: "TextureVideoClip"
 		Version: 202
-		TextureName: "Texture::file5"
+		TextureName: "Texture::file6"
 		Properties70:  {
 			P: "CurrentTextureBlendMode", "enum", "", "",0
 			P: "UVSet", "KString", "", "", "map1"
 			P: "UseMaterial", "bool", "", "",1
 		}
-		Media: "Video::file5"
-		FileName: "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/crate.jpg"
-		RelativeFilename: "crate.jpg"
+		Media: "Video::file6"
+		FileName: "C:/Users/Alex/Documents/Visual Studio 2010/Projects/resonance-game/Resonance/Resonance/ResonanceContent/Drawing/Models/crate.png"
+		RelativeFilename: "crate.png"
 		ModelUVTranslation: 0,0
 		ModelUVScaling: 1,1
 		Texture_Alpha_Source: "None"
 		Cropping: 0,0,0,0
 	}
-	AnimationStack: 1015866592, "AnimStack::Take 001", "" {
+	AnimationStack: 1098760048, "AnimStack::Take 001", "" {
 		Properties70:  {
 			P: "LocalStart", "KTime", "Time", "",1924423250
 			P: "LocalStop", "KTime", "Time", "",46186158000
@@ -610,7 +617,7 @@ Objects:  {
 			P: "ReferenceStop", "KTime", "Time", "",46186158000
 		}
 	}
-	AnimationLayer: 367426656, "AnimLayer::BaseLayer", "" {
+	AnimationLayer: 367558816, "AnimLayer::BaseLayer", "" {
 	}
 }
 
@@ -620,40 +627,43 @@ Objects:  {
 Connections:  {
 	
 	;Model::plus4, Model::RootNode
-	C: "OO",1022999824,0
+	C: "OO",1099772448,0
 	
 	;Model::pCube1, Model::RootNode
-	C: "OO",1023015344,0
+	C: "OO",1099787968,0
 	
 	;AnimLayer::BaseLayer, AnimStack::Take 001
-	C: "OO",367426656,1015866592
+	C: "OO",367558816,1098760048
 	
 	;Texture::file2, Material::plus4blinn
-	C: "OP",1015913280,374685648, "DiffuseColor"
+	C: "OP",1096245280,374712848, "DiffuseColor"
 	
 	;Texture::file2, Material::plus4blinn
-	C: "OP",1015913280,374685648, "TransparentColor"
+	C: "OP",1096245280,374712848, "TransparentColor"
 	
 	;Video::file2, Texture::file2
-	C: "OO",374686848,1015913280
+	C: "OO",374706848,1096245280
 	
 	;Geometry::, Model::plus4
-	C: "OO",374666048,1022999824
+	C: "OO",374713648,1099772448
 	
 	;Material::plus4blinn, Model::plus4
-	C: "OO",374685648,1022999824
+	C: "OO",374712848,1099772448
 	
-	;Texture::file5, Material::lambert1
-	C: "OP",1015912768,1017608736, "DiffuseColor"
+	;Texture::file6, Material::blinn4
+	C: "OP",1096243232,374706048, "DiffuseColor"
 	
-	;Video::file5, Texture::file5
-	C: "OO",374687248,1015912768
+	;Texture::file6, Material::blinn4
+	C: "OP",1096243232,374706048, "TransparentColor"
+	
+	;Video::file6, Texture::file6
+	C: "OO",374710448,1096243232
 	
 	;Geometry::, Model::pCube1
-	C: "OO",374684048,1023015344
+	C: "OO",374706448,1099787968
 	
-	;Material::lambert1, Model::pCube1
-	C: "OO",1017608736,1023015344
+	;Material::blinn4, Model::pCube1
+	C: "OO",374706048,1099787968
 }
 ;Takes section
 ;----------------------------------------------------
