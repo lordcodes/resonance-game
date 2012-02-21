@@ -43,6 +43,8 @@ namespace Resonance
         public static bool  DRAW_WORLD_BOX       = true;
         public static int   WORLD_BOX_THICKNESS  = 12;
 
+        public static bool  DRAW_STATIC_OBJECTS  = true;
+        public static int   BOX_THICKNESS        = 1;
 
         // Distance outside radar at which distant Vibe marker fades. 
         public static float VANISHING_POINT      = 5f;
@@ -60,6 +62,7 @@ namespace Resonance
         public static Color    SPAWNER_COLOUR = new Color(0.7f, 0.7f, 0.0f, SPAWNER_ALPHA);
         public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
         public static Color    SWEEPER_COLOUR = new Color(0.0f, 0.0f, 0.9f, 0.5f);
+        public static Color         BOX_COLOR = new Color(1.0f, 1.0f, 1.0f, 0.5f);
         public static Color  WORLD_BOX_COLOUR = new Color(0.0f, 0.0f, 0.5f, 0.05f);
 
         /// Fields
@@ -253,7 +256,7 @@ namespace Resonance
                 cnrScrPos[i] = new Vector2(gvx + ((objPos.X - gVPos2D.X) * scaleFactor), gvy + ((objPos.Y - gVPos2D.Y) * scaleFactor));
             }
 
-            Utility.drawBox(spriteBatch, texPixel, cnrScrPos, Color.Black, 4);
+            Utility.drawBox(spriteBatch, texPixel, cnrScrPos, BOX_COLOR, BOX_THICKNESS);
         }
 
         ///<summary>
@@ -261,22 +264,6 @@ namespace Resonance
         /// </summary>
         public void draw(SpriteBatch spriteBatch)
         {
-            /*if (!large) {
-                mapX = MAP_X;
-                mapY = MAP_Y;
-                mapW = MAP_WIDTH;
-                mapH = MAP_HEIGHT;
-
-                scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
-            } else  {
-                mapX = LARGE_MAP_X;
-                mapY = LARGE_MAP_Y;
-                mapW = LARGE_MAP_WIDTH;
-                mapH = LARGE_MAP_HEIGHT;
-
-                scaleFactor = (LARGE_MAP_WIDTH / (2 * DEFAULT_ZOOM));
-            }*/
-
             gVRef = (GoodVibe) ScreenManager.game.World.getObject("Player");
 
             if (AUTO_ZOOM) {
@@ -317,7 +304,8 @@ namespace Resonance
             // Draw world
             if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox, gvx, gvy);
 
-            List<StaticObject> objs = ScreenManager.game.World.returnStaticObjects();
+            //List<StaticObject> objs = ScreenManager.game.World.returnStaticObjects();
+            List<Object> objs = ScreenManager.game.World.returnObjectSubset<StaticObject>();
 
             foreach (StaticObject s in objs) {
                 if (!(s is BVSpawner) && !(s.Equals(ScreenManager.game.World.getObject("Ground")))) {
