@@ -222,6 +222,24 @@ namespace Resonance
             return bVSpawners;
         }
 
+        /// <summary>
+        /// Returns all static objects as a list.
+        /// </summary>
+        public List<StaticObject> returnStaticObjects() {
+            List<StaticObject> statics = new List<StaticObject>();
+ 
+            foreach(KeyValuePair<string, Object> kVP in objects) {
+                Object obj = kVP.Value;
+
+                if (obj is StaticObject)
+                {
+                    statics.Add((StaticObject) obj);
+                }
+            }
+
+            return statics;
+        }
+
         public void readXmlFile(string levelName, ContentManager Content)
         {
             //to test the level editor uncomment the next two lines

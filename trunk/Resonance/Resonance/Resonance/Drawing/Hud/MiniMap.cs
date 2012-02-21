@@ -168,16 +168,14 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Draws a bounding box.
+        /// Draws the world's bounding box.
         /// </summary>
         private void drawWorldBox(SpriteBatch spriteBatch, BoundingBox bBox, int gvx, int gvy) {
             Vector3 min = bBox.Min;
-            Vector3 max = new Vector3(-min.X, -min.Y, -min.Z);;
+            Vector3 max = new Vector3(-min.X, -min.Y, -min.Z);
 
             Vector2[] cnrScrPos = new Vector2[4];
             Vector2[] corners   = new Vector2[4];
-            Vector2[] midpoints = new Vector2[4];
-              float[] lengths   = new   float[4];
 
             Vector2 gVPos2D = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
 
@@ -186,9 +184,11 @@ namespace Resonance
             corners[2].X = max.X; corners[2].Y = max.Z;
             corners[3].X = max.X; corners[3].Y = min.Z;
 
-            Vector2 relToGV, objPos, screenPos;
+            Vector2 relToGV, objPos;
             float angle = (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;;
 
+
+            // Calculate positions of box corners on screen.
             for (int i = 0; i < 4; i++) {
                 relToGV      = gVPos2D - corners[i];
                 relToGV      = Utility.rotateVector2(relToGV, angle);
@@ -201,18 +201,9 @@ namespace Resonance
                 Utility.drawBox(spriteBatch, texPixel, cnrScrPos, c, i);
             }
 
-            for (int i = 0; i < 4; i++) {
-
-                if (i != 3) {
-                    midpoints[i] = new Vector2((cnrScrPos[i].X + cnrScrPos[i + 1].X) / 2f, (cnrScrPos[i].Y + cnrScrPos[i + 1].Y) / 2f);
-                    lengths[i]   = (float) Math.Sqrt(Math.Pow((cnrScrPos[i].X - cnrScrPos[i + 1].X), 2d) + Math.Pow((cnrScrPos[i].Y - cnrScrPos[i + 1].Y), 2d));
-                } else {
-                    midpoints[i] = new Vector2((cnrScrPos[3].X + cnrScrPos[0].X) / 2f, (cnrScrPos[3].Y + cnrScrPos[0].Y) / 2f);
-                    lengths[i]   = (float) Math.Sqrt(Math.Pow((cnrScrPos[3].X - cnrScrPos[0].X), 2d) + Math.Pow((cnrScrPos[3].Y - cnrScrPos[0].Y), 2d));
-                }
-
-                // Draws world corners
-                /*switch (i) {
+            // Draws world corners
+            /*for (int i = 0; i < 4; i++) {
+                switch (i) {
                     case(0) : {
                         spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Red, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
                         break;
@@ -229,8 +220,40 @@ namespace Resonance
                         spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Yellow, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
                         break;
                     }
-                }*/
+                }
+            }*/
+        }
+
+                /// <summary>
+        /// Draws the world's bounding box.
+        /// </summary>
+        private void drawBox(SpriteBatch spriteBatch, BoundingBox bBox, int gvx, int gvy) {
+            Vector3 min = bBox.Min;
+            Vector3 max = bBox.Max;
+
+            Vector2[] cnrScrPos = new Vector2[4];
+            Vector2[] corners   = new Vector2[4];
+
+            Vector2 gVPos2D = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
+
+            corners[0].X = min.X; corners[0].Y = min.Z;
+            corners[1].X = min.X; corners[1].Y = max.Z;
+            corners[2].X = max.X; corners[2].Y = max.Z;
+            corners[3].X = max.X; corners[3].Y = min.Z;
+
+            Vector2 relToGV, objPos;
+            float angle = (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;;
+
+
+            // Calculate positions of box corners on screen.
+            for (int i = 0; i < 4; i++) {
+                relToGV      = gVPos2D - corners[i];
+                relToGV      = Utility.rotateVector2(relToGV, angle);
+                objPos       = gVPos2D - relToGV;
+                cnrScrPos[i] = new Vector2(gvx + ((objPos.X - gVPos2D.X) * scaleFactor), gvy + ((objPos.Y - gVPos2D.Y) * scaleFactor));
             }
+
+            Utility.drawBox(spriteBatch, texPixel, cnrScrPos, Color.Black, 4);
         }
 
         ///<summary>
@@ -293,6 +316,16 @@ namespace Resonance
 
             // Draw world
             if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox, gvx, gvy);
+
+            List<StaticObject> objs = ScreenManager.game.World.returnStaticObjects();
+
+            foreach (StaticObject s in objs) {
+                if (!(s is BVSpawner) && !(s.Equals(ScreenManager.game.World.getObject("Ground")))) {
+                    try {
+                        drawBox(spriteBatch, s.Body.BoundingBox, gvx, gvy);
+                    } catch (Exception e) {}
+                }
+            }
 
             // Draw good vibe
             float r = 0f;// gVRef.Body.Orientation.Y;
