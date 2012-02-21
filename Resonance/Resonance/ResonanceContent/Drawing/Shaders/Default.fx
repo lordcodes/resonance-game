@@ -5,6 +5,9 @@ texture ColorTexture;
 texture DispMap;
 float3 AmbientLightColor;
 float3 DiffuseColor;
+float3 xLightPos;
+float xLightPower;
+float xAmbient;
 float3 LightDirection;
 float3 DiffuseLightColor;
 float3 LightDirection2;
@@ -48,6 +51,7 @@ struct VertexShaderOutput
 	float4 TexCoord : TEXCOORD0;
 	float3 Normal   : TEXCOORD1;
 	float3 View     : TEXCOORD2;
+	float3 Position3D: TEXCOORD3;
 	float height   : PSIZE;
 };
 
@@ -75,12 +79,17 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     float4 viewPosition = mul(worldPosition, View);
     output.Position = mul(viewPosition, Projection);
 
-
-
-	output.Normal = mul(input.Normal, World);
+	output.Position3D = mul(input.Position, World);
+	output.Normal = normalize(mul(input.Normal, (float3x3)World)); 
 	output.View = CameraPosition - worldPosition;
 	output.height = height;
     return output;
+}
+
+float DotProduct(float3 lightPos, float3 pos3D, float3 normal)
+{
+    float3 lightDir = normalize(pos3D - lightPos);
+    return dot(-lightDir, normal);    
 }
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
@@ -88,9 +97,15 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float3 normal = normalize(input.Normal);
 	float3 finalColor;
 	float4 fullColor;
-
-
 	fullColor = tex2D(ColorTextureSampler, input.TexCoord);
+
+	
+	float3 xLightPos = float3(0,7,0);
+	float xLightPower = 2;
+	float xAmbient = 0.4f;
+	float diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
+	diffuseLightingFactor = saturate(diffuseLightingFactor);
+	diffuseLightingFactor *= xLightPower;
 
 
 	finalColor = float3(fullColor.x, fullColor.y, fullColor.z);
@@ -107,7 +122,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	if (NdotL != 0) specular += pow(NdotH, SpecularColorPower.w) * SpecularLightColor;
 	finalColor += SpecularColorPower.xyz * specular * fullColor.a;
 	clip( fullColor.a < 0.1f ? -1:1 );
-    return float4(finalColor,fullColor.a);
+    return float4(finalColor*(diffuseLightingFactor+xAmbient),fullColor.a);
 }
 
 
@@ -153,6 +168,8 @@ VertexShaderOutput AnimationVertexShader(VSInputNmTxWeights input)
     float4 viewPosition = mul(worldPosition, View);
     output.Position = mul(viewPosition, Projection);
 	output.TexCoord = input.TexCoord;
+	output.Position3D = mul(input.Position, World);
+	output.Normal = normalize(mul(input.Normal, (float3x3)World)); 
 	output.Normal = mul(input.Normal, World);
 	output.View = CameraPosition - worldPosition;
 	output.height = 0;
