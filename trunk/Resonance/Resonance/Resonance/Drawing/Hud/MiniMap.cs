@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
+using BEPUphysics;
 
 namespace Resonance
 {
@@ -39,7 +40,8 @@ namespace Resonance
         public static bool  SWEEPER_ON           = true;
         public static int   SWEEPER_LENGTH       = 20;
 
-        public static bool  DRAW_WORLD_BOX       = false;//true;
+        public static bool  DRAW_WORLD_BOX       = true;
+        public static int   WORLD_BOX_THICKNESS  = 4;
 
 
         // Distance outside radar at which distant Vibe marker fades. 
@@ -58,6 +60,7 @@ namespace Resonance
         public static Color    SPAWNER_COLOUR = new Color(0.7f, 0.7f, 0.0f, SPAWNER_ALPHA);
         public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
         public static Color    SWEEPER_COLOUR = new Color(0.0f, 0.0f, 0.9f, 0.5f);
+        public static Color  WORLD_BOX_COLOUR = new Color(0.0f, 0.0f, 0.6f, 0.5f);
 
         /// Fields
 
@@ -70,6 +73,7 @@ namespace Resonance
         private static Texture2D block;
         private static Texture2D pickup;
         private static Texture2D spawner;
+        private static Texture2D texPixel;
 
         private static int SPEED_SAMPLES = 10;
         private static List<float> speeds;
@@ -114,6 +118,7 @@ namespace Resonance
             block      = content.Load<Texture2D>("Drawing/HUD/Textures/block");
             pickup     = content.Load<Texture2D>("Drawing/HUD/Textures/pickup");
             spawner    = content.Load<Texture2D>("Drawing/HUD/Textures/spawner");
+            texPixel   = content.Load<Texture2D>("Drawing/Textures/texPixel");
         }
 
 
@@ -163,33 +168,65 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Draws a bounding box. EPICALLY BROKEN.
+        /// Draws a bounding box.
         /// </summary>
-        private void drawWorldBox(SpriteBatch spriteBatch, BoundingBox bBox) {
+        private void drawWorldBox(SpriteBatch spriteBatch, BoundingBox bBox, int gvx, int gvy) {
             Vector3 min = bBox.Min;
-            Vector3 max = bBox.Max;
+            Vector3 max = new Vector3(-min.X, -min.Y, -min.Z);;
+
+            Vector2[] cnrScrPos = new Vector2[4];
+            Vector2[] corners   = new Vector2[4];
+            Vector2[] midpoints = new Vector2[4];
+              float[] lengths   = new   float[4];
 
             Vector2 gVPos2D = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
-
-            Vector2[] corners = new Vector2[4];
-            Vector2[] relCnrs = new Vector2[4];
 
             corners[0].X = min.X; corners[0].Y = min.Z;
             corners[1].X = min.X; corners[1].Y = max.Z;
             corners[2].X = max.X; corners[2].Y = max.Z;
             corners[3].X = max.X; corners[3].Y = min.Z;
 
-            relCnrs[0].X = (corners[0].X - gVPos2D.X) * scaleFactor; relCnrs[0].Y = (corners[0].Y - gVPos2D.Y) * scaleFactor;
-            relCnrs[1].X = (corners[1].X - gVPos2D.X) * scaleFactor; relCnrs[1].Y = (corners[1].Y - gVPos2D.Y) * scaleFactor;
-            relCnrs[2].X = (corners[2].X - gVPos2D.X) * scaleFactor; relCnrs[2].Y = (corners[2].Y - gVPos2D.Y) * scaleFactor;
-            relCnrs[3].X = (corners[3].X - gVPos2D.X) * scaleFactor; relCnrs[3].Y = (corners[3].Y - gVPos2D.Y) * scaleFactor;
+            Vector2 relToGV, objPos, screenPos;
+            float angle = (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;;
 
-            for (int i = 0; i < 3; i++) {
-                int h = (int) Math.Sqrt((Math.Pow((relCnrs[i].X - relCnrs[i + 1].X), 2)) + (Math.Pow((relCnrs[i].Y - relCnrs[i + 1].Y), 2)));
-                int x = (int) relCnrs[i + 1].X;
-                int y = (int) relCnrs[i + 1].Y;
-                float ang = (float) Math.Atan(((relCnrs[i].X - relCnrs[i + 1].X) / ((relCnrs[i].Y - relCnrs[i + 1].Y))));
-                spriteBatch.Draw(background, new Rectangle(x, y, 1, h), null, BAD_VIBE_COLOUR, ang, relCnrs[i + 1], SpriteEffects.None, 0f);
+            for (int i = 0; i < 4; i++) {
+                relToGV      = gVPos2D - corners[i];
+                relToGV      = Utility.rotateVector2(relToGV, angle);
+                objPos       = gVPos2D - relToGV;
+                cnrScrPos[i] = new Vector2(gvx + ((objPos.X - gVPos2D.X) * scaleFactor), gvy + ((objPos.Y - gVPos2D.Y) * scaleFactor));
+            }
+
+            Utility.drawBox(spriteBatch, texPixel, cnrScrPos, WORLD_BOX_COLOUR, WORLD_BOX_THICKNESS);
+
+            for (int i = 0; i < 4; i++) {
+
+                if (i != 3) {
+                    midpoints[i] = new Vector2((cnrScrPos[i].X + cnrScrPos[i + 1].X) / 2f, (cnrScrPos[i].Y + cnrScrPos[i + 1].Y) / 2f);
+                    lengths[i]   = (float) Math.Sqrt(Math.Pow((cnrScrPos[i].X - cnrScrPos[i + 1].X), 2d) + Math.Pow((cnrScrPos[i].Y - cnrScrPos[i + 1].Y), 2d));
+                } else {
+                    midpoints[i] = new Vector2((cnrScrPos[3].X + cnrScrPos[0].X) / 2f, (cnrScrPos[3].Y + cnrScrPos[0].Y) / 2f);
+                    lengths[i]   = (float) Math.Sqrt(Math.Pow((cnrScrPos[3].X - cnrScrPos[0].X), 2d) + Math.Pow((cnrScrPos[3].Y - cnrScrPos[0].Y), 2d));
+                }
+
+                // Draws world corners
+                /*switch (i) {
+                    case(0) : {
+                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Red, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        break;
+                    }
+                    case(1) : {
+                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Green, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        break;
+                    }
+                    case(2) : {
+                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Blue, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        break;
+                    }
+                    case(3) : {
+                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Yellow, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        break;
+                    }
+                }*/
             }
         }
 
@@ -247,13 +284,14 @@ namespace Resonance
                 }
             }
 
-            // Draw world
-            if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox);
-
-            // Draw good vibe
+            // GV's position on screen.
             int gvx = mapX + (int) ((mapW / 2f) - (VIBE_WIDTH / 2f));
             int gvy = mapY + (int) ((mapH / 2f) - (VIBE_HEIGHT / 2f));
 
+            // Draw world
+            if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox, gvx, gvy);
+
+            // Draw good vibe
             float r = 0f;// gVRef.Body.Orientation.Y;
             spriteBatch.Draw(vibe, new Vector2(gvx, gvy), null, GOOD_VIBE_COLOUR, r, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
