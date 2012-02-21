@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance
 {
@@ -62,6 +63,35 @@ namespace Resonance
             result.Y = (float)((vec.X * Math.Sin(theta)) + (vec.Y * Math.Cos(theta)));
 
             return result;
+        }
+
+        /// <summary>
+        /// Draws a line between two points on a SpriteBatch, as it can be a bit awkward.
+        /// </summary>
+        public static void drawLine(SpriteBatch spriteBatch, Texture2D tex, Vector2 p1, Vector2 p2, Color c, int thickness) {
+            float length = (float) Math.Sqrt(Math.Pow((p1.X - p2.X), 2d) + Math.Pow((p1.Y - p2.Y), 2d));
+            float ang    = (float) Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
+            spriteBatch.Draw(tex, p1, null, c, ang, new Vector2(0f, 0f), new Vector2(length, thickness), SpriteEffects.None, 0f);
+        }
+
+        /// <summary>
+        /// Exactly the same as above, only a line's thickness is added to the length so that the box corners will be flush.
+        /// </summary>
+        public static void drawBoxEdge(SpriteBatch spriteBatch, Texture2D tex, Vector2 p1, Vector2 p2, Color c, int thickness) {
+            float length = (float) Math.Sqrt(Math.Pow((p1.X - p2.X), 2d) + Math.Pow((p1.Y - p2.Y), 2d));
+            length += thickness;
+            float ang    = (float) Math.Atan2(p2.Y - p1.Y, p2.X - p1.X);
+            spriteBatch.Draw(tex, p1, null, c, ang, new Vector2(0f, 0f), new Vector2(length, thickness), SpriteEffects.None, 0f);
+        }
+
+        /// <summary>
+        ///  Draws a box on a SpriteBatch
+        /// </summary>
+        public static void drawBox(SpriteBatch spriteBatch, Texture2D tex, Vector2[] corners, Color c, int thickness) {
+            Utility.drawBoxEdge(spriteBatch, tex, corners[0], corners[1], c, thickness);
+            Utility.drawBoxEdge(spriteBatch, tex, corners[1], corners[2], c, thickness);
+            Utility.drawBoxEdge(spriteBatch, tex, corners[2], corners[3], c, thickness);
+            Utility.drawBoxEdge(spriteBatch, tex, corners[3], corners[0], c, thickness);
         }
     }
 }
