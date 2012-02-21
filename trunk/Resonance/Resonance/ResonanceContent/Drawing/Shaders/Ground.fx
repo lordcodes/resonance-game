@@ -17,6 +17,9 @@ float4x3 xBones[60];
 float2 gvPos;
 float2 camPos;
 float groundSize;
+float3 xLightPos;
+float xLightPower;
+float xAmbient;
 
 sampler DispMapSampler = sampler_state
 {
@@ -168,9 +171,6 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 		}
 	}
 
-	float3 xLightPos = float3(0,7,0);
-	float xLightPower = 2;
-	float xAmbient = 0.4f;
 	float diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
 	diffuseLightingFactor = saturate(diffuseLightingFactor);
 	diffuseLightingFactor *= xLightPower;

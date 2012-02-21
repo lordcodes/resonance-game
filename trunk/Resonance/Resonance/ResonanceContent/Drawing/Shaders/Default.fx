@@ -99,10 +99,6 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float4 fullColor;
 	fullColor = tex2D(ColorTextureSampler, input.TexCoord);
 
-	
-	float3 xLightPos = float3(0,7,0);
-	float xLightPower = 2;
-	float xAmbient = 0.4f;
 	float diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
 	diffuseLightingFactor = saturate(diffuseLightingFactor);
 	diffuseLightingFactor *= xLightPower;

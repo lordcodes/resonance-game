@@ -10,7 +10,7 @@ namespace Resonance
     class DefaultShader : Shader
     {
 
-        public DefaultShader(string file) : base(file) { }
+        public DefaultShader(string file) : base(file, true) { }
 
         public Matrix[] Bones
         {

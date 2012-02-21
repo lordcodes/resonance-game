@@ -10,7 +10,7 @@ namespace Resonance
     class GroundShader : Shader
     {
 
-        public GroundShader(string file) : base(file) { }
+        public GroundShader(string file) : base(file, true) { }
 
         public Vector2 GoodVibePos
         {

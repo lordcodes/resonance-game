@@ -9,7 +9,7 @@ namespace Resonance
 {
     class ParticleShader : Shader
     {
-        public ParticleShader(string file) : base(file){}
+        public ParticleShader(string file) : base(file, false) { }
         private Color currentColour;
 
         public void setColour(Color colour)

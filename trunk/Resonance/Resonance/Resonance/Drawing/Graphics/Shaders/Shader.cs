@@ -16,7 +16,9 @@ namespace Resonance
         private Matrix currentProjection;
         private Vector3 currentAmbientLight;
         private Vector3 currentCameraPosition;
+        private Vector3 pointLightPosition;
         private string currentTechnique = "";
+        private bool lights;
 
         public string Technique
         {
@@ -102,6 +104,18 @@ namespace Resonance
             }
         }
 
+        public Vector3 PointLightPosition
+        {
+            set
+            {
+                if (lights && value != pointLightPosition)
+                {
+                    pointLightPosition = value;
+                    Effect.Parameters["xLightPos"].SetValue(value);
+                }
+            }
+        }
+
         public Effect Effect
         {
             get
@@ -164,8 +178,9 @@ namespace Resonance
             sceneSetup(view, projection, camera);
         }
 
-        public Shader(string file)
+        public Shader(string file, bool lights)
         {
+            this.lights = lights;
             customEffect = Drawing.Content.Load<Effect>(file);
         }
     }
