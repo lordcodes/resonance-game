@@ -83,7 +83,11 @@ namespace Resonance
 
         private static int sweeperX = MAP_X + MAP_WIDTH;
 
+        // Defines scale for things which grow larger in large map mode.
         private static float scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
+
+        // Defines scale for things which stay the same size in small and large map mode.
+        private static float sF = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
 
         private GoodVibe gVRef;
 
@@ -276,7 +280,8 @@ namespace Resonance
                     ZOOM = DEFAULT_ZOOM;
                 }
 
-                scaleFactor = (mapW / (2 * ZOOM));
+                scaleFactor = (mapW / (2 * ZOOM)); // MAP_W applies to both map sizes, mode dependent.
+                sF = (MAP_WIDTH / (2 * ZOOM));     // MAP_WIDTH applies only to small map, as sF is mode independent.
             }
 
             // Calculate how far from the good vibe the corner of the map is.
@@ -319,13 +324,12 @@ namespace Resonance
 
             // Draw good vibe
             float r = 0f;// gVRef.Body.Orientation.Y;new Vector2((vibe.Width / 2f) * scaleFactor, (vibe.Height / 2f) * scaleFactor)
-            Vector2 drawPos = new Vector2(gvx - (vibe.Width / 2f), gvy - (vibe.Height / 2f));
+            Vector2 drawPos = new Vector2(gvx - (vibe.Width / 2f) * sF, gvy - (vibe.Height / 2f) * sF);
             DebugDisplay.update("W", vibe.Width.ToString());
             DebugDisplay.update("H", vibe.Height.ToString());
             Vector2 origin = new Vector2(vibe.Width * scaleFactor / 2f, vibe.Height * scaleFactor / 2f);
-            origin = new Vector2(4.5f, 7.5f);
             origin = new Vector2(0f, 0f);
-            spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, 1f, SpriteEffects.None, 0f);
+            spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, sF, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.
             List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup)};
@@ -374,20 +378,24 @@ namespace Resonance
                     }
                     
                     objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));
+                    Vector2 objDrawPos;
                     Vector2 centre;
 
                     if (o is BadVibe) {
+                        objDrawPos = objScreenPos - new Vector2(vibe.Width / 2f * sF, vibe.Height / 2f * sF);
                         //centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f) * scaleFactor / 2f;
                         centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f);
-                        spriteBatch.Draw(vibe,    new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, BAD_VIBE_COLOUR, objR, centre, 1f, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(vibe,    objDrawPos, null, BAD_VIBE_COLOUR, objR, centre, sF, SpriteEffects.None, 0f);
                     } else if (o is Pickup) {
+                        objDrawPos = objScreenPos - new Vector2(pickup.Width / 2f * sF, pickup.Height / 2f * sF);
                         //centre = new Vector2(pickup.Width / 2f, pickup.Height / 2f) * scaleFactor / 2f;
                         centre = new Vector2(pickup.Width / 2f, pickup.Height / 2f);
-                        spriteBatch.Draw(pickup,  new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, PICKUP_COLOUR,   objR, centre, 1f, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(pickup,  objDrawPos, null, PICKUP_COLOUR,   objR, centre, sF, SpriteEffects.None, 0f);
                     } else if (o is BVSpawner) {
+                        objDrawPos = objScreenPos - new Vector2(spawner.Width / 2f * sF, spawner.Height / 2f * sF);
                         //centre = new Vector2(spawner.Width / 2f, spawner.Height / 2f) * scaleFactor / 2f;
                         centre = new Vector2(spawner.Width / 2f, spawner.Height / 2f);
-                        spriteBatch.Draw(spawner, new Vector2((int)objScreenPos.X, (int)objScreenPos.Y), null, SPAWNER_COLOUR,  objR, centre, 1f, SpriteEffects.None, 0f);
+                        spriteBatch.Draw(spawner, objDrawPos, null, SPAWNER_COLOUR,  objR, centre, sF, SpriteEffects.None, 0f);
                     }
                 } else if ((o is BadVibe) && (inXRange ^ inYRange)) {
                     float dist = Vector3.Distance(GameScreen.getGV().Body.Position, v.Body.Position);
