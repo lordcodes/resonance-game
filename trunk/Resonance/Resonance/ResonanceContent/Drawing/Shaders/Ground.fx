@@ -61,6 +61,7 @@ struct VertexShaderOutput
 	float4 TexCoord : TEXCOORD0;
 	float3 Normal   : TEXCOORD1;
 	float3 View     : TEXCOORD2;
+	float3 Position3D: TEXCOORD3;
 	float height   : PSIZE;
 };
 
@@ -96,11 +97,18 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     output.Position = mul(viewPosition, Projection);
 
 
-
-	output.Normal = mul(input.Normal, World);
+	
+	output.Position3D = mul(input.Position, World);
+	output.Normal = normalize(mul(input.Normal, (float3x3)World)); 
 	output.View = CameraPosition - worldPosition;
 	output.height = height;
     return output;
+}
+
+float DotProduct(float3 lightPos, float3 pos3D, float3 normal)
+{
+    float3 lightDir = normalize(pos3D - lightPos);
+    return dot(-lightDir, normal);    
 }
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
@@ -160,65 +168,14 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 		}
 	}
 
-	return fullColor;
-}
+	float3 xLightPos = float3(0,7,0);
+	float xLightPower = 2;
+	float xAmbient = 0.4f;
+	float diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
+	diffuseLightingFactor = saturate(diffuseLightingFactor);
+	diffuseLightingFactor *= xLightPower;
 
-
-///////////////////////////////////
-
- 
- 
-struct VSInputNmTxWeights  
-{  
-    float4 Position : POSITION0;  
-    float3 Normal   : NORMAL0;  
-    float4 TexCoord : TEXCOORD0;  
-    int4   Indices  : BLENDINDICES0;  
-    float4 Weights  : BLENDWEIGHT0;  
-};  
- 
-void Skin(inout VSInputNmTxWeights vin, uniform int boneCount)  
-{  
-    float4x3 skinning = 0;  
- 
-    [unroll]  
-    for (int i = 0; i < boneCount; i++)  
-    {  
-        skinning += xBones[vin.Indices[i]] * vin.Weights[i];  
-    }  
- 
-    vin.Position.xyz = mul(vin.Position, skinning);  
-    vin.Normal = mul(vin.Normal, (float3x3)skinning);  
-}  
- 
-struct Animation_VSOut  
-{  
-    float4 Position         : POSITION0;       
-    float3 Normal           : TEXCOORD0;  
-    float2 TexCoords        : TEXCOORD1;  
-};  
- 
-VertexShaderOutput AnimationVertexShader(VSInputNmTxWeights input)  
-{  
-    VertexShaderOutput output;
-    Skin(input, 2);
-    float4 worldPosition = mul(input.Position, World);
-    float4 viewPosition = mul(worldPosition, View);
-    output.Position = mul(viewPosition, Projection);
-	output.TexCoord = input.TexCoord;
-	output.Normal = mul(input.Normal, World);
-	output.View = CameraPosition - worldPosition;
-	output.height = 0;
-    return output;  
-}
- 
-technique Animation 
-{  
-    Pass  
-    {  
-        VertexShader = compile vs_3_0 AnimationVertexShader();  
-        PixelShader = compile ps_3_0 PixelShaderFunction();  
-    }  
+	return fullColor*(diffuseLightingFactor+xAmbient);
 }
 
 technique StaticObject
