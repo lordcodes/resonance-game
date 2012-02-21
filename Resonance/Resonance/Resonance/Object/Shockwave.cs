@@ -93,10 +93,10 @@ namespace Resonance
             transform = Matrix.Multiply(transform, translate);
         }
 
-        public void checkBadVibes()
-        {
-            foreach (BadVibe bv in ScreenManager.game.World.returnBadVibes())
-            {
+        public void checkBadVibes() {
+            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+
+            foreach (BadVibe bv in bvs) {
                 if (bv.Status != BadVibe.State.DEAD && !bVibes.Contains(bv))
                 {
                     double dist = Vector3.Distance(Position, bv.Body.Position);
