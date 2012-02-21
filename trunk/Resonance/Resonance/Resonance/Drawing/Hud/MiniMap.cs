@@ -304,7 +304,6 @@ namespace Resonance
             // Draw world
             if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox, gvx, gvy);
 
-            //List<StaticObject> objs = ScreenManager.game.World.returnStaticObjects();
             List<Object> objs = ScreenManager.game.World.returnObjectSubset<StaticObject>();
 
             foreach (StaticObject s in objs) {
@@ -320,9 +319,9 @@ namespace Resonance
             spriteBatch.Draw(vibe, new Vector2(gvx, gvy), null, GOOD_VIBE_COLOUR, r, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             // Loop through and draw bad vibes.
-            List<BadVibe>   badVibes = ScreenManager.game.World.returnBadVibes();
-            List<BVSpawner> spawners = ScreenManager.game.World.returnSpawners();
-            List<Pickup>    pickups  = PickupManager.returnPickups();
+            List<Object>    badVibes = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+            List<Object>    spawners = ScreenManager.game.World.returnObjectSubset<BVSpawner>();
+            List<Object>    pickups  = ScreenManager.game.World.returnObjectSubset<Pickup>();
             List<Object>    toDraw   = new List<Object>();
 
             foreach (BadVibe b in badVibes) {

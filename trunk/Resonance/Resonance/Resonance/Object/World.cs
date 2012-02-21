@@ -204,41 +204,6 @@ namespace Resonance
             return badVibes;
         }
 
-        /// <summary>
-        /// Returns all bad vibe spawners as a list.
-        /// </summary>
-        public List<BVSpawner> returnSpawners() {
-            List<BVSpawner> bVSpawners = new List<BVSpawner>();
- 
-            foreach(KeyValuePair<string, Object> kVP in objects) {
-                Object obj = kVP.Value;
-
-                if (obj is BVSpawner)
-                {
-                    bVSpawners.Add((BVSpawner) obj);
-                }
-            }
-
-            return bVSpawners;
-        }
-
-        /// <summary>
-        /// Returns all static objects as a list.
-        /// </summary>
-        public List<StaticObject> returnStaticObjects() {
-            List<StaticObject> statics = new List<StaticObject>();
- 
-            foreach(KeyValuePair<string, Object> kVP in objects) {
-                Object obj = kVP.Value;
-
-                if (obj is StaticObject)
-                {
-                    statics.Add((StaticObject) obj);
-                }
-            }
-
-            return statics;
-        }
 
         public List<Object> returnObjectSubset<T>() {
             List<Object> objs = new List<Object>();
