@@ -329,6 +329,8 @@ namespace Resonance
             DebugDisplay.update("H", vibe.Height.ToString());
             Vector2 origin = new Vector2(vibe.Width * scaleFactor / 2f, vibe.Height * scaleFactor / 2f);
             origin = new Vector2(0f, 0f);
+            //Texture2D scaled = Drawing.scaleTexture(vibe, 2f);
+            //Texture2D scaled = Drawing.flipTexture(vibe, true, true);
             spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, sF, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.

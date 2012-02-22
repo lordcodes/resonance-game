@@ -133,6 +133,40 @@ namespace Resonance
             return flipped;
         }
 
+        public static Texture2D scaleTexture(Texture2D src, float sF) {
+            int newW = (int) (src.Width  * sF);
+            int newH = (int) (src.Height * sF);
+            Texture2D scaled = new Texture2D(src.GraphicsDevice, newW, newH);
+            Color[] data = new Color[src.Width * src.Height];
+            Color[] scaledData = new Color[newW * newH];
+
+            src.GetData<Color>(data);
+
+            int idx;
+            float srcX = 0f;
+            float srcY = 0f;
+            float px, py;
+
+            for (int x = 0; x < newW; x++) {
+                px = (1f / newW) * x;
+                srcX = (int) ((px * src.Width) + 0.5f);
+                int k = 0;
+                for (int y = 0; y < newH; y++) {
+                    py = (1f / newH) * y;
+                    srcY = (int) ((py * src.Height) + 0.5f);
+
+                    idx = (int) srcX + (int) (srcY * src.Width);
+
+                    Color c = data[idx];
+                    scaledData[x + y * newW] = c;
+                }
+            }
+
+            scaled.SetData<Color>(scaledData);
+
+            return scaled;
+        }
+
         /// <summary>
         /// Create a drawing object, need to pass it the ContentManager and 
         /// GraphicsDeviceManger for it to use
@@ -371,6 +405,5 @@ namespace Resonance
             }
             DebugDisplay.update("FPS", currentFrameRate.ToString());
         }
-
     }
 }
