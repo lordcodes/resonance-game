@@ -10,7 +10,7 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>0</gameModelNum>
         <pickuptype>-1</pickuptype>
-      </Item>
+      </Item>    
       <Item>
         <identifier>Player</identifier>
         <type>Good_vibe</type>

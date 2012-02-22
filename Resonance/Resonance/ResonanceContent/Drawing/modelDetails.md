@@ -53,7 +53,7 @@ fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1
 7,			wave,					1,			wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest
 9,          ShieldGoodVibe,         0.35,		spaceShip,              0,				goodVibeTexture
-10,         BV_Spawner,             0.6,		box,                    0.6,            spawnTexture
+10,         BV_Spawner,             0.6,		box,                    0.6,            spawnTexture,                           1
 11,         BV_Explosion,           0.1,		BV_Explosion,           0.1,                          ,							1
 12,			x2,						0.25,		x2,						0.25
 13,			x3,						0.25,		x3,						0.25

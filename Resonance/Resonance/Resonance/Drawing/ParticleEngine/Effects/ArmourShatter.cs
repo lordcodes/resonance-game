@@ -28,8 +28,8 @@ namespace Resonance {
             pTex               = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texTriangle");
             bVRef              = v;
             blastVec           = blast;
-            emissionsPerUpdate = 200;
-            particlesLeft      = 200;
+            emissionsPerUpdate = 40; //200
+            particlesLeft      = 40; //200
             maxParticleSpd     = 1.2f;
             maxParticleLife    = 50;
             iPSize             = 0.4f;

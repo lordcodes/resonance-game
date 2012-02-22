@@ -36,7 +36,7 @@ namespace Resonance
             {
                 GameScreen.getGV().showBeat();
             }
-            if ((pad.Buttons.LeftShoulder == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
+            if ((pad.Buttons.Back == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
             {
                 GameScreen.musicHandler.getTrack().playTrack();
             }
