@@ -263,7 +263,7 @@ namespace Resonance
                                 texturePos = Matrix.Multiply(rX, Matrix.Multiply(rY, Matrix.Multiply(rZ, Matrix.Multiply(rR, texturePos))));
                             }
                         }
-
+                         
                         gameGraphics.drawParticle(e.getPTex(), texturePos, size, size, p.getColour());
                     } catch (Exception) {}
                 }

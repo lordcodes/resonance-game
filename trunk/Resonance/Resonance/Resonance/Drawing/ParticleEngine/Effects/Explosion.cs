@@ -10,8 +10,8 @@ namespace Resonance {
 
         public Explosion(Vector3 p)
             : base(p) {
-            emissionsPerUpdate = 500;
-            particlesLeft      = 500;
+            emissionsPerUpdate = 100;// 500;
+            particlesLeft      = 100;// 500;
             maxParticleSpd     = 0.9f;
             maxParticleLife    = 30;
             iColour            = Color.White;
