@@ -265,18 +265,23 @@ namespace Resonance
             Shader currentShader;
 
             currentShader = shaders.Default;
-
-            if (drawingShadows)
+            if (Drawing.SHADOWS)
             {
                 Matrix lightsViewProjectionMatrix;
 
-                //Matrix lightsView = Matrix.CreateLookAt(Shaders.Default.PointLightPosition, new Vector3(-2, 3, -10), new Vector3(0, 1, 0));
-                Matrix lightsView = view;
-                Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 5f, 100f);
+                Matrix lightsView = Matrix.CreateLookAt(new Vector3(0,20, 0), new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0, 1, 0));
+                //Matrix lightsView = view;
+                Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 5f, 1000f);
 
                 lightsViewProjectionMatrix = lightsView * lightsProjection;
-                Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(Matrix.Identity * lightsViewProjectionMatrix);
-                currentShader.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                Shaders.Ground.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * view * projection);
+            }
+            if (drawingShadows)
+            {
+                //Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(Matrix.Identity * lightsViewProjectionMatrix);
+                //Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(Matrix.Identity * lightsViewProjectionMatrix);
                 DebugDisplay.update("sh", "done");
             }
             else if (drawingReflection)
@@ -339,6 +344,7 @@ namespace Resonance
                     currentShader.Technique = "StaticObject";
                 }
                 if(drawingShadows)currentShader.Technique = "ShadowMap";
+                //else currentShader.Technique = "ShadowedScene";
                 
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
