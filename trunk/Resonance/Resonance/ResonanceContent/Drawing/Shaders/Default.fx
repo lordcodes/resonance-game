@@ -2,6 +2,7 @@ float4x4 World;
 float4x4 View;
 float4x4 Projection;
 texture ColorTexture;
+texture ShadowTexture;
 texture DispMap;
 float3 AmbientLightColor;
 float3 DiffuseColor;
@@ -17,6 +18,7 @@ float3 SpecularLightColor;
 float3 CameraPosition;
 float4x3 xBones[60];
 float2 gvPos;
+float4x4 xLightsWorldViewProjection;
 
 sampler DispMapSampler = sampler_state
 {
@@ -193,5 +195,44 @@ technique StaticObject
     {
         VertexShader = compile vs_3_0 VertexShaderFunction();
         PixelShader = compile ps_3_0 PixelShaderFunction();
+    }
+}
+
+struct SMapVertexToPixel
+{
+    float4 Position     : POSITION;
+    float4 Position2D    : TEXCOORD0;
+};
+
+SMapVertexToPixel ShadowMapVertexShader( float4 inPos : POSITION)
+{
+    SMapVertexToPixel Output = (SMapVertexToPixel)0;
+
+    Output.Position = mul(inPos, xLightsWorldViewProjection);
+    Output.Position2D = Output.Position;
+
+    return Output;
+}
+
+struct SMapPixelToFrame
+{
+    float4 Color : COLOR0;
+};
+
+SMapPixelToFrame ShadowMapPixelShader(SMapVertexToPixel PSIn)
+{
+    SMapPixelToFrame Output = (SMapPixelToFrame)0;            
+
+    Output.Color = PSIn.Position2D.z/PSIn.Position2D.w;
+
+    return Output;
+}
+
+technique ShadowMap
+{
+    pass Pass0
+    {
+        VertexShader = compile vs_2_0 ShadowMapVertexShader();
+        PixelShader = compile ps_2_0 ShadowMapPixelShader();
     }
 }

@@ -15,6 +15,7 @@ namespace Resonance
     class Drawing
     {
         private static bool FLOOR_REFLECTIONS = true;
+        private static bool SHADOWS = false;
 
         private static GraphicsDeviceManager graphics;
         private static ContentManager content;
@@ -25,10 +26,14 @@ namespace Resonance
         private static int currentFrameRate;
         private static Vector3 playerPos;
         private static bool drawingReflection = false;
+        private static bool drawingShadows = false;
         private static RenderTarget2D mirrorRenderTarget;
+        private static RenderTarget2D shadowsRenderTarget;
         private static Texture2D shinyFloorTexture;
+        private static Texture2D shadowsTexture;
         private static int drawCount = 0;
         static Texture2D sampleTexture;
+        //static TextureEffect te;
 
         /// <summary>
         /// Change the ambient light level of the scene, use positive values to make it brighter, negative values to make it darker.  
@@ -44,11 +49,24 @@ namespace Resonance
             get { return content; }
         }
 
-        public static bool requestRender
+        public static bool requestReflectionRender
         {
             get
             {
                 if (FLOOR_REFLECTIONS && drawCount > 0)
+                {
+                    drawCount = 0;
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        public static bool requestShadowsRender
+        {
+            get
+            {
+                if (SHADOWS)
                 {
                     drawCount = 0;
                     return true;
@@ -96,9 +114,17 @@ namespace Resonance
         {
             graphics.GraphicsDevice.SetRenderTarget(mirrorRenderTarget);
             drawingReflection = true;
+            drawingShadows = false;
         }
 
-        public static void drawGame()
+        public static void drawShadow()
+        {
+            graphics.GraphicsDevice.SetRenderTarget(shadowsRenderTarget);
+            drawingShadows = true;
+            drawingReflection = false;
+        }
+
+        public static void drawReflections()
         {
             if (FLOOR_REFLECTIONS)
             {
@@ -107,9 +133,29 @@ namespace Resonance
                 try
                 {
                     ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
-                }catch(Exception){
+                }
+                catch (Exception)
+                {
                 }
                 drawingReflection = false;
+            }
+        }
+
+        public static void drawShadows()
+        {
+            if (SHADOWS)
+            {
+                graphics.GraphicsDevice.SetRenderTarget(null);
+                shadowsTexture = (Texture2D)shadowsRenderTarget;
+                try
+                {
+                    //((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
+                    gameGraphics.Shaders.setShadowTexture(shadowsTexture);
+                }
+                catch (Exception)
+                {
+                }
+                drawingShadows = false;
             }
         }
 
@@ -193,7 +239,12 @@ namespace Resonance
             GameModels.Load();
             gameGraphics.loadContent(content, graphics.GraphicsDevice);
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
-            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24);
+            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 8, RenderTargetUsage.PlatformContents);
+            shadowsRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 8, RenderTargetUsage.PlatformContents);
+
+
+            //te = new TextureEffect(5, 5, new Vector3(0,6,0), true, new TextureAnimation(shadowsTexture));
+        
         }
 
         /// <summary>
@@ -319,6 +370,8 @@ namespace Resonance
             hud.Draw();
             hud.drawDebugInfo(DebugDisplay.getString());
             checkFrameRate(gameTime);
+
+            //DrawTexture(shadowsTexture, te.Position, te.Width, te.Height);
         }
 
         /// <summary>
@@ -332,7 +385,8 @@ namespace Resonance
             {
                 bool blend = false;
                 Vector2 playerGroundPos = new Vector2(0f, 0f);
-                graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+                if (drawingShadows) graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+                else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
                 if (worldObject is GoodVibe)
                 {
                     int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
@@ -359,7 +413,7 @@ namespace Resonance
 
                 graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
-                gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection);
+                gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
 
                 graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
 

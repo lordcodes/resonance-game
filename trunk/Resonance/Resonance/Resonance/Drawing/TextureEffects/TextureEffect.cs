@@ -50,6 +50,7 @@ namespace Resonance
 
         public Matrix getPosition(Vector3 camera)
         {
+            camera.Y = position.Y;
             return Matrix.Invert(Matrix.CreateLookAt(position,camera,Vector3.Down));
         }
 

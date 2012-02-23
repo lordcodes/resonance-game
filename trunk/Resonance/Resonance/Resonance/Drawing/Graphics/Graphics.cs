@@ -174,9 +174,9 @@ namespace Resonance
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
-        public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
+        public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
-            drawModel(worldObject, worldTransform, disp,  drawingReflection);
+            drawModel(worldObject, worldTransform, disp,  drawingReflection, drawingShadows);
         }
 
         public void update(Vector2 playerPos)
@@ -252,7 +252,7 @@ namespace Resonance
         }
 
 
-        private void drawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection)
+        private void drawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
@@ -264,7 +264,22 @@ namespace Resonance
             Matrix projection2 = projection;
             Shader currentShader;
 
-            if (drawingReflection)
+            currentShader = shaders.Default;
+
+            if (drawingShadows)
+            {
+                Matrix lightsViewProjectionMatrix;
+
+                //Matrix lightsView = Matrix.CreateLookAt(Shaders.Default.PointLightPosition, new Vector3(-2, 3, -10), new Vector3(0, 1, 0));
+                Matrix lightsView = view;
+                Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 5f, 100f);
+
+                lightsViewProjectionMatrix = lightsView * lightsProjection;
+                Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(Matrix.Identity * lightsViewProjectionMatrix);
+                currentShader.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                DebugDisplay.update("sh", "done");
+            }
+            else if (drawingReflection)
             {
                 float height = 11.5f;
                 //float dimension = 12.7f for 0.1 square;
@@ -277,9 +292,7 @@ namespace Resonance
                 Matrix heightScale = Matrix.CreateScale(1f, scale, 1f);
                 world = Matrix.Multiply(heightScale, world);
             }
-
-
-            if (disp)
+            else if (disp)
             {
                 currentShader = shaders.Ground;
                 ((GroundShader)currentShader).setDispMap(dispMap.getMap());
@@ -315,7 +328,7 @@ namespace Resonance
                 meshCount++;
 
                 currentShader.World = modelTransforms[mesh.ParentBone.Index] * world;
-
+                
                 if (gmodel.ModelAnimation)
                 {
                     currentShader.Technique = "Animation";
@@ -325,7 +338,8 @@ namespace Resonance
                 {
                     currentShader.Technique = "StaticObject";
                 }
-
+                if(drawingShadows)currentShader.Technique = "ShadowMap";
+                
                 foreach (ModelMeshPart meshPart in mesh.MeshParts)
                 {
                     graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
