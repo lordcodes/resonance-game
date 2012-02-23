@@ -15,7 +15,7 @@ namespace Resonance
     class Drawing
     {
         private static bool FLOOR_REFLECTIONS = true;
-        private static bool SHADOWS = false;
+        public static bool SHADOWS = false;
 
         private static GraphicsDeviceManager graphics;
         private static ContentManager content;
@@ -244,6 +244,8 @@ namespace Resonance
 
 
             //te = new TextureEffect(5, 5, new Vector3(0,6,0), true, new TextureAnimation(shadowsTexture));
+
+            gameGraphics.Shaders.setPointLightPos(new Vector3(0, 8, 0));
         
         }
 

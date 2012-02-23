@@ -21,6 +21,19 @@ float groundSize;
 float3 xLightPos;
 float xLightPower;
 float xAmbient;
+float4x4 xLightsWorldViewProjection;
+float4x4 xWorldViewProjection;
+
+
+sampler ShadowMapSampler = sampler_state
+{
+	texture = <ShadowTexture>;
+	magfilter = LINEAR;
+	minfilter = LINEAR;
+	mipfilter=LINEAR;
+	AddressU = clamp;
+	AddressV = clamp;
+};
 
 sampler DispMapSampler = sampler_state
 {
@@ -67,6 +80,7 @@ struct VertexShaderOutput
 	float3 View     : TEXCOORD2;
 	float3 Position3D: TEXCOORD3;
 	float height   : PSIZE;
+    float4 Pos2DAsSeenByLight    : TEXCOORD4;
 };
 
 float4 tex2DlodSmooth( sampler texSam, float4 uv )
@@ -105,7 +119,8 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	output.Position3D = mul(input.Position, World);
 	output.Normal = normalize(mul(input.Normal, (float3x3)World)); 
 	output.View = CameraPosition - worldPosition;
-	output.height = height;
+	output.height = height;   
+    output.Pos2DAsSeenByLight= mul(input.Position, xLightsWorldViewProjection);   
     return output;
 }
 
@@ -175,8 +190,29 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
 	diffuseLightingFactor = saturate(diffuseLightingFactor);
 	diffuseLightingFactor *= xLightPower;
+	return (fullColor*(diffuseLightingFactor+xAmbient));
 
-	return fullColor*(diffuseLightingFactor+xAmbient);
+    float2 ProjectedTexCoords;
+    ProjectedTexCoords[0] = input.Pos2DAsSeenByLight.x/input.Pos2DAsSeenByLight.w/2.0f +0.5f;
+    ProjectedTexCoords[1] = -input.Pos2DAsSeenByLight.y/input.Pos2DAsSeenByLight.w/2.0f +0.5f;
+    
+    diffuseLightingFactor = 0;
+    if ((saturate(ProjectedTexCoords).x == ProjectedTexCoords.x) && (saturate(ProjectedTexCoords).y == ProjectedTexCoords.y))
+    {
+        float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
+        float realDistance = input.Pos2DAsSeenByLight.z/input.Pos2DAsSeenByLight.w;
+        if ((realDistance - 1.0f/100.0f) <= depthStoredInShadowMap)
+        {
+            diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
+            diffuseLightingFactor = saturate(diffuseLightingFactor);
+            diffuseLightingFactor *= xLightPower;            
+        }
+    }
+        
+    float4 baseColor = tex2D(ColorTextureSampler, input.TexCoord);                
+    fullColor = baseColor*(diffuseLightingFactor + xAmbient);
+
+    //return fullColor;
 }
 
 technique StaticObject
@@ -185,5 +221,49 @@ technique StaticObject
     {
         VertexShader = compile vs_3_0 VertexShaderFunction();
         PixelShader = compile ps_3_0 PixelShaderFunction();
+    }
+}
+
+struct SSceneVertexToPixel
+{
+    float4 Position             : POSITION;
+    float4 Pos2DAsSeenByLight    : TEXCOORD0;
+};
+
+struct SScenePixelToFrame
+{
+    float4 Color : COLOR0;
+};
+
+
+SSceneVertexToPixel ShadowedSceneVertexShader( float4 inPos : POSITION)
+{
+    SSceneVertexToPixel Output = (SSceneVertexToPixel)0;
+
+    Output.Position = mul(inPos, xWorldViewProjection);    
+    Output.Pos2DAsSeenByLight= mul(inPos, xLightsWorldViewProjection);    
+    return Output;
+}
+
+
+SScenePixelToFrame ShadowedScenePixelShader(SSceneVertexToPixel PSIn)
+{
+    SScenePixelToFrame Output = (SScenePixelToFrame)0;    
+
+    float2 ProjectedTexCoords;
+    ProjectedTexCoords[0] = PSIn.Pos2DAsSeenByLight.x/PSIn.Pos2DAsSeenByLight.w/2.0f +0.5f;
+    ProjectedTexCoords[1] = -PSIn.Pos2DAsSeenByLight.y/PSIn.Pos2DAsSeenByLight.w/2.0f +0.5f;
+
+    Output.Color = tex2D(ColorTextureSampler, ProjectedTexCoords);
+
+    return Output;
+}
+
+technique ShadowedScene
+{
+    pass Pass0
+    {
+        VertexShader = compile vs_2_0 ShadowedSceneVertexShader();
+        PixelShader = compile ps_2_0 ShadowedScenePixelShader();
     }
 }
