@@ -313,13 +313,21 @@ namespace Resonance
             //Drawing.setAmbientLight(new Vector3(2f, 2f, 2f));
 
             graphics.GraphicsDevice.Clear(Color.Black);
-            if (Drawing.requestRender)
+            if (Drawing.requestReflectionRender)
             {
                 Drawing.drawReflection();
                 graphics.GraphicsDevice.Clear(Color.Black);
                 DrawableManager.Draw(gameTime);
             }
-            Drawing.drawGame();
+            Drawing.drawReflections();
+            graphics.GraphicsDevice.Clear(Color.Black);
+            if (Drawing.requestShadowsRender)
+            {
+                Drawing.drawShadow();
+                graphics.GraphicsDevice.Clear(Color.Black);
+                DrawableManager.Draw(gameTime);
+            }
+            Drawing.drawShadows();
             graphics.GraphicsDevice.Clear(Color.Black);
             DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);

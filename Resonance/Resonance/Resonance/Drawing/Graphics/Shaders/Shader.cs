@@ -11,6 +11,7 @@ namespace Resonance
     {
         private Effect customEffect;
         private Texture currentTexture;
+        private Texture shadowTexture;
         private Matrix currentWorld;
         private Matrix currentView;
         private Matrix currentProjection;
@@ -40,6 +41,18 @@ namespace Resonance
                 {
                     currentTexture = value;
                     Effect.Parameters["ColorTexture"].SetValue(value);
+                }
+            }
+        }
+
+        public Texture ShadowTexture
+        {
+            set
+            {
+                if (shadowTexture != value)
+                {
+                    shadowTexture = value;
+                    Effect.Parameters["ShadowTexture"].SetValue(value);
                 }
             }
         }
@@ -113,6 +126,11 @@ namespace Resonance
                     pointLightPosition = value;
                     Effect.Parameters["xLightPos"].SetValue(value);
                 }
+            }
+
+            get
+            {
+                return pointLightPosition;
             }
         }
 

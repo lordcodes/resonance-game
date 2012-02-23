@@ -2,6 +2,7 @@ float4x4 World;
 float4x4 View;
 float4x4 Projection;
 texture ColorTexture;
+texture ShadowTexture;
 texture ReflectionTexture;
 texture DispMap;
 float3 AmbientLightColor;

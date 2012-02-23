@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance
 {
@@ -47,6 +48,12 @@ namespace Resonance
         {
             defaultShader.PointLightPosition = pos;
             groundShader.PointLightPosition = pos;
+        }
+
+        public void setShadowTexture(Texture2D texture)
+        {
+            defaultShader.ShadowTexture = texture;
+            groundShader.ShadowTexture = texture;
         }
 
         public Shaders()
