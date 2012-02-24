@@ -320,14 +320,26 @@ namespace Resonance
             }
 
             int meshCount = 0;
-
-            Texture2D colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
+            Texture2D colorTexture = null;
+            try
+            {
+                colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
+            }
+            catch (Exception)
+            {
+            }
             if (colorTexture == null) colorTexture = modelVariables.Texture;
             currentShader.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
 
             foreach (ModelMesh mesh in m.Meshes)
             {
-                colorTexture = ((BasicEffect)m.Meshes[meshCount].Effects[0]).Texture;
+                try
+                {
+                    colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
+                }
+                catch (Exception)
+                {
+                }
                 if (colorTexture == null) colorTexture = modelVariables.Texture;
                 currentShader.ColourTexture = colorTexture;
                 meshCount++;
