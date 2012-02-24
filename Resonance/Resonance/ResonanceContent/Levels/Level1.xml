@@ -10,7 +10,7 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>0</gameModelNum>
         <pickuptype>-1</pickuptype>
-      </Item>    
+      </Item>
       <Item>
         <identifier>Player</identifier>
         <type>Good_vibe</type>
@@ -102,10 +102,118 @@
         <pickuptype>0</pickuptype>
       </Item>
       <Item>
-        <identifier>BVSpawner1</identifier>
+        <identifier>BVSpawner0</identifier>
         <type>BVSpawner</type>
         <xWorldCoord>-5</xWorldCoord>
         <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner1</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>5</xWorldCoord>
+        <zWorldCoord>85</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner2</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>75</xWorldCoord>
+        <zWorldCoord>75</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner3</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-65</xWorldCoord>
+        <zWorldCoord>55</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner4</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>45</xWorldCoord>
+        <zWorldCoord>35</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner5</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-105</xWorldCoord>
+        <zWorldCoord>25</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner6</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>85</xWorldCoord>
+        <zWorldCoord>-5</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner7</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-45</xWorldCoord>
+        <zWorldCoord>-15</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner8</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>5</xWorldCoord>
+        <zWorldCoord>-15</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner9</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-85</xWorldCoord>
+        <zWorldCoord>-65</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner10</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-25</xWorldCoord>
+        <zWorldCoord>-95</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner11</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>35</xWorldCoord>
+        <zWorldCoord>-95</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner12</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>65</xWorldCoord>
+        <zWorldCoord>-95</zWorldCoord>
         <yWorldCoord>0.5</yWorldCoord>
         <gameModelNum>10</gameModelNum>
         <pickuptype>-1</pickuptype>
