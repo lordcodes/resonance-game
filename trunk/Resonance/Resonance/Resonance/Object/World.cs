@@ -30,8 +30,8 @@ namespace Resonance
         public static float MAP_MIN_X;
         public static float MAP_MIN_Z;
         private const float ACCURACY = 0.1f;
-        private const int BVSpawnRadious = 6;
-        private const int BVAllowedActive = 2;
+        private const int BVSpawnRadious = 10;
+        private const int BVAllowedActive = 1;
         private const int MaxBV = 12;
 
         private Dictionary<string, Object> objects;
