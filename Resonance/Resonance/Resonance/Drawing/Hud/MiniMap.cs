@@ -268,10 +268,13 @@ namespace Resonance
         /// </summary>
         public void draw(SpriteBatch spriteBatch)
         {
+            // Good Vibe reference
             gVRef = (GoodVibe) ScreenManager.game.World.getObject("Player");
 
+            // Drawn texture. Reassigned later, but set to texPixel to stop compiler complaining.
+            Texture2D scaledTex = texPixel;
+
             if (AUTO_ZOOM) {
-                //float speed = gVRef.Body.MotionState.LinearVelocity.Length();
                 float speed = estimateSpeed(gVRef);
 
                 if (speed > MIN_ZOOM_SPEED)  {
@@ -330,7 +333,6 @@ namespace Resonance
             Vector2 origin = new Vector2(vibe.Width * scaleFactor / 2f, vibe.Height * scaleFactor / 2f);
             origin = new Vector2(0f, 0f);
             //Texture2D scaled = Drawing.scaleTexture(vibe, 2f);
-            //Texture2D scaled = Drawing.flipTexture(vibe, true, true);
             spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, sF, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.
@@ -341,6 +343,9 @@ namespace Resonance
 
             Vector2 objPos       = Vector2.Zero;
             Vector2 objScreenPos = Vector2.Zero;
+            Vector2 relToGV;
+            Vector2 centre;
+            Color drawColour = Color.Black;
             bool  inXRange, inYRange;
            
             foreach(Object o in toDraw) {
@@ -355,14 +360,14 @@ namespace Resonance
                 else if (o is Pickup)    objPos = new Vector2(p.OriginalPosition.X, p.OriginalPosition.Z);
                 else if (o is BVSpawner) objPos = new Vector2(s.OriginalPosition.X, s.OriginalPosition.Z);
 
-                Vector2 relToGV = gVPos - objPos;
+                relToGV = gVPos - objPos;
                 float angle = (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
                 relToGV = Utility.rotateVector2(relToGV, angle);
-                objPos = gVPos - relToGV;
+                objPos = gVPos - relToGV; // Object position relative to origin.
 
                 float alpha = BAD_VIBE_ALPHA;
-                if (o is Pickup)    alpha = PICKUP_ALPHA;
-                if (o is BVSpawner) alpha = SPAWNER_ALPHA;
+                     if (o is Pickup)    alpha = PICKUP_ALPHA;
+                else if (o is BVSpawner) alpha = SPAWNER_ALPHA;
 
                 inXRange = false;
                 inYRange = false;
@@ -376,29 +381,23 @@ namespace Resonance
 
                     if (o is BadVibe) {
                         objR = -(Utility.QuaternionToEuler(v.Body.Orientation)).Y + (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
-                        //objR += (float)Math.PI;
                     }
                     
                     objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));
-                    Vector2 objDrawPos;
-                    Vector2 centre;
 
-                    if (o is BadVibe) {
-                        objDrawPos = objScreenPos - new Vector2(vibe.Width / 2f * sF, vibe.Height / 2f * sF);
-                        //centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f) * scaleFactor / 2f;
-                        centre = new Vector2(vibe.Width / 2f, vibe.Height / 2f);
-                        spriteBatch.Draw(vibe,    objDrawPos, null, BAD_VIBE_COLOUR, objR, centre, sF, SpriteEffects.None, 0f);
+                    if (o is BadVibe) {            
+                        scaledTex = Drawing.scaleTexture(vibe, sF);
+                        drawColour = BAD_VIBE_COLOUR;
                     } else if (o is Pickup) {
-                        objDrawPos = objScreenPos - new Vector2(pickup.Width / 2f * sF, pickup.Height / 2f * sF);
-                        //centre = new Vector2(pickup.Width / 2f, pickup.Height / 2f) * scaleFactor / 2f;
-                        centre = new Vector2(pickup.Width / 2f, pickup.Height / 2f);
-                        spriteBatch.Draw(pickup,  objDrawPos, null, PICKUP_COLOUR,   objR, centre, sF, SpriteEffects.None, 0f);
+                        scaledTex = Drawing.scaleTexture(pickup, sF);
+                        drawColour = PICKUP_COLOUR;
                     } else if (o is BVSpawner) {
-                        objDrawPos = objScreenPos - new Vector2(spawner.Width / 2f * sF, spawner.Height / 2f * sF);
-                        //centre = new Vector2(spawner.Width / 2f, spawner.Height / 2f) * scaleFactor / 2f;
-                        centre = new Vector2(spawner.Width / 2f, spawner.Height / 2f);
-                        spriteBatch.Draw(spawner, objDrawPos, null, SPAWNER_COLOUR,  objR, centre, sF, SpriteEffects.None, 0f);
+                        scaledTex = Drawing.scaleTexture(spawner, sF);
+                        drawColour = SPAWNER_COLOUR;
                     }
+
+                    centre = new Vector2(scaledTex.Width / 2f, scaledTex.Height / 2f);
+                    spriteBatch.Draw(scaledTex, objScreenPos, null, drawColour, objR, centre, 1f, SpriteEffects.None, 0f);
                 } else if ((o is BadVibe) && (inXRange ^ inYRange)) {
                     float dist = Vector3.Distance(GameScreen.getGV().Body.Position, v.Body.Position);
                     Vector2 bVPos = objPos;
@@ -480,7 +479,7 @@ namespace Resonance
                     spriteBatch.Draw(block, new Rectangle(x, mapY, 1, mapH), new Color(0f, 0f, 0.9f + alpha - 1f, alpha));
                 }
 
-                sweeperX--;
+                sweeperX --;
             }
 
             // Draw outline
@@ -489,15 +488,11 @@ namespace Resonance
 
         // Calculates the alpha transparency of a bad vibe.
         private static float calculateBVAlpha(float dist, float corner_dist) {
-            if (dist > corner_dist)
-            {
+            if (dist > corner_dist) {
                 float diff = dist - corner_dist;
-                if (diff > VANISHING_POINT * scaleFactor)
-                {
+                if (diff > VANISHING_POINT * scaleFactor) {
                     return -1f;
-                }
-                else
-                {
+                } else {
                     float ratio = diff / (VANISHING_POINT * scaleFactor);
                     return BAD_VIBE_ALPHA - (ratio * BAD_VIBE_ALPHA);
                 }
