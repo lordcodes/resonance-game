@@ -348,8 +348,9 @@ namespace Resonance
         /// </summary>
         public void showBeat()
         {
-            this.ModelInstance.setTexture(1);
-            this.ModelInstance.playTextureAnimOnce();
+            //Un comment these lines when beat animation of the Good Vibe texture is ready
+            //this.ModelInstance.setTexture(1);
+            //this.ModelInstance.playTextureAnimOnce();
         }
     }
 }
