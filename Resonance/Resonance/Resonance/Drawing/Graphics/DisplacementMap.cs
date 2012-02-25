@@ -104,10 +104,13 @@ namespace Resonance
 
         public void update(Vector2 position)
         {
+            bool update = false;
+            int currentwc = waveCount;
             for (int i = 0; i < waves.Length; i++)
             {
                 if (waves[i] != null)
                 {
+                    update = true;
                     waves[i].update();
                     if (waves[i].Distance > 90 || !waves[i].IsActive)
                     {
@@ -118,8 +121,8 @@ namespace Resonance
                 }
             }
 
-            if (waveCount <= 0) reset();
-            createMap();
+            if (waveCount != currentwc && waveCount <= 0) reset();
+            if (update) createMap();
         }
 
         private float waveDepth(float distance, float distanceFrom, float height)
