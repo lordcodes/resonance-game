@@ -337,7 +337,7 @@ namespace Resonance
             {
                 try
                 {
-                    colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
+                    colorTexture = ((BasicEffect)m.Meshes[meshCount].Effects[0]).Texture;
                 }
                 catch (Exception)
                 {
