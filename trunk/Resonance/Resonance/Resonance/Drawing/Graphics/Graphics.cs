@@ -140,6 +140,8 @@ namespace Resonance
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
             dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
             init2dTextures();
+
+            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
         }
 
         public void addWave(Vector2 position)
@@ -240,7 +242,7 @@ namespace Resonance
                 graphics.GraphicsDevice.SetVertexBuffer(particleVertexBuffer);
             }
 
-            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+            //graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
             foreach (EffectPass pass in shader.Passes)
             {
@@ -248,7 +250,7 @@ namespace Resonance
                 graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList,particleVertices,0,4,particleIndices,0,2);
             }
 
-            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+            //graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
         }
 
 
