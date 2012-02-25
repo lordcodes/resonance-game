@@ -148,6 +148,10 @@
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shaders.cs" />
+    <Compile Include="Physics\GameEntities.cs" />
+    <Compile Include="Physics\DynamicGameEntity.cs" />
+    <Compile Include="Physics\GameEntity.cs" />
+    <Compile Include="Physics\StaticGameEntity.cs" />
     <Compile Include="ResonanceGame.cs" />
     <Compile Include="ThreadRun.cs" />
     <Compile Include="AI\Minheap.cs" />

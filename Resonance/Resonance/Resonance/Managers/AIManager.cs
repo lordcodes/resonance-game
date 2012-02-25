@@ -56,30 +56,27 @@ namespace Resonance
 
         public void moveManager()
         {
-            if (bv.Status == BadVibe.State.NORMAL)
+            if (closeToEdge())
             {
-                if (closeToEdge())
-                {
-                    //Move away from the edge
-                    moveAwayFromEdge();
-                }
-                else if (!inTargetRange())
-                {
-                    //Move randomly
-                    randomMove();
-                }
-                else if (!inAttackRange())
-                {
-                    //Move towards GV
-                    moveToGV();
-                }
-                else
-                {
-                    //Rotate to face GV and attack it
-                    Vector3 point = GameScreen.getGV().Body.Position;
-                    rotateToFacePoint(point);
-                    attack();
-                }
+                //Move away from the edge
+                moveAwayFromEdge();
+            }
+            else if (!inTargetRange())
+            {
+                //Move randomly
+                randomMove();
+            }
+            else if (!inAttackRange())
+            {
+                //Move towards GV
+                moveToGV();
+            }
+            else
+            {
+                //Rotate to face GV and attack it
+                Vector3 point = GameScreen.getGV().Body.Position;
+                rotateToFacePoint(point);
+                attack();
             }
             iteration++;
             if (iteration == 60) iteration = 0;

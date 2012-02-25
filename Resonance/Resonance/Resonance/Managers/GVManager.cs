@@ -107,7 +107,7 @@ namespace Resonance
             {
                 if (GameScreen.getGV().Freeze > 0)
                 {
-                    GameScreen.getGV().freezeBadVibes();
+                    GameScreen.getGV().FreezeActive = true;
                     GameScreen.getGV().adjustFreeze(-1);
                 }
 

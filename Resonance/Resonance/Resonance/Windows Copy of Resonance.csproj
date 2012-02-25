@@ -158,6 +158,10 @@
     <Compile Include="Object\Shockwave.cs" />
     <Compile Include="Object\StaticObject.cs" />
     <Compile Include="Object\World.cs" />
+    <Compile Include="Physics\DynamicGameEntity.cs" />
+    <Compile Include="Physics\GameEntities.cs" />
+    <Compile Include="Physics\GameEntity.cs" />
+    <Compile Include="Physics\StaticGameEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ResonanceGame.cs" />
