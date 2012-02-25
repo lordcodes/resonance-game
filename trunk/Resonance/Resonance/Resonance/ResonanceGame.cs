@@ -23,8 +23,8 @@ namespace Resonance
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            graphics.PreferredBackBufferWidth = 1920;
+            graphics.PreferredBackBufferHeight = 1080;
             Window.AllowUserResizing = true;
 
             screenManager = new ScreenManager(this);

@@ -67,6 +67,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\Bacteria_physics.fbx">
+      <Name>Bacteria_physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>
@@ -99,6 +104,16 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\Neuron_Physics.fbx">
+      <Name>Neuron_Physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\bv_physics.fbx">
+      <Name>bv_physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\spaceShip.fbx">
       <Name>spaceShip</Name>
       <Importer>FbxImporter</Importer>
@@ -128,6 +143,11 @@
       <Name>pants</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\SpawnerPhysics.fbx">
+      <Name>SpawnerPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
     <None Include="Drawing\Models\terrainHiPoly.fbx">
       <Name>terrainHiPoly</Name>
@@ -1255,6 +1275,7 @@
       <Name>Level3</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />

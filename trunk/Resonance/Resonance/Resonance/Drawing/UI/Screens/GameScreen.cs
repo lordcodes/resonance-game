@@ -34,7 +34,7 @@ namespace Resonance
         public static MusicHandler musicHandler;
 
         public static bool GV_KILLED = false;
-        public static bool USE_BV_SPAWNER = true;
+        public static bool USE_BV_SPAWNER = false;
         public static bool USE_PICKUP_SPAWNER = true;
 
         GraphicsDeviceManager graphics;
@@ -191,7 +191,7 @@ namespace Resonance
             WeatherManager.update();
 
             //Update Spawners
-            if (USE_BV_SPAWNER) BVSpawnManager.update();
+            //if (USE_BV_SPAWNER) BVSpawnManager.update();
             if (USE_PICKUP_SPAWNER) pickupSpawner.update();
 
             if (GV_KILLED || mode.terminated())
