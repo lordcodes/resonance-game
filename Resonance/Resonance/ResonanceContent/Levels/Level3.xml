@@ -48,8 +48,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner0</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner0</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>-105</xWorldCoord>
         <zWorldCoord>95</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -66,8 +66,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner1</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner1</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>5</xWorldCoord>
         <zWorldCoord>85</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -84,8 +84,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner2</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner2</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>75</xWorldCoord>
         <zWorldCoord>75</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -111,8 +111,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner3</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner3</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>-65</xWorldCoord>
         <zWorldCoord>55</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -147,8 +147,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner4</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner4</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>45</xWorldCoord>
         <zWorldCoord>35</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -165,8 +165,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner5</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner5</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>-105</xWorldCoord>
         <zWorldCoord>25</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -210,8 +210,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner6</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner6</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>85</xWorldCoord>
         <zWorldCoord>-5</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -228,8 +228,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner7</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner7</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>-45</xWorldCoord>
         <zWorldCoord>-15</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -237,8 +237,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner8</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner8</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>5</xWorldCoord>
         <zWorldCoord>-15</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -282,8 +282,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner9</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner9</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>-85</xWorldCoord>
         <zWorldCoord>-65</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -309,8 +309,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner10</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner10</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>-25</xWorldCoord>
         <zWorldCoord>-95</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -318,8 +318,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner11</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner11</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>35</xWorldCoord>
         <zWorldCoord>-95</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -327,8 +327,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BV_Spawner12</identifier>
-        <type>BV_Spawner</type>
+        <identifier>BVSpawner12</identifier>
+        <type>BVSpawner</type>
         <xWorldCoord>65</xWorldCoord>
         <zWorldCoord>-95</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>

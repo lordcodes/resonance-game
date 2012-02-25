@@ -1,8 +1,9 @@
 ﻿MODELS
 -Model Ref-|--File name
 tree,		Models\Neurons.fbx
-treePhysics,Models\tree-physics.fbx
+NeuronPhysics,Models\Neuron_Physics.fbx
 house,		Models\Bacteria.fbx
+house_physics, Models\Bacteria_physics.fbx
 goodVibe,	Models\GoodVibe.fbx
 ShieldGoodVibe, Models\GoodVibeShield.fbx
 terrain,	Models\terrain.fbx
@@ -12,8 +13,9 @@ box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
 badVibe, Models\BadVibe.fbx
-badVibePhysics, Models\BadVibe-physics.fbx
+badVibePhysics, Models\bv_physics.fbx
 BV_Spawner, Models\BV_Spawner.fbx
+BV_Spawner_Physics, Models\SpawnerPhysics.fbx
 --dude        Models\dude.fbx
 BV_Explosion, Models\BVExplosion.fbx
 x2,			Models\x2.fbx
@@ -44,16 +46,16 @@ fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1
 ---If "Start texture anim." is set to 1 the animation will start automatically.
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
-1,			tree,					0.5,		treePhysics,			0.1,			neuronTexture
-2,			house,					0.25,		house,					0.25,			spawnTexture
-3,			badVibe,			    0.1,		badVibe,			    0.1,			allColours,								1
+1,			tree,					0.5,		NeuronPhysics,			0.1,			neuronTexture
+2,			house,					0.25,		house_physics,			0.25,			spawnTexture
+3,			badVibe,			    0.1,		badVibePhysics,			    0.1,			allColours,								1
 4,			goodVibe,				0.35,		spaceShip,				0.35,			goodVibeTexture					
 5,			terrain64,			    250,		terrain,			    250,			tronFloor													
 6,			house,					1,			house,					1,
 7,			wave,					1,			wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest
 9,          ShieldGoodVibe,         0.35,		spaceShip,              0,				goodVibeTexture
-10,         BV_Spawner,             0.6,		box,                    0.6,            spawnTexture,                           1
+10,         BV_Spawner,             0.6,		BV_Spawner_Physics,     0.6,            spawnTexture,                           1
 11,         BV_Explosion,           0.1,		BV_Explosion,           0.1,                          ,							1
 12,			x2,						0.25,		x2,						0.25
 13,			x3,						0.25,		x3,						0.25
