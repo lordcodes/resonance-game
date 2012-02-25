@@ -31,70 +31,7 @@ namespace Resonance
         private int currentPower = 0;
 
         private bool isInCombat;
-
-        public int selectedPower
-        {
-            get
-            {
-                return currentPower;
-            }
-            set
-            {
-                currentPower = value;
-            }
-        }
-
-        public bool InCombat
-        {
-            get
-            {
-                return isInCombat;
-            }
-        }
-
-        public int Health
-        {
-            get
-            {
-                return health;
-            }
-        }
-
-        /*public int CurrentScore
-        {
-            get
-            {
-                return currentScore;
-            }
-            set
-            {
-                currentScore = value;
-            }
-        }*/
-
-        public int Nitro
-        {
-            get
-            {
-                return nitro;
-            }
-        }
-
-        public int Shield
-        {
-            get
-            {
-                return shield;
-            }
-        }
-
-        public int Freeze
-        {
-            get
-            {
-                return freeze;
-            }
-        }
+        private bool freezeActive;
 
         /// <summary>
         /// Constructor
@@ -278,7 +215,7 @@ namespace Resonance
         /// <summary>
         /// Detect if the GV is in combat, and resets BVs to unfrozen when out of range
         /// </summary>
-        public void detectCombatAndFreeze()
+        /*public void detectCombatAndFreeze()
         {
             isInCombat = false;
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
@@ -299,12 +236,12 @@ namespace Resonance
                     if(bv.Status == BadVibe.State.FROZEN) bv.Status = BadVibe.State.NORMAL;
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// When freeze is used, check for bad vibes in range and freeze them
         /// </summary>
-        public void freezeBadVibes()
+        /*public void freezeBadVibes()
         {
             isInCombat = false;
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
@@ -322,14 +259,13 @@ namespace Resonance
                 }
             }
             GameScreen.stats.usedFreeze();
-        }
+        }*/
 
         /// <summary>
         /// Put the GV shield up
         /// </summary>
         public void shieldUp()
         {
-            //this.gameModelNum = GameModels.SHIELD_GV;
             this.ModelInstance = sheildUpModel;
             GameScreen.stats.usedShield();
         }
@@ -339,7 +275,6 @@ namespace Resonance
         /// </summary>
         public void shieldDown()
         {
-            //this.gameModelNum = GameModels.GOOD_VIBE;
             this.ModelInstance = sheildDownModel;
         }
 
@@ -351,6 +286,44 @@ namespace Resonance
             //Un comment these lines when beat animation of the Good Vibe texture is ready
             //this.ModelInstance.setTexture(1);
             //this.ModelInstance.playTextureAnimOnce();
+        }
+
+        public int selectedPower
+        {
+            get { return currentPower; }
+            set { currentPower = value; }
+        }
+
+        public bool InCombat
+        {
+            get { return isInCombat; }
+            set { isInCombat = value; }
+        }
+
+        public int Health
+        {
+            get { return health; }
+        }
+
+        public int Nitro
+        {
+            get { return nitro; }
+        }
+
+        public int Shield
+        {
+            get { return shield; }
+        }
+
+        public int Freeze
+        {
+            get { return freeze; }
+        }
+
+        public bool FreezeActive
+        {
+            get { return freezeActive; }
+            set { freezeActive = value; }
         }
     }
 }

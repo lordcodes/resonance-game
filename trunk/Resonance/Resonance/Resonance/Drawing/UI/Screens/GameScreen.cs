@@ -165,18 +165,17 @@ namespace Resonance
             float health = getGV().healthFraction();
             if (health < 0.1) musicHandler.HeartBeat = true;
             else musicHandler.HeartBeat = false;
-            //Update bad vibe positions
+
+            //Update bad vibe positions, frozen status, detect if GV
+            //in combat and break rest layers
             List<string> deadVibes = processBadVibes();
             removeDeadBadVibes(deadVibes);
 
-            //Break rest layers
-            if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
+            //if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
+            //getGV().detectCombatAndFreeze();
 
             // Update shockwaves
             getGV().updateWaves();
-
-            //Check if combat and freeze range
-            getGV().detectCombatAndFreeze();
 
             //Update pickups
             PickupManager.update();
@@ -241,6 +240,9 @@ namespace Resonance
         /// <returns>the list of dead bad vibes</returns>
         private List<string> processBadVibes()
         {
+            bool breakRest = (musicHandler.getTrack().nextQuarterBeat());
+            GoodVibe gv = getGV();
+
             List<string> deadVibes = new List<string>();
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
             foreach (BadVibe bv in bvs)
@@ -253,11 +255,31 @@ namespace Resonance
                     }
                     bv.decrementAnimationCounter();
                 }
-                else if (bv.Status != BadVibe.State.DEAD)
+                else
                 {
-                    bv.Move();
+                    if(bv.Status == BadVibe.State.NORMAL) bv.Move();
+                    if (breakRest) bv.damage(Shockwave.REST);
+
+                    double dx = gv.Body.Position.X - bv.Body.Position.X;
+                    double dz = gv.Body.Position.Z - bv.Body.Position.Z;
+                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
+                    d = Math.Sqrt(d);
+
+                    if (d <= Shockwave.MAX_RADIUS)
+                    {
+                        gv.InCombat = true;
+                        if (gv.FreezeActive)
+                        {
+                            bv.Status = BadVibe.State.FROZEN;
+                        }
+                    }
+                    else
+                    {
+                        if (bv.Status == BadVibe.State.FROZEN) bv.Status = BadVibe.State.NORMAL;
+                    }
                 }
             }
+            gv.FreezeActive = false;
             return deadVibes;
         }
 
@@ -278,7 +300,7 @@ namespace Resonance
         /// <summary>
         /// Break the rest layer on all bad vibes if present
         /// </summary>
-        private void breakRestLayers()
+        /*private void breakRestLayers()
         {
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
             foreach (BadVibe bv in bvs)
@@ -288,7 +310,7 @@ namespace Resonance
                     bv.damage(Shockwave.REST);
                 }
             }
-        }
+        }*/
 
         public static GoodVibe getGV()
         {
