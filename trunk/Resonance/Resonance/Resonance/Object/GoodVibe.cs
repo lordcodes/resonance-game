@@ -29,6 +29,7 @@ namespace Resonance
         private int shield; //shield between 0 - MAX_SHIELD.
         private int freeze; //SOMETHINGELSE between 0 - 100.
         private int currentPower = 0;
+        private Boolean shieldOn = false;
 
         private bool isInCombat;
         private bool freezeActive;
@@ -98,6 +99,7 @@ namespace Resonance
         /// <param name="change">Amount to change by</param>
         public void AdjustHealth(int change)
         {
+            if(shieldOn == false)
             health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);        
 
             if (health <= 0) GameScreen.GV_KILLED = true;
@@ -211,7 +213,11 @@ namespace Resonance
                 if (i + 1 == waves.Count) break;
             }
         }
-
+       
+        public void freezeHealth(Boolean flag)
+        {
+            shieldOn = flag;
+        }
         /// <summary>
         /// Detect if the GV is in combat, and resets BVs to unfrozen when out of range
         /// </summary>

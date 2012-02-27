@@ -18,6 +18,7 @@ namespace Resonance
         public static readonly int NITROUS = 0;
         public static readonly int SHIELD = 1;
         public static readonly int FREEZE = 2;
+        
 
         public static void input(InputDevices input)
         {
@@ -59,6 +60,7 @@ namespace Resonance
 
             if (pad.Buttons.X == ButtonState.Pressed || kbd.IsKeyDown(Keys.J))
             {
+                
                 GameScreen.getGV().selectedPower = SHIELD;
             }
 
@@ -94,11 +96,13 @@ namespace Resonance
 
                 if (GameScreen.getGV().Shield > 0)
                 {
+                    GameScreen.getGV().freezeHealth(true);
                     GameScreen.getGV().adjustShield(-1);
                     GameScreen.getGV().shieldUp();
                 }
                 else
                 {
+                    GameScreen.getGV().freezeHealth(false);
                     GameScreen.getGV().shieldDown();
                 }
             }

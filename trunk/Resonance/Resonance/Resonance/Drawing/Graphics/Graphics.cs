@@ -87,6 +87,7 @@ namespace Resonance
         {
             content = newContent;
             graphics = newGraphics;
+
         }
 
         public void init2dTextures()

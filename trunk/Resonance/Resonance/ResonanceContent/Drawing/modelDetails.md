@@ -5,7 +5,7 @@ NeuronPhysics,Models\Neuron_Physics.fbx
 house,		Models\Bacteria.fbx
 house_physics, Models\Bacteria_physics.fbx
 goodVibe,	Models\GoodVibe.fbx
-ShieldGoodVibe, Models\GoodVibeShield.fbx
+ShieldGoodVibe, Models\GoodVibeBubble.fbx
 terrain,	Models\terrain.fbx
 terrain64,	Models\terrain64.fbx
 wave,		Models\wave.fbx
@@ -22,6 +22,7 @@ x2,			Models\x2.fbx
 x3,			Models\x3.fbx
 plus4,		Models\plus4.fbx
 plus5,		Models\plus5.fbx
+
 
 TEXTURES
 -Texture Ref-|----------------------------Files Name(s)--------------------------------------------------------------------|-Texture delay(ms)-|--Start texture anim.--|
@@ -54,7 +55,7 @@ fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1
 6,			house,					1,			house,					1,
 7,			wave,					1,			wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest
-9,          ShieldGoodVibe,         0.35,		spaceShip,              0,				goodVibeTexture
+9,          ShieldGoodVibe,         0.35,		spaceShip,              0
 10,         BV_Spawner,             0.6,		BV_Spawner_Physics,     0.6,            spawnTexture,                           1
 11,         BV_Explosion,           0.1,		BV_Explosion,           0.1,                          ,							1
 12,			x2,						0.25,		x2,						0.25
