@@ -126,15 +126,15 @@ namespace LevelEditor
             obj.zWorldCoord = 0;
             obj.gameModelNum = 5;
             obj.pickuptype = -1;
-
+            list.addObject(obj);
             int treeNumber = 0;
 
-            int x = -125;
-            int z = 125;
+            int x = -250;
+            int z = 250;
             int i = 0;
             for (int xi = 0; xi < 25; xi++)
             {
-                x = -125;
+                x = -250;
                 for (int zi = 0; zi < 25; zi++)
                 {
                     if (images[i].Text.Equals("terrain64") == false)
@@ -168,9 +168,9 @@ namespace LevelEditor
                         list.addObject(obj);
                     }
                     i++;
-                    x = x + 10;
+                    x = x + 20;
                 }
-                z = z - 10;
+                z = z - 20;
             }
             Serialize(list,"Level"+levelNumberTextBox.Text+".xml");
 

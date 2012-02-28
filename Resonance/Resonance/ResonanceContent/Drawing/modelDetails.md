@@ -22,6 +22,7 @@ x2,			Models\x2.fbx
 x3,			Models\x3.fbx
 plus4,		Models\plus4.fbx
 plus5,		Models\plus5.fbx
+projectileBV, Models\ProjectileBadVibe.fbx
 
 
 TEXTURES
@@ -39,7 +40,7 @@ goodVibeTexture,Textures\GoodVibeTexture.jpg
 neuronTexture,	Textures\neuronTexture.jpg
 spawnTexture,	Textures\TextureHouse.jpg
 fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1_ 02.png;Textures\fireAnimation\fire1_ 03.png;Textures\fireAnimation\fire1_ 04.png;Textures\fireAnimation\fire1_ 05.png;Textures\fireAnimation\fire1_ 06.png;Textures\fireAnimation\fire1_ 07.png;Textures\fireAnimation\fire1_ 08.png;Textures\fireAnimation\fire1_ 09.png;Textures\fireAnimation\fire1_ 10.png;Textures\fireAnimation\fire1_ 11.png;Textures\fireAnimation\fire1_ 12.png;Textures\fireAnimation\fire1_ 13.png;Textures\fireAnimation\fire1_ 14.png;Textures\fireAnimation\fire1_ 15.png;Textures\fireAnimation\fire1_ 16.png;Textures\fireAnimation\fire1_ 17.png;Textures\fireAnimation\fire1_ 18.png;Textures\fireAnimation\fire1_ 19.png;Textures\fireAnimation\fire1_ 20.png;Textures\fireAnimation\fire1_ 21.png;Textures\fireAnimation\fire1_ 22.png;Textures\fireAnimation\fire1_ 23.png;Textures\fireAnimation\fire1_ 24.png;Textures\fireAnimation\fire1_ 25.png;Textures\fireAnimation\fire1_ 26.png;Textures\fireAnimation\fire1_ 27.png;Textures\fireAnimation\fire1_ 28.png;Textures\fireAnimation\fire1_ 29.png;Textures\fireAnimation\fire1_ 30.png;Textures\fireAnimation\fire1_ 31.png;Textures\fireAnimation\fire1_ 32.png;Textures\fireAnimation\fire1_ 33.png;Textures\fireAnimation\fire1_ 34.png;Textures\fireAnimation\fire1_ 35.png;Textures\fireAnimation\fire1_ 36.png;Textures\fireAnimation\fire1_ 37.png;Textures\fireAnimation\fire1_ 38.png;Textures\fireAnimation\fire1_ 39.png;Textures\fireAnimation\fire1_ 40.png;Textures\fireAnimation\fire1_ 41.png;Textures\fireAnimation\fire1_ 42.png;Textures\fireAnimation\fire1_ 43.png;Textures\fireAnimation\fire1_ 44.png;Textures\fireAnimation\fire1_ 45.png;Textures\fireAnimation\fire1_ 46.png;Textures\fireAnimation\fire1_ 47.png;Textures\fireAnimation\fire1_ 48.png;Textures\fireAnimation\fire1_ 49.png;Textures\fireAnimation\fire1_ 50.png, 40, 1
-
+virus,          Textures\virus.png
 ---You can use dashes at the start of lines for comments
 
 ---Texture delay(ms) is the time spent on each frame of the animation.
@@ -49,7 +50,7 @@ fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
 1,			tree,					0.5,		NeuronPhysics,			0.1,			neuronTexture
 2,			house,					0.25,		house_physics,			0.25,			spawnTexture
-3,			badVibe,			    0.1,		badVibePhysics,			    0.1,			allColours,								1
+3,			badVibe,			    0.1,		badVibePhysics,			0.1,			allColours,								1
 4,			goodVibe,				0.35,		spaceShip,				0.35,			goodVibeTexture					
 5,			terrain64,			    250,		terrain,			    250,			tronFloor													
 6,			house,					1,			house,					1,
@@ -62,3 +63,4 @@ fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1
 13,			x3,						0.25,		x3,						0.25
 14,			plus4,					0.25,		plus4,					0.25
 15,			plus5,					0.25,		plus5,					0.25
+16,         projectileBV,           0.15,       NeuronPhysics,          0.1,             virus
