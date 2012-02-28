@@ -21,6 +21,15 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
+        <identifier>PBV</identifier>
+        <type>ProjectileBV</type>
+        <xWorldCoord>0</xWorldCoord>
+        <zWorldCoord>30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>16</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
         <identifier>House0</identifier>
         <type>House</type>
         <xWorldCoord>10</xWorldCoord>

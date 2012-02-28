@@ -256,7 +256,11 @@ namespace Resonance
                     mush = new StaticObject(GameModels.HOUSE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(mush);
                 }
-
+                if (obj.list[i].type.Equals("ProjectileBV") == true)
+                {
+                    mush = new StaticObject(GameModels.PROJECTILEBV, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(mush);
+                }
                 if (obj.list[i].type.Equals("BVSpawner") == true)
                 {
                     BVSpawnManager.addNewSpawner(MaxBV, BVSpawnRadious, BVAllowedActive, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
