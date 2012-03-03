@@ -63,4 +63,4 @@ virus,          Textures\virus.png
 13,			x3,						0.25,		x3,						0.25
 14,			plus4,					0.25,		plus4,					0.25
 15,			plus5,					0.25,		plus5,					0.25
-16,         projectileBV,           0.15,       NeuronPhysics,          0.1,             virus
+16,         projectileBV,           0.5,       NeuronPhysics,          0.4,             virus
