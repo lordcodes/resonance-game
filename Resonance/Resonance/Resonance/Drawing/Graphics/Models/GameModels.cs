@@ -30,7 +30,7 @@ namespace Resonance
         public static readonly int X3               = 13;
         public static readonly int PLUS4            = 14;
         public static readonly int PLUS5            = 15;
-        public static readonly int PROJECTILEBV     = 16;
+        public static readonly int PROJECTILE_BV     = 16;
 
         private static ContentManager Content;
         private static ImportedGameModels importedGameModels;
