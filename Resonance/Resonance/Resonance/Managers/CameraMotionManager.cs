@@ -19,18 +19,20 @@ namespace Resonance
         private static Vector3 defaultPos = new Vector3(0, 12f, 20f);
         private static Vector3 closePos = new Vector3(0, 3f, 6f);
         private static Vector3 topDownPos = new Vector3(0, 20f, 1f);
+        private static Vector3 startCamPos = new Vector3(20f, 20f, -20f);
 
         private static float ZOOM_RATE = 0.01f;
 
         private static List<int> views = new List<int>{ DEFAULT, CLOSE, TOPDOWN };
 
         private static int view = 0;
-        private static Vector3 currentPosition = defaultPos;
-        private static Vector3 targetPosition = defaultPos;
+        private static Vector3 currentPosition;
+        private static Vector3 targetPosition;
         private static Vector3 currentTarget;
 
         public static void initialise()
         {
+            currentPosition = startCamPos;
             currentTarget = GameScreen.getGV().Body.Position;
             updateCamera(currentTarget);
         }
