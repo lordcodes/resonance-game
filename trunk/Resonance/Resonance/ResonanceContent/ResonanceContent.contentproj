@@ -124,6 +124,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\ProjectileBadVibe_Physics.fbx">
+      <Name>ProjectileBadVibe_Physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\spaceShip.fbx">
       <Name>spaceShip</Name>
       <Importer>FbxImporter</Importer>

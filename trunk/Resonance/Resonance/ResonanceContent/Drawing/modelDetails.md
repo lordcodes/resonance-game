@@ -23,6 +23,7 @@ x3,			Models\x3.fbx
 plus4,		Models\plus4.fbx
 plus5,		Models\plus5.fbx
 projectileBV, Models\ProjectileBadVibe.fbx
+projectileBV_Physics, Models\ProjectileBadVibe_Physics.fbx
 
 
 TEXTURES
@@ -63,4 +64,4 @@ virus,          Textures\virus.png
 13,			x3,						0.25,		x3,						0.25
 14,			plus4,					0.25,		plus4,					0.25
 15,			plus5,					0.25,		plus5,					0.25
-16,         projectileBV,           0.5,       NeuronPhysics,          0.4,             virus
+16,         projectileBV,           0.5,        projectileBV_Physics,          0.5,             virus

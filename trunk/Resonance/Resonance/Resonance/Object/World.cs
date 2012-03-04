@@ -216,6 +216,7 @@ namespace Resonance
             StaticObject ground = null;
             StaticObject tree = null;
             StaticObject mush = null;
+            Projectile_BV projBV = null;
             GoodVibe player = null;
             BadVibe bv = null;
             //Pickup p = null;
@@ -258,8 +259,8 @@ namespace Resonance
                 }
                 if (obj.list[i].type.Equals("ProjectileBV") == true)
                 {
-                    mush = new StaticObject(GameModels.PROJECTILEBV, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    addObject(mush);
+                    projBV = new Projectile_BV(GameModels.PROJECTILE_BV, "test", new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord),1);
+                    addObject(projBV);
                 }
                 if (obj.list[i].type.Equals("BVSpawner") == true)
                 {

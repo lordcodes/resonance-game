@@ -148,6 +148,7 @@
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shaders.cs" />
+    <Compile Include="Object\Projectile_BV.cs" />
     <Compile Include="Physics\GameEntities.cs" />
     <Compile Include="Physics\DynamicGameEntity.cs" />
     <Compile Include="Physics\GameEntity.cs" />
