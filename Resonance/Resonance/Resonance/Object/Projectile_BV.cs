@@ -17,7 +17,7 @@ namespace Resonance
        public Projectile_BV(int modelNum, String name, Vector3 position,int spawnNumber)
             : base(modelNum, name, position,spawnNumber)
         {
-           
+            
         }
         
     }

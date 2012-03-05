@@ -36,6 +36,8 @@ namespace Resonance
             totalSpawned++;
         }
 
+       
+
         public int getTotalSpawned()
         {
             return totalSpawned;
