@@ -58,6 +58,7 @@ namespace Resonance
         public static Color BACKGROUND_COLOUR = new Color(0.0f, 0.0f, 0.2f, 0.5f);
         public static Color  GOOD_VIBE_COLOUR = new Color(0.0f, 0.7f, 0.0f, 0.5f);
         public static Color   BAD_VIBE_COLOUR = new Color(0.7f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
+        public static Color PROJ_BAD_VIBE_COLOUR = new Color(0.8f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
         public static Color     PICKUP_COLOUR = new Color(0.7f, 0.7f, 0.0f, PICKUP_ALPHA);
         public static Color    SPAWNER_COLOUR = new Color(0.7f, 0.7f, 0.0f, SPAWNER_ALPHA);
         public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
@@ -336,7 +337,7 @@ namespace Resonance
             spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, sF, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.
-            List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup)};
+            List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup),typeof(Projectile_BV)};
             List<Object> toDraw = ScreenManager.game.World.returnObjectSubset(drawnTypes);
 
             Vector2 gVPos = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
@@ -352,11 +353,11 @@ namespace Resonance
                 BadVibe   v = null;
                 Pickup    p = null;
                 BVSpawner s = null;
-                if (o is BadVibe)   v = (BadVibe)   o;
+                if (o is BadVibe || o is Projectile_BV)   v = (BadVibe)   o;
                 if (o is Pickup)    p = (Pickup)    o;
                 if (o is BVSpawner) s = (BVSpawner) o;
 
-                     if (o is BadVibe)   objPos = new Vector2(v.Body.Position.X,    v.Body.Position.Z);
+                if (o is BadVibe || o is Projectile_BV) objPos = new Vector2(v.Body.Position.X, v.Body.Position.Z);
                 else if (o is Pickup)    objPos = new Vector2(p.OriginalPosition.X, p.OriginalPosition.Z);
                 else if (o is BVSpawner) objPos = new Vector2(s.OriginalPosition.X, s.OriginalPosition.Z);
 
@@ -379,15 +380,20 @@ namespace Resonance
                 if (inXRange && inYRange) {
                     float objR = 0f;
 
-                    if (o is BadVibe) {
+                    if (o is BadVibe || o is Projectile_BV)
+                    {
                         objR = -(Utility.QuaternionToEuler(v.Body.Orientation)).Y + (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
                     }
                     
                     objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));
 
-                    if (o is BadVibe) {            
+                    if (o is BadVibe || o is Projectile_BV)
+                    {            
                         scaledTex = Drawing.scaleTexture(vibe, sF);
-                        drawColour = BAD_VIBE_COLOUR;
+                        if (o is BadVibe)
+                            drawColour = BAD_VIBE_COLOUR;
+                        else
+                            drawColour = PROJ_BAD_VIBE_COLOUR;
                     } else if (o is Pickup) {
                         scaledTex = Drawing.scaleTexture(pickup, sF);
                         drawColour = PICKUP_COLOUR;
@@ -398,7 +404,9 @@ namespace Resonance
 
                     centre = new Vector2(scaledTex.Width / 2f, scaledTex.Height / 2f);
                     spriteBatch.Draw(scaledTex, objScreenPos, null, drawColour, objR, centre, 1f, SpriteEffects.None, 0f);
-                } else if ((o is BadVibe) && (inXRange ^ inYRange)) {
+                }
+                else if ((o is BadVibe || o is Projectile_BV) && (inXRange ^ inYRange))
+                {
                     float dist = Vector3.Distance(GameScreen.getGV().Body.Position, v.Body.Position);
                     Vector2 bVPos = objPos;
                     Vector2 bVScreenPos = objScreenPos;
@@ -427,7 +435,9 @@ namespace Resonance
                         Color c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
                         spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), c);
                     }
-                } else if (o is BadVibe) {
+                }
+                else if (o is BadVibe || o is Projectile_BV)
+                {
                     Vector2 bVPos = objPos;
                     Vector2 bVScreenPos = objScreenPos;
 
@@ -456,7 +466,8 @@ namespace Resonance
 
                     if (visible) {
                         Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
-                        Color c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
+                        Color c;
+                        c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
                         spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), c);
                     }
                 }

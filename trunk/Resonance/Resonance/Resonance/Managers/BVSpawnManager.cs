@@ -34,10 +34,20 @@ namespace Resonance
             BVSpawner spawn = new BVSpawner(GameModels.BV_SPAWNER, "BV_SPAWNER" + spawnerCount, pos, totalBv,radius,totalActive);
             ScreenManager.game.World.addObject(spawn);
             spawners.Add(spawn);
+            Random random = new Random();
             while (i < spawn.getTotalAllowedActive())
             {
-                BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawn.getSpawnCords(), (spawners.Count-1));
-                spawn.addBadVibe(bv);
+                int rand = random.Next(234);
+                if (rand % 2 == 0)
+                {
+                    BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawn.getSpawnCords(), (spawners.Count - 1));
+                    spawn.addBadVibe(bv);
+                }
+                else
+                {
+                    Projectile_BV newProjBV = new Projectile_BV(GameModels.PROJECTILE_BV, "BVA" + bvcount, spawn.getSpawnCords(), (spawners.Count - 1));
+                    spawn.addBadVibe( newProjBV);
+                }
                 bvcount++;
                 i++;
             }
@@ -47,12 +57,25 @@ namespace Resonance
 
         public static void vibeDied(BadVibe bv)
         {
+            Random random = new Random();
+           
             spawners[bv.SpawnerIndex].removeBadVibe(bv);
             if ((spawners[bv.SpawnerIndex].getTotalCurrentlyActive() < spawners[bv.SpawnerIndex].getTotalAllowedActive())
                     && (spawners[bv.SpawnerIndex].getTotalSpawned() <= spawners[bv.SpawnerIndex].getTotalBadVibes()))
             {
-                BadVibe newBv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawners[bv.SpawnerIndex].getSpawnCords(), bv.SpawnerIndex);
-                spawners[bv.SpawnerIndex].addBadVibe(newBv);
+                int rand = random.Next(234);
+                if (rand % 2 == 0)
+                {
+                    BadVibe newBv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawners[bv.SpawnerIndex].getSpawnCords(), bv.SpawnerIndex);
+                    spawners[bv.SpawnerIndex].addBadVibe(newBv);
+                }
+                else
+                {
+                    Projectile_BV newBv = new Projectile_BV(GameModels.PROJECTILE_BV, "BVA" + bvcount, spawners[bv.SpawnerIndex].getSpawnCords(), bv.SpawnerIndex);
+                    spawners[bv.SpawnerIndex].addBadVibe(newBv);
+                }
+                
+               
                 bvcount++;
             }
         }
@@ -60,13 +83,24 @@ namespace Resonance
         public static void update()
         {
             int i = 0;
+            Random random = new Random();
             while (i < spawners.Count)
             {
                 if ((spawners[i].getTotalCurrentlyActive() < spawners[i].getTotalAllowedActive())
                     && (spawners[i].getTotalSpawned() <= spawners[i].getTotalBadVibes()))
                 {
-                    BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawners[i].getSpawnCords(), i);
-                    spawners[i].addBadVibe(bv);
+
+                    int rand = random.Next(234);
+                    if (rand % 2 == 0)
+                    {
+                        BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawners[i].getSpawnCords(), i);
+                        spawners[i].addBadVibe(bv);
+                    }
+                    else
+                    {
+                        Projectile_BV newBv = new Projectile_BV(GameModels.PROJECTILE_BV, "BVA" + bvcount, spawners[i].getSpawnCords(), i);
+                        spawners[i].addBadVibe(newBv);
+                    }                    
                     bvcount++;
                 }
                 i++;
