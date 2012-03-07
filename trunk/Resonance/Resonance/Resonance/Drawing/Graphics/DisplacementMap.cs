@@ -10,20 +10,26 @@ namespace Resonance
     class DisplacementMap
     {
         // Variables that control the wave dimensions, changing wave width will probably give weird looking results.
-        public const float WAVE_HEIGHT = 0.75f;
+        public const float WAVE_HEIGHT = 1f;
         public const float WAVE_WIDTH = 1f;
-        public const float WAVE_SPEED = 0.2f;
+        public const float WAVE_SPEED = 0.4f;
 
         private GraphicsDevice graphicsDevice;
         private int width;
         private int height;
         private float[] buffer;
+        private List<float[]> masterBuffer;
         private float[] damageBuffer;
+        private float[] emptyBuffer;
         private Vector2 lastPosition;
+        private Vector2 gVPosition;
         private Texture2D dispMap;
         private int waveCount = 0;
         private static Dictionary<string, float> distanceValues = new Dictionary<string, float>();
         private Wave[] waves = new Wave[5];
+
+        private int half;
+        private int max;
 
         /// <summary>
         /// Reset the displacement map so everything is flat
@@ -42,9 +48,16 @@ namespace Resonance
             height = nHeight;
             damageBuffer = new float[width * height];
             buffer = new float[width * height];
+            emptyBuffer = new float[width * height];
             lastPosition = new Vector2(-1,-1);
-            for (int i = 0; i < buffer.Length; i++)buffer[i] = 0f;
-            for (int i = 0; i < damageBuffer.Length; i++)damageBuffer[i] = 0f;
+            for (int i = 0; i < buffer.Length; i++) buffer[i] = 0f;
+            for (int i = 0; i < damageBuffer.Length; i++) damageBuffer[i] = 0f;
+            for (int i = 0; i < emptyBuffer.Length; i++) emptyBuffer[i] = 0f;
+
+            masterBuffer = createMasterBuffer(width, height);
+
+            half = (int)Math.Round((double)Graphics.DISP_WIDTH / 2);
+            max = Graphics.DISP_WIDTH * Graphics.DISP_WIDTH;
         }
 
         public void addHole(float x , float y)
@@ -60,7 +73,7 @@ namespace Resonance
         {
             //addHole(position.X, position.Y);
             if (waveCount >= waves.Length) waveCount = 0;
-            waves[waveCount] = new Wave(position);
+            waves[waveCount] = new Wave(position, masterBuffer.Count);
             waveCount++;
         }
 
@@ -69,25 +82,64 @@ namespace Resonance
             return dispMap;
         }
 
+        private Texture2D getTexture(float[] buffer)
+        {
+            Color[] foregroundColors = new Color[width * height];
+            for (int i = 0; i < buffer.Length ; i++)
+            {
+                foregroundColors[i] = new Color(buffer[i], buffer[i], buffer[i]);
+            }
+            Texture2D newMap = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Color);
+            newMap.SetData<Color>(foregroundColors, 0, foregroundColors.Length);
+            return newMap;
+        }
+
+        public List<Texture2D> getTextures()
+        {
+            List<Texture2D> textures = new List<Texture2D>();
+            foreach (float[] buffer in masterBuffer)
+            {
+                textures.Add(getTexture(buffer));
+            }
+            return textures;
+        }
+
         public void createMap()
         {
-            float dis;
-            float ndepth;
+            int itcount = 0;
+            int buff = 17;
+            
+            int xlow = (int)gVPosition.X - buff;
+            int xhigh = (int)gVPosition.X + buff;
+            int ylow = (int)gVPosition.Y - buff;
+            int yhigh = (int)gVPosition.Y + buff;
+            /*
+            int xlow = 0;
+            int xhigh = width;
+            int ylow = 0;
+            int yhigh = width;
+            */
+
+
             if (waveCount > 0)
             {
                 float depth;
-                for (int xi = 0; xi < width; xi++)
+                for (int xi = xlow; xi < xhigh; xi++)
                 {
-                    for (int yi = 0; yi < width; yi++)
+                    itcount++;
+                    for (int yi = ylow; yi < yhigh; yi++)
                     {
                         depth = 0;
                         for (int i = 0; i < waves.Length; i++)
                         {
+                            itcount++;
                             if (waves[i] != null)
                             {
-                                dis = trigDistance(xi, yi, waves[i].Epicenter);
-                                ndepth = waveDepth(dis, waves[i].Distance, waves[i].Height);
-                                depth += ndepth;
+                                int index = (xi+half-waves[i].X) + (yi+half-waves[i].Y) * width;
+                                if (index >= 0 && index < max)
+                                {
+                                    depth += masterBuffer[waves[i].Frame][index]*0.5f;
+                                }
                             }
                         }
                         updateBuffer(xi, yi, depth);
@@ -100,10 +152,42 @@ namespace Resonance
             {
                 reset();
             }
+            DebugDisplay.update("DMAPI",itcount+"");
+        }
+
+        private List<float[]> createMasterBuffer(int width, int height)
+        {
+            List<float[]> bList = new List<float[]>();
+            int xpos = (int)Math.Round((double)width / 2);
+            int ypos = (int)Math.Round((double)height / 2);
+            Wave wave = new Wave(new Vector2(xpos,ypos));
+            while (wave.Distance < 90 && wave.IsActive)
+            {
+                float[] mBuffer = new float[width * height];
+                float depth;
+                for (int xi = 0; xi < width; xi++)
+                {
+                    for (int yi = 0; yi < width; yi++)
+                    {
+                        depth = 0;
+                        for (int i = 0; i < waves.Length; i++)
+                        {
+                            float dis = trigDistance(xi, yi, wave.Epicenter);
+                            float ndepth = waveDepth(dis, wave.Distance, wave.Height);
+                            depth += ndepth;
+                        }
+                        mBuffer[xi + yi * width] = depth;
+                    }
+                }
+                bList.Add(mBuffer);
+                wave.update();
+            }
+            return bList;
         }
 
         public void update(Vector2 position)
         {
+            gVPosition = position;
             bool update = false;
             int currentwc = waveCount;
             for (int i = 0; i < waves.Length; i++)
@@ -169,11 +253,46 @@ namespace Resonance
         private float distance;
         private float speed;
         private float height;
+        private int frames = 0;
+        private int frameCounter = 0;
 
-        public bool IsActive { get { return isActive; } }
+        public int X
+        {
+            get
+            {
+                return (int)epicenter.X;
+            }
+        }
+        public int Y
+        {
+            get
+            {
+                return (int)epicenter.Y;
+            }
+        }
+
+        public bool IsActive
+        {
+            get
+            {
+                if (frames != 0 && frameCounter >= frames) return false;
+                return isActive;
+            }
+        }
         public float Height { get { return height; } }
+        public int Frame { get { return frameCounter; } }
         public Vector2 Epicenter { get { return epicenter; } }
         public float Distance { get { return distance; } }
+
+        public Wave(Vector2 epicenter, int frames)
+        {
+            this.epicenter = epicenter;
+            isActive = true;
+            distance = 0;
+            speed = DisplacementMap.WAVE_SPEED;
+            height = DisplacementMap.WAVE_HEIGHT;
+            this.frames = frames;
+        }
 
         public Wave(Vector2 epicenter)
         {
@@ -186,8 +305,9 @@ namespace Resonance
 
         public void update()
         {
+            if (frames > 0) frameCounter++;
             distance += speed;
-            height -= 0.01f;
+            height -= 0.005f;
             if (height < 0)
             {
                 height = 0;

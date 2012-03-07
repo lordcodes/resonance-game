@@ -16,11 +16,24 @@ namespace Resonance
         private float width;
         private float height;
 
+        public List<Texture2D> Textures
+        {
+            set
+            {
+                textureAnimation.Textures = value;
+            }
+        }
+
         public Texture2D Texture
         {
             get
             {
                 return textureAnimation.Texture;
+            }
+
+            set
+            {
+                textureAnimation.setTexture(0, value);
             }
         }
 

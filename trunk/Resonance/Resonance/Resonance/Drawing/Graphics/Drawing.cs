@@ -243,7 +243,9 @@ namespace Resonance
             shadowsRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
-            //te = new TextureEffect(5, 5, new Vector3(0,6,0), true, new TextureAnimation(shadowsTexture));
+            //te = new TextureEffect(5, 5, new Vector3(0,6,0), true, new TextureAnimation(gameGraphics.DispMap.getMap()));
+            //te.Textures = gameGraphics.DispMap.getTextures();
+
 
             gameGraphics.Shaders.setPointLightPos(new Vector3(0, 8, 0));
         
@@ -269,7 +271,8 @@ namespace Resonance
             gameGraphics.Shaders.setPointLightPos(new Vector3(GameScreen.getGV().Body.Position.X, GameScreen.getGV().Body.Position.Y+3, GameScreen.getGV().Body.Position.Z));
 
 
-            gameGraphics.update(new Vector2(0f, 0f));
+
+            gameGraphics.update(groundPos(GameScreen.getGV().Body.Position, false));
         }
 
         public static Vector2 groundPos(Vector3 position3d, bool one)
@@ -411,6 +414,7 @@ namespace Resonance
                 if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
                 {
                     blend = true;
+                    graphics.GraphicsDevice.BlendState = BlendState.Opaque;
                 }
 
                 graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
