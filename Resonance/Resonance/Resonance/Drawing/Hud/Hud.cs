@@ -130,7 +130,7 @@ namespace Resonance
             drawNitroBar();
             drawShieldBar();
             drawFreezeBar();
-            drawMiniMap();
+            if(GameScreen.USE_MINIMAP)drawMiniMap();
             drawThrobber();
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
             drawLightning();

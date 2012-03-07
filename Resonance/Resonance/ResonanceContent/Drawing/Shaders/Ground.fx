@@ -85,8 +85,8 @@ struct VertexShaderOutput
 
 float4 tex2DlodSmooth( sampler texSam, float4 uv )
 {
-	float textureSize = 32.0f;
-	float texelSize =  1/32.0f;
+	float textureSize = 128.0f;
+	float texelSize =  1/128.0f;
 	float4 height00 = tex2Dlod(texSam, uv);
 	float4 height10 = tex2Dlod(texSam, uv + float4(texelSize, 0, 0, 0));
 	float4 height01 = tex2Dlod(texSam, uv + float4(0, texelSize, 0, 0));

@@ -35,7 +35,9 @@ namespace Resonance
 
         public static bool GV_KILLED = false;
         public static bool USE_BV_SPAWNER = false;
-        public static bool USE_PICKUP_SPAWNER = true;
+        public static bool USE_PICKUP_SPAWNER = false;
+        public static bool USE_MINIMAP = false;
+        public static bool USE_BADVIBE_AI = false;
 
         GraphicsDeviceManager graphics;
 
@@ -168,8 +170,11 @@ namespace Resonance
 
             //Update bad vibe positions, frozen status, detect if GV
             //in combat and break rest layers
-            List<string> deadVibes = processBadVibes();
-            removeDeadBadVibes(deadVibes);
+            if (USE_BADVIBE_AI)
+            {
+                List<string> deadVibes = processBadVibes();
+                removeDeadBadVibes(deadVibes);
+            }
 
             //if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
             //getGV().detectCombatAndFreeze();

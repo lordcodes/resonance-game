@@ -9,14 +9,19 @@ namespace Resonance
 {
     class GroundShader : Shader
     {
-
+        Vector2 currentGoodVibePos;
+        Vector2 currentCameraPos;
         public GroundShader(string file) : base(file, true) { }
 
         public Vector2 GoodVibePos
         {
             set
             {
-                Effect.Parameters["gvPos"].SetValue(value);
+                if (currentGoodVibePos != value)
+                {
+                    currentGoodVibePos = value;
+                    Effect.Parameters["gvPos"].SetValue(value);
+                }
             }
         }
 
@@ -24,7 +29,11 @@ namespace Resonance
         {
             set
             {
-                Effect.Parameters["camPos"].SetValue(value);
+                if (currentCameraPos != value)
+                {
+                    currentCameraPos = value;
+                    Effect.Parameters["camPos"].SetValue(value);
+                }
             }
         }
 

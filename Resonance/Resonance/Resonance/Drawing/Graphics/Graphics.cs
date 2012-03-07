@@ -32,7 +32,15 @@ namespace Resonance
         private static RasterizerState particleRasterizerState;
         private static float particleHalfHeight = 0;
         private static float particleHalfWidth = 0;
-        public static int DISP_WIDTH = 32;
+        public static int DISP_WIDTH = 128;
+
+        public DisplacementMap DispMap
+        {
+            get
+            {
+                return dispMap;
+            }
+        }
 
         public Shaders Shaders
         {
@@ -147,7 +155,11 @@ namespace Resonance
 
         public void addWave(Vector2 position)
         {
-            if (dispMap != null) dispMap.addWave(position);
+            if (dispMap != null)
+            {
+                dispMap.addWave(position);
+                dispMap.addHole(position.X, position.Y);
+            }
         }
 
         public void reset()

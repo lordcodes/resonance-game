@@ -43,6 +43,14 @@ namespace Resonance
             }
         }
 
+        public List<Texture2D> Textures
+        {
+            set
+            {
+                textures = value;
+            }
+        }
+
         /// <summary>
         /// Returns the texture that should be currently displayed.
         /// </summary>
@@ -113,10 +121,10 @@ namespace Resonance
 
         public TextureAnimation(Texture2D texture)
         {
-            this.frameDelay = 0f;
+            this.frameDelay = 40f;
             this.textures = new List<Texture2D>();
             this.textures.Add(texture);
-            textureAnimPaused = true;
+            textureAnimPaused = false;
         }
 
         public void Update(GameTime gameTime)

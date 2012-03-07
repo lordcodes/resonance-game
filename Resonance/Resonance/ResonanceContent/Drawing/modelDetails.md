@@ -7,7 +7,8 @@ house_physics, Models\Bacteria_physics.fbx
 goodVibe,	Models\GoodVibe.fbx
 ShieldGoodVibe, Models\GoodVibeBubble.fbx
 terrain,	Models\terrain.fbx
-terrain64,	Models\terrain64.fbx
+--terrain64,	Models\terrain64.fbx
+terrain128,	Models\terrain128.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
 spaceShip,  Models\spaceShip.fbx
@@ -53,7 +54,7 @@ virus,          Textures\virus.png
 2,			house,					0.25,		house_physics,			0.25,			spawnTexture
 3,			badVibe,			    0.1,		badVibePhysics,			0.1,			allColours,								1
 4,			goodVibe,				0.35,		spaceShip,				0.35,			goodVibeTexture					
-5,			terrain64,			    250,		terrain,			    250,			tronFloor													
+5,			terrain128,			    250,		terrain,			    250,			tronFloor													
 6,			house,					1,			house,					1,
 7,			wave,					1,			wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest

@@ -9,14 +9,18 @@ namespace Resonance
 {
     class DefaultShader : Shader
     {
-
+        public Matrix[] currentBones = null;
         public DefaultShader(string file) : base(file, true) { }
 
         public Matrix[] Bones
         {
             set
             {
-                Effect.Parameters["xBones"].SetValue(value);
+                if(value != currentBones)
+                {
+                    currentBones = value;
+                    Effect.Parameters["xBones"].SetValue(value);
+                }
             }
         }
 
