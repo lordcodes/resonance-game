@@ -42,6 +42,11 @@ namespace Resonance {
 
         public static bool initialised = false;
 
+        // On the last iterateion, did direction change?
+        private static bool prevRL  = false;
+        private static bool prevRR  = false;
+        private static bool dChange = false;
+
         /// Methods
 
         public static void init() {
@@ -99,7 +104,9 @@ namespace Resonance {
             if (max < 0) max *= -1;
             if (max > MAX_R_SPEED) max = MAX_R_SPEED;
 
-            if (posSpd + posInc < max) R_SPEED += inc;
+            if (posSpd + posInc < max) {
+                R_SPEED += inc;
+            }
 
             Quaternion cAng = gv.Body.Orientation;
             Quaternion dAng = Quaternion.CreateFromAxisAngle(Vector3.Up, R_SPEED);
@@ -219,21 +226,31 @@ namespace Resonance {
             float lTrig = pad.Triggers.Left;
             float rTrig = pad.Triggers.Right; //TODO: use boost with right trigger
 
+            bool posR = false;
+
             // Rotate GV based on keyboard / dPad
-            if (rotateL ^ rotateR) {
+            if (rotateL ^ rotateR && !(dChange)) {
                 float power;
                 if (rightX != 0) power = rightX; else power = 1f;
                 if (power < 0) power *= -1;
 
                 //power = (float) Math.Sin(power * (Math.PI / 2));
 
-                if (backward) {
-                    if (rotateL) rotate(power); else rotate(-power);
-                }
-                else {
-                    if (rotateL) rotate(-power); else rotate(power);
+                posR = rotateR ^ backward;
+
+                if (posR) {
+                    if (prevRR) dChange = true; else dChange = false;
+                    rotate(power);
+                    prevRR = false;
+                    prevRL = true;
+                } else {
+                    if (prevRL) dChange = true; else dChange = false;
+                    rotate(-power);
+                    prevRR = true;
+                    prevRL = false;
                 }
             } else {
+                dChange = false;
                 if (R_SPEED > 0) if (R_DECELERATION > R_SPEED)  R_SPEED = 0f; else R_SPEED -= R_DECELERATION;
                 if (R_SPEED < 0) if (R_DECELERATION > -R_SPEED) R_SPEED = 0f; else R_SPEED += R_DECELERATION;
                 rotate(0f);
