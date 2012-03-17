@@ -34,19 +34,9 @@ namespace Resonance
             else colour = Color.White;
 
             float speed = (float)gameTime.ElapsedGameTime.TotalSeconds * 5;
-            if (selected)
-            {
-                float temp = fade + speed;
-                if (temp < 1) fade = temp;
-                else fade = 1;
-            }
-            else
-            {
-                fade = Math.Max(fade - speed, 0);
-                float temp = fade - speed;
-                if (temp > 0) fade = temp;
-                else fade = 0;
-            }
+            if (selected) fade = Math.Min(fade + speed, 1);
+            else fade = Math.Max(fade - speed, 0);
+
 
             double time = gameTime.TotalGameTime.TotalSeconds;
             float pulse = (float)Math.Sin(time * 6) + 1;
@@ -64,7 +54,7 @@ namespace Resonance
                 }
             }
 
-            Vector2 textOrigin = new Vector2(0, font.LineSpacing / 2);
+            Vector2 textOrigin = new Vector2(msgSize.X / 2, msgSize.Y / 2);
             screen.ScreenManager.SpriteBatch.DrawString(font, text, position, colour, 0f, textOrigin, scale, SpriteEffects.None, 0f);
         }
 

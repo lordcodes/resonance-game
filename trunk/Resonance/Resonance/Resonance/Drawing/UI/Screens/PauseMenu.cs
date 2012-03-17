@@ -39,7 +39,7 @@ namespace Resonance
             Vector2 position = new Vector2(0f, screenSize.Y / 2 - 100 - Font.LineSpacing);
             for (int i = 0; i < MenuItems.Count; i++)
             {
-                position.X = (int)screenSize.X / 2 - (int)MenuItems[i].Size(this).X / 2;
+                position.X = (int)screenSize.X / 2;
                 MenuItems[i].Position = position;
 
                 position.Y += MenuItems[i].Size(this).Y + 100;
@@ -53,7 +53,8 @@ namespace Resonance
 
         private void quitGame()
         {
-            string msg = "Are you sure you want to quit to the main menu?\n";
+            string msg = "Are you sure you want to quit to the\n";
+            msg += "main menu?\n";
             msg += "(Enter - OK, Escape - Cancel)";
 
             ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.TO_MAIN_MENU));
