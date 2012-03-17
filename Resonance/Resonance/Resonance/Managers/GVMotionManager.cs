@@ -70,6 +70,7 @@ namespace Resonance {
             // ADD LINEARAXISMOTORs TO GV
             lamZ               = new LinearAxisMotor();
             lamZ.Settings.Mode = MotorMode.VelocityMotor;
+            lamZ.Settings.VelocityMotor.Softness *= 1000f;
             lamZ.ConnectionA   = null;
             lamZ.ConnectionB   = gv.Body;
             lamZ.Axis          = new Vector3(0f, 0f, 1f);
@@ -78,6 +79,7 @@ namespace Resonance {
 
             lamX               = new LinearAxisMotor();
             lamX.Settings.Mode = MotorMode.VelocityMotor;
+            lamX.Settings.VelocityMotor.Softness *= 1000f;
             lamX.ConnectionA   = null;
             lamX.ConnectionB   = gv.Body;
             lamX.Axis          = new Vector3(0f, 0f, 1f);

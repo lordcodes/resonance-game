@@ -19,6 +19,7 @@ using BEPUphysics.Entities;
 using BEPUphysics.BroadPhaseSystems;
 using BEPUphysics.Collidables.MobileCollidables;
 using BEPUphysics.CollisionRuleManagement;
+using BEPUphysics.Constraints;
 
 
 namespace Resonance
@@ -41,6 +42,20 @@ namespace Resonance
         {
             space = new Space();
             space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
+
+            //Speed improvements
+            SolverSettings.DefaultMinimumIterations = 0;
+#if WINDOWS
+            space.ThreadManager.AddThread();
+            space.ThreadManager.AddThread();
+            space.ThreadManager.AddThread();
+#else
+            space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(1), null);
+            space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(3), null);
+            space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(5), null);
+#endif
+
+
             objects = new Dictionary<string, Object>();
         }
 
