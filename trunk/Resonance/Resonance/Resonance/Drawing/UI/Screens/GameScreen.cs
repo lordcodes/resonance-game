@@ -34,10 +34,10 @@ namespace Resonance
         public static MusicHandler musicHandler;
 
         public static bool GV_KILLED = false;
-        public static bool USE_BV_SPAWNER = false;
+        public static bool USE_BV_SPAWNER = true;
         public static bool USE_PICKUP_SPAWNER = false;
         public static bool USE_MINIMAP = false;
-        public static bool USE_BADVIBE_AI = false;
+        public static bool USE_BADVIBE_AI = true;
 
         GraphicsDeviceManager graphics;
 
@@ -49,6 +49,7 @@ namespace Resonance
         //bool beatTested = false;
 
         bool isLoaded;
+        int iteration = 0;
 
         public GameScreen(ScreenManager scrn)
         {
@@ -62,6 +63,11 @@ namespace Resonance
 
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
+        }
+
+        public int Iteration
+        {
+            get { return iteration; }
         }
 
         /// <summary>
@@ -222,6 +228,9 @@ namespace Resonance
                 }
             }*/
             //}
+
+            iteration++;
+            if (iteration == 60) iteration = 0;
         }
 
         // Called when game finished (won or lost).

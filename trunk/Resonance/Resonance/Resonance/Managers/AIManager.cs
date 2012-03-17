@@ -25,8 +25,8 @@ namespace Resonance
         private static int CHANCE_MISS = 20; //Between 0 and 100
         private static int ROTATE_CHANCE = 4; //Between 0 and 100
 
-        private static float LEFT_RAY_ANGLE = MathHelper.ToRadians(10f);
-        private static float RIGHT_RAY_ANGLE = MathHelper.ToRadians(10f);
+        private static float LEFT_RAY_ANGLE = MathHelper.ToRadians(15f);
+        private static float RIGHT_RAY_ANGLE = MathHelper.ToRadians(15f);
 
         private BadVibe bv;
         private SingleEntityAngularMotor servo;
@@ -48,8 +48,6 @@ namespace Resonance
 
             servo = new SingleEntityAngularMotor(bv.Body);
             servo.Settings.Mode = MotorMode.Servomechanism;
-            servo.Settings.Servo.SpringSettings.DampingConstant *= 1f;
-            servo.Settings.Servo.SpringSettings.StiffnessConstant *= 5f;
             servo.Settings.Servo.Goal = orientation;
             ScreenManager.game.World.addToSpace(servo);
         }
@@ -128,7 +126,8 @@ namespace Resonance
 
         public void move(float power)
         {
-            avoidObstacles();
+            int iteration = ScreenManager.game.Iteration;
+            if(iteration % 10 == 0) avoidObstacles();
             Vector3 orientation = Utility.QuaternionToEuler(bv.Body.Orientation);
             Vector3 velocity = bv.Body.LinearVelocity;
 
