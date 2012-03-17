@@ -137,14 +137,15 @@
     <Compile Include="Managers\GVMotionManager.cs" />
     <Compile Include="Managers\PickupManager.cs" />
     <Compile Include="Managers\PickupSpawnManager.cs" />
-    <Compile Include="GameMode.cs" />
     <Compile Include="Managers\ScreenManager\InputDevices.cs" />
     <Compile Include="Managers\ScreenManager\Screen.cs" />
     <Compile Include="Managers\ScreenManager\ScreenManager.cs" />
-    <Compile Include="Managers\Utility.cs" />
+    <Compile Include="Utilities\GameMode.cs" />
+    <Compile Include="Utilities\GameStats.cs" />
+    <Compile Include="Utilities\ThreadRun.cs" />
+    <Compile Include="Utilities\Utility.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\WeatherManager.cs" />
-    <Compile Include="GameStats.cs" />
     <Compile Include="Object\Pickup.cs" />
     <Compile Include="Object\BVSpawner.cs" />
     <Compile Include="Drawing\Graphics\Shaders\Shaders.cs" />
@@ -154,7 +155,6 @@
     <Compile Include="Physics\GameEntity.cs" />
     <Compile Include="Physics\StaticGameEntity.cs" />
     <Compile Include="ResonanceGame.cs" />
-    <Compile Include="ThreadRun.cs" />
     <Compile Include="AI\Minheap.cs" />
     <Compile Include="AI\Node.cs" />
     <Compile Include="AI\PathFind.cs" />

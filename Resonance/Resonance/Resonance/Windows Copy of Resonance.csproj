@@ -129,8 +129,8 @@
     <Compile Include="Drawing\UI\Screens\PopupScreen.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="GameMode.cs" />
-    <Compile Include="GameStats.cs" />
+    <Compile Include="Utilities\GameMode.cs" />
+    <Compile Include="Utilities\GameStats.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BVSpawnManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
@@ -145,7 +145,6 @@
     <Compile Include="Managers\ScreenManager\ScreenManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Managers\Utility.cs" />
     <Compile Include="Managers\WeatherManager.cs" />
     <Compile Include="Object\BadVibe.cs" />
     <Compile Include="Object\BVSpawner.cs" />
@@ -166,7 +165,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ResonanceGame.cs" />
-    <Compile Include="ThreadRun.cs" />
+    <Compile Include="Utilities\ThreadRun.cs" />
+    <Compile Include="Utilities\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
