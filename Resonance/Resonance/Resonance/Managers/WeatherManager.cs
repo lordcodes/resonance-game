@@ -11,6 +11,8 @@ namespace Resonance {
 
         static GoodVibe gVRef;
 
+        static bool  paused = false;
+
         static float cloudCover;      // Amount on cloud cover 0 - 1.
         static float cloudHeaviness;  // Opacity of cloud 0 - 1.
         static int   rainfall;        // Avg raindrops per sec.
@@ -64,6 +66,8 @@ namespace Resonance {
         public static void initialise() {
             gVRef = GameScreen.getGV();
             gen = new Random();
+
+            paused = false;
 
             cloudCover     = 0f;
             cloudHeaviness = 0f;
@@ -156,51 +160,54 @@ namespace Resonance {
         }
 
         public static void update() {
-            setParams();
-            float health = gVRef.healthFraction();
 
-            // Cloud
+            if (!paused) {
+                setParams();
+                float health = gVRef.healthFraction();
 
-            // Rain
+                // Cloud
 
-            if (health < rainStart) {
-                if (rCue == null || !rCue.IsPlaying) {
-                    //rainVol = -90f;
-                    if (health < gentleLightningStart) {
-                        rCue = GameScreen.musicHandler.playSound("rainAndThunder", rainVol);
+                // Rain
+
+                if (health < rainStart) {
+                    if (rCue == null || !rCue.IsPlaying) {
+                        //rainVol = -90f;
+                        if (health < gentleLightningStart) {
+                            rCue = GameScreen.musicHandler.playSound("rainAndThunder", rainVol);
+                            GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
+                        } else {
+                            rCue = GameScreen.musicHandler.playSound("rainLight", rainVol);
+                            GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
+                        }
+                    }
+
+                    if ((rCue != null) && (rCue.IsPlaying)) {
                         GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
-                    } else {
-                        rCue = GameScreen.musicHandler.playSound("rainLight", rainVol);
-                        GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
+                    }
+
+                     //DebugDisplay.update("rainVol", rainVol.ToString());
+                }
+
+                // Lightning
+
+                if ((health < quietLightningStart) && !lightningHappening) {
+                    // Flash, then wait for offset before playing sound.
+
+                    lastLightningStarted = DateTime.Now.Ticks;
+                    thunderStarted = false;
+                    lightningHappening = true;
+                } else {
+                    if (lCue != null && (!lCue.IsPlaying && thunderStarted)) {
+                        lightningHappening = false;
                     }
                 }
 
-                if ((rCue != null) && (rCue.IsPlaying)) {
-                    GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
-                }
-
-                 //DebugDisplay.update("rainVol", rainVol.ToString());
-            }
-
-            // Lightning
-
-            if ((health < quietLightningStart) && !lightningHappening) {
-                // Flash, then wait for offset before playing sound.
-
-                lastLightningStarted = DateTime.Now.Ticks;
-                thunderStarted = false;
-                lightningHappening = true;
-            } else {
-                if (lCue != null && (!lCue.IsPlaying && thunderStarted)) {
-                    lightningHappening = false;
-                }
-            }
-
-            // Thunder
-            if (lightningHappening && !thunderStarted) {
-                if (DateTime.Now.Ticks > lastLightningStarted + thunderOffset) {
-                    playLightning();
-                    thunderStarted = true;
+                // Thunder
+                if (lightningHappening && !thunderStarted) {
+                    if (DateTime.Now.Ticks > lastLightningStarted + thunderOffset) {
+                        playLightning();
+                        thunderStarted = true;
+                    }
                 }
             }
         }
@@ -211,6 +218,27 @@ namespace Resonance {
             } else {
                 //Drawing.setAmbientLight(new Vector3(0.01f, 0.01f, 0.01f));
                 Drawing.setAmbientLight(new Vector3(0.1f - cloudCover, 0.1f - cloudCover, 0.1f - cloudCover));
+            }
+        }
+
+        public static void pause(bool status) {
+            paused = status;
+
+            if (paused) {
+                try {
+                    // Please don't change the order of these 3!
+                    rCue.Pause();
+                    lRCue.Pause();
+                    lCue.Pause();
+                } catch (Exception e) {
+                }
+            } else {
+                try {
+                    // Please don't change the order of these 3!
+                    rCue.Resume();
+                    lRCue.Resume();
+                    lCue.Resume();
+                } catch (Exception e) {}
             }
         }
     }
