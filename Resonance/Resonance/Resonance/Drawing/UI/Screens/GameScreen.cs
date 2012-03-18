@@ -233,6 +233,13 @@ namespace Resonance
             if (iteration == 60) iteration = 0;
         }
 
+        /// <summary>
+        /// Ensure everything is paused
+        /// </summary>
+        public void pause()
+        {
+        }
+
         private void introSequence()
         {
             //for (int i = 0; i < 600; i++)
