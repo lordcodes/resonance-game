@@ -89,29 +89,19 @@ namespace Resonance
                     {
                         screen.Update(gameTime);
                     }
+                    else
+                    {
+                        ((GameScreen)screen).pause();
+                    }
                 }
             }
         }
 
         public override void Draw(GameTime gameTime)
         {
-            //bool first = true;
             foreach (Screen screen in screens)
             {
-                //if (first)
-                //{
                     screen.Draw(gameTime);
-
-                    //first = false;
-                //}
-                //else
-                //{
-                    //bool doDraw = (screen is GameScreen);
-                    //if (!doDraw)
-                    //{
-                        //screen.Draw(gameTime);
-                    //}
-                //}
             }
         }
 
