@@ -205,6 +205,10 @@ namespace Resonance
             {
                 if (waves[i].Radius >= Shockwave.MAX_RADIUS)
                 {
+                    if (waves[i].Colour == Shockwave.CYMBAL && waves[i].NumberHit > 1)
+                    {
+                        GameScreen.stats.multiKill(waves[i].NumberHit);
+                    }
                     //Program.game.Components.Remove(waves[i]);
                     DrawableManager.Remove(waves[i]);
                     waves.RemoveAt(i);
