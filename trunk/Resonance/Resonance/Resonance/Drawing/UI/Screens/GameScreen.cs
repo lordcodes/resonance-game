@@ -200,6 +200,8 @@ namespace Resonance
 
             musicHandler.Update();
 
+            ParticleEmitterManager.pause(false);
+            WeatherManager.pause(false);
             WeatherManager.update();
 
             //Update Spawners
@@ -240,6 +242,8 @@ namespace Resonance
         public void pause()
         {
             GameScreen.musicHandler.getTrack().pauseTrack(); //TODO: check beat detection still works after resuming from pause
+            WeatherManager.pause(true);
+            ParticleEmitterManager.pause(true);
         }
 
         private void introSequence()
