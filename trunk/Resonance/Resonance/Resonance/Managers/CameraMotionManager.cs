@@ -30,7 +30,6 @@ namespace Resonance
         private static int view = 0;
         private static Vector3 currentPosition;
         private static Vector3 targetPosition;
-        private static Vector3 currentTarget;
 
         public static void initCamera()
         {
@@ -40,8 +39,7 @@ namespace Resonance
         public static void initialise()
         {
             currentPosition = startCamPos;
-            currentTarget = GameScreen.getGV().Body.Position;
-            updateCamera(currentTarget);
+            updateCamera();
         }
 
         public static void update(InputDevices input)
@@ -63,14 +61,14 @@ namespace Resonance
             else if (views[view] == CLOSE) closeGV();
             else if (views[view] == TOPDOWN) topDownGV();
 
-            updateCamera(currentTarget);
+            updateCamera();
         }
 
         /// <summary>
         /// Updates Camera and HUD
         /// </summary>
         /// <param name="player">The good vibe class</param>
-        private static void updateCamera(Vector3 toFace)
+        private static void updateCamera()
         {
             if (targetPosition.X != currentPosition.X || targetPosition.Y != currentPosition.Y || targetPosition.Z != currentPosition.Z)
             {
@@ -82,19 +80,16 @@ namespace Resonance
 
         private static void defaultGV()
         {
-            currentTarget = GameScreen.getGV().Body.Position;
             targetPosition = defaultPos;
         }
 
         private static void closeGV()
         {
-            currentTarget = GameScreen.getGV().Body.Position;
             targetPosition = closePos;
         }
 
         private static void topDownGV()
         {
-            currentTarget = GameScreen.getGV().Body.Position;
             targetPosition = topDownPos;
         }
 
