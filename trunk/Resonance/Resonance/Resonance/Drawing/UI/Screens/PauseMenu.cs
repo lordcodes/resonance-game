@@ -46,6 +46,28 @@ namespace Resonance
             }
         }
 
+        public void Draw()
+        {
+            //410 width by 540 height
+            //Ratio 1.32 (H / W)
+
+            Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
+            int x = (int)screenSize.X / 2 - 200;
+            int y = (int)screenSize.Y / 2 - 240;
+
+            ScreenManager.SpriteBatch.Draw(Bgs[0], new Vector2(x, y), Color.White);
+
+            x = (int)((screenSize.X * 2) * 0.75f - 360);
+            y = (int)screenSize.Y / 2 - 250;
+
+            ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
+
+            x += 30;
+            y += 50;
+
+            ScreenManager.SpriteBatch.Draw(Bgs[2], new Vector2(x, y), Color.White);
+        }
+
         private void resumeGame()
         {
             ExitScreen();

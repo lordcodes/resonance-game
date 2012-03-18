@@ -179,7 +179,7 @@ namespace Resonance {
                     GameScreen.musicHandler.adjustVolume(rCue, (int) rainVol);
                 }
 
-                 DebugDisplay.update("rainVol", rainVol.ToString());
+                 //DebugDisplay.update("rainVol", rainVol.ToString());
             }
 
             // Lightning

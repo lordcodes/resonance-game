@@ -329,8 +329,6 @@ namespace Resonance
             // Draw good vibe
             float r = 0f;// gVRef.Body.Orientation.Y;new Vector2((vibe.Width / 2f) * scaleFactor, (vibe.Height / 2f) * scaleFactor)
             Vector2 drawPos = new Vector2(gvx - (vibe.Width / 2f) * sF, gvy - (vibe.Height / 2f) * sF);
-            DebugDisplay.update("W", vibe.Width.ToString());
-            DebugDisplay.update("H", vibe.Height.ToString());
             Vector2 origin = new Vector2(vibe.Width * scaleFactor / 2f, vibe.Height * scaleFactor / 2f);
             origin = new Vector2(0f, 0f);
             //Texture2D scaled = Drawing.scaleTexture(vibe, 2f);

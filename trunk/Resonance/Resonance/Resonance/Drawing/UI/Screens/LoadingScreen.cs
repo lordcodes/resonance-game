@@ -85,7 +85,6 @@ namespace Resonance
         {
             foreach (Screen screen in screenManager.getScreens())
             {
-                Console.WriteLine(screen.GetType());
                 screen.ExitScreen();
             }
 
