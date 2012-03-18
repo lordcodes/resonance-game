@@ -36,7 +36,7 @@ namespace Resonance
         public static bool GV_KILLED = false;
         public static bool USE_BV_SPAWNER = false;
         public static bool USE_PICKUP_SPAWNER = false;
-        public static bool USE_MINIMAP = false;
+        public static bool USE_MINIMAP = true;
         public static bool USE_BADVIBE_AI = false;
 
         GraphicsDeviceManager graphics;
