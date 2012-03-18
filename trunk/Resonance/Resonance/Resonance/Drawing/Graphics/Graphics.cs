@@ -17,10 +17,7 @@ namespace Resonance
         private static ContentManager content;
         private static Shaders shaders;
         private static Matrix world;
-        private static Matrix view;
         private static Matrix projection;
-        private static Vector3 cameraPosition;
-        private static Vector3 cameraCoords;
         private static DisplacementMap dispMap;
         private static VertexDeclaration particleVertexDeclaration;
         private static VertexBuffer particleVertexBuffer;
@@ -55,30 +52,6 @@ namespace Resonance
             get
             {
                 return projection;
-            }
-        }
-
-        public Matrix View
-        {
-            get
-            {
-                return view;
-            }
-        }
-
-        public Vector3 CameraPosition
-        {
-            get
-            {
-                return cameraPosition;
-            }
-        }
-
-        public Vector3 CameraCoords
-        {
-            get
-            {
-                return cameraCoords;
             }
         }
 
@@ -142,10 +115,9 @@ namespace Resonance
         public void loadContent(ContentManager content, GraphicsDevice graphicsDevice)
         {
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, GraphicsSettings.DRAW_DISTANCE);
-            view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
             world = Matrix.Identity;
             shaders = new Shaders();
-            shaders.Default.sceneSetup(world, view, projection, Vector3.Zero);
+            shaders.Default.sceneSetup(world, CameraMotionManager.Camera.View, projection, Vector3.Zero);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
             dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
             init2dTextures();
@@ -166,28 +138,6 @@ namespace Resonance
         {
             if (dispMap != null) dispMap.reset();
             init2dTextures();
-        }
-
-        private Vector3 getCamPos(Vector3 newCameraPosition)
-        {
-            Quaternion orientation = GameScreen.getGV().Body.Orientation;
-            Vector3 rotation = Utility.QuaternionToEuler(orientation);
-            Vector3 position = GameScreen.getGV().Body.Position;
-            Matrix goodVibeRotation = Matrix.CreateRotationY(rotation.Y);
-            return Vector3.Transform(newCameraPosition, goodVibeRotation) + position;
-        }
-
-        /// <summary>
-        /// Updates Camera and HUD based of player position
-        /// </summary>
-        /// <param name="player">The good vibe class</param>
-        public void updateCamera(Vector3 newCameraPosition)
-        {
-            cameraCoords = newCameraPosition;
-            Vector3 oldPos = cameraPosition;
-            cameraPosition = Vector3.SmoothStep(oldPos,getCamPos(cameraCoords),0.15f);
-            Vector3 position = GameScreen.getGV().Body.Position;
-            view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }
 
         public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
@@ -212,8 +162,9 @@ namespace Resonance
 
         private void draw2dTexture(Shader shader, Texture2D texture, Matrix world, float width, float height, Color colour, bool drawingReflection)
         {
-            Matrix theView = view;
-            Vector3 cameraPosition2 = cameraPosition;
+            Matrix theView = CameraMotionManager.Camera.View;
+            Vector3 cameraPosition = CameraMotionManager.Camera.Position;
+            Vector3 cameraPosition2 = CameraMotionManager.Camera.Position;
             Matrix projection2 = projection;
             if (drawingReflection)
             {
@@ -275,8 +226,9 @@ namespace Resonance
             Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
             Model m = gmodel.GraphicsModel;
             Matrix[] modelTransforms = gmodel.ModelTransforms;
-            Matrix theView = view;
-            Vector3 cameraPosition2 = cameraPosition;
+            Matrix theView = CameraMotionManager.Camera.View;
+            Vector3 cameraPosition = CameraMotionManager.Camera.Position;
+            Vector3 cameraPosition2 = CameraMotionManager.Camera.Position;
             Matrix projection2 = projection;
             Shader currentShader;
 
@@ -292,7 +244,7 @@ namespace Resonance
                 lightsViewProjectionMatrix = lightsView * lightsProjection;
                 Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
                 Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
-                Shaders.Ground.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * view * projection);
+                Shaders.Ground.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * theView * projection);
             }
             if (drawingShadows)
             {
