@@ -55,6 +55,7 @@ namespace Resonance
         public GameScreen(ScreenManager scrn)
         {
             isLoaded = false;
+            GV_KILLED = false;
             this.ScreenManager = scrn;
             mode = new GameMode(GameMode.TIME_ATTACK);
             stats = new GameStats();
