@@ -12,6 +12,8 @@ namespace Resonance
     /// </summary>
     class CameraMotionManager
     {
+        private static ChaseCamera camera;
+
         public const int DEFAULT = 0;
         public const int CLOSE = 1;
         public const int TOPDOWN = 2;
@@ -29,6 +31,11 @@ namespace Resonance
         private static Vector3 currentPosition;
         private static Vector3 targetPosition;
         private static Vector3 currentTarget;
+
+        public static void initCamera()
+        {
+            camera = new ChaseCamera(startCamPos);
+        }
 
         public static void initialise()
         {
@@ -70,7 +77,7 @@ namespace Resonance
                 Vector3 left = targetPosition - currentPosition;
                 currentPosition += (left * ZOOM_RATE);
             }
-            Drawing.UpdateCamera(toFace, currentPosition);
+            camera.update(currentPosition);
         }
 
         private static void defaultGV()
@@ -114,6 +121,14 @@ namespace Resonance
                 }
             }
             currentTarget = closestPoint;*/
+        }
+
+        public static ChaseCamera Camera
+        {
+            get
+            {
+                return camera;
+            }
         }
     }
 }

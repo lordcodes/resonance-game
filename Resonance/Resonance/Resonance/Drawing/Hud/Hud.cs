@@ -175,7 +175,7 @@ namespace Resonance
                     int xOffset = (int)Math.Round(font.MeasureString(armourString).X / 2);
 
                     Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
-                    Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
+                    Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, CameraMotionManager.Camera.View, Matrix.Identity);
                     Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
 
                     if (badVibes.ContainsKey(name)) badVibes[name] = new BadVibeDetails(screenPosition, armour, bvDist);
@@ -191,7 +191,7 @@ namespace Resonance
                     }
 
                     Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
-                    Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, gameGraphics.View, Matrix.Identity);
+                    Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, CameraMotionManager.Camera.View, Matrix.Identity);
                     Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
 
                     if (badVibes.ContainsKey(name)) badVibes[name] = new BadVibeDetails(screenPosition, armour,bvDist);

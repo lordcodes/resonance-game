@@ -44,8 +44,6 @@ namespace Resonance
         /// </summary>
         protected override void LoadContent()
         {
-            //ScreenManager.game = new GameScreen(screenManager);
-            //screenManager.addScreen(ScreenManager.game);
         }
 
         /// <summary>

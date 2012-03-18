@@ -88,22 +88,6 @@ namespace Resonance
             }
         }
 
-        public static Vector3 CameraPosition
-        {
-            get
-            {
-                return gameGraphics.CameraPosition;
-            }
-        }
-
-        public static Vector3 CameraCoords
-        {
-            get
-            {
-                return gameGraphics.CameraCoords;
-            }
-        }
-
 
         public static void reset()
         {
@@ -430,14 +414,6 @@ namespace Resonance
                     hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
                 }
             }
-        }
-
-        /// <summary>
-        /// Updates Camera
-        /// </summary>
-        public static void UpdateCamera(Vector3 point, Vector3 cameraPosition)
-        {
-            gameGraphics.updateCamera(cameraPosition);
         }
 
         /// <summary>

@@ -57,7 +57,7 @@ namespace Resonance
         {
             get
             {
-                return getPosition(Drawing.CameraPosition);
+                return getPosition(CameraMotionManager.Camera.Position);
             }
         }
 

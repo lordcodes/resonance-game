@@ -94,6 +94,7 @@ namespace Resonance
             if (!isLoaded)
             {
                 BadVibe.initialiseBank();
+                CameraMotionManager.initCamera();
                 Drawing.loadContent();
                 world = new World();
 
@@ -180,9 +181,6 @@ namespace Resonance
                 List<string> deadVibes = processBadVibes();
                 removeDeadBadVibes(deadVibes);
             }
-
-            //if (musicHandler.getTrack().nextQuarterBeat()) breakRestLayers();
-            //getGV().detectCombatAndFreeze();
 
             // Update shockwaves
             getGV().updateWaves();
