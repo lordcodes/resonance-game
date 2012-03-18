@@ -18,5 +18,10 @@ namespace Resonance
         /// Resolution of the shadows texture of the shadows.
         /// </summary>
         public static int SHADOWS_TEXTURE_SIZE = 2048;
+
+        /// <summary>
+        /// Distance from the camera to the clip plane.
+        /// </summary>
+        public static float DRAW_DISTANCE = 300.0f;
     }
 }
