@@ -322,6 +322,7 @@ namespace Resonance
                     }
                     else
                     {
+                        gv.InCombat = false;
                         if (bv.Status == BadVibe.State.FROZEN) bv.Status = BadVibe.State.NORMAL;
                     }
                 }
