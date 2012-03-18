@@ -11,6 +11,8 @@ namespace Resonance {
     /// </summary>
     class ParticleEmitterManager {
 
+        private static bool paused = false;
+
         public static ContentManager Content;
 
         // Holds all currently existing emitters.
@@ -24,6 +26,7 @@ namespace Resonance {
         }
 
         public static void initialise() {
+            paused = false;
             Content = ScreenManager.game.ScreenManager.Content;
             particlePool = new List<Particle>();
             emitters = new List<Emitter>();
@@ -47,15 +50,21 @@ namespace Resonance {
         }
 
         public static void update() {
-            int noRemoved = 0;
-            for (int i = 0; i < emitters.Count; i++) {
-                if (emitters.ElementAt(i - noRemoved).isEmpty()) {
-                    emitters.RemoveAt(i - noRemoved);
-                    noRemoved++;
-                } else {
-                    emitters.ElementAt(i - noRemoved).update();
+            if (!paused) {
+                int noRemoved = 0;
+                for (int i = 0; i < emitters.Count; i++) {
+                    if (emitters.ElementAt(i - noRemoved).isEmpty()) {
+                        emitters.RemoveAt(i - noRemoved);
+                        noRemoved++;
+                    } else {
+                        emitters.ElementAt(i - noRemoved).update();
+                    }
                 }
             }
+        }
+
+        public static void pause(bool status) {
+            paused = status;
         }
     }
 }
