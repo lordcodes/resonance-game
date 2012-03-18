@@ -101,7 +101,7 @@ namespace Resonance
             {
                 ScreenManager.darkenBackground(0.9f);
                 ScreenManager.SpriteBatch.Begin();
-                positionPauseMenu();
+                ((PauseMenu)this).Draw();
             }
             else if (debugScreen)
             {
@@ -112,7 +112,7 @@ namespace Resonance
             {
                 ScreenManager.darkenBackground(0.9f);
                 ScreenManager.SpriteBatch.Begin();
-                positionEndGameMenu();
+                ((EndGameScreen)this).Draw();
             }
             else
             {
@@ -133,41 +133,6 @@ namespace Resonance
 
         protected virtual void updateItemLocations()
         {
-
-        }
-
-        private void positionPauseMenu()
-        {
-            //410 width by 540 height
-            //Ratio 1.32 (H / W)
-
-            Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-            int x = (int)screenSize.X / 2 - 200;
-            int y = (int)screenSize.Y / 2 - 240;
-
-            ScreenManager.SpriteBatch.Draw(bg[0], new Vector2(x, y), Color.White);
-
-            x = (int)((screenSize.X * 2) * 0.75f - 360);
-            y = (int)screenSize.Y / 2 - 250;
-
-            ScreenManager.SpriteBatch.Draw(bg[1], new Vector2(x, y), Color.White);
-
-            x += 30;
-            y += 50;
-
-            ScreenManager.SpriteBatch.Draw(bg[2], new Vector2(x, y), Color.White);
-        }
-
-        private void positionEndGameMenu()
-        {
-            //410 width by 540 height
-            //Ratio 1.32 (H / W)
-
-            Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-            int x = (int)screenSize.X / 2 - 200;
-            int y = (int)screenSize.Y / 2 - 240;
-
-            ScreenManager.SpriteBatch.Draw(bg[0], new Vector2(x, y), Color.White);
         }
 
         public SpriteFont Font

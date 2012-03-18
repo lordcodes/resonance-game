@@ -43,7 +43,6 @@ namespace Resonance
         public void multiKill(int number)
         {
             bvsAtOnce = Math.Max(bvsAtOnce, number);
-            DebugDisplay.update("Multikill", bvsAtOnce.ToString());
         }
 
         public int Score
