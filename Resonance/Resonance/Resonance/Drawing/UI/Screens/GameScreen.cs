@@ -50,6 +50,7 @@ namespace Resonance
 
         bool isLoaded;
         int iteration = 0;
+        private bool showHints = true;
 
         public GameScreen(ScreenManager scrn)
         {
@@ -102,6 +103,7 @@ namespace Resonance
                 //MenuActions.loadLevel(1);
                 Loading.load(delegate { loadLevel(1); }, "Level " + 1);
                 Drawing.reset();
+                musicHandler.getTrack().playTrack(); // move after intro/countdown
 
                 isLoaded = true;
             }
@@ -165,6 +167,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
+            if (showHints) introSequence();
 
             DrawableManager.Update(gameTime);
 
@@ -229,6 +232,24 @@ namespace Resonance
             if (iteration == 60) iteration = 0;
         }
 
+        private void introSequence()
+        {
+            //for (int i = 0; i < 600; i++)
+            //{
+            //    DebugDisplay.update("test", iteration.ToString());
+            //}
+
+
+            //Display hints
+            string msg = "BV description";
+            //ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.REMOVE_SCREEN));
+
+            msg = "Health, Nitro, Shield and Freeze description";
+            //ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.REMOVE_SCREEN));
+
+            showHints = false;
+        }
+
         // Called when game finished (won or lost).
         private void endGame()
         {
@@ -238,6 +259,8 @@ namespace Resonance
             finalScore = mode.finaliseScore(GV_KILLED, stats.Score);
             DebugDisplay.update("Game Over! State", r);
             DebugDisplay.update("Final Score", finalScore.ToString());
+
+            ScreenManager.addScreen(new EndGameScreen());
         }
 
         private void updateStats()

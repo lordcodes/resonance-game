@@ -23,7 +23,7 @@ namespace Resonance
         public static string DING = "ding";
         public static string SHIMMER = "shimmer";
 
-        private static bool AUTO_MUSIC = false;
+        private static bool AUTO_MUSIC = false; //TODO: hemmmm
 
         MusicTrack bgMusic;
         private AudioEngine audioEngine;

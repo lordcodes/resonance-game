@@ -12,6 +12,7 @@ namespace Resonance
     {
         public static int TO_MAIN_MENU = 0;
         public static int QUIT_GAME = 1;
+        public static int REMOVE_SCREEN = 2;
 
         string text;
         int action;
@@ -61,6 +62,7 @@ namespace Resonance
         {
             if (action == 0) LoadingScreen.LoadAScreen(ScreenManager, false, new MainMenu());
             else if (action == 1) ScreenManager.Game.Exit();
+            else if (action == 2) ExitScreen();
         }
 
         private void cancel()
