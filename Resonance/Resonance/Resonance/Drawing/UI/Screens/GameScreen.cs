@@ -37,7 +37,7 @@ namespace Resonance
         public static bool USE_BV_SPAWNER = false;
         public static bool USE_PICKUP_SPAWNER = false;
         public static bool USE_MINIMAP = true;
-        public static bool USE_BADVIBE_AI = false;
+        public static bool USE_BADVIBE_AI = true;
 
         GraphicsDeviceManager graphics;
 
@@ -104,7 +104,7 @@ namespace Resonance
                 //MenuActions.loadLevel(1);
                 Loading.load(delegate { loadLevel(1); }, "Level " + 1);
                 Drawing.reset();
-                musicHandler.getTrack().playTrack(); // move after intro/countdown
+                //musicHandler.getTrack().playTrack(); // move after intro/countdown
 
                 isLoaded = true;
             }
@@ -174,6 +174,7 @@ namespace Resonance
 
             Drawing.Update(gameTime);
 
+            GameScreen.musicHandler.getTrack().playTrack();
             float health = getGV().healthFraction();
             if (health < 0.1) musicHandler.HeartBeat = true;
             else musicHandler.HeartBeat = false;
@@ -238,6 +239,7 @@ namespace Resonance
         /// </summary>
         public void pause()
         {
+            GameScreen.musicHandler.getTrack().pauseTrack(); //TODO: check beat detection still works after resuming from pause
         }
 
         private void introSequence()
