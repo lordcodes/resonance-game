@@ -125,6 +125,7 @@
     <Compile Include="Drawing\TextureEffects\FireTextureEffect.cs" />
     <Compile Include="Drawing\TextureEffects\TextureEffect.cs" />
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs" />
+    <Compile Include="Drawing\UI\Screens\EndGameScreen.cs" />
     <Compile Include="Drawing\UI\Screens\MainMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MenuElement.cs" />
     <Compile Include="Drawing\UI\Screens\MenuScreen.cs" />

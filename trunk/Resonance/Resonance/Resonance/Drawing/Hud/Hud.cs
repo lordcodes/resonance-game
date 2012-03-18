@@ -355,6 +355,11 @@ namespace Resonance
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
             }
+
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(32)); //TODO: tidy this
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            spriteBatch.DrawString(font, "Health", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, "Health", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         private void drawNitroBar()
@@ -379,6 +384,11 @@ namespace Resonance
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
+
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81)); //TODO: tidy this
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            spriteBatch.DrawString(font, "Nitro", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, "Nitro", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         private void drawShieldBar()
@@ -403,6 +413,11 @@ namespace Resonance
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
+
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height / 2)); //TODO: tidy this
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            spriteBatch.DrawString(font, "Shield", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, "Shield", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         private void drawFreezeBar()
@@ -427,6 +442,11 @@ namespace Resonance
 
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
+
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height)); //TODO: tidy this
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            spriteBatch.DrawString(font, "Freeze", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, "Freeze", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         /// <summary>
