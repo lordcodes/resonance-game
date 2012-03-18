@@ -9,7 +9,6 @@ namespace Resonance
     abstract class Screen
     {
         ScreenManager screenManager;
-        ScreenState screenState = ScreenState.TO_ON;
         bool loadedUsingLoading = false;
         bool exiting = false;
         float transition = 1f;
@@ -38,30 +37,10 @@ namespace Resonance
             set { screenManager = value; }
         }
 
-        public ScreenState ScreenState
-        {
-            get { return screenState; }
-            set { screenState = value; }
-        }
-
         public bool LoadedUsingLoading
         {
             get { return loadedUsingLoading; }
             set { loadedUsingLoading = value; }
         }
-
-        public bool Exiting
-        {
-            get { return exiting; }
-            set { exiting = value; }
-        }
-
-        public float Transition
-        {
-            get { return transition; }
-            set { transition = value; }
-        }
     }
-
-    public enum ScreenState { TO_ON, ACTIVE, TO_OFF, HIDDEN };
 }
