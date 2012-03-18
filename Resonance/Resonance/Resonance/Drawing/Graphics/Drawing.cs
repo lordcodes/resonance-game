@@ -164,8 +164,12 @@ namespace Resonance
         }
 
         public static Texture2D scaleTexture(Texture2D src, float sF) {
-            int newW = (int) (src.Width  * sF);
-            int newH = (int) (src.Height * sF);
+            return scaleTexture(src, sF, sF);
+        }
+
+        public static Texture2D scaleTexture(Texture2D src, float sFX, float sFY) {
+            int newW = (int) (src.Width  * sFX);
+            int newH = (int) (src.Height * sFY);
             Texture2D scaled = new Texture2D(src.GraphicsDevice, newW, newH);
             Color[] data = new Color[src.Width * src.Height];
             Color[] scaledData = new Color[newW * newH];
