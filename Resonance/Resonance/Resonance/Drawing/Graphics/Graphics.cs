@@ -164,7 +164,6 @@ namespace Resonance
         {
             Matrix theView = CameraMotionManager.Camera.View;
             Vector3 cameraPosition = CameraMotionManager.Camera.Position;
-            Vector3 cameraPosition2 = CameraMotionManager.Camera.Position;
             Matrix projection2 = projection;
             if (drawingReflection)
             {
@@ -172,7 +171,6 @@ namespace Resonance
                 float dimension = 16.5f;
                 float scale = (float)(10.4 * Math.Pow((cameraPosition.Y), -0.9));
                 Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -heightDisp, cameraPosition.Z + 0.1f);
-                cameraPosition2 = reflecCameraCoords;
                 theView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
                 projection2 = Matrix.CreatePerspective(dimension, dimension, 1.0f, 100.0f);
                 Matrix heightScale = Matrix.CreateScale(1f, scale, 1f);
