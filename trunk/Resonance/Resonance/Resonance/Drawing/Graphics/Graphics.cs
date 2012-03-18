@@ -184,7 +184,8 @@ namespace Resonance
         public void updateCamera(Vector3 newCameraPosition)
         {
             cameraCoords = newCameraPosition;
-            cameraPosition = getCamPos(cameraCoords);
+            Vector3 oldPos = cameraPosition;
+            cameraPosition = Vector3.SmoothStep(oldPos,getCamPos(cameraCoords),0.15f);
             Vector3 position = GameScreen.getGV().Body.Position;
             view = Matrix.CreateLookAt(cameraPosition, position, Vector3.Up);
         }

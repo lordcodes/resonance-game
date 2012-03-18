@@ -97,6 +97,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="Drawing\Graphics\ChaseCamera.cs" />
     <Compile Include="Drawing\Graphics\DrawableManager.cs" />
     <Compile Include="Drawing\Graphics\GraphicsSettings.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModel.cs" />

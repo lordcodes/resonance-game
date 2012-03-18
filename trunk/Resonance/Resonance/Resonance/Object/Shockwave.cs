@@ -39,32 +39,6 @@ namespace Resonance
         // WorldTransform
         Matrix transform;
 
-        // Properties
-
-        public double Radius
-        {
-            get
-            {
-                return radius;
-            }
-        }
-
-        public Vector3 Position
-        {
-            get
-            {
-                return position;
-            }
-        }
-
-        public Matrix Transform
-        {
-            get
-            {
-                return transform;
-            }
-        }
-
         public Shockwave(int modelNum, String name, Vector3 pos, Matrix t, int colour)
             : base(modelNum, name, pos)
         {
@@ -93,10 +67,14 @@ namespace Resonance
             transform = Matrix.Multiply(transform, translate);
         }
 
-        public void checkBadVibes() {
+        public void checkBadVibes() 
+        {
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
 
-            foreach (BadVibe bv in bvs) {
+            foreach (BadVibe bv in bvs) 
+            {
+                bool t = (bv is DynamicObject);
+                DebugDisplay.update("TestPrint", t.ToString());
                 if (bv.Status != BadVibe.State.DEAD && !bVibes.Contains(bv))
                 {
                     double dist = Vector3.Distance(Position, bv.Body.Position);
@@ -114,5 +92,48 @@ namespace Resonance
                 }
             }
         }
+
+        // Properties
+
+        public double Radius
+        {
+            get
+            {
+                return radius;
+            }
+        }
+
+        public Vector3 Position
+        {
+            get
+            {
+                return position;
+            }
+        }
+
+        public Matrix Transform
+        {
+            get
+            {
+                return transform;
+            }
+        }
+
+        public int NumberHit
+        {
+            get
+            {
+                return bVibes.Count;
+            }
+        }
+
+        public int Colour
+        {
+            get
+            {
+                return colour;
+            }
+        }
+
     }
 }
