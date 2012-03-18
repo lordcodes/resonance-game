@@ -141,7 +141,7 @@ namespace Resonance
         /// </summary>
         public void loadContent(ContentManager content, GraphicsDevice graphicsDevice)
         {
-            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, 100.0f);
+            projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, GraphicsSettings.DRAW_DISTANCE);
             view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
             world = Matrix.Identity;
             shaders = new Shaders();
