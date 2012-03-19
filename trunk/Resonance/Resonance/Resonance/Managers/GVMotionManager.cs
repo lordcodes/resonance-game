@@ -45,7 +45,10 @@ namespace Resonance {
         // On the last iterateion, did direction change?
         private static bool prevRL  = false;
         private static bool prevRR  = false;
-        private static bool dChange = false;
+        private static bool rChange = false;
+        private static bool prevXL  = false;
+        private static bool prevXR  = false;
+        private static bool xChange = false;
 
         /// Methods
 
@@ -128,39 +131,42 @@ namespace Resonance {
             BOOSTING       = false;
         }
 
-        private static void move(float power) {
-            float inc = power * Z_ACCELERATION;
+        private static void move(LinearAxisMotor lam, float power) {
+
+            float acc    = 0;
+            float spd    = 0;
+            float maxSpd = 0;
+
+                 if (lam.Equals(lamZ)) { acc = Z_ACCELERATION; spd = Z_SPEED; maxSpd = MAX_Z_SPEED; }
+            else if (lam.Equals(lamX)) { acc = X_ACCELERATION; spd = X_SPEED; maxSpd = MAX_X_SPEED; }
+            else return; // ERROR! NO SUCH LAM! ABORT! ABORT!
+
+            float inc = power * acc;
 
             float posInc = inc;
-            float posSpd = Z_SPEED;
-            float max = power * MAX_Z_SPEED;
+            float posSpd = spd;
+            float max = power * maxSpd;
 
             if (posInc < 0) posInc *= -1;
             if (posSpd < 0) posSpd *= -1;
             if (max < 0) max *= -1;
-            if (max > MAX_Z_SPEED) max = MAX_Z_SPEED;
-            if (posSpd + posInc < max) Z_SPEED += inc;
+            if (max > maxSpd) max = maxSpd;
+            if (posSpd + posInc < max) {
+                spd += inc;
+                if (lam.Equals(lamZ)) { Z_SPEED = spd; } else { X_SPEED = spd; }
+            }
 
             Vector3 oVector = Utility.QuaternionToEuler(gv.Body.Orientation);
             Vector3 vel     = gv.Body.LinearVelocity;
+            Vector3 d = Vector3.Zero;
 
-            //////////// USING VELOCITIES /////////////////
+            if (lam.Equals(lamZ)) d = gv.Body.OrientationMatrix.Forward; else d = gv.Body.OrientationMatrix.Left;
 
-            /*float xInc = (float)(-power * Z_ACCELERATION * Math.Sin(oVector.Y));
-            float zInc = (float)(-power * Z_ACCELERATION * Math.Cos(oVector.Y));
-
-            if (vel.X < MAX_Z_SPEED && vel.X > -MAX_Z_SPEED) vel.X += xInc;
-            if (vel.Z < MAX_Z_SPEED && vel.Z > -MAX_Z_SPEED) vel.Z += zInc;
-
-            gv.Body.LinearVelocity = vel;*/
-
-            ///////////// USING LINEARAXISMOTOR ///////////////
-
-            lamZ.Axis = gv.Body.OrientationMatrix.Forward;
-            lamZ.Settings.VelocityMotor.GoalVelocity = Z_SPEED;
+            lam.Axis = d;
+            lam.Settings.VelocityMotor.GoalVelocity = spd;
         }
 
-        private static void strafe(float power) {
+        /*private static void strafe(float power) {
             float inc = power * X_ACCELERATION;
 
             float posInc = inc;
@@ -176,17 +182,9 @@ namespace Resonance {
             Vector3 oVector = Utility.QuaternionToEuler(gv.Body.Orientation);
             Vector3 vel     = gv.Body.LinearVelocity;
 
-            /*float xInc = (float)(-power * X_ACCELERATION * Math.Cos(oVector.Y));
-            float zInc = (float)(-power * X_ACCELERATION * Math.Sin(oVector.Y));
-
-            if (vel.X < MAX_X_SPEED && vel.X > -MAX_X_SPEED) vel.X += xInc;
-            if (vel.Z < MAX_X_SPEED && vel.Z > -MAX_X_SPEED) vel.Z += zInc;
-
-            gv.Body.LinearVelocity = vel;*/
-
             lamX.Axis = gv.Body.OrientationMatrix.Left;
             lamX.Settings.VelocityMotor.GoalVelocity = X_SPEED;
-        }
+        }*/
 
 
 
@@ -231,7 +229,7 @@ namespace Resonance {
             bool posR = false;
 
             // Rotate GV based on keyboard / dPad
-            if (rotateL ^ rotateR && !(dChange)) {
+            if (rotateL ^ rotateR && !rChange) {
                 float power;
                 if (rightX != 0) power = rightX; else power = 1f;
                 if (power < 0) power *= -1;
@@ -241,18 +239,18 @@ namespace Resonance {
                 posR = rotateR ^ backward;
 
                 if (posR) {
-                    if (prevRR) dChange = true; else dChange = false;
+                    if (prevRR) rChange = true; else rChange = false;
                     rotate(power);
                     prevRR = false;
                     prevRL = true;
                 } else {
-                    if (prevRL) dChange = true; else dChange = false;
+                    if (prevRL) rChange = true; else rChange = false;
                     rotate(-power);
                     prevRR = true;
                     prevRL = false;
                 }
             } else {
-                dChange = false;
+                rChange = false;
                 if (R_SPEED > 0) if (R_DECELERATION > R_SPEED)  R_SPEED = 0f; else R_SPEED -= R_DECELERATION;
                 if (R_SPEED < 0) if (R_DECELERATION > -R_SPEED) R_SPEED = 0f; else R_SPEED += R_DECELERATION;
                 rotate(0f);
@@ -273,20 +271,20 @@ namespace Resonance {
                 //power = (float) Math.Sin(power * (Math.PI / 2));
 
                 if (forward) {
-                    move(power);
+                    move(lamZ,  power);
                 } else {
-                    move(-power);
+                    move(lamZ, -power);
                 }
             }
 
             if (!(forward ^ backward) || !BOOSTING) {
                 if (Z_SPEED > 0) if (Z_DECELERATION > Z_SPEED)  Z_SPEED = 0f; else Z_SPEED -= Z_DECELERATION;
                 if (Z_SPEED < 0) if (Z_DECELERATION > -Z_SPEED) Z_SPEED = 0f; else Z_SPEED += Z_DECELERATION;
-                move(0f);
+                move(lamZ, 0f);
             }
 
             // Strafe based on keyboard.
-            if (strafeL ^ strafeR) {
+            if (strafeL ^ strafeR && !xChange) {
                 float power;
                 if (leftX != 0) power = leftX; else power = 1f;
                 if (power < 0) power *= -1;
@@ -294,14 +292,24 @@ namespace Resonance {
                 //power = (float) Math.Sin(power * (Math.PI / 2));
 
                 if (strafeL) {
-                    strafe(power);
+                    //strafe(power);
+                    if (prevXR) xChange = true; else xChange = false;
+                    move(lamX,  power);
+                    prevXL = true;
+                    prevXR = false;
                 } else {
-                    strafe(-power);
+                    //strafe(-power);
+                    if (prevXL) xChange = true; else xChange = false;
+                    move(lamX, -power);
+                    prevXL = false;
+                    prevXR = true;
                 }
             } else {
+                xChange = false;
                 if (X_SPEED > 0) if (X_DECELERATION > X_SPEED)  X_SPEED = 0f; else X_SPEED -= X_DECELERATION;
                 if (X_SPEED < 0) if (X_DECELERATION > -X_SPEED) X_SPEED = 0f; else X_SPEED += X_DECELERATION;
-                strafe(0f);
+                //strafe(0f);
+                move(lamX, 0f);
             }
 
             //Charge speed boost when not in combat
