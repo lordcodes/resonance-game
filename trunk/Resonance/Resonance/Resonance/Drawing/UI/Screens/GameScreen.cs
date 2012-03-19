@@ -200,8 +200,8 @@ namespace Resonance
 
             musicHandler.Update();
 
-            ParticleEmitterManager.pause(false);
-            WeatherManager.pause(false);
+            //ParticleEmitterManager.pause(false);
+            //WeatherManager.pause(false);
             WeatherManager.update();
 
             //Update Spawners
@@ -242,8 +242,8 @@ namespace Resonance
         public void pause()
         {
             GameScreen.musicHandler.getTrack().pauseTrack(); //TODO: check beat detection still works after resuming from pause
-            WeatherManager.pause(true);
-            ParticleEmitterManager.pause(true);
+            //WeatherManager.pause(true);
+            //ParticleEmitterManager.pause(true);
         }
 
         private void introSequence()
@@ -432,7 +432,7 @@ namespace Resonance
             //Drawing.setAmbientLight(new Vector3(2f, 2f, 2f));
 
             //Reflections stuff is causing slowdown of about 20FPS
-            graphics.GraphicsDevice.Clear(Color.Black);
+            /*graphics.GraphicsDevice.Clear(Color.Black);
             if (Drawing.requestReflectionRender)
             {
                 Drawing.drawReflection();
@@ -440,7 +440,7 @@ namespace Resonance
                 DrawableManager.Draw(gameTime);
             }
             Drawing.drawReflections();
-            graphics.GraphicsDevice.Clear(Color.Black);
+            graphics.GraphicsDevice.Clear(Color.Black);*/
             if (Drawing.requestShadowsRender)
             {
                 Drawing.drawShadow();
