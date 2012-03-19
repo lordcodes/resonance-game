@@ -132,14 +132,14 @@ namespace Resonance {
         }
 
         private static void move(LinearAxisMotor lam, float power) {
+            bool zMode = (lam.Equals(lamZ));
 
             float acc    = 0;
             float spd    = 0;
             float maxSpd = 0;
 
-                 if (lam.Equals(lamZ)) { acc = Z_ACCELERATION; spd = Z_SPEED; maxSpd = MAX_Z_SPEED; }
-            else if (lam.Equals(lamX)) { acc = X_ACCELERATION; spd = X_SPEED; maxSpd = MAX_X_SPEED; }
-            else return; // ERROR! NO SUCH LAM! ABORT! ABORT!
+            if (zMode) { acc = Z_ACCELERATION; spd = Z_SPEED; maxSpd = MAX_Z_SPEED; }
+                  else { acc = X_ACCELERATION; spd = X_SPEED; maxSpd = MAX_X_SPEED; }
 
             float inc = power * acc;
 
@@ -153,40 +153,18 @@ namespace Resonance {
             if (max > maxSpd) max = maxSpd;
             if (posSpd + posInc < max) {
                 spd += inc;
-                if (lam.Equals(lamZ)) { Z_SPEED = spd; } else { X_SPEED = spd; }
+                if (zMode) { Z_SPEED = spd; } else { X_SPEED = spd; }
             }
 
             Vector3 oVector = Utility.QuaternionToEuler(gv.Body.Orientation);
             Vector3 vel     = gv.Body.LinearVelocity;
             Vector3 d = Vector3.Zero;
 
-            if (lam.Equals(lamZ)) d = gv.Body.OrientationMatrix.Forward; else d = gv.Body.OrientationMatrix.Left;
+            if (zMode) d = gv.Body.OrientationMatrix.Forward; else d = gv.Body.OrientationMatrix.Left;
 
             lam.Axis = d;
             lam.Settings.VelocityMotor.GoalVelocity = spd;
         }
-
-        /*private static void strafe(float power) {
-            float inc = power * X_ACCELERATION;
-
-            float posInc = inc;
-            float posSpd = X_SPEED;
-            float max = power * MAX_X_SPEED;
-
-            if (posInc < 0) posInc *= -1;
-            if (posSpd < 0) posSpd *= -1;
-            if (max < 0) max *= -1;
-            if (max > MAX_X_SPEED) max = MAX_X_SPEED;
-            if (posSpd + posInc < max) X_SPEED += inc;
-
-            Vector3 oVector = Utility.QuaternionToEuler(gv.Body.Orientation);
-            Vector3 vel     = gv.Body.LinearVelocity;
-
-            lamX.Axis = gv.Body.OrientationMatrix.Left;
-            lamX.Settings.VelocityMotor.GoalVelocity = X_SPEED;
-        }*/
-
-
 
         /// <summary>
         /// Takes the state of GV motion input devices and moves the GV based on these.
@@ -292,13 +270,11 @@ namespace Resonance {
                 //power = (float) Math.Sin(power * (Math.PI / 2));
 
                 if (strafeL) {
-                    //strafe(power);
                     if (prevXR) xChange = true; else xChange = false;
                     move(lamX,  power);
                     prevXL = true;
                     prevXR = false;
                 } else {
-                    //strafe(-power);
                     if (prevXL) xChange = true; else xChange = false;
                     move(lamX, -power);
                     prevXL = false;
@@ -308,7 +284,6 @@ namespace Resonance {
                 xChange = false;
                 if (X_SPEED > 0) if (X_DECELERATION > X_SPEED)  X_SPEED = 0f; else X_SPEED -= X_DECELERATION;
                 if (X_SPEED < 0) if (X_DECELERATION > -X_SPEED) X_SPEED = 0f; else X_SPEED += X_DECELERATION;
-                //strafe(0f);
                 move(lamX, 0f);
             }
 
