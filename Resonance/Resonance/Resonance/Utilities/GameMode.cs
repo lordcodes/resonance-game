@@ -16,7 +16,7 @@ namespace Resonance {
         public const int SURVIVAL    = 1;
         public const int ELIMINATION = 2;
 
-        private bool TERMINATION_CRITERION_MET;
+        private bool TERMINATION_CRITERION_MET = false;
 
         public GameMode(int m) {
             MODE = m;
