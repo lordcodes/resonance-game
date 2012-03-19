@@ -65,6 +65,8 @@ namespace Resonance {
 
         public static void pause(bool status) {
             paused = status;
+
+            DebugDisplay.update("PE: ", paused.ToString());
         }
 
         public static bool isPaused() {

@@ -224,14 +224,15 @@ namespace Resonance {
         public static void pause(bool status) {
             paused = status;
 
+            DebugDisplay.update("WM: ", paused.ToString());
+
             if (paused) {
                 try {
                     // Please don't change the order of these 3!
                     rCue.Pause();
                     lRCue.Pause();
                     lCue.Pause();
-                } catch (Exception e) {
-                }
+                } catch (Exception e) {}
             } else {
                 try {
                     // Please don't change the order of these 3!
