@@ -9,9 +9,13 @@ namespace Resonance
 {
     class EndGameScreen : MenuScreen
     {
-        public EndGameScreen()
+        GameStats stats;
+
+        public EndGameScreen(GameStats stats)
             : base("Game Over")
         {
+            this.stats = stats;
+
             MenuElement playAgain = new MenuElement("Play Again", new ItemDelegate(delegate { playGameAgain(); }));
             MenuElement quit = new MenuElement("Back to Main Menu", new ItemDelegate(delegate { quitGame(); }));
             MenuElement quitCompletely = new MenuElement("Quit Game", new ItemDelegate(delegate { quitGameCompletely(); }));
@@ -55,10 +59,24 @@ namespace Resonance
             int y = (int)screenSize.Y / 2 - 240;
 
             ScreenManager.SpriteBatch.Draw(Bgs[0], new Vector2(x, y), Color.White);
+
             x = (int)((screenSize.X * 2) * 0.75f - 360);
             y = (int)screenSize.Y / 2 - 250;
 
             ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
+
+            x += 60;
+            y += 60;
+
+            string message = "Final score: " + stats.Score + "\n\n";
+            message += "Total Bad Vibes Killed: " + stats.BVsKilled + "\n\n";
+            message += "Highest Multi-Kill with Single Wave: " + stats.Multikill + "\n\n";
+            message += "Number of Nitro Uses: " + stats.NitroUses + "\n\n";
+            message += "Number of Shield Uses: " + stats.ShieldUses + "\n\n";
+            message += "Number of Freeze Uses: " + stats.FreezeUses + "\n\n";
+            message += "Number of Pickups: " + stats.Powerups + "\n\n";
+
+            ScreenManager.SpriteBatch.DrawString(Font, message, new Vector2(x, y), Color.White);
         }
 
         private void playGameAgain()

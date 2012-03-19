@@ -34,8 +34,8 @@ namespace Resonance
         public static MusicHandler musicHandler;
 
         public static bool GV_KILLED = false;
-        public static bool USE_BV_SPAWNER = false;
-        public static bool USE_PICKUP_SPAWNER = false;
+        public static bool USE_BV_SPAWNER = true;
+        public static bool USE_PICKUP_SPAWNER = true;
         public static bool USE_MINIMAP = true;
         public static bool USE_BADVIBE_AI = true;
 
@@ -169,12 +169,12 @@ namespace Resonance
         public override void Update(GameTime gameTime)
         {
             if (showHints) introSequence();
-
             DrawableManager.Update(gameTime);
 
             Drawing.Update(gameTime);
 
             GameScreen.musicHandler.getTrack().playTrack();
+
             float health = getGV().healthFraction();
             if (health < 0.1) musicHandler.HeartBeat = true;
             else musicHandler.HeartBeat = false;
@@ -274,7 +274,7 @@ namespace Resonance
             DebugDisplay.update("Game Over! State", r);
             DebugDisplay.update("Final Score", finalScore.ToString());
 
-            ScreenManager.addScreen(new EndGameScreen());
+            ScreenManager.addScreen(new EndGameScreen(stats));
         }
 
         /// <summary>
@@ -431,6 +431,7 @@ namespace Resonance
             //Set the ambient light of the 3D scene, default is new Vector3(0.1f, 0.1f, 0.1f)
             //Drawing.setAmbientLight(new Vector3(2f, 2f, 2f));
 
+            //Reflections stuff is causing slowdown of about 20FPS
             graphics.GraphicsDevice.Clear(Color.Black);
             if (Drawing.requestReflectionRender)
             {
