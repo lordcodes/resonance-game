@@ -200,8 +200,9 @@ namespace Resonance
 
             musicHandler.Update();
 
-            //ParticleEmitterManager.pause(false);
-            //WeatherManager.pause(false);
+            if (!ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
+            if (!WeatherManager.isPaused())         WeatherManager.pause(false);
+
             WeatherManager.update();
 
             //Update Spawners
