@@ -200,8 +200,8 @@ namespace Resonance
 
             musicHandler.Update();
 
-            if (!ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
-            if (!WeatherManager.isPaused())         WeatherManager.pause(false);
+            if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
+            if (WeatherManager.isPaused())         WeatherManager.pause(false);
 
             WeatherManager.update();
 
@@ -243,8 +243,8 @@ namespace Resonance
         public void pause()
         {
             GameScreen.musicHandler.getTrack().pauseTrack(); //TODO: check beat detection still works after resuming from pause
-            //WeatherManager.pause(true);
-            //ParticleEmitterManager.pause(true);
+            WeatherManager.pause(true);
+            ParticleEmitterManager.pause(true);
         }
 
         private void introSequence()
