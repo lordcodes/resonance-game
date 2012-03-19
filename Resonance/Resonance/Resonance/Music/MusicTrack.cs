@@ -213,8 +213,8 @@ namespace Resonance
                         }
                         if (scoreWeight == -1f) offbeat++;
 
-                        DebugDisplay.update("Beats    ",   beats.ToString());
-                        DebugDisplay.update("Offbeats ", offbeat.ToString());
+                        //DebugDisplay.update("Beats    ",   beats.ToString());
+                        //DebugDisplay.update("Offbeats ", offbeat.ToString());
                         break;
                     }
                 }

@@ -79,7 +79,7 @@ namespace Resonance
             long start = DateTime.Now.Ticks;
             functionToLoad();
             double loadTime = (double)(DateTime.Now.Ticks - start) / 10000000;
-            DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
+            //DebugDisplay.update("LOAD TIME(S)", loadTime.ToString());
             functionCalledWhenDone();
         }
     }
