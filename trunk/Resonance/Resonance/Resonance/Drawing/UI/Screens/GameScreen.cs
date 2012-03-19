@@ -277,6 +277,55 @@ namespace Resonance
             ScreenManager.addScreen(new EndGameScreen());
         }
 
+        /// <summary>
+        /// Takes a screenshot of the game screen and saves a png in bin\x86\Debug
+        /// </summary>
+        public void takeScreenshot()
+        {
+            //http://www.brianclifton.com/blogs/programming/screenshot-xna-csharp
+#if WINDOWS
+    int w = graphics.GraphicsDevice.PresentationParameters.BackBufferWidth;
+    int h = graphics.GraphicsDevice.PresentationParameters.BackBufferHeight;
+
+    //force a frame to be drawn (otherwise back buffer is empty)
+    Draw(new GameTime());
+
+    //pull the picture from the buffer
+    int[] backBuffer = new int[w * h];
+    graphics.GraphicsDevice.GetBackBufferData(backBuffer);
+
+    //copy into a texture
+    Texture2D texture = new Texture2D(graphics.GraphicsDevice, w, h, false, graphics.GraphicsDevice.PresentationParameters.BackBufferFormat);
+    texture.SetData(backBuffer);
+
+    //save to disk
+    Stream stream = File.OpenWrite("screenshot" + Guid.NewGuid().ToString() + ".png");
+    texture.SaveAsPng(stream, w, h);
+    stream.Close();
+
+#elif XBOX
+            throw new NotSupportedException();
+#endif 
+            //graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
+
+            //RenderTarget2D render = new RenderTarget2D(graphics.GraphicsDevice, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height, false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
+
+            //graphics.GraphicsDevice.SetRenderTarget(render);
+
+            //spriteBatch.Begin();
+            //spriteBatch.Draw(texture, Vector2.Zero, Color.White);
+            //spriteBatch.End();
+
+            //System.IO.FileStream fs = new System.IO.FileStream(@"screenshot.png", System.IO.FileMode.OpenOrCreate);
+
+            //graphics.GraphicsDevice.SetRenderTarget(null);
+
+            //render.SaveAsPng(fs, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
+
+            //Texture2D newTexture = render;
+            //fs.Flush();
+        }
+
         private void updateStats()
         {
         }

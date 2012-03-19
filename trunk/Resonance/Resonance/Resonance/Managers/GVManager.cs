@@ -58,6 +58,11 @@ namespace Resonance
                 MiniMap.ensmall();
             }
 
+            if (kbd.IsKeyDown(Keys.PrintScreen) && !lastKbd.IsKeyDown(Keys.PrintScreen))
+            {
+                ScreenManager.game.takeScreenshot();
+            }
+
             if (pad.Buttons.X == ButtonState.Pressed || kbd.IsKeyDown(Keys.J))
             {
                 

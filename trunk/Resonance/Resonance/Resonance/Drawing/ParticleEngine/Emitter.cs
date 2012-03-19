@@ -30,7 +30,7 @@ namespace Resonance {
         protected static Random gen = new Random();
 
         public bool isEmpty() {
-            DebugDisplay.update("PC", particles.Count.ToString());
+            //DebugDisplay.update("PC", particles.Count.ToString());
             return ((particles.Count == 0) && (particlesLeft == 0));
         }
 

@@ -152,7 +152,7 @@ namespace Resonance
             {
                 reset();
             }
-            DebugDisplay.update("DMAPI",itcount+"");
+            //DebugDisplay.update("DMAPI",itcount+"");
         }
 
         private List<float[]> createMasterBuffer(int width, int height)

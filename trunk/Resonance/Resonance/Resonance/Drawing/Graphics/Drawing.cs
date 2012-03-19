@@ -307,7 +307,7 @@ namespace Resonance
             Quaternion ang;
 
             foreach (Emitter e in ParticleEmitterManager.getEmitters()) {
-                DebugDisplay.update("P Count", e.getParticles().Count.ToString());
+                //DebugDisplay.update("P Count", e.getParticles().Count.ToString());
                 foreach (Particle p in e.getParticles()) {
                     try {
                         pos = p.getPos();
