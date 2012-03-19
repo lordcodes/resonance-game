@@ -241,5 +241,9 @@ namespace Resonance {
                 } catch (Exception e) {}
             }
         }
+
+        public static bool isPaused() {
+            return paused;
+        }
     }
 }

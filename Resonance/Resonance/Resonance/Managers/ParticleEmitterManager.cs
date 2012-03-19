@@ -66,5 +66,9 @@ namespace Resonance {
         public static void pause(bool status) {
             paused = status;
         }
+
+        public static bool isPaused() {
+            return paused;
+        }
     }
 }
