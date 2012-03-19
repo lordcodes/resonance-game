@@ -31,7 +31,7 @@ namespace Resonance
         private BadVibe bv;
         private SingleEntityAngularMotor servo;
         private int uniqueId = 0;
-        private int iteration = 0;
+        private int iteration;
 
         public AIManager(BadVibe bvRef)
         {
@@ -54,6 +54,7 @@ namespace Resonance
 
         public void moveManager()
         {
+            iteration = ScreenManager.game.Iteration;
             if (closeToEdge())
             {
                 //Move away from the edge
@@ -76,8 +77,6 @@ namespace Resonance
                 rotateToFacePoint(point);
                 attack();
             }
-            iteration++;
-            if (iteration == 60) iteration = 0;
         }
 
         private void rotateToFacePoint(Vector3 point)
@@ -126,7 +125,6 @@ namespace Resonance
 
         public void move(float power)
         {
-            int iteration = ScreenManager.game.Iteration;
             if(iteration % 10 == 0) avoidObstacles();
             Vector3 orientation = Utility.QuaternionToEuler(bv.Body.Orientation);
             Vector3 velocity = bv.Body.LinearVelocity;

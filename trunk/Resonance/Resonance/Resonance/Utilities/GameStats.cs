@@ -49,5 +49,40 @@ namespace Resonance
         {
             get { return score; }
         }
+
+        public int BVsKilled
+        {
+            get { return bvsKilled; }
+        }
+
+        public int Multikill
+        {
+            get { return bvsAtOnce; }
+        }
+
+        public int HealthCritical
+        {
+            get { return healthCritical; }
+        }
+
+        public int NitroUses
+        {
+            get { return nitroUses; }
+        }
+
+        public int ShieldUses
+        {
+            get { return shieldUses; }
+        }
+
+        public int FreezeUses
+        {
+            get { return freezeUses; }
+        }
+
+        public int Powerups
+        {
+            get { return powerups; }
+        }
     }
 }

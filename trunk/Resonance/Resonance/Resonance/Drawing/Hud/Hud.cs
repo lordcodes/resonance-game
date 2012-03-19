@@ -90,18 +90,6 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Draw text in the central, pause menu, position on screen
-        /// </summary>
-        /// <param name="text">Text to display</param>
-        public void drawMenu(String text)
-        {
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(800), ScreenManager.pixelsY(400));
-            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
-            drawText(coords2, text, Color.Black);
-            drawText(coords, text, Color.White);
-        }
-
-        /// <summary>
         /// Draw text on screen at set coords.
         /// </summary>
         /// <param name="coords">Vector3 coords for position of text</param>

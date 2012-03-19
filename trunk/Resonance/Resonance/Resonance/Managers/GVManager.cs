@@ -67,16 +67,23 @@ namespace Resonance
             {
                 
                 GameScreen.getGV().selectedPower = SHIELD;
+
+                GVMotionManager.resetBoost();
             }
 
             if (pad.Buttons.Y == ButtonState.Pressed || kbd.IsKeyDown(Keys.K))
             {
                 GameScreen.getGV().selectedPower = NITROUS;
+
+                GameScreen.getGV().shieldDown();
             }
 
             if (pad.Buttons.B == ButtonState.Pressed || kbd.IsKeyDown(Keys.L))
             {
                 GameScreen.getGV().selectedPower = FREEZE;
+
+                GameScreen.getGV().shieldDown();
+                GVMotionManager.resetBoost();
             }
 
             if (pad.Triggers.Right > 0.1 || kbd.IsKeyDown(Keys.T))
