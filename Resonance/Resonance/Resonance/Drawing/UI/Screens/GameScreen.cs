@@ -253,7 +253,7 @@ namespace Resonance
             //{
             //    DebugDisplay.update("test", iteration.ToString());
             //}
-
+            ScreenManager.addScreen(new HintScreen());
 
             //Display hints
             string msg = "BV description";
