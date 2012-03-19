@@ -121,6 +121,7 @@
     </Compile>
     <Compile Include="Drawing\UI\Screens\EndGameScreen.cs" />
     <Compile Include="Drawing\UI\Screens\GameScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\HintScreen.cs" />
     <Compile Include="Drawing\UI\Screens\LoadingScreen.cs" />
     <Compile Include="Drawing\UI\Screens\MainMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MenuElement.cs" />
@@ -263,7 +264,6 @@
       <XnaReferenceType>Content</XnaReferenceType>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
   <!--

@@ -27,8 +27,8 @@ namespace Resonance
             GamePadState pad = input.PlayerOne;
             GamePadState lastPad = input.LastPlayerOne;
 
-            if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) ||
-                (pad.Buttons.LeftShoulder == ButtonState.Pressed && lastPad.Buttons.LeftShoulder != ButtonState.Pressed))
+            if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) /*||
+                (pad.Buttons.LeftShoulder == ButtonState.Pressed && lastPad.Buttons.LeftShoulder != ButtonState.Pressed)*/)
             {
                 Drawing.DoDisp = true;
                 Drawing.addWave(GameScreen.getGV().Body.Position);
