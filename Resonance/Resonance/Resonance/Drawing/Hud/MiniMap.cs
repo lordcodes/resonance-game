@@ -385,8 +385,7 @@ namespace Resonance
                     
                     objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));
 
-                    if (o is BadVibe || o is Projectile_BV)
-                    {            
+                    if (o is BadVibe || o is Projectile_BV) {            
                         scaledTex = Drawing.scaleTexture(vibe, sF);
                         if (o is BadVibe)
                             drawColour = BAD_VIBE_COLOUR;
