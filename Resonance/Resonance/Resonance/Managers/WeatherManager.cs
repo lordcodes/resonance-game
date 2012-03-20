@@ -48,6 +48,9 @@ namespace Resonance {
         // True if thunder / lightning is happening. Reset to false when lightning ends and maxLightningSep has passed. 
         private static bool lightningHappening;
 
+        private static bool    forceAmbLight;
+        private static Vector3 forcedAmbLight;
+
         private static long lastLightning = 0;
         private static long lastLightningStarted = -1;
         private static long lightningLength = 1000000; // 0.1 seconds
@@ -68,6 +71,7 @@ namespace Resonance {
             gen = new Random();
 
             paused = false;
+            forceAmbLight = false;
 
             cloudCover     = 0f;
             cloudHeaviness = 0f;
@@ -216,9 +220,26 @@ namespace Resonance {
             if (lastLightningStarted > DateTime.Now.Ticks - lightningLength) {
                 Drawing.setAmbientLight(new Vector3(lightningAlpha, lightningAlpha, lightningAlpha + 1));
             } else {
-                //Drawing.setAmbientLight(new Vector3(0.01f, 0.01f, 0.01f));
-                Drawing.setAmbientLight(new Vector3(0.1f - cloudCover, 0.1f - cloudCover, 0.1f - cloudCover));
+                if (!forceAmbLight) {
+                    Drawing.setAmbientLight(new Vector3(0.1f - cloudCover, 0.1f - cloudCover, 0.1f - cloudCover));
+                } else {
+                    Drawing.setAmbientLight(forcedAmbLight);
+                }
             }
+        }
+
+        /// <summary>
+        /// Returns the current default ambient light level.
+        /// </summary>
+        /// <returns></returns>
+        public static Vector3 getCurrentAmbientLight() {
+            if (!forceAmbLight) return new Vector3(0.1f - cloudCover, 0.1f - cloudCover, 0.1f - cloudCover);
+            else return forcedAmbLight;
+        }
+
+        public static void forceAmbientLight(Vector3 lt) {
+            forceAmbLight  = true;
+            forcedAmbLight = lt;
         }
 
         public static void pause(bool status) {

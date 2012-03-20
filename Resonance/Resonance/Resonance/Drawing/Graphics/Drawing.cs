@@ -376,7 +376,7 @@ namespace Resonance
 
                             if (rotation != Vector3.Zero) {
                                 rX = Matrix.CreateRotationX(rotation.X);
-                                rY = Matrix.CreateRotationY(rotation.Y + 1.5f);
+                                rY = Matrix.CreateRotationY(rotation.Y + 1.75f);
                                 rZ = Matrix.CreateRotationZ(rotation.Z);
                                 Toolbox.GetQuaternionBetweenNormalizedVectors(ref gVFwd, ref gVRdp, out ang);
                                 angV = Utility.QuaternionToEuler(ang);
