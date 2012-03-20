@@ -73,8 +73,6 @@ namespace Resonance
 
             foreach (BadVibe bv in bvs) 
             {
-                bool t = (bv is DynamicObject);
-                DebugDisplay.update("TestPrint", t.ToString());
                 if (bv.Status != BadVibe.State.DEAD && !bVibes.Contains(bv))
                 {
                     double dist = Vector3.Distance(Position, bv.Body.Position);
