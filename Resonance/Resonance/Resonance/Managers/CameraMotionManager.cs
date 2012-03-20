@@ -85,7 +85,6 @@ namespace Resonance
                 starting = false;
                 ZOOM_RATE = ZOOM_RATE_NORMAL;
             }
-            DebugDisplay.update("Zoom", ZOOM_RATE.ToString());
             camera.update(currentPosition);
         }
 

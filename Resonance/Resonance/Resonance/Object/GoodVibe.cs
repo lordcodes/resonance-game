@@ -209,6 +209,10 @@ namespace Resonance
                     {
                         GameScreen.stats.multiKill(waves[i].NumberHit);
                     }
+                    else if (waves[i].NumberHit == 0 && isInCombat)
+                    {
+                        AdjustHealth(-1);
+                    }
                     //Program.game.Components.Remove(waves[i]);
                     DrawableManager.Remove(waves[i]);
                     waves.RemoveAt(i);
