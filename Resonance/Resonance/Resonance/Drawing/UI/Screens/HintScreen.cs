@@ -20,7 +20,7 @@ namespace Resonance
         public override void LoadContent()
         {
             background = ScreenManager.Game.Content.Load<Texture2D>("Drawing/UI/hintscreen");
-            font = ScreenManager.Game.Content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
+            font = ScreenManager.Game.Content.Load<SpriteFont>("Drawing/Fonts/MenuFont");
         }
 
         public override void HandleInput(InputDevices input)
