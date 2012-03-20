@@ -1323,6 +1323,28 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu1.png">
+      <Name>MainMenu1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu2.png">
+      <Name>MainMenu2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu3.png">
+      <Name>MainMenu3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu4.png">
+      <Name>MainMenu4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\UI\hintscreen.png">
       <Name>hintscreen</Name>
       <Importer>TextureImporter</Importer>

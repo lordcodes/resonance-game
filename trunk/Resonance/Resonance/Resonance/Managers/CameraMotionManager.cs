@@ -18,12 +18,14 @@ namespace Resonance
         public const int CLOSE = 1;
         public const int TOPDOWN = 2;
 
-        private static Vector3 defaultPos  = new Vector3(0,   12f,  20f);
+        private static Vector3 defaultPos  = new Vector3(0,   10f,  20f);
         private static Vector3 closePos    = new Vector3(0,    3f,   6f);
         private static Vector3 topDownPos  = new Vector3(0,   20f,   1f);
         private static Vector3 startCamPos = new Vector3(20f, 20f, -20f);
 
-        private static float ZOOM_RATE = 0.01f;
+        private const float ZOOM_RATE_NORMAL = 0.01f;
+        private const float ZOOM_RATE_START = 0.05f;
+        private static float ZOOM_RATE = ZOOM_RATE_START;
 
         private static List<int> views = new List<int>{ DEFAULT, CLOSE, TOPDOWN };
 
@@ -31,9 +33,12 @@ namespace Resonance
         private static Vector3 currentPosition;
         private static Vector3 targetPosition;
 
+        private static bool starting;
+
         public static void initCamera()
         {
             camera = new ChaseCamera(startCamPos);
+            starting = true;
         }
 
         public static void initialise()
@@ -75,6 +80,12 @@ namespace Resonance
                 Vector3 left = targetPosition - currentPosition;
                 currentPosition += (left * ZOOM_RATE);
             }
+            else if (starting && targetPosition == currentPosition)
+            {
+                starting = false;
+                ZOOM_RATE = ZOOM_RATE_NORMAL;
+            }
+            DebugDisplay.update("Zoom", ZOOM_RATE.ToString());
             camera.update(currentPosition);
         }
 
