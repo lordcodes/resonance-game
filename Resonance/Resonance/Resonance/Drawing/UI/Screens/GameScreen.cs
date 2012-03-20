@@ -28,7 +28,7 @@ namespace Resonance
         public const int EXPERT = 4;
         public const int INSANE = 5;
 
-        public static int DIFFICULTY = BEGINNER;
+        public static int DIFFICULTY = MEDIUM;
         public static GameMode mode;
         public static GameStats stats;
         public static MusicHandler musicHandler;
@@ -339,7 +339,7 @@ namespace Resonance
         {
             bool breakRest = (musicHandler.getTrack().nextQuarterBeat());
             GoodVibe gv = getGV();
-
+            gv.InCombat = false;
             List<string> deadVibes = new List<string>();
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
             foreach (BadVibe bv in bvs)
@@ -372,7 +372,6 @@ namespace Resonance
                     }
                     else
                     {
-                        gv.InCombat = false;
                         if (bv.Status == BadVibe.State.FROZEN) bv.Status = BadVibe.State.NORMAL;
                     }
                 }
