@@ -130,7 +130,7 @@ namespace Resonance {
             }
         }
 
-        private static void playLightning() {
+        public static void playLightning() {
             float health = gVRef.healthFraction();
             int x = gen.Next();
 
