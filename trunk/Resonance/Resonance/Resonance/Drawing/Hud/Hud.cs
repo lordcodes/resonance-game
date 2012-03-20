@@ -268,12 +268,12 @@ namespace Resonance
 
             for (int i = 0; i < arm.Count; i++) {
                 switch (arm[i]) {
-                    case 0: { c = new Color(alphaC, alphaC, alphaC, alphaC); break; }
-                    case 1: { c = new Color(alphaC, 0f    , 0f    , alphaC); break; }
-                    case 2: { c = new Color(alphaC, alphaC, 0f    , alphaC); break; }
-                    case 3: { c = new Color(0f    , 0f    , alphaC, alphaC); break; }
-                    case 4: { c = new Color(0f    , alphaC, 0f    , alphaC); break; }
-                    case 5: { c = new Color(alphaC, alphaC, alphaC, alphaC); break; }
+                    case 0: { c = new Color(alphaC, alphaC    , alphaC, alphaC); break; }
+                    case 1: { c = new Color(alphaC, 0f        , 0f    , alphaC); break; }
+                    case 2: { c = new Color(alphaC, alphaC    , 0f    , alphaC); break; }
+                    case 3: { c = new Color(0.5f  , 0.5f      , alphaC, alphaC); break; }
+                    case 4: { c = new Color(0f    , alphaC / 2, 0f    , alphaC); break; }
+                    case 5: { c = new Color(alphaC, alphaC    , alphaC, alphaC); break; }
                 }
 
                 if (BadVibe.DRAW_HEALTH_VERTICALLY) {

@@ -13,6 +13,7 @@ using ResonanceLibrary;
 using BEPUphysics.Paths.PathFollowing;
 using System.IO;
 using AnimationLibrary;
+using System.Diagnostics;
 
 namespace Resonance
 {
@@ -39,6 +40,9 @@ namespace Resonance
         public static bool USE_MINIMAP = true;
         public static bool USE_BADVIBE_AI = true;
 
+        private Stopwatch preEndGameTimer;
+        private int preEndGameDuration = 4000;
+
         GraphicsDeviceManager graphics;
 
         World world;
@@ -62,6 +66,7 @@ namespace Resonance
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
             musicHandler = new MusicHandler(ScreenManager.Content);
+            preEndGameTimer = new Stopwatch();
 
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
@@ -208,9 +213,20 @@ namespace Resonance
             //Update Spawners
             if (USE_PICKUP_SPAWNER) pickupSpawner.update();
 
-            if (GV_KILLED || mode.terminated())
-            {
+            if (GV_KILLED || mode.terminated()) {
+                if (!preEndGameTimer.IsRunning) preEndGameTimer.Start();
+            }
+
+            if (preEndGameTimer.ElapsedMilliseconds >= preEndGameDuration) {
                 endGame();
+            } else if (preEndGameTimer.IsRunning) {
+                Vector3 lt = WeatherManager.getCurrentAmbientLight();
+                Vector3 newLt;
+
+                if (!GV_KILLED) newLt = new Vector3(lt.X + 0.05f, lt.Y + 0.05f, lt.Z + 0.05f);
+                else            newLt = new Vector3(lt.X - 0.01f , lt.Y - 0.05f , lt.Z - 0.05f);
+                WeatherManager.forceAmbientLight(newLt);
+                Drawing.setAmbientLight(newLt);
             }
 
             //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
@@ -275,7 +291,7 @@ namespace Resonance
             //DebugDisplay.update("Game Over! State", r);
             //DebugDisplay.update("Final Score", finalScore.ToString());
 
-            WeatherManager.playLightning();
+            if (GV_KILLED) WeatherManager.playLightning();
 
             ScreenManager.addScreen(new EndGameScreen(stats));
         }
