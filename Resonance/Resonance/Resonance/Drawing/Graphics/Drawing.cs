@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
+using System.Diagnostics;
 
 namespace Resonance
 {
@@ -167,6 +168,8 @@ namespace Resonance
             return scaleTexture(src, sF, sF);
         }
 
+        public static int wins1 = 0;
+        public static int wins2 = 0;
         public static Texture2D scaleTexture(Texture2D src, float sFX, float sFY) {
             int newW = (int) (src.Width  * sFX);
             int newH = (int) (src.Height * sFY);
@@ -179,22 +182,65 @@ namespace Resonance
             int idx;
             float srcX = 0f;
             float srcY = 0f;
-            float px, py;
+            float px = 0;
+            float py = 0;
+            int x, y, i, j;
+            float coeffW = 1f / newW;
+            float coeffH = 1f / newH;
+            Color c;
 
-            for (int x = 0; x < newW; x++) {
-                px = (1f / newW) * x;
-                srcX = (int) ((px * src.Width) + 0.5f);
-                int k = 0;
-                for (int y = 0; y < newH; y++) {
-                    py = (1f / newH) * y;
-                    srcY = (int) ((py * src.Height) + 0.5f);
+            // Choose algorithm most appropriate
+            if (newW * newH < src.Width * src.Height) {
+                for (x = 0; x < newW; x++) {
+                    srcX = (int) ((px * src.Width) + 0.5f);
+                    py = 0;
+                    for (y = 0; y < newH; y++) {
+                        srcY = (int) ((py * src.Height) + 0.5f);
 
-                    idx = (int) srcX + (int) (srcY * src.Width);
+                        idx = (int) srcX + (int) (srcY * src.Width);
 
-                    Color c = data[idx];
-                    scaledData[x + y * newW] = c;
+                        try {
+                            c = data[idx];
+                            scaledData[x + y * newW] = c;
+                        } catch (Exception e) {goto end;}
+
+                        py += coeffH;
+                    }
+                    px += coeffW;
+                }
+            } else {
+                coeffW = (float) newW / (float) src.Width;
+                coeffH = (float) newH / (float) src.Height;
+
+                float indX   = 0f;
+                float indY   = 0f;
+                int   iX     = 0;
+                int   iY     = 0;
+                int   prevIX = 0;
+                int   prevIY = 0;
+
+                for (x = 0; x < src.Width; x++) {
+                    indX += coeffW;
+                    iX = (int) indX;
+                    indY = 0f;
+                    for (y = 0; y < src.Height; y++) {
+                        indY += coeffH;
+                        iY = (int) indY;
+
+                        c = data[x + src.Width * y];
+                    
+                        for (j = prevIY; j < iY; j++) {
+                            idx = j * newW;//(int) srcX + (int) (srcY * src.Width);
+                            for (i = prevIX; i < iX; i++) {
+                                scaledData[idx + i] = c;
+                            }
+                        }
+                        prevIY = iY;
+                    }
+                    prevIX = iX;
                 }
             }
+            end:
 
             scaled.SetData<Color>(scaledData);
 
