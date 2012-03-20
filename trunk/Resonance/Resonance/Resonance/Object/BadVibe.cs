@@ -99,16 +99,18 @@ namespace Resonance
             }
         }
 
-        public void damage(int colour, Vector3 blast)
+        public bool damage(int colour, Vector3 blast)
         {
+            bool hit = false;
             if (state != State.DEAD)
             {
-                armour.breakLayer(colour, this, blast);
+                hit = armour.breakLayer(colour, this, blast);
                 if (state != State.DEAD)
                 {
                     setColour();
                 }
             }
+            return hit;
         }
 
         public int getAnimationCounter()
@@ -280,8 +282,10 @@ namespace Resonance
             /// Break the amour layer
             /// </summary>
             /// <param name="colour">The colour of wave</param>
-            public void breakLayer(int colour, BadVibe vibe, Vector3 blast)
+            public bool breakLayer(int colour, BadVibe vibe, Vector3 blast)
             {
+                bool hit = false;
+
                 if (sequence[0] == colour)
                 {
                     Color c = new Color (0f, 0f, 0f, 0f);
@@ -328,12 +332,14 @@ namespace Resonance
                     }
 
                     sequence.RemoveAt(0);
+                    hit = true;
                 }
                 if (sequence.Count == 0)
                 {
                     GameScreen.getGV().adjustScore(10);
                     vibe.kill();
                 }
+                return hit;
             }
 
 

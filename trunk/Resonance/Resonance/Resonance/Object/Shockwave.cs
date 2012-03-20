@@ -32,6 +32,7 @@ namespace Resonance
 
         // List of Bad Vibes which this shockwave has already hit
         List<BadVibe> bVibes;
+        int numHit = 0;
         // Location
         Vector3 position;
         int colour;
@@ -85,7 +86,10 @@ namespace Resonance
                         bVibes.Add(bv);
 
                         Vector3 blast = bv.Body.Position - position;
-                        bv.damage(colour, blast);
+                        if (bv.damage(colour, blast))
+                        {
+                            numHit++;
+                        }
                     }
                 }
             }
@@ -121,7 +125,7 @@ namespace Resonance
         {
             get
             {
-                return bVibes.Count;
+                return numHit;
             }
         }
 
