@@ -28,11 +28,11 @@ namespace Resonance
         private int nitro; //speed boost between 0 - MAX_NITRO.
         private int shield; //shield between 0 - MAX_SHIELD.
         private int freeze; //SOMETHINGELSE between 0 - 100.
-        private int currentPower = 0;
-        private Boolean shieldOn = false;
+        private int currentPower;
 
         private bool isInCombat;
         private bool freezeActive;
+        private bool shieldOn;
 
         /// <summary>
         /// Constructor
@@ -46,9 +46,11 @@ namespace Resonance
             nitro = MAX_NITRO / 2;
             shield = MAX_SHIELD / 2;
             freeze = MAX_FREEZE / 2;
+            currentPower = 0;
 
             sheildUpModel = new GameModelInstance(GameModels.SHIELD_GV);
             sheildDownModel = new GameModelInstance(GameModels.GOOD_VIBE);
+            shieldOn = false;
         }
 
         /// <summary>
@@ -99,8 +101,7 @@ namespace Resonance
         /// <param name="change">Amount to change by</param>
         public void AdjustHealth(int change)
         {
-            if(shieldOn == false)
-            health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);        
+            if(!shieldOn) health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);        
 
             if (health <= 0) GameScreen.GV_KILLED = true;
         }
@@ -221,11 +222,7 @@ namespace Resonance
                 if (i + 1 == waves.Count) break;
             }
         }
-       
-        public void freezeHealth(Boolean flag)
-        {
-            shieldOn = flag;
-        }
+
         /// <summary>
         /// Detect if the GV is in combat, and resets BVs to unfrozen when out of range
         /// </summary>
@@ -281,7 +278,7 @@ namespace Resonance
         public void shieldUp()
         {
             this.ModelInstance = sheildUpModel;
-            GameScreen.stats.usedShield();
+            shieldOn = true;
         }
 
         /// <summary>
@@ -290,6 +287,7 @@ namespace Resonance
         public void shieldDown()
         {
             this.ModelInstance = sheildDownModel;
+            shieldOn = false;
         }
 
         /// <summary>

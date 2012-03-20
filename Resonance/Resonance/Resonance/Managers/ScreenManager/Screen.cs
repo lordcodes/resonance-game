@@ -10,8 +10,6 @@ namespace Resonance
     {
         ScreenManager screenManager;
         bool loadedUsingLoading = false;
-        bool exiting = false;
-        float transition = 1f;
 
         public virtual void LoadContent() { }
         public virtual void UnloadContent() { }

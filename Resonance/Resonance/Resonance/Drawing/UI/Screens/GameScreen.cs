@@ -256,10 +256,10 @@ namespace Resonance
             ScreenManager.addScreen(new HintScreen());
 
             //Display hints
-            string msg = "BV description";
+            //string msg = "BV description";
             //ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.REMOVE_SCREEN));
 
-            msg = "Health, Nitro, Shield and Freeze description";
+            //msg = "Health, Nitro, Shield and Freeze description";
             //ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.REMOVE_SCREEN));
 
             showHints = false;

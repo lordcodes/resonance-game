@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using BEPUphysics.Entities;
 
 namespace Resonance
 {
@@ -44,6 +45,7 @@ namespace Resonance
         public static void initialise()
         {
             currentPosition = startCamPos;
+            camera.ChaseObject = GameScreen.getGV().Body;
             updateCamera();
         }
 

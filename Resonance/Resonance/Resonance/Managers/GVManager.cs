@@ -14,11 +14,13 @@ namespace Resonance
 {
     class GVManager
     {
-
         public static readonly int NITROUS = 0;
         public static readonly int SHIELD = 1;
         public static readonly int FREEZE = 2;
-        
+
+        private static bool usedBoost = false;
+        private static bool usedFreeze = false;
+        private static bool usedShield = false;
 
         public static void input(InputDevices input)
         {
@@ -27,24 +29,18 @@ namespace Resonance
             GamePadState pad = input.PlayerOne;
             GamePadState lastPad = input.LastPlayerOne;
 
-            if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) /*||
-                (pad.Buttons.LeftShoulder == ButtonState.Pressed && lastPad.Buttons.LeftShoulder != ButtonState.Pressed)*/)
-            {
-                Drawing.DoDisp = true;
-                Drawing.addWave(GameScreen.getGV().Body.Position);
-            }
             if ((kbd.IsKeyDown(Keys.L) && !lastKbd.IsKeyDown(Keys.L)))
             {
                 GameScreen.getGV().showBeat();
             }
-            /*if ((pad.Buttons.Back == ButtonState.Pressed) || (kbd.IsKeyDown(Keys.Space)))
+            if (kbd.IsKeyDown(Keys.Space))
             {
                 GameScreen.musicHandler.getTrack().playTrack();
             }
-            if (/*(pad.Buttons.RightShoulder == ButtonState.Pressed) || kbd.IsKeyDown(Keys.S))
+            if (kbd.IsKeyDown(Keys.S))
             {
                 GameScreen.musicHandler.getTrack().stopTrack();
-            }*/
+            }
             if (kbd.IsKeyDown(Keys.P))
             {
                 GameScreen.musicHandler.getTrack().pauseTrack();
@@ -90,10 +86,13 @@ namespace Resonance
             {
                usePower(GameScreen.getGV().selectedPower);
             }
-            else //if ((pad.Triggers.Right > 0 && pad.Triggers.Right < 0.1) || kbd.IsKeyUp(Keys.T))
+            else
             {
                 GameScreen.getGV().shieldDown();
                 GVMotionManager.resetBoost();
+                usedBoost = false;
+                usedShield = false;
+                usedFreeze = false;
             }
             GVMotionManager.input(kbd, pad);
 
@@ -105,17 +104,20 @@ namespace Resonance
         {
             if (power == SHIELD)
             {
-
                 if (GameScreen.getGV().Shield > 0)
                 {
-                    GameScreen.getGV().freezeHealth(true);
                     GameScreen.getGV().adjustShield(-1);
                     GameScreen.getGV().shieldUp();
+                    if (!usedShield)
+                    {
+                        GameScreen.stats.usedShield();
+                        usedShield = true;
+                    }
                 }
                 else
                 {
-                    GameScreen.getGV().freezeHealth(false);
                     GameScreen.getGV().shieldDown();
+                    usedShield = false;
                 }
             }
 
@@ -125,20 +127,32 @@ namespace Resonance
                 {
                     GameScreen.getGV().FreezeActive = true;
                     GameScreen.getGV().adjustFreeze(-1);
+                    if (!usedFreeze)
+                    {
+                        GameScreen.stats.usedFreeze();
+                        usedFreeze = true;
+                    }
                 }
 
             }
 
             if (power == NITROUS)
             {
-               
                 if (GameScreen.getGV().Nitro > 0.1)
                 {
                     GameScreen.getGV().adjustNitro(-1);
                     GVMotionManager.BOOSTING = true;
-                    GameScreen.stats.usedNitro();
+                    if (!usedBoost)
+                    {
+                        GameScreen.stats.usedNitro();
+                        usedBoost = true;
+                    }
                 }
-                
+                else
+                {
+                    GVMotionManager.resetBoost();
+                    usedBoost = false;
+                }
             }
         }
     }
