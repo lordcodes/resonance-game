@@ -346,6 +346,11 @@ namespace Resonance
             Vector2 centre;
             Color drawColour = Color.Black;
             bool  inXRange, inYRange;
+
+            // Scale each texture
+            Texture2D scaledVibe    = Drawing.scaleTexture(vibe   , sF);
+            Texture2D scaledPickup  = Drawing.scaleTexture(pickup , sF);
+            Texture2D scaledSpawner = Drawing.scaleTexture(spawner, sF);
            
             foreach(Object o in toDraw) {
                 BadVibe   v = null;
@@ -386,16 +391,16 @@ namespace Resonance
                     objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));
 
                     if (o is BadVibe || o is Projectile_BV) {            
-                        scaledTex = Drawing.scaleTexture(vibe, sF);
+                        scaledTex = scaledVibe;
                         if (o is BadVibe)
                             drawColour = BAD_VIBE_COLOUR;
                         else
                             drawColour = PROJ_BAD_VIBE_COLOUR;
                     } else if (o is Pickup) {
-                        scaledTex = Drawing.scaleTexture(pickup, sF);
+                        scaledTex = scaledPickup;
                         drawColour = PICKUP_COLOUR;
                     } else if (o is BVSpawner) {
-                        scaledTex = Drawing.scaleTexture(spawner, sF);
+                        scaledTex = scaledSpawner;
                         drawColour = SPAWNER_COLOUR;
                     }
 
