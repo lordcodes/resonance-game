@@ -199,10 +199,8 @@ namespace Resonance
 
                         idx = (int) srcX + (int) (srcY * src.Width);
 
-                        try {
-                            c = data[idx];
-                            scaledData[x + y * newW] = c;
-                        } catch (Exception e) {goto end;}
+                        c = data[idx];
+                        scaledData[x + y * newW] = c;
 
                         py += coeffH;
                     }
@@ -240,7 +238,6 @@ namespace Resonance
                     prevIX = iX;
                 }
             }
-            end:
 
             scaled.SetData<Color>(scaledData);
 
