@@ -38,7 +38,7 @@ namespace Resonance
             base.updateItemLocations();
 
             int x = 1400;
-            int y = 300;
+            int y = 400;
             for (int i = 0; i < MenuItems.Count; i++)
             {
                 MenuItems[i].Position = new Vector2(ScreenManager.pixelsX(x), ScreenManager.pixelsY(y));
