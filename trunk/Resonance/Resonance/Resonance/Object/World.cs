@@ -231,9 +231,9 @@ namespace Resonance
             StaticObject ground = null;
             StaticObject tree = null;
             StaticObject mush = null;
-            Projectile_BV projBV = null;
+            //Projectile_BV projBV = null;
             GoodVibe player = null;
-            BadVibe bv = null;
+            //BadVibe bv = null;
             //Pickup p = null;
             StoredObjects obj = Content.Load<StoredObjects>(levelName);
             clear();
@@ -261,12 +261,12 @@ namespace Resonance
                     mush = new StaticObject(GameModels.MUSHROOM, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(mush);
                 }
-                if (obj.list[i].type.Equals("Bad_vibe") == true)
+                /*if (obj.list[i].type.Equals("Bad_vibe") == true)
                 {
                     bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord),0);
                     addObject(bv);
                     bv.calculateSize();
-                }
+                }*/
                 if (obj.list[i].type.Equals("House") == true)
                 {
                     mush = new StaticObject(GameModels.HOUSE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));

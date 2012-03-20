@@ -35,10 +35,10 @@ namespace Resonance
             //DebugDisplay.update("total pickups", totalNumPickups.ToString());
             if (numPickups < MIN_PICKUPS)
             {
-                bool placed = false;
+                //bool placed = false;
 
                 //while (!placed)
-                {
+                //{
                     Vector3 gvPos = GameScreen.getGV().Body.Position;
 
                     int minX = (int)gvPos.X - DISTANCE_FROM_PLAYER;
@@ -62,7 +62,7 @@ namespace Resonance
 
                     if (!ScreenManager.game.World.querySpace(pos))
                     {
-                        placed = true;
+                        //placed = true;
 
                         int rand = r.Next(0, 16) % 4;
                         int model;
@@ -103,7 +103,7 @@ namespace Resonance
                         totalNumPickups++;
                         numPickups++;
                     }
-                }
+                //}
             }
         }
     }
