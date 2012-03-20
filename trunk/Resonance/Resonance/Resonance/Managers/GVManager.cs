@@ -41,7 +41,7 @@ namespace Resonance
             {
                 GameScreen.musicHandler.getTrack().playTrack();
             }
-            if ((pad.Buttons.RightShoulder == ButtonState.Pressed) || kbd.IsKeyDown(Keys.S))
+            if (/*(pad.Buttons.RightShoulder == ButtonState.Pressed) ||*/ kbd.IsKeyDown(Keys.S))
             {
                 GameScreen.musicHandler.getTrack().stopTrack();
             }

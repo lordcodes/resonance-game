@@ -211,7 +211,7 @@ namespace Resonance
                 int chance = r.Next(0, 100);
                 if (chance > CHANCE_MISS)
                 {
-                    GameScreen.getGV().AdjustHealth(-1);
+                    GameScreen.getGV().AdjustHealth(-5);
                 }
             }
         }
