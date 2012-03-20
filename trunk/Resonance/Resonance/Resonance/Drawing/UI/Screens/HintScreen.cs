@@ -37,13 +37,22 @@ namespace Resonance
         {
             ScreenManager.darkenBackground(0.9f);
 
+            int padding = 100;
+
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth, ScreenManager.ScreenHeight);
-            int msgPosX = (int)(screenSize.X - background.Width) / 2;
-            int msgPosY = (int)(screenSize.Y - background.Height) / 2;
+            int availableWidth = (int)(screenSize.X - 2 * padding);
+            int availableHeight = (int)(screenSize.Y - 2 * padding);
+
+            float scaleX = (float)availableWidth / background.Width;
+            float scaleY = (float)availableHeight / background.Height;            
+            float usedScale = Math.Min(scaleX, scaleY);
+
+            float startX = screenSize.X/2-usedScale*background.Width/2;
+            float startY = screenSize.Y / 2 - usedScale * background.Height / 2;
 
             ScreenManager.SpriteBatch.Begin();
-            ScreenManager.SpriteBatch.Draw(background, new Vector2(msgPosX, msgPosY), Color.White);
-            ScreenManager.SpriteBatch.DrawString(font, "How to Play- press A to continue", new Vector2(msgPosX, msgPosY + background.Height+10), Color.White);
+            ScreenManager.SpriteBatch.Draw(Drawing.scaleTexture(background, usedScale), new Vector2(startX, startY), Color.White);
+            ScreenManager.SpriteBatch.DrawString(font, "How to Play- press A to continue", new Vector2(startX, startY +usedScale*background.Height + 10), Color.White);
             ScreenManager.SpriteBatch.End();
         }
     }
