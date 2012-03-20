@@ -268,12 +268,14 @@ namespace Resonance
         // Called when game finished (won or lost).
         private void endGame()
         {
-            String r;
-            int finalScore;
-            if (GV_KILLED) r = "GV Killed."; else r = "Game won!";
-            finalScore = mode.finaliseScore(GV_KILLED, stats.Score);
-            DebugDisplay.update("Game Over! State", r);
-            DebugDisplay.update("Final Score", finalScore.ToString());
+            //String r;
+            //int finalScore;
+            //if (GV_KILLED) r = "GV Killed."; else r = "Game won!";
+            //finalScore = mode.finaliseScore(GV_KILLED, stats.Score);
+            //DebugDisplay.update("Game Over! State", r);
+            //DebugDisplay.update("Final Score", finalScore.ToString());
+
+            WeatherManager.playLightning();
 
             ScreenManager.addScreen(new EndGameScreen(stats));
         }
