@@ -386,10 +386,9 @@ namespace Resonance
                         {
                             bv.Status = BadVibe.State.FROZEN;
                         }
-
-                        if (d <= Shockwave.MAX_RADIUS)
+                        else
                         {
-                            gv.InCombat = true;
+                            bv.Status = BadVibe.State.NORMAL;
                         }
                     }
                     else
