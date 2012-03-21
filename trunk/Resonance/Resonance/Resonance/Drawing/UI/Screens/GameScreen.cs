@@ -213,7 +213,6 @@ namespace Resonance
             //Update Spawners
             if (USE_PICKUP_SPAWNER) pickupSpawner.update();
             if (GV_KILLED || mode.terminated()) {
-                            GV_KILLED = false;
                 if (!preEndGameTimer.IsRunning) {
                     preEndGameTimer.Start();
                     if (!GV_KILLED) musicHandler.playSound("winwhoosh", 100f);
