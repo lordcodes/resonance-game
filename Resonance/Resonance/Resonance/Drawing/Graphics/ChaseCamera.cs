@@ -21,7 +21,6 @@ namespace Resonance
         {
             position = startPos;
             view = Matrix.CreateLookAt(new Vector3(0, 15, 15), Vector3.Zero, Vector3.Up);
-            rayCastFilter = RayCastFilter;
         }
 
         private Vector3 calcCamera(Vector3 newPosition)
@@ -34,12 +33,11 @@ namespace Resonance
             Vector3 cameraPos = Matrix3X3.Transform(newPosition, chaseObject.BufferedStates.InterpolatedStates.OrientationMatrix);
             cameraPos += chaseObject.BufferedStates.InterpolatedStates.Position;
 
-            Vector3 facing = Vector3.Normalize(cameraPos - chaseObject.Position);
-            float distance = Vector3.Distance(cameraPos, chaseObject.Position);
+            float distance = Vector3.Distance(cameraPos, chaseObject.BufferedStates.InterpolatedStates.Position);
 
             Vector3 position;
             RayCastResult result;
-            if (chaseObject.Space.RayCast(new Ray(chaseObject.Position, facing), rayCastFilter, out result))
+            if (chaseObject.Space.RayCast(new Ray(chaseObject.BufferedStates.InterpolatedStates.Position, newPosition), 1f, RayCastFilter, out result))
             {
                 position = result.HitData.Location;
             }
@@ -61,7 +59,6 @@ namespace Resonance
             view = Matrix.CreateLookAt(position, chaseObject.Position, Vector3.Up);
         }
 
-        Func<BroadPhaseEntry, bool> rayCastFilter;
         bool RayCastFilter(BroadPhaseEntry entry)
         {
             return entry != chaseObject.CollisionInformation && (entry.CollisionRules.Personal <= CollisionRule.Normal);
