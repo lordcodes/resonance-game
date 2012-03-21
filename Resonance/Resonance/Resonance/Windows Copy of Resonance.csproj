@@ -109,6 +109,7 @@
     <Compile Include="Drawing\Hud\MiniMap.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\ArmourShatter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\Freeze.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Rain.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />

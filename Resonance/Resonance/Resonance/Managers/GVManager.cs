@@ -80,6 +80,8 @@ namespace Resonance
 
                 GameScreen.getGV().shieldDown();
                 GVMotionManager.resetBoost();
+            } else {
+                if (GameScreen.getGV().getFreezer() != null) GameScreen.getGV().getFreezer().switchOff();
             }
 
             if (pad.Triggers.Right > 0.1 || kbd.IsKeyDown(Keys.T))
@@ -123,10 +125,16 @@ namespace Resonance
 
             if (power == FREEZE)
             {
+                if (GameScreen.getGV().getFreezer() == null) {
+                    GameScreen.getGV().createFreezer();
+                }
+
                 if (GameScreen.getGV().Freeze > 0)
                 {
                     GameScreen.getGV().FreezeActive = true;
                     GameScreen.getGV().adjustFreeze(-1);
+                    GameScreen.getGV().getFreezer().setPos(GameScreen.getGV().Body.Position);
+                    GameScreen.getGV().getFreezer().switchOn();
                     if (!usedFreeze)
                     {
                         GameScreen.stats.usedFreeze();

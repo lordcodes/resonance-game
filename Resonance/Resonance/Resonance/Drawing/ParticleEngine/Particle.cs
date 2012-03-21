@@ -117,8 +117,12 @@ namespace Resonance {
                 direction += force;
             }
 
-            if ((deceleration != 0) && (speed > deceleration)) {
-                speed -= deceleration;
+            if (deceleration != 0) {
+                if (speed > deceleration) {
+                    speed -= deceleration;
+                } else {
+                    speed = 0f;
+                }
             }
 
             if (pos.Y <= 0) {
