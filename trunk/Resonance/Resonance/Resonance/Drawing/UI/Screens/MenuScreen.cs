@@ -10,6 +10,7 @@ namespace Resonance
 {
     abstract class MenuScreen : Screen
     {
+        SpriteFont headingFont;
         SpriteFont font;
         List<Texture2D> bg;
         List<MenuElement> menuItems = new List<MenuElement>();
@@ -160,7 +161,15 @@ namespace Resonance
 
                 menuItems[i].Draw(this, gameTime, isSelect);
             }
-            ScreenManager.SpriteBatch.DrawString(font, title, new Vector2(ScreenManager.ScreenWidth / 2, 100), Color.White);
+
+            if (headingFont != null)
+            {
+                ScreenManager.SpriteBatch.DrawString(headingFont, title, new Vector2(ScreenManager.ScreenWidth - headingFont.MeasureString(title).X - 75, 50), Color.White);
+            }
+            else
+            {
+                ScreenManager.SpriteBatch.DrawString(font, title, new Vector2(ScreenManager.ScreenWidth / 2, 100), Color.White);
+            }
             ScreenManager.SpriteBatch.End();
         }
 
@@ -172,6 +181,12 @@ namespace Resonance
         {
             get { return font; }
             set { font = value; }
+        }
+
+        public SpriteFont HeadingFont
+        {
+            get { return headingFont; }
+            set { headingFont = value; }
         }
 
         protected List<MenuElement> MenuItems

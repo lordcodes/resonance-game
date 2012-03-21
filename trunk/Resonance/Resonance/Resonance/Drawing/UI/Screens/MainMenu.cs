@@ -28,6 +28,7 @@ namespace Resonance
         public override void LoadContent()
         {
             Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
+            HeadingFont = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuHeadingFont");
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MainMenu1"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MainMenu2"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MainMenu3"));
@@ -52,6 +53,9 @@ namespace Resonance
         public void Draw(int index)
         {
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
+
+            ScreenManager.SpriteBatch.Draw(textBG, Vector2.Zero, Color.White);
+
             int x = (int)screenSize.X / 2 - 200;
             int y = (int)screenSize.Y / 2 - 287;
 
