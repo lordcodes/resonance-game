@@ -23,6 +23,7 @@ namespace Resonance
         private static Vector3 closePos    = new Vector3(0,    3f,   4f);
         private static Vector3 topDownPos  = new Vector3(0,   40f,   1f);
         private static Vector3 startCamPos = new Vector3(20f, 20f, -20f);
+        private static Vector3 boostingPos = new Vector3(0, 9f, 25f);
 
         private const float ZOOM_RATE_NORMAL = 0.01f;
         private const float ZOOM_RATE_START = 0.05f;
@@ -92,7 +93,8 @@ namespace Resonance
 
         private static void defaultGV()
         {
-            targetPosition = defaultPos;
+            if (GVMotionManager.BOOSTING) targetPosition = boostingPos;
+            else targetPosition = defaultPos;
         }
 
         private static void closeGV()
