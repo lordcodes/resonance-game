@@ -380,12 +380,16 @@ namespace Resonance
                     double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
                     d = Math.Sqrt(d);
 
-                    if (d <= Shockwave.MAX_RADIUS)
+                    if (d <= Shockwave.MAX_RADIUS * 2) //Doubled radius of influence of freeze
                     {
-                        gv.InCombat = true;
                         if (gv.FreezeActive)
                         {
                             bv.Status = BadVibe.State.FROZEN;
+                        }
+
+                        if (d <= Shockwave.MAX_RADIUS)
+                        {
+                            gv.InCombat = true;
                         }
                     }
                     else
