@@ -834,13 +834,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\Menus\Textures\MainMenuThird.png">
-      <Name>MainMenuThird</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Sounds\heart-beat.wav">
       <Name>heart-beat</Name>
       <Importer>WavImporter</Importer>
