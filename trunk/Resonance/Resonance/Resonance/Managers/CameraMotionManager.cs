@@ -20,8 +20,8 @@ namespace Resonance
         public const int TOPDOWN = 2;
 
         private static Vector3 defaultPos  = new Vector3(0,   10f,  20f);
-        private static Vector3 closePos    = new Vector3(0,    3f,   6f);
-        private static Vector3 topDownPos  = new Vector3(0,   20f,   1f);
+        private static Vector3 closePos    = new Vector3(0,    3f,   4f);
+        private static Vector3 topDownPos  = new Vector3(0,   40f,   1f);
         private static Vector3 startCamPos = new Vector3(20f, 20f, -20f);
 
         private const float ZOOM_RATE_NORMAL = 0.01f;
