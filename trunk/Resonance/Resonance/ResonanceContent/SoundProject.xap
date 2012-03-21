@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::36a973b6-7c41-4a84-b6b3-6fecb107dce2;
+            Name = Sound::ef3bd998-4e86-43ec-b57a-128c544d9d3b;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::2677355f-c520-4491-af5b-c43e0b51d967;
+            Name = Effect::b5571d36-ba71-4f6f-986c-c5eb282db579;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -563,8 +563,10 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Bank Last Revised Low = 3182914518;
-    Bank Last Revised High = 30213998;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
+    Bank Last Revised Low = 813370971;
+    Bank Last Revised High = 30214009;
 
     Wave
     {
@@ -1057,6 +1059,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -2133,7 +2137,7 @@ Sound Bank
     Sound
     {
         Name = winwhoosh;
-        Volume = -1200;
+        Volume = 100;
         Pitch = 0;
         Priority = 0;
 

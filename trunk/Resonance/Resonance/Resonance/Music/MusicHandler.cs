@@ -88,6 +88,7 @@ namespace Resonance
             if (volume < -94) vol = -94;
             else if (volume > 6) vol = 6;
             else vol = volume;*/
+            soundBank.GetCue(soundCue.Name).SetVariable("Volume", volume);
             soundCue.SetVariable("Volume", volume);
         }
 
