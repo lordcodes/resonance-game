@@ -45,6 +45,17 @@ namespace Resonance
             {
                 position = cameraPos;
             }
+
+            List<Object> results = ScreenManager.game.World.rayCastObjects(chaseObject.Position, chaseObject.OrientationMatrix.Forward, 50f, RayCastFilter);
+            if (results.Count > 0)
+            {
+                DebugDisplay.update("TestCast", results[0].returnIdentifier());
+            }
+            else
+            {
+                DebugDisplay.update("TestCast", "Can't see anything");
+            }
+
             return position;
         }
 
@@ -61,7 +72,10 @@ namespace Resonance
 
         bool RayCastFilter(BroadPhaseEntry entry)
         {
-            return entry != chaseObject.CollisionInformation && (entry.CollisionRules.Personal <= CollisionRule.Normal);
+            bool notSelf = (entry != chaseObject.CollisionInformation);
+            bool collisionRules = (entry.CollisionRules.Personal <= CollisionRule.Normal);
+            bool notGround = (entry != ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body);
+            return notSelf && collisionRules && notGround;
         }
 
         public Matrix View
