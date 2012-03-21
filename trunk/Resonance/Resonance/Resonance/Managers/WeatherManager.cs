@@ -245,21 +245,17 @@ namespace Resonance {
         public static void pause(bool status) {
             paused = status;
 
-            DebugDisplay.update("WM: ", paused.ToString());
-
-            if (paused) {
+            if (paused && !status) {
                 try {
-                    // Please don't change the order of these 3!
-                    rCue.Pause();
-                    lRCue.Pause();
-                    lCue.Pause();
+                    if (rCue  != null)  rCue.Pause();
+                    if (lRCue != null) lRCue.Pause();
+                    if (lCue  != null)  lCue.Pause();
                 } catch (Exception e) {}
-            } else {
+            } else if (!paused && status) {
                 try {
-                    // Please don't change the order of these 3!
-                    rCue.Resume();
-                    lRCue.Resume();
-                    lCue.Resume();
+                    if (rCue  != null)  rCue.Resume();
+                    if (lRCue != null) lRCue.Resume();
+                    if (lCue  != null)  lCue.Resume();
                 } catch (Exception e) {}
             }
         }

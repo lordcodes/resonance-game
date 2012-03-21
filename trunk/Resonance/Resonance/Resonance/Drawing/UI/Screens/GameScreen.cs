@@ -212,9 +212,12 @@ namespace Resonance
 
             //Update Spawners
             if (USE_PICKUP_SPAWNER) pickupSpawner.update();
-
             if (GV_KILLED || mode.terminated()) {
-                if (!preEndGameTimer.IsRunning) preEndGameTimer.Start();
+                            GV_KILLED = false;
+                if (!preEndGameTimer.IsRunning) {
+                    preEndGameTimer.Start();
+                    if (!GV_KILLED) musicHandler.playSound("winwhoosh", 100f);
+                }
             }
 
             if (preEndGameTimer.ElapsedMilliseconds >= preEndGameDuration) {
