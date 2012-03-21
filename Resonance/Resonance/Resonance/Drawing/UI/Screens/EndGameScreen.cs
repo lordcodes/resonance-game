@@ -9,6 +9,7 @@ namespace Resonance
 {
     class EndGameScreen : MenuScreen
     {
+        Texture2D textBG;
         GameStats stats;
 
         public EndGameScreen(GameStats stats)
@@ -30,6 +31,7 @@ namespace Resonance
             Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuFont");
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuBox"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuStatsBox"));
+            textBG = this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MenuItemBG");
         }
 
         protected override void updateItemLocations()
@@ -53,6 +55,8 @@ namespace Resonance
         {
             //410 width by 540 height
             //Ratio 1.32 (H / W)
+
+            //ScreenManager.SpriteBatch.Draw(textBG, Vector2.Zero, Color.White);
 
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
             int x = (int)screenSize.X / 2 - 200;
