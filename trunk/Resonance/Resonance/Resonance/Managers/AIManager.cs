@@ -25,6 +25,8 @@ namespace Resonance
         private static int CHANCE_MISS = 20; //Between 0 and 100
         private static int ROTATE_CHANCE = 4; //Between 0 and 100
 
+        private static int DAMAGE = 5;
+
         private static float LEFT_RAY_ANGLE = MathHelper.ToRadians(15f);
         private static float RIGHT_RAY_ANGLE = MathHelper.ToRadians(15f);
 
@@ -50,6 +52,35 @@ namespace Resonance
             servo.Settings.Mode = MotorMode.Servomechanism;
             servo.Settings.Servo.Goal = orientation;
             ScreenManager.game.World.addToSpace(servo);
+
+            switch (GameScreen.DIFFICULTY)
+            {
+                case GameScreen.BEGINNER:
+                    {
+                        DAMAGE = 2;
+                        break;
+                    }
+                case GameScreen.EASY:
+                    {
+                        DAMAGE = 3;
+                        break;
+                    }
+                case GameScreen.MEDIUM:
+                    {
+                        DAMAGE = 4;
+                        break;
+                    }
+                case GameScreen.HARD:
+                    {
+                        DAMAGE = 5;
+                        break;
+                    }
+                case GameScreen.INSANE:
+                    {
+                        DAMAGE = 6;
+                        break;
+                    }
+            }
         }
 
         public void moveManager()
@@ -211,7 +242,7 @@ namespace Resonance
                 int chance = r.Next(0, 100);
                 if (chance > CHANCE_MISS)
                 {
-                    GameScreen.getGV().AdjustHealth(-5);
+                    GameScreen.getGV().AdjustHealth(-DAMAGE);
                 }
             }
         }
