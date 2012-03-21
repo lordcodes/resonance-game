@@ -25,12 +25,13 @@ namespace Resonance
 
         public override void HandleInput(InputDevices input)
         {
-            bool ok = (!input.LastKeys.IsKeyDown(Keys.Enter) && !input.LastPlayerOne.IsButtonDown(Buttons.A)) &&
-                      (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.IsButtonDown(Buttons.A)) ||
-                      (!input.LastKeys.IsKeyDown(Keys.Escape) && !input.LastPlayerOne.IsButtonDown(Buttons.B)) &&
-                      (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.IsButtonDown(Buttons.B));
+            bool ok = (!input.LastKeys.IsKeyDown(Keys.Enter) && !input.LastPlayerOne.IsButtonDown(Buttons.A) &&
+                        !input.LastKeys.IsKeyDown(Keys.Escape) && !input.LastPlayerOne.IsButtonDown(Buttons.B)) &&
+                      (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.IsButtonDown(Buttons.A) ||
+                        input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.IsButtonDown(Buttons.B));
+            bool ok2 = (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.IsButtonDown(Buttons.A));
 
-            if (ok) ExitScreen();            
+            if (ok2) ExitScreen();            
         }
 
         public override void Draw(GameTime gameTime)

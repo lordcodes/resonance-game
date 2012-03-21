@@ -50,7 +50,7 @@ virus,          Textures\virus.png
 ---If "Start texture anim." is set to 1 the animation will start automatically.
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
-1,			tree,					0.5,		NeuronPhysics,			0.1,			neuronTexture
+1,			tree,					0.5,		NeuronPhysics,			0.5,			neuronTexture
 2,			house,					0.25,		house_physics,			0.25,			spawnTexture
 3,			badVibe,			    0.1,		badVibePhysics,			0.1,			allColours,								1
 4,			goodVibe,				0.35,		spaceShip,				0.35,			goodVibeTexture					

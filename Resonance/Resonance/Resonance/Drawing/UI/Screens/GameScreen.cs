@@ -54,7 +54,7 @@ namespace Resonance
 
         bool isLoaded;
         int iteration = 0;
-        private bool showHints = true;
+        //private bool showHints = false;
 
         public GameScreen(ScreenManager scrn)
         {
@@ -173,7 +173,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            if (showHints) introSequence();
+            //if (showHints) introSequence();
             DrawableManager.Update(gameTime);
 
             Drawing.Update(gameTime);
@@ -269,7 +269,7 @@ namespace Resonance
             //{
             //    DebugDisplay.update("test", iteration.ToString());
             //}
-            ScreenManager.addScreen(new HintScreen());
+            //ScreenManager.addScreen(new HintScreen());
 
             //Display hints
             //string msg = "BV description";
@@ -278,7 +278,7 @@ namespace Resonance
             //msg = "Health, Nitro, Shield and Freeze description";
             //ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.REMOVE_SCREEN));
 
-            showHints = false;
+            //showHints = false;
         }
 
         // Called when game finished (won or lost).
@@ -470,6 +470,5 @@ namespace Resonance
             DrawableManager.Draw(gameTime);
             Drawing.Draw(gameTime);
         }
-
     }
 }

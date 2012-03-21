@@ -60,6 +60,7 @@ namespace Resonance
             {
                 ScreenManager.removeScreen(this);
                 ScreenManager.addScreen(screenToLoad);
+                ScreenManager.addScreen(new HintScreen());
             }
         }
 

@@ -256,11 +256,6 @@ namespace Resonance
                     tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(tree);
                 }
-                if (obj.list[i].type.Equals("Mushroom") == true)
-                {
-                    mush = new StaticObject(GameModels.MUSHROOM, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    addObject(mush);
-                }
                 /*if (obj.list[i].type.Equals("Bad_vibe") == true)
                 {
                     bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord),0);
