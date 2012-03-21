@@ -834,38 +834,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\UI\Menus\Textures\MainMenu.png">
-      <Name>MainMenu</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\UI\Menus\Textures\MainMenuFifth.png">
-      <Name>MainMenuFifth</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\UI\Menus\Textures\MainMenuFirst.png">
-      <Name>MainMenuFirst</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\UI\Menus\Textures\MainMenuFourth.png">
-      <Name>MainMenuFourth</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\UI\Menus\Textures\MainMenuSecond.png">
-      <Name>MainMenuSecond</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\UI\Menus\Textures\MainMenuSixth.png">
-      <Name>MainMenuSixth</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\UI\Menus\Textures\MainMenuThird.png">
       <Name>MainMenuThird</Name>
       <Importer>TextureImporter</Importer>
@@ -1323,6 +1291,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\UI\hintscreen.png">
+      <Name>hintscreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\UI\Menus\Textures\MainMenu1.png">
       <Name>MainMenu1</Name>
       <Importer>TextureImporter</Importer>
@@ -1340,13 +1315,6 @@
     </Compile>
     <Compile Include="Drawing\UI\Menus\Textures\MainMenu4.png">
       <Name>MainMenu4</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\UI\hintscreen.png">
-      <Name>hintscreen</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

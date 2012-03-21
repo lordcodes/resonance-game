@@ -31,33 +31,24 @@ namespace Resonance
             Matrix rot = Matrix.CreateRotationY(rotation.Y);
             return Vector3.Transform(newPosition, rot) + position;*/
 
-            Vector3 lookAt = Matrix3X3.Transform(newPosition, chaseObject.BufferedStates.InterpolatedStates.OrientationMatrix);
-            lookAt += chaseObject.BufferedStates.InterpolatedStates.Position;
+            Vector3 cameraPos = Matrix3X3.Transform(newPosition, chaseObject.BufferedStates.InterpolatedStates.OrientationMatrix);
+            cameraPos += chaseObject.BufferedStates.InterpolatedStates.Position;
+
+            Vector3 facing = Vector3.Normalize(cameraPos - chaseObject.Position);
+            float distance = Vector3.Distance(cameraPos, chaseObject.Position);
 
             Vector3 position;
             RayCastResult result;
-            if (chaseObject.Space.RayCast(new Ray(lookAt, lookAt), rayCastFilter, out result))
+            if (chaseObject.Space.RayCast(new Ray(chaseObject.Position, facing), rayCastFilter, out result))
             {
-                position = lookAt + (result.HitData.T) * lookAt;
+                position = result.HitData.Location;
             }
             else
             {
-                position = lookAt;
+                position = cameraPos;
             }
             return position;
         }
-
-                        /*
-                Vector3 backwards = WorldMatrix.Backward;
-
-                //Find the earliest ray hit that isn't the chase target to position the camera appropriately.
-                RayCastResult result;
-                if (entityToChase.Space.RayCast(new Ray(lookAt, backwards), distanceToTarget, rayCastFilter, out result))
-                {
-                    Position = lookAt + (result.HitData.T) * backwards; //Put the camera just before any hit spot.
-                }
-                else
-                    Position = lookAt + (distanceToTarget) * backwards;*/
 
         /// <summary>
         /// Updates Camera and HUD based of player position
