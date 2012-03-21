@@ -34,7 +34,7 @@ namespace Resonance {
             return ((particles.Count == 0) && (particlesLeft == 0));
         }
 
-        public void setPos(Vector3 newPos) {
+        public virtual void setPos(Vector3 newPos) {
             pos = newPos;
         }
 

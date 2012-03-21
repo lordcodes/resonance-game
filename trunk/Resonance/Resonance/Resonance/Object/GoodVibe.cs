@@ -34,6 +34,8 @@ namespace Resonance
         private bool freezeActive;
         private bool shieldOn;
 
+        private Freeze freezer;
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -336,6 +338,14 @@ namespace Resonance
         {
             get { return freezeActive; }
             set { freezeActive = value; }
+        }
+
+        public Freeze getFreezer() {
+            return freezer;
+        }
+
+        public void createFreezer() {
+            freezer = new Freeze(Body.Position);
         }
     }
 }
