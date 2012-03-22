@@ -29,7 +29,7 @@ namespace Resonance
         public const int EXPERT = 4;
         public const int INSANE = 5;
 
-        public static int DIFFICULTY = MEDIUM;
+        public static int DIFFICULTY =MEDIUM;
         public static GameMode mode;
         public static GameStats stats;
         public static MusicHandler musicHandler;
