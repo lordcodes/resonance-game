@@ -134,6 +134,7 @@ namespace Resonance
         public static void showDamage()
         {
             AlphaValue = 0.6f;
+            GamePad.SetVibration(PlayerIndex.One, 1.0f, 1.0f);
         }
 
         private void drawDamage(GameTime gameTime)
@@ -146,8 +147,12 @@ namespace Resonance
                 if (AlphaValue > 0)
                 {
                     TempColour *= AlphaValue;
-                    spriteBatch.Draw(damage, new Rectangle(ScreenManager.pixelsX(0), ScreenManager.pixelsY(0), ScreenManager.ScreenWidth, ScreenManager.ScreenHeight),TempColour);
+                    spriteBatch.Draw(damage, new Rectangle(ScreenManager.pixelsX(0), ScreenManager.pixelsY(0), ScreenManager.ScreenWidth, ScreenManager.ScreenHeight), TempColour);
                     AlphaValue -= 0.01f;
+                }
+                else
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0.0f, 0.0f);
                 }
             }
         }

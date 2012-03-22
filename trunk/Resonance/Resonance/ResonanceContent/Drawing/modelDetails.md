@@ -52,7 +52,7 @@ virus,          Textures\virus.png
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
 1,			tree,					0.5,		NeuronPhysics,			0.5,			neuronTexture
 2,			house,					0.25,		house_physics,			0.25,			spawnTexture
-3,			badVibe,			    0.1,		badVibePhysics,			0.1,			allColours,								1
+3,			badVibe,			    0.2,		badVibePhysics,			0.2,			allColours,								1
 4,			goodVibe,				0.35,		spaceShip,				0.35,			goodVibeTexture					
 5,			terrain128,			    250,		terrain,			    250,			tronFloor													
 6,			house,					1,			house,					1,
