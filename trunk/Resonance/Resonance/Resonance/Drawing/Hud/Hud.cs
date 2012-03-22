@@ -29,6 +29,7 @@ namespace Resonance
         private static int shield;
         private static int freeze;
         private static float AlphaValue = 0;
+        private static float vibration = 0;
         private static double delay = 0.1;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
@@ -134,7 +135,7 @@ namespace Resonance
         public static void showDamage()
         {
             AlphaValue = 0.6f;
-            GamePad.SetVibration(PlayerIndex.One, 1.0f, 1.0f);
+            vibration = 0.6f;
         }
 
         private void drawDamage(GameTime gameTime)
@@ -149,10 +150,8 @@ namespace Resonance
                     TempColour *= AlphaValue;
                     spriteBatch.Draw(damage, new Rectangle(ScreenManager.pixelsX(0), ScreenManager.pixelsY(0), ScreenManager.ScreenWidth, ScreenManager.ScreenHeight), TempColour);
                     AlphaValue -= 0.01f;
-                }
-                else
-                {
-                    GamePad.SetVibration(PlayerIndex.One, 0.0f, 0.0f);
+                    vibration -= 0.01f;
+                    GamePad.SetVibration(PlayerIndex.One, vibration, vibration);
                 }
             }
         }
