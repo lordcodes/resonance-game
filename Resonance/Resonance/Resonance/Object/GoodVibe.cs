@@ -103,10 +103,10 @@ namespace Resonance
         /// <param name="change">Amount to change by</param>
         public void AdjustHealth(int change)
         {
-            if(!shieldOn) health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);
-            if (change < 0)
+            if (!shieldOn)
             {
-                Hud.showDamage();
+                health = (int)MathHelper.Clamp(health += change, 0, MAX_HEALTH);
+                if (change < 0) Hud.showDamage();
             }
 
             if (health <= 0) GameScreen.GV_KILLED = true;

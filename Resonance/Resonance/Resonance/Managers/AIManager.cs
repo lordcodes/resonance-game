@@ -18,7 +18,7 @@ namespace Resonance
         public static float ROT_SPEED = 0.1f;
 
         private static float TARGET_RANGE = 25f;
-        private static float ATTACK_RANGE = 5f;
+        private static float ATTACK_RANGE = 8f;
         private static int SPOT_RANGE = 15; //Distance to spot obstacles in front
         private static int ATTACK_RATE = 4; //No. of times per second
         private static float ATTACK_ANGLE_THRESHOLD = 0.7f; // Measure of angle at which BV has to be (rel to GV) to attack. 1 = 60 deg, sqrt(2) = 90 deg, >=2 = 180 deg.
