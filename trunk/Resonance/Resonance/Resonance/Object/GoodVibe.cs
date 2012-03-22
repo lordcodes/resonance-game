@@ -15,7 +15,7 @@ namespace Resonance
 
         public static int MAX_HEALTH = 100;
         public static int MAX_NITRO  = 200;
-        public static int MAX_SHIELD = 100;
+        public static int MAX_SHIELD = 300;
         public static int MAX_FREEZE = 200;
 
         private GameModelInstance sheildUpModel;
@@ -103,9 +103,14 @@ namespace Resonance
         /// <param name="change">Amount to change by</param>
         public void AdjustHealth(int change)
         {
-            if(!shieldOn) health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);        
+            if(!shieldOn) health = (int) MathHelper.Clamp(health += change, 0, MAX_HEALTH);
+            if (change < 0)
+            {
+                Hud.showDamage();
+            }
 
             if (health <= 0) GameScreen.GV_KILLED = true;
+
         }
 
         /// <summary>
@@ -208,13 +213,14 @@ namespace Resonance
             {
                 if (waves[i].Radius >= Shockwave.MAX_RADIUS)
                 {
+                    DebugDisplay.update("Testing", waves[i].NumberHit.ToString() + " " + isInCombat.ToString());
                     if (waves[i].Colour == Shockwave.CYMBAL && waves[i].NumberHit > 1)
                     {
                         GameScreen.stats.multiKill(waves[i].NumberHit);
                     }
                     else if (waves[i].NumberHit == 0 && isInCombat)
                     {
-                        AdjustHealth(-1);
+                        AdjustHealth(-2);
                     }
                     //Program.game.Components.Remove(waves[i]);
                     DrawableManager.Remove(waves[i]);

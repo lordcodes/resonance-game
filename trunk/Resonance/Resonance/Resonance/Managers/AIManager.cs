@@ -67,7 +67,7 @@ namespace Resonance
                     }
                 case GameScreen.MEDIUM:
                     {
-                        DAMAGE = 4;
+                        DAMAGE = 5;
                         break;
                     }
                 case GameScreen.HARD:

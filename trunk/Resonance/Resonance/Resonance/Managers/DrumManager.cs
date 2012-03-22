@@ -86,9 +86,9 @@ namespace Resonance
             if (GameScreen.getGV().InCombat == false)
             {
                 healthCount++;
-                if (healthCount > 4)
+                if (healthCount > 8)
                 {
-                    GameScreen.getGV().AdjustHealth(5);
+                    GameScreen.getGV().AdjustHealth(3);
                     healthCount = 0;
                 }
             }
@@ -121,7 +121,7 @@ namespace Resonance
                 shieldCount++;
                 if (shieldCount > 4)
                 {
-                    GameScreen.getGV().adjustShield(5);
+                    GameScreen.getGV().adjustShield(10);
                     shieldCount = 0;
                 }
             }
