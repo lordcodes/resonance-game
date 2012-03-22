@@ -48,6 +48,7 @@ namespace Resonance
         {
             content = newContent;
             song = content.Load<Song>("Music/song");
+            MediaPlayer.Volume = (MediaPlayer.Volume * 0.5f);
             state = PlayState.STOPPED;
             String path = newContent.RootDirectory + "/Music/song.timing";
 
