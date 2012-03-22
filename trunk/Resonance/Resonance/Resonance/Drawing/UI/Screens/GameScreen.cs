@@ -224,7 +224,6 @@ namespace Resonance
             } else if (preEndGameTimer.IsRunning) {
                 Vector3 lt = WeatherManager.getCurrentAmbientLight();
                 Vector3 newLt;
-                
                 if (!GV_KILLED) newLt = new Vector3(lt.X + 0.05f, lt.Y + 0.05f, lt.Z + 0.05f);
                 else            newLt = new Vector3(lt.X - 0.01f , lt.Y - 0.05f , lt.Z - 0.05f);
                 WeatherManager.forceAmbientLight(newLt);

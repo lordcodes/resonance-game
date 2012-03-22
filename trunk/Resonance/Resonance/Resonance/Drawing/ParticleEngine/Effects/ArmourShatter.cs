@@ -54,7 +54,7 @@ namespace Resonance {
                     int   iLife = gen.Next(maxParticleLife);
 
                     // Add an offset to the position so the particles start off around the BV as opposed to it's centre.
-                    float bVRad = 0.1f;//bVRef.calculateMinBBEdge() / 2;
+                    float bVRad = 0.5f;//bVRef.calculateMinBBEdge() / 2;
                     Vector3 posOffset = new Vector3((float) gen.NextDouble(), (float) gen.NextDouble(), (float) gen.NextDouble());
                     if (gen.Next() % 2 == 0) posOffset.X *= -1;
                     if (gen.Next() % 2 == 0) posOffset.Y *= -1; 
