@@ -9,7 +9,8 @@ namespace Resonance {
 
         private bool FREEZE_ON;
 
-        public Freeze(Vector3 p) : base(p) {
+        // Sparkly
+        /*public Freeze(Vector3 p) : base(p) {
             emissionsPerUpdate = 100;
             particlesLeft      = -1;     // Continuous
             maxParticleSpd     = 2f;
@@ -17,6 +18,18 @@ namespace Resonance {
             iColour            = Color.White;
             iPSize             = 0.075f;
             deceleration       = 3f;
+
+            FREEZE_ON = false;
+        }*/
+
+        public Freeze(Vector3 p) : base(p) {
+            emissionsPerUpdate = 150;
+            particlesLeft = -1;
+            maxParticleSpd = 0.25f;
+            maxParticleLife = 30;
+            iColour = new Color(0.9f, 0.95f, 1f);
+            iPSize = 0.05f;
+            deceleration = 0.0002f;
 
             FREEZE_ON = false;
         }
@@ -35,6 +48,25 @@ namespace Resonance {
 
         protected override void generateParticles() {
             if (FREEZE_ON) {
+                for (int i = 0; i < emissionsPerUpdate; i++) {
+                    Vector3 iDir = new Vector3((float)gen.NextDouble(), 0.1f, (float)gen.NextDouble());
+                    if (gen.Next() % 2 == 0) iDir.X *= -1;
+                    if (gen.Next() % 2 == 0) iDir.Z *= -1;
+                    iDir.Normalize();
+
+                    float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
+                    int   iLife = gen.Next(maxParticleLife);
+                    Vector3 gravity = new Vector3(0f, -0.06f, 0f);
+                    Particle p = ParticleEmitterManager.getParticle();
+                    p.init(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, true);
+                    particles.Add(p);
+
+                }
+            }
+        }
+
+        /*protected override void generateParticles() {
+            if (FREEZE_ON) {
                 for (int i = 0; i < emissionsPerUpdate; ++i) {
                     Vector3 iDir = new Vector3((float)gen.NextDouble(), (float)gen.NextDouble(), (float)gen.NextDouble());
                     if (gen.Next() % 2 == 0) iDir.X *= -1;
@@ -44,12 +76,12 @@ namespace Resonance {
 
                     float iSpd  = (float) gen.NextDouble() * maxParticleSpd;
                     int   iLife = gen.Next(maxParticleLife);
-
+                    Vector3 gravity = new Vector3(0f, -0.05f, 0f);
                     Particle p = ParticleEmitterManager.getParticle();
-                    p.init(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, Vector3.Zero, deceleration, false);
+                    p.init(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, false);
                     particles.Add(p);
                 }
             }
-        }
+        }*/
     }
 }

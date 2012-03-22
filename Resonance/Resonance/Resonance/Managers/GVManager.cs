@@ -129,11 +129,12 @@ namespace Resonance
                     GameScreen.getGV().createFreezer();
                 }
 
+                GameScreen.getGV().getFreezer().setPos(GameScreen.getGV().Body.Position);
+
                 if (GameScreen.getGV().Freeze > 0)
                 {
                     GameScreen.getGV().FreezeActive = true;
                     GameScreen.getGV().adjustFreeze(-1);
-                    GameScreen.getGV().getFreezer().setPos(GameScreen.getGV().Body.Position);
                     GameScreen.getGV().getFreezer().switchOn();
                     if (!usedFreeze)
                     {
