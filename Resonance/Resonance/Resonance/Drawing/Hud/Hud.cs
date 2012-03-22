@@ -153,6 +153,10 @@ namespace Resonance
                     vibration -= 0.01f;
                     GamePad.SetVibration(PlayerIndex.One, vibration, vibration);
                 }
+                else
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                }
             }
         }
 
