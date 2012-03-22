@@ -28,12 +28,15 @@ namespace Resonance
         private static int nitro;
         private static int shield;
         private static int freeze;
+        private static float AlphaValue = 0;
+        private static double delay = 0.1;
         private static Texture2D healthBar;
         private static Texture2D healthSlice;
         private static Texture2D drumPad;
         private static Texture2D rest;
         private static Texture2D tempo;
         private static Texture2D block;
+        private static Texture2D damage;
         private static MiniMap miniMap;
         private static ImportedCustomFont scoreFont;
         private static HealthBar healthBarClass;
@@ -65,6 +68,7 @@ namespace Resonance
             rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
             tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
+            damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
             scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
 
             miniMap = new MiniMap();
@@ -107,12 +111,13 @@ namespace Resonance
         /// <summary>
         /// Called every time the HUD needs to be drawn.
         /// </summary>
-        public void Draw()
+        public void Draw(GameTime gameTime)
         {
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
 
             drawBadVibeArmour();
+            drawDamage(gameTime);
             drawHealthBar();
             highlightedPower();
             drawNitroBar();
@@ -124,6 +129,27 @@ namespace Resonance
             drawLightning();
             spriteBatch.End();
             Drawing.resetGraphics();
+        }
+
+        public static void showDamage()
+        {
+            AlphaValue = 0.6f;
+        }
+
+        private void drawDamage(GameTime gameTime)
+        {
+            delay -= gameTime.ElapsedGameTime.TotalSeconds;
+            Color TempColour = Color.White;
+            if (delay <= 0)
+            {
+                delay = 0.001;
+                if (AlphaValue > 0)
+                {
+                    TempColour *= AlphaValue;
+                    spriteBatch.Draw(damage, new Rectangle(ScreenManager.pixelsX(0), ScreenManager.pixelsY(0), ScreenManager.ScreenWidth, ScreenManager.ScreenHeight),TempColour);
+                    AlphaValue -= 0.01f;
+                }
+            }
         }
 
         private void drawThrobber() {
@@ -268,12 +294,12 @@ namespace Resonance
 
             for (int i = 0; i < arm.Count; i++) {
                 switch (arm[i]) {
-                    case 0: { c = new Color(alphaC, alphaC    , alphaC, alphaC); break; }
-                    case 1: { c = new Color(alphaC, 0f        , 0f    , alphaC); break; }
-                    case 2: { c = new Color(alphaC, alphaC    , 0f    , alphaC); break; }
-                    case 3: { c = new Color(0.5f  , 0.5f      , alphaC, alphaC); break; }
-                    case 4: { c = new Color(0f    , alphaC / 2, 0f    , alphaC); break; }
-                    case 5: { c = new Color(alphaC, alphaC    , alphaC, alphaC); break; }
+                    case 0: { c = new Color(alphaC, alphaC, alphaC, alphaC); break; }
+                    case 1: { c = new Color(alphaC, 0f    , 0f    , alphaC); break; }
+                    case 2: { c = new Color(alphaC, alphaC, 0f    , alphaC); break; }
+                    case 3: { c = new Color(0.5f  , 0.5f  , alphaC, alphaC); break; }
+                    case 4: { c = new Color(0f    , alphaC, 0f    , alphaC); break; }
+                    case 5: { c = new Color(alphaC, alphaC, alphaC, alphaC); break; }
                 }
 
                 if (BadVibe.DRAW_HEALTH_VERTICALLY) {

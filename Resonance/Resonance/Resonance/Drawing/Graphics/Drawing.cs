@@ -403,7 +403,7 @@ namespace Resonance
         {
             drawCount++;
             drawParticles();
-            hud.Draw();
+            hud.Draw(gameTime);
             hud.drawDebugInfo(DebugDisplay.getString());
             checkFrameRate(gameTime);
 
