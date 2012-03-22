@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::ef3bd998-4e86-43ec-b57a-128c544d9d3b;
+            Name = Sound::6cc9fdab-d6e3-4fd7-b87c-2628b1d22034;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::b5571d36-ba71-4f6f-986c-c5eb282db579;
+            Name = Effect::74304aad-1a97-4d36-888c-d76e73f3ba44;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -563,6 +563,10 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
     Header Last Modified Low = 0;
     Header Last Modified High = 0;
     Bank Last Revised Low = 813370971;
@@ -1065,7 +1069,7 @@ Sound Bank
     Sound
     {
         Name = TomHigh;
-        Volume = -1200;
+        Volume = -500;
         Pitch = 0;
         Priority = 0;
 
@@ -1117,7 +1121,7 @@ Sound Bank
     Sound
     {
         Name = TomLow;
-        Volume = -1200;
+        Volume = -500;
         Pitch = 0;
         Priority = 0;
 
@@ -1169,7 +1173,7 @@ Sound Bank
     Sound
     {
         Name = TomMiddle;
-        Volume = -1200;
+        Volume = -500;
         Pitch = 0;
         Priority = 0;
 
@@ -1221,7 +1225,7 @@ Sound Bank
     Sound
     {
         Name = Crash;
-        Volume = -1200;
+        Volume = -500;
         Pitch = 0;
         Priority = 0;
 
@@ -1273,7 +1277,7 @@ Sound Bank
     Sound
     {
         Name = Snare;
-        Volume = -1200;
+        Volume = -500;
         Pitch = 0;
         Priority = 0;
 
@@ -1325,7 +1329,7 @@ Sound Bank
     Sound
     {
         Name = chink;
-        Volume = -1200;
+        Volume = -1000;
         Pitch = 0;
         Priority = 0;
 
@@ -1377,7 +1381,7 @@ Sound Bank
     Sound
     {
         Name = shimmer;
-        Volume = -1200;
+        Volume = -1000;
         Pitch = 0;
         Priority = 0;
 
@@ -1429,7 +1433,7 @@ Sound Bank
     Sound
     {
         Name = ding;
-        Volume = -1200;
+        Volume = -1000;
         Pitch = 0;
         Priority = 0;
 
@@ -1481,7 +1485,7 @@ Sound Bank
     Sound
     {
         Name = heart-beat;
-        Volume = 0;
+        Volume = 600;
         Pitch = 0;
         Priority = 0;
 
