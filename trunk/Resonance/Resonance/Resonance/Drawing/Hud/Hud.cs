@@ -121,9 +121,9 @@ namespace Resonance
             drawDamage(gameTime);
             drawHealthBar();
             highlightedPower();
+            drawFreezeBar();
             drawNitroBar();
             drawShieldBar();
-            drawFreezeBar();
             if(GameScreen.USE_MINIMAP)drawMiniMap();
             drawThrobber();
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
@@ -384,68 +384,10 @@ namespace Resonance
             spriteBatch.DrawString(font, "Health", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
-        private void drawNitroBar()
-        {
-            int x = ScreenManager.pixelsX(14);
-            int y = ScreenManager.pixelsY(healthBar.Height + 5);
-            int width = ScreenManager.pixelsX(healthBar.Width / 2);
-            int height = ScreenManager.pixelsY(healthBar.Height / 2);
-
-            int sliceX = x + ScreenManager.pixelsX(4);
-            int sliceY = y + ScreenManager.pixelsY(5);
-            int sliceWidth = 1;
-            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * nitro / GoodVibe.MAX_NITRO);
-
-            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
-
-            Color c;
-            for (int i = 0; i < limit; i++)
-            {
-                c = new Color(1f, 0.9f, 0f);
-
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
-            }
-
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81)); //TODO: tidy this
-            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
-            spriteBatch.DrawString(font, "Nitro", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(font, "Nitro", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-        }
-
-        private void drawShieldBar()
-        {
-            int x = ScreenManager.pixelsX(14);
-            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height / 2);
-            int width = ScreenManager.pixelsX(healthBar.Width / 2);
-            int height = ScreenManager.pixelsY(healthBar.Height / 2);
-
-            int sliceX = x + ScreenManager.pixelsX(4);
-            int sliceY = y + ScreenManager.pixelsY(5);
-            int sliceWidth = 1;
-            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * shield / GoodVibe.MAX_SHIELD);
-
-            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
-
-            Color c;
-            for (int i = 0; i < limit; i++)
-            {
-                c = new Color(0.38f, 1f, 0.99f);
-
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
-            }
-
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height / 2)); //TODO: tidy this
-            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
-            spriteBatch.DrawString(font, "Shield", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(font, "Shield", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-        }
-
         private void drawFreezeBar()
         {
             int x = ScreenManager.pixelsX(14);
-            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height);
+            int y = ScreenManager.pixelsY(healthBar.Height + 5);
             int width = ScreenManager.pixelsX(healthBar.Width / 2);
             int height = ScreenManager.pixelsY(healthBar.Height / 2);
 
@@ -465,10 +407,68 @@ namespace Resonance
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
 
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height)); //TODO: tidy this
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81)); //TODO: tidy this
             Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
             spriteBatch.DrawString(font, "Freeze", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(font, "Freeze", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+
+        private void drawNitroBar()
+        {
+            int x = ScreenManager.pixelsX(14);
+            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height / 2);
+            int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            int height = ScreenManager.pixelsY(healthBar.Height / 2);
+
+            int sliceX = x + ScreenManager.pixelsX(4);
+            int sliceY = y + ScreenManager.pixelsY(5);
+            int sliceWidth = 1;
+            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * nitro / GoodVibe.MAX_NITRO);
+
+            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+
+            Color c;
+            for (int i = 0; i < limit; i++)
+            {
+                c = new Color(1f, 0.9f, 0f);
+
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            }
+
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height / 2)); //TODO: tidy this
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            spriteBatch.DrawString(font, "Nitro", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, "Nitro", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+
+        private void drawShieldBar()
+        {
+            int x = ScreenManager.pixelsX(14);
+            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height);
+            int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            int height = ScreenManager.pixelsY(healthBar.Height / 2);
+
+            int sliceX = x + ScreenManager.pixelsX(4);
+            int sliceY = y + ScreenManager.pixelsY(5);
+            int sliceWidth = 1;
+            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * shield / GoodVibe.MAX_SHIELD);
+
+            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+
+            Color c;
+            for (int i = 0; i < limit; i++)
+            {
+                c = new Color(0.38f, 1f, 0.99f);
+
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            }
+
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height)); //TODO: tidy this
+            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            spriteBatch.DrawString(font, "Shield", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, "Shield", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         /// <summary>
