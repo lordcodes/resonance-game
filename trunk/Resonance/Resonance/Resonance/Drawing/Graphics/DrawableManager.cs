@@ -14,6 +14,7 @@ namespace Resonance
     {
         private static HashSet<GameComponent> components = new HashSet<GameComponent>();
         private static HashSet<GameComponent> componentsSecondary = new HashSet<GameComponent>();
+        static Profile ThisSection = Profile.Get("Drawing3D");
 
         /// <summary>
         /// Add a game component
@@ -37,15 +38,31 @@ namespace Resonance
         /// <param name="time">The gameTime</param>
         public static void Draw(GameTime time)
         {
-            foreach (GameComponent component in components)
+            using (IDisposable d = ThisSection.Measure())
             {
-                if (component is DrawableGameComponent) ((DrawableGameComponent)component).Draw(time);
+                DrawSet(components, time);
+                DrawSet(componentsSecondary, time);
             }
-            foreach (GameComponent component in componentsSecondary)
+        }
+
+        private static void DrawSet(HashSet<GameComponent> components, GameTime time)
+        {
+            foreach (GameComponent component in components)
             {
                 if (component is DrawableGameComponent)
                 {
-                    ((DrawableGameComponent)component).Draw(time);
+                    if (component is DynamicObject)
+                    {
+                        Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, (Object)component);
+                    }
+                    else if (component is StaticObject)
+                    {
+                        Drawing.Draw(((StaticObject)component).Body.WorldTransform.Matrix, ((StaticObject)component).Body.WorldTransform.Translation, (Object)component);
+                    }
+                    else if (component is Shockwave)
+                    {
+                        Drawing.Draw(((Shockwave)component).Transform, ((Shockwave)component).Position, (Object)component);
+                    }
                 }
             }
         }

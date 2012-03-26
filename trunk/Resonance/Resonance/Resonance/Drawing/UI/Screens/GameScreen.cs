@@ -35,6 +35,7 @@ namespace Resonance
         public static MusicHandler musicHandler;
 
         public static bool GV_KILLED = false;
+        public static bool GAME_CAN_END = true;
         public static bool USE_BV_SPAWNER = true;
         public static bool USE_PICKUP_SPAWNER = true;
         public static bool USE_MINIMAP = true;
@@ -56,6 +57,10 @@ namespace Resonance
         bool isLoaded;
         int iteration = 0;
         //private bool showHints = false;
+
+        static Profile DrawSection = Profile.Get("DrawingTotal");
+        static Profile UpdateSection = Profile.Get("UpdateTotal");
+        static Profile UpdateDrawSection = Profile.Get("UpdateDrawableObjects");
 
         public GameScreen(ScreenManager scrn)
         {
@@ -174,86 +179,94 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            //if (showHints) introSequence();
-            DrawableManager.Update(gameTime);
-
-            Drawing.Update(gameTime);
-
-            GameScreen.musicHandler.getTrack().playTrack();
-
-            float health = getGV().healthFraction();
-            if (health < 0.1) musicHandler.HeartBeat = true;
-            else musicHandler.HeartBeat = false;
-
-            //Update bad vibe positions, frozen status, detect if GV
-            //in combat and break rest layers
-            if (USE_BADVIBE_AI)
+            using (IDisposable d = UpdateSection.Measure())
             {
-                List<string> deadVibes = processBadVibes();
-                removeDeadBadVibes(deadVibes);
-            }
-
-            // Update shockwaves
-            getGV().updateWaves();
-
-            //Update pickups
-            if(USE_PICKUP_SPAWNER) PickupManager.update();
-            //List<Pickup> pickups = world.returnPickups();
-            //world.updatePickups(pickups);
-            //PickupManager.updateTimeRemaining();
-
-            world.update();
-
-            musicHandler.Update();
-
-            if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
-            if (WeatherManager.isPaused())         WeatherManager.pause(false);
-
-            if(USE_WHEATHER)WeatherManager.update();
-
-            //Update Spawners
-            if (USE_PICKUP_SPAWNER) pickupSpawner.update();
-            if (GV_KILLED || mode.terminated()) {
-                if (!preEndGameTimer.IsRunning) {
-                    preEndGameTimer.Start();
-                    if (!GV_KILLED) musicHandler.playSound("winwhoosh", 100f);
+                //if (showHints) introSequence();
+                using (IDisposable e = UpdateDrawSection.Measure())
+                {
+                    DrawableManager.Update(gameTime);
+                    Drawing.Update(gameTime);
                 }
-            }
 
-            if (preEndGameTimer.ElapsedMilliseconds >= preEndGameDuration) {
-                endGame();
-            } else if (preEndGameTimer.IsRunning) {
-                Vector3 lt = WeatherManager.getCurrentAmbientLight();
-                Vector3 newLt;
-                if (!GV_KILLED) newLt = new Vector3(lt.X + 0.05f, lt.Y + 0.05f, lt.Z + 0.05f);
-                else            newLt = new Vector3(lt.X - 0.01f , lt.Y - 0.05f , lt.Z - 0.05f);
-                WeatherManager.forceAmbientLight(newLt);
-                Drawing.setAmbientLight(newLt);
-            }
+                GameScreen.musicHandler.getTrack().playTrack();
 
+                float health = getGV().healthFraction();
+                if (health < 0.1) musicHandler.HeartBeat = true;
+                else musicHandler.HeartBeat = false;
 
-            //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
-
-            // Recoded in Hud.cs
-            /*if (musicHandler.getTrack().inTime() > 0.8f) {
-                if (!beatTested) {
-                    //musicHandler.playSound("chink");
-                    DebugDisplay.update("Hit", "Now!");
-                    beatTested = true;
-
-                    Game.getGV().showBeat();
+                //Update bad vibe positions, frozen status, detect if GV
+                //in combat and break rest layers
+                if (USE_BADVIBE_AI)
+                {
+                    List<string> deadVibes = processBadVibes();
+                    removeDeadBadVibes(deadVibes);
                 }
-            } else {
-                if (beatTested) {
-                    beatTested = false;
-                    //musicHandler.playSound("chink");
-                    DebugDisplay.update("Hit", "Not now!");
-                }
-            }*/
-            //}
 
-            iteration++;
-            if (iteration == 60) iteration = 0;
+                // Update shockwaves
+                getGV().updateWaves();
+
+                //Update pickups
+                if (USE_PICKUP_SPAWNER) PickupManager.update();
+                //List<Pickup> pickups = world.returnPickups();
+                //world.updatePickups(pickups);
+                //PickupManager.updateTimeRemaining();
+
+                world.update();
+
+                musicHandler.Update();
+
+                if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
+                if (WeatherManager.isPaused()) WeatherManager.pause(false);
+
+                if (USE_WHEATHER) WeatherManager.update();
+
+                //Update Spawners
+                if (USE_PICKUP_SPAWNER) pickupSpawner.update();
+
+                if(GAME_CAN_END)
+                {
+                    if (GV_KILLED || mode.terminated()) {
+                        if (!preEndGameTimer.IsRunning) {
+                            preEndGameTimer.Start();
+                            if (!GV_KILLED) musicHandler.playSound("winwhoosh", 100f);
+                        }
+                    }
+
+                    if (preEndGameTimer.ElapsedMilliseconds >= preEndGameDuration) {
+                        endGame();
+                    } else if (preEndGameTimer.IsRunning) {
+                        Vector3 lt = WeatherManager.getCurrentAmbientLight();
+                        Vector3 newLt;
+                        if (!GV_KILLED) newLt = new Vector3(lt.X + 0.05f, lt.Y + 0.05f, lt.Z + 0.05f);
+                        else            newLt = new Vector3(lt.X - 0.01f , lt.Y - 0.05f , lt.Z - 0.05f);
+                        WeatherManager.forceAmbientLight(newLt);
+                        Drawing.setAmbientLight(newLt);
+                    }
+                }
+
+                //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
+
+                // Recoded in Hud.cs
+                /*if (musicHandler.getTrack().inTime() > 0.8f) {
+                    if (!beatTested) {
+                        //musicHandler.playSound("chink");
+                        DebugDisplay.update("Hit", "Now!");
+                        beatTested = true;
+
+                        Game.getGV().showBeat();
+                    }
+                } else {
+                    if (beatTested) {
+                        beatTested = false;
+                        //musicHandler.playSound("chink");
+                        DebugDisplay.update("Hit", "Not now!");
+                    }
+                }*/
+                //}
+
+                iteration++;
+                if (iteration == 60) iteration = 0;
+            }
         }
 
         /// <summary>
@@ -456,29 +469,32 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Draw(GameTime gameTime)
         {
-            if (GraphicsSettings.FLOOR_REFLECTIONS)
+            using (IDisposable d = DrawSection.Measure())
             {
-                graphics.GraphicsDevice.Clear(Color.Black);
-                if (Drawing.requestReflectionRender)
+                if (GraphicsSettings.FLOOR_REFLECTIONS)
                 {
-                    Drawing.drawReflection();
+                    graphics.GraphicsDevice.Clear(Color.Black);
+                    if (Drawing.requestReflectionRender)
+                    {
+                        Drawing.drawReflection();
+                        graphics.GraphicsDevice.Clear(Color.Black);
+                        DrawableManager.Draw(gameTime);
+                    }
+                    Drawing.drawReflections();
+                }
+
+                graphics.GraphicsDevice.Clear(Color.Black);
+                if (Drawing.requestShadowsRender)
+                {
+                    Drawing.drawShadow();
                     graphics.GraphicsDevice.Clear(Color.Black);
                     DrawableManager.Draw(gameTime);
                 }
-                Drawing.drawReflections();
-            }
-
-            graphics.GraphicsDevice.Clear(Color.Black);
-            if (Drawing.requestShadowsRender)
-            {
-                Drawing.drawShadow();
+                Drawing.drawShadows();
                 graphics.GraphicsDevice.Clear(Color.Black);
                 DrawableManager.Draw(gameTime);
+                Drawing.Draw(gameTime);
             }
-            Drawing.drawShadows();
-            graphics.GraphicsDevice.Clear(Color.Black);
-            DrawableManager.Draw(gameTime);
-            Drawing.Draw(gameTime);
         }
     }
 }

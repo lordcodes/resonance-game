@@ -404,7 +404,7 @@ namespace Resonance
             drawCount++;
             drawParticles();
             hud.Draw(gameTime);
-            hud.drawDebugInfo(DebugDisplay.getString());
+            hud.drawDebugInfo(DebugDisplay.getString()+Profile.DumpAndReset());
             checkFrameRate(gameTime);
 
             //DrawTexture(shadowsTexture, te.Position, te.Width, te.Height);
