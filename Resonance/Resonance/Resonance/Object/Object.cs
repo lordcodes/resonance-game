@@ -50,21 +50,7 @@ namespace Resonance
 
         public override void Draw(GameTime gameTime)
         {
-            if (this is DynamicObject)
-            {
-                Drawing.Draw(((DynamicObject)this).Body.WorldTransform, ((DynamicObject)this).Body.Position, this);
-            }
-            else if (this is StaticObject)
-            {
-                //Drawing.Draw(gameModelNum, ((StaticObject)this).Body.WorldTransform.Matrix, ((StaticObject)this).Body.WorldTransform.Translation, this);
-                Drawing.Draw(((StaticObject)this).Body.WorldTransform.Matrix, ((StaticObject)this).Body.WorldTransform.Translation, this);
-            }
-            else if (this is Shockwave)
-            {
-                Drawing.Draw(((Shockwave)this).Transform, ((Shockwave)this).Position, this);
-            }
-
-            //base.Draw(gameTime);
+            // Code that was here is now done in DrawableManager 
         }
     }
 }
