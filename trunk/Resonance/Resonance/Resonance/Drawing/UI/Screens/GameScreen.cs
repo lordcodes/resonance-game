@@ -39,6 +39,7 @@ namespace Resonance
         public static bool USE_PICKUP_SPAWNER = true;
         public static bool USE_MINIMAP = true;
         public static bool USE_BADVIBE_AI = true;
+        public static bool USE_WHEATHER = true;
 
         private Stopwatch preEndGameTimer;
         private int preEndGameDuration = 4000;
@@ -208,7 +209,7 @@ namespace Resonance
             if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
             if (WeatherManager.isPaused())         WeatherManager.pause(false);
 
-            WeatherManager.update();
+            if(USE_WHEATHER)WeatherManager.update();
 
             //Update Spawners
             if (USE_PICKUP_SPAWNER) pickupSpawner.update();
@@ -229,6 +230,7 @@ namespace Resonance
                 WeatherManager.forceAmbientLight(newLt);
                 Drawing.setAmbientLight(newLt);
             }
+
 
             //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
 
@@ -454,19 +456,19 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Draw(GameTime gameTime)
         {
-            //Set the ambient light of the 3D scene, default is new Vector3(0.1f, 0.1f, 0.1f)
-            //Drawing.setAmbientLight(new Vector3(2f, 2f, 2f));
-
-            //Reflections stuff is causing slowdown of about 20FPS
-            /*graphics.GraphicsDevice.Clear(Color.Black);
-            if (Drawing.requestReflectionRender)
+            if (GraphicsSettings.FLOOR_REFLECTIONS)
             {
-                Drawing.drawReflection();
                 graphics.GraphicsDevice.Clear(Color.Black);
-                DrawableManager.Draw(gameTime);
+                if (Drawing.requestReflectionRender)
+                {
+                    Drawing.drawReflection();
+                    graphics.GraphicsDevice.Clear(Color.Black);
+                    DrawableManager.Draw(gameTime);
+                }
+                Drawing.drawReflections();
             }
-            Drawing.drawReflections();
-            graphics.GraphicsDevice.Clear(Color.Black);*/
+
+            graphics.GraphicsDevice.Clear(Color.Black);
             if (Drawing.requestShadowsRender)
             {
                 Drawing.drawShadow();

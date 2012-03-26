@@ -10,6 +10,11 @@ namespace Resonance
         /// Max texture size for XBOX is 4096.
 
         /// <summary>
+        /// Reflections appear on the floor if true
+        /// </summary>
+        public static bool FLOOR_REFLECTIONS = true;
+
+        /// <summary>
         /// Resolution of the reflection texture of the floor reflections.
         /// </summary>
         public static int REFLECTION_TEXTURE_SIZE = 2048;
