@@ -80,7 +80,7 @@ namespace Resonance
 
         public override void Draw(GameTime gameTime)
         {
-            Drawing.DrawTexture(textureAnimation.Texture, Position, width, height);
+            //Drawing code moved to DrawableManager
         }
 
         public override void Update(GameTime gameTime)
