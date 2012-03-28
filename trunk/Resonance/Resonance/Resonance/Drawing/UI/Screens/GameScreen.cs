@@ -37,8 +37,8 @@ namespace Resonance
         public static bool GV_KILLED = false;
         public static bool GAME_CAN_END = true;
         public static bool USE_BV_SPAWNER = true;
-        public static bool USE_PICKUP_SPAWNER = true;
-        public static bool USE_MINIMAP = true;
+        public static bool USE_PICKUP_SPAWNER = false;
+        public static bool USE_MINIMAP = false;
         public static bool USE_BADVIBE_AI = true;
         public static bool USE_WHEATHER = true;
 
