@@ -97,11 +97,7 @@ namespace Resonance
                 space.Add(b4);
             }
             //Program.game.Components.Add(obj);
-            if (obj is GoodVibe)
-            {
-                DrawableManager.Add(obj);
-            }
-            //DrawableManager.Add(obj);
+            DrawableManager.Add(obj);
         }
 
         public void addToSpace(ISpaceObject obj)
