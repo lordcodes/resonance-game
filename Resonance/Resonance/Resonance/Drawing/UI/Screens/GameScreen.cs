@@ -417,6 +417,7 @@ namespace Resonance
                     }
                 }
             }
+            BulletManager.updateBullet();
             gv.FreezeActive = false;
             return deadVibes;
         }

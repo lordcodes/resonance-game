@@ -32,7 +32,7 @@ namespace Resonance
         public static float MAP_MIN_Z;
         private const float ACCURACY = 0.1f;
         private const int BVSpawnRadious = 10;
-        private const int BVAllowedActive = 2;
+        private const int BVAllowedActive = 1;
         private const int MaxBV = 12;
 
         private Dictionary<string, Object> objects;
@@ -61,14 +61,19 @@ namespace Resonance
 
         public void addObject(Object obj)
         {
+            
             objects.Add(obj.returnIdentifier(), obj);
+           
+            
             if (obj is DynamicObject)
             {
+                if (obj.returnIdentifier().Contains("Bullet") == false)
                 space.Add(((DynamicObject)obj).Body);
             }
             else if(obj is StaticObject)
             {
-                space.Add(((StaticObject)obj).Body);
+                
+                    space.Add(((StaticObject)obj).Body);
                 if (obj.returnIdentifier() == "Ground")
                 {
                     Vector3 max = ((StaticObject)obj).Body.BoundingBox.Max;
@@ -190,7 +195,8 @@ namespace Resonance
             objects.Remove(obj.returnIdentifier());
             if (obj is DynamicObject)
             {
-                space.Remove(((DynamicObject)obj).Body);
+                if(obj.returnIdentifier().Contains("Bullet") == false)
+                    space.Remove(((DynamicObject)obj).Body);
             }
             if (obj is StaticObject)
             {
@@ -204,6 +210,7 @@ namespace Resonance
         {
             return objects[name];
         }
+        
 
         public void update()
         {
@@ -213,6 +220,11 @@ namespace Resonance
         public Dictionary<string, Object> returnObjects()
         {
             return objects;
+        }
+
+        public void removeObject(String obj)
+        {
+            objects.Remove(obj);
         }
 
         public List<Object> returnObjectSubset<T>() {

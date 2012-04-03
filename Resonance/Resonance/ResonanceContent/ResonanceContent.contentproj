@@ -76,6 +76,7 @@
       <Name>MainMenuFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+      <SubType>Designer</SubType>
     </Compile>
     <Compile Include="Drawing\Fonts\MenuHeadingFont.spritefont">
       <Name>MenuHeadingFont</Name>
@@ -89,6 +90,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Models\Bullet.fbx">
+      <Name>Bullet</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\BVExplosion.fbx">
       <Name>BVExplosion</Name>
       <Importer>FbxImporter</Importer>
@@ -299,8 +305,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\Level1.xml">
-      <Name>Level1</Name>
+    <Compile Include="Levels\Level1%28initial%29.xml">
+      <Name>Level1%28initial%29</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <SubType>Designer</SubType>
@@ -1336,6 +1342,13 @@
       <Name>song</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Levels\Level1.xml">
+      <Name>Level1</Name>
+      <Importer>XmlImporter</Importer>
+      <Processor>PassThroughProcessor</Processor>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\$(XnaFrameworkVersion)\Microsoft.Xna.GameStudio.ContentPipeline.targets" />
