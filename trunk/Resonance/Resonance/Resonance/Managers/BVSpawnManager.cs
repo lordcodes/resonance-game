@@ -8,14 +8,14 @@ namespace Resonance
 {
     class BVSpawnManager
     {
-        private static int spawnerCount = 2;
+        private static int spawnerCount = 1;
         private static int bvcount = 0;
         private static List<BVSpawner> spawners = new List<BVSpawner>();
         private static bool debugSwtich = false;
 
         public BVSpawnManager() 
         {
-            spawnerCount = 2;
+            spawnerCount = 1;
             spawners = new List<BVSpawner>();
         }
 
@@ -83,24 +83,14 @@ namespace Resonance
         public static void update()
         {
             int i = 0;
-            Random random = new Random();
             while (i < spawners.Count)
             {
                 if ((spawners[i].getTotalCurrentlyActive() < spawners[i].getTotalAllowedActive())
                     && (spawners[i].getTotalSpawned() <= spawners[i].getTotalBadVibes()))
                 {
-
-                    int rand = random.Next(234);
-                    if (rand % 2 == 0)
-                    {
                         BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawners[i].getSpawnCords(), i);
                         spawners[i].addBadVibe(bv);
-                    }
-                    else
-                    {
-                        Projectile_BV newBv = new Projectile_BV(GameModels.PROJECTILE_BV, "BVA" + bvcount, spawners[i].getSpawnCords(), i);
-                        spawners[i].addBadVibe(newBv);
-                    }                    
+                                                        
                     bvcount++;
                 }
                 i++;

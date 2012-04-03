@@ -129,9 +129,11 @@ namespace Resonance
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
             drawLightning();
             spriteBatch.End();
+            
             Drawing.resetGraphics();
         }
 
+        //draws a bullet in the set position
         public static void showDamage()
         {
             AlphaValue = 0.6f;

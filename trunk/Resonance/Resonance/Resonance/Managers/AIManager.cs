@@ -17,8 +17,8 @@ namespace Resonance
         public static float MOVE_ACCEL = 0.8f;
         public static float ROT_SPEED = 0.1f;
 
-        private static float TARGET_RANGE = 25f;
-        private static float ATTACK_RANGE = 8f;
+        private static float TARGET_RANGE = 60f;
+        private static float ATTACK_RANGE = 60f;
         private static int SPOT_RANGE = 15; //Distance to spot obstacles in front
         private static int ATTACK_RATE = 4; //No. of times per second
         private static float ATTACK_ANGLE_THRESHOLD = 0.7f; // Measure of angle at which BV has to be (rel to GV) to attack. 1 = 60 deg, sqrt(2) = 90 deg, >=2 = 180 deg.
@@ -34,6 +34,10 @@ namespace Resonance
         private SingleEntityAngularMotor servo;
         private int uniqueId = 0;
         private int iteration;
+
+
+        private int ok = 0;
+        Bullet bullet;
 
         public AIManager(BadVibe bvRef)
         {
@@ -90,26 +94,36 @@ namespace Resonance
             {
                 //Move away from the edge
                 moveAwayFromEdge();
+                
             }
             else if (!inTargetRange())
             {
                 //Move randomly
                 randomMove();
+                
             }
             else if (!inAttackRange())
             {
                 //Move towards GV
-                moveToGV();
+               // moveToGV();
+               
+                
             }
             else
             {
                 //Rotate to face GV and attack it
                 Vector3 point = GameScreen.getGV().Body.Position;
                 rotateToFacePoint(point);
-                attack();
+                //attack();
+                BulletManager.shoot(bv,bv.Body.Position);
             }
+            
         }
 
+        //-------------------------------------------------------------------
+        //initial method that fires bullets at the bad vibe
+        //-------------------------------------------------------------------
+                
         private void rotateToFacePoint(Vector3 point)
         {
             Vector3 bvDir = bv.Body.OrientationMatrix.Forward;

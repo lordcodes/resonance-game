@@ -25,6 +25,7 @@ plus4,		Models\plus4.fbx
 plus5,		Models\plus5.fbx
 projectileBV, Models\bv_ranged_animated.fbx
 projectileBV_Physics, Models\ProjectileBadVibe_Physics.fbx
+bullet, Models\Bullet.fbx
 
 
 TEXTURES
@@ -66,3 +67,4 @@ virus,          Textures\virus.png
 14,			plus4,					0.25,		plus4,					0.25
 15,			plus5,					0.25,		plus5,					0.25
 16,         projectileBV,           0.5,        projectileBV_Physics,          0.5,             virus,                        1
+17,         bullet,                 0.5,        pickup,                 0.5
