@@ -44,6 +44,8 @@ neuronTexture,	Textures\neuronTexture.jpg
 spawnTexture,	Textures\TextureHouse.jpg
 fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1_ 02.png;Textures\fireAnimation\fire1_ 03.png;Textures\fireAnimation\fire1_ 04.png;Textures\fireAnimation\fire1_ 05.png;Textures\fireAnimation\fire1_ 06.png;Textures\fireAnimation\fire1_ 07.png;Textures\fireAnimation\fire1_ 08.png;Textures\fireAnimation\fire1_ 09.png;Textures\fireAnimation\fire1_ 10.png;Textures\fireAnimation\fire1_ 11.png;Textures\fireAnimation\fire1_ 12.png;Textures\fireAnimation\fire1_ 13.png;Textures\fireAnimation\fire1_ 14.png;Textures\fireAnimation\fire1_ 15.png;Textures\fireAnimation\fire1_ 16.png;Textures\fireAnimation\fire1_ 17.png;Textures\fireAnimation\fire1_ 18.png;Textures\fireAnimation\fire1_ 19.png;Textures\fireAnimation\fire1_ 20.png;Textures\fireAnimation\fire1_ 21.png;Textures\fireAnimation\fire1_ 22.png;Textures\fireAnimation\fire1_ 23.png;Textures\fireAnimation\fire1_ 24.png;Textures\fireAnimation\fire1_ 25.png;Textures\fireAnimation\fire1_ 26.png;Textures\fireAnimation\fire1_ 27.png;Textures\fireAnimation\fire1_ 28.png;Textures\fireAnimation\fire1_ 29.png;Textures\fireAnimation\fire1_ 30.png;Textures\fireAnimation\fire1_ 31.png;Textures\fireAnimation\fire1_ 32.png;Textures\fireAnimation\fire1_ 33.png;Textures\fireAnimation\fire1_ 34.png;Textures\fireAnimation\fire1_ 35.png;Textures\fireAnimation\fire1_ 36.png;Textures\fireAnimation\fire1_ 37.png;Textures\fireAnimation\fire1_ 38.png;Textures\fireAnimation\fire1_ 39.png;Textures\fireAnimation\fire1_ 40.png;Textures\fireAnimation\fire1_ 41.png;Textures\fireAnimation\fire1_ 42.png;Textures\fireAnimation\fire1_ 43.png;Textures\fireAnimation\fire1_ 44.png;Textures\fireAnimation\fire1_ 45.png;Textures\fireAnimation\fire1_ 46.png;Textures\fireAnimation\fire1_ 47.png;Textures\fireAnimation\fire1_ 48.png;Textures\fireAnimation\fire1_ 49.png;Textures\fireAnimation\fire1_ 50.png, 40, 1
 virus,          Textures\virus.png
+
+bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\yellow.jpg;Textures\cymbal.jpg
 ---You can use dashes at the start of lines for comments
 
 ---Texture delay(ms) is the time spent on each frame of the animation.
@@ -67,4 +69,4 @@ virus,          Textures\virus.png
 14,			plus4,					0.25,		plus4,					0.25
 15,			plus5,					0.25,		plus5,					0.25
 16,         projectileBV,           0.5,        projectileBV_Physics,          0.5,             virus,                        1
-17,         bullet,                 0.5,        pickup,                 0.5
+17,         bullet,                 0.5,        pickup,                 0.5,            bulletColors

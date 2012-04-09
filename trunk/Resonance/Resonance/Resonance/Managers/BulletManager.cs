@@ -36,7 +36,7 @@ namespace Resonance
                 if (index > 4)
                     index = 0;
                 bullet.setColor(colors[index]);
-                
+                bullet.ModelInstance.setTexture(index);
                 DebugDisplay.update("Bullet Color", bullet.getColor());
             }
         }
@@ -59,6 +59,7 @@ namespace Resonance
 
                     bullet = new Bullet(17, "activeBullet", bulletPosition);
                     bullet.setColor(colors[index]);
+                    bullet.ModelInstance.setTexture(index);
                     ScreenManager.game.World.addObject(bullet);
                 }   
             }
