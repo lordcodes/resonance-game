@@ -149,7 +149,7 @@ namespace Resonance
 
         public void update() {
             if (MediaPlayer.State == MediaState.Playing) SONG_STARTED_IN_THE_FIRST_PLACE = true;
-            if ((MediaPlayer.State == MediaState.Stopped) && (!SONG_MANUALLY_STOPPED)) {
+            if ((MediaPlayer.State == MediaState.Stopped) && (!SONG_MANUALLY_STOPPED) && GameScreen.musicHandler.getTrack().SONG_STARTED_IN_THE_FIRST_PLACE) {
                 SONG_ENDED = true;
             }
         }
