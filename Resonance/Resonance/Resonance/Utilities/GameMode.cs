@@ -26,7 +26,7 @@ namespace Resonance {
         public bool terminated() {
             switch (MODE) {
                 case TIME_ATTACK: {
-                    if (GameScreen.musicHandler.getTrack().SONG_ENDED) TERMINATION_CRITERION_MET = true;
+                    if (GameScreen.musicHandler.getTrack().SONG_ENDED && GameScreen.musicHandler.getTrack().SONG_STARTED_IN_THE_FIRST_PLACE) TERMINATION_CRITERION_MET = true;
                     break;
                 }
                 case SURVIVAL:    { // TODO: Survival mode termination criteria (Nothing: Only way to end is for GV to be dead. Handled separately)

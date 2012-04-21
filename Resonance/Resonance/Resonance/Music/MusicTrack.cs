@@ -15,9 +15,10 @@ namespace Resonance
 {
     class MusicTrack
     {
-        public bool SONG_ENDED            = false;
-        public bool SONG_MANUALLY_STOPPED = true;
-        public bool SONG_MANUALLY_PAUSED  = false;
+        public bool SONG_ENDED                      = false;
+        public bool SONG_MANUALLY_STOPPED           = true;
+        public bool SONG_MANUALLY_PAUSED            = false;
+        public bool SONG_STARTED_IN_THE_FIRST_PLACE = false;
 
         ContentManager content;
         Song song;
@@ -147,6 +148,7 @@ namespace Resonance
         }
 
         public void update() {
+            if (MediaPlayer.State == MediaState.Playing) SONG_STARTED_IN_THE_FIRST_PLACE = true;
             if ((MediaPlayer.State == MediaState.Stopped) && (!SONG_MANUALLY_STOPPED)) {
                 SONG_ENDED = true;
             }
