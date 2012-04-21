@@ -166,9 +166,9 @@ namespace Resonance
             float sum   = 0;
             int   count = 0;
 
-            foreach (float x in speeds)
+            for(int i = 0; i < speeds.Count; i++)
             {
-                sum += x;
+                sum += speeds[i];
                 count++;
             }
 
@@ -318,11 +318,16 @@ namespace Resonance
 
             List<Object> objs = ScreenManager.game.World.returnObjectSubset<StaticObject>();
 
-            foreach (StaticObject s in objs) {
-                if (!(s is BVSpawner) && !(s.Equals(ScreenManager.game.World.getObject("Ground")))) {
-                    try {
+            for (int i = 0; i < objs.Count; i++ )
+            {
+                StaticObject s = (StaticObject)objs[i];
+                if (!(s is BVSpawner) && !(s.Equals(ScreenManager.game.World.getObject("Ground"))))
+                {
+                    try
+                    {
                         drawBox(spriteBatch, s.Body.BoundingBox, gvx, gvy);
-                    } catch (Exception e) {}
+                    }
+                    catch (Exception e) { }
                 }
             }
 
@@ -351,17 +356,19 @@ namespace Resonance
             Texture2D scaledVibe    = Drawing.scaleTexture(vibe   , sF);
             Texture2D scaledPickup  = Drawing.scaleTexture(pickup , sF);
             Texture2D scaledSpawner = Drawing.scaleTexture(spawner, sF);
-           
-            foreach(Object o in toDraw) {
-                BadVibe   v = null;
-                Pickup    p = null;
+
+            for (int i = 0; i < toDraw.Count; i++ )
+            {
+                Object o = toDraw[i];
+                BadVibe v = null;
+                Pickup p = null;
                 BVSpawner s = null;
-                if (o is BadVibe || o is Projectile_BV)   v = (BadVibe)   o;
-                if (o is Pickup)    p = (Pickup)    o;
-                if (o is BVSpawner) s = (BVSpawner) o;
+                if (o is BadVibe || o is Projectile_BV) v = (BadVibe)o;
+                if (o is Pickup) p = (Pickup)o;
+                if (o is BVSpawner) s = (BVSpawner)o;
 
                 if (o is BadVibe || o is Projectile_BV) objPos = new Vector2(v.Body.Position.X, v.Body.Position.Z);
-                else if (o is Pickup)    objPos = new Vector2(p.OriginalPosition.X, p.OriginalPosition.Z);
+                else if (o is Pickup) objPos = new Vector2(p.OriginalPosition.X, p.OriginalPosition.Z);
                 else if (o is BVSpawner) objPos = new Vector2(s.OriginalPosition.X, s.OriginalPosition.Z);
 
                 relToGV = gVPos - objPos;
@@ -370,7 +377,7 @@ namespace Resonance
                 objPos = gVPos - relToGV; // Object position relative to origin.
 
                 float alpha = BAD_VIBE_ALPHA;
-                     if (o is Pickup)    alpha = PICKUP_ALPHA;
+                if (o is Pickup) alpha = PICKUP_ALPHA;
                 else if (o is BVSpawner) alpha = SPAWNER_ALPHA;
 
                 inXRange = false;
@@ -380,26 +387,32 @@ namespace Resonance
                 if ((objPos.X > gVPos.X - ZOOM) && (objPos.X < gVPos.X + ZOOM)) inXRange = true;
                 if ((objPos.Y > gVPos.Y - ZOOM) && (objPos.Y < gVPos.Y + ZOOM)) inYRange = true;
 
-                if (inXRange && inYRange) {
+                if (inXRange && inYRange)
+                {
                     float objR = 0f;
 
                     if (o is BadVibe || o is Projectile_BV)
                     {
                         objR = -(Utility.QuaternionToEuler(v.Body.Orientation)).Y + (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
                     }
-                    
+
                     objScreenPos = new Vector2(gvx + ((objPos.X - gVPos.X) * scaleFactor), gvy + ((objPos.Y - gVPos.Y) * scaleFactor));
 
-                    if (o is BadVibe || o is Projectile_BV) {            
+                    if (o is BadVibe || o is Projectile_BV)
+                    {
                         scaledTex = scaledVibe;
                         if (o is BadVibe)
                             drawColour = BAD_VIBE_COLOUR;
                         else
                             drawColour = PROJ_BAD_VIBE_COLOUR;
-                    } else if (o is Pickup) {
+                    }
+                    else if (o is Pickup)
+                    {
                         scaledTex = scaledPickup;
                         drawColour = PICKUP_COLOUR;
-                    } else if (o is BVSpawner) {
+                    }
+                    else if (o is BVSpawner)
+                    {
                         scaledTex = scaledSpawner;
                         drawColour = SPAWNER_COLOUR;
                     }
@@ -418,21 +431,31 @@ namespace Resonance
                     alpha = calculateBVAlpha(dist, corner_dist);
                     if (alpha < 0f) visible = false;
 
-                    if (inXRange) {
-                        if (bVPos.Y < gVPos.Y) {
+                    if (inXRange)
+                    {
+                        if (bVPos.Y < gVPos.Y)
+                        {
                             bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapY - (dVibe.Height / 2));
-                        } else {
+                        }
+                        else
+                        {
                             bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapY + mapH - (dVibe.Height / 2));
                         }
-                    } else {
-                        if (bVPos.X < gVPos.X)  {
+                    }
+                    else
+                    {
+                        if (bVPos.X < gVPos.X)
+                        {
                             bVScreenPos = new Vector2(mapX - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
-                        } else {
+                        }
+                        else
+                        {
                             bVScreenPos = new Vector2(mapX + mapW - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
                         }
                     }
 
-                    if (visible) {
+                    if (visible)
+                    {
                         Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
                         Color c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
                         spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), c);
@@ -452,21 +475,31 @@ namespace Resonance
                     alpha = calculateBVAlpha(dist, corner_dist);
                     if (alpha < 0f) visible = false;
 
-                    if (bVPos.X < gVPos.X) {
-                        if (bVPos.Y < gVPos.Y) {
+                    if (bVPos.X < gVPos.X)
+                    {
+                        if (bVPos.Y < gVPos.Y)
+                        {
                             bVScreenPos = new Vector2(mapX - (dVibe.Width / 2), mapY - (dVibe.Height / 2));
-                        } else {
+                        }
+                        else
+                        {
                             bVScreenPos = new Vector2(mapX - (dVibe.Width / 2), mapY + mapH - (dVibe.Height / 2));
                         }
-                    } else {
-                        if (bVPos.Y < gVPos.Y) {
+                    }
+                    else
+                    {
+                        if (bVPos.Y < gVPos.Y)
+                        {
                             bVScreenPos = new Vector2(mapX + mapW - (dVibe.Width / 2), mapY - (dVibe.Height / 2));
-                        } else {
+                        }
+                        else
+                        {
                             bVScreenPos = new Vector2(mapX + mapW - (dVibe.Width / 2), mapY + mapH - (dVibe.Height / 2));
                         }
                     }
 
-                    if (visible) {
+                    if (visible)
+                    {
                         Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
                         Color c;
                         c = new Color(cVec.X, cVec.Y, cVec.Z, alpha);

@@ -196,8 +196,9 @@ namespace Resonance
         /// </summary>
         public void updateWaves()
         {
-            foreach (Shockwave w in waves)
+            for(int i = 0; i < waves.Count; i++)
             {
+                Shockwave w = waves[i];
                 w.grow();
                 w.checkBadVibes();
             }

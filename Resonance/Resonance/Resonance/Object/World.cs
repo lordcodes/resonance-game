@@ -46,15 +46,15 @@ namespace Resonance
             //Speed improvements
             SolverSettings.DefaultMinimumIterations = 0;
 #if WINDOWS
-            space.ThreadManager.AddThread();
-            space.ThreadManager.AddThread();
-            space.ThreadManager.AddThread();
+            for(int i = 0; i < System.Environment.ProcessorCount; i++)
+            {
+                space.ThreadManager.AddThread();
+            }
 #else
             space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(1), null);
             space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(3), null);
             space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(5), null);
 #endif
-
 
             objects = new Dictionary<string, Object>();
         }

@@ -179,6 +179,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
+            //System.Threading.Thread.Sleep(1);
             using (IDisposable d = UpdateSection.Measure())
             {
                 //if (showHints) introSequence();
@@ -187,7 +188,6 @@ namespace Resonance
                     DrawableManager.Update(gameTime);
                     Drawing.Update(gameTime);
                 }
-
                 GameScreen.musicHandler.getTrack().playTrack();
 
                 float health = getGV().healthFraction();
@@ -376,8 +376,9 @@ namespace Resonance
             gv.InCombat = false;
             List<string> deadVibes = new List<string>();
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
-            foreach (BadVibe bv in bvs)
+            for(int i = 0; i < bvs.Count; i++)
             {
+                BadVibe bv = (BadVibe)bvs[i];
                 if (bv.Status == BadVibe.State.DEAD)
                 {
                     if (bv.getAnimationCounter() <= 0)
