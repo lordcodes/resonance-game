@@ -97,9 +97,9 @@ namespace Resonance
         public List<Texture2D> getTextures()
         {
             List<Texture2D> textures = new List<Texture2D>();
-            foreach (float[] buffer in masterBuffer)
+            for (int i = 0; i < masterBuffer.Count; i++)
             {
-                textures.Add(getTexture(buffer));
+                textures.Add(getTexture(masterBuffer[i]));
             }
             return textures;
         }

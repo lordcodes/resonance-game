@@ -349,9 +349,13 @@ namespace Resonance
             Vector3 gVFwd, gVRdp, angV;
             Quaternion ang;
 
-            foreach (Emitter e in ParticleEmitterManager.getEmitters()) {
+            List<Emitter> emitters = ParticleEmitterManager.getEmitters();
+            for (int i = 0; i < emitters.Count; i++) {
+                Emitter e = emitters[i];
                 //DebugDisplay.update("P Count", e.getParticles().Count.ToString());
-                foreach (Particle p in e.getParticles()) {
+                List<Particle> particles = e.getParticles();
+                for (int j = 0; j < particles.Count; j++) {
+                    Particle p = particles[j];
                     try {
                         pos = p.getPos();
                         size = p.getSize();

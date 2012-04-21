@@ -72,8 +72,9 @@ namespace Resonance
         {
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
 
-            foreach (BadVibe bv in bvs) 
+            for(int i = 0; i < bvs.Count; i++)
             {
+                BadVibe bv = (BadVibe)bvs[i];
                 if (bv.Status != BadVibe.State.DEAD && !bVibes.Contains(bv))
                 {
                     double dist = Vector3.Distance(Position, bv.Body.Position);

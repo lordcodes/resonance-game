@@ -313,8 +313,9 @@ namespace Resonance
             double closestDist = Double.MaxValue;
             Object closestObj = null;
 
-            foreach (Object ob in obstacles)
+            for(int i = 0; i < obstacles.Count; i++)
             {
+                Object ob = obstacles[i];
                 double newDistance = Double.MaxValue;
                 if (ob is StaticObject)
                 {
@@ -338,8 +339,9 @@ namespace Resonance
             double closestDist = Double.MaxValue;
             Vector3 normal = new Vector3();
 
-            foreach (RayHit ob in obstacles)
+            for(int i = 0; i < obstacles.Count; i++)
             {
+                RayHit ob = obstacles[i];
                 double newDistance = ob.T;
                 
                 if (newDistance < closestDist)

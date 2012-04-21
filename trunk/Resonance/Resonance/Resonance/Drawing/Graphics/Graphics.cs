@@ -207,9 +207,10 @@ namespace Resonance
 
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
-            foreach (EffectPass pass in shader.Passes)
+            EffectPassCollection passes = shader.Passes;
+            for(int i = 0; i < passes.Count; i++)
             {
-                pass.Apply();
+                passes[i].Apply();
                 graphics.GraphicsDevice.DrawUserIndexedPrimitives<VertexPositionNormalTexture>(PrimitiveType.TriangleList,particleVertices,0,4,particleIndices,0,2);
             }
 
@@ -297,8 +298,10 @@ namespace Resonance
             if (colorTexture == null) colorTexture = modelVariables.Texture;
             currentShader.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
 
-            foreach (ModelMesh mesh in m.Meshes)
+            ModelMeshCollection meshes = m.Meshes;
+            for(int i = 0; i < meshes.Count; i++)
             {
+                ModelMesh mesh = meshes[i];
                 try
                 {
                     colorTexture = ((BasicEffect)m.Meshes[meshCount].Effects[0]).Texture;
@@ -323,14 +326,17 @@ namespace Resonance
                 }
                 if(drawingShadows)currentShader.Technique = "ShadowMap";
                 //else currentShader.Technique = "ShadowedScene";
-                
-                foreach (ModelMeshPart meshPart in mesh.MeshParts)
+
+                ModelMeshPartCollection meshParts = mesh.MeshParts;
+                for(int j = 0; j < meshParts.Count; j++)
                 {
+                    ModelMeshPart meshPart = meshParts[j];
                     graphics.GraphicsDevice.SetVertexBuffer(meshPart.VertexBuffer, meshPart.VertexOffset);
                     graphics.GraphicsDevice.Indices = meshPart.IndexBuffer;
-                    foreach (EffectPass pass in currentShader.Passes)
+                    EffectPassCollection passes = currentShader.Passes;
+                    for(int k = 0; k < passes.Count; k++)
                     {
-                        pass.Apply();
+                        passes[k].Apply();
                         graphics.GraphicsDevice.DrawIndexedPrimitives(PrimitiveType.TriangleList, 0, 0, meshPart.NumVertices, meshPart.StartIndex, meshPart.PrimitiveCount);
                     }
                 }
