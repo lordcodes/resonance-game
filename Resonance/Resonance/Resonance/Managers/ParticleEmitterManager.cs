@@ -10,6 +10,8 @@ namespace Resonance {
     /// Manages all particle system data.
     /// </summary>
     class ParticleEmitterManager {
+        private const int INITIAL_PARTICLE_POOL_SIZE = 3500;
+        private const int INITIAL_EMITTER_POOL_SIZE  = 50;
 
         private static bool paused = false;
 
@@ -20,6 +22,7 @@ namespace Resonance {
 
         // Particle 'pool'. Any particles generated are never deleted; they are instead put here, available for recycling.
         public static List<Particle> particlePool;
+        public static List<Emitter>   emitterPool;
 
         public static List<Emitter> getEmitters() {
             return emitters;
@@ -28,8 +31,10 @@ namespace Resonance {
         public static void initialise() {
             paused = false;
             Content = ScreenManager.game.ScreenManager.Content;
-            particlePool = new List<Particle>();
-            emitters = new List<Emitter>();
+            particlePool = new List<Particle>(INITIAL_PARTICLE_POOL_SIZE);
+            emitterPool  = new List<Emitter>(INITIAL_EMITTER_POOL_SIZE);
+            emitters = new List<Emitter>(INITIAL_EMITTER_POOL_SIZE);
+            fillParticlePool();
         }
 
         public static void addEmitter(Emitter e) {
@@ -40,6 +45,10 @@ namespace Resonance {
             particlePool.Add(p);
         }
 
+        public static void addToPool(Emitter e) {
+            emitterPool.Add((Emitter) e);
+        }
+
         public static Particle getParticle() {
             Particle p;
             if (particlePool.Count > 0) {
@@ -48,13 +57,49 @@ namespace Resonance {
                 return p;
             } else return new Particle();
         }
+        
+        public static Emitter getEmitter<T>() {
+            for (int i = 0; i < emitterPool.Count; i++) {
+                if (emitterPool.ElementAt(i) is T) {
+                    Emitter e = emitterPool.ElementAt(i);
+                    emitterPool.Remove(e);
+                    return e;
+                }
+            }
+
+            return null;
+            /*if (emitterPool.Count > 0) {
+                Emitter e = emitterPool.Last();
+                emitterPool.Remove(e);
+                return e;
+            } else return new Emitter();*/
+        }
+
+        public static void fillParticlePool() {
+            for (int i = 0; i < INITIAL_PARTICLE_POOL_SIZE; i++) {
+                particlePool.Add(new Particle());
+            }
+        }
+
+        public static void fillEmitterPool() {
+            emitterPool.Add(new Freeze());
+            emitterPool.Add(new Rain());
+            for (int i = 2; i < INITIAL_EMITTER_POOL_SIZE; i++) {
+                if (i % 4 == 0) emitterPool.Add(new Explosion());
+                else emitterPool.Add(new ArmourShatter());
+            }
+        }
 
         public static void update() {
+            Emitter e;
+
             if (!paused) {
                 int noRemoved = 0;
                 for (int i = 0; i < emitters.Count; i++) {
-                    if (emitters.ElementAt(i - noRemoved).isEmpty()) {
-                        emitters.RemoveAt(i - noRemoved);
+                    e = emitters.ElementAt(i - noRemoved);
+                    if (e.isEmpty()) {
+                        emitters.Remove(e);
+                        addToPool(e);
                         noRemoved++;
                     } else {
                         emitters.ElementAt(i - noRemoved).update();

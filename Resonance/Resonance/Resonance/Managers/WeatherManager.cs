@@ -88,7 +88,9 @@ namespace Resonance {
 
             thunderStarted = false;
 
-            rain = new Rain(new Vector3(0f, 10f, 0f));
+            rain = (Rain) ParticleEmitterManager.getEmitter<Rain>();
+            if (rain == null) rain = new Rain();
+            rain.init(new Vector3(0f, 10f, 0f));
 
             Drawing.setAmbientLight(new Vector3(0.1f, 0.1f, 0.1f));
         }

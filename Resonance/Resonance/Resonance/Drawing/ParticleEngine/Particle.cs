@@ -88,6 +88,8 @@ namespace Resonance {
         }
 
         public Particle() {
+            colour = new Color();
+            spin = new Vector3();
         }
 
         public void init(Vector3 p, Vector3 iDirection, float iSpeed, float s, int iLife, Color c, float iAlpha, Vector3 f, float d, bool b) {
@@ -99,10 +101,13 @@ namespace Resonance {
             colour       = c;
             dAlpha       = iAlpha / iLife;
             rotation     = Vector3.Zero;
-            spin         = new Vector3(1f, 1f, 1f);
+            //spin         = new Vector3(1f, 1f, 1f);
             force        = f;
             deceleration = d;
             bounce       = b;
+            spin.X       = 1f;
+            spin.Y       = 1f;
+            spin.Z       = 1f;
         }
 
 
@@ -110,7 +115,8 @@ namespace Resonance {
         public void update() {
             pos += (direction * speed);
             rotation += spin;
-            colour = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f, (colour.A / 255f) - dAlpha);
+            //colour = new Color(colour.R / 255f, colour.G / 255f, colour.B / 255f, (colour.A / 255f) - dAlpha);
+            colour.A -= (byte) (dAlpha / 255f);
             lifespan--;
             
             if (force != Vector3.Zero) {

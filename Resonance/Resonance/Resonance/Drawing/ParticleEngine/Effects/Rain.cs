@@ -10,7 +10,14 @@ namespace Resonance {
 
         Random gen;
 
-        public Rain(Vector3 p) : base(p) {
+        public Rain() : base() {
+            particles = new List<Particle>(1000);
+            gen = new Random();
+        }
+
+        public override void init(Vector3 p) {
+            pos = p;
+
             pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/HUD/Textures/map_distant_vibe");
 
             emissionsPerUpdate = 0;
@@ -21,7 +28,7 @@ namespace Resonance {
             iColour            = new Color(0f, 0f, 1f, 0.5f);
             deceleration       = 0f;
 
-            gen = new Random();
+            ParticleEmitterManager.addEmitter(this);
         }
 
         public void setEmissionsPerUpdate(int ePU) {

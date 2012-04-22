@@ -22,16 +22,26 @@ namespace Resonance {
             FREEZE_ON = false;
         }*/
 
-        public Freeze(Vector3 p) : base(p) {
-            emissionsPerUpdate = 150;
+        public Freeze() : base() {
+            emissionsPerUpdate = 100;
+            maxParticleLife = 20;
+
+            particles = new List<Particle>(emissionsPerUpdate * maxParticleLife);
+        }
+
+        public override void init(Vector3 p) {
+            pos = p;
+
+            emissionsPerUpdate = 100;
+            maxParticleLife = 20;
             particlesLeft = -1;
             maxParticleSpd = 0.25f;
-            maxParticleLife = 30;
             iColour = new Color(0.9f, 0.95f, 1f);
             iPSize = 0.05f;
             deceleration = 0.0002f;
-
             FREEZE_ON = false;
+
+            ParticleEmitterManager.addEmitter(this);
         }
 
         public override void setPos(Vector3 p) {

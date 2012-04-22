@@ -128,7 +128,9 @@ namespace Resonance
             this.ModelInstance = deathAnimation;
             this.ModelInstance.playModelAnim();
             deathAnimationFrames--;
-            new Explosion(Body.Position);
+            Explosion e = (Explosion) ParticleEmitterManager.getEmitter<Explosion>();
+            if (e == null) e = new Explosion();
+            e.init(Body.Position);
             state = State.DEAD;
             Drawing.addWave(Body.Position);
         }
@@ -328,7 +330,12 @@ namespace Resonance
                     }
 
                     if ((sequence[0] != Shockwave.REST) && (sequence[0] != Shockwave.CYMBAL)) {
-                        new ArmourShatter(vibe.Body.Position, blast, c, vibe);
+                        //new ArmourShatter(blast, c, vibe).init(vibe.Body.Position);
+                        ArmourShatter s = (ArmourShatter) ParticleEmitterManager.getEmitter<ArmourShatter>();
+                        if (s == null) {
+                            s = new ArmourShatter();
+                        }
+                        s.init(vibe.Body.Position, blast, c, vibe);
                     }
 
                     sequence.RemoveAt(0);
