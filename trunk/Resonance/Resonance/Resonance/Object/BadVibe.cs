@@ -46,6 +46,17 @@ namespace Resonance
             deathAnimation.pauseModelAnim();
         }
 
+        public void setup(Vector3 pos, int spawner)
+        {
+            Console.WriteLine("StartSetup: " + returnIdentifier());
+            armour = ArmourSequence.random();
+            setColour();
+            spawnerNumber = spawner;
+            Body.Position = pos;
+            state = State.NORMAL;
+            Console.WriteLine("EndSetup: " + returnIdentifier());
+        }
+
         public int SpawnerIndex
         {
             get

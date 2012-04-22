@@ -96,7 +96,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI\AI.cs" />
     <Compile Include="Drawing\Graphics\ChaseCamera.cs" />
     <Compile Include="Drawing\Graphics\DrawableManager.cs" />
     <Compile Include="Drawing\Graphics\GraphicsSettings.cs" />
@@ -162,9 +161,6 @@
     <Compile Include="Physics\GameEntity.cs" />
     <Compile Include="Physics\StaticGameEntity.cs" />
     <Compile Include="ResonanceGame.cs" />
-    <Compile Include="AI\Minheap.cs" />
-    <Compile Include="AI\Node.cs" />
-    <Compile Include="AI\PathFind.cs" />
     <Compile Include="Drawing\Hud\MiniMap.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Hud\DebugDisplay.cs" />

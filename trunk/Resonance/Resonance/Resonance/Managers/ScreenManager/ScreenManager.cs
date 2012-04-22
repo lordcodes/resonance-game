@@ -27,6 +27,9 @@ namespace Resonance
         private static double heightRatio;
 
         public static GameScreen game;
+        public static PauseMenu pauseMenu;
+        public static DebugMenu debugMenu;
+        public static MainMenu mainMenu;
 
 
         public ScreenManager(ResonanceGame game)
@@ -35,6 +38,9 @@ namespace Resonance
             screens = new List<Screen>();
             updateScreens = new List<Screen>();
             input = new InputDevices();
+            pauseMenu = new PauseMenu();
+            debugMenu = new DebugMenu();
+            mainMenu = new MainMenu();
         }
 
         public override void Initialize()
@@ -65,9 +71,9 @@ namespace Resonance
             input.Update();
 
             updateScreens.Clear();
-            foreach (Screen screen in screens)
+            for(int i = 0; i < screens.Count; i++)
             {
-                updateScreens.Add(screen);
+                updateScreens.Add(screens[i]);
             }
 
             bool takeInput = true;
@@ -99,9 +105,9 @@ namespace Resonance
 
         public override void Draw(GameTime gameTime)
         {
-            foreach (Screen screen in screens)
+            for (int i = 0; i < screens.Count; i++)
             {
-                    screen.Draw(gameTime);
+                    screens[i].Draw(gameTime);
             }
         }
 
