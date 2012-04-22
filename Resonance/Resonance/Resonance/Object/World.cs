@@ -38,6 +38,15 @@ namespace Resonance
         private Dictionary<string, Object> objects;
         Space space;
 
+        //Allocated variables
+        IList<BroadPhaseEntry> queryList;
+        BoundingSphere bSphere;
+        List<Object> rayCastObs;
+        List<RayCastResult> rayCastResults;
+        List<RayHit> rayCastHits;
+        List<Object> returnObjs;
+        Ray ray;
+
         public World() 
         {
             space = new Space();
@@ -59,11 +68,21 @@ namespace Resonance
             objects = new Dictionary<string, Object>(5000);
         }
 
+        public void allocate()
+        {
+            queryList = new List<BroadPhaseEntry>(objects.Count);
+            bSphere = new BoundingSphere(Vector3.Zero, ACCURACY);
+            rayCastObs = new List<Object>(objects.Count);
+            rayCastResults = new List<RayCastResult>(objects.Count);
+            rayCastHits = new List<RayHit>(objects.Count);
+            returnObjs = new List<Object>(objects.Count);
+            ray = new Ray();
+        }
+
         public void addObject(Object obj)
         {
             
-            objects.Add(obj.returnIdentifier(), obj);
-           
+            objects.Add(obj.returnIdentifier(), obj); 
             
             if (obj is DynamicObject)
             {
@@ -73,7 +92,7 @@ namespace Resonance
             else if(obj is StaticObject)
             {
                 
-                    space.Add(((StaticObject)obj).Body);
+                space.Add(((StaticObject)obj).Body);
                 if (obj.returnIdentifier() == "Ground")
                 {
                     Vector3 max = ((StaticObject)obj).Body.BoundingBox.Max;
@@ -112,36 +131,27 @@ namespace Resonance
 
         public void clear()
         {
-            List<Object> objectsToRemove = new List<Object>();
-            foreach (var entry in objects)
-            {
-                objectsToRemove.Add(entry.Value);
-            }
-            foreach (var entry in objectsToRemove)
-            {
-                removeObject(entry);
-            }
-
+            objects.Clear();
         }
 
         public void reset()
         {
-            foreach (var entry in objects)
+            foreach (KeyValuePair<string,Object> pair in objects)
             {
-                if (entry.Value is DynamicObject)
+                if (pair.Value is DynamicObject)
                 {
-                    ((DynamicObject)entry.Value).reset();
+                    ((DynamicObject)pair.Value).reset();
                 }
             }
         }
 
         public bool querySpace(Vector3 point)
         {
-            IList<BroadPhaseEntry> list = new List<BroadPhaseEntry>();
-            BoundingSphere sphere = new BoundingSphere(point, ACCURACY);
-            space.BroadPhase.QueryAccelerator.GetEntries(sphere, list);
+            queryList.Clear();
+            bSphere.Center = point;
+            space.BroadPhase.QueryAccelerator.GetEntries(bSphere, queryList);
 
-            if (list.Count > 0)
+            if (queryList.Count > 0)
             {
                 return true;
             }
@@ -150,43 +160,51 @@ namespace Resonance
 
         public List<Object> rayCastObjects(Vector3 position, Vector3 direction, float distance, Func<BroadPhaseEntry, bool> filter)
         {
-            List<Object> objects = new List<Object>();
-
-            List<RayCastResult> rayCastResults = new List<RayCastResult>();
-            if (space.RayCast(new Ray(position, direction), distance, filter, rayCastResults))
+            rayCastObs.Clear();
+            rayCastResults.Clear();
+            ray.Direction = direction;
+            ray.Position = position;
+            if (space.RayCast(ray, distance, filter, rayCastResults))
             {
-                foreach (RayCastResult result in rayCastResults)
+                for (int i = 0; i < rayCastResults.Count; i++)
                 {
+                    RayCastResult result = rayCastResults[i];
                     var entityCollision = result.HitObject as EntityCollidable;
                     if (entityCollision != null)
                     {
                         //DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING DYNAMIC");
-                        objects.Add(getObject(entityCollision.Entity.Tag.ToString()));
+                        rayCastObs.Add(getObject(entityCollision.Entity.Tag.ToString()));
                     }
                     else
                     {
                         //DebugDisplay.update("RAYCAST", "I CAN SEE SOMETHING STATIC");
-                        objects.Add(getObject(result.HitObject.Tag.ToString()));
+                        rayCastObs.Add(getObject(result.HitObject.Tag.ToString()));
                     }
                 }
             }
             //else DebugDisplay.update("RAYCAST", "I CANT SEE ANYTHING");
-            return objects;
+            return rayCastObs;
         }
 
         public List<RayHit> rayCastHitData(Vector3 position, Vector3 direction, float distance, Func<BroadPhaseEntry, bool> filter)
         {
-            List<RayHit> objects = new List<RayHit>();
-
-            List<RayCastResult> rayCastResults = new List<RayCastResult>();
-            if (space.RayCast(new Ray(position, direction), distance, filter, rayCastResults))
+            rayCastHits.Clear();
+            rayCastResults.Clear();
+            ray.Direction = direction;
+            ray.Position = position;
+            if (space.RayCast(ray, distance, filter, rayCastResults))
             {
-                foreach (RayCastResult result in rayCastResults)
+                for(int i = 0; i < rayCastResults.Count; i++)
                 {
-                    objects.Add(result.HitData);
+                    rayCastHits.Add(rayCastResults[i].HitData);
                 }
             }
-            return objects;
+            return rayCastHits;
+        }
+
+        public void removeObject(string id)
+        {
+            removeObject(objects[id]);
         }
 
         //removes the object from the dictionary
@@ -195,14 +213,16 @@ namespace Resonance
             objects.Remove(obj.returnIdentifier());
             if (obj is DynamicObject)
             {
-                if(!obj.returnIdentifier().Contains("Bullet"))
+                bool isBullet = (obj is Bullet);
+                if (!isBullet)
+                {
                     space.Remove(((DynamicObject)obj).Body);
+                }
             }
             if (obj is StaticObject)
             {
                 space.Remove(((StaticObject)obj).Body);
             }
-            //Program.game.Components.Remove(obj);
             DrawableManager.Remove(obj);
         }
 
@@ -222,33 +242,25 @@ namespace Resonance
             return objects;
         }
 
-        public void removeObject(String obj)
-        {
-            objects.Remove(obj);
-        }
-
         public List<Object> returnObjectSubset<T>() {
-            List<Object> objs = new List<Object>();
-
+            returnObjs.Clear();
             foreach(KeyValuePair<string, Object> kVP in objects) {
                 Object o = kVP.Value;
-                if (o is T) objs.Add(o);
+                if (o is T) returnObjs.Add(o);
             }
 
-            return objs;
+            return returnObjs;
         }
 
         public List<Object> returnObjectSubset(List<Type> types) {
-            List<Object> objs = new List<Object>();
-
+            returnObjs.Clear();
             foreach(KeyValuePair<string, Object> kVP in objects) {
                 Object o = kVP.Value;
-                foreach (Type t in types) {
-                    if (t.Equals(o.GetType())) objs.Add(o);
+                for (int i = 0; i < types.Count; i++) {
+                    if (types[i].Equals(o.GetType())) returnObjs.Add(o);
                 }
             }
-
-            return objs;
+            return returnObjs;
         }
 
         public void readXmlFile(string levelName, ContentManager Content)
@@ -259,8 +271,6 @@ namespace Resonance
             StaticObject mush = null;
             //Projectile_BV projBV = null;
             GoodVibe player = null;
-            //BadVibe bv = null;
-            //Pickup p = null;
             StoredObjects obj = Content.Load<StoredObjects>(levelName);
             clear();
 
@@ -282,12 +292,6 @@ namespace Resonance
                     tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                     addObject(tree);
                 }
-                /*if (obj.list[i].type.Equals("Bad_vibe") == true)
-                {
-                    bv = new BadVibe(GameModels.BAD_VIBE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord),0);
-                    addObject(bv);
-                    bv.calculateSize();
-                }*/
                 if (obj.list[i].type.Equals("House") == true)
                 {
                     mush = new StaticObject(GameModels.HOUSE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
@@ -299,12 +303,6 @@ namespace Resonance
                     BVSpawnManager.addNewSpawner(MaxBV, BVSpawnRadious, BVAllowedActive, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                 }
             }
-            
-            //TODO: Temp crate add
-            //p = new Pickup(GameModels.PICKUP, "Pickup2", new Vector3(5f, 0f, 5f), 1, 120);
-            //addObject(p);
-            //p = new Pickup(GameModels.PICKUP, "Pickup3", new Vector3(15f, 0f, 5f), 1, 180);
-            //addObject(p);
         }
 
        

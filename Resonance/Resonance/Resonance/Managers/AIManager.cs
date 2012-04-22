@@ -120,11 +120,7 @@ namespace Resonance
             //BulletManager.shoot(bv, bv.Body.Position);
             
         }
-
-        //-------------------------------------------------------------------
-        //initial method that fires bullets at the bad vibe
-        //-------------------------------------------------------------------
-                
+   
         private void rotateToFacePoint(Vector3 point)
         {
             Vector3 bvDir = bv.Body.OrientationMatrix.Forward;

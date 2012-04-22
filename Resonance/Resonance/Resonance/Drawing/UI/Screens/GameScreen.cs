@@ -141,8 +141,8 @@ namespace Resonance
 
         private void allocate()
         {
-            //world.allocate();
-            //BVSpawnManager.allocate();
+            world.allocate();
+            BVSpawnManager.allocate();
         }
 
         /// <summary>
