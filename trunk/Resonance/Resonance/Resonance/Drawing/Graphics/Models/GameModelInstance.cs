@@ -154,6 +154,7 @@ namespace Resonance
         public void resetAnimation()
         {
             animPlayer.StartClip(clip);
+            modelAnimPaused = true;
         }
     }
 }

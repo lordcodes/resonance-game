@@ -26,6 +26,7 @@ namespace Resonance
         public static bool DRAW_HEALTH_VERTICALLY = true;
 
         private GameModelInstance deathAnimation;
+        private GameModelInstance aliveAnimation;
 
         AIManager ai;
 
@@ -44,17 +45,19 @@ namespace Resonance
             ai = new AIManager(this);
             deathAnimation = new GameModelInstance(GameModels.BV_EXPLOSION);
             deathAnimation.pauseModelAnim();
+            aliveAnimation = new GameModelInstance(modelNum);
         }
 
         public void setup(Vector3 pos, int spawner)
         {
-            Console.WriteLine("StartSetup: " + returnIdentifier());
             armour = ArmourSequence.random();
             setColour();
             spawnerNumber = spawner;
             Body.Position = pos;
             state = State.NORMAL;
-            Console.WriteLine("EndSetup: " + returnIdentifier());
+            this.ModelInstance = aliveAnimation;
+            deathAnimation.resetAnimation();
+            deathAnimationFrames = 30;
         }
 
         public int SpawnerIndex
