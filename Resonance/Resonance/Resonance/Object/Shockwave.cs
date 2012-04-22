@@ -40,21 +40,49 @@ namespace Resonance
         // WorldTransform
         Matrix transform;
 
-        public Shockwave(int modelNum, String name, Vector3 pos, Matrix t, int colour)
+        private static int WAVE_POOL_SIZE = 12;
+        private static List<Shockwave> wavePool;
+
+        public Shockwave(int modelNum, string name, Vector3 pos, Matrix t, int colour)
             : base(modelNum, name, pos)
         {
+            bVibes = new List<BadVibe>();
+            this.init(pos, t, colour);
+        }
+
+        public void init(Vector3 pos, Matrix t, int colour) {
             this.colour = colour;
             position = new Vector3(pos.X, pos.Y, pos.Z);
-            radius = INITIAL_RADIUS;
             transform = t;
+            radius = INITIAL_RADIUS;
             Matrix scale = Matrix.CreateScale((float)INITIAL_RADIUS*2, 1.0f, (float)INITIAL_RADIUS*2);
             transform = Matrix.Multiply(transform, scale);
             Matrix translate = Matrix.CreateTranslation((float)-(INITIAL_RADIUS*2-1) * position.X, 0.0f, (float)-(INITIAL_RADIUS*2-1) * position.Z);
             transform = Matrix.Multiply(transform, translate);
-
-            bVibes = new List<BadVibe>();
+            bVibes.Clear();
         }
 
+        public static void fillPool() {
+            wavePool = new List<Shockwave>(WAVE_POOL_SIZE);
+            for (int i = 0; i < WAVE_POOL_SIZE; i++) {
+                wavePool.Add(new Shockwave(GameModels.SHOCKWAVE, "", Vector3.Zero, Matrix.Identity, 0));
+            }
+        }
+
+        public static void addWave(Shockwave w) {
+            wavePool.Add(w);
+        }
+
+        public static Shockwave getWave(Vector3 pos, Matrix t, int colour) {
+            if (wavePool.Count > 0) {
+                Shockwave w = wavePool.Last();
+                wavePool.Remove(w);
+                w.init(pos, t, colour);
+                return w;
+            } else {
+                return new Shockwave(GameModels.SHOCKWAVE, "", pos, t, colour);
+            }
+        }
 
         // Methods
 
