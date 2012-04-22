@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance {
 
@@ -10,6 +11,10 @@ namespace Resonance {
     /// Manages all particle system data.
     /// </summary>
     class ParticleEmitterManager {
+        public static Texture2D TEX_PIXEL;
+        public static Texture2D TEX_DIST_BV;
+        public static Texture2D TEX_TRIANGLE;
+
         private const int INITIAL_PARTICLE_POOL_SIZE = 3500;
         private const int INITIAL_EMITTER_POOL_SIZE  = 50;
 
@@ -31,6 +36,11 @@ namespace Resonance {
         public static void initialise() {
             paused = false;
             Content = ScreenManager.game.ScreenManager.Content;
+
+            TEX_PIXEL    = Content.Load<Texture2D>("Drawing/Textures/texPixel");
+            TEX_DIST_BV  = Content.Load<Texture2D>("Drawing/HUD/Textures/map_distant_vibe");
+            TEX_TRIANGLE = Content.Load<Texture2D>("Drawing/Textures/texTriangle");
+
             particlePool = new List<Particle>(INITIAL_PARTICLE_POOL_SIZE);
             emitterPool  = new List<Emitter>(INITIAL_EMITTER_POOL_SIZE);
             emitters = new List<Emitter>(INITIAL_EMITTER_POOL_SIZE);

@@ -31,7 +31,7 @@ namespace Resonance {
 
         public void init(Vector3 p, Vector3 blast, Color c, BadVibe v) {
             pos = p;
-            pTex               = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texTriangle");
+            pTex               = ParticleEmitterManager.TEX_TRIANGLE;
             bVRef              = v;
             blastVec           = blast;
             emissionsPerUpdate = 40; //200

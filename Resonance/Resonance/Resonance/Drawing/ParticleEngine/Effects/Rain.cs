@@ -18,7 +18,7 @@ namespace Resonance {
         public override void init(Vector3 p) {
             pos = p;
 
-            pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/HUD/Textures/map_distant_vibe");
+            pTex = ParticleEmitterManager.TEX_DIST_BV;
 
             emissionsPerUpdate = 0;
             particlesLeft      = 5000; // This will always be reset anyway as there is (potentially) infinite rain.
