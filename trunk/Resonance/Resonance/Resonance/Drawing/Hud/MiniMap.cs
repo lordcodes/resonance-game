@@ -54,17 +54,17 @@ namespace Resonance
         public static float SPAWNER_ALPHA        = 0.5f;
 
         // Colours
-        public static Color    OUTLINE_COLOUR = new Color(0.0f, 0.0f, 0.0f, 1.0f); // 0.8 alpha?
-        public static Color BACKGROUND_COLOUR = new Color(0.0f, 0.0f, 0.2f, 0.5f);
-        public static Color  GOOD_VIBE_COLOUR = new Color(0.0f, 0.7f, 0.0f, 0.5f);
-        public static Color   BAD_VIBE_COLOUR = new Color(0.7f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
+        public static Color       OUTLINE_COLOUR = new Color(0.0f, 0.0f, 0.0f, 1.0f          ); // 0.8 alpha?
+        public static Color    BACKGROUND_COLOUR = new Color(0.0f, 0.0f, 0.2f, 0.5f          );
+        public static Color     GOOD_VIBE_COLOUR = new Color(0.0f, 0.7f, 0.0f, 0.5f          );
+        public static Color      BAD_VIBE_COLOUR = new Color(0.7f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
         public static Color PROJ_BAD_VIBE_COLOUR = new Color(0.8f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
-        public static Color     PICKUP_COLOUR = new Color(0.7f, 0.7f, 0.0f, PICKUP_ALPHA);
-        public static Color    SPAWNER_COLOUR = new Color(0.7f, 0.7f, 0.0f, SPAWNER_ALPHA);
-        public static Color SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f);
-        public static Color    SWEEPER_COLOUR = new Color(0.0f, 0.0f, 0.9f, 0.5f);
-        public static Color         BOX_COLOR = new Color(1.0f, 1.0f, 1.0f, 0.5f);
-        public static Color  WORLD_BOX_COLOUR = new Color(0.0f, 0.0f, 0.5f, 0.05f);
+        public static Color        PICKUP_COLOUR = new Color(0.7f, 0.7f, 0.0f, PICKUP_ALPHA  );
+        public static Color       SPAWNER_COLOUR = new Color(0.7f, 0.7f, 0.0f, SPAWNER_ALPHA );
+        public static Color    SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f          );
+        public static Color       SWEEPER_COLOUR = new Color(0.0f, 0.0f, 0.9f, 0.5f          );
+        public static Color            BOX_COLOR = new Color(1.0f, 1.0f, 1.0f, 0.5f          );
+        public static Color     WORLD_BOX_COLOUR = new Color(0.0f, 0.0f, 0.5f, 0.05f         );
 
         /// Fields
 
@@ -92,6 +92,12 @@ namespace Resonance
 
         private GoodVibe gVRef;
 
+
+        private static int SCALE_GRANULARITY      = 10;
+        private static Texture2D[] scaledVibes    = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledPickups  = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledSpawners = new Texture2D[SCALE_GRANULARITY];
+
         private static int mapX, mapY, mapH, mapW;
 
         /// Constructor
@@ -106,8 +112,7 @@ namespace Resonance
 
             speeds = new List<float>();
 
-            for (int i = 0; i < SPEED_SAMPLES; i++)
-            {
+            for (int i = 0; i < SPEED_SAMPLES; i++) {
                 speeds.Add(0f);
             }
         }
@@ -115,6 +120,23 @@ namespace Resonance
 
         /// Methods
         
+        public static void createScaledTextures() {
+               scaledVibes[0] = texPixel;
+             scaledPickups[0] = texPixel;
+            scaledSpawners[0] = texPixel;
+
+            float scale = 1f / (float) SCALE_GRANULARITY;
+            float step  = scale;
+
+            for (int i = 1; i < SCALE_GRANULARITY; i++) {
+                   scaledVibes[i] = Drawing.scaleTexture(vibe   , scale);
+                 scaledPickups[i] = Drawing.scaleTexture(pickup , scale);
+                scaledSpawners[i] = Drawing.scaleTexture(spawner, scale);
+                scale += step;
+            }
+        }
+
+
         ///<summary>
         ///</summary>
         public void loadTextures(ContentManager content)
@@ -127,6 +149,8 @@ namespace Resonance
             pickup     = content.Load<Texture2D>("Drawing/HUD/Textures/pickup");
             spawner    = content.Load<Texture2D>("Drawing/HUD/Textures/spawner");
             texPixel   = content.Load<Texture2D>("Drawing/Textures/texPixel");
+
+            createScaledTextures();
         }
 
 
@@ -353,9 +377,14 @@ namespace Resonance
             bool  inXRange, inYRange;
 
             // Scale each texture
-            Texture2D scaledVibe    = Drawing.scaleTexture(vibe   , sF);
+            /*Texture2D scaledVibe    = Drawing.scaleTexture(vibe   , sF);
             Texture2D scaledPickup  = Drawing.scaleTexture(pickup , sF);
-            Texture2D scaledSpawner = Drawing.scaleTexture(spawner, sF);
+            Texture2D scaledSpawner = Drawing.scaleTexture(spawner, sF);*/
+
+            int idx = (int) (((float) SCALE_GRANULARITY) * sF);
+            Texture2D scaledVibe    =    scaledVibes[idx];
+            Texture2D scaledPickup  =  scaledPickups[idx];
+            Texture2D scaledSpawner = scaledSpawners[idx];
 
             for (int i = 0; i < toDraw.Count; i++ )
             {
