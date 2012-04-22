@@ -31,9 +31,6 @@ namespace Resonance
         public static float MAP_MIN_X;
         public static float MAP_MIN_Z;
         private const float ACCURACY = 0.1f;
-        private const int BVSpawnRadious = 10;
-        private const int BVAllowedActive = 1;
-        private const int MaxBV = 12;
 
         private Dictionary<string, Object> objects;
         Space space;
@@ -300,7 +297,7 @@ namespace Resonance
                 
                 if (obj.list[i].type.Equals("BVSpawner") == true)
                 {
-                    BVSpawnManager.addNewSpawner(MaxBV, BVSpawnRadious, BVAllowedActive, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    BVSpawnManager.addNewSpawner(new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                 }
             }
         }
