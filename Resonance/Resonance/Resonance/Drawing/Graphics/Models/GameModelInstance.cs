@@ -150,5 +150,10 @@ namespace Resonance
 
             textureAnimation.Update(gameTime);
         }
+
+        public void resetAnimation()
+        {
+            animPlayer.StartClip(clip);
+        }
     }
 }

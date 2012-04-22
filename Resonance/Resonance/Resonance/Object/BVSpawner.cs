@@ -36,8 +36,6 @@ namespace Resonance
             totalSpawned++;
         }
 
-       
-
         public int getTotalSpawned()
         {
             return totalSpawned;
@@ -46,6 +44,7 @@ namespace Resonance
         public void removeBadVibe(BadVibe bv)
         {
             badVibes.Remove(bv);
+            ScreenManager.game.World.removeObject(bv);
         }
 
         public int getTotalBadVibes()

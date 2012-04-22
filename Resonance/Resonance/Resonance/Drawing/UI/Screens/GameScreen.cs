@@ -29,18 +29,18 @@ namespace Resonance
         public const int EXPERT = 4;
         public const int INSANE = 5;
 
-        public static int DIFFICULTY = MEDIUM;
+        public static int DIFFICULTY = BEGINNER;
         public static GameMode mode;
         public static GameStats stats;
         public static MusicHandler musicHandler;
 
         public static bool GV_KILLED = false;
         public static bool GAME_CAN_END = true;
-        public static bool USE_BV_SPAWNER = true;
-        public static bool USE_PICKUP_SPAWNER = false;
-        public static bool USE_MINIMAP = false;
-        public static bool USE_BADVIBE_AI = true;
-        public static bool USE_WHEATHER = true;
+        public const bool USE_BV_SPAWNER = true;
+        public const bool USE_PICKUP_SPAWNER = false;
+        public const bool USE_MINIMAP = true;
+        public const bool USE_BADVIBE_AI = true;
+        public const bool USE_WHEATHER = true;
 
         private Stopwatch preEndGameTimer;
         private int preEndGameDuration = 4000;
@@ -51,9 +51,6 @@ namespace Resonance
         BVSpawnManager bvSpawner;
         public PickupSpawnManager pickupSpawner;
 
-        // Testing variable
-        //bool beatTested = false;
-
         bool isLoaded;
         int iteration = 0;
         //private bool showHints = false;
@@ -61,6 +58,9 @@ namespace Resonance
         static Profile DrawSection = Profile.Get("DrawingTotal");
         static Profile UpdateSection = Profile.Get("UpdateTotal");
         static Profile UpdateDrawSection = Profile.Get("UpdateDrawableObjects");
+
+        //Allocated variables
+        string[] deadVibes;
 
         public GameScreen(ScreenManager scrn)
         {
@@ -76,6 +76,7 @@ namespace Resonance
 
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
+            deadVibes = new string[50];
         }
 
         public int Iteration
@@ -128,6 +129,7 @@ namespace Resonance
         /// <param name="i">Int number of the level, taken from the level name, i.e Level1.xml</param>
         public void loadLevel(int i)
         {
+            allocate();
             string level = "Levels/Level" + i;
             world.readXmlFile(level, ScreenManager.Content);
 
@@ -135,6 +137,12 @@ namespace Resonance
             ParticleEmitterManager.initialise();
             WeatherManager.initialise();
             CameraMotionManager.initialise();
+        }
+
+        private void allocate()
+        {
+            //world.allocate();
+            //BVSpawnManager.allocate();
         }
 
         /// <summary>
@@ -157,11 +165,11 @@ namespace Resonance
 
             if ((pad1Ever && !connected) || pause)
             {
-                ScreenManager.addScreen(new PauseMenu());
+                ScreenManager.addScreen(ScreenManager.pauseMenu);
             }
             else if (debug)
             {
-                ScreenManager.addScreen(new DebugMenu());
+                ScreenManager.addScreen(ScreenManager.debugMenu);
             }
 
             //Camera
@@ -198,8 +206,8 @@ namespace Resonance
                 //in combat and break rest layers
                 if (USE_BADVIBE_AI)
                 {
-                    List<string> deadVibes = processBadVibes();
-                    removeDeadBadVibes(deadVibes);
+                    int numberKilled = processBadVibes();
+                    removeDeadBadVibes(numberKilled);
                 }
 
                 // Update shockwaves
@@ -369,21 +377,24 @@ namespace Resonance
         /// Process all the bad vibes, either move or kill them
         /// </summary>
         /// <returns>the list of dead bad vibes</returns>
-        private List<string> processBadVibes()
+        private int processBadVibes()
         {
+            int numberKilled = 0;
+            int i;
+
             bool breakRest = (musicHandler.getTrack().nextQuarterBeat());
             GoodVibe gv = getGV();
             gv.InCombat = false;
-            List<string> deadVibes = new List<string>();
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
-            for(int i = 0; i < bvs.Count; i++)
+            for(i = 0; i < bvs.Count; i++)
             {
                 BadVibe bv = (BadVibe)bvs[i];
                 if (bv.Status == BadVibe.State.DEAD)
                 {
                     if (bv.getAnimationCounter() <= 0)
                     {
-                        deadVibes.Add(bv.returnIdentifier());
+                        deadVibes[numberKilled] = bv.returnIdentifier();
+                        numberKilled++;
                     }
                     bv.decrementAnimationCounter();
                 }
@@ -420,37 +431,22 @@ namespace Resonance
             }
             BulletManager.updateBullet();
             gv.FreezeActive = false;
-            return deadVibes;
+
+            return numberKilled;
         }
 
         /// <summary>
         /// Remove all dead bad vibes from the game
         /// </summary>
         /// <param name="deadVibes">the list of dead bad vibes</param>
-        private void removeDeadBadVibes(List<string> deadVibes)
+        private void removeDeadBadVibes(int numberKilled)
         {
-            for (int i = 0; i < deadVibes.Count; i++)
+            for (int i = 0; i < numberKilled; i++)
             {
                 if (USE_BV_SPAWNER) BVSpawnManager.vibeDied((BadVibe)World.getObject(deadVibes[i]));
-                World.removeObject(World.getObject(deadVibes[i]));
                 stats.addBV();
             }
         }
-
-        /// <summary>
-        /// Break the rest layer on all bad vibes if present
-        /// </summary>
-        /*private void breakRestLayers()
-        {
-            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
-            foreach (BadVibe bv in bvs)
-            {
-                if (bv.Status != BadVibe.State.DEAD)
-                {
-                    bv.damage(Shockwave.REST);
-                }
-            }
-        }*/
 
         public static GoodVibe getGV()
         {

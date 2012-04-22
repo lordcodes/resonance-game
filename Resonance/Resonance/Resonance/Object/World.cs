@@ -56,7 +56,7 @@ namespace Resonance
             space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(5), null);
 #endif
 
-            objects = new Dictionary<string, Object>();
+            objects = new Dictionary<string, Object>(5000);
         }
 
         public void addObject(Object obj)
@@ -195,7 +195,7 @@ namespace Resonance
             objects.Remove(obj.returnIdentifier());
             if (obj is DynamicObject)
             {
-                if(obj.returnIdentifier().Contains("Bullet") == false)
+                if(!obj.returnIdentifier().Contains("Bullet"))
                     space.Remove(((DynamicObject)obj).Body);
             }
             if (obj is StaticObject)

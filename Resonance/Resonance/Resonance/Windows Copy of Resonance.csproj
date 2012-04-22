@@ -73,10 +73,6 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AI\AI.cs" />
-    <Compile Include="AI\Minheap.cs" />
-    <Compile Include="AI\Node.cs" />
-    <Compile Include="AI\PathFind.cs" />
     <Compile Include="Drawing\Graphics\ChaseCamera.cs" />
     <Compile Include="Drawing\Graphics\DisplacementMap.cs">
       <SubType>Code</SubType>

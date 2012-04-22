@@ -107,31 +107,6 @@ namespace Resonance
             targetPosition = topDownPos;
         }
 
-        private static void nearestBV()
-        {
-            /*double closest = Double.PositiveInfinity;
-            Vector3 closestPoint = currentTarget;
-            Dictionary<string, Object> objects = Program.game.World.returnObjects();
-            foreach (KeyValuePair<string, Object> pair in objects)
-            {
-                if (pair.Value is BadVibe)
-                {
-                    BadVibe bv = (BadVibe)pair.Value;
-                    double dx = Game.getGV().Body.Position.X - bv.Body.Position.X;
-                    double dz = Game.getGV().Body.Position.Z - bv.Body.Position.Z;
-                    double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
-                    d = Math.Sqrt(d);
-
-                    if (d < closest)
-                    {
-                        closest = d;
-                        closestPoint = bv.Body.Position;
-                    }
-                }
-            }
-            currentTarget = closestPoint;*/
-        }
-
         public static ChaseCamera Camera
         {
             get
