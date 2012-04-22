@@ -143,6 +143,7 @@ namespace Resonance
         {
             world.allocate();
             BVSpawnManager.allocate();
+            Shockwave.fillPool();
         }
 
         /// <summary>
