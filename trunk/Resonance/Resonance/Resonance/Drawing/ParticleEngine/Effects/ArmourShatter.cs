@@ -24,7 +24,13 @@ namespace Resonance {
         /// <param name="blast"> The direction of the blast (away from the shockwave.)    </param>
         /// <param name="c">     The initial colour.                                      </param>
         /// <param name="v">     Bad Vibe reference.                                      </param>
-        public ArmourShatter(Vector3 p, Vector3 blast, Color c, BadVibe v) : base(p) {
+        public ArmourShatter() : base() {
+            particlesLeft = 40;
+            particles     = new List<Particle>(particlesLeft);
+        }
+
+        public void init(Vector3 p, Vector3 blast, Color c, BadVibe v) {
+            pos = p;
             pTex               = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texTriangle");
             bVRef              = v;
             blastVec           = blast;
@@ -35,6 +41,8 @@ namespace Resonance {
             iPSize             = 0.4f;
             iColour            = c;
             deceleration       = 0.025f;
+
+            ParticleEmitterManager.addEmitter(this);
         }
 
         /// <summary>

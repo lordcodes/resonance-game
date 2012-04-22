@@ -8,16 +8,22 @@ using Microsoft.Xna.Framework.Graphics;
 namespace Resonance {
     class Explosion : Emitter {
 
-        public Explosion(Vector3 p)
-            : base(p) {
-            emissionsPerUpdate = 100;// 500;
+        public Explosion()
+            : base() {
             particlesLeft      = 100;// 500;
+            particles = new List<Particle>(particlesLeft);
+        }
+
+        public override void init(Vector3 p) {
+            pos = p;
+            particlesLeft      = 100;// 500;
+            emissionsPerUpdate = 100;// 500;
             maxParticleSpd     = 0.9f;
             maxParticleLife    = 30;
             iColour            = Color.White;
             iPSize             = 0.1f;
-            
-            //pTex               = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/HUD/Textures/pickup");
+
+            ParticleEmitterManager.addEmitter(this);
         }
 
         protected override void generateParticles() {

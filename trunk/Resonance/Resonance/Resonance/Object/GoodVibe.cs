@@ -352,7 +352,9 @@ namespace Resonance
         }
 
         public void createFreezer() {
-            freezer = new Freeze(Body.Position);
+            freezer = (Freeze) ParticleEmitterManager.getEmitter<Freeze>();
+            if (freezer == null) freezer = new Freeze();
+            freezer.init(Body.Position);
         }
     }
 }

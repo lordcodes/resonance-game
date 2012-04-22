@@ -11,6 +11,8 @@ namespace Resonance {
     /// Represents an emitter of particles.
     /// </summary>
     class Emitter {
+
+        public static Texture2D DEFAULT_TEX = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texPixel");
         
         /// Fields
 
@@ -42,12 +44,16 @@ namespace Resonance {
             return pTex;
         }
 
-        public Emitter(Vector3 p) {
+        public Emitter() {
             particles = new List<Particle>();
+            iColour = new Color();
+        }
+
+        public virtual void init(Vector3 p) {
             pos = p;
 
             // Default texture
-            pTex = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texPixel");
+            pTex = DEFAULT_TEX;
 
             // Default p size
             iPSize = 0.05f;
@@ -55,8 +61,10 @@ namespace Resonance {
             // Default p deceleration
             deceleration = 0f;
 
-            // Default colour
-            iColour = new Color(1f, 1f, 1f, 1f);
+            iColour.R = (byte) 255;
+            iColour.G = (byte) 255;
+            iColour.B = (byte) 255;
+            iColour.A = (byte) 255;
 
             ParticleEmitterManager.addEmitter(this);
         }
