@@ -13,53 +13,61 @@ namespace Resonance
 {
     class BVSpawner : StaticObject
     {
-        private int totalBadVibes;
+        private int maxBVs;
         private int spawnRadius;
-        private int totalActive;
+        private int maxActive;
+
         private int totalSpawned;
         private List<BadVibe> badVibes;
 
-        public BVSpawner(int modelNum, String name, Vector3 pos, int TotalBadVibes, int SpawnRadius, int TotalActive)
+        public BVSpawner(int modelNum, String name, Vector3 pos, int maxbvs, int radius, int maxactive)
             : base(modelNum, name, pos)
         {
-            badVibes = new List<BadVibe>();
-            totalBadVibes = TotalBadVibes;
-            spawnRadius = SpawnRadius;
-            totalActive = TotalActive;
+            badVibes = new List<BadVibe>(maxBVs);
+            maxBVs = maxbvs;
+            spawnRadius = radius;
+            maxActive = maxactive;
             totalSpawned = 0;
         }
 
-        public void addBadVibe(BadVibe bv)
+        public void addBV(BadVibe bv)
         {
             badVibes.Add(bv);
             ScreenManager.game.World.addObject(bv);
             totalSpawned++;
         }
 
-        public int getTotalSpawned()
-        {
-            return totalSpawned;
-        }
-
-        public void removeBadVibe(BadVibe bv)
+        public void replaceBV(BadVibe bv, BadVibe newBv, int spawnNumber)
         {
             badVibes.Remove(bv);
             ScreenManager.game.World.removeObject(bv);
+            if(badVibes.Count < maxActive && totalSpawned <= maxBVs)
+            {
+                newBv.setup(getSpawnCords(), spawnNumber);
+                badVibes.Add(newBv);
+                ScreenManager.game.World.addObject(newBv);
+                totalSpawned++;
+            }
         }
 
-        public int getTotalBadVibes()
+        public int MaxBVs
         {
-            return totalBadVibes;
+            get { return maxBVs; }
         }
 
-        public int getTotalAllowedActive()
+        public int TotalSpawned
         {
-            return totalActive;
+            get { return totalSpawned; }
         }
 
-        public int getTotalCurrentlyActive()
+        public int MaxActive
         {
-            return badVibes.Count;
+            get { return maxActive; }
+        }
+
+        public int CurrentActive
+        {
+            get { return badVibes.Count; }
         }
 
         public Vector3 getSpawnCords()
