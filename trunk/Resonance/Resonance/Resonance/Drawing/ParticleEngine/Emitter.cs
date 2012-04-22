@@ -12,7 +12,7 @@ namespace Resonance {
     /// </summary>
     class Emitter {
 
-        public static Texture2D DEFAULT_TEX = ParticleEmitterManager.Content.Load<Texture2D>("Drawing/Textures/texPixel");
+        public static Texture2D DEFAULT_TEX = ParticleEmitterManager.TEX_PIXEL;
         
         /// Fields
 
