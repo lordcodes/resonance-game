@@ -66,24 +66,6 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BVSpawner0</identifier>
-        <type>BVSpawner</type>
-        <xWorldCoord>-105</xWorldCoord>
-        <zWorldCoord>95</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>10</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>BVSpawner1</identifier>
-        <type>BVSpawner</type>
-        <xWorldCoord>50</xWorldCoord>
-        <zWorldCoord>95</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>10</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
         <identifier>tree3</identifier>
         <type>Tree</type>
         <xWorldCoord>-35</xWorldCoord>
@@ -92,7 +74,7 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
+
       <Item>
         <identifier>tree4</identifier>
         <type>Tree</type>
@@ -102,7 +84,7 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
+
       <Item>
         <identifier>tree5</identifier>
         <type>Tree</type>
@@ -121,7 +103,7 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
+
       <Item>
         <identifier>tree7</identifier>
         <type>Tree</type>
@@ -149,7 +131,7 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
+
       <Item>
         <identifier>tree10</identifier>
         <type>Tree</type>
@@ -159,7 +141,7 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
+
       <Item>
         <identifier>tree11</identifier>
         <type>Tree</type>
@@ -196,7 +178,7 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
+
       <Item>
         <identifier>tree15</identifier>
         <type>Tree</type>
@@ -206,8 +188,8 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
-      
+
+
       <Item>
         <identifier>tree16</identifier>
         <type>Tree</type>
@@ -244,7 +226,7 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
+
       <Item>
         <identifier>tree20</identifier>
         <type>Tree</type>
@@ -263,9 +245,9 @@
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
-      
-      
-      
+
+
+
       <Item>
         <identifier>tree22</identifier>
         <type>Tree</type>

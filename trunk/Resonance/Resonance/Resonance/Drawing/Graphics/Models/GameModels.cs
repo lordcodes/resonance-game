@@ -31,6 +31,7 @@ namespace Resonance
         public static readonly int PLUS4            = 14;
         public static readonly int PLUS5            = 15;
         public static readonly int BULLET           = 17;
+        public static readonly int BOSS             = 18;
 
 
         private static ContentManager Content;

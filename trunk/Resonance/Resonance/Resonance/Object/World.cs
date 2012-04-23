@@ -266,6 +266,7 @@ namespace Resonance
             StaticObject ground = null;
             StaticObject tree = null;
             StaticObject mush = null;
+            StaticObject boss = null;
             //Projectile_BV projBV = null;
             GoodVibe player = null;
             StoredObjects obj = Content.Load<StoredObjects>(levelName);
@@ -277,6 +278,12 @@ namespace Resonance
                 {
                     ground = new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero);
                     addObject(ground);
+                }
+                if (obj.list[i].type.Equals("Boss") == true)
+                {
+                    boss = new StaticObject(GameModels.BOSS, "Boss", new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(boss);
+                    BulletManager.updateBossPosition(new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
                 }
                 if (obj.list[i].type.Equals("Good_vibe") == true)
                 {

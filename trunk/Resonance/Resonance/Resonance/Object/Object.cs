@@ -21,6 +21,10 @@ namespace Resonance
             {
                 return originalPosition;
             }
+            set
+            {
+                originalPosition = value;
+            }
         }
 
         public GameModelInstance ModelInstance

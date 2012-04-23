@@ -26,6 +26,7 @@ plus5,		Models\plus5.fbx
 projectileBV, Models\bv_ranged_animated.fbx
 projectileBV_Physics, Models\ProjectileBadVibe_Physics.fbx
 bullet, Models\Bullet.fbx
+boss,		Models\Boss.fbx
 
 
 TEXTURES
@@ -70,3 +71,4 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 15,			plus5,					0.25,		plus5,					0.25
 16,         projectileBV,           0.5,        projectileBV_Physics,          0.5,             virus,                        1
 17,         bullet,                 0.5,        pickup,                 0.5,            bulletColors
+18,         boss,                   2,          house,                  0.5
