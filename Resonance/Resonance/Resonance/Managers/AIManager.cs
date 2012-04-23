@@ -117,8 +117,7 @@ namespace Resonance
                 attack();
                 
             }
-            //BulletManager.shoot(bv, bv.Body.Position);
-            
+                      
         }
    
         private void rotateToFacePoint(Vector3 point)
