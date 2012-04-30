@@ -51,7 +51,7 @@ namespace Resonance
             }
         }
 
-        public void Draw()
+        protected override void  drawMenu(int index)
         {
             //410 width by 540 height
             //Ratio 1.32 (H / W)
@@ -91,7 +91,8 @@ namespace Resonance
 
         private void quitGame()
         {
-            LoadingScreen.LoadAScreen(ScreenManager, false, new MainMenu());
+            ScreenManager.mainMenu.reset();
+            LoadingScreen.LoadAScreen(ScreenManager, false, ScreenManager.mainMenu);
         }
 
         private void quitGameCompletely()

@@ -19,6 +19,8 @@ namespace Resonance
             MenuItems.Add(resume);
             MenuItems.Add(quit);
             MenuItems.Add(quitCompletely);
+
+            this.musicStart = false;
         }
 
         public override void LoadContent()
@@ -46,7 +48,7 @@ namespace Resonance
             }
         }
 
-        public void Draw()
+        protected override void  drawMenu(int index)
         {
             //410 width by 540 height
             //Ratio 1.32 (H / W)

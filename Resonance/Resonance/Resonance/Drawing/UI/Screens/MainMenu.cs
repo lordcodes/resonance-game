@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
     class MainMenu : MenuScreen
     {
         Texture2D textBG;
+        Song music;
 
         public MainMenu()
             : base("Welcome to the Resonance Chamber")
@@ -23,6 +25,8 @@ namespace Resonance
             MenuItems.Add(settings);
             MenuItems.Add(highScores);
             MenuItems.Add(quit);
+
+            this.musicStart = true;
         }
 
         public override void LoadContent()
@@ -35,6 +39,7 @@ namespace Resonance
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MainMenu4"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/Textures/texPixel"));
             textBG = this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MenuItemBG");
+            music = this.ScreenManager.Content.Load<Song>("Music/menu");
         }
 
         protected override void updateItemLocations()
@@ -50,7 +55,30 @@ namespace Resonance
             }
         }
 
-        public void Draw(int index)
+        protected override void controlMusic(bool play)
+        {
+            base.controlMusic(play);
+
+            if (play)
+            {
+                //play
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(music);
+                this.musicStart = false;
+            }
+            else
+            {
+                //stop
+                MediaPlayer.Stop();
+            }
+        }
+
+        public override void reset()
+        {
+            this.musicStart = true;
+        }
+
+        protected override void drawMenu(int index)
         {
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
 

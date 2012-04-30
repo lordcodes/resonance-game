@@ -60,6 +60,7 @@ namespace Resonance
             heightRatio = screenHeight / 1080;
 
             blankTex = content.Load<Texture2D>("Drawing/Textures/texPixel");
+            MusicHandler.init(content);
             foreach (Screen screen in screens)
             {
                 screen.LoadContent();
@@ -69,6 +70,8 @@ namespace Resonance
         public override void Update(GameTime gameTime)
         {
             input.Update();
+
+            MusicHandler.AudioEngine.Update();
 
             updateScreens.Clear();
             for(int i = 0; i < screens.Count; i++)

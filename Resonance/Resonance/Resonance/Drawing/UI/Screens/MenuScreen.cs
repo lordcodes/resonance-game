@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Resonance
 {
@@ -13,11 +14,14 @@ namespace Resonance
         SpriteFont headingFont;
         SpriteFont font;
         List<Texture2D> bg;
+        SoundEffect cursor;
         List<MenuElement> menuItems = new List<MenuElement>();
         int selected = 0;
         string title;
         int upTimes = 0;
         int downTimes = 0;
+
+        protected bool musicStart;
 
         public MenuScreen(string title)
         {
@@ -94,12 +98,14 @@ namespace Resonance
         {
             selected--;
             if (selected < 0) selected = menuItems.Count - 1;
+            MusicHandler.playSound("menu-cursor");
         }
 
         public void moveDown()
         {
             selected++;
             if (selected >= menuItems.Count) selected = 0;
+            MusicHandler.playSound("menu-cursor");
         }
 
         public void itemSelect()
@@ -114,6 +120,8 @@ namespace Resonance
         public override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
+
+            if (musicStart) controlMusic(true);
 
             for (int i = 0; i < menuItems.Count; i++)
             {
@@ -131,28 +139,10 @@ namespace Resonance
             bool pauseScreen = (this is PauseMenu);
             bool endGameScreen = (this is EndGameScreen);
 
-            if(pauseScreen)
-            {
-                ScreenManager.darkenBackground(0.9f);
-                ScreenManager.SpriteBatch.Begin();
-                ((PauseMenu)this).Draw();
-            }
-            else if (debugScreen)
-            {
-                ScreenManager.darkenBackground(0.75f);
-                ScreenManager.SpriteBatch.Begin();
-            }
-            else if (endGameScreen)
-            {
-                ScreenManager.darkenBackground(0.9f);
-                ScreenManager.SpriteBatch.Begin();
-                ((EndGameScreen)this).Draw();
-            }
-            else
-            {
-                ScreenManager.SpriteBatch.Begin();
-                ((MainMenu)this).Draw(selected);
-            }
+            if(pauseScreen || endGameScreen) ScreenManager.darkenBackground(0.9f);
+            else if (debugScreen) ScreenManager.darkenBackground(0.75f);
+            ScreenManager.SpriteBatch.Begin();
+            drawMenu(selected);
 
             // Draw each menu entry in turn.
             for (int i = 0; i < menuItems.Count; i++)
@@ -174,6 +164,18 @@ namespace Resonance
         }
 
         protected virtual void updateItemLocations()
+        {
+        }
+
+        protected virtual void drawMenu(int index)
+        {
+        }
+
+        protected virtual void controlMusic(bool play)
+        {
+        }
+
+        public virtual void reset()
         {
         }
 

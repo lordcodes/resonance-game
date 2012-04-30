@@ -60,7 +60,11 @@ namespace Resonance
 
         private void success()
         {
-            if (action == 0) LoadingScreen.LoadAScreen(ScreenManager, false, new MainMenu());
+            if (action == 0)
+            {
+                ScreenManager.mainMenu.reset();
+                LoadingScreen.LoadAScreen(ScreenManager, false, ScreenManager.mainMenu);
+            }
             else if (action == 1) ScreenManager.Game.Exit();
             else if (action == 2) ExitScreen();
         }

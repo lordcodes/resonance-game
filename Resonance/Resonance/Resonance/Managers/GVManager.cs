@@ -40,15 +40,15 @@ namespace Resonance
             }
             if (kbd.IsKeyDown(Keys.Space))
             {
-                GameScreen.musicHandler.getTrack().playTrack();
+                MusicHandler.getTrack().playTrack();
             }
             if (kbd.IsKeyDown(Keys.S))
             {
-                GameScreen.musicHandler.getTrack().stopTrack();
+                MusicHandler.getTrack().stopTrack();
             }
             if (kbd.IsKeyDown(Keys.P))
             {
-                GameScreen.musicHandler.getTrack().pauseTrack();
+                MusicHandler.getTrack().pauseTrack();
             }
             if (pad.Buttons.LeftShoulder == ButtonState.Pressed || kbd.IsKeyDown(Keys.M))
             {

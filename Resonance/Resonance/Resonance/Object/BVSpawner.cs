@@ -73,9 +73,9 @@ namespace Resonance
         public Vector3 getSpawnCords()
         {
             Vector3 pos;
+            Random r = new Random((int)DateTime.Now.Ticks);
             do
             {
-                Random r = new Random((int)DateTime.Now.Ticks);
                 int x = r.Next((int)(this.OriginalPosition.X - spawnRadius), (int)(this.OriginalPosition.X + spawnRadius));
                 int z = r.Next((int)(this.OriginalPosition.Z - spawnRadius), (int)(this.OriginalPosition.Z + spawnRadius));
                 pos = new Vector3((float)x, 0.5f, (float)z);

@@ -50,6 +50,7 @@ namespace Resonance
             content = newContent;
             song = content.Load<Song>("Music/song");
             MediaPlayer.Volume = (MediaPlayer.Volume * 0.5f);
+            MediaPlayer.IsRepeating = false;
             state = PlayState.STOPPED;
             String path = newContent.RootDirectory + "/Music/song.timing";
 
@@ -72,8 +73,6 @@ namespace Resonance
 
             //DebugDisplay.update("Half Beat Length", halfBeatLength.ToString());
             //DebugDisplay.update("Window Size     ", WINDOW.ToString());
-
-            if (GameScreen.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
         }
 
         /// <summary>
@@ -149,7 +148,8 @@ namespace Resonance
 
         public void update() {
             if (MediaPlayer.State == MediaState.Playing) SONG_STARTED_IN_THE_FIRST_PLACE = true;
-            if ((MediaPlayer.State == MediaState.Stopped) && (!SONG_MANUALLY_STOPPED) && GameScreen.musicHandler.getTrack().SONG_STARTED_IN_THE_FIRST_PLACE) {
+            if ((MediaPlayer.State == MediaState.Stopped) && (!SONG_MANUALLY_STOPPED) && MusicHandler.getTrack().SONG_STARTED_IN_THE_FIRST_PLACE)
+            {
                 SONG_ENDED = true;
             }
         }
