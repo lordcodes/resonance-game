@@ -11,6 +11,7 @@ terrain,	Models\terrain.fbx
 terrain128,	Models\terrain128.fbx
 wave,		Models\wave.fbx
 box,		Models\box.fbx
+walls,		Models\ground.fbx
 spaceShip,  Models\spaceShip.fbx
 pickup,		Models\crate.fbx
 badVibe, Models\BadVibe.fbx
@@ -72,3 +73,4 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 16,         projectileBV,           0.5,        projectileBV_Physics,          0.5,             virus,                        1
 17,         bullet,                 0.5,        pickup,                 0.5,            bulletColors
 18,         boss,                   2,          house,                  0.5
+19,			walls,					10,			walls,					10
