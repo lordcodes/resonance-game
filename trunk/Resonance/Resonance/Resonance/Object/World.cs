@@ -264,6 +264,7 @@ namespace Resonance
         {
             //to test the level editor uncomment the next two lines
             StaticObject ground = null;
+            StaticObject walls = null;
             StaticObject tree = null;
             StaticObject mush = null;
             StaticObject boss = null;
@@ -277,7 +278,9 @@ namespace Resonance
                 if (obj.list[i].type.Equals("Ground") == true)
                 {
                     ground = new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero);
+                    walls = new StaticObject(GameModels.WALLS, "Walls", new Vector3(0,-1,0));
                     addObject(ground);
+                    addObject(walls);
                 }
                 if (obj.list[i].type.Equals("Boss") == true)
                 {
