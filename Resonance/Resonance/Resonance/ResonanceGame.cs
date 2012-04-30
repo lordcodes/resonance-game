@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Resonance
 {
@@ -17,17 +18,15 @@ namespace Resonance
 
             graphics = new GraphicsDeviceManager(this);
 
-            //Allows you to set the resolution of the game (not tested on Xbox yet)
             IsMouseVisible = false;
             IsFixedTimeStep = true;
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 30.0f);
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.IsFullScreen = false;
             graphics.PreferMultiSampling = true;
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
-            //graphics.PreferredBackBufferWidth = 1920;
-            //graphics.PreferredBackBufferHeight = 1080;
-            Window.AllowUserResizing = true;
+            Window.AllowUserResizing = true;            
 
             screenManager = new ScreenManager(this);
             Components.Add(screenManager);
