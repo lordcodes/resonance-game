@@ -85,23 +85,23 @@ namespace Resonance
 
                     DebugDisplay.update("Seconds left until attack", ((int)(9 - seconds.TotalSeconds)).ToString());
                     if(((int)(9 - seconds.TotalSeconds)) == 0)
-                        spriteBatch.Draw(zero, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(zero, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 1)
-                        spriteBatch.Draw(one, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(one, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 2)
-                        spriteBatch.Draw(two, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(two, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 3)
-                        spriteBatch.Draw(three, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(three, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 4)
-                        spriteBatch.Draw(four, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(four, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 5)
-                        spriteBatch.Draw(five, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(five, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 6)
-                        spriteBatch.Draw(six, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(six, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 7)
-                        spriteBatch.Draw(seven, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(seven, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 8)
-                        spriteBatch.Draw(eight, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
+                        spriteBatch.Draw(eight, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(5)), Color.White);
                     if (((int)(9 - seconds.TotalSeconds)) == 9)
                         spriteBatch.Draw(nine, new Vector2(ScreenManager.pixelsX(890), ScreenManager.pixelsY(200)), Color.White);
 
