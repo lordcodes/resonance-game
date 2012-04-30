@@ -40,8 +40,8 @@ namespace Resonance
 
             if (green)
             {
-                GameScreen.musicHandler.playSound(MusicHandler.GREEN);
-                GameScreen.musicHandler.getTrack().inTime();
+                MusicHandler.playSound(MusicHandler.GREEN);
+                MusicHandler.getTrack().inTime();
                 increaseHealth();
                 GameScreen.getGV().createShockwave(Shockwave.GREEN);
                 BulletManager.destroyBullet("green");
@@ -49,38 +49,38 @@ namespace Resonance
             }
             if (yellow)
             {
-                GameScreen.musicHandler.playSound(MusicHandler.YELLOW);
-                GameScreen.musicHandler.getTrack().inTime();
+                MusicHandler.playSound(MusicHandler.YELLOW);
+                MusicHandler.getTrack().inTime();
                 increaseSpeed();
                 GameScreen.getGV().createShockwave(Shockwave.YELLOW);
                 BulletManager.destroyBullet("yellow");
             }
             if (blue)
             {
-                GameScreen.musicHandler.playSound(MusicHandler.BLUE);
-                GameScreen.musicHandler.getTrack().inTime();
+                MusicHandler.playSound(MusicHandler.BLUE);
+                MusicHandler.getTrack().inTime();
                 increaseShield();
                 GameScreen.getGV().createShockwave(Shockwave.BLUE);
                 BulletManager.destroyBullet("blue");
             }
             if (red)
             {
-                GameScreen.musicHandler.playSound(MusicHandler.RED);
-                GameScreen.musicHandler.getTrack().inTime();
+                MusicHandler.playSound(MusicHandler.RED);
+                MusicHandler.getTrack().inTime();
                 increaseFreeze();
                 GameScreen.getGV().createShockwave(Shockwave.RED);
                 BulletManager.destroyBullet("red");
             }
             if (cymbal)
             {
-                GameScreen.musicHandler.playSound(MusicHandler.CYMBAL);
-                GameScreen.musicHandler.getTrack().inTime();
+                MusicHandler.playSound(MusicHandler.CYMBAL);
+                MusicHandler.getTrack().inTime();
                 GameScreen.getGV().createShockwave(Shockwave.CYMBAL);
                 BulletManager.destroyBullet("cymbal");
             }
 
 
-            if (green | blue | yellow | red | cymbal) DebugDisplay.update("In time", GameScreen.musicHandler.getTrack().inTime().ToString());
+            if (green | blue | yellow | red | cymbal) DebugDisplay.update("In time", MusicHandler.getTrack().inTime().ToString());
 
             //if (green | blue | yellow | red | cymbal) Program.game.Music.getTrack().inTime2();
             lastPad = pad;

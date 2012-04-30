@@ -25,16 +25,16 @@ namespace Resonance
 
         private static bool AUTO_MUSIC = false; //TODO: hemmmm
 
-        MusicTrack bgMusic;
-        private AudioEngine audioEngine;
-        private WaveBank waveBank;
-        private SoundBank soundBank;
+        private static MusicTrack bgMusic;
+        private static AudioEngine audioEngine;
+        private static WaveBank waveBank;
+        private static SoundBank soundBank;
         
         
-        private Cue heartBeat;
-        bool playHeartBeat = false;
+        private static Cue heartBeat;
+        private static bool playHeartBeat = false;
 
-        public MusicHandler(ContentManager newContent)
+        public static void init(ContentManager newContent)
         {
             bgMusic = new MusicTrack(newContent);
             audioEngine = new AudioEngine("Content/SoundProject.xgs");
@@ -46,21 +46,26 @@ namespace Resonance
             if (AUTO_MUSIC) bgMusic.playTrack();
         }
 
+        public static void setupRepeat()
+        {
+            if (GameScreen.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
+        }
+
         /// <summary>
         /// Gets access to the background music track
         /// </summary>
         /// <returns>bgMusic the background music track</returns>
-        public MusicTrack getTrack()
+        public static MusicTrack getTrack()
         {
             return bgMusic;
         }
 
-        public Cue getCue(string name)
+        public static Cue getCue(string name)
         {
             return soundBank.GetCue(name);
         }
 
-        public Cue playSound(string sound)
+        public static Cue playSound(string sound)
         {
             Cue soundCue = soundBank.GetCue(sound);
            
@@ -74,7 +79,7 @@ namespace Resonance
         /// <param name="sound">the string for the sound file</param>
         /// <param name="volume">value between -94 and +6 (0 is default sound level)</param>
         /// <returns></returns>
-        public Cue playSound(string sound, float volume)
+        public static Cue playSound(string sound, float volume)
         {
             Cue soundCue = soundBank.GetCue(sound);
             adjustVolume(soundCue, volume);
@@ -82,7 +87,7 @@ namespace Resonance
             return soundCue;
         }
 
-        public void adjustVolume(Cue soundCue, float volume)
+        public static void adjustVolume(Cue soundCue, float volume)
         {
             /*float vol = 0;
             if (volume < -94) vol = -94;
@@ -92,7 +97,7 @@ namespace Resonance
             soundCue.SetVariable("Volume", volume);
         }
 
-        public bool HeartBeat
+        public static bool HeartBeat
         {
             set
             {
@@ -100,10 +105,13 @@ namespace Resonance
             }
         }
 
-        public void Update()
+        public static AudioEngine AudioEngine
         {
-            audioEngine.Update();
-            
+            get { return audioEngine; }
+        }
+
+        public static void Update()
+        {            
             bgMusic.update();
             if (playHeartBeat && heartBeat.IsPaused) heartBeat.Resume();
             else if(!playHeartBeat && heartBeat.IsPlaying) heartBeat.Pause();

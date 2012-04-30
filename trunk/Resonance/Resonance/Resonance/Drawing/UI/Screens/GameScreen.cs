@@ -32,7 +32,6 @@ namespace Resonance
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode;
         public static GameStats stats;
-        public static MusicHandler musicHandler;
 
         public static bool GV_KILLED = false;
         public static bool GAME_CAN_END = true;
@@ -69,10 +68,10 @@ namespace Resonance
             GV_KILLED = false;
             this.ScreenManager = scrn;
             mode = new GameMode(GameMode.TIME_ATTACK);
+            MusicHandler.setupRepeat();
             stats = new GameStats();
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
-            musicHandler = new MusicHandler(ScreenManager.Content);
             preEndGameTimer = new Stopwatch();
 
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
@@ -198,11 +197,11 @@ namespace Resonance
                     DrawableManager.Update(gameTime);
                     Drawing.Update(gameTime);
                 }
-                GameScreen.musicHandler.getTrack().playTrack();
+                MusicHandler.getTrack().playTrack();
 
                 float health = getGV().healthFraction();
-                if (health < 0.1) musicHandler.HeartBeat = true;
-                else musicHandler.HeartBeat = false;
+                if (health < 0.1) MusicHandler.HeartBeat = true;
+                else MusicHandler.HeartBeat = false;
 
                 //Update bad vibe positions, frozen status, detect if GV
                 //in combat and break rest layers
@@ -223,7 +222,7 @@ namespace Resonance
 
                 world.update();
 
-                musicHandler.Update();
+                MusicHandler.Update();
 
                 if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
                 if (WeatherManager.isPaused()) WeatherManager.pause(false);
@@ -238,7 +237,7 @@ namespace Resonance
                     if (GV_KILLED || mode.terminated()) {
                         if (!preEndGameTimer.IsRunning) {
                             preEndGameTimer.Start();
-                            if (!GV_KILLED) musicHandler.playSound("winwhoosh", 100f);
+                            if (!GV_KILLED) MusicHandler.playSound("winwhoosh", 100f);
                         }
                     }
 
@@ -284,7 +283,7 @@ namespace Resonance
         /// </summary>
         public void pause()
         {
-            GameScreen.musicHandler.getTrack().pauseTrack(); //TODO: check beat detection still works after resuming from pause
+            MusicHandler.getTrack().pauseTrack(); //TODO: check beat detection still works after resuming from pause
             WeatherManager.pause(true);
             ParticleEmitterManager.pause(true);
         }
@@ -384,7 +383,7 @@ namespace Resonance
             int numberKilled = 0;
             int i;
 
-            bool breakRest = (musicHandler.getTrack().nextQuarterBeat());
+            bool breakRest = (MusicHandler.getTrack().nextQuarterBeat());
             GoodVibe gv = getGV();
             gv.InCombat = false;
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();

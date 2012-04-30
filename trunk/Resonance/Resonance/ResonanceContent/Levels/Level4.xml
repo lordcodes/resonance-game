@@ -21,6 +21,24 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
+        <identifier>BVSpawner0</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-105</xWorldCoord>
+        <zWorldCoord>95</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner1</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-105</xWorldCoord>
+        <zWorldCoord>120</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
         <identifier>Player</identifier>
         <type>Good_vibe</type>
         <xWorldCoord>0</xWorldCoord>

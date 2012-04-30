@@ -145,11 +145,11 @@ namespace Resonance
         public bool querySpace(Vector3 point)
         {
             queryList.Clear();
-            bSphere.Center = point;
             space.BroadPhase.QueryAccelerator.GetEntries(bSphere, queryList);
 
-            if (queryList.Count > 0)
+            if (queryList.Count > 3)
             {
+                //Console.WriteLine(queryList.Count + " " + queryList[0].Tag + queryList[1].Tag + queryList[2].Tag);
                 return true;
             }
             else return false;
