@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::6cc9fdab-d6e3-4fd7-b87c-2628b1d22034;
+            Name = Sound::e25b69a9-9c23-4ba8-a5ec-6e5c1f04a5df;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::74304aad-1a97-4d36-888c-d76e73f3ba44;
+            Name = Effect::86aee02b-8818-435e-b1f8-afc8872b49d8;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -563,14 +563,8 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
-    Header Last Modified Low = 0;
-    Header Last Modified High = 0;
-    Bank Last Revised Low = 813370971;
-    Bank Last Revised High = 30214009;
+    Bank Last Revised Low = 4142348883;
+    Bank Last Revised High = 30222020;
 
     Wave
     {
@@ -1054,6 +1048,29 @@ Wave Bank
             Last Modified High = 30213998;
         }
     }
+
+    Wave
+    {
+        Name = menuMusic;
+        File = Music\menuMusic.wav;
+        Build Settings Last Modified Low = 3978704596;
+        Build Settings Last Modified High = 30222020;
+
+        Cache
+        {
+            Format Tag = 0;
+            Channels = 2;
+            Sampling Rate = 48000;
+            Bits Per Sample = 1;
+            Play Region Offset = 44;
+            Play Region Length = 18246592;
+            Loop Region Offset = 0;
+            Loop Region Length = 0;
+            File Type = 1;
+            Last Modified Low = 865481162;
+            Last Modified High = 30222018;
+        }
+    }
 }
 
 Sound Bank
@@ -1063,8 +1080,6 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
-    Header Last Modified High = 0;
-    Header Last Modified Low = 0;
 
     Sound
     {
@@ -2185,6 +2200,54 @@ Sound Bank
         }
     }
 
+    Sound
+    {
+        Name = menuMusic;
+        Volume = -1200;
+        Pitch = 0;
+        Priority = 0;
+
+        Category Entry
+        {
+            Name = Default;
+        }
+
+        Track
+        {
+            Volume = 0;
+            Use Filter = 0;
+
+            Play Wave Event
+            {
+                Loop Count = 255;
+                Break Loop = 0;
+                Use Speaker Position = 0;
+                Use Center Speaker = 1;
+                New Speaker Position On Loop = 1;
+                Speaker Position Angle = 0.000000;
+                Speaker Position Arc = 0.000000;
+
+                Event Header
+                {
+                    Timestamp = 0;
+                    Relative = 0;
+                    Random Recurrence = 0;
+                    Random Offset = 0;
+                }
+
+                Wave Entry
+                {
+                    Bank Name = Wave Bank;
+                    Bank Index = 0;
+                    Entry Name = menuMusic;
+                    Entry Index = 21;
+                    Weight = 255;
+                    Weight Min = 0;
+                }
+            }
+        }
+    }
+
     Cue
     {
         Name = TomHigh;
@@ -2600,6 +2663,26 @@ Sound Bank
         {
             Name = winwhoosh;
             Index = 20;
+            Weight Min = 0;
+            Weight Max = 255;
+        }
+    }
+
+    Cue
+    {
+        Name = menuMusic;
+
+        Variation
+        {
+            Variation Type = 3;
+            Variation Table Type = 1;
+            New Variation on Loop = 0;
+        }
+
+        Sound Entry
+        {
+            Name = menuMusic;
+            Index = 21;
             Weight Min = 0;
             Weight Max = 255;
         }
