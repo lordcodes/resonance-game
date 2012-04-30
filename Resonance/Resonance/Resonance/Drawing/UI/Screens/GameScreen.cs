@@ -42,6 +42,7 @@ namespace Resonance
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
 
+
         private Stopwatch preEndGameTimer;
         private int preEndGameDuration = 4000;
 
@@ -431,9 +432,12 @@ namespace Resonance
                 }
             }
 
+           
+            if (BulletManager.content == null)
+                BulletManager.init(ScreenManager.Content);
             BulletManager.updateBullet();
+            
             gv.FreezeActive = false;
-
             return numberKilled;
         }
 
