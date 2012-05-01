@@ -19,8 +19,8 @@ Boss, Models\Boss.fbx
 terrain, Models\terrain.fbx
 --terrain64, Models\terrain64.fbx
 terrain128,	Models\terrain128.fbx
-walls, Models\ground.fbx
-wave, Models\wave.fbx
+Walls, Models\Walls.fbx
+Wave, Models\Wave.fbx
 box, Models\box.fbx
 pickup, Models\crate.fbx
 --dude, Models\dude.fbx
@@ -62,7 +62,7 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 4,			GoodVibe,				0.35,		GoodVibe-physics,		0.35,			goodVibeTexture					
 5,			terrain128,			    250,		terrain,			    250,			tronFloor													
 6,			Bacteria-physics,		1,			Bacteria-physics,		1,
-7,			wave,					1,			wave,					1,				allColours												
+7,			Wave,					1,			Wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest
 9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0
 10,         BVSpawner,              0.6,		BVSpawner-physics,      0.6,            spawnTexture,                           1
@@ -74,4 +74,4 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
 18,         Boss,                   2,          Bacteria-physics,       0.5
-19,			walls,					245,		walls,					245,			wallTexture
+19,			Walls,					245,		Walls,					245,			wallTexture
