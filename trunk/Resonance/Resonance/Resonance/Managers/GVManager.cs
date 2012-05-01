@@ -52,11 +52,11 @@ namespace Resonance
             }
             if (pad.Buttons.LeftShoulder == ButtonState.Pressed || kbd.IsKeyDown(Keys.M))
             {
-                MiniMap.enlarge();
+                if (GameScreen.USE_MINIMAP) MiniMap.enlarge();
             }
             else
             {
-                MiniMap.ensmall();
+                if (GameScreen.USE_MINIMAP) MiniMap.ensmall();
             }
 
             if (kbd.IsKeyDown(Keys.PrintScreen) && !lastKbd.IsKeyDown(Keys.PrintScreen))

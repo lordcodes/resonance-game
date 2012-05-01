@@ -475,7 +475,7 @@ namespace Resonance
             using (IDisposable d = DrawSection.Measure())
             {
                 Hud.saveHealthBar();
-                Hud.saveMiniMap();
+                if (USE_MINIMAP) Hud.saveMiniMap();
                 Drawing.resetGraphics();
                 if (GraphicsSettings.FLOOR_REFLECTIONS)
                 {

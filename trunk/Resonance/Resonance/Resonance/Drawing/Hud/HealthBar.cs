@@ -52,7 +52,7 @@ namespace Resonance
             // Draw the full gauge to our buffer, no blending
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
             //spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
-            spriteBatch.Draw(HUDTextureFull, new Vector2(ScreenManager.pixelsX(-10), ScreenManager.pixelsY(0))/*, new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight)*/, Color.White);
+            spriteBatch.Draw(HUDTextureFull, new Vector2(-7, ScreenManager.pixelsY(0))/*, new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight)*/, Color.White);
             spriteBatch.End();
 
 
