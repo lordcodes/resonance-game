@@ -81,7 +81,7 @@ namespace Resonance
         //    base.Update(gameTime);
         //}
 
-        public void saveTexture(SpriteBatch spriteBatch)
+        public void saveTexture(SpriteBatch spriteBatch, int health)
         {
             //spriteBatch.End();
             GraphicsDevice gd = graphics.GraphicsDevice;
@@ -113,7 +113,9 @@ namespace Resonance
             //b.ColorSourceBlend = Blend.InverseSourceColor;
             //b.ColorDestinationBlend = Blend.InverseDestinationColor;
             spriteBatch.GraphicsDevice.BlendState = b;
-            spriteBatch.Draw(HUDAlpha, new Vector2(Math.Max(ms.X, ScreenManager.pixelsX(0)), ScreenManager.pixelsY(0)), /*new Rectangle(0, HUDTextureHeight * 2, HUDTexture.Width, HUDTextureHeight),*/ Color.White);
+
+            int healthLimit = ScreenManager.pixelsX(0) + HUDTextureBare.Width * health / GoodVibe.MAX_HEALTH;
+            spriteBatch.Draw(HUDAlpha, new Vector2(/*Math.Max(ms.X, ScreenManager.pixelsX(0))*/ healthLimit, ScreenManager.pixelsY(0)), /*new Rectangle(0, HUDTextureHeight * 2, HUDTexture.Width, HUDTextureHeight),*/ Color.White);
             spriteBatch.End();
             //spriteBatch.GraphicsDevice.BlendState = old;
 

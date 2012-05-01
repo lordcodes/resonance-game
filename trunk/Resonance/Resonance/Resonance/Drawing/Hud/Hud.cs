@@ -120,6 +120,7 @@ namespace Resonance
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
             drawHealthBar();
+            if (GameScreen.USE_MINIMAP) drawMiniMap();
             drawBadVibeArmour();
             drawDamage(gameTime);
             highlightedPower();
@@ -130,7 +131,6 @@ namespace Resonance
             drawThrobber();
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
             drawLightning();
-            if (GameScreen.USE_MINIMAP) drawMiniMap();
             spriteBatch.End();
             
             Drawing.resetGraphics();
@@ -484,26 +484,35 @@ namespace Resonance
             spriteBatch.DrawString(font, "Shield", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
+        public static void saveMiniMap()
+        {
+            if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
+            miniMap.saveTexture(spriteBatch);
+        }
+
         /// <summary>
         /// Draws the Mini Map on screen
         /// </summary>
         public void drawMiniMap()
         {
-            spriteBatch.End();
-            RasterizerState rs = new RasterizerState();
-            rs.ScissorTestEnable = true;
-            rs.CullMode = CullMode.None;
-            spriteBatch.GraphicsDevice.RasterizerState = rs;
+            miniMap.draw(spriteBatch);
+
+
+            //spriteBatch.End();
+            //RasterizerState rs = new RasterizerState();
+            //rs.ScissorTestEnable = true;
+            //rs.CullMode = CullMode.None;
+            //spriteBatch.GraphicsDevice.RasterizerState = rs;
             
-            //spriteBatch.GraphicsDevice.RasterizerState.ScissorTestEnable = true;
-            spriteBatch.GraphicsDevice.ScissorRectangle = new Rectangle(1000,600,200,100);
-            //spriteBatch.GraphicsDevice.RenderState.ScissorTestEnable = true;
-            //spriteBatch.GraphicsDevice.ScissorRectangle = clipRect;
-            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-            miniMap.draw(spriteBatch);            
+            ////spriteBatch.GraphicsDevice.RasterizerState.ScissorTestEnable = true;
+            //spriteBatch.GraphicsDevice.ScissorRectangle = new Rectangle(1000,600,200,100);
+            ////spriteBatch.GraphicsDevice.RenderState.ScissorTestEnable = true;
+            ////spriteBatch.GraphicsDevice.ScissorRectangle = clipRect;
+            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            //miniMap.draw(spriteBatch);            
             //spriteBatch.Draw(mask, new Vector2(0,0), Color.White);
-            spriteBatch.End();
-            spriteBatch.Begin();
+            //spriteBatch.End();
+            //spriteBatch.Begin();
         }
 
         public void drawLightning() {
