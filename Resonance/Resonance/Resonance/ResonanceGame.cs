@@ -8,6 +8,7 @@ namespace Resonance
     {
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
+        public const float FPS = 30f;
 
         /// <summary>
         /// The main game constructor.
@@ -20,7 +21,7 @@ namespace Resonance
 
             IsMouseVisible = false;
             IsFixedTimeStep = true;
-            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / 30.0f);
+            this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / FPS);
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.IsFullScreen = false;
             graphics.PreferMultiSampling = true;
