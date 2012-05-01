@@ -474,6 +474,8 @@ namespace Resonance
         {
             using (IDisposable d = DrawSection.Measure())
             {
+                Hud.saveHealthBar();
+                Drawing.resetGraphics();
                 if (GraphicsSettings.FLOOR_REFLECTIONS)
                 {
                     graphics.GraphicsDevice.Clear(Color.Black);

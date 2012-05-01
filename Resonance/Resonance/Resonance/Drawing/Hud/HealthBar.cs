@@ -81,9 +81,9 @@ namespace Resonance
         //    base.Update(gameTime);
         //}
 
-        public void draw(SpriteBatch spriteBatch)
+        public void saveTexture(SpriteBatch spriteBatch)
         {
-            spriteBatch.End();
+            //spriteBatch.End();
             GraphicsDevice gd = graphics.GraphicsDevice;
             MouseState ms = Mouse.GetState();
 
@@ -128,17 +128,22 @@ namespace Resonance
             
 
             // Finally draw the hud and the gauge on top of it using alphablending (on by default)
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
+        }
+
+        public void draw(SpriteBatch spriteBatch)
+        {
+
             Vector2 pos = new Vector2(ScreenManager.pixelsX(20), ScreenManager.pixelsY(10));
             spriteBatch.Draw(HUDTextureBare, pos, new Rectangle(0, 0, HUDTextureBare.Width, HUDTextureBare.Height), Color.White);
             //spriteBatch.Draw(HUDTexture, pos, new Rectangle(0, 0, HUDTexture.Width, HUDTextureHeight), Color.White);
 
 
             // Use GetTexture to return the texture of our RenderTarget2D
-            spriteBatch.Draw(HUDBuffer, pos, Color.White);
-            spriteBatch.End();
+            spriteBatch.Draw((Texture2D)HUDBuffer, pos, Color.White);
+            //spriteBatch.End();
 
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
         }
     }
 }
