@@ -15,72 +15,29 @@ namespace Resonance
 {
     class HealthBar
     {
-        //private bool SaveTexture = false;
         GraphicsDeviceManager graphics;
-        //static ContentManager content;
-        //private static KeyboardState keyState;
-        //SpriteBatch batch;
         Texture2D HUDTextureBare;
         Texture2D HUDTextureFull;
         Texture2D HUDAlpha;
         RenderTarget2D HUDBuffer;
-        private int HUDTextureHeight;
 
         public HealthBar(GraphicsDeviceManager graphics)
         {
             this.graphics = graphics;
-            //graphics = new GraphicsDeviceManager(this);
-            //content = new ContentManager(Services);
         }
-
-        //public static ContentManager Content
-        //{
-        //    get { return content; }
-        //}
-
-        //protected override void Initialize()
-        //{
-        //    IsMouseVisible = true;
-        //    base.Initialize();
-        //}
 
         public void loadTextures(ContentManager content)
         {
-            //if (loadAllContent)
-            {
-                //batch = new SpriteBatch(graphics.GraphicsDevice);
-                HUDTextureBare = content.Load<Texture2D>("Drawing/HUD/Textures/bar"); //empty bar with border
-                HUDTextureFull = content.Load<Texture2D>("Drawing/HUD/Textures/bar2"); //full health gradient
-                HUDAlpha = content.Load<Texture2D>("Drawing/HUD/Textures/bar3"); //sliding overlay to mask health gradient
+            HUDTextureBare = content.Load<Texture2D>("Drawing/HUD/Textures/bar"); //empty bar with border
+            HUDTextureFull = content.Load<Texture2D>("Drawing/HUD/Textures/bar2"); //full health gradient
+            HUDAlpha = content.Load<Texture2D>("Drawing/HUD/Textures/bar3"); //sliding overlay to mask health gradient
 
-                HUDTextureHeight = HUDTextureBare.Height;
-                HUDBuffer = new RenderTarget2D(graphics.GraphicsDevice, HUDTextureBare.Width, HUDTextureHeight, true, SurfaceFormat.Color, DepthFormat.Depth24);
-                //HUDBuffer = new RenderTarget2D(graphics.GraphicsDevice, HUDTexture.Width, HUDTextureHeight, 1, SurfaceFormat.Color);
-            }
+            HUDBuffer = new RenderTarget2D(graphics.GraphicsDevice, HUDTextureBare.Width, HUDTextureBare.Height, true, SurfaceFormat.Color, DepthFormat.Depth24);
         }
 
-        //protected override void UnloadGraphicsContent(bool unloadAllContent)
-        //{
-        //    if (unloadAllContent == true)
-        //    {
-        //        content.Unload();
-        //    }
-        //}
-
-        //protected override void Update(GameTime gameTime)
-        //{
-        //    keyState = Keyboard.GetState();
-
-        //    if ((GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed) || (keyState.IsKeyDown(Keys.Escape)))
-        //        this.Exit();
-        //    if (keyState.IsKeyDown(Keys.F1))
-        //    {
-        //        SaveTexture = true;
-        //    }
-
-        //    base.Update(gameTime);
-        //}
-
+        /// <summary>
+        /// Renders the health bar texture in the HUDBuffer render target
+        /// </summary>
         public void saveTexture(SpriteBatch spriteBatch, int health)
         {
             //spriteBatch.End();
@@ -133,6 +90,9 @@ namespace Resonance
             //spriteBatch.Begin();
         }
 
+        /// <summary>
+        /// Draws the health bar for the player on screen
+        /// </summary>
         public void draw(SpriteBatch spriteBatch)
         {
 
