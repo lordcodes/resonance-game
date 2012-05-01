@@ -13,17 +13,17 @@ namespace Resonance {
     /// Handles and provides an interface between button presses and Good Vibe motion.
     /// </summary>
     class GVMotionManager {
-        public static readonly float DEFAULT_Z_ACCELERATION          =   5f;
-        public static readonly float DEFAULT_MAX_Z_SPEED             =  80.00f;
-        public static float          MAX_R_SPEED                     =   0.10f;
-        public static float          MAX_X_SPEED                     =  60.00f;
-        public static float          MAX_Z_SPEED                     =  24.00f;
-        public static float          R_ACCELERATION                  =   0.01f;
-        public static float          R_DECELERATION                  =   0.01f;
-        public static float          X_ACCELERATION                  =   1.6f;
-        public static float          X_DECELERATION                  =   2.8f;
-        public static float          Z_ACCELERATION                  =   5f;
-        public static float          Z_DECELERATION                  =   2f;
+        public static readonly float DEFAULT_Z_ACCELERATION          =   150f / ResonanceGame.FPS;
+        public static readonly float DEFAULT_MAX_Z_SPEED             =   1800f / ResonanceGame.FPS;
+        public static float          MAX_R_SPEED                     =   4.5f / ResonanceGame.FPS;
+        public static float          MAX_X_SPEED                     =   1800f / ResonanceGame.FPS;
+        public static float          MAX_Z_SPEED                     =   720f / ResonanceGame.FPS;
+        public static float          R_ACCELERATION                  =  0.45f / ResonanceGame.FPS;
+        public static float          R_DECELERATION                  =  0.45f / ResonanceGame.FPS;
+        public static float          X_ACCELERATION                  =   48f / ResonanceGame.FPS;
+        public static float          X_DECELERATION                  =   84f / ResonanceGame.FPS;
+        public static float          Z_ACCELERATION                  =   150f / ResonanceGame.FPS;
+        public static float          Z_DECELERATION                  =   60f / ResonanceGame.FPS;
         public static float          R_SPEED                         =   0.00f;
         public static float          X_SPEED                         =   0.00f;
         public static float          Z_SPEED                         =   0.00f;
