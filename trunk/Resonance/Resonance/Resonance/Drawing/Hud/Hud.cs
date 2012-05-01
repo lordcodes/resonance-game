@@ -39,6 +39,7 @@ namespace Resonance
         private static Texture2D block;
         private static Texture2D damage;
         private static MiniMap miniMap;
+        private static Texture2D mask;
         private static ImportedCustomFont scoreFont;
         private static HealthBar healthBarClass;
 
@@ -70,7 +71,9 @@ namespace Resonance
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
             tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
             damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
-            scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
+            scoreFont   = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
+            mask        = Content.Load<Texture2D>("Drawing/HUD/Textures/minimapalpha");
+
 
             miniMap = new MiniMap();
             miniMap.loadTextures(Content);
@@ -116,19 +119,18 @@ namespace Resonance
         {
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
-
+            //drawHealthBar();
             drawBadVibeArmour();
             drawDamage(gameTime);
-            drawHealthBar();
             highlightedPower();
             drawFreezeBar();
             drawNitroBar();
             drawShieldBar();
-            BulletManager.draw(spriteBatch);
-            if(GameScreen.USE_MINIMAP)drawMiniMap();
+            BulletManager.draw(spriteBatch);            
             drawThrobber();
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
             drawLightning();
+            if (GameScreen.USE_MINIMAP) drawMiniMap();
             spriteBatch.End();
             
             Drawing.resetGraphics();
@@ -357,35 +359,35 @@ namespace Resonance
         /// </summary>
         private void drawHealthBar()
         {
-            //healthBarClass.draw(spriteBatch);
+            healthBarClass.draw(spriteBatch);
 
-            int x = ScreenManager.pixelsX(10);
-            int y = ScreenManager.pixelsY(10);
-            int width = ScreenManager.pixelsX(healthBar.Width);
-            int height = ScreenManager.pixelsY(healthBar.Height);
-            int sliceX = x + ScreenManager.pixelsX(9);
-            int sliceY = y + ScreenManager.pixelsY(9);
-            int sliceWidth = 1;
-            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height);
-            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582) * health / GoodVibe.MAX_HEALTH);
+            //int x = ScreenManager.pixelsX(10);
+            //int y = ScreenManager.pixelsY(10);
+            //int width = ScreenManager.pixelsX(healthBar.Width);
+            //int height = ScreenManager.pixelsY(healthBar.Height);
+            //int sliceX = x + ScreenManager.pixelsX(9);
+            //int sliceY = y + ScreenManager.pixelsY(9);
+            //int sliceWidth = 1;
+            //int sliceHeight = ScreenManager.pixelsY(healthSlice.Height);
+            //int limit = (int)Math.Round((float)ScreenManager.pixelsX(582) * health / GoodVibe.MAX_HEALTH);
 
-            float greenValue;
-            Color c;
-            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
-            for (int i = 0; i < limit; i++)
-            {
-                greenValue = (float)i / ScreenManager.pixelsX(582);
-                float red = (float)(greenValue > 0.5 ? 1 - 2 * (greenValue - 0.5) : 1.0);
-                float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
-                c = new Color(red, green, 0f);
+            //float greenValue;
+            //Color c;
+            //spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+            //for (int i = 0; i < limit; i++)
+            //{
+            //    greenValue = (float)i / ScreenManager.pixelsX(582);
+            //    float red = (float)(greenValue > 0.5 ? 1 - 2 * (greenValue - 0.5) : 1.0);
+            //    float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
+            //    c = new Color(red, green, 0f);
 
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
-            }
+            //    spriteBatch.Draw(healthSlice, new Rectangle(sliceX+i, sliceY, sliceWidth, sliceHeight), c);
+            //}
 
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(32)); //TODO: tidy this
-            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
-            spriteBatch.DrawString(font, "Health", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(font, "Health", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(32)); //TODO: tidy this
+            //Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            //spriteBatch.DrawString(font, "Health", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //spriteBatch.DrawString(font, "Health", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         private void drawFreezeBar()
@@ -480,7 +482,21 @@ namespace Resonance
         /// </summary>
         public void drawMiniMap()
         {
-            miniMap.draw(spriteBatch);
+            spriteBatch.End();
+            RasterizerState rs = new RasterizerState();
+            rs.ScissorTestEnable = true;
+            rs.CullMode = CullMode.None;
+            spriteBatch.GraphicsDevice.RasterizerState = rs;
+            
+            //spriteBatch.GraphicsDevice.RasterizerState.ScissorTestEnable = true;
+            spriteBatch.GraphicsDevice.ScissorRectangle = new Rectangle(1000,600,200,100);
+            //spriteBatch.GraphicsDevice.RenderState.ScissorTestEnable = true;
+            //spriteBatch.GraphicsDevice.ScissorRectangle = clipRect;
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+            miniMap.draw(spriteBatch);            
+            //spriteBatch.Draw(mask, new Vector2(0,0), Color.White);
+            spriteBatch.End();
+            spriteBatch.Begin();
         }
 
         public void drawLightning() {
