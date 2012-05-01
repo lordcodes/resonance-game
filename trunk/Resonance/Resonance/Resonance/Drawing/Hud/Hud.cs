@@ -119,7 +119,7 @@ namespace Resonance
         {
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
-            //drawHealthBar();
+            drawHealthBar();
             drawBadVibeArmour();
             drawDamage(gameTime);
             highlightedPower();
@@ -352,6 +352,13 @@ namespace Resonance
         {
             spriteBatch.DrawString(font, armour, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             Drawing.resetGraphics();
+        }
+
+
+        public static void saveHealthBar()
+        {
+            if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
+            healthBarClass.saveTexture(spriteBatch);
         }
 
         /// <summary>
