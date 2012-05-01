@@ -123,7 +123,7 @@ namespace Resonance
              {
                 if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 5f )
                  {
-                     GameScreen.getGV().AdjustHealth(-DAMAGE);
+                     //GameScreen.getGV().AdjustHealth(-DAMAGE);
                      ScreenManager.game.World.removeObject(bullet);
                      Drawing.addWave(bulletPosition);
                      bulletIndex = INACTIVE;
