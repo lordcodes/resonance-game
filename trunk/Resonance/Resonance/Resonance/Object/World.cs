@@ -144,12 +144,14 @@ namespace Resonance
 
         public bool querySpace(Vector3 point)
         {
+            bSphere.Center = point;
+            bSphere.Radius = ACCURACY;
             queryList.Clear();
             space.BroadPhase.QueryAccelerator.GetEntries(bSphere, queryList);
 
-            if (queryList.Count > 3)
+            if (queryList.Count > 0)
             {
-                //Console.WriteLine(queryList.Count + " " + queryList[0].Tag + queryList[1].Tag + queryList[2].Tag);
+                Console.WriteLine(queryList.Count + " " + queryList[0].Tag);
                 return true;
             }
             else return false;
@@ -280,7 +282,7 @@ namespace Resonance
                     ground = new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero);
                     walls = new StaticObject(GameModels.WALLS, "Walls", new Vector3(0,-1,0));
                     addObject(ground);
-                    addObject(walls);
+                    //addObject(walls);
                 }
                 if (obj.list[i].type.Equals("Boss") == true)
                 {
