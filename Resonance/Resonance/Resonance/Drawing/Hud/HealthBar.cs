@@ -20,7 +20,9 @@ namespace Resonance
         //static ContentManager content;
         //private static KeyboardState keyState;
         //SpriteBatch batch;
-        Texture2D HUDTexture;
+        Texture2D HUDTextureBare;
+        Texture2D HUDTextureFull;
+        Texture2D HUDAlpha;
         RenderTarget2D HUDBuffer;
         private int HUDTextureHeight;
 
@@ -47,9 +49,12 @@ namespace Resonance
             //if (loadAllContent)
             {
                 //batch = new SpriteBatch(graphics.GraphicsDevice);
-                HUDTexture = content.Load<Texture2D>("Drawing/HUD/Textures/bar");
-                HUDTextureHeight = HUDTexture.Height / 3;
-                HUDBuffer = new RenderTarget2D(graphics.GraphicsDevice, HUDTexture.Width, HUDTextureHeight, true, SurfaceFormat.Color, DepthFormat.Depth24);
+                HUDTextureBare = content.Load<Texture2D>("Drawing/HUD/Textures/bar"); //empty bar with border
+                HUDTextureFull = content.Load<Texture2D>("Drawing/HUD/Textures/bar2"); //full health gradient
+                HUDAlpha = content.Load<Texture2D>("Drawing/HUD/Textures/bar3"); //sliding overlay to mask health gradient
+
+                HUDTextureHeight = HUDTextureBare.Height;
+                HUDBuffer = new RenderTarget2D(graphics.GraphicsDevice, HUDTextureBare.Width, HUDTextureHeight, true, SurfaceFormat.Color, DepthFormat.Depth24);
                 //HUDBuffer = new RenderTarget2D(graphics.GraphicsDevice, HUDTexture.Width, HUDTextureHeight, 1, SurfaceFormat.Color);
             }
         }
@@ -78,56 +83,62 @@ namespace Resonance
 
         public void draw(SpriteBatch spriteBatch)
         {
-           // GraphicsDevice gd = graphics.GraphicsDevice;
+            spriteBatch.End();
+            GraphicsDevice gd = graphics.GraphicsDevice;
             MouseState ms = Mouse.GetState();
-           // gd.Clear(Color.CornflowerBlue);
 
             // Set the render target to our hud buffer
-       //     gd.SetRenderTarget(HUDBuffer);
+            gd.SetRenderTarget(HUDBuffer);
             //gd.SetRenderTarget(0, HUDBuffer);
-        //    gd.Clear(Color.Black);
+            //gd.Clear(Color.Black);
 
             // Draw the full gauge to our buffer, no blending
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
             //spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
-            spriteBatch.Draw(HUDTexture, new Vector2(ScreenManager.pixelsX(10), ScreenManager.pixelsY(10)), new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight), Color.White);
+            spriteBatch.Draw(HUDTextureFull, new Vector2(ScreenManager.pixelsX(-10), ScreenManager.pixelsY(0))/*, new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight)*/, Color.White);
             spriteBatch.End();
+
 
             // Then draw the gauge mask in the correct place
             // Note: We change the render states from before so we need to draw them in a separate spriteBatch.begin/end
-
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
             //spriteBatch.Begin(SpriteBlendMode.AlphaBlend, SpriteSortMode.Immediate, SaveStateMode.SaveState);
             //gd.BlendState.ColorSourceBlend = Blend.InverseSourceColor;
-//gd.BlendState.ColorDestinationBlend = Blend.InverseSourceColor;
+            //gd.BlendState.ColorDestinationBlend = Blend.InverseSourceColor;
             //gd.RenderState.SourceBlend = Blend.InverseSourceColor;
             //gd.RenderState.DestinationBlend = Blend.InverseSourceColor;
-            spriteBatch.Draw(HUDTexture, new Vector2(Math.Max(ms.X, ScreenManager.pixelsX(0)), ScreenManager.pixelsY(0)), new Rectangle(0, HUDTextureHeight * 2, HUDTexture.Width, HUDTextureHeight), Color.White);
+
+            //BlendState old = spriteBatch.GraphicsDevice.BlendState;
+            BlendState b = new BlendState();
+            //b.ColorSourceBlend = Blend.InverseSourceColor;
+            //b.ColorDestinationBlend = Blend.InverseDestinationColor;
+            spriteBatch.GraphicsDevice.BlendState = b;
+            spriteBatch.Draw(HUDAlpha, new Vector2(Math.Max(ms.X, ScreenManager.pixelsX(0)), ScreenManager.pixelsY(0)), /*new Rectangle(0, HUDTextureHeight * 2, HUDTexture.Width, HUDTextureHeight),*/ Color.White);
             spriteBatch.End();
+            //spriteBatch.GraphicsDevice.BlendState = old;
+
 
             // Have to resolve the render target to use it    
-            
             //gd.ResolveRenderTarget(0);
+            
 
-            // Set the render target back to the original display
-       //     gd.SetRenderTarget(null);
+            // Set the render target back to the original display           
+            gd.SetRenderTarget(null);            
             //gd.SetRenderTarget(0, null);
-
-            //if (SaveTexture)
-            //{
-            //    // For debugging, press F1 to dump the texture to disk in TGA format
-            //    SaveTexture = false;
-            //    HUDBuffer.GetTexture().Save(@"c:\health.tga", ImageFileFormat.Tga);
-            //}
+            
 
             // Finally draw the hud and the gauge on top of it using alphablending (on by default)
             spriteBatch.Begin();
-            Vector2 pos = new Vector2(ScreenManager.pixelsX(10), ScreenManager.pixelsY(10));
-            spriteBatch.Draw(HUDTexture, pos, new Rectangle(0, 0, HUDTexture.Width, HUDTexture.Height), Color.White);
+            Vector2 pos = new Vector2(ScreenManager.pixelsX(20), ScreenManager.pixelsY(10));
+            spriteBatch.Draw(HUDTextureBare, pos, new Rectangle(0, 0, HUDTextureBare.Width, HUDTextureBare.Height), Color.White);
             //spriteBatch.Draw(HUDTexture, pos, new Rectangle(0, 0, HUDTexture.Width, HUDTextureHeight), Color.White);
+
+
             // Use GetTexture to return the texture of our RenderTarget2D
             spriteBatch.Draw(HUDBuffer, pos, Color.White);
             spriteBatch.End();
+
+            spriteBatch.Begin();
         }
     }
 }

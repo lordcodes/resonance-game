@@ -1419,6 +1419,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\minimapalpha.png">
+      <Name>minimapalpha</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Sounds\firstblood.wav">
       <Name>firstblood</Name>
       <Importer>WavImporter</Importer>
@@ -1487,6 +1494,13 @@
   <ItemGroup>
     <Compile Include="Drawing\Textures\walls.jpg">
       <Name>walls</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\bar3.png">
+      <Name>bar3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
