@@ -35,7 +35,7 @@ namespace Resonance
 
             float distance = Vector3.Distance(cameraPos, chaseObject.BufferedStates.InterpolatedStates.Position);
 
-            Vector3 rayStart = chaseObject.BufferedStates.InterpolatedStates.Position;
+            /*Vector3 rayStart = chaseObject.BufferedStates.InterpolatedStates.Position;
 
 
             Vector3 position;
@@ -45,9 +45,9 @@ namespace Resonance
                 position = result.HitData.Location - (0.01f * -newPosition);
             }
             else
-            {
+            {*/
                 position = cameraPos;
-            }
+            /*}
 
             List<Object> results = ScreenManager.game.World.rayCastObjects(rayStart, -newPosition, 50f, RayCastFilter);
             if (results.Count > 0)
@@ -57,7 +57,7 @@ namespace Resonance
             else
             {
                 DebugDisplay.update("TestCast", "Can't see anything");
-            }
+            }*/
 
             return position;
         }
