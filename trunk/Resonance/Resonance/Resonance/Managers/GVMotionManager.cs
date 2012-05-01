@@ -13,17 +13,17 @@ namespace Resonance {
     /// Handles and provides an interface between button presses and Good Vibe motion.
     /// </summary>
     class GVMotionManager {
-        public static readonly float DEFAULT_Z_ACCELERATION          =   2.50f;
-        public static readonly float DEFAULT_MAX_Z_SPEED             =  40.00f;
+        public static readonly float DEFAULT_Z_ACCELERATION          =   5f;
+        public static readonly float DEFAULT_MAX_Z_SPEED             =  80.00f;
         public static float          MAX_R_SPEED                     =   0.10f;
-        public static float          MAX_X_SPEED                     =  30.00f;
-        public static float          MAX_Z_SPEED                     =  12.00f;
+        public static float          MAX_X_SPEED                     =  60.00f;
+        public static float          MAX_Z_SPEED                     =  24.00f;
         public static float          R_ACCELERATION                  =   0.01f;
         public static float          R_DECELERATION                  =   0.01f;
-        public static float          X_ACCELERATION                  =   0.80f;
-        public static float          X_DECELERATION                  =   1.40f;
-        public static float          Z_ACCELERATION                  =   2.50f;
-        public static float          Z_DECELERATION                  =   1.00f;
+        public static float          X_ACCELERATION                  =   1.6f;
+        public static float          X_DECELERATION                  =   2.8f;
+        public static float          Z_ACCELERATION                  =   5f;
+        public static float          Z_DECELERATION                  =   2f;
         public static float          R_SPEED                         =   0.00f;
         public static float          X_SPEED                         =   0.00f;
         public static float          Z_SPEED                         =   0.00f;
