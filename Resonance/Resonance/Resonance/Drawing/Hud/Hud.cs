@@ -75,7 +75,7 @@ namespace Resonance
             mask        = Content.Load<Texture2D>("Drawing/HUD/Textures/minimapalpha");
 
 
-            miniMap = new MiniMap();
+            miniMap = new MiniMap(graphics);
             miniMap.loadTextures(Content);
 
             healthBarClass = new HealthBar(graphics);
@@ -354,15 +354,17 @@ namespace Resonance
             Drawing.resetGraphics();
         }
 
-
+        /// <summary>
+        /// Renders the health bar texture in the HUDBuffer render target
+        /// </summary>
         public static void saveHealthBar()
         {
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
-            healthBarClass.saveTexture(spriteBatch);
+            healthBarClass.saveTexture(spriteBatch, health);
         }
 
         /// <summary>
-        /// Draws the helath bar for the player on screen.
+        /// Draws the health bar for the player on screen
         /// </summary>
         private void drawHealthBar()
         {
@@ -484,6 +486,9 @@ namespace Resonance
             spriteBatch.DrawString(font, "Shield", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
+        /// <summary>
+        /// Renders the mini map texture in the miniMapBuffer render target
+        /// </summary>
         public static void saveMiniMap()
         {
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
@@ -496,23 +501,6 @@ namespace Resonance
         public void drawMiniMap()
         {
             miniMap.draw(spriteBatch);
-
-
-            //spriteBatch.End();
-            //RasterizerState rs = new RasterizerState();
-            //rs.ScissorTestEnable = true;
-            //rs.CullMode = CullMode.None;
-            //spriteBatch.GraphicsDevice.RasterizerState = rs;
-            
-            ////spriteBatch.GraphicsDevice.RasterizerState.ScissorTestEnable = true;
-            //spriteBatch.GraphicsDevice.ScissorRectangle = new Rectangle(1000,600,200,100);
-            ////spriteBatch.GraphicsDevice.RenderState.ScissorTestEnable = true;
-            ////spriteBatch.GraphicsDevice.ScissorRectangle = clipRect;
-            //spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
-            //miniMap.draw(spriteBatch);            
-            //spriteBatch.Draw(mask, new Vector2(0,0), Color.White);
-            //spriteBatch.End();
-            //spriteBatch.Begin();
         }
 
         public void drawLightning() {

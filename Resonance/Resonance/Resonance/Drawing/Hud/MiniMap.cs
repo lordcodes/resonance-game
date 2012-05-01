@@ -54,7 +54,7 @@ namespace Resonance
         public static float SPAWNER_ALPHA        = 0.5f;
 
         // Colours
-        public static Color       OUTLINE_COLOUR = new Color(0.0f, 0.0f, 0.0f, 1.0f          ); // 0.8 alpha?
+        //public static Color       OUTLINE_COLOUR = new Color(0.0f, 0.0f, 0.0f, 1.0f          ); // 0.8 alpha?
         public static Color    BACKGROUND_COLOUR = new Color(0.0f, 0.0f, 0.2f, 0.5f          );
         public static Color     GOOD_VIBE_COLOUR = new Color(0.0f, 0.7f, 0.0f, 0.5f          );
         public static Color      BAD_VIBE_COLOUR = new Color(0.7f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
@@ -69,7 +69,9 @@ namespace Resonance
         /// Fields
 
         public  static bool      large;
- 
+
+        private static GraphicsDeviceManager graphics;
+        private static RenderTarget2D miniMapBuffer;
         private static Texture2D outline;
         private static Texture2D background;
         private static Texture2D vibe;
@@ -82,7 +84,7 @@ namespace Resonance
         private static int SPEED_SAMPLES = 10;
         private static List<float> speeds;
 
-        private static int sweeperX = MAP_X + MAP_WIDTH;
+        private static int sweeperX = MAP_WIDTH;
 
         // Defines scale for things which grow larger in large map mode.
         private static float scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
@@ -105,8 +107,10 @@ namespace Resonance
         ///<summary>
         /// Create a new MiniMap
         ///</summary>
-        public MiniMap()
+        public MiniMap(GraphicsDeviceManager graphics)
         {
+            MiniMap.graphics = graphics;
+
             ZOOM = DEFAULT_ZOOM;
             large = false;
 
@@ -149,7 +153,8 @@ namespace Resonance
             pickup     = content.Load<Texture2D>("Drawing/HUD/Textures/pickup");
             spawner    = content.Load<Texture2D>("Drawing/HUD/Textures/spawner");
             texPixel   = content.Load<Texture2D>("Drawing/Textures/texPixel");
-
+            miniMapBuffer = new RenderTarget2D(graphics.GraphicsDevice, MAP_WIDTH, MAP_HEIGHT, true, SurfaceFormat.Color, DepthFormat.Depth24);
+            
             createScaledTextures();
         }
 
@@ -163,9 +168,11 @@ namespace Resonance
             mapH = LARGE_MAP_HEIGHT;
 
             scaleFactor = (LARGE_MAP_WIDTH / (2 * DEFAULT_ZOOM));
+            miniMapBuffer = new RenderTarget2D(graphics.GraphicsDevice, LARGE_MAP_WIDTH, LARGE_MAP_HEIGHT, true, SurfaceFormat.Color, DepthFormat.Depth24);
         }
 
-        public static void ensmall() {
+        public static void ensmall()
+        {
             large = false;
 
             mapX = MAP_X;
@@ -174,9 +181,8 @@ namespace Resonance
             mapH = MAP_HEIGHT;
 
             scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
+            miniMapBuffer = new RenderTarget2D(graphics.GraphicsDevice, MAP_WIDTH, MAP_HEIGHT, true, SurfaceFormat.Color, DepthFormat.Depth24);
         }
-
-
 
         ///<summary>
         /// Keeps track of the last SPEED_SAMPLES readings of GV's speed and averages them.
@@ -293,6 +299,19 @@ namespace Resonance
         /// </summary>
         public void draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw((Texture2D)miniMapBuffer, new Vector2(mapX, mapY), Color.White);
+            spriteBatch.Draw(outline, new Rectangle(mapX, mapY, mapW, mapH), Color.White);
+        }
+
+        /// <summary>
+        /// Renders the mini map texture in the miniMapBuffer render target
+        /// </summary>
+        public void saveTexture(SpriteBatch spriteBatch)
+        {
+            GraphicsDevice gd = graphics.GraphicsDevice;
+            gd.SetRenderTarget(miniMapBuffer);
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque); //TODO: change to alpha blend and fix corner masking
+
             // Good Vibe reference
             gVRef = (GoodVibe) ScreenManager.game.World.getObject("Player");
 
@@ -316,17 +335,17 @@ namespace Resonance
             float corner_dist = (float) Math.Sqrt(Math.Pow((double) ZOOM, 2.0) * 2);
 
             // Draw fill
-            spriteBatch.Draw(background, new Rectangle(mapX, mapY, mapW, mapH), BACKGROUND_COLOUR);
+            spriteBatch.Draw(background, new Rectangle(0, 0, mapW, mapH), BACKGROUND_COLOUR);
 
             // Draw scale lines, to provide a frame of reference.
             if (DRAW_SCALE_LINES)  {
                 for (float i = mapW / 2; i < mapW; i += scaleFactor * SCALE_LINE_INTERVAL)  {
-                    spriteBatch.Draw(background, new Rectangle(mapX + (int) i, mapY, 1, mapH), SCALE_LINE_COLOUR);
-                    spriteBatch.Draw(background, new Rectangle(mapX + mapW - (int) i, mapY, 1, mapH), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, new Rectangle((int) i, 0, 1, mapH), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, new Rectangle(mapW - (int) i, 0, 1, mapH), SCALE_LINE_COLOUR);
                 }
                 for (float i = mapH / 2; i < mapH; i += scaleFactor * SCALE_LINE_INTERVAL) {
-                    spriteBatch.Draw(background, new Rectangle(mapX, mapY + (int) i, mapW, 1), SCALE_LINE_COLOUR);
-                    spriteBatch.Draw(background, new Rectangle(mapX, mapY + mapH - (int) i, mapW, 1), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, new Rectangle(0, (int) i, mapW, 1), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, new Rectangle(0, mapH - (int) i, mapW, 1), SCALE_LINE_COLOUR);
                 }
             }
 
@@ -334,8 +353,8 @@ namespace Resonance
             /*int gvx = mapX + (int) ((mapW / 2f) - (VIBE_WIDTH / 2f));
             int gvy = mapY + (int) ((mapH / 2f) - (VIBE_HEIGHT / 2f));*/
 
-            int gvx = mapX + (int) (mapW / 2f);
-            int gvy = mapY + (int) (mapH / 2f);
+            int gvx = (int) (mapW / 2f);
+            int gvy =(int) (mapH / 2f);
 
             // Draw world
             if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox, gvx, gvy);
@@ -475,11 +494,11 @@ namespace Resonance
                     {
                         if (bVPos.X < gVPos.X)
                         {
-                            bVScreenPos = new Vector2(mapX - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                            bVScreenPos = new Vector2((dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
                         }
                         else
                         {
-                            bVScreenPos = new Vector2(mapX + mapW - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                            bVScreenPos = new Vector2(mapW - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
                         }
                     }
 
@@ -508,22 +527,22 @@ namespace Resonance
                     {
                         if (bVPos.Y < gVPos.Y)
                         {
-                            bVScreenPos = new Vector2(mapX - (dVibe.Width / 2), mapY - (dVibe.Height / 2));
+                            bVScreenPos = new Vector2((dVibe.Width / 2), (dVibe.Height / 2));
                         }
                         else
                         {
-                            bVScreenPos = new Vector2(mapX - (dVibe.Width / 2), mapY + mapH - (dVibe.Height / 2));
+                            bVScreenPos = new Vector2((dVibe.Width / 2), mapH - (dVibe.Height / 2));
                         }
                     }
                     else
                     {
                         if (bVPos.Y < gVPos.Y)
                         {
-                            bVScreenPos = new Vector2(mapX + mapW - (dVibe.Width / 2), mapY - (dVibe.Height / 2));
+                            bVScreenPos = new Vector2(mapW - (dVibe.Width / 2), (dVibe.Height / 2));
                         }
                         else
                         {
-                            bVScreenPos = new Vector2(mapX + mapW - (dVibe.Width / 2), mapY + mapH - (dVibe.Height / 2));
+                            bVScreenPos = new Vector2(mapW - (dVibe.Width / 2), mapH - (dVibe.Height / 2));
                         }
                     }
 
@@ -539,7 +558,7 @@ namespace Resonance
 
             // Draw sweeper
             if (SWEEPER_ON) {
-                if (sweeperX < mapX) sweeperX += mapW;
+                if (sweeperX < 0) sweeperX += mapW;
 
                 //spriteBatch.Draw(background, new Rectangle(sweeperX, mapY, 1, mapH), SWEEPER_COLOUR);
 
@@ -550,15 +569,18 @@ namespace Resonance
                     alpha -= (BAD_VIBE_ALPHA / (float) SWEEPER_LENGTH);
 
                     x = sweeperX + i;
-                    if (x > mapX + mapW) x -= mapW;
-                    spriteBatch.Draw(block, new Rectangle(x, mapY, 1, mapH), new Color(0f, 0f, 0.9f + alpha - 1f, alpha));
+                    if (x > mapW) x -= mapW;
+                    spriteBatch.Draw(block, new Rectangle(x, 0, 1, mapH), new Color(0f, 0f, 0.9f + alpha - 1f, alpha));
                 }
 
                 sweeperX --;
             }
 
             // Draw outline
-            spriteBatch.Draw(outline, new Microsoft.Xna.Framework.Rectangle(mapX, mapY, mapW, mapH), OUTLINE_COLOUR);
+            //spriteBatch.Draw(outline, new Rectangle(0, 0, mapW, mapH), OUTLINE_COLOUR);
+
+            spriteBatch.End();
+            gd.SetRenderTarget(null);
         }
 
         // Calculates the alpha transparency of a bad vibe.
