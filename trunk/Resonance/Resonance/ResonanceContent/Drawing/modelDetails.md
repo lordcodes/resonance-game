@@ -1,33 +1,33 @@
 ﻿MODELS
 -Model Ref-|--File name
-tree,		Models\Neurons.fbx
-NeuronPhysics,Models\Neuron_Physics.fbx
-house,		Models\Bacteria.fbx
-house_physics, Models\Bacteria_physics.fbx
-goodVibe,	Models\GoodVibe.fbx
-ShieldGoodVibe, Models\GoodVibeBubble.fbx
-terrain,	Models\terrain.fbx
---terrain64,	Models\terrain64.fbx
+Neuron, Models\Neuron.fbx
+Neuron-physics, Models\Neuron-physics.fbx
+Bacteria, Models\Bacteria.fbx
+Bacteria-physics, Models\Bacteria-physics.fbx
+GoodVibe, Models\GoodVibe.fbx
+GoodVibe-physics, Models\GoodVibe-physics.fbx
+GoodVibe-shield, Models\GoodVibe-shield.fbx
+BadVibe, Models\BadVibe.fbx
+BadVibe-physics, Models\BadVibe-physics.fbx
+BVSpawner, Models\BVSpawner.fbx
+BVSpawner-physics, Models\BVSpawner-physics.fbx
+BadVibe-explosion, Models\BadVibe-explosion.fbx
+BadVibeRanged, Models\BadVibeRanged.fbx
+BadVibeRanged-physics, Models\BadVibeRanged-physics.fbx
+Bullet, Models\Bullet.fbx
+Boss, Models\Boss.fbx
+terrain, Models\terrain.fbx
+--terrain64, Models\terrain64.fbx
 terrain128,	Models\terrain128.fbx
-wave,		Models\wave.fbx
-box,		Models\box.fbx
-walls,		Models\ground.fbx
-spaceShip,  Models\spaceShip.fbx
-pickup,		Models\crate.fbx
-badVibe, Models\BadVibe.fbx
-badVibePhysics, Models\bv_physics.fbx
-BV_Spawner, Models\BV_Spawner.fbx
-BV_Spawner_Physics, Models\SpawnerPhysics.fbx
---dude        Models\dude.fbx
-BV_Explosion, Models\BVExplosion.fbx
-x2,			Models\x2.fbx
-x3,			Models\x3.fbx
-plus4,		Models\plus4.fbx
-plus5,		Models\plus5.fbx
-projectileBV, Models\bv_ranged_animated.fbx
-projectileBV_Physics, Models\ProjectileBadVibe_Physics.fbx
-bullet, Models\Bullet.fbx
-boss,		Models\Boss.fbx
+walls, Models\ground.fbx
+wave, Models\wave.fbx
+box, Models\box.fbx
+pickup, Models\crate.fbx
+--dude, Models\dude.fbx
+x2, Models\x2.fbx
+x3, Models\x3.fbx
+plus4, Models\plus4.fbx
+plus5, Models\plus5.fbx
 
 
 TEXTURES
@@ -56,22 +56,22 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 ---If "Start texture anim." is set to 1 the animation will start automatically.
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
-1,			tree,					0.5,		NeuronPhysics,			0.5,			neuronTexture
-2,			house,					0.25,		house_physics,			0.25,			spawnTexture
-3,			badVibe,			    0.2,		badVibePhysics,			0.2,			allColours,								1
-4,			goodVibe,				0.35,		spaceShip,				0.35,			goodVibeTexture					
+1,			Neuron,					0.5,		Neuron-physics,			0.5,			neuronTexture
+2,			Bacteria,				0.25,		Bacteria-physics,		0.25,			spawnTexture
+3,			BadVibe,			    0.2,		BadVibe-physics,		0.2,			allColours,								1
+4,			GoodVibe,				0.35,		GoodVibe-physics,		0.35,			goodVibeTexture					
 5,			terrain128,			    250,		terrain,			    250,			tronFloor													
-6,			house,					1,			house,					1,
+6,			Bacteria-physics,		1,			Bacteria-physics,		1,
 7,			wave,					1,			wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest
-9,          ShieldGoodVibe,         0.35,		spaceShip,              0
-10,         BV_Spawner,             0.6,		BV_Spawner_Physics,     0.6,            spawnTexture,                           1
-11,         BV_Explosion,           0.1,		BV_Explosion,           0.1,                          ,							1
+9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0
+10,         BVSpawner,              0.6,		BVSpawner-physics,      0.6,            spawnTexture,                           1
+11,         BadVibe-explosion,      0.1,		BadVibe-explosion,      0.1,                          ,							1
 12,			x2,						0.25,		x2,						0.25
 13,			x3,						0.25,		x3,						0.25
 14,			plus4,					0.25,		plus4,					0.25
 15,			plus5,					0.25,		plus5,					0.25
-16,         projectileBV,           0.5,        projectileBV_Physics,          0.5,             virus,                        1
-17,         bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         boss,                   2,          house,                  0.5
+16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
+17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
+18,         Boss,                   2,          Bacteria-physics,       0.5
 19,			walls,					245,		walls,					245,			wallTexture

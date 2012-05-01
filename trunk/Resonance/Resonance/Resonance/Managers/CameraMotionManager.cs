@@ -88,6 +88,10 @@ namespace Resonance
                 starting = false;
                 ZOOM_RATE = ZOOM_RATE_NORMAL;
             }
+
+            //Check if camera is going through wall here
+
+
             camera.update(currentPosition);
         }
 
