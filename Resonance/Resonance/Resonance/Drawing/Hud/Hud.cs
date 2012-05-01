@@ -75,8 +75,11 @@ namespace Resonance
             mask        = Content.Load<Texture2D>("Drawing/HUD/Textures/minimapalpha");
 
 
-            miniMap = new MiniMap(graphics);
-            miniMap.loadTextures(Content);
+            if (GameScreen.USE_MINIMAP)
+            {
+                miniMap = new MiniMap(graphics);
+                miniMap.loadTextures(Content);
+            }
 
             healthBarClass = new HealthBar(graphics);
             healthBarClass.loadTextures(Content);

@@ -90,7 +90,7 @@ namespace Resonance
         private static float scaleFactor = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
 
         // Defines scale for things which stay the same size in small and large map mode.
-        private static float sF = (MAP_WIDTH / (2 * DEFAULT_ZOOM));
+        private static float sF = (MAP_WIDTH / (3 * DEFAULT_ZOOM));
 
         private GoodVibe gVRef;
 
@@ -328,7 +328,7 @@ namespace Resonance
                 }
 
                 scaleFactor = (mapW / (2 * ZOOM)); // MAP_W applies to both map sizes, mode dependent.
-                sF = (MAP_WIDTH / (2 * ZOOM));     // MAP_WIDTH applies only to small map, as sF is mode independent.
+                sF = (MAP_WIDTH / (3 * DEFAULT_ZOOM));     // MAP_WIDTH applies only to small map, as sF is mode independent.
             }
 
             // Calculate how far from the good vibe the corner of the map is.
