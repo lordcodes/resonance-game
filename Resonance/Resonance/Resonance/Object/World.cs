@@ -149,7 +149,7 @@ namespace Resonance
             queryList.Clear();
             space.BroadPhase.QueryAccelerator.GetEntries(bSphere, queryList);
 
-            if (queryList.Count > 0)
+            if (queryList.Count > 1)
             {
                 Console.WriteLine(queryList.Count + " " + queryList[0].Tag);
                 return true;
@@ -282,7 +282,7 @@ namespace Resonance
                     ground = new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero);
                     walls = new StaticObject(GameModels.WALLS, "Walls", new Vector3(0,-1,0));
                     addObject(ground);
-                    //addObject(walls);
+                    addObject(walls);
                 }
                 if (obj.list[i].type.Equals("Boss") == true)
                 {
