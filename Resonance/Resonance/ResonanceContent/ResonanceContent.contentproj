@@ -52,11 +52,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\BadVibe-physics.fbx">
-      <Name>BadVibe-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Fonts\MenuFont.spritefont">
       <Name>MenuFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -64,11 +59,6 @@
     </Compile>
     <Compile Include="Drawing\Models\Bacteria.fbx">
       <Name>Bacteria</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\Bacteria_physics.fbx">
-      <Name>Bacteria_physics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -88,6 +78,31 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\Bacteria-physics.fbx">
+      <Name>Bacteria-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BadVibe-physics.fbx">
+      <Name>BadVibe-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BadVibe-explosion.fbx">
+      <Name>BadVibe-explosion</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BadVibeRanged-physics.fbx">
+      <Name>BadVibeRanged-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BadVibeRanged.fbx">
+      <Name>BadVibeRanged</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>
@@ -100,18 +115,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\BVExplosion.fbx">
-      <Name>BVExplosion</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <Compile Include="Drawing\Models\GoodVibe.fbx">
       <Name>GoodVibe</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\Neurons.fbx">
-      <Name>Neurons</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -120,51 +125,41 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\BV_Spawner.fbx">
-      <Name>BV_Spawner</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\Neuron_Physics.fbx">
-      <Name>Neuron_Physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\bv_physics.fbx">
-      <Name>bv_physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\GoodVibeBubble.fbx">
-      <Name>GoodVibeBubble</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\ProjectileBadVibe.fbx">
-      <Name>ProjectileBadVibe</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\ProjectileBadVibe_Physics.fbx">
-      <Name>ProjectileBadVibe_Physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\bv_ranged_animated.fbx">
-      <Name>bv_ranged_animated</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\ground.fbx">
       <Name>ground</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\spaceShip.fbx">
-      <Name>spaceShip</Name>
+    <Compile Include="Drawing\Models\GoodVibe-physics.fbx">
+      <Name>GoodVibe-physics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
-    </None>
+    </Compile>
+    <Compile Include="Drawing\Models\Neuron.fbx">
+      <Name>Neuron</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Neuron-physics.fbx">
+      <Name>Neuron-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\GoodVibe-shield.fbx">
+      <Name>GoodVibe-shield</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BVSpawner-physics.fbx">
+      <Name>BVSpawner-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BVSpawner.fbx">
+      <Name>BVSpawner</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\dude.fbx">
       <Name>dude</Name>
       <Importer>FbxImporter</Importer>
@@ -189,11 +184,6 @@
       <Name>pants</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\SpawnerPhysics.fbx">
-      <Name>SpawnerPhysics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
     </Compile>
     <None Include="Drawing\Models\terrain128.fbx">
       <Name>terrain128</Name>
