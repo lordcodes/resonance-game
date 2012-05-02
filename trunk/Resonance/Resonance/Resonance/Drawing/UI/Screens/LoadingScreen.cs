@@ -40,7 +40,7 @@ namespace Resonance
             bgs[2] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen5");
             bgs[1] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen6");
             bgs[0] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen7");
-            font = ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/PlainMenuFont");
+            font = ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuFont");
         }
 
         public override void Update(GameTime gameTime)

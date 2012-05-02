@@ -10,6 +10,8 @@ namespace Resonance
 {
     class MainMenu : MenuScreen
     {
+        private static int level = 0;
+
         Texture2D textBG;
         Song music;
 
@@ -98,7 +100,7 @@ namespace Resonance
 
         private void startGame()
         {
-            ScreenManager.game = new GameScreen(ScreenManager);
+            ScreenManager.game = new GameScreen(ScreenManager,level);
             LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
         }
 

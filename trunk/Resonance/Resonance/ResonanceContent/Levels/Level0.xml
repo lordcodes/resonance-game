@@ -12,6 +12,15 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
+        <identifier>Boss</identifier>
+        <type>Boss</type>
+        <xWorldCoord>0</xWorldCoord>
+        <zWorldCoord>6</zWorldCoord>
+        <yWorldCoord>0.5</yWorldCoord>
+        <gameModelNum>0</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
         <identifier>Player</identifier>
         <type>Good_vibe</type>
         <xWorldCoord>0</xWorldCoord>

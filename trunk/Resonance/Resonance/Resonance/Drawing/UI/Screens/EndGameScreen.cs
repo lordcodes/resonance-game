@@ -85,7 +85,7 @@ namespace Resonance
 
         private void playGameAgain()
         {
-            ScreenManager.game = new GameScreen(ScreenManager);
+            ScreenManager.game = new GameScreen(ScreenManager, 0);
             LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
         }
 

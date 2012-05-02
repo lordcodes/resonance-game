@@ -16,11 +16,24 @@ namespace Resonance {
         public const int SURVIVAL    = 1;
         public const int ELIMINATION = 2;
 
+        int[] zones;
+        int currentZone = 0;
+
         private bool TERMINATION_CRITERION_MET = false;
 
         public GameMode(int m) {
             MODE = m;
             TERMINATION_CRITERION_MET = false;
+            zones = new int[3];
+            zones[0] = TIME_ATTACK;
+            zones[1] = SURVIVAL;
+            zones[2] = ELIMINATION;
+        }
+
+        public void changeZone()
+        {
+            currentZone++;
+            //Something to change the level
         }
 
         public bool terminated() {
@@ -42,7 +55,7 @@ namespace Resonance {
             return TERMINATION_CRITERION_MET;
         }
 
-        public int finaliseScore(bool gVKilled, int score) {
+        /*public int finaliseScore(bool gVKilled, int score) {
             switch (MODE) {
                 case TIME_ATTACK: {
                         if (gVKilled) return 0; else return score;
@@ -57,6 +70,6 @@ namespace Resonance {
 
             // Should be impossible.
             return 0;
-        }
+        }*/
     }
 }
