@@ -132,6 +132,7 @@
     <Compile Include="Drawing\UI\Screens\MenuScreen.cs" />
     <Compile Include="Drawing\UI\Screens\PauseMenu.cs" />
     <Compile Include="Drawing\UI\Screens\PopupScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\SettingsMenu.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />

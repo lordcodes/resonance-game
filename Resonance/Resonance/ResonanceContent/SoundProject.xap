@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::2a3e41d7-2c24-4a68-af42-63f5159eb51f;
+            Name = Sound::24579354-28a5-48ea-9560-a24fe2571107;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::92ced813-bd4e-42b2-9cf1-3e15af35b659;
+            Name = Effect::a3c91a9b-a44d-43ec-8194-f7e8d6cb4dba;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -563,14 +563,10 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
-    Xbox Bank Last Modified Low = 0;
-    Xbox Bank Last Modified High = 0;
-    PC Bank Last Modified Low = 0;
-    PC Bank Last Modified High = 0;
     Header Last Modified Low = 0;
     Header Last Modified High = 0;
-    Bank Last Revised Low = 113260101;
-    Bank Last Revised High = 30222056;
+    Bank Last Revised Low = 1696394163;
+    Bank Last Revised High = 30222465;
 
     Wave
     {
@@ -1075,52 +1071,6 @@ Wave Bank
             File Type = 1;
             Last Modified Low = 865481162;
             Last Modified High = 30222018;
-        }
-    }
-
-    Wave
-    {
-        Name = firstblood;
-        File = Sounds\firstblood.wav;
-        Build Settings Last Modified Low = 4132642771;
-        Build Settings Last Modified High = 30222055;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 1;
-            Sampling Rate = 22050;
-            Bits Per Sample = 1;
-            Play Region Offset = 44;
-            Play Region Length = 101184;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 3702437154;
-            Last Modified High = 30222055;
-        }
-    }
-
-    Wave
-    {
-        Name = multikill;
-        File = Sounds\multikill.wav;
-        Build Settings Last Modified Low = 4156922089;
-        Build Settings Last Modified High = 30222055;
-
-        Cache
-        {
-            Format Tag = 0;
-            Channels = 1;
-            Sampling Rate = 22050;
-            Bits Per Sample = 1;
-            Play Region Offset = 44;
-            Play Region Length = 91258;
-            Loop Region Offset = 0;
-            Loop Region Length = 0;
-            File Type = 1;
-            Last Modified Low = 3725834445;
-            Last Modified High = 30222055;
         }
     }
 
@@ -2307,100 +2257,6 @@ Sound Bank
 
     Sound
     {
-        Name = firstblood;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = firstblood;
-                    Entry Index = 22;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
-        Name = multikill;
-        Volume = -1200;
-        Pitch = 0;
-        Priority = 0;
-
-        Category Entry
-        {
-            Name = Default;
-        }
-
-        Track
-        {
-            Volume = 0;
-            Use Filter = 0;
-
-            Play Wave Event
-            {
-                Break Loop = 0;
-                Use Speaker Position = 0;
-                Use Center Speaker = 1;
-                New Speaker Position On Loop = 1;
-                Speaker Position Angle = 0.000000;
-                Speaker Position Arc = 0.000000;
-
-                Event Header
-                {
-                    Timestamp = 0;
-                    Relative = 0;
-                    Random Recurrence = 0;
-                    Random Offset = 0;
-                }
-
-                Wave Entry
-                {
-                    Bank Name = Wave Bank;
-                    Bank Index = 0;
-                    Entry Name = multikill;
-                    Entry Index = 23;
-                    Weight = 255;
-                    Weight Min = 0;
-                }
-            }
-        }
-    }
-
-    Sound
-    {
         Name = menu-cursor;
         Volume = -1200;
         Pitch = 0;
@@ -2433,12 +2289,20 @@ Sound Bank
                     Random Offset = 0;
                 }
 
+                Pitch Variation
+                {
+                    Min = 0;
+                    Max = 50;
+                    Operator = 0;
+                    New Variation On Loop = 0;
+                }
+
                 Wave Entry
                 {
                     Bank Name = Wave Bank;
                     Bank Index = 0;
                     Entry Name = menu-cursor;
-                    Entry Index = 24;
+                    Entry Index = 22;
                     Weight = 255;
                     Weight Min = 0;
                 }
@@ -2888,46 +2752,6 @@ Sound Bank
 
     Cue
     {
-        Name = firstblood;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = firstblood;
-            Index = 22;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
-        Name = multikill;
-
-        Variation
-        {
-            Variation Type = 3;
-            Variation Table Type = 1;
-            New Variation on Loop = 0;
-        }
-
-        Sound Entry
-        {
-            Name = multikill;
-            Index = 23;
-            Weight Min = 0;
-            Weight Max = 255;
-        }
-    }
-
-    Cue
-    {
         Name = menu-cursor;
 
         Variation
@@ -2940,7 +2764,7 @@ Sound Bank
         Sound Entry
         {
             Name = menu-cursor;
-            Index = 24;
+            Index = 22;
             Weight Min = 0;
             Weight Max = 255;
         }

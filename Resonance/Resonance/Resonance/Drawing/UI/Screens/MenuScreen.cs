@@ -28,6 +28,12 @@ namespace Resonance
             bg = new List<Texture2D>();
         }
 
+        public override void LoadContent()
+        {
+            headingFont = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/HeadingFont");
+            font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuFont");
+        }
+
         public override void HandleInput(InputDevices input)
         {
             bool lastUp = (input.LastKeys.IsKeyDown(Keys.Up) && input.Keys.IsKeyDown(Keys.Up)) ||
@@ -53,7 +59,6 @@ namespace Resonance
 
             if (back)
             {
-                selected = 0;
                 if (this is MainMenu)
                 {
                     string msg = "Are you sure you want to quit the game?\n";
@@ -63,6 +68,7 @@ namespace Resonance
                 }
                 else
                 {
+                    selected = 0;
                     ExitScreen();
                 }
             }
@@ -112,7 +118,6 @@ namespace Resonance
         public void itemSelect()
         {
             menuItems[selected].CallBack();
-            selected = 0;
         }
 
         protected virtual void cancel()
@@ -140,9 +145,11 @@ namespace Resonance
             bool debugScreen = (this is DebugMenu);
             bool pauseScreen = (this is PauseMenu);
             bool endGameScreen = (this is EndGameScreen);
+            bool settingsScreen = (this is SettingsMenu);
 
             if(pauseScreen || endGameScreen) ScreenManager.darkenBackground(0.9f);
             else if (debugScreen) ScreenManager.darkenBackground(0.75f);
+            else if (settingsScreen) ScreenManager.darkenBackground(1f);
             ScreenManager.SpriteBatch.Begin();
             drawMenu(selected);
 
@@ -154,14 +161,7 @@ namespace Resonance
                 menuItems[i].Draw(this, gameTime, isSelect);
             }
 
-            if (headingFont != null)
-            {
-                ScreenManager.SpriteBatch.DrawString(headingFont, title, new Vector2(ScreenManager.ScreenWidth - headingFont.MeasureString(title).X - 75, 50), Color.White);
-            }
-            else
-            {
-                ScreenManager.SpriteBatch.DrawString(font, title, new Vector2(ScreenManager.ScreenWidth / 2, 100), Color.White);
-            }
+            ScreenManager.SpriteBatch.DrawString(headingFont, title, new Vector2(ScreenManager.ScreenWidth / 2 - headingFont.MeasureString(title).X / 2, 50), Color.White);
             ScreenManager.SpriteBatch.End();
         }
 
@@ -201,6 +201,11 @@ namespace Resonance
         protected List<Texture2D> Bgs
         {
             get { return bg; }
+        }
+
+        public int Selected
+        {
+            set { selected = value; }
         }
     }
 }

@@ -28,7 +28,13 @@ namespace Resonance
         {
             if (this is MenuScreen)
             {
-                ((MenuScreen)this).controlMusic(false);
+                MenuScreen m = ((MenuScreen)this);
+                m.controlMusic(false);
+                m.Selected = 0;
+            }
+            if (this is SettingsMenu)
+            {
+                GameScreen.DIFFICULTY = ((SettingsMenu)this).CurrentDifficulty;
             }
             ScreenManager.removeScreen(this);
         }
