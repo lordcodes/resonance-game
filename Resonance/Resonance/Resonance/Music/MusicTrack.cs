@@ -75,6 +75,14 @@ namespace Resonance
             //DebugDisplay.update("Window Size     ", WINDOW.ToString());
         }
 
+        public void reset()
+        {
+            song = content.Load<Song>("Music/song");
+            MediaPlayer.Volume = (MediaPlayer.Volume * 0.5f);
+            state = PlayState.STOPPED;
+            if (GameScreen.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
+        }
+
         /// <summary>
         /// Play the track
         /// </summary>

@@ -26,6 +26,10 @@ namespace Resonance
 
         public void ExitScreen()
         {
+            if (this is MenuScreen)
+            {
+                ((MenuScreen)this).controlMusic(false);
+            }
             ScreenManager.removeScreen(this);
         }
 

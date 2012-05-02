@@ -38,6 +38,7 @@ namespace Resonance
 
         public override void Update(GameTime gameTime)
         {
+            Console.WriteLine("LoadingUpdate " + frameNumber);
             base.Update(gameTime);
 
             timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -52,7 +53,7 @@ namespace Resonance
             if (startLoading)
             {
                 screenToLoad.ScreenManager = ScreenManager;
-                screenToLoad.LoadContent();
+                Loading.load(delegate { screenToLoad.LoadContent(); }, "LoadingContent");
                 screenToLoad.LoadedUsingLoading = true;
                 startLoading = false;
             }

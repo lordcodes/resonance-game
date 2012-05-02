@@ -55,7 +55,7 @@ namespace Resonance
             }
         }
 
-        protected override void controlMusic(bool play)
+        public override void controlMusic(bool play)
         {
             base.controlMusic(play);
 
