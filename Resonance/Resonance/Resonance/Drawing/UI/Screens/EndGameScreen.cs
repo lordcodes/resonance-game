@@ -29,6 +29,7 @@ namespace Resonance
         public override void LoadContent()
         {
             Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuFont");
+            HeadingFont = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/HeadingFont");
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuBox"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuStatsBox"));
             textBG = this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MenuItemBG");
