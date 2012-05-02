@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::dda215eb-4ad8-4afb-b88f-a3e8691b3c1c;
+            Name = Sound::a0ba1f67-19a4-44c6-91f1-069bb775cc49;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::88c8d70a-4a0c-4558-a047-d81a4c617f85;
+            Name = Effect::32f27079-29d0-4ac3-8a2c-383f0c7326e7;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -563,6 +563,12 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
+    Header Last Modified Low = 0;
+    Header Last Modified High = 0;
     Bank Last Revised Low = 113260101;
     Bank Last Revised High = 30222056;
 
@@ -1149,6 +1155,8 @@ Sound Bank
     Windows File = Win\Sound Bank.xsb;
     Xbox Bank Path Edited = 0;
     Windows Bank Path Edited = 0;
+    Header Last Modified High = 0;
+    Header Last Modified Low = 0;
 
     Sound
     {
@@ -1968,6 +1976,11 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
+        }
+
         Effect Entry
         {
             Effect Name = Microsoft Reverb;
@@ -2020,6 +2033,11 @@ Sound Bank
             Name = Default;
         }
 
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
+        }
+
         Effect Entry
         {
             Effect Name = Microsoft Reverb;
@@ -2070,6 +2088,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
         }
 
         Effect Entry
@@ -2180,6 +2203,11 @@ Sound Bank
         Category Entry
         {
             Name = Default;
+        }
+
+        RPC Entry
+        {
+            RPC Name = VolumeVariation;
         }
 
         Effect Entry
