@@ -14,14 +14,11 @@ namespace Resonance
         SpriteFont headingFont;
         SpriteFont font;
         List<Texture2D> bg;
-        SoundEffect cursor;
         List<MenuElement> menuItems = new List<MenuElement>();
         int selected = 0;
         string title;
         int upTimes = 0;
         int downTimes = 0;
-
-        int volume = 6;
 
         protected bool musicStart;
 

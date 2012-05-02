@@ -212,7 +212,7 @@ Global Settings
         Value = 0.000000;
         Initial Value = 0.000000;
         Min = 0.000000;
-        Max = 1000000.000000;
+        Max = 100.000000;
     }
 
     Variable
@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::a0ba1f67-19a4-44c6-91f1-069bb775cc49;
+            Name = Sound::2a3e41d7-2c24-4a68-af42-63f5159eb51f;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -280,19 +280,19 @@ Global Settings
 
             Variable Entry
             {
-                Name = Volume;
+                Name = Distance;
             }
 
             RPC Point
             {
-                X = -96.000000;
+                X = 0.000000;
                 Y = -9600.000000;
                 Curve = 0;
             }
 
             RPC Point
             {
-                X = 6.000000;
+                X = 100.000000;
                 Y = 600.000000;
                 Curve = 0;
             }
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::32f27079-29d0-4ac3-8a2c-383f0c7326e7;
+            Name = Effect::92ced813-bd4e-42b2-9cf1-3e15af35b659;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -1691,11 +1691,6 @@ Sound Bank
             Name = Default;
         }
 
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
-        }
-
         Effect Entry
         {
             Effect Name = Microsoft Reverb;
@@ -1746,11 +1741,6 @@ Sound Bank
         Category Entry
         {
             Name = Default;
-        }
-
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
         }
 
         Effect Entry
@@ -1805,11 +1795,6 @@ Sound Bank
             Name = Default;
         }
 
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
-        }
-
         Effect Entry
         {
             Effect Name = Microsoft Reverb;
@@ -1860,11 +1845,6 @@ Sound Bank
         Category Entry
         {
             Name = Default;
-        }
-
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
         }
 
         Effect Entry
@@ -1919,11 +1899,6 @@ Sound Bank
             Name = Default;
         }
 
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
-        }
-
         Effect Entry
         {
             Effect Name = Microsoft Reverb;
@@ -1974,11 +1949,6 @@ Sound Bank
         Category Entry
         {
             Name = Default;
-        }
-
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
         }
 
         Effect Entry
@@ -2033,11 +2003,6 @@ Sound Bank
             Name = Default;
         }
 
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
-        }
-
         Effect Entry
         {
             Effect Name = Microsoft Reverb;
@@ -2088,11 +2053,6 @@ Sound Bank
         Category Entry
         {
             Name = Default;
-        }
-
-        RPC Entry
-        {
-            RPC Name = VolumeVariation;
         }
 
         Effect Entry
@@ -2253,7 +2213,7 @@ Sound Bank
     Sound
     {
         Name = winwhoosh;
-        Volume = 100;
+        Volume = 600;
         Pitch = 0;
         Priority = 0;
 
