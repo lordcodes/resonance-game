@@ -305,8 +305,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Levels\Level1%28initial%29.xml">
-      <Name>Level1%28initial%29</Name>
+    <Compile Include="Levels\Level0.xml">
+      <Name>Level0</Name>
       <Importer>XmlImporter</Importer>
       <Processor>PassThroughProcessor</Processor>
       <SubType>Designer</SubType>

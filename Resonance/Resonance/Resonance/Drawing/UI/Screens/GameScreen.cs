@@ -41,19 +41,17 @@ namespace Resonance
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
 
-
         private Stopwatch preEndGameTimer;
         private int preEndGameDuration = 4000;
-
         GraphicsDeviceManager graphics;
-
         World world;
         BVSpawnManager bvSpawner;
         public PickupSpawnManager pickupSpawner;
 
         bool isLoaded;
         int iteration = 0;
-        //private bool showHints = false;
+
+        private int zone;
 
         static Profile DrawSection = Profile.Get("DrawingTotal");
         static Profile UpdateSection = Profile.Get("UpdateTotal");
@@ -62,8 +60,9 @@ namespace Resonance
         //Allocated variables
         string[] deadVibes;
 
-        public GameScreen(ScreenManager scrn)
+        public GameScreen(ScreenManager scrn, int level)
         {
+            zone = level;
             isLoaded = false;
             GV_KILLED = false;
             this.ScreenManager = scrn;
@@ -114,7 +113,7 @@ namespace Resonance
 
                 //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
                 //MenuActions.loadLevel(1);
-                loadLevel(4);
+                loadLevel(zone);
                 Drawing.reset();
                 //musicHandler.getTrack().playTrack(); // move after intro/countdown
 
@@ -170,7 +169,8 @@ namespace Resonance
             }
             else if (debug)
             {
-                ScreenManager.addScreen(ScreenManager.debugMenu);
+                mode.changeZone();
+                //ScreenManager.addScreen(ScreenManager.debugMenu);
             }
 
             //Camera
