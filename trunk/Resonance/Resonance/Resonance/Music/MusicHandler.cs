@@ -46,9 +46,9 @@ namespace Resonance
             if (AUTO_MUSIC) bgMusic.playTrack();
         }
 
-        public static void setupRepeat()
+        public static void reset()
         {
-            if (GameScreen.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
+            bgMusic.reset();
         }
 
         /// <summary>

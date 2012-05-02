@@ -54,6 +54,7 @@ namespace Resonance
 
             if (back)
             {
+                selected = 0;
                 if (this is MainMenu)
                 {
                     string msg = "Are you sure you want to quit the game?\n";
@@ -68,6 +69,7 @@ namespace Resonance
             }
             if (backPause && !(this is MainMenu))
             {
+                selected = 0;
                 ExitScreen();
             }
 
@@ -111,6 +113,7 @@ namespace Resonance
         public void itemSelect()
         {
             menuItems[selected].CallBack();
+            selected = 0;
         }
 
         protected virtual void cancel()
@@ -171,7 +174,7 @@ namespace Resonance
         {
         }
 
-        protected virtual void controlMusic(bool play)
+        public virtual void controlMusic(bool play)
         {
         }
 

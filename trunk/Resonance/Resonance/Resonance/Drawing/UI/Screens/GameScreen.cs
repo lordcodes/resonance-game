@@ -68,7 +68,7 @@ namespace Resonance
             GV_KILLED = false;
             this.ScreenManager = scrn;
             mode = new GameMode(GameMode.TIME_ATTACK);
-            MusicHandler.setupRepeat();
+            MusicHandler.reset();
             stats = new GameStats();
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
@@ -114,7 +114,7 @@ namespace Resonance
 
                 //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
                 //MenuActions.loadLevel(1);
-                Loading.load(delegate { loadLevel(4); }, "Level " + 4);
+                loadLevel(4);
                 Drawing.reset();
                 //musicHandler.getTrack().playTrack(); // move after intro/countdown
 
