@@ -237,7 +237,7 @@ namespace Resonance
                     if (GV_KILLED || mode.terminated()) {
                         if (!preEndGameTimer.IsRunning) {
                             preEndGameTimer.Start();
-                            if (!GV_KILLED) MusicHandler.playSound("winwhoosh", 100f);
+                            if (!GV_KILLED) MusicHandler.playSound("winwhoosh");
                         }
                     }
 

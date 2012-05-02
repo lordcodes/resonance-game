@@ -142,25 +142,33 @@ namespace Resonance {
 
             if (health < loudLightningStart) {
                 if (x % 3 == 0) {
-                    lCue = MusicHandler.playSound("thunderLoud1");
+                    lCue = MusicHandler.getCue("thunderLoud1");
+                    lCue.Play();
                 } else if (x % 3 == 1) {
-                    lCue = MusicHandler.playSound("thunderLoud2");
+                    lCue = MusicHandler.getCue("thunderLoud2");
+                    lCue.Play();
                 } else {
-                    lCue = MusicHandler.playSound("thunderLoud3");
+                    lCue = MusicHandler.getCue("thunderLoud3");
+                    lCue.Play();
                 }
             } else if (health < midLightningStart) {
                 if (x % 3 == 0) {
-                    lCue = MusicHandler.playSound("thunderMid1");
+                    lCue = MusicHandler.getCue("thunderMid1");
+                    lCue.Play();
                 } else if (x % 3 == 1) {
-                    lCue = MusicHandler.playSound("thunderMid2");
+                    lCue = MusicHandler.getCue("thunderMid2");
+                    lCue.Play();
                 } else {
-                    lCue = MusicHandler.playSound("thunderMid3");
+                    lCue = MusicHandler.getCue("thunderMid3");
+                    lCue.Play();
                 }
             } else if (health < quietLightningStart) {
                 if (x % 2 == 0) {
-                    lCue = MusicHandler.playSound("thunderQuiet1");
+                    lCue = MusicHandler.getCue("thunderQuiet1");
+                    lCue.Play();
                 } else {
-                    lCue = MusicHandler.playSound("thunderQuiet2");
+                    lCue = MusicHandler.getCue("thunderQuiet2");
+                    lCue.Play();
                 }
             }
         }
@@ -179,11 +187,13 @@ namespace Resonance {
                     if (rCue == null || !rCue.IsPlaying) {
                         //rainVol = -90f;
                         if (health < gentleLightningStart) {
-                            rCue = MusicHandler.playSound("rainAndThunder", rainVol);
+                            rCue = MusicHandler.getCue("rainAndThunder");
                             MusicHandler.adjustVolume(rCue, (int)rainVol);
+                            rCue.Play();
                         } else {
-                            rCue = MusicHandler.playSound("rainLight", rainVol);
+                            rCue = MusicHandler.getCue("rainLight");
                             MusicHandler.adjustVolume(rCue, (int)rainVol);
+                            rCue.Play();
                         }
                     }
 
