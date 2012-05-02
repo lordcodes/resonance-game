@@ -21,6 +21,8 @@ namespace Resonance
         int upTimes = 0;
         int downTimes = 0;
 
+        int volume = 6;
+
         protected bool musicStart;
 
         public MenuScreen(string title)
