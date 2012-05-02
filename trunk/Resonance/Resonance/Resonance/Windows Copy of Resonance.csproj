@@ -129,6 +129,7 @@
     <Compile Include="Drawing\UI\Screens\PopupScreen.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Drawing\UI\Screens\SettingsMenu.cs" />
     <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Object\Bullet.cs" />
     <Compile Include="Utilities\GameMode.cs" />

@@ -39,7 +39,7 @@ namespace Resonance
 
         public override void LoadContent()
         {
-            Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuFont");
+            base.LoadContent();
         }
 
         protected override void updateItemLocations()

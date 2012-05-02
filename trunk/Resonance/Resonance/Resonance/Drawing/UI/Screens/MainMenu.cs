@@ -31,8 +31,8 @@ namespace Resonance
 
         public override void LoadContent()
         {
-            Font = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MainMenuFont");
-            HeadingFont = this.ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuHeadingFont");
+            base.LoadContent();
+
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MainMenu1"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MainMenu2"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MainMenu3"));
@@ -104,6 +104,7 @@ namespace Resonance
 
         private void openSettings()
         {
+            ScreenManager.addScreen(new SettingsMenu());
         }
 
         private void openHighScores()

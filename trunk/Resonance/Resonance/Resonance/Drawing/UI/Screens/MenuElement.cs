@@ -17,6 +17,8 @@ namespace Resonance
         float fade;
         bool mainMenu = false;
 
+        float fontSize;
+
         public MenuElement(string text, ItemDelegate callBack)
         {
             this.text = text;
@@ -29,6 +31,9 @@ namespace Resonance
 
         public void Draw(MenuScreen screen, GameTime gameTime, bool selected)
         {
+            if (screen is PauseMenu) fontSize = 0.8f;
+            else fontSize = 1f;
+
             Color colour;
             if (selected) colour = Color.Orange;
             else colour = Color.White;
@@ -40,7 +45,7 @@ namespace Resonance
 
             double time = gameTime.TotalGameTime.TotalSeconds;
             float pulse = (float)Math.Sin(time * 6) + 1;
-            float scale = 1 + pulse * 0.05f * fade;
+            float scale = fontSize + pulse * 0.05f * fade;
 
             SpriteFont font = screen.Font;
             Vector2 msgSize = font.MeasureString(text);

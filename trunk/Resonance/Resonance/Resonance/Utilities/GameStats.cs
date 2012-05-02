@@ -42,7 +42,6 @@ namespace Resonance
 
         public void multiKill(int number)
         {
-            MusicHandler.playSound("multikill");
             bvsAtOnce = Math.Max(bvsAtOnce, number);
         }
 

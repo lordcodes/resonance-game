@@ -52,8 +52,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Fonts\MenuFont.spritefont">
-      <Name>MenuFont</Name>
+    <Compile Include="Drawing\Fonts\PlainMenuFont.spritefont">
+      <Name>PlainMenuFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
@@ -62,14 +62,14 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Fonts\MainMenuFont.spritefont">
-      <Name>MainMenuFont</Name>
+    <Compile Include="Drawing\Fonts\MenuFont.spritefont">
+      <Name>MenuFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
       <SubType>Designer</SubType>
     </Compile>
-    <Compile Include="Drawing\Fonts\MenuHeadingFont.spritefont">
-      <Name>MenuHeadingFont</Name>
+    <Compile Include="Drawing\Fonts\HeadingFont.spritefont">
+      <Name>HeadingFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
@@ -1416,18 +1416,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Sounds\firstblood.wav">
-      <Name>firstblood</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Sounds\multikill.wav">
-      <Name>multikill</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Drawing\Textures\eight.png">
       <Name>eight</Name>
       <Importer>TextureImporter</Importer>
@@ -1491,6 +1479,62 @@
   <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\bar3.png">
       <Name>bar3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen1.png">
+      <Name>LoadingScreen1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen2.png">
+      <Name>LoadingScreen2</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen3.png">
+      <Name>LoadingScreen3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen4.png">
+      <Name>LoadingScreen4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu5.png">
+      <Name>MainMenu5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu6.png">
+      <Name>MainMenu6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\Menus\Textures\MainMenu7.png">
+      <Name>MainMenu7</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen5.png">
+      <Name>LoadingScreen5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen6.png">
+      <Name>LoadingScreen6</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen7.png">
+      <Name>LoadingScreen7</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
