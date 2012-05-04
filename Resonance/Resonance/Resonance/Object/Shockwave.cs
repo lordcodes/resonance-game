@@ -90,10 +90,12 @@ namespace Resonance
         {
             radius *= (1 + GROWTH_RATE);
 
-            Matrix scale = Matrix.CreateScale((float) (1.0f + GROWTH_RATE), 1.0f, (float) (1.0f + GROWTH_RATE));
-            transform = Matrix.Multiply(transform, scale);
-            Matrix translate = Matrix.CreateTranslation((float)-GROWTH_RATE * position.X, 0.0f, (float)-GROWTH_RATE * position.Z);
-            transform = Matrix.Multiply(transform, translate);
+            Matrix scale;
+            Matrix.CreateScale((float) (1.0f + GROWTH_RATE), 1.0f, (float) (1.0f + GROWTH_RATE), out scale);
+            Matrix.Multiply(ref transform, ref scale, out transform);
+            Matrix translate;
+            Matrix.CreateTranslation((float)-GROWTH_RATE * position.X, 0.0f, (float)-GROWTH_RATE * position.Z, out translate);
+            Matrix.Multiply(ref transform, ref translate, out transform);
         }
 
         public void checkBadVibes() 

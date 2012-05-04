@@ -42,10 +42,11 @@ namespace Resonance
             Vector2 position = new Vector2(0f, screenSize.Y / 2 - 100 - Font.LineSpacing);
             for (int i = 0; i < MenuItems.Count; i++)
             {
+                MenuElement elem = MenuItems[i];
                 position.X = (int)screenSize.X / 2;
-                MenuItems[i].Position = position;
+                elem.Position = position;
 
-                position.Y += MenuItems[i].Size(this).Y + 100;
+                position.Y += elem.Size(this).Y + 100;
             }
         }
 

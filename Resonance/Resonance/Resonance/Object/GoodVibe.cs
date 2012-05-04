@@ -199,7 +199,6 @@ namespace Resonance
             {
                 if (waves[i].Radius >= Shockwave.MAX_RADIUS)
                 {
-                    DebugDisplay.update("Testing", waves[i].NumberHit.ToString() + " " + isInCombat.ToString());
                     if (waves[i].Colour == Shockwave.CYMBAL && waves[i].NumberHit > 1)
                     {
                         GameScreen.stats.multiKill(waves[i].NumberHit);
@@ -208,7 +207,6 @@ namespace Resonance
                     {
                         AdjustHealth(-2);
                     }
-                    //Program.game.Components.Remove(waves[i]);
                     Shockwave.addWave(waves[i]);
                     DrawableManager.Remove(waves[i]);
                     waves.RemoveAt(i);

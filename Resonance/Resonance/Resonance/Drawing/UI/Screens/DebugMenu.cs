@@ -67,13 +67,10 @@ namespace Resonance
 
         public void killBadVibes()
         {
-            Dictionary<string, Object> objects = ScreenManager.game.World.returnObjects();
-            foreach (var entry in objects)
+            List<Object> objects = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+            for(int i = 0; i < objects.Count; i++)
             {
-                if (entry.Value is BadVibe)
-                {
-                    ((BadVibe)entry.Value).kill();
-                }
+                ((BadVibe)objects[i]).kill();
             }
             ExitScreen();
         }

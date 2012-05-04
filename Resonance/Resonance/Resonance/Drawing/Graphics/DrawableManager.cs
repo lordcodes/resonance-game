@@ -12,8 +12,10 @@ namespace Resonance
     /// </summary>
     class DrawableManager
     {
-        private static HashSet<GameComponent> components = new HashSet<GameComponent>();
-        private static HashSet<GameComponent> componentsSecondary = new HashSet<GameComponent>();
+        //private static HashSet<GameComponent> components = new HashSet<GameComponent>();
+        //private static HashSet<GameComponent> componentsSecondary = new HashSet<GameComponent>();
+        private static List<GameComponent> components = new List<GameComponent>(1000);
+        private static List<GameComponent> componentsSecondary = new List<GameComponent>(1000);
         static Profile ThisSection = Profile.Get("Drawing3D");
 
         /// <summary>
@@ -45,10 +47,11 @@ namespace Resonance
             }
         }
 
-        private static void DrawSet(HashSet<GameComponent> components, GameTime time)
+        private static void DrawSet(List<GameComponent> components, GameTime time)
         {
-            foreach (GameComponent component in components)
+            for (int i = 0; i < components.Count; i++)
             {
+                GameComponent component = components[i];
                 if (component is DrawableGameComponent)
                 {
                     if (component is DynamicObject)
@@ -77,20 +80,20 @@ namespace Resonance
         /// <param name="time">The gameTime</param>
         public static void Update(GameTime time)
         {
-            foreach (GameComponent component in components)
+            int i;
+            for (i = 0; i < components.Count; i++)
             {
                 try
                 {
-                    component.Update(time);
+                    components[i].Update(time);
                 }
                 catch (Exception) { }
             }
-
-            foreach (GameComponent component in componentsSecondary)
+            for (i = 0; i < componentsSecondary.Count; i++)
             {
                 try
                 {
-                    component.Update(time);
+                    components[i].Update(time);
                 }
                 catch (Exception) { }
             }
