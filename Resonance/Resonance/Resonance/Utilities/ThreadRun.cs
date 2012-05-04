@@ -22,7 +22,7 @@ namespace Resonance
         /// </summary>
         /// <param name="functionToLoad">Function to run in a separate thread.</param>
         /// <param name="info">Information about what is being ran</param>
-        public void run(ItemDelegate runFunction, string info)
+        public void run(Action runFunction, string info)
         {
             isRunning = true;
             thread = new ThreadClass(runFunction, finished);
@@ -53,15 +53,15 @@ namespace Resonance
     /// </summary>
     class ThreadClass
     {
-        private ItemDelegate runFunction;
-        private ItemDelegate finishFunction;
+        private Action runFunction;
+        private Action finishFunction;
 
         /// <summary>
         /// Creates object that has a thread to carry out and thread to call once finished. 
         /// </summary>
         /// <param name="functionToLoad">Function to carry out</param>
         /// <param name="functionCalledWhenDone">Function to call once complete</param>
-        public ThreadClass(ItemDelegate runFunction, ItemDelegate finishFunction)
+        public ThreadClass(Action runFunction, Action finishFunction)
         {
             this.runFunction = runFunction;
             this.finishFunction = finishFunction;

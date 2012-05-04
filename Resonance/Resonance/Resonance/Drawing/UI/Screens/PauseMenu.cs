@@ -12,9 +12,9 @@ namespace Resonance
         public PauseMenu()
             : base("Paused")
         {
-            MenuElement resume = new MenuElement("Resume", new ItemDelegate(delegate { resumeGame(); }));
-            MenuElement quit = new MenuElement("Back to Main Menu", new ItemDelegate(delegate { quitGame(); }));
-            MenuElement quitCompletely = new MenuElement("Quit Game", new ItemDelegate(delegate { quitGameCompletely(); }));
+            MenuElement resume = new MenuElement("Resume", resumeGame);
+            MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
+            MenuElement quitCompletely = new MenuElement("Quit Game", quitGameCompletely);
 
             MenuItems.Add(resume);
             MenuItems.Add(quit);

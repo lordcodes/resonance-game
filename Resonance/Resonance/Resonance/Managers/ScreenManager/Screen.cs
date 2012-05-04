@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
@@ -35,6 +36,7 @@ namespace Resonance
             if (this is SettingsMenu)
             {
                 GameScreen.DIFFICULTY = ((SettingsMenu)this).CurrentDifficulty;
+                MediaPlayer.Volume = ((SettingsMenu)this).CurrentMusicVolume;
             }
             ScreenManager.removeScreen(this);
         }

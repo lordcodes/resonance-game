@@ -18,10 +18,10 @@ namespace Resonance
         public MainMenu()
             : base("Welcome to the Resonance Chamber")
         {
-            MenuElement play = new MenuElement("Enter the Resonance Chamber", new ItemDelegate(delegate { startGame(); }));
-            MenuElement settings = new MenuElement("Settings", new ItemDelegate(delegate { openSettings(); }));
-            MenuElement highScores = new MenuElement("High Scores", new ItemDelegate(delegate { openHighScores(); }));
-            MenuElement quit = new MenuElement("Quit Game", new ItemDelegate(new ItemDelegate(delegate { quitGame(); })));
+            MenuElement play = new MenuElement("Enter the Resonance Chamber", startGame);
+            MenuElement settings = new MenuElement("Settings", openSettings);
+            MenuElement highScores = new MenuElement("High Scores", openHighScores);
+            MenuElement quit = new MenuElement("Quit Game", quitGame);
 
             MenuItems.Add(play);
             MenuItems.Add(settings);
@@ -106,7 +106,7 @@ namespace Resonance
 
         private void openSettings()
         {
-            ScreenManager.addScreen(new SettingsMenu());
+            ScreenManager.addScreen(ScreenManager.settingsMenu);
         }
 
         private void openHighScores()

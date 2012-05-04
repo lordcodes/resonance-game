@@ -28,7 +28,7 @@ namespace Resonance
         /// </summary>
         /// <param name="functionToLoad">Function to load in a separate thread.</param>
         /// <param name="info">Information about what is being loaded</param>
-        public static void load(ItemDelegate functionToLoad, string info)
+        public static void load(Action functionToLoad, string info)
         {
             loading = true;
             thread = new ThreadObject(functionToLoad, finished);
@@ -52,15 +52,15 @@ namespace Resonance
     /// </summary>
     class ThreadObject
     {
-        private ItemDelegate functionToLoad;
-        private ItemDelegate functionCalledWhenDone;
+        private Action functionToLoad;
+        private Action functionCalledWhenDone;
 
         /// <summary>
         /// Creates object that has a thread to carry out and thread to call once finished. 
         /// </summary>
         /// <param name="functionToLoad">Function to carry out</param>
         /// <param name="functionCalledWhenDone">Function to call once complete</param>
-        public ThreadObject(ItemDelegate functionToLoad, ItemDelegate functionCalledWhenDone)
+        public ThreadObject(Action functionToLoad, Action functionCalledWhenDone)
         {
             this.functionToLoad = functionToLoad;
             this.functionCalledWhenDone = functionCalledWhenDone;

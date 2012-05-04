@@ -205,6 +205,7 @@ namespace Resonance
 
         public int Selected
         {
+            get { return selected; }
             set { selected = value; }
         }
     }

@@ -22,12 +22,12 @@ namespace Resonance
             //Kill all BVs
             //Exit the Game
 
-            MenuElement resume = new MenuElement("Resume Game", new ItemDelegate(delegate { resumeGame(); }));
-            MenuElement health = new MenuElement("Restore GV to Full Health", new ItemDelegate(delegate { fullHealth(); }));
-            MenuElement resetPos = new MenuElement("Reset Object Positions", new ItemDelegate(delegate { softReset(); }));
-            MenuElement addBV = new MenuElement("Add a BV to the World", new ItemDelegate(delegate { addBadVibe(); }));
-            MenuElement killBVs = new MenuElement("Kill All the BVs", new ItemDelegate(delegate { killBadVibes(); }));
-            MenuElement quit = new MenuElement("Quit the Game", new ItemDelegate(delegate { quitGame(); }));
+            MenuElement resume = new MenuElement("Resume Game", resumeGame);
+            MenuElement health = new MenuElement("Restore GV to Full Health", fullHealth);
+            MenuElement resetPos = new MenuElement("Reset Object Positions", softReset);
+            MenuElement addBV = new MenuElement("Add a BV to the World", addBadVibe);
+            MenuElement killBVs = new MenuElement("Kill All the BVs", killBadVibes);
+            MenuElement quit = new MenuElement("Quit the Game", quitGame);
 
             MenuItems.Add(resume);
             MenuItems.Add(health);

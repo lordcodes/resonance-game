@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-delegate void ItemDelegate();
 
 namespace Resonance
 {
@@ -12,14 +11,14 @@ namespace Resonance
     {
         string text;
         Vector2 position;
-        private ItemDelegate callBack;
+        private Action callBack;
         Texture2D background;
         float fade;
         bool mainMenu = false;
 
         float fontSize;
 
-        public MenuElement(string text, ItemDelegate callBack)
+        public MenuElement(string text, Action callBack)
         {
             this.text = text;
             this.callBack = callBack;
@@ -69,7 +68,7 @@ namespace Resonance
             set { position = value; }
         }
 
-        public ItemDelegate CallBack
+        public Action CallBack
         {
             get { return callBack; }
         }
