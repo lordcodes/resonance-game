@@ -55,7 +55,6 @@ namespace Resonance
 
         static Profile DrawSection = Profile.Get("DrawingTotal");
         static Profile UpdateSection = Profile.Get("UpdateTotal");
-        static Profile UpdateDrawSection = Profile.Get("UpdateDrawableObjects");
 
         //Allocated variables
         string[] deadVibes;
@@ -112,11 +111,9 @@ namespace Resonance
                 world = new World();
 
                 //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen
-                //MenuActions.loadLevel(1);
                 loadLevel(zone);
                 Drawing.reset();
-                //musicHandler.getTrack().playTrack(); // move after intro/countdown
-
+                System.GC.Collect();
                 isLoaded = true;
             }
         }
@@ -169,8 +166,7 @@ namespace Resonance
             }
             else if (debug)
             {
-                mode.changeZone();
-                //ScreenManager.addScreen(ScreenManager.debugMenu);
+                ScreenManager.addScreen(ScreenManager.debugMenu);
             }
 
             //Camera
@@ -188,15 +184,10 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            //System.Threading.Thread.Sleep(1);
             using (IDisposable d = UpdateSection.Measure())
             {
-                //if (showHints) introSequence();
-                using (IDisposable e = UpdateDrawSection.Measure())
-                {
-                    DrawableManager.Update(gameTime);
-                    Drawing.Update(gameTime);
-                }
+                DrawableManager.Update(gameTime);
+                Drawing.Update(gameTime);
                 MusicHandler.getTrack().playTrack();
 
                 float health = getGV().healthFraction();
@@ -215,9 +206,11 @@ namespace Resonance
                 getGV().updateWaves();
 
                 //Update pickups
-                if (USE_PICKUP_SPAWNER) PickupManager.update();
-                //List<Pickup> pickups = world.returnPickups();
-                //world.updatePickups(pickups);
+                if (USE_PICKUP_SPAWNER)
+                {
+                    PickupManager.update();
+                    pickupSpawner.update();
+                }
                 //PickupManager.updateTimeRemaining();
 
                 world.update();
@@ -228,9 +221,6 @@ namespace Resonance
                 if (WeatherManager.isPaused()) WeatherManager.pause(false);
 
                 if (USE_WHEATHER) WeatherManager.update();
-
-                //Update Spawners
-                if (USE_PICKUP_SPAWNER) pickupSpawner.update();
 
                 if(GAME_CAN_END)
                 {
@@ -288,34 +278,9 @@ namespace Resonance
             ParticleEmitterManager.pause(true);
         }
 
-        private void introSequence()
-        {
-            //for (int i = 0; i < 600; i++)
-            //{
-            //    DebugDisplay.update("test", iteration.ToString());
-            //}
-            //ScreenManager.addScreen(new HintScreen());
-
-            //Display hints
-            //string msg = "BV description";
-            //ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.REMOVE_SCREEN));
-
-            //msg = "Health, Nitro, Shield and Freeze description";
-            //ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.REMOVE_SCREEN));
-
-            //showHints = false;
-        }
-
         // Called when game finished (won or lost).
         private void endGame()
         {
-            //String r;
-            //int finalScore;
-            //if (GV_KILLED) r = "GV Killed."; else r = "Game won!";
-            //finalScore = mode.finaliseScore(GV_KILLED, stats.Score);
-            //DebugDisplay.update("Game Over! State", r);
-            //DebugDisplay.update("Final Score", finalScore.ToString());
-
             if (GV_KILLED) WeatherManager.playLightning();
 
             ScreenManager.addScreen(new EndGameScreen(stats));
@@ -347,31 +312,7 @@ namespace Resonance
     texture.SaveAsPng(stream, w, h);
     stream.Close();
 
-#elif XBOX
-            throw new NotSupportedException();
 #endif 
-            //graphics.GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            //RenderTarget2D render = new RenderTarget2D(graphics.GraphicsDevice, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height, false, SurfaceFormat.Color, DepthFormat.Depth24Stencil8);
-
-            //graphics.GraphicsDevice.SetRenderTarget(render);
-
-            //spriteBatch.Begin();
-            //spriteBatch.Draw(texture, Vector2.Zero, Color.White);
-            //spriteBatch.End();
-
-            //System.IO.FileStream fs = new System.IO.FileStream(@"screenshot.png", System.IO.FileMode.OpenOrCreate);
-
-            //graphics.GraphicsDevice.SetRenderTarget(null);
-
-            //render.SaveAsPng(fs, graphics.GraphicsDevice.Viewport.Width, graphics.GraphicsDevice.Viewport.Height);
-
-            //Texture2D newTexture = render;
-            //fs.Flush();
-        }
-
-        private void updateStats()
-        {
         }
 
         /// <summary>

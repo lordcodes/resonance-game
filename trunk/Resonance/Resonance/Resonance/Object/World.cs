@@ -264,52 +264,40 @@ namespace Resonance
 
         public void readXmlFile(string levelName, ContentManager Content)
         {
-            //to test the level editor uncomment the next two lines
-            StaticObject ground = null;
-            StaticObject walls = null;
-            StaticObject tree = null;
-            StaticObject mush = null;
-            StaticObject boss = null;
-            //Projectile_BV projBV = null;
-            GoodVibe player = null;
-            StoredObjects obj = Content.Load<StoredObjects>(levelName);
+            StoredObjects objs = Content.Load<StoredObjects>(levelName);
             clear();
 
-            for (int i = 0; i < obj.list.Count; i++)
+            for (int i = 0; i < objs.list.Count; i++)
             {
-                if (obj.list[i].type.Equals("Ground") == true)
+                StoredObject obj = objs.list[i];
+                Vector3 pos = new Vector3(obj.xWorldCoord, obj.yWorldCoord, obj.zWorldCoord);
+                if (obj.type.Equals("Ground") == true)
                 {
-                    ground = new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero);
-                    walls = new StaticObject(GameModels.WALLS, "Walls", new Vector3(0,-1,0));
-                    addObject(ground);
-                    addObject(walls);
+                    addObject(new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero));
+                    addObject(new StaticObject(GameModels.WALLS, "Walls", new Vector3(0, -1, 0)));
                 }
-                if (obj.list[i].type.Equals("Boss") == true)
+                if (obj.type.Equals("Boss") == true)
                 {
-                    boss = new StaticObject(GameModels.BOSS, "Boss", new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    addObject(boss);
-                    BulletManager.updateBossPosition(new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    addObject(new StaticObject(GameModels.BOSS, "Boss", pos));
+                    BulletManager.updateBossPosition(pos);
                 }
-                if (obj.list[i].type.Equals("Good_vibe") == true)
+                if (obj.type.Equals("Good_vibe") == true)
                 {
-                    player = new GoodVibe(GameModels.GOOD_VIBE, "Player", new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", pos);
                     addObject(player);
                     player.calculateSize();
                 }
-                if (obj.list[i].type.Equals("Tree") == true)
+                if (obj.type.Equals("Tree") == true)
                 {
-                    tree = new StaticObject(GameModels.TREE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    addObject(tree);
+                    addObject(new StaticObject(GameModels.TREE, obj.identifier, pos));
                 }
-                if (obj.list[i].type.Equals("House") == true)
+                if (obj.type.Equals("House") == true)
                 {
-                    mush = new StaticObject(GameModels.HOUSE, obj.list[i].identifier, new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
-                    addObject(mush);
+                    addObject(new StaticObject(GameModels.HOUSE, obj.identifier, pos));
                 }
-                
-                if (obj.list[i].type.Equals("BVSpawner") == true)
+                if (obj.type.Equals("BVSpawner") == true)
                 {
-                    BVSpawnManager.addNewSpawner(new Vector3(obj.list[i].xWorldCoord, obj.list[i].yWorldCoord, obj.list[i].zWorldCoord));
+                    BVSpawnManager.addNewSpawner(pos);
                 }
             }
         }
