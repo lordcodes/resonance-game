@@ -28,9 +28,9 @@ namespace Resonance
 
         public void loadTextures(ContentManager content)
         {
-            HUDTextureBare = content.Load<Texture2D>("Drawing/HUD/Textures/bar"); //empty bar with border
-            HUDTextureFull = content.Load<Texture2D>("Drawing/HUD/Textures/bar2"); //full health gradient
-            HUDAlpha = content.Load<Texture2D>("Drawing/HUD/Textures/bar3"); //sliding overlay to mask health gradient
+            HUDTextureBare = content.Load<Texture2D>("Drawing/HUD/Textures/healthbarempty"); //empty bar with border
+            HUDTextureFull = content.Load<Texture2D>("Drawing/HUD/Textures/healthbarfull"); //full health gradient
+            HUDAlpha = content.Load<Texture2D>("Drawing/HUD/Textures/healthbaralpha"); //sliding overlay to mask health gradient
 
             HUDBuffer = new RenderTarget2D(graphics.GraphicsDevice, HUDTextureBare.Width, HUDTextureBare.Height, true, SurfaceFormat.Color, DepthFormat.Depth24);
         }
@@ -52,7 +52,8 @@ namespace Resonance
             // Draw the full gauge to our buffer, no blending
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque);
             //spriteBatch.Begin(SpriteBlendMode.None, SpriteSortMode.Immediate, SaveStateMode.SaveState);
-            spriteBatch.Draw(HUDTextureFull, new Vector2(-7, ScreenManager.pixelsY(0))/*, new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight)*/, Color.White);
+            spriteBatch.Draw(HUDTextureFull, new Vector2(0, ScreenManager.pixelsY(0))/*, new Rectangle(0, HUDTextureHeight, HUDTexture.Width, HUDTextureHeight)*/, Color.White);
+            //spriteBatch.Draw(HUDTextureFull, new Rectangle(0, 0, ScreenManager.pixelsX(HUDTextureFull.Width), ScreenManager.pixelsY(HUDTextureFull.Height)), new Rectangle(0, 0, HUDTextureFull.Width, HUDTextureFull.Height), Color.White);
             spriteBatch.End();
 
 
@@ -73,6 +74,7 @@ namespace Resonance
 
             int healthLimit = ScreenManager.pixelsX(0) + HUDTextureBare.Width * health / GoodVibe.MAX_HEALTH;
             spriteBatch.Draw(HUDAlpha, new Vector2(/*Math.Max(ms.X, ScreenManager.pixelsX(0))*/ healthLimit, ScreenManager.pixelsY(0)), /*new Rectangle(0, HUDTextureHeight * 2, HUDTexture.Width, HUDTextureHeight),*/ Color.White);
+            //spriteBatch.Draw(HUDAlpha, new Rectangle(healthLimit, 0, ScreenManager.pixelsX(HUDAlpha.Width), ScreenManager.pixelsY(HUDAlpha.Height)), new Rectangle(0, 0, HUDAlpha.Width, HUDAlpha.Height), Color.White);
             spriteBatch.End();
             //spriteBatch.GraphicsDevice.BlendState = old;
 
@@ -96,13 +98,15 @@ namespace Resonance
         public void draw(SpriteBatch spriteBatch)
         {
 
-            Vector2 pos = new Vector2(ScreenManager.pixelsX(20), ScreenManager.pixelsY(10));
-            spriteBatch.Draw(HUDTextureBare, pos, new Rectangle(0, 0, HUDTextureBare.Width, HUDTextureBare.Height), Color.White);
+            Vector2 pos = new Vector2(ScreenManager.pixelsX(140), ScreenManager.pixelsY(10));
+            //spriteBatch.Draw(HUDTextureBare, pos, new Rectangle(0, 0, HUDTextureBare.Width, HUDTextureBare.Height), Color.White);
+            spriteBatch.Draw(HUDTextureBare, new Rectangle(ScreenManager.pixelsX(140), ScreenManager.pixelsY(10), ScreenManager.pixelsX(HUDTextureBare.Width), ScreenManager.pixelsY(HUDTextureBare.Height)), new Rectangle(0, 0, HUDTextureBare.Width, HUDTextureBare.Height), Color.White);
             //spriteBatch.Draw(HUDTexture, pos, new Rectangle(0, 0, HUDTexture.Width, HUDTextureHeight), Color.White);
 
 
             // Use GetTexture to return the texture of our RenderTarget2D
-            spriteBatch.Draw((Texture2D)HUDBuffer, pos, Color.White);
+            //spriteBatch.Draw((Texture2D)HUDBuffer, pos, Color.White);
+            spriteBatch.Draw((Texture2D)HUDBuffer, new Rectangle(ScreenManager.pixelsX(140), ScreenManager.pixelsY(10), ScreenManager.pixelsX(HUDTextureBare.Width), ScreenManager.pixelsY(HUDTextureBare.Height)),new Rectangle(0, 0, HUDTextureBare.Width, HUDTextureBare.Height), Color.White);
             //spriteBatch.End();
 
             //spriteBatch.Begin();
