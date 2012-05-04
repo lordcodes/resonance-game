@@ -49,7 +49,6 @@ namespace Resonance
         {
             content = newContent;
             song = content.Load<Song>("Music/song");
-            MediaPlayer.Volume = (MediaPlayer.Volume * 0.5f);
             MediaPlayer.IsRepeating = false;
             state = PlayState.STOPPED;
             String path = newContent.RootDirectory + "/Music/song.timing";
@@ -59,9 +58,6 @@ namespace Resonance
             else if (GameScreen.DIFFICULTY <= GameScreen.MEDIUM)   mode = NoteMode.HALF;
             else                                       mode = NoteMode.QUARTER;
 
-                 //mode = NoteMode.WHOLE;
-
-            //MediaPlayer.Volume /= 5;
             StreamReader reader = new StreamReader(path);
             beatLength = Convert.ToInt32(reader.ReadLine());
             halfBeatLength = beatLength >> 1;
@@ -78,7 +74,6 @@ namespace Resonance
         public void reset()
         {
             song = content.Load<Song>("Music/song");
-            MediaPlayer.Volume = (MediaPlayer.Volume * 0.5f);
             state = PlayState.STOPPED;
             if (GameScreen.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
         }

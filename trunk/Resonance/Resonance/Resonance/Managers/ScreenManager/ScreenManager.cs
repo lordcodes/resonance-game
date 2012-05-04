@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
@@ -30,6 +31,7 @@ namespace Resonance
         public static PauseMenu pauseMenu;
         public static DebugMenu debugMenu;
         public static MainMenu mainMenu;
+        public static SettingsMenu settingsMenu;
 
 
         public ScreenManager(ResonanceGame game)
@@ -61,6 +63,7 @@ namespace Resonance
 
             blankTex = content.Load<Texture2D>("Drawing/Textures/texPixel");
             MusicHandler.init(content);
+            settingsMenu = new SettingsMenu();
             foreach (Screen screen in screens)
             {
                 screen.LoadContent();
@@ -69,6 +72,7 @@ namespace Resonance
 
         public override void Update(GameTime gameTime)
         {
+            Console.WriteLine("VOLUME: " + MediaPlayer.Volume);
             input.Update();
 
             MusicHandler.AudioEngine.Update();

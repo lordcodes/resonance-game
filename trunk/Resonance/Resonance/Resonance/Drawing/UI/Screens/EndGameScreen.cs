@@ -17,9 +17,9 @@ namespace Resonance
         {
             this.stats = stats;
 
-            MenuElement playAgain = new MenuElement("Play Again", new ItemDelegate(delegate { playGameAgain(); }));
-            MenuElement quit = new MenuElement("Back to Main Menu", new ItemDelegate(delegate { quitGame(); }));
-            MenuElement quitCompletely = new MenuElement("Quit Game", new ItemDelegate(delegate { quitGameCompletely(); }));
+            MenuElement playAgain = new MenuElement("Play Again", playGameAgain);
+            MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
+            MenuElement quitCompletely = new MenuElement("Quit Game", quitGameCompletely);
 
             MenuItems.Add(playAgain);
             MenuItems.Add(quit);
