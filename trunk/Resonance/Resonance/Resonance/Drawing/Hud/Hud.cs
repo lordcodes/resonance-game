@@ -127,9 +127,9 @@ namespace Resonance
             drawBadVibeArmour();
             drawDamage(gameTime);
             highlightedPower();
-            drawFreezeBar();
-            drawNitroBar();
-            drawShieldBar();
+            //drawFreezeBar();
+            //drawNitroBar();
+            //drawShieldBar();
             BulletManager.draw(spriteBatch);            
             drawThrobber();
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
