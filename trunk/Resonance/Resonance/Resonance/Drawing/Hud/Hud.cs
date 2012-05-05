@@ -63,16 +63,16 @@ namespace Resonance
         /// </summary>
         public void loadContent()
         {
-            font        = Content.Load<SpriteFont>         ("Drawing/Fonts/DebugFont");
-            healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
-            healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
-            drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
-            rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
-            block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
-            tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
-            damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
-            scoreFont   = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
-            mask        = Content.Load<Texture2D>("Drawing/HUD/Textures/minimapalpha");
+            font        = Content.Load<SpriteFont>         ("Drawing/Fonts/DebugFont"             );
+            healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar"      );
+            healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice"    );
+            drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour"         );
+            rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest"    );
+            block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block"          );
+            tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo"          );
+            damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage"         );
+            scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
+            mask        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/minimapalpha"   );
 
 
             if (GameScreen.USE_MINIMAP)
@@ -129,14 +129,31 @@ namespace Resonance
             highlightedPower();
             //drawFreezeBar();
             //drawNitroBar();
-            //drawShieldBar();
-            BulletManager.draw(spriteBatch);            
+            //drawShieldBar();         
             drawThrobber();
+            drawCountDown();
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
             drawLightning();
             spriteBatch.End();
             
             Drawing.resetGraphics();
+        }
+
+        private static void drawCountDown()
+        {
+            TimeSpan time = ScreenManager.game.CountDown;
+            if (time.Seconds > 0)
+            {
+                scoreFont.drawLeft(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
+            }
+            else if (time.Milliseconds < 1000 && time.Milliseconds > 0)
+            {
+                spriteBatch.DrawString(font, "GET READY!", new Vector2(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15)), Color.White);
+            }
+            else if (time.Milliseconds < 0 && time.Milliseconds > -2000)
+            {
+                spriteBatch.DrawString(font, "FIGHT!", new Vector2(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15)), Color.White);
+            }
         }
 
         //draws a bullet in the set position

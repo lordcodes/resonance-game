@@ -51,6 +51,10 @@ namespace Resonance
         bool isLoaded;
         int iteration = 0;
 
+        TimeSpan countDown;
+        bool intro;
+        private ImportedCustomFont countDownFont;
+
         private int zone;
 
         static Profile DrawSection = Profile.Get("DrawingTotal");
@@ -65,6 +69,8 @@ namespace Resonance
             isLoaded = false;
             GV_KILLED = false;
             this.ScreenManager = scrn;
+            countDown = TimeSpan.FromSeconds(4);
+            intro = false;
             mode = new GameMode(GameMode.TIME_ATTACK);
             MusicHandler.reset();
             stats = new GameStats();
@@ -105,6 +111,8 @@ namespace Resonance
 
             if (!isLoaded)
             {
+                //countDownFont = ScreenManager.Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
+                countDownFont = ScreenManager.Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
                 BadVibe.initialiseBank();
                 CameraMotionManager.initCamera();
                 Drawing.loadContent();
@@ -160,21 +168,27 @@ namespace Resonance
             bool pad2Ever = input.PlayerTwoHasBeenConnected;
             bool connected = input.PlayerOne.IsConnected;
 
-            if ((pad1Ever && !connected) || pause)
+            if (pad1Ever && !connected)
             {
                 ScreenManager.addScreen(ScreenManager.pauseMenu);
             }
-            else if (debug)
+            if (intro)
             {
-                ScreenManager.addScreen(ScreenManager.debugMenu);
+                if ((pad1Ever && !connected) || pause)
+                {
+                    ScreenManager.addScreen(ScreenManager.pauseMenu);
+                }
+                else if (debug)
+                {
+                    ScreenManager.addScreen(ScreenManager.debugMenu);
+                }
+                //Player One
+                GVManager.input(input);
+                //Player Two
+                DrumManager.input(input);
             }
-
             //Camera
             CameraMotionManager.update(input);
-            //Player One
-            GVManager.input(input);
-            //Player Two
-            DrumManager.input(input);
         }
 
         /// <summary>
@@ -186,82 +200,95 @@ namespace Resonance
         {
             using (IDisposable d = UpdateSection.Measure())
             {
-                DrawableManager.Update(gameTime);
-                Drawing.Update(gameTime);
-                MusicHandler.getTrack().playTrack();
-
-                float health = getGV().healthFraction();
-                if (health < 0.1) MusicHandler.HeartBeat = true;
-                else MusicHandler.HeartBeat = false;
-
-                //Update bad vibe positions, frozen status, detect if GV
-                //in combat and break rest layers
-                if (USE_BADVIBE_AI)
+                if(countDown.Seconds > -2) countDown -= gameTime.ElapsedGameTime;
+                if(countDown < TimeSpan.Zero && !intro)
                 {
-                    int numberKilled = processBadVibes();
-                    removeDeadBadVibes(numberKilled);
+                    intro = true;
                 }
-
-                // Update shockwaves
-                getGV().updateWaves();
-
-                //Update pickups
-                if (USE_PICKUP_SPAWNER)
+                if (intro)
                 {
-                    PickupManager.update();
-                    pickupSpawner.update();
-                }
-                //PickupManager.updateTimeRemaining();
+                    DrawableManager.Update(gameTime);
+                    Drawing.Update(gameTime);
+                    MusicHandler.getTrack().playTrack();
 
-                world.update();
+                    float health = getGV().healthFraction();
+                    if (health < 0.1) MusicHandler.HeartBeat = true;
+                    else MusicHandler.HeartBeat = false;
 
-                MusicHandler.Update();
+                    //Update bad vibe positions, frozen status, detect if GV
+                    //in combat and break rest layers
+                    if (USE_BADVIBE_AI)
+                    {
+                        int numberKilled = processBadVibes();
+                        removeDeadBadVibes(numberKilled);
+                    }
 
-                if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
-                if (WeatherManager.isPaused()) WeatherManager.pause(false);
+                    // Update shockwaves
+                    getGV().updateWaves();
 
-                if (USE_WHEATHER) WeatherManager.update();
+                    //Update pickups
+                    if (USE_PICKUP_SPAWNER)
+                    {
+                        PickupManager.update();
+                        pickupSpawner.update();
+                    }
+                    //PickupManager.updateTimeRemaining();
 
-                if(GAME_CAN_END)
-                {
-                    if (GV_KILLED || mode.terminated()) {
-                        if (!preEndGameTimer.IsRunning) {
-                            preEndGameTimer.Start();
-                            if (!GV_KILLED) MusicHandler.playSound("winwhoosh");
+                    world.update();
+
+                    MusicHandler.Update();
+
+                    if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
+                    if (WeatherManager.isPaused()) WeatherManager.pause(false);
+
+                    if (USE_WHEATHER) WeatherManager.update();
+
+                    if (GAME_CAN_END)
+                    {
+                        if (GV_KILLED || mode.terminated())
+                        {
+                            if (!preEndGameTimer.IsRunning)
+                            {
+                                preEndGameTimer.Start();
+                                if (!GV_KILLED) MusicHandler.playSound("winwhoosh");
+                            }
+                        }
+
+                        if (preEndGameTimer.ElapsedMilliseconds >= preEndGameDuration)
+                        {
+                            endGame();
+                        }
+                        else if (preEndGameTimer.IsRunning)
+                        {
+                            Vector3 lt = WeatherManager.getCurrentAmbientLight();
+                            Vector3 newLt;
+                            if (!GV_KILLED) newLt = new Vector3(lt.X + 0.05f, lt.Y + 0.05f, lt.Z + 0.05f);
+                            else newLt = new Vector3(lt.X - 0.01f, lt.Y - 0.05f, lt.Z - 0.05f);
+                            WeatherManager.forceAmbientLight(newLt);
+                            Drawing.setAmbientLight(newLt);
                         }
                     }
 
-                    if (preEndGameTimer.ElapsedMilliseconds >= preEndGameDuration) {
-                        endGame();
-                    } else if (preEndGameTimer.IsRunning) {
-                        Vector3 lt = WeatherManager.getCurrentAmbientLight();
-                        Vector3 newLt;
-                        if (!GV_KILLED) newLt = new Vector3(lt.X + 0.05f, lt.Y + 0.05f, lt.Z + 0.05f);
-                        else            newLt = new Vector3(lt.X - 0.01f , lt.Y - 0.05f , lt.Z - 0.05f);
-                        WeatherManager.forceAmbientLight(newLt);
-                        Drawing.setAmbientLight(newLt);
-                    }
+                    //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
+
+                    // Recoded in Hud.cs
+                    /*if (musicHandler.getTrack().inTime() > 0.8f) {
+                        if (!beatTested) {
+                            //musicHandler.playSound("chink");
+                            DebugDisplay.update("Hit", "Now!");
+                            beatTested = true;
+
+                            Game.getGV().showBeat();
+                        }
+                    } else {
+                        if (beatTested) {
+                            beatTested = false;
+                            //musicHandler.playSound("chink");
+                            DebugDisplay.update("Hit", "Not now!");
+                        }
+                    }*/
+                    //}
                 }
-
-                //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
-
-                // Recoded in Hud.cs
-                /*if (musicHandler.getTrack().inTime() > 0.8f) {
-                    if (!beatTested) {
-                        //musicHandler.playSound("chink");
-                        DebugDisplay.update("Hit", "Now!");
-                        beatTested = true;
-
-                        Game.getGV().showBeat();
-                    }
-                } else {
-                    if (beatTested) {
-                        beatTested = false;
-                        //musicHandler.playSound("chink");
-                        DebugDisplay.update("Hit", "Not now!");
-                    }
-                }*/
-                //}
 
                 iteration++;
                 if (iteration == 60) iteration = 0;
@@ -372,9 +399,6 @@ namespace Resonance
                 }
             }
 
-           
-            if (BulletManager.content == null)
-                BulletManager.init(ScreenManager.Content);
             BulletManager.updateBullet();
             
             gv.FreezeActive = false;
@@ -401,10 +425,12 @@ namespace Resonance
 
         public World World
         {
-            get
-            {
-                return world;
-            }
+            get { return world; }
+        }
+
+        public TimeSpan CountDown
+        {
+            get { return countDown; }
         }
 
         /// <summary>
