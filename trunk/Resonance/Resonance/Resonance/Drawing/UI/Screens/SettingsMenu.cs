@@ -16,7 +16,7 @@ namespace Resonance
         Vector2 begSize;
         Vector2 lrOrigin;
 
-        float currentMusicVolume;
+        int currentMusicVolume;
 
         public SettingsMenu()
             : base("Settings")
@@ -39,7 +39,7 @@ namespace Resonance
             difficulties.Add("Expert");
             difficulties.Add("Insane");
 
-            currentMusicVolume = MediaPlayer.Volume;
+            currentMusicVolume = (int)(MediaPlayer.Volume * 10);
         }
 
         public override void LoadContent()
@@ -73,26 +73,28 @@ namespace Resonance
             {
                 if (Selected == 0)
                 {
-                    currentDifficulty--;
-                    if (currentDifficulty < 0) currentDifficulty = 5;
+                    GameScreen.DIFFICULTY--;
+                    if (GameScreen.DIFFICULTY < 0) GameScreen.DIFFICULTY = 5;
                 }
                 else if (Selected == 1)
                 {
-                    currentMusicVolume -= 0.1f;
-                    if (currentMusicVolume < 0) currentMusicVolume = 1f;
+                    currentMusicVolume--;
+                    if (currentMusicVolume < 0) currentMusicVolume = 10;
+                    MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
                 }
             }
             else if (right)
             {
                 if (Selected == 0)
                 {
-                    currentDifficulty++;
-                    if (currentDifficulty > 5) currentDifficulty = 0;
+                    GameScreen.DIFFICULTY++;
+                    if (GameScreen.DIFFICULTY > 5) GameScreen.DIFFICULTY = 0;
                 }
                 else if (Selected == 1)
                 {
-                    currentMusicVolume += 0.1f;
-                    if (currentMusicVolume > 10f) currentMusicVolume = 0;
+                    currentMusicVolume++;
+                    if (currentMusicVolume > 10) currentMusicVolume = 0;
+                    MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
                 }
             }
         }
@@ -124,31 +126,25 @@ namespace Resonance
 
             Vector2 difficultyPos = MenuItems[0].Position;
             difficultyPos.X = screenSize.X + 120;
-            Vector2 msgSize = Font.MeasureString(difficulties[currentDifficulty]);
+            Vector2 msgSize = Font.MeasureString(difficulties[GameScreen.DIFFICULTY]);
             Vector2 textOrigin = new Vector2(msgSize.X / 2, msgSize.Y / 2);
             Vector2 pos = difficultyPos;
             pos.X -= begSize.X / 2;
             ScreenManager.SpriteBatch.DrawString(Font, "<", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
-            ScreenManager.SpriteBatch.DrawString(Font, difficulties[currentDifficulty], difficultyPos, Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+            ScreenManager.SpriteBatch.DrawString(Font, difficulties[GameScreen.DIFFICULTY], difficultyPos, Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
             pos.X += begSize.X;
             ScreenManager.SpriteBatch.DrawString(Font, ">", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
 
             x = pos.X -= begSize.X;
             y = MenuItems[1].Position.Y - 5;
 
-            float i;
-            for (i = 0; i < currentMusicVolume; i += 0.1f)
+            for (int i = 0; i < 10; i++)
             {
-                ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
+                if (i < currentMusicVolume) ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
+                else ScreenManager.SpriteBatch.Draw(Bgs[2], new Vector2(x, y), Color.White);
                 x += 25;
             }
-            for (; i < 1f; i += 0.1f)
-            {
-                ScreenManager.SpriteBatch.Draw(Bgs[2], new Vector2(x, y), Color.White);
-                x += 25;
-            }
-
-            //ScreenManager.SpriteBatch.DrawString(Font, currentMusicVolume.ToString(), difficultyPos, Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+            //ScreenManager.SpriteBatch.DrawString(Font, currentMusicVolume.ToString(), new Vector2(500,500), Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
         }
 
         private void toMainMenu()
@@ -158,24 +154,15 @@ namespace Resonance
 
         private void changeDifficulty()
         {
-            currentDifficulty++;
-            if (currentDifficulty > 5) currentDifficulty = 0;
+            GameScreen.DIFFICULTY++;
+            if (GameScreen.DIFFICULTY > 5) GameScreen.DIFFICULTY = 0;
         }
 
         private void changeMusicVolume()
         {
-            currentMusicVolume += 0.1f;
-            if (currentMusicVolume > 10f) currentMusicVolume = 0;
-        }
-
-        public int CurrentDifficulty
-        {
-            get { return currentDifficulty; }
-        }
-
-        public float CurrentMusicVolume
-        {
-            get { return currentMusicVolume; }
+            currentMusicVolume++;
+            if (currentMusicVolume > 10) currentMusicVolume = 0;
+            MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
         }
     }
 }
