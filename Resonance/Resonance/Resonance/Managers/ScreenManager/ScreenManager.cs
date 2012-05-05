@@ -72,7 +72,6 @@ namespace Resonance
 
         public override void Update(GameTime gameTime)
         {
-            Console.WriteLine("VOLUME: " + MediaPlayer.Volume);
             input.Update();
 
             MusicHandler.AudioEngine.Update();
