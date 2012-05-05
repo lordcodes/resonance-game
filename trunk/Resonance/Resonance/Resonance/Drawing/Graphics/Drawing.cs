@@ -444,17 +444,17 @@ namespace Resonance
                     playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
                 }
 
+                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
                 if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
                 {
                     blend = true;
                     graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+                    graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
                 }
 
-                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
                 gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
-
-                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
 
                 if (worldObject is BadVibe)
                 {
@@ -472,6 +472,7 @@ namespace Resonance
         {
             graphics.GraphicsDevice.BlendState = BlendState.Opaque;
             graphics.GraphicsDevice.DepthStencilState = DepthStencilState.Default;
+            graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearWrap;
         }
 
         /// <summary>

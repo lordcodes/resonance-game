@@ -20,6 +20,9 @@ namespace Resonance
         private Vector3 pointLightPosition;
         private string currentTechnique = "";
         private bool lights;
+        private Color currentFogColor;
+        private float currentFogStartDistance;
+        private float currentFogEndDistance;
 
         public string Technique
         {
@@ -41,6 +44,20 @@ namespace Resonance
                 {
                     currentTexture = value;
                     Effect.Parameters["ColorTexture"].SetValue(value);
+                }
+            }
+        }
+
+        public Color FogColor
+        {
+            set
+            {
+                if (currentFogColor != value)
+                {
+                    currentFogColor = value;
+                    Vector4 vc = currentFogColor.ToVector4();
+                    float[] c = { vc.X , vc.Y , vc.Z};
+                    Effect.Parameters["xFogColor"].SetValue(c);
                 }
             }
         }
@@ -113,6 +130,30 @@ namespace Resonance
                 {
                     currentCameraPosition = value;
                     Effect.Parameters["CameraPosition"].SetValue(value);
+                }
+            }
+        }
+
+        public float FogStartDistance
+        {
+            set
+            {
+                if (value != currentFogStartDistance)
+                {
+                    currentFogStartDistance = value;
+                    Effect.Parameters["xFogStart"].SetValue(value);
+                }
+            }
+        }
+
+        public float FogEndDistance
+        {
+            set
+            {
+                if (value != currentFogEndDistance)
+                {
+                    currentFogEndDistance = value;
+                    Effect.Parameters["xFogEnd"].SetValue(value);
                 }
             }
         }

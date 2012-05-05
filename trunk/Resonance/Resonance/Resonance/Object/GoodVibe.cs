@@ -18,8 +18,7 @@ namespace Resonance
         public static int MAX_SHIELD = 300;
         public static int MAX_FREEZE = 200;
 
-        private GameModelInstance sheildUpModel;
-        private GameModelInstance sheildDownModel;
+        private Object sheildUpObject;
 
         List<Shockwave> waves; // Resonance waves which currently exist
 
@@ -36,6 +35,7 @@ namespace Resonance
 
         private Freeze freezer;
 
+
         /// <summary>
         /// Constructor
         /// </summary>
@@ -50,8 +50,7 @@ namespace Resonance
             freeze = MAX_FREEZE / 2;
             currentPower = 0;
 
-            sheildUpModel = new GameModelInstance(GameModels.SHIELD_GV);
-            sheildDownModel = new GameModelInstance(GameModels.GOOD_VIBE);
+            sheildUpObject = new Object(GameModels.SHIELD_GV, "Shield", pos);
             shieldOn = false;
         }
 
@@ -270,7 +269,7 @@ namespace Resonance
         /// </summary>
         public void shieldUp()
         {
-            this.ModelInstance = sheildUpModel;
+            //this.ModelInstance = sheildUpObject;
             shieldOn = true;
         }
 
@@ -279,7 +278,7 @@ namespace Resonance
         /// </summary>
         public void shieldDown()
         {
-            this.ModelInstance = sheildDownModel;
+            //this.ModelInstance = sheildDownObject;
             shieldOn = false;
         }
 
@@ -297,6 +296,15 @@ namespace Resonance
         {
             get { return currentPower; }
             set { currentPower = value; }
+        }
+
+
+        public Object ShieldObject
+        {
+            get
+            {
+                return sheildUpObject;
+            }
         }
 
         public bool InCombat
@@ -318,6 +326,11 @@ namespace Resonance
         public int Shield
         {
             get { return shield; }
+        }
+
+        public bool ShieldOn
+        {
+            get { return shieldOn; }
         }
 
         public int Freeze

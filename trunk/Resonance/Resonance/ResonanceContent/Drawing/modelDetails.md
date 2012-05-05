@@ -6,7 +6,7 @@ Bacteria, Models\Bacteria.fbx
 Bacteria-physics, Models\Bacteria-physics.fbx
 GoodVibe, Models\GoodVibe.fbx
 GoodVibe-physics, Models\GoodVibe-physics.fbx
-GoodVibe-shield, Models\GoodVibe-shield.fbx
+GoodVibe-shield, Models\GoodVibe-emptyShield.fbx
 BadVibe, Models\BadVibe.fbx
 BadVibe-physics, Models\BadVibe-physics.fbx
 BVSpawner, Models\BVSpawner.fbx
@@ -47,6 +47,7 @@ spawnTexture,	Textures\TextureHouse.jpg
 fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1_ 02.png;Textures\fireAnimation\fire1_ 03.png;Textures\fireAnimation\fire1_ 04.png;Textures\fireAnimation\fire1_ 05.png;Textures\fireAnimation\fire1_ 06.png;Textures\fireAnimation\fire1_ 07.png;Textures\fireAnimation\fire1_ 08.png;Textures\fireAnimation\fire1_ 09.png;Textures\fireAnimation\fire1_ 10.png;Textures\fireAnimation\fire1_ 11.png;Textures\fireAnimation\fire1_ 12.png;Textures\fireAnimation\fire1_ 13.png;Textures\fireAnimation\fire1_ 14.png;Textures\fireAnimation\fire1_ 15.png;Textures\fireAnimation\fire1_ 16.png;Textures\fireAnimation\fire1_ 17.png;Textures\fireAnimation\fire1_ 18.png;Textures\fireAnimation\fire1_ 19.png;Textures\fireAnimation\fire1_ 20.png;Textures\fireAnimation\fire1_ 21.png;Textures\fireAnimation\fire1_ 22.png;Textures\fireAnimation\fire1_ 23.png;Textures\fireAnimation\fire1_ 24.png;Textures\fireAnimation\fire1_ 25.png;Textures\fireAnimation\fire1_ 26.png;Textures\fireAnimation\fire1_ 27.png;Textures\fireAnimation\fire1_ 28.png;Textures\fireAnimation\fire1_ 29.png;Textures\fireAnimation\fire1_ 30.png;Textures\fireAnimation\fire1_ 31.png;Textures\fireAnimation\fire1_ 32.png;Textures\fireAnimation\fire1_ 33.png;Textures\fireAnimation\fire1_ 34.png;Textures\fireAnimation\fire1_ 35.png;Textures\fireAnimation\fire1_ 36.png;Textures\fireAnimation\fire1_ 37.png;Textures\fireAnimation\fire1_ 38.png;Textures\fireAnimation\fire1_ 39.png;Textures\fireAnimation\fire1_ 40.png;Textures\fireAnimation\fire1_ 41.png;Textures\fireAnimation\fire1_ 42.png;Textures\fireAnimation\fire1_ 43.png;Textures\fireAnimation\fire1_ 44.png;Textures\fireAnimation\fire1_ 45.png;Textures\fireAnimation\fire1_ 46.png;Textures\fireAnimation\fire1_ 47.png;Textures\fireAnimation\fire1_ 48.png;Textures\fireAnimation\fire1_ 49.png;Textures\fireAnimation\fire1_ 50.png, 40, 1
 virus,          Textures\virus.png
 wallTexture,    Textures\walls.jpg
+goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
 
 bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\yellow.jpg;Textures\cymbal.jpg
 ---You can use dashes at the start of lines for comments
@@ -59,12 +60,12 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 1,			Neuron,					0.5,		Neuron-physics,			0.5,			neuronTexture
 2,			Bacteria,				0.25,		Bacteria-physics,		0.25,			spawnTexture
 3,			BadVibe,			    0.2,		BadVibe-physics,		0.2,			allColours,								1
-4,			GoodVibe,				0.35,		GoodVibe-physics,		0.35,			goodVibeTexture					
+4,			GoodVibe,    			0.35,		GoodVibe-physics,		0.35, 			goodVibeTexture					
 5,			terrain128,			    250,		terrain,			    250,			tronFloor													
 6,			Bacteria-physics,		1,			Bacteria-physics,		1,
 7,			Wave,					1,			Wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest
-9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0
+9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0,				goodVibeShieldTexture
 10,         BVSpawner,              0.6,		BVSpawner-physics,      0.6,            spawnTexture,                           1
 11,         BadVibe-explosion,      0.1,		BadVibe-explosion,      0.1,                          ,							1
 12,			x2,						0.25,		x2,						0.25

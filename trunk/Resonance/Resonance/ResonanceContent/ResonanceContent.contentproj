@@ -180,6 +180,11 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\GoodVibe-emptyShield.fbx">
+      <Name>GoodVibe-emptyShield</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\terrain128.fbx">
       <Name>terrain128</Name>
       <Importer>FbxImporter</Importer>
@@ -1543,6 +1548,13 @@
     </Compile>
     <Compile Include="Drawing\UI\Menus\Textures\VolumeFull.png">
       <Name>VolumeFull</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\GoodVibeShieldTexture.png">
+      <Name>GoodVibeShieldTexture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
