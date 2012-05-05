@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<XnaContent>
+  <Asset Type="System.String[]">
+    <Item>Drawing/Fonts/Custom/CountDown/Images/0.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/1.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/2.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/3.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/4.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/5.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/6.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/7.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/8.png</Item>
+    <Item>Drawing/Fonts/Custom/CountDown/Images/9.png</Item>
+  </Asset>
+</XnaContent>
