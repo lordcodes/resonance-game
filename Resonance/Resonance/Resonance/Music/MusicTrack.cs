@@ -238,6 +238,11 @@ namespace Resonance
             MediaPlayer.Volume = 50;
         }
 
+        public Song Song
+        {
+            get { return song; }
+        }
+
         private static List<long> nexts = new List<long>();
         private static List<long> lasts = new List<long>();
 

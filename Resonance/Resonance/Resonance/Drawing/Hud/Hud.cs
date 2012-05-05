@@ -45,6 +45,10 @@ namespace Resonance
         private static ShieldBar shieldBar;
         private static FreezeBar freezeBar;
         private static NitroBar nitroBar;
+        private static Texture2D pickupBackground;
+        private static Texture2D pickupShield;
+        private static Texture2D pickupNitro;
+        private static Texture2D pickupFreeze;
 
         private static float ARMOUR_SCALE = 1.5f;
 
@@ -74,8 +78,12 @@ namespace Resonance
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
             tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
             damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
-            scoreFont   = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
-            mask        = Content.Load<Texture2D>("Drawing/HUD/Textures/minimapalpha");
+            scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
+            mask        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/minimapalpha");
+            pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
+            pickupShield = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
+            pickupNitro  = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupnitro");
+            pickupFreeze = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupfreeze");
 
 
             if (GameScreen.USE_MINIMAP)
@@ -402,6 +410,22 @@ namespace Resonance
         {
             healthBarClass.draw(spriteBatch);
 
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(245), ScreenManager.pixelsY(21));
+            spriteBatch.DrawString(font, "Objective: " + GameScreen.mode.MODE, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            coords.X--;
+            coords.Y--;
+            spriteBatch.DrawString(font, "Objective: " + GameScreen.mode.MODE, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            coords.X = 205;
+            coords.Y = 92;
+            TimeSpan ts = MusicHandler.getTrack().Song.Duration;
+            string formattedTimeSpan = string.Format("{1:D2}:{2:D2}", ts.Hours, ts.Minutes, ts.Seconds);
+
+            spriteBatch.DrawString(font, "Time remaining: " + formattedTimeSpan, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            coords.X--;
+            coords.Y--;
+            spriteBatch.DrawString(font, "Time remaining: " + formattedTimeSpan, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
             //int x = ScreenManager.pixelsX(10);
             //int y = ScreenManager.pixelsY(10);
             //int width = ScreenManager.pixelsX(healthBar.Width);
@@ -579,18 +603,25 @@ namespace Resonance
 
         public void highlightedPower()
         {
+            Rectangle destination = new Rectangle(ScreenManager.pixelsX(30), ScreenManager.pixelsY(10), ScreenManager.pixelsX(pickupBackground.Width), ScreenManager.pixelsY(pickupBackground.Height));
+            Rectangle source = new Rectangle(0, 0, pickupBackground.Width, pickupBackground.Height);
+            spriteBatch.Draw(pickupBackground, destination, source, Color.White);          
+
             if (GameScreen.getGV().selectedPower == 0)
             {
+                spriteBatch.Draw(pickupNitro, destination, source, Color.White);
                 DebugDisplay.update("SELECTED POWER", "NITROUS");
             }
 
             if (GameScreen.getGV().selectedPower == 1)
             {
+                spriteBatch.Draw(pickupShield, destination, source, Color.White);
                 DebugDisplay.update("SELECTED POWER", "SHIELD");
             }
 
             if (GameScreen.getGV().selectedPower == 2)
             {
+                spriteBatch.Draw(pickupFreeze, destination, source, Color.White);
                 DebugDisplay.update("SELECTED POWER", "FREEZE");
             }
 
