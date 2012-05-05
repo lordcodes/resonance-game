@@ -204,7 +204,7 @@ namespace Resonance
                 {
                     intro = true;
                 }
-                updateHUD();
+                if (USE_MINIMAP) Hud.saveMiniMap();
                 if (intro)
                 {
                     DrawableManager.Update(gameTime);
@@ -433,15 +433,6 @@ namespace Resonance
             get { return countDown; }
         }
 
-        private void updateHUD()
-        {
-            Hud.saveHealthBar();
-            Hud.saveShieldBar();
-            Hud.saveNitroBar();
-            Hud.saveFreezeBar();
-            if (USE_MINIMAP) Hud.saveMiniMap();
-        }
-
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -450,6 +441,10 @@ namespace Resonance
         {
             using (IDisposable d = DrawSection.Measure())
             {
+                Hud.saveHealthBar();
+                Hud.saveShieldBar();
+                Hud.saveNitroBar();
+                Hud.saveFreezeBar();
                 Drawing.resetGraphics();
                 if (GraphicsSettings.FLOOR_REFLECTIONS)
                 {
