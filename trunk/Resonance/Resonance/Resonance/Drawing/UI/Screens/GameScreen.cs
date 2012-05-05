@@ -10,7 +10,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using BEPUphysics;
 using ResonanceLibrary;
-using BEPUphysics.Paths.PathFollowing;
 using System.IO;
 using AnimationLibrary;
 using System.Diagnostics;
@@ -205,6 +204,7 @@ namespace Resonance
                 {
                     intro = true;
                 }
+                updateHUD();
                 if (intro)
                 {
                     DrawableManager.Update(gameTime);
@@ -433,6 +433,15 @@ namespace Resonance
             get { return countDown; }
         }
 
+        private void updateHUD()
+        {
+            Hud.saveHealthBar();
+            Hud.saveShieldBar();
+            Hud.saveNitroBar();
+            Hud.saveFreezeBar();
+            if (USE_MINIMAP) Hud.saveMiniMap();
+        }
+
         /// <summary>
         /// This is called when the game should draw itself.
         /// </summary>
@@ -441,11 +450,6 @@ namespace Resonance
         {
             using (IDisposable d = DrawSection.Measure())
             {
-                Hud.saveHealthBar();
-                Hud.saveShieldBar();
-                Hud.saveNitroBar();
-                Hud.saveFreezeBar();
-                if (USE_MINIMAP) Hud.saveMiniMap();
                 Drawing.resetGraphics();
                 if (GraphicsSettings.FLOOR_REFLECTIONS)
                 {

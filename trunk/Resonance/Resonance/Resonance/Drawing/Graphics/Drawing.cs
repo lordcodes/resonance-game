@@ -301,8 +301,6 @@ namespace Resonance
 
             gameGraphics.Shaders.setPointLightPos(new Vector3(GameScreen.getGV().Body.Position.X, GameScreen.getGV().Body.Position.Y+3, GameScreen.getGV().Body.Position.Z));
 
-
-
             gameGraphics.update(groundPos(GameScreen.getGV().Body.Position, false));
         }
 
