@@ -37,17 +37,34 @@ namespace Resonance
             }
         }
 
+        public static void DrawObjects(GameTime gameTime)
+        {
+            Drawing.Clear();
+            DrawSet(components, gameTime);
+            DrawSet(componentsSecondary, gameTime);
+            DrawSet(componentsTertiary, gameTime);
+        }
+
         /// <summary>
         /// Draws all the currently stored GameComponents
         /// </summary>
-        /// <param name="time">The gameTime</param>
-        public static void Draw(GameTime time)
+        /// <param name="gameTime">The gameTime</param>
+        public static void Draw(GameTime gameTime)
         {
             using (IDisposable d = ThisSection.Measure())
             {
-                DrawSet(components, time);
-                DrawSet(componentsSecondary, time);
-                DrawSet(componentsTertiary, time);
+                // Draw reflections
+                if (GraphicsSettings.FLOOR_REFLECTIONS)
+                {
+                    if (Drawing.requestReflectionRender)
+                    {
+                        Drawing.drawReflection();
+                        DrawableManager.DrawObjects(gameTime);
+                    }
+                    Drawing.drawReflections();
+                }
+
+                DrawObjects(gameTime);
             }
         }
 

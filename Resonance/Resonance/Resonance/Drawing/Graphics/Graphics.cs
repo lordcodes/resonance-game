@@ -255,12 +255,12 @@ namespace Resonance
             {
                 float height = 11.5f;
                 //float dimension = 12.7f for 0.1 square;
-                float dimension = 16.5f;
-                float scale = (float)(10.4 * Math.Pow((cameraPosition.Y), -0.9));
+                float dimension = 16.5f * height;
+                float scale = (float)(10.463 * Math.Pow((cameraPosition.Y), -0.9));
                 Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -height, cameraPosition.Z + 0.1f);
                 cameraPosition2 = reflecCameraCoords;
                 theView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
-                projection2 = Matrix.CreatePerspective(dimension, dimension, 1.0f, 100.0f);
+                projection2 = Matrix.CreatePerspective(dimension, dimension, height, 100.0f);
                 Matrix heightScale = Matrix.CreateScale(1f, scale, 1f);
                 world = Matrix.Multiply(heightScale, world);
             }
