@@ -761,20 +761,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\HUD\Textures\bar.png">
-      <Name>bar</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\HUD\Textures\bar2.png">
-      <Name>bar2</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Drawing\Textures\pulseGreyToRed\pulseGreyToRed0001.jpg">
       <Name>pulseGreyToRed0001</Name>
       <Importer>TextureImporter</Importer>
@@ -1477,13 +1463,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\HUD\Textures\bar3.png">
-      <Name>bar3</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Drawing\UI\LoadingScreen\Textures\LoadingScreen1.png">
       <Name>LoadingScreen1</Name>
       <Importer>TextureImporter</Importer>
@@ -1623,6 +1602,45 @@
     </Compile>
     <Compile Include="Drawing\Fonts\Custom\CountDown\Images\0.png">
       <Name>0</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\pickupalphay.png">
+      <Name>pickupalphay</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\pickupemptyy.png">
+      <Name>pickupemptyy</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\pickupfully.png">
+      <Name>pickupfully</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\pickupemptyb.png">
+      <Name>pickupemptyb</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\pickupemptyx.png">
+      <Name>pickupemptyx</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\pickupfullb.png">
+      <Name>pickupfullb</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\pickupfullx.png">
+      <Name>pickupfullx</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

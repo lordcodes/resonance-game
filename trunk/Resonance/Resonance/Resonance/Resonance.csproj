@@ -113,8 +113,12 @@
     <Compile Include="Drawing\Graphics\Models\GameModelsContentReader.cs" />
     <Compile Include="Drawing\Graphics\Graphics.cs" />
     <Compile Include="Drawing\Graphics\Models\ImportedGameModels.cs" />
+    <Compile Include="Drawing\Hud\FreezeBar.cs" />
     <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModelInstance.cs" />
+    <Compile Include="Drawing\Hud\NitroBar.cs" />
+    <Compile Include="Drawing\Hud\PickupBar.cs" />
+    <Compile Include="Drawing\Hud\ShieldBar.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\ArmourShatter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Freeze.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Rain.cs" />

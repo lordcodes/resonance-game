@@ -42,6 +42,9 @@ namespace Resonance
         private static Texture2D mask;
         private static ImportedCustomFont scoreFont;
         private static HealthBar healthBarClass;
+        private static ShieldBar shieldBar;
+        private static FreezeBar freezeBar;
+        private static NitroBar nitroBar;
 
         private static float ARMOUR_SCALE = 1.5f;
 
@@ -63,16 +66,16 @@ namespace Resonance
         /// </summary>
         public void loadContent()
         {
-            font        = Content.Load<SpriteFont>         ("Drawing/Fonts/DebugFont"             );
-            healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar"      );
-            healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice"    );
-            drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour"         );
-            rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest"    );
-            block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block"          );
-            tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo"          );
-            damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage"         );
-            scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
-            mask        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/minimapalpha"   );
+            font        = Content.Load<SpriteFont>         ("Drawing/Fonts/DebugFont");
+            healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
+            healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
+            drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
+            rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
+            block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
+            tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
+            damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
+            scoreFont   = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
+            mask        = Content.Load<Texture2D>("Drawing/HUD/Textures/minimapalpha");
 
 
             if (GameScreen.USE_MINIMAP)
@@ -83,6 +86,15 @@ namespace Resonance
 
             healthBarClass = new HealthBar(graphics);
             healthBarClass.loadTextures(Content);
+
+            shieldBar = new ShieldBar(graphics);
+            shieldBar.loadTextures(Content);
+
+            nitroBar = new NitroBar(graphics);
+            nitroBar.loadTextures(Content);
+
+            freezeBar = new FreezeBar(graphics);
+            freezeBar.loadTextures(Content);
         }
 
         //private TestEmitter tEmm = new TestEmitter(new Vector3(250f, 250f, 250f));
@@ -123,13 +135,13 @@ namespace Resonance
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
             drawHealthBar();
+            drawShieldBar();
+            drawNitroBar();
+            drawFreezeBar();
             if (GameScreen.USE_MINIMAP) drawMiniMap();
             drawBadVibeArmour();
             drawDamage(gameTime);
-            highlightedPower();
-            //drawFreezeBar();
-            //drawNitroBar();
-            //drawShieldBar();         
+            highlightedPower();          
             drawThrobber();
             drawCountDown();
             scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
@@ -419,91 +431,115 @@ namespace Resonance
             //spriteBatch.DrawString(font, "Health", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
+        public static void saveFreezeBar()
+        {
+            if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
+            freezeBar.saveTexture(spriteBatch, freeze);
+        }
+
         private void drawFreezeBar()
         {
-            int x = ScreenManager.pixelsX(14);
-            int y = ScreenManager.pixelsY(healthBar.Height + 5);
-            int width = ScreenManager.pixelsX(healthBar.Width / 2);
-            int height = ScreenManager.pixelsY(healthBar.Height / 2);
+            freezeBar.draw(spriteBatch);
 
-            int sliceX = x + ScreenManager.pixelsX(4);
-            int sliceY = y + ScreenManager.pixelsY(5);
-            int sliceWidth = 1;
-            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * freeze / GoodVibe.MAX_FREEZE);
+            //int x = ScreenManager.pixelsX(14);
+            //int y = ScreenManager.pixelsY(healthBar.Height + 5);
+            //int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            //int height = ScreenManager.pixelsY(healthBar.Height / 2);
 
-            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+            //int sliceX = x + ScreenManager.pixelsX(4);
+            //int sliceY = y + ScreenManager.pixelsY(5);
+            //int sliceWidth = 1;
+            //int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            //int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * freeze / GoodVibe.MAX_FREEZE);
 
-            Color c;
-            for (int i = 0; i < limit; i++)
-            {
-                c = new Color(1f, 0.48f, 0f);
+            //spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
 
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
-            }
+            //Color c;
+            //for (int i = 0; i < limit; i++)
+            //{
+            //    c = new Color(1f, 0.48f, 0f);
 
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81)); //TODO: tidy this
-            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
-            spriteBatch.DrawString(font, "Freeze", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(font, "Freeze", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //    spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            //}
+
+            //Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81)); //TODO: tidy this
+            //Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            //spriteBatch.DrawString(font, "Freeze", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //spriteBatch.DrawString(font, "Freeze", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+
+        public static void saveNitroBar()
+        {
+            if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
+            nitroBar.saveTexture(spriteBatch, nitro);
         }
 
         private void drawNitroBar()
         {
-            int x = ScreenManager.pixelsX(14);
-            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height / 2);
-            int width = ScreenManager.pixelsX(healthBar.Width / 2);
-            int height = ScreenManager.pixelsY(healthBar.Height / 2);
+            nitroBar.draw(spriteBatch);
 
-            int sliceX = x + ScreenManager.pixelsX(4);
-            int sliceY = y + ScreenManager.pixelsY(5);
-            int sliceWidth = 1;
-            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * nitro / GoodVibe.MAX_NITRO);
+            //int x = ScreenManager.pixelsX(14);
+            //int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height / 2);
+            //int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            //int height = ScreenManager.pixelsY(healthBar.Height / 2);
 
-            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+            //int sliceX = x + ScreenManager.pixelsX(4);
+            //int sliceY = y + ScreenManager.pixelsY(5);
+            //int sliceWidth = 1;
+            //int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            //int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * nitro / GoodVibe.MAX_NITRO);
 
-            Color c;
-            for (int i = 0; i < limit; i++)
-            {
-                c = new Color(1f, 0.9f, 0f);
+            //spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
 
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
-            }
+            //Color c;
+            //for (int i = 0; i < limit; i++)
+            //{
+            //    c = new Color(1f, 0.9f, 0f);
 
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height / 2)); //TODO: tidy this
-            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
-            spriteBatch.DrawString(font, "Nitro", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(font, "Nitro", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //    spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            //}
+
+            //Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height / 2)); //TODO: tidy this
+            //Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            //spriteBatch.DrawString(font, "Nitro", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //spriteBatch.DrawString(font, "Nitro", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+
+        public static void saveShieldBar()
+        {
+            if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
+            shieldBar.saveTexture(spriteBatch, shield);
         }
 
         private void drawShieldBar()
         {
-            int x = ScreenManager.pixelsX(14);
-            int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height);
-            int width = ScreenManager.pixelsX(healthBar.Width / 2);
-            int height = ScreenManager.pixelsY(healthBar.Height / 2);
+            shieldBar.draw(spriteBatch);
 
-            int sliceX = x + ScreenManager.pixelsX(4);
-            int sliceY = y + ScreenManager.pixelsY(5);
-            int sliceWidth = 1;
-            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
-            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * shield / GoodVibe.MAX_SHIELD);
+            //int x = ScreenManager.pixelsX(14);
+            //int y = ScreenManager.pixelsY(healthBar.Height + 5 + healthBar.Height);
+            //int width = ScreenManager.pixelsX(healthBar.Width / 2);
+            //int height = ScreenManager.pixelsY(healthBar.Height / 2);
 
-            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+            //int sliceX = x + ScreenManager.pixelsX(4);
+            //int sliceY = y + ScreenManager.pixelsY(5);
+            //int sliceWidth = 1;
+            //int sliceHeight = ScreenManager.pixelsY(healthSlice.Height / 2 - 1);
+            //int limit = (int)Math.Round((float)ScreenManager.pixelsX(582 / 2) * shield / GoodVibe.MAX_SHIELD);
 
-            Color c;
-            for (int i = 0; i < limit; i++)
-            {
-                c = new Color(0.38f, 1f, 0.99f);
+            //spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
 
-                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
-            }
+            //Color c;
+            //for (int i = 0; i < limit; i++)
+            //{
+            //    c = new Color(0.38f, 1f, 0.99f);
 
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height)); //TODO: tidy this
-            Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
-            spriteBatch.DrawString(font, "Shield", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-            spriteBatch.DrawString(font, "Shield", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //    spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            //}
+
+            //Vector2 coords = new Vector2(ScreenManager.pixelsX(25), ScreenManager.pixelsY(81 + healthBar.Height)); //TODO: tidy this
+            //Vector2 coords2 = new Vector2(coords.X - 1, coords.Y - 1);
+            //spriteBatch.DrawString(font, "Shield", coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //spriteBatch.DrawString(font, "Shield", coords2, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
         /// <summary>
