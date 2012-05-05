@@ -204,11 +204,11 @@ namespace Resonance
                 {
                     intro = true;
                 }
-                if (USE_MINIMAP) Hud.saveMiniMap();
                 if (intro)
                 {
                     DrawableManager.Update(gameTime);
                     Drawing.Update(gameTime);
+                    if (USE_MINIMAP) Hud.saveMiniMap();
                     MusicHandler.getTrack().playTrack();
 
                     float health = getGV().healthFraction();
