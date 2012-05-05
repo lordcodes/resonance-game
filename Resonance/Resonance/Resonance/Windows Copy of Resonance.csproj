@@ -100,9 +100,13 @@
     <Compile Include="Drawing\Hud\Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Hud\Fonts\CustomFontContentReader.cs" />
     <Compile Include="Drawing\Hud\Fonts\ImportedCustomFont.cs" />
+    <Compile Include="Drawing\Hud\FreezeBar.cs" />
     <Compile Include="Drawing\Hud\HealthBar.cs" />
     <Compile Include="Drawing\Hud\Hud.cs" />
     <Compile Include="Drawing\Hud\MiniMap.cs" />
+    <Compile Include="Drawing\Hud\NitroBar.cs" />
+    <Compile Include="Drawing\Hud\PickupBar.cs" />
+    <Compile Include="Drawing\Hud\ShieldBar.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\ArmourShatter.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Explosion.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Freeze.cs" />
