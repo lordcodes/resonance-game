@@ -445,29 +445,6 @@ namespace Resonance
                 Hud.saveShieldBar();
                 Hud.saveNitroBar();
                 Hud.saveFreezeBar();
-                Drawing.resetGraphics();
-                if (GraphicsSettings.FLOOR_REFLECTIONS)
-                {
-                    graphics.GraphicsDevice.Clear(Color.Black);
-                    if (Drawing.requestReflectionRender)
-                    {
-                        Drawing.drawReflection();
-                        graphics.GraphicsDevice.Clear(Color.Black);
-                        DrawableManager.Draw(gameTime);
-                    }
-                    Drawing.drawReflections();
-                }
-
-                graphics.GraphicsDevice.Clear(Color.Black);
-                if (Drawing.requestShadowsRender)
-                {
-                    Drawing.drawShadow();
-                    graphics.GraphicsDevice.Clear(Color.Black);
-                    DrawableManager.Draw(gameTime);
-                }
-                Drawing.drawShadows();
-                graphics.GraphicsDevice.Clear(Color.Black);
-                DrawableManager.Draw(gameTime);
                 Drawing.Draw(gameTime);
             }
         }

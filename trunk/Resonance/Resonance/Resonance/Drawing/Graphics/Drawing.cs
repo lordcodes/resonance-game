@@ -89,6 +89,11 @@ namespace Resonance
             }
         }
 
+        public static void Clear()
+        {
+            graphics.GraphicsDevice.Clear(Color.Black);
+        }
+
 
         public static void reset()
         {
@@ -97,6 +102,7 @@ namespace Resonance
 
         public static void drawReflection()
         {
+            graphics.GraphicsDevice.Clear(Color.Black);
             graphics.GraphicsDevice.SetRenderTarget(mirrorRenderTarget);
             drawingReflection = true;
             drawingShadows = false;
@@ -404,12 +410,12 @@ namespace Resonance
         public static void Draw(GameTime gameTime)
         {
             drawCount++;
+            resetGraphics();
+            DrawableManager.Draw(gameTime);
             drawParticles();
             hud.Draw(gameTime);
             hud.drawDebugInfo(DebugDisplay.getString()+Profile.DumpAndReset());
             checkFrameRate(gameTime);
-
-            //DrawTexture(shadowsTexture, te.Position, te.Width, te.Height);
         }
 
         /// <summary>
@@ -451,7 +457,6 @@ namespace Resonance
                     graphics.GraphicsDevice.BlendState = BlendState.Opaque;
                     graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
                 }
-
 
                 gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
                 graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
