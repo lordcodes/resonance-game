@@ -610,19 +610,19 @@ namespace Resonance
             if (GameScreen.getGV().selectedPower == 0)
             {
                 spriteBatch.Draw(pickupNitro, destination, source, Color.White);
-                DebugDisplay.update("SELECTED POWER", "NITROUS");
+                //DebugDisplay.update("SELECTED POWER", "NITROUS");
             }
 
             if (GameScreen.getGV().selectedPower == 1)
             {
                 spriteBatch.Draw(pickupShield, destination, source, Color.White);
-                DebugDisplay.update("SELECTED POWER", "SHIELD");
+                //DebugDisplay.update("SELECTED POWER", "SHIELD");
             }
 
             if (GameScreen.getGV().selectedPower == 2)
             {
                 spriteBatch.Draw(pickupFreeze, destination, source, Color.White);
-                DebugDisplay.update("SELECTED POWER", "FREEZE");
+                //DebugDisplay.update("SELECTED POWER", "FREEZE");
             }
 
         }
