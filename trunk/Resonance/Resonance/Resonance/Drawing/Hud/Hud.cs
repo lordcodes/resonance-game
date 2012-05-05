@@ -416,8 +416,8 @@ namespace Resonance
             coords.Y--;
             spriteBatch.DrawString(font, "Objective: " + GameScreen.mode.MODE, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            coords.X = 205;
-            coords.Y = 92;
+            coords.X = ScreenManager.pixelsX(205);
+            coords.Y = ScreenManager.pixelsY(92);
             TimeSpan ts = MusicHandler.getTrack().Song.Duration;
             string formattedTimeSpan = string.Format("{1:D2}:{2:D2}", ts.Hours, ts.Minutes, ts.Seconds);
 
