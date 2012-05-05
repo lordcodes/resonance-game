@@ -104,10 +104,10 @@ namespace Resonance
                 //Add walls
                 float wall_length = 20f;
                 float wall_height = 150f;
-                Vector3 pos1 = new Vector3(0, 75f, (MAP_Z / 2) + (wall_length / 2));
-                Vector3 pos2 = new Vector3((MAP_X / 2) + (wall_length / 2), 75f, 0);
-                Vector3 pos3 = new Vector3(0, 75f, (-MAP_Z / 2) - (wall_length / 2));
-                Vector3 pos4 = new Vector3((-MAP_X / 2) - (wall_length / 2), 75f, 0);
+                Vector3 pos1 = new Vector3(0, 75f, (MAP_Z / 2 - 5) + (wall_length / 2));
+                Vector3 pos2 = new Vector3((MAP_X / 2 - 5) + (wall_length / 2), 75f, 0);
+                Vector3 pos3 = new Vector3(0, 75f, (-MAP_Z / 2 + 5) - (wall_length / 2));
+                Vector3 pos4 = new Vector3((-MAP_X / 2 + 5) - (wall_length / 2), 75f, 0);
                 Box b1 = new Box(pos1, MAP_X, wall_height, wall_length);
                 Box b2 = new Box(pos2, wall_length, wall_height, MAP_Z);
                 Box b3 = new Box(pos3, MAP_X, wall_height, wall_length);
