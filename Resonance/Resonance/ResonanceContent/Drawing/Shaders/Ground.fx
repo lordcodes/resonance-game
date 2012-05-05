@@ -23,7 +23,9 @@ float xLightPower;
 float xAmbient;
 float4x4 xLightsWorldViewProjection;
 float4x4 xWorldViewProjection;
-
+float xFogStart;
+float xFogEnd;
+float3 xFogColor;
 
 sampler ShadowMapSampler = sampler_state
 {
@@ -81,6 +83,7 @@ struct VertexShaderOutput
 	float3 Position3D: TEXCOORD3;
 	float height   : PSIZE;
     float4 Pos2DAsSeenByLight    : TEXCOORD4;
+	float  Depth		: TEXCOORD5;
 };
 
 float4 tex2DlodSmooth( sampler texSam, float4 uv )
@@ -120,7 +123,10 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	output.Normal = normalize(mul(input.Normal, (float3x3)World)); 
 	output.View = CameraPosition - worldPosition;
 	output.height = height;   
-    output.Pos2DAsSeenByLight= mul(input.Position, xLightsWorldViewProjection);   
+    output.Pos2DAsSeenByLight= mul(input.Position, xLightsWorldViewProjection);  
+	
+	output.Depth =  output.Position.z;
+	 
     return output;
 }
 
@@ -128,6 +134,12 @@ float DotProduct(float3 lightPos, float3 pos3D, float3 normal)
 {
     float3 lightDir = normalize(pos3D - lightPos);
     return dot(-lightDir, normal);    
+}
+
+
+float ComputeFogFactor(float d)
+{
+    return clamp((d - xFogStart) / (xFogEnd - xFogStart), 0, 1) * 1;
 }
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
@@ -190,7 +202,13 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
 	diffuseLightingFactor = saturate(diffuseLightingFactor);
 	diffuseLightingFactor *= xLightPower;
-	return (fullColor*(diffuseLightingFactor+xAmbient));
+
+	float4 c = (fullColor*(diffuseLightingFactor+xAmbient));
+	c = float4(lerp(c.xyz, xFogColor, ComputeFogFactor(input.Depth)),1);
+	return c;
+
+
+
 
     float2 ProjectedTexCoords;
     ProjectedTexCoords[0] = input.Pos2DAsSeenByLight.x/input.Pos2DAsSeenByLight.w/2.0f +0.5f;

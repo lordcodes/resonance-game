@@ -37,6 +37,12 @@ namespace Resonance
             }
         }
 
+        public void setFogColor(Color color)
+        {
+            Default.FogColor = color;
+            Ground.FogColor = color;
+        }
+
         public void setAmbientLight(Vector3 light)
         {
             Default.AmbientLightColour = light;
@@ -54,6 +60,15 @@ namespace Resonance
         {
             defaultShader.ShadowTexture = texture;
             groundShader.ShadowTexture = texture;
+        }
+
+        public void setFog(Color color, float start, float end)
+        {
+            setFogColor(color);
+            defaultShader.FogStartDistance = start;
+            defaultShader.FogEndDistance = end;
+            groundShader.FogStartDistance = start;
+            groundShader.FogEndDistance = end;
         }
 
         public Shaders()
@@ -103,6 +118,8 @@ namespace Resonance
             Particle.Parameters["AmbientLightColor"].SetValue(ambientLightColor);
             Particle.Parameters["DiffuseLightColor"].SetValue(diffuseLightColor);
             Particle.Parameters["DiffuseColor"].SetValue(diffuseColor);
+
+            setFog(Color.Black, GraphicsSettings.FOG_START, GraphicsSettings.FOG_END);
         }
     }
 }

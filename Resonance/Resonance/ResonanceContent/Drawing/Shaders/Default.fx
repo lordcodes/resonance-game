@@ -19,6 +19,9 @@ float3 CameraPosition;
 float4x3 xBones[60];
 float2 gvPos;
 float4x4 xLightsWorldViewProjection;
+float xFogStart;
+float xFogEnd;
+float3 xFogColor;
 
 sampler DispMapSampler = sampler_state
 {
@@ -54,6 +57,8 @@ struct VertexShaderOutput
 	float3 Normal   : TEXCOORD1;
 	float3 View     : TEXCOORD2;
 	float3 Position3D: TEXCOORD3;
+	float  Depth		: TEXCOORD4;
+	float  XHeight		: TEXCOORD5;
 	float height   : PSIZE;
 };
 
@@ -85,6 +90,9 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 	output.Normal = normalize(mul(input.Normal, (float3x3)World)); 
 	output.View = CameraPosition - worldPosition;
 	output.height = height;
+	
+	output.Depth =  output.Position.z;
+	output.XHeight = worldPosition.y;
     return output;
 }
 
@@ -92,6 +100,11 @@ float DotProduct(float3 lightPos, float3 pos3D, float3 normal)
 {
     float3 lightDir = normalize(pos3D - lightPos);
     return dot(-lightDir, normal);    
+}
+
+float ComputeFogFactor(float d, float fogStart, float fogEnd)
+{
+    return clamp((d - fogStart) / (fogEnd - fogStart), 0, 1) * 1;
 }
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
@@ -120,7 +133,11 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	if (NdotL != 0) specular += pow(NdotH, SpecularColorPower.w) * SpecularLightColor;
 	finalColor += SpecularColorPower.xyz * specular * fullColor.a;
 	clip( fullColor.a < 0.1f ? -1:1 );
-    return float4(finalColor*(diffuseLightingFactor+xAmbient),fullColor.a);
+	
+    float3 c = finalColor*(diffuseLightingFactor+xAmbient);
+	c = lerp(c, xFogColor, ComputeFogFactor(input.Depth, xFogStart, xFogEnd));
+	c = lerp(c, xFogColor, ComputeFogFactor(input.XHeight, 5, 15));
+	return float4(c,  fullColor.a);
 }
 
 
@@ -171,6 +188,8 @@ VertexShaderOutput AnimationVertexShader(VSInputNmTxWeights input)
 	output.Normal = mul(input.Normal, World);
 	output.View = CameraPosition - worldPosition;
 	output.height = 0;
+	output.Depth =  output.Position.z;
+	output.XHeight = worldPosition.y;
     return output;  
 }  
  

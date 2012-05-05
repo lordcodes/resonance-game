@@ -12,10 +12,9 @@ namespace Resonance
     /// </summary>
     class DrawableManager
     {
-        //private static HashSet<GameComponent> components = new HashSet<GameComponent>();
-        //private static HashSet<GameComponent> componentsSecondary = new HashSet<GameComponent>();
         private static List<GameComponent> components = new List<GameComponent>(1000);
         private static List<GameComponent> componentsSecondary = new List<GameComponent>(1000);
+        private static List<GameComponent> componentsTertiary = new List<GameComponent>(1000);
         static Profile ThisSection = Profile.Get("Drawing3D");
 
         /// <summary>
@@ -24,7 +23,11 @@ namespace Resonance
         /// <param name="component">The GameComponent you wish to add</param>
         public static void Add(GameComponent component)
         {
-            if (component is TextureEffect)
+            if (component is GoodVibe)
+            {
+                componentsTertiary.Add(component);
+            }
+            else if (component is TextureEffect)
             {
                 componentsSecondary.Add(component);
             }
@@ -44,6 +47,7 @@ namespace Resonance
             {
                 DrawSet(components, time);
                 DrawSet(componentsSecondary, time);
+                DrawSet(componentsTertiary, time);
             }
         }
 
@@ -57,6 +61,11 @@ namespace Resonance
                     if (component is DynamicObject)
                     {
                         Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, (Object)component);
+                        // Draw the shield if it is up
+                        if (component is GoodVibe && ((GoodVibe)component).ShieldOn)
+                        {
+                            Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, ((GoodVibe)component).ShieldObject);
+                        }
                     }
                     else if (component is StaticObject)
                     {
@@ -74,29 +83,27 @@ namespace Resonance
             }
         }
 
+        private static void UpdateSet(List<GameComponent> components, GameTime time)
+        {
+            for (int i = 0; i < components.Count; i++)
+            {
+                try
+                {
+                    components[i].Update(time);
+                }
+                catch (Exception) { }
+            }
+        }
+
         /// <summary>
         /// Updates all the currently stored GameComponents
         /// </summary>
         /// <param name="time">The gameTime</param>
         public static void Update(GameTime time)
         {
-            int i;
-            for (i = 0; i < components.Count; i++)
-            {
-                try
-                {
-                    components[i].Update(time);
-                }
-                catch (Exception) { }
-            }
-            for (i = 0; i < componentsSecondary.Count; i++)
-            {
-                try
-                {
-                    components[i].Update(time);
-                }
-                catch (Exception) { }
-            }
+            UpdateSet(components, time);
+            UpdateSet(componentsSecondary, time);
+            UpdateSet(componentsTertiary, time);
         }
 
         /// <summary>
@@ -122,6 +129,7 @@ namespace Resonance
         {
             components.Clear();
             componentsSecondary.Clear();
+            componentsTertiary.Clear();
             DebugDisplay.clear();
         }
     }
