@@ -33,11 +33,6 @@ namespace Resonance
                 m.controlMusic(false);
                 m.Selected = 0;
             }
-            if (this is SettingsMenu)
-            {
-                GameScreen.DIFFICULTY = ((SettingsMenu)this).CurrentDifficulty;
-                MediaPlayer.Volume = ((SettingsMenu)this).CurrentMusicVolume;
-            }
             ScreenManager.removeScreen(this);
         }
 
