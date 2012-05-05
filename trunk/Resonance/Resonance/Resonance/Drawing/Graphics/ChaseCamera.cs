@@ -33,11 +33,24 @@ namespace Resonance
             Vector3 cameraPos = Matrix3X3.Transform(newPosition, chaseObject.BufferedStates.InterpolatedStates.OrientationMatrix);
             cameraPos += chaseObject.BufferedStates.InterpolatedStates.Position;
 
-            float distance = Vector3.Distance(cameraPos, chaseObject.BufferedStates.InterpolatedStates.Position);
+            float x = cameraPos.X;
+            float z = cameraPos.Z;
+
+            bool locked = false;
+            if (x + 15 >= World.MAP_X/2 || x - 15 <= -World.MAP_X/2)
+            {
+                cameraPos.X = this.position.X;
+                locked = true;
+            }
+            else if (z + 15 >= World.MAP_Z/2 || z - 15 <= -World.MAP_Z/2)
+            {
+                cameraPos.Z = this.position.Z;
+                locked = true;
+            }
+            if (locked) return cameraPos;
 
             Vector3 rayStart = chaseObject.Position;
             rayStart.Y = 3f;
-
 
             Vector3 position;
             RayCastResult result;
