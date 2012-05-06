@@ -33,7 +33,7 @@ namespace Resonance {
         public String getObjectiveString() {
             switch (cObj) {
                 case (KILL_ALL_BV) : {
-                    return "Destroy the Bad Vibes.";
+                    return "Destroy the Bad Vibes";
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     return "Collect the Pickups";
@@ -42,10 +42,10 @@ namespace Resonance {
                     return "Destroy the Master Bad Vibe";
                 }
                 case (SURVIVE) : {
-                    return "Stay alive.";
+                    return "Stay alive";
                 }
                 case (TERRITORIES) : {
-                    return "Heal each brain area by destroying the Bad Vibes therein.";
+                    return "Heal each brain area by destroying the Bad Vibes therein";
                 }
             }
 
@@ -57,14 +57,14 @@ namespace Resonance {
                 case (KILL_ALL_BV) : {
                     int killed = GameScreen.stats.BVsKilled - bvKilledAtStart;
                     int total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
-                    oStr = "" + killed + " / " + total + " destroyed.";
+                    oStr = "" + killed + " / " + total + " destroyed";
 
                     if (killed == total) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     int collected = 0;
                     int total = 0;
-                    oStr = "" + collected + " / " + total + " collected.";
+                    oStr = "" + collected + " / " + total + " collected";
 
                     if (collected == total) return true; else return false;
                 }
@@ -72,11 +72,14 @@ namespace Resonance {
                     int bossHealth = 0;
                     int bossMaxHealth = 0;
                     double pct = 100d * (double) bossHealth / (double) bossMaxHealth;
-                    oStr = "Master Bad Vibe " + ((int) pct) + " destroyed.";
+                    oStr = "Master Bad Vibe " + ((int) pct) + " destroyed";
 
                     if (bossHealth == 0) return true; else return false;
                 }
                 case (SURVIVE) : {
+                    TimeSpan ts = MusicHandler.getTrack().Song.Duration;
+                    string formattedTimeSpan = string.Format("{1:D2}:{2:D2}", ts.Hours, ts.Minutes, ts.Seconds);
+
                     int remainingMins = 0;
                     int remainingSecs = 0;
 
@@ -90,7 +93,7 @@ namespace Resonance {
                 case (TERRITORIES) : {
                     int healed = 0;
                     int total = 0;
-                    oStr = "" + healed + " / " + total + " areas healed.";
+                    oStr = "" + healed + " / " + total + " areas healed";
 
                     if (healed == total) return true; else return false;
                 }

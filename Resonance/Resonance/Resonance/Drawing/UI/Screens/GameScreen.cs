@@ -36,7 +36,7 @@ namespace Resonance
         public static bool GV_KILLED = false;
         public static bool GAME_CAN_END = true;
         public const bool USE_BV_SPAWNER = true;
-        public const bool USE_PICKUP_SPAWNER = false;
+        public const bool USE_PICKUP_SPAWNER = true;
         public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
@@ -47,6 +47,7 @@ namespace Resonance
         World world;
         BVSpawnManager bvSpawner;
         public PickupSpawnManager pickupSpawner;
+        public ObjectiveManager objectiveManager;
 
         bool isLoaded;
         int iteration = 0;
@@ -79,6 +80,7 @@ namespace Resonance
 
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
+            objectiveManager = new ObjectiveManager();
             deadVibes = new string[50];
         }
 

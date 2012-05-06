@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -412,21 +411,26 @@ namespace Resonance
         {
             healthBarClass.draw(spriteBatch);
 
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(245), ScreenManager.pixelsY(21));
-            spriteBatch.DrawString(font, "Objective: " + GameScreen.mode.MODE, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            string objectiveString = ScreenManager.game.objectiveManager.getObjectiveString();
+            string progressString = "";
+            ScreenManager.game.objectiveManager.getProgress(ref progressString);
+
+            int xOffset = (int)Math.Round(font.MeasureString(objectiveString).X / 2);
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(350) - xOffset, ScreenManager.pixelsY(21));
+            //spriteBatch.DrawString(font, "Objective: " + GameScreen.mode.MODE, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, objectiveString, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             coords.X--;
             coords.Y--;
-            spriteBatch.DrawString(font, "Objective: " + GameScreen.mode.MODE, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, objectiveString, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
-            coords.X = ScreenManager.pixelsX(205);
+            xOffset = (int)Math.Round(font.MeasureString(progressString).X / 2);
+            coords.X = ScreenManager.pixelsX(315) - xOffset;
             coords.Y = ScreenManager.pixelsY(92);
-            TimeSpan ts = MusicHandler.getTrack().Song.Duration;
-            string formattedTimeSpan = string.Format("{1:D2}:{2:D2}", ts.Hours, ts.Minutes, ts.Seconds);
-
-            spriteBatch.DrawString(font, "Time remaining: " + formattedTimeSpan, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            //spriteBatch.DrawString(font, "Time remaining: " + formattedTimeSpan, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, progressString, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             coords.X--;
             coords.Y--;
-            spriteBatch.DrawString(font, "Time remaining: " + formattedTimeSpan, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(font, progressString, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
 
             //int x = ScreenManager.pixelsX(10);
             //int y = ScreenManager.pixelsY(10);
