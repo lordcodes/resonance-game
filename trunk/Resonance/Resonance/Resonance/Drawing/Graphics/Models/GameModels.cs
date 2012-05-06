@@ -15,8 +15,8 @@ namespace Resonance
 {
     class GameModels
     {
-        public static readonly int TREE             = 1;
-        public static readonly int HOUSE            = 2;
+        public static readonly int NEURON           = 1;
+        public static readonly int BACTERIA         = 2;
         public static readonly int BAD_VIBE         = 3;
         public static readonly int GOOD_VIBE        = 4;
         public static readonly int GROUND           = 5;

@@ -13,6 +13,7 @@ using ResonanceLibrary;
 using System.IO;
 using AnimationLibrary;
 using System.Diagnostics;
+using BEPUphysics.MathExtensions;
 
 namespace Resonance
 {
@@ -52,7 +53,6 @@ namespace Resonance
 
         TimeSpan countDown;
         bool intro;
-        private ImportedCustomFont countDownFont;
 
         private int zone;
 
@@ -110,8 +110,6 @@ namespace Resonance
 
             if (!isLoaded)
             {
-                //countDownFont = ScreenManager.Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
-                countDownFont = ScreenManager.Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/Score/ScoreFont");
                 BadVibe.initialiseBank();
                 CameraMotionManager.initCamera();
                 Drawing.loadContent();

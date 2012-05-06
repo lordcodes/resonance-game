@@ -287,13 +287,13 @@ namespace Resonance
                     addObject(player);
                     player.calculateSize();
                 }
-                if (obj.type.Equals("Tree") == true)
+                if (obj.type.Equals("Neuron") == true)
                 {
-                    addObject(new StaticObject(GameModels.TREE, obj.identifier, pos));
+                    addObject(new StaticObject(GameModels.NEURON, obj.identifier, pos));
                 }
-                if (obj.type.Equals("House") == true)
+                if (obj.type.Equals("Bacteria") == true)
                 {
-                    addObject(new StaticObject(GameModels.HOUSE, obj.identifier, pos));
+                    addObject(new StaticObject(GameModels.BACTERIA, obj.identifier, pos));
                 }
                 if (obj.type.Equals("BVSpawner") == true)
                 {
