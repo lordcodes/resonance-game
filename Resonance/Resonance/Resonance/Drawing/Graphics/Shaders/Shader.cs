@@ -23,6 +23,7 @@ namespace Resonance
         private Color currentFogColor;
         private float currentFogStartDistance;
         private float currentFogEndDistance;
+        private float currentTransparency;
 
         public string Technique
         {
@@ -130,6 +131,18 @@ namespace Resonance
                 {
                     currentCameraPosition = value;
                     Effect.Parameters["CameraPosition"].SetValue(value);
+                }
+            }
+        }
+
+        public float Transparency
+        {
+            set
+            {
+                if (value != currentTransparency)
+                {
+                    currentTransparency = value;
+                    Effect.Parameters["xTransparency"].SetValue(value);
                 }
             }
         }

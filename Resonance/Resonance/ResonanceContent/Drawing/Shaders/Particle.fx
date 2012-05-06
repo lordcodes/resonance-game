@@ -7,6 +7,7 @@ float3 DiffuseColor;
 float3 DiffuseLightColor;
 float3 CameraPosition;
 float4 Colour;
+float xTransparency = 1;
 
 sampler ColorTextureSampler : register(s0) = sampler_state
 {
@@ -48,8 +49,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float4 texColor = tex2D(ColorTextureSampler, input.TexCoord);
 	if(texColor.a == 0)
 		return float4(0,0,0,0);
-	texColor.xyz += AmbientLightColor;
-    return Colour;
+    return float4(Colour.xyz, texColor.a*xTransparency);
 }
 
 technique StaticObject

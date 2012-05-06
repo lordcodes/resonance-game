@@ -142,7 +142,7 @@ namespace Resonance
 
         public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
-            drawModel(worldObject, worldTransform, disp,  drawingReflection, drawingShadows);
+            drawModel(worldObject, worldTransform, disp, drawingReflection, drawingShadows);
         }
 
         public void update(Vector2 playerPos)
@@ -284,6 +284,7 @@ namespace Resonance
             else
             {
                 currentShader = shaders.Default;
+                currentShader.Transparency = modelVariables.Transparency;
             }
 
             int meshCount = 0;

@@ -22,6 +22,7 @@ float4x4 xLightsWorldViewProjection;
 float xFogStart;
 float xFogEnd;
 float3 xFogColor;
+float xTransparency = 1;
 
 sampler DispMapSampler = sampler_state
 {
@@ -137,7 +138,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float3 c = finalColor*(diffuseLightingFactor+xAmbient);
 	c = lerp(c, xFogColor, ComputeFogFactor(input.Depth, xFogStart, xFogEnd));
 	c = lerp(c, xFogColor, ComputeFogFactor(input.XHeight, 5, 15));
-	return float4(c,  fullColor.a);
+	return float4(c,  fullColor.a * xTransparency);
 }
 
 
