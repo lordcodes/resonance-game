@@ -28,11 +28,12 @@ namespace Resonance
         {
             displaySplash = displayScreen;
             screenToLoad = loadScreen;
-            bgs = new Texture2D[7];
+            bgs = new Texture2D[8];
         }
 
         public override void LoadContent()
         {
+            bgs[7] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain");
             bgs[6] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen1");
             bgs[5] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen2");
             bgs[4] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen3");
@@ -67,7 +68,6 @@ namespace Resonance
             {
                 ScreenManager.removeScreen(this);
                 ScreenManager.addScreen(screenToLoad);
-                //ScreenManager.addScreen(new HintScreen());
             }
         }
 
@@ -80,10 +80,9 @@ namespace Resonance
                 for (int i = 0; i < frameNumber; i++) text += ".";
 
                 Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight / 2);
-                int x = (int)screenSize.X - 215;
-                int y = (int)screenSize.Y - 215;
 
-                ScreenManager.SpriteBatch.Draw(bgs[frameNumber], new Vector2(x, y), Color.White);
+                ScreenManager.SpriteBatch.Draw(bgs[frameNumber], new Vector2(ScreenManager.pixelsX(1650), ScreenManager.pixelsY(825)), Color.White);
+                ScreenManager.SpriteBatch.Draw(bgs[7], new Vector2((int)screenSize.X - 250, (int)screenSize.Y - 275), Color.White);
                 ScreenManager.SpriteBatch.DrawString(font, text, new Vector2(ScreenManager.pixelsX(100), ScreenManager.pixelsY(950)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 ScreenManager.SpriteBatch.End();
             }
