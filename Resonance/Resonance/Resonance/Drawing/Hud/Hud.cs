@@ -85,7 +85,7 @@ namespace Resonance
             pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
             pickupShield = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
             pickupNitro  = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupnitro");
-            pickupFreeze = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupfreeze");
+            pickupFreeze = Content.Load<Texture2D>("Drawing/HUD/Textures/pickupfreeze");
 
 
             if (GameScreen.USE_MINIMAP)
