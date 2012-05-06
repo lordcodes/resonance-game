@@ -18,7 +18,7 @@ namespace Resonance
         public static int MAX_SHIELD = 300;
         public static int MAX_FREEZE = 200;
 
-        private Object sheildUpObject;
+        private Object shieldUpObject;
 
         List<Shockwave> waves; // Resonance waves which currently exist
 
@@ -50,7 +50,7 @@ namespace Resonance
             freeze = MAX_FREEZE / 2;
             currentPower = 0;
 
-            sheildUpObject = new Object(GameModels.SHIELD_GV, "Shield", pos);
+            shieldUpObject = new Object(GameModels.SHIELD_GV, "Shield", pos);
             shieldOn = false;
         }
 
@@ -145,7 +145,6 @@ namespace Resonance
         /// <param name="colour">Colour of the shockwave</param>
         public void createShockwave(int colour)
         {
-            string waveName = "";
             //Shockwave w;// = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
             Shockwave w = Shockwave.getWave(this.Body.Position, this.Body.WorldTransform, colour);
             switch (colour) {
@@ -216,55 +215,6 @@ namespace Resonance
         }
 
         /// <summary>
-        /// Detect if the GV is in combat, and resets BVs to unfrozen when out of range
-        /// </summary>
-        /*public void detectCombatAndFreeze()
-        {
-            isInCombat = false;
-            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
-
-            foreach (BadVibe bv in bvs)
-            {
-                double dx = this.Body.Position.X - bv.Body.Position.X;
-                double dz = this.Body.Position.Z - bv.Body.Position.Z;
-                double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
-                d = Math.Sqrt(d);
-
-                if (d <= Shockwave.MAX_RADIUS)
-                {
-                    isInCombat = true;
-                }
-                else
-                {
-                    if(bv.Status == BadVibe.State.FROZEN) bv.Status = BadVibe.State.NORMAL;
-                }
-            }
-        }*/
-
-        /// <summary>
-        /// When freeze is used, check for bad vibes in range and freeze them
-        /// </summary>
-        /*public void freezeBadVibes()
-        {
-            isInCombat = false;
-            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
-
-            foreach (BadVibe bv in bvs)
-            {
-                double dx = this.Body.Position.X - bv.Body.Position.X;
-                double dz = this.Body.Position.Z - bv.Body.Position.Z;
-                double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
-                d = Math.Sqrt(d);
-
-                if (d <= Shockwave.MAX_RADIUS)
-                {
-                    bv.Status = BadVibe.State.FROZEN;
-                }
-            }
-            GameScreen.stats.usedFreeze();
-        }*/
-
-        /// <summary>
         /// Put the GV shield up
         /// </summary>
         public void shieldUp()
@@ -303,7 +253,7 @@ namespace Resonance
         {
             get
             {
-                return sheildUpObject;
+                return shieldUpObject;
             }
         }
 
