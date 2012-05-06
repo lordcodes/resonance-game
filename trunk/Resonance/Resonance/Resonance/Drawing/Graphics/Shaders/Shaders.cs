@@ -71,6 +71,11 @@ namespace Resonance
             groundShader.FogEndDistance = end;
         }
 
+        public void setTransparency(float transparency)
+        {
+            defaultShader.Transparency = transparency;
+        }
+
         public Shaders()
         {
             defaultShader = new DefaultShader("Drawing/Shaders/Default");

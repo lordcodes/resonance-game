@@ -20,6 +20,23 @@ namespace Resonance
         private TextureAnimation textureAnimation;
         private bool modelAnimPaused = false;
         private bool modelAnimPlayOnce = false;
+        private float transparency = 1;
+
+        /// <summary>
+        /// The transparency of the object
+        /// </summary>
+        public float Transparency
+        {
+            get
+            {
+                return transparency;
+            }
+
+            set
+            {
+                transparency = value;
+            }
+        }
 
         /// <summary>
         /// Returns the game model of this GameModelInstance.
