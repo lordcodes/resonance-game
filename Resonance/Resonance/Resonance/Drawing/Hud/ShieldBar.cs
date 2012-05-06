@@ -24,7 +24,7 @@ namespace Resonance
         /// <summary>
         /// Renders the health bar texture in the HUDBuffer render target
         /// </summary>
-        public override void saveTexture(SpriteBatch spriteBatch, int health)
+        public override void saveTexture(SpriteBatch spriteBatch, int value)
         {
             GraphicsDevice gd = Graphics.GraphicsDevice;
             MouseState ms = Mouse.GetState();
@@ -38,7 +38,7 @@ namespace Resonance
             BlendState b = new BlendState();
             spriteBatch.GraphicsDevice.BlendState = b;
 
-            int healthLimit = ScreenManager.pixelsX(0) + HUDTextureBare.Width * health / GoodVibe.MAX_SHIELD;
+            int healthLimit = 2 + 45 * value / GoodVibe.MAX_SHIELD; //inset + width * percentage
             spriteBatch.Draw(HUDAlpha, new Vector2(healthLimit, ScreenManager.pixelsY(0)), Color.White);
             spriteBatch.End();      
             gd.SetRenderTarget(null);

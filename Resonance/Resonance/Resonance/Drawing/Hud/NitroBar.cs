@@ -35,7 +35,7 @@ namespace Resonance
             BlendState b = new BlendState();
             spriteBatch.GraphicsDevice.BlendState = b;
 
-            int healthLimit = ScreenManager.pixelsX(0) + HUDTextureBare.Width * value / GoodVibe.MAX_NITRO;
+            int healthLimit = 15 + 85 * value / GoodVibe.MAX_NITRO; //inset + width * percentage
             spriteBatch.Draw(HUDAlpha, new Vector2(healthLimit, ScreenManager.pixelsY(0)), Color.White);
             spriteBatch.End();
             gd.SetRenderTarget(null);
