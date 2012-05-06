@@ -111,7 +111,7 @@ namespace Resonance
                     {
                         case Pickup.X3:
                             {
-                                MusicHandler.playSound(MusicHandler.CHINK);
+                                MusicHandler.playSound(MusicHandler.DING);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustNitro(10);
                                 break;
@@ -125,14 +125,14 @@ namespace Resonance
                             }
                         case Pickup.X2:
                             {
-                                MusicHandler.playSound(MusicHandler.SHIMMER);
+                                MusicHandler.playSound(MusicHandler.DING);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().AdjustHealth(5);
                                 break;
                             }
                         case Pickup.PLUS5:
                             {
-                                MusicHandler.playSound(MusicHandler.RED);
+                                MusicHandler.playSound(MusicHandler.DING);
                                 PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
                                 //Game.getGV().adjustFreeze(5);
                                 break;
