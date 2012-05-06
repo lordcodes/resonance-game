@@ -140,6 +140,7 @@
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
+    <Compile Include="Managers\ObjectiveManager.cs" />
     <Compile Include="Managers\ParticleEmitterManager.cs" />
     <Compile Include="Managers\DrumManager.cs" />
     <Compile Include="Managers\GVManager.cs" />
