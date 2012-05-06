@@ -41,6 +41,7 @@ namespace Resonance
         private static MiniMap miniMap;
         private static Texture2D mask;
         private static ImportedCustomFont scoreFont;
+        private static ImportedCustomFont countDownFont;
         private static HealthBar healthBarClass;
         private static ShieldBar shieldBar;
         private static FreezeBar freezeBar;
@@ -79,6 +80,7 @@ namespace Resonance
             tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
             damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
             scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
+            countDownFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/CountDown/CountDownFont");
             mask        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/minimapalpha");
             pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
             pickupShield = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
@@ -164,7 +166,7 @@ namespace Resonance
             TimeSpan time = ScreenManager.game.CountDown;
             if (time.Seconds > 0)
             {
-                scoreFont.drawLeft(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
+                countDownFont.drawLeft(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
             }
             else if (time.Milliseconds < 1000 && time.Milliseconds > 0)
             {

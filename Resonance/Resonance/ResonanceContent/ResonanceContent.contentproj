@@ -1563,7 +1563,7 @@
     <Compile Include="Drawing\Fonts\Custom\CountDown\CountDownFont.xml">
       <Name>CountDownFont</Name>
       <Importer>XmlImporter</Importer>
-      <Processor>PassThroughProcessor</Processor>
+      <Processor>CustomFontProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
