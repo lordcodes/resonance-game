@@ -14,10 +14,16 @@ namespace Resonance {
 
         private const int DEFAULT_OBJECTIVE = KILL_ALL_BV;
 
+        private const int FINAL_OBJECTIVE       = KILL_BOSS;
+
         private static int cObj = DEFAULT_OBJECTIVE;
+
+        private static int bvKilledAtStart = 0;
 
         public static void setObjective(int newObj) {
             cObj = newObj;
+
+            if (newObj == KILL_ALL_BV) bvKilledAtStart = GameScreen.stats.BVsKilled;
         }
 
         public static int currentObjective() {
@@ -25,6 +31,11 @@ namespace Resonance {
         }
 
         public bool objectiveMet() {
+            switch (cObj) {
+                case () : {
+                }
+            }
+
             return false;
         }
 
@@ -50,42 +61,52 @@ namespace Resonance {
             return "";
         }
 
-        public String getProgressString() {
+        public bool getProgress(ref string oStr) {
             switch (cObj) {
                 case (KILL_ALL_BV) : {
-                    int killed = 0;
-                    int total = 0;
-                    return killed.ToString() + " / " + total.ToString() + " destroyed.";
+                    int killed = GameScreen.stats.BVsKilled - bvKilledAtStart;
+                    int total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
+                    oStr = "" + killed + " / " + total + " destroyed.";
+
+                    if (killed == total) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     int collected = 0;
                     int total = 0;
-                    return collected.ToString() + " / " + total.ToString() + " collected.";
+                    oStr = "" + collected + " / " + total + " collected.";
+
+                    if (collected == total) return true; else return false;
                 }
                 case (KILL_BOSS) : {
                     int bossHealth = 0;
                     int bossMaxHealth = 0;
                     double pct = 100d * (double) bossHealth / (double) bossMaxHealth;
-                    return "Master Bad Vibe " + ((int) pct).ToString() + " destroyed.";
+                    oStr = "Master Bad Vibe " + ((int) pct) + " destroyed.";
+
+                    if (bossHealth == 0) return true; else return false;
                 }
                 case (SURVIVE) : {
                     int remainingMins = 0;
                     int remainingSecs = 0;
 
-                    String secString = remainingSecs.ToString();
+                    string secString = remainingSecs.ToString();
                     if (secString.Length < 2) secString = "0" + secString;
-                    String minString = remainingMins.ToString();
 
-                    return "Stay alive for " + minString + ":" + secString;
+                    oStr = "Stay alive for " + remainingMins + ":" + secString;
+
+                    if ((remainingMins == 0) && (remainingSecs == 0)) return true; else return false;
                 }
                 case (TERRITORIES) : {
                     int healed = 0;
                     int total = 0;
-                    return healed.ToString() + " / " + total.ToString() + " areas healed.";
+                    oStr = "" + healed + " / " + total + " areas healed.";
+
+                    if (healed == total) return true; else return false;
                 }
             }
 
-            return "";
+            oStr = "";
+            return false;
         }
     }
 }

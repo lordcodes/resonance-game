@@ -8,9 +8,9 @@ namespace Resonance
 {
     class BVSpawnManager
     {
-        private const int SPAWN_RADIUS = 10;
-        private const int MAX_ACTIVE = 1;
-        private const int MAX_BV = 12;
+        public const int SPAWN_RADIUS = 10;
+        public const int MAX_ACTIVE = 1;
+        public const int MAX_BV = 12;
 
         private static int spawnerCount;
         private static int bvcount = 0;
@@ -23,6 +23,10 @@ namespace Resonance
         {
             spawnerCount = 1;
             spawners = new List<BVSpawner>();
+        }
+
+        public static int getSpawnerCount() {
+            return spawners.Count;
         }
 
         public static void allocate()
