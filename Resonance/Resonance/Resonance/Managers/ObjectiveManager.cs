@@ -12,13 +12,13 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int SURVIVE                = 4;
 
-        private const int DEFAULT_OBJECTIVE = KILL_ALL_BV;
+        private const int DEFAULT_OBJECTIVE     = KILL_ALL_BV;
 
         private const int FINAL_OBJECTIVE       = KILL_BOSS;
 
-        private static int cObj = DEFAULT_OBJECTIVE;
+        private static int cObj                 = DEFAULT_OBJECTIVE;
 
-        private static int bvKilledAtStart = 0;
+        private static int bvKilledAtStart      = 0;
 
         public static void setObjective(int newObj) {
             cObj = newObj;
@@ -28,15 +28,6 @@ namespace Resonance {
 
         public static int currentObjective() {
             return cObj;
-        }
-
-        public bool objectiveMet() {
-            switch (cObj) {
-                case () : {
-                }
-            }
-
-            return false;
         }
 
         public String getObjectiveString() {
