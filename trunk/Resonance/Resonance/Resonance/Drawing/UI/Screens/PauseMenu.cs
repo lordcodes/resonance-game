@@ -59,9 +59,11 @@ namespace Resonance
             int x = (int)screenSize.X / 2 - 200;
             int y = (int)screenSize.Y / 2 - 240;
 
-            ScreenManager.SpriteBatch.Draw(Bgs[0], new Vector2(x, y), Color.White);
-
-            x = (int)((screenSize.X * 2) * 0.75f - 360);
+            ScreenManager.SpriteBatch.Draw(Bgs[0], new Vector2(x, y), Color.White);            
+          
+            if (screenSize.X * 2 > 1450)           
+                x = (int)((screenSize.X * 2) * 0.75f - 360);            
+            else x = (int)(screenSize.X * 2) - 720;
             y = (int)screenSize.Y / 2 - 250;
 
             ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
