@@ -398,7 +398,7 @@ namespace Resonance
                 }
             }
 
-            //BulletManager.updateBullet();
+            BulletManager.updateBullet();
             
             gv.FreezeActive = false;
             return numberKilled;
