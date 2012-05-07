@@ -241,7 +241,7 @@ namespace Resonance
                     if (GAME_CAN_END)
                     {
                         string x = "";
-                        if (GV_KILLED || mode.terminated() || (ObjectiveManager.getProgress(ref x)))
+                        if (GV_KILLED || mode.terminated() || (mode.MODE == GameMode.OBJECTIVES && (ObjectiveManager.getProgress(ref x))))
                         {
                             if (!preEndGameTimer.IsRunning)
                             {
