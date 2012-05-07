@@ -100,10 +100,12 @@ namespace Resonance
 
         private void startGame()
         {
-            ObjectiveManager.loadObjectivesGame(ScreenManager);
-            //ScreenManager.game = new GameScreen(ScreenManager,level);
-            //LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
-            //Call objective manager play game
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES) {
+                ObjectiveManager.loadObjectivesGame(ScreenManager);
+            } else {
+                ScreenManager.game = new GameScreen(ScreenManager,level);
+                LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
+            }
         }
 
         private void openSettings()
