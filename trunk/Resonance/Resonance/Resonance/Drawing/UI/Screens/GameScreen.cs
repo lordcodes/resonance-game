@@ -40,6 +40,7 @@ namespace Resonance
         public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
+        public const bool USE_PROFILER = false;
 
         private Stopwatch preEndGameTimer;
         private int preEndGameDuration = 4000;
@@ -69,7 +70,7 @@ namespace Resonance
             isLoaded = false;
             GV_KILLED = false;
             this.ScreenManager = scrn;
-            countDown = TimeSpan.FromSeconds(4);
+            countDown = TimeSpan.FromSeconds(5);
             intro = false;
             MusicHandler.reset();
             stats = new GameStats();
@@ -166,25 +167,18 @@ namespace Resonance
             bool pad2Ever = input.PlayerTwoHasBeenConnected;
             bool connected = input.PlayerOne.IsConnected;
 
-            if (pad1Ever && !connected)
+            if (pad1Ever && !connected || pause)
             {
                 ScreenManager.addScreen(ScreenManager.pauseMenu);
             }
-            if (intro)
+            if (debug)
             {
-                if ((pad1Ever && !connected) || pause)
-                {
-                    ScreenManager.addScreen(ScreenManager.pauseMenu);
-                }
-                else if (debug)
-                {
-                    ScreenManager.addScreen(ScreenManager.debugMenu);
-                }
-                //Player One
-                GVManager.input(input);
-                //Player Two
-                DrumManager.input(input);
+                ScreenManager.addScreen(ScreenManager.debugMenu);
             }
+            //Player One
+            GVManager.input(input);
+            //Player Two
+            DrumManager.input(input);
             //Camera
             CameraMotionManager.update(input);
         }
@@ -203,12 +197,14 @@ namespace Resonance
                 {
                     intro = true;
                 }
+
+                DrawableManager.Update(gameTime);
+                Drawing.Update(gameTime);
+                MusicHandler.getTrack().playTrack();
+
                 if (intro)
                 {
-                    DrawableManager.Update(gameTime);
-                    Drawing.Update(gameTime);
                     if (USE_MINIMAP) Hud.saveMiniMap();
-                    MusicHandler.getTrack().playTrack();
 
                     float health = getGV().healthFraction();
                     if (health < 0.1) MusicHandler.HeartBeat = true;
@@ -233,14 +229,16 @@ namespace Resonance
                     }
                     //PickupManager.updateTimeRemaining();
 
-                    world.update();
-
-                    MusicHandler.Update();
-
                     if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
                     if (WeatherManager.isPaused()) WeatherManager.pause(false);
+                }
 
-                    if (USE_WHEATHER) WeatherManager.update();
+                if (USE_WHEATHER) WeatherManager.update();
+                MusicHandler.Update();
+                world.update();
+
+                if(intro)
+                {
 
                     if (GAME_CAN_END)
                     {

@@ -414,7 +414,8 @@ namespace Resonance
             DrawableManager.Draw(gameTime);
             drawParticles();
             hud.Draw(gameTime);
-            hud.drawDebugInfo(DebugDisplay.getString()+Profile.DumpAndReset());
+            if(GameScreen.USE_PROFILER) hud.drawDebugInfo(DebugDisplay.getString()+Profile.DumpAndReset());
+            else hud.drawDebugInfo(DebugDisplay.getString());
             checkFrameRate(gameTime);
         }
 

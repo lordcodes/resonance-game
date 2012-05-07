@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::24579354-28a5-48ea-9560-a24fe2571107;
+            Name = Sound::dfb2cadc-bd5f-4442-8567-740ea557a8f5;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::a3c91a9b-a44d-43ec-8194-f7e8d6cb4dba;
+            Name = Effect::5e9d656f-5a1d-4add-ad67-1ccd71b237ae;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -563,6 +563,10 @@ Wave Bank
     Windows Bank Path Edited = 0;
     Seek Tables = 1;
     Compression Preset Name = <none>;
+    Xbox Bank Last Modified Low = 0;
+    Xbox Bank Last Modified High = 0;
+    PC Bank Last Modified Low = 0;
+    PC Bank Last Modified High = 0;
     Header Last Modified Low = 0;
     Header Last Modified High = 0;
     Bank Last Revised Low = 1696394163;
@@ -1632,7 +1636,7 @@ Sound Bank
     Sound
     {
         Name = thunderLoud1;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -1684,7 +1688,7 @@ Sound Bank
     Sound
     {
         Name = thunderLoud2;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -1736,7 +1740,7 @@ Sound Bank
     Sound
     {
         Name = thunderMid1;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -1788,7 +1792,7 @@ Sound Bank
     Sound
     {
         Name = thunderQuiet2;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -1840,7 +1844,7 @@ Sound Bank
     Sound
     {
         Name = thunderLoud3;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -1892,7 +1896,7 @@ Sound Bank
     Sound
     {
         Name = thunderQuiet1;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -1944,7 +1948,7 @@ Sound Bank
     Sound
     {
         Name = thunderMid2;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -1996,7 +2000,7 @@ Sound Bank
     Sound
     {
         Name = thunderMid3;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -2048,7 +2052,7 @@ Sound Bank
     Sound
     {
         Name = rainAndThunder;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 
@@ -2106,7 +2110,7 @@ Sound Bank
     Sound
     {
         Name = rainLight;
-        Volume = -1200;
+        Volume = -1800;
         Pitch = 0;
         Priority = 0;
 

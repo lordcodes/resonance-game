@@ -255,21 +255,20 @@ namespace Resonance {
         }
 
         public static void pause(bool status) {
-            paused = status;
-
-            if (paused && !status) {
+            if (!paused && status) {
                 try {
                     if (rCue  != null)  rCue.Pause();
                     if (lRCue != null) lRCue.Pause();
                     if (lCue  != null)  lCue.Pause();
                 } catch (Exception e) {}
-            } else if (!paused && status) {
+            } else if (paused && !status) {
                 try {
                     if (rCue  != null)  rCue.Resume();
                     if (lRCue != null) lRCue.Resume();
                     if (lCue  != null)  lCue.Resume();
                 } catch (Exception e) {}
             }
+            paused = status;
         }
 
         public static bool isPaused() {

@@ -102,6 +102,7 @@ namespace Resonance
         {
             ScreenManager.game = new GameScreen(ScreenManager,level);
             LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
+            //Call objective manager play game
         }
 
         private void openSettings()

@@ -45,7 +45,7 @@ namespace Resonance
             soundBank = new SoundBank(audioEngine, "Content/Sound Bank.xsb");
             heartBeat = soundBank.GetCue("heart-beat");
             audioEngine.SetGlobalVariable("Microsoft Reverb", 50);
-            MediaPlayer.Volume = 0.5f;
+            MediaPlayer.Volume = 0.7f;
 
             emitter = new AudioEmitter();
             listener = new AudioListener();
