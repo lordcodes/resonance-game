@@ -10,11 +10,11 @@ namespace Resonance {
     /// </summary>
     class GameMode {
 
-        public readonly int MODE;
+        public int MODE;
 
         public const int TIME_ATTACK = 0; // == ARCADE
-        public const int ELIMINATION = 1;
-        public const int OBJECTIVES  = 2; // Default 'story' mode.
+        public const int OBJECTIVES  = 1; // Default 'story' mode.
+        public const int ELIMINATION = 2;
 
 
 
