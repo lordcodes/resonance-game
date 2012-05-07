@@ -49,7 +49,7 @@ virus,          Textures\virus.png
 wallTexture,    Textures\walls.jpg
 goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
 
-bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\yellow.jpg;Textures\cymbal.jpg
+bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\yellow.jpg
 ---You can use dashes at the start of lines for comments
 
 ---Texture delay(ms) is the time spent on each frame of the animation.
