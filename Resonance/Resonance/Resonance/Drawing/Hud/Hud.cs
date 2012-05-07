@@ -181,7 +181,7 @@ namespace Resonance
         public static void showDamage()
         {
             AlphaValue = 0.6f;
-            vibration = 0.6f;
+            vibration = GameScreen.VIBRATION;
         }
 
         private void drawDamage(GameTime gameTime)

@@ -233,11 +233,6 @@ namespace Resonance
             }
         }
 
-        void distortSound()
-        {
-            MediaPlayer.Volume = 50;
-        }
-
         public Song Song
         {
             get { return song; }
