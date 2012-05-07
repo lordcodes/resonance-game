@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Microsoft.Xna.Framework.Media;
 
 namespace Resonance {
     class ObjectiveManager {
@@ -12,7 +13,7 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int SURVIVE                = 4;
 
-        private const int DEFAULT_OBJECTIVE     = KILL_ALL_BV;
+        private const int DEFAULT_OBJECTIVE = SURVIVE;
 
         private const int FINAL_OBJECTIVE       = KILL_BOSS;
 
@@ -77,14 +78,8 @@ namespace Resonance {
                     if (bossHealth == 0) return true; else return false;
                 }
                 case (SURVIVE) : {
-                    TimeSpan ts = MusicHandler.getTrack().Song.Duration; //TODO: duration-elapsed
-                    string formattedTimeSpan = string.Format("{1:D2}:{2:D2}", ts.Minutes, ts.Seconds);
-
-                    //int remainingMins = 0;
-                    //int remainingSecs = 0;
-
-                    //string secString = remainingSecs.ToString();
-                    //if (secString.Length < 2) secString = "0" + secString;
+                    TimeSpan ts = MusicHandler.getTrack().Song.Duration - MediaPlayer.PlayPosition;
+                    string formattedTimeSpan = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
 
                     oStr = "Stay alive for " + formattedTimeSpan;
 
