@@ -39,7 +39,8 @@ namespace Resonance
         private static Texture2D damage;
         private static MiniMap miniMap;
         private static Texture2D mask;
-        private static ImportedCustomFont scoreFont;
+        //private static ImportedCustomFont scoreFont;
+        private static SpriteFont scoreFont;
         private static ImportedCustomFont countDownFont;
         private static HealthBar healthBarClass;
         private static ShieldBar shieldBar;
@@ -70,7 +71,10 @@ namespace Resonance
         /// </summary>
         public void loadContent()
         {
-            font        = Content.Load<SpriteFont>         ("Drawing/Fonts/DebugFont");
+            if (ScreenManager.ScreenWidth >= 1450)
+                font    = Content.Load<SpriteFont>         ("Drawing/Fonts/HealthBarFont");
+            else
+                font    = Content.Load<SpriteFont>         ("Drawing/Fonts/HealthBarSmallFont");
             healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
             healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
             drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
@@ -78,13 +82,14 @@ namespace Resonance
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
             tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
             damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
-            scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
-            countDownFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/CountDown/CountDownFont");
-            mask        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/minimapalpha");
+            //scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
+            scoreFont   = Content.Load<SpriteFont>         ("Drawing/Fonts/ScoreFont");
+            countDownFont= Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
+            mask         = Content.Load<Texture2D>         ("Drawing/HUD/Textures/minimapalpha");
             pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
             pickupShield = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
             pickupNitro  = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupnitro");
-            pickupFreeze = Content.Load<Texture2D>("Drawing/HUD/Textures/pickupfreeze");
+            pickupFreeze = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupfreeze");
 
 
             if (GameScreen.USE_MINIMAP)
@@ -153,11 +158,25 @@ namespace Resonance
             highlightedPower();          
             drawThrobber();
             drawCountDown();
-            scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
+            drawScore();           
             drawLightning();
             spriteBatch.End();
             
             Drawing.resetGraphics();
+        }
+
+        private static void drawScore()
+        {
+            //TODO: add bounding box to score
+
+            int xOffset = (int)Math.Round(scoreFont.MeasureString(score.ToString()).X);
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(1895) - xOffset, ScreenManager.pixelsY(20));
+            spriteBatch.DrawString(scoreFont, score.ToString(), coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            coords.X--;
+            coords.Y--;
+            spriteBatch.DrawString(scoreFont, score.ToString(), coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            //scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
         }
 
         private static void drawCountDown()
@@ -418,7 +437,7 @@ namespace Resonance
             ObjectiveManager.getProgress(ref progressString);
 
             int xOffset = (int)Math.Round(font.MeasureString(objectiveString).X / 2);
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(350) - xOffset, ScreenManager.pixelsY(21));
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(350) - xOffset, ScreenManager.pixelsY(24));
             //spriteBatch.DrawString(font, "Objective: " + GameScreen.mode.MODE, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(font, objectiveString, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             coords.X--;
@@ -427,7 +446,7 @@ namespace Resonance
 
             xOffset = (int)Math.Round(font.MeasureString(progressString).X / 2);
             coords.X = ScreenManager.pixelsX(315) - xOffset;
-            coords.Y = ScreenManager.pixelsY(92);
+            coords.Y = ScreenManager.pixelsY(95);
             //spriteBatch.DrawString(font, "Time remaining: " + formattedTimeSpan, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(font, progressString, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             coords.X--;
