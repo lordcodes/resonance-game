@@ -12,12 +12,14 @@ namespace Resonance
     class SettingsMenu : MenuScreen
     {
         List<string> difficulties;
-        int currentDifficulty = GameScreen.DIFFICULTY;
         List<string> gameModes;
         Vector2 begSize;
         Vector2 lrOrigin;
 
         int currentMusicVolume;
+        int currentVibrationLevel;
+        bool changedVibration = false;
+        double vibrateTimer;
 
         public SettingsMenu()
             : base("Settings")
@@ -25,11 +27,13 @@ namespace Resonance
             MenuElement gameMode = new MenuElement("Game Mode", changeGameMode);
             MenuElement difficulty = new MenuElement("Difficulty", changeDifficulty);
             MenuElement musicVolume = new MenuElement("Music Volume", changeMusicVolume);
+            MenuElement vibration = new MenuElement("Vibration", changeVibration);
             MenuElement back = new MenuElement("Back to Main Menu", toMainMenu);
 
             MenuItems.Add(gameMode);
             MenuItems.Add(difficulty);
             MenuItems.Add(musicVolume);
+            MenuItems.Add(vibration);
             MenuItems.Add(back);
 
             this.musicStart = false;
@@ -46,7 +50,8 @@ namespace Resonance
             gameModes.Add("Arcade");
             gameModes.Add("Objectives");
 
-            currentMusicVolume = (int)(MediaPlayer.Volume * 10);
+            currentMusicVolume = (int)Math.Round(MediaPlayer.Volume * 10f, 0);
+            currentVibrationLevel = (int)Math.Round(GameScreen.VIBRATION * 10, 0);
         }
 
         public override void LoadContent()
@@ -94,6 +99,12 @@ namespace Resonance
                     if (currentMusicVolume < 0) currentMusicVolume = 10;
                     MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
                 }
+                else if (Selected == 3)
+                {
+                    currentVibrationLevel--;
+                    if (currentVibrationLevel < 0) currentVibrationLevel = 10;
+                    setVibration();
+                }
             }
             else if (right)
             {
@@ -113,6 +124,27 @@ namespace Resonance
                     if (currentMusicVolume > 10) currentMusicVolume = 0;
                     MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
                 }
+                else if (Selected == 3)
+                {
+                    currentVibrationLevel++;
+                    if (currentVibrationLevel > 10) currentVibrationLevel = 0;
+                    setVibration();
+                }
+            }
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            base.Update(gameTime);
+
+            if (changedVibration)
+            {
+                vibrateTimer -= gameTime.ElapsedGameTime.TotalSeconds;
+                if (vibrateTimer <= 0)
+                {
+                    GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
+                    changedVibration = false;
+                }
             }
         }
 
@@ -128,7 +160,7 @@ namespace Resonance
             {
                 position.X = (int)screenSize.X + diff;
                 MenuItems[i].Position = position;
-                position.Y += MenuItems[i].Size(this).Y + 100;
+                position.Y += MenuItems[i].Size(this).Y + 40;
                 if(i == MenuItems.Count - 2) diff = 0f;
             }
         }
@@ -163,12 +195,22 @@ namespace Resonance
             pos.X += begSize.X;
             ScreenManager.SpriteBatch.DrawString(Font, ">", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
 
-            x = pos.X -= begSize.X;
+            x = (pos.X - begSize.X);
             y = MenuItems[2].Position.Y - 5;
 
             for (int i = 0; i < 10; i++)
             {
                 if (i < currentMusicVolume) ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
+                else ScreenManager.SpriteBatch.Draw(Bgs[2], new Vector2(x, y), Color.White);
+                x += 25;
+            }
+
+            x = (pos.X - begSize.X);
+            y = MenuItems[3].Position.Y - 5;
+
+            for (int i = 0; i < 10; i++)
+            {
+                if (i < currentVibrationLevel) ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
                 else ScreenManager.SpriteBatch.Draw(Bgs[2], new Vector2(x, y), Color.White);
                 x += 25;
             }
@@ -182,7 +224,8 @@ namespace Resonance
 
         private void changeGameMode()
         {
-           
+            GameScreen.mode.MODE++;
+            if (GameScreen.mode.MODE > 1) GameScreen.mode.MODE = 0;
         }
 
         private void changeDifficulty()
@@ -196,6 +239,21 @@ namespace Resonance
             currentMusicVolume++;
             if (currentMusicVolume > 10) currentMusicVolume = 0;
             MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
+        }
+
+        private void changeVibration()
+        {
+            currentVibrationLevel++;
+            if (currentVibrationLevel > 10) currentVibrationLevel = 0;
+            setVibration();
+        }
+
+        private void setVibration()
+        {
+            GameScreen.VIBRATION = ((float)currentVibrationLevel) / 10f;
+            GamePad.SetVibration(PlayerIndex.One, GameScreen.VIBRATION, GameScreen.VIBRATION);
+            changedVibration = true;
+            vibrateTimer = 0.5;
         }
     }
 }

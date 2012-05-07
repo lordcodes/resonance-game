@@ -32,6 +32,7 @@ namespace Resonance
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode = new GameMode(GameMode.OBJECTIVES);
         public static GameStats stats = new GameStats();
+        public static float VIBRATION = 0.4f;
 
         public static bool GV_KILLED = false;
         public static bool GV_KILLED_AT_GAME_END = false;
