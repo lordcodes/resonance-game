@@ -32,6 +32,7 @@ namespace Resonance
         public static DebugMenu debugMenu;
         public static MainMenu mainMenu;
         public static SettingsMenu settingsMenu;
+        public static InGameSettingsMenu inGameSettings;
 
 
         public ScreenManager(ResonanceGame game)
@@ -64,6 +65,7 @@ namespace Resonance
             blankTex = content.Load<Texture2D>("Drawing/Textures/texPixel");
             MusicHandler.init(content);
             settingsMenu = new SettingsMenu();
+            inGameSettings = new InGameSettingsMenu();
             foreach (Screen screen in screens)
             {
                 screen.LoadContent();

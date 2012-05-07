@@ -191,7 +191,7 @@ namespace Resonance
         {
             using (IDisposable d = UpdateSection.Measure())
             {
-                if(countDown.Seconds > -2) countDown -= gameTime.ElapsedGameTime;
+                if(countDown.TotalMilliseconds > -2000) countDown -= gameTime.ElapsedGameTime;
                 if(countDown < TimeSpan.Zero && !intro)
                 {
                     intro = true;
