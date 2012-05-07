@@ -13,6 +13,14 @@ namespace Resonance
     /// </summary>
     class LoadingScreen : Screen
     {
+        public const int NONE              = 0;
+        public const int ARCADE_SPLASH     = 1;
+        public const int OBJECTIVE_SPLASH1 = 2;
+        public const int OBJECTIVE_SPLASH2 = 3;
+        public const int OBJECTIVE_SPLASH3 = 4;
+        public const int OBJECTIVE_SPLASH4 = 5;
+        public const int OBJECTIVE_SPLASH5 = 6;
+
         private Texture2D[] bgs;
         private SpriteFont font;
         private float timeElapsed = 0;
@@ -20,19 +28,25 @@ namespace Resonance
         private int frameNumber = 0;
         Screen screenToLoad;
 
-        bool displaySplash;
+        int displaySplash;
         bool startLoading = true;
         bool loadingDone = false;
 
-        public LoadingScreen(bool displayScreen, Screen loadScreen)
+        public LoadingScreen(int displayScreen, Screen loadScreen)
         {
             displaySplash = displayScreen;
             screenToLoad = loadScreen;
-            bgs = new Texture2D[8];
+            bgs = new Texture2D[14];
         }
 
         public override void LoadContent()
         {
+            bgs[13] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain5");
+            bgs[12] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain4");
+            bgs[11] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain3");
+            bgs[10] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain2");
+            bgs[9] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain1");
+            bgs[8] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain0");
             bgs[7] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain");
             bgs[6] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen1");
             bgs[5] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/LoadingScreen2");
@@ -73,7 +87,7 @@ namespace Resonance
 
         public override void Draw(GameTime gameTime)
         {
-            if (displaySplash)
+            if (displaySplash > 0)
             {
                 ScreenManager.SpriteBatch.Begin();
                 string text = "Loading";
@@ -81,8 +95,9 @@ namespace Resonance
 
                 Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight / 2);
 
+                if(displaySplash <= 7) ScreenManager.SpriteBatch.Draw(bgs[6 + displaySplash], new Vector2((int)screenSize.X - 250, (int)screenSize.Y - 275), Color.White);
+
                 ScreenManager.SpriteBatch.Draw(bgs[frameNumber], new Vector2(ScreenManager.pixelsX(1650), ScreenManager.pixelsY(825)), Color.White);
-                ScreenManager.SpriteBatch.Draw(bgs[7], new Vector2((int)screenSize.X - 250, (int)screenSize.Y - 275), Color.White);
                 ScreenManager.SpriteBatch.DrawString(font, text, new Vector2(ScreenManager.pixelsX(100), ScreenManager.pixelsY(950)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 ScreenManager.SpriteBatch.End();
             }
@@ -93,7 +108,7 @@ namespace Resonance
             }
         }
 
-        public static void LoadAScreen(ScreenManager screenManager, bool displayScreen, Screen loadScreen)
+        public static void LoadAScreen(ScreenManager screenManager, int displayScreen, Screen loadScreen)
         {
             foreach (Screen screen in screenManager.getScreens())
             {

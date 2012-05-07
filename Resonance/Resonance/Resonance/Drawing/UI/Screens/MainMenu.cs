@@ -98,13 +98,14 @@ namespace Resonance
             //Utility.drawLine(ScreenManager.SpriteBatch, Bgs[4], start, end, Color.Orange, 3);
         }
 
-        private void startGame()
+        public void startGame()
         {
             if (GameScreen.mode.MODE == GameMode.OBJECTIVES) {
+                ObjectiveManager.setObjective(ObjectiveManager.DEFAULT_OBJECTIVE);
                 ObjectiveManager.loadObjectivesGame(ScreenManager);
             } else {
                 ScreenManager.game = new GameScreen(ScreenManager,level);
-                LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
+                LoadingScreen.LoadAScreen(ScreenManager, 1, ScreenManager.game);
             }
         }
 

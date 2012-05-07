@@ -13,7 +13,7 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int KILL_BOSS              = 4;
 
-        private const int DEFAULT_OBJECTIVE     = KILL_ALL_BV;
+        public const int DEFAULT_OBJECTIVE     = SURVIVE;
 
         public  const int FINAL_OBJECTIVE       = KILL_BOSS;
 
@@ -21,11 +21,12 @@ namespace Resonance {
 
         private static int bvKilledAtStart      = 0;
         private static TimeSpan initialDistThroughSong;
-        private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
+        //private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
+        private static TimeSpan survivalTime = new TimeSpan(0, 0, 10); // 1 sec
 
         public static void loadObjectivesGame(ScreenManager sm) {
             ScreenManager.game = new GameScreen(sm, 0);
-            LoadingScreen.LoadAScreen(sm, true, ScreenManager.game);
+            LoadingScreen.LoadAScreen(sm, cObj + 2, ScreenManager.game);
         }
 
         public static void setObjective(int newObj) {

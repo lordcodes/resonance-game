@@ -12,10 +12,9 @@ namespace Resonance {
 
         public int MODE;
 
-        public const int TIME_ATTACK = 0; // == ARCADE
+        public const int ARCADE      = 0; // == ARCADE
         public const int OBJECTIVES  = 1; // Default 'story' mode.
         public const int ELIMINATION = 2;
-
 
 
         private bool TERMINATION_CRITERION_MET = false;
@@ -27,7 +26,7 @@ namespace Resonance {
 
         public bool terminated() {
             switch (MODE) {
-                case TIME_ATTACK: {
+                case ARCADE: {
                     if (MusicHandler.getTrack().SONG_ENDED) TERMINATION_CRITERION_MET = true;
                     break;
                 }
