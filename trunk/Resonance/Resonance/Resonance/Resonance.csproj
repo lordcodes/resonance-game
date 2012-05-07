@@ -131,6 +131,7 @@
     <Compile Include="Drawing\UI\Screens\HintScreen.cs" />
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs" />
     <Compile Include="Drawing\UI\Screens\EndGameScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\InGameSettingsMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MainMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MenuElement.cs" />
     <Compile Include="Drawing\UI\Screens\MenuScreen.cs" />

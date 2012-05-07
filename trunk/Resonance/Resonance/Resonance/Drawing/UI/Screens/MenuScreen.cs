@@ -145,7 +145,7 @@ namespace Resonance
             bool debugScreen = (this is DebugMenu);
             bool pauseScreen = (this is PauseMenu);
             bool endGameScreen = (this is EndGameScreen);
-            bool settingsScreen = (this is SettingsMenu);
+            bool settingsScreen = (this is SettingsMenu || this is InGameSettingsMenu);
 
             if(pauseScreen || endGameScreen) ScreenManager.darkenBackground(0.9f);
             else if (debugScreen) ScreenManager.darkenBackground(0.75f);

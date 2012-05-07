@@ -13,10 +13,12 @@ namespace Resonance
             : base("Paused")
         {
             MenuElement resume = new MenuElement("Resume", resumeGame);
+            MenuElement settings = new MenuElement("Settings", openSettings);
             MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
             MenuElement quitCompletely = new MenuElement("Quit Game", quitGameCompletely);
 
             MenuItems.Add(resume);
+            MenuItems.Add(settings);
             MenuItems.Add(quit);
             MenuItems.Add(quitCompletely);
 
@@ -46,7 +48,7 @@ namespace Resonance
                 position.X = (int)screenSize.X / 2;
                 elem.Position = position;
 
-                position.Y += elem.Size(this).Y + 100;
+                position.Y += elem.Size(this).Y + 50;
             }
         }
 
@@ -86,6 +88,11 @@ namespace Resonance
             msg += "(Enter - OK, Escape - Cancel)";
 
             ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.TO_MAIN_MENU));
+        }
+
+        private void openSettings()
+        {
+            ScreenManager.addScreen(ScreenManager.inGameSettings);
         }
 
         private void quitGameCompletely()
