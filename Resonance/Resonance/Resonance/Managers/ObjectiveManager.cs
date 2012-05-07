@@ -72,8 +72,8 @@ namespace Resonance {
                     int total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
                     oStr = "" + killed + " / " + total + " destroyed";
 
-                    //if (killed == total) return true; else return false;
-                    if (killed >= 1) return true; else return false;
+                    if (killed == total) return true; else return false;
+                    //if (killed >= 1) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     int collected = 0;
@@ -92,11 +92,16 @@ namespace Resonance {
                 }
                 case (SURVIVE) : {
                     TimeSpan ts = survivalTime - MediaPlayer.PlayPosition - initialDistThroughSong;
-                    string formattedTimeSpan = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+
+                    int remainingM = ts.Minutes;
+                    int remainingS = ts.Seconds;
+                    if (remainingS < 0) remainingS = 0;
+
+                    string formattedTimeSpan = string.Format("{0:D2}:{1:D2}", remainingM, remainingS);
 
                     oStr = "Stay alive for " + formattedTimeSpan;
 
-                    if ((ts.Minutes == 0) && (ts.Seconds == 0)) return true; else return false;
+                    if ((ts.Minutes == 0) && (ts.Seconds <= 0)) return true; else return false;
                 }
                 case (TERRITORIES) : {
                     int healed = 0;
