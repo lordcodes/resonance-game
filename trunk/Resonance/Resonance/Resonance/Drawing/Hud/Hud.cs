@@ -636,7 +636,7 @@ namespace Resonance
         {
             string percent = powerupValue.ToString() + "%";
             int xOffset = (int)Math.Round(font.MeasureString(percent).X / 2);
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(33 + pickupBackground.Width / 2) - xOffset, ScreenManager.pixelsY(120));
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(33 + pickupBackground.Width / 2) - xOffset, ScreenManager.pixelsY(122));
             spriteBatch.DrawString(font, percent, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             coords.X--;
             coords.Y--;
