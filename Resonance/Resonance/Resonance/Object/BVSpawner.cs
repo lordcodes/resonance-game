@@ -78,7 +78,7 @@ namespace Resonance
             {
                 int x = r.Next((int)(this.OriginalPosition.X - spawnRadius), (int)(this.OriginalPosition.X + spawnRadius));
                 int z = r.Next((int)(this.OriginalPosition.Z - spawnRadius), (int)(this.OriginalPosition.Z + spawnRadius));
-                pos = new Vector3((float)x, 25f, (float)z);
+                pos = new Vector3((float)x, 2f, (float)z);
             } while (ScreenManager.game.World.querySpace(pos));
             return pos;
         } 

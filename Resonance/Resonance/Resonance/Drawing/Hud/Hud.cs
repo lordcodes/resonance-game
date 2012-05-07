@@ -169,11 +169,11 @@ namespace Resonance
             }
             else if (time.Milliseconds < 1000 && time.Milliseconds > 0)
             {
-                spriteBatch.DrawString(font, "GET READY!", new Vector2(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15)), Color.White);
+                //spriteBatch.DrawString(font, "GET READY!", new Vector2(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15)), Color.White);
             }
             else if (time.Milliseconds < 0 && time.Milliseconds > -2000)
             {
-                spriteBatch.DrawString(font, "FIGHT!", new Vector2(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15)), Color.White);
+                spriteBatch.DrawString(font, "GO!", new Vector2(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15)), Color.White);
             }
         }
 
