@@ -75,7 +75,7 @@ namespace Resonance
         {
             song = content.Load<Song>("Music/song");
             state = PlayState.STOPPED;
-            if (GameScreen.mode.MODE == GameMode.TIME_ATTACK) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
+            if (GameScreen.mode.MODE == GameMode.ARCADE) MediaPlayer.IsRepeating = false; else MediaPlayer.IsRepeating = true;
         }
 
         /// <summary>

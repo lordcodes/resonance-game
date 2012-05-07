@@ -31,7 +31,7 @@ namespace Resonance
 
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode = new GameMode(GameMode.OBJECTIVES);
-        public static GameStats stats;
+        public static GameStats stats = new GameStats();
 
         public static bool GV_KILLED = false;
         public static bool GV_KILLED_AT_GAME_END = false;
@@ -73,7 +73,6 @@ namespace Resonance
             countDown = TimeSpan.FromSeconds(5);
             intro = false;
             MusicHandler.reset();
-            stats = new GameStats();
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
             preEndGameTimer = new Stopwatch();
@@ -211,7 +210,7 @@ namespace Resonance
 
                     //Update bad vibe positions, frozen status, detect if GV
                     //in combat and break rest layers
-                    if (USE_BADVIBE_AI)
+                    if (!preEndGameTimer.IsRunning && USE_BADVIBE_AI)
                     {
                         int numberKilled = processBadVibes();
                         removeDeadBadVibes(numberKilled);
@@ -307,7 +306,7 @@ namespace Resonance
         private void endGame()
         {
             GV_KILLED = GV_KILLED_AT_GAME_END;
-            if (mode.MODE == GameMode.TIME_ATTACK) {
+            if (mode.MODE == GameMode.ARCADE) {
                 if (GV_KILLED) WeatherManager.playLightning();
                 ScreenManager.addScreen(new EndGameScreen(stats));
             } else if (mode.MODE == GameMode.OBJECTIVES) {

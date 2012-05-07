@@ -86,14 +86,16 @@ namespace Resonance
 
         private void playGameAgain()
         {
-            ScreenManager.game = new GameScreen(ScreenManager, 0);
-            LoadingScreen.LoadAScreen(ScreenManager, true, ScreenManager.game);
+            ScreenManager.mainMenu.startGame();
+            //Test for game mode
+            //ScreenManager.game = new GameScreen(ScreenManager, 0);
+            //LoadingScreen.LoadAScreen(ScreenManager, 1, ScreenManager.game);
         }
 
         private void quitGame()
         {
             ScreenManager.mainMenu.reset();
-            LoadingScreen.LoadAScreen(ScreenManager, false, ScreenManager.mainMenu);
+            LoadingScreen.LoadAScreen(ScreenManager, 0, ScreenManager.mainMenu);
         }
 
         private void quitGameCompletely()
