@@ -34,6 +34,7 @@ namespace Resonance
         public static GameStats stats;
 
         public static bool GV_KILLED = false;
+        public static bool GV_KILLED_AT_GAME_END = false;
         public static bool GAME_CAN_END = true;
         public const bool USE_BV_SPAWNER = true;
         public const bool USE_PICKUP_SPAWNER = true;
@@ -247,6 +248,7 @@ namespace Resonance
                             {
                                 preEndGameTimer.Start();
                                 if (!GV_KILLED) MusicHandler.playSound("winwhoosh");
+                                GV_KILLED_AT_GAME_END = GV_KILLED;
                             }
                         }
 
@@ -304,6 +306,7 @@ namespace Resonance
         // Called when game finished (won or lost).
         private void endGame()
         {
+            GV_KILLED = GV_KILLED_AT_GAME_END;
             if (mode.MODE == GameMode.TIME_ATTACK) {
                 if (GV_KILLED) WeatherManager.playLightning();
                 ScreenManager.addScreen(new EndGameScreen(stats));
