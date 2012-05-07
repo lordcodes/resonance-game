@@ -48,7 +48,6 @@ namespace Resonance
         World world;
         BVSpawnManager bvSpawner;
         public PickupSpawnManager pickupSpawner;
-        public ObjectiveManager objectiveManager;
 
         bool isLoaded;
         int iteration = 0;
@@ -80,7 +79,6 @@ namespace Resonance
 
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
-            objectiveManager = new ObjectiveManager();
             deadVibes = new string[50];
         }
 
@@ -242,7 +240,8 @@ namespace Resonance
 
                     if (GAME_CAN_END)
                     {
-                        if (GV_KILLED || mode.terminated())
+                        string x = "";
+                        if (GV_KILLED || mode.terminated() || (ObjectiveManager.getProgress(ref x)))
                         {
                             if (!preEndGameTimer.IsRunning)
                             {
@@ -305,9 +304,22 @@ namespace Resonance
         // Called when game finished (won or lost).
         private void endGame()
         {
-            if (GV_KILLED) WeatherManager.playLightning();
-
-            ScreenManager.addScreen(new EndGameScreen(stats));
+            if (mode.MODE == GameMode.TIME_ATTACK) {
+                if (GV_KILLED) WeatherManager.playLightning();
+                ScreenManager.addScreen(new EndGameScreen(stats));
+            } else if (mode.MODE == GameMode.OBJECTIVES) {
+                if (!GV_KILLED) {
+                    if (ObjectiveManager.currentObjective() != ObjectiveManager.FINAL_OBJECTIVE) {
+                        ObjectiveManager.nextObjective();
+                        ObjectiveManager.loadObjectivesGame(ScreenManager);
+                    } else {
+                        ScreenManager.addScreen(new EndGameScreen(stats));
+                    }
+                } else {
+                    if (GV_KILLED) WeatherManager.playLightning();
+                    ScreenManager.addScreen(new EndGameScreen(stats));
+                }
+            }
         }
 
         /// <summary>
