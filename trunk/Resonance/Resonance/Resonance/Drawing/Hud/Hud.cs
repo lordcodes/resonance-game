@@ -27,6 +27,7 @@ namespace Resonance
         private static int nitro;
         private static int shield;
         private static int freeze;
+        private static int powerupValue;
         private static float AlphaValue = 0;
         private static float vibration = 0;
         private static double delay = 0.1;
@@ -47,6 +48,7 @@ namespace Resonance
         private static FreezeBar freezeBar;
         private static NitroBar nitroBar;
         private static Texture2D pickupBackground;
+        private static Texture2D pickupPercentageBackground;
         private static Texture2D pickupShield;
         private static Texture2D pickupNitro;
         private static Texture2D pickupFreeze;
@@ -87,6 +89,7 @@ namespace Resonance
             countDownFont= Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
             mask         = Content.Load<Texture2D>         ("Drawing/HUD/Textures/minimapalpha");
             pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
+            pickupPercentageBackground = Content.Load<Texture2D>("Drawing/HUD/Textures/pickuppercentagebackground");
             pickupShield = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
             pickupNitro  = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupnitro");
             pickupFreeze = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupfreeze");
@@ -149,13 +152,14 @@ namespace Resonance
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
             drawHealthBar();
+            highlightedPower();
             drawShieldBar();
             drawNitroBar();
             drawFreezeBar();
+            highlightedPowerPercentage();
             if (GameScreen.USE_MINIMAP) drawMiniMap();
             drawBadVibeArmour();
-            drawDamage(gameTime);
-            highlightedPower();          
+            drawDamage(gameTime);        
             drawThrobber();
             drawCountDown();
             drawScore();           
@@ -628,30 +632,47 @@ namespace Resonance
             freeze = f;
         }
 
+        private void highlightedPowerPercentage()
+        {
+            string percent = powerupValue.ToString() + "%";
+            int xOffset = (int)Math.Round(font.MeasureString(percent).X / 2);
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(33 + pickupBackground.Width / 2) - xOffset, ScreenManager.pixelsY(120));
+            spriteBatch.DrawString(font, percent, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            coords.X--;
+            coords.Y--;
+            spriteBatch.DrawString(font, percent, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+        }
+
         public void highlightedPower()
         {
-            Rectangle destination = new Rectangle(ScreenManager.pixelsX(30), ScreenManager.pixelsY(10), ScreenManager.pixelsX(pickupBackground.Width), ScreenManager.pixelsY(pickupBackground.Height));
-            Rectangle source = new Rectangle(0, 0, pickupBackground.Width, pickupBackground.Height);
-            spriteBatch.Draw(pickupBackground, destination, source, Color.White);          
+            Rectangle destination = new Rectangle(ScreenManager.pixelsX(30), ScreenManager.pixelsY(110), ScreenManager.pixelsX(pickupPercentageBackground.Width), ScreenManager.pixelsY(pickupPercentageBackground.Height));
+            Rectangle source = new Rectangle(0, 0, pickupPercentageBackground.Width, pickupPercentageBackground.Height);
+            spriteBatch.Draw(pickupPercentageBackground, destination, source, Color.White);
+
+            destination = new Rectangle(ScreenManager.pixelsX(30), ScreenManager.pixelsY(10), ScreenManager.pixelsX(pickupBackground.Width), ScreenManager.pixelsY(pickupBackground.Height));
+            source = new Rectangle(0, 0, pickupBackground.Width, pickupBackground.Height);
+            spriteBatch.Draw(pickupBackground, destination, source, Color.White);
 
             if (GameScreen.getGV().selectedPower == 0)
             {
                 spriteBatch.Draw(pickupNitro, destination, source, Color.White);
+                powerupValue = (int)Math.Round((double)nitro / GoodVibe.MAX_NITRO * 100);
                 //DebugDisplay.update("SELECTED POWER", "NITROUS");
             }
 
             if (GameScreen.getGV().selectedPower == 1)
             {
                 spriteBatch.Draw(pickupShield, destination, source, Color.White);
+                powerupValue = (int)Math.Round((double)shield / GoodVibe.MAX_SHIELD * 100);
                 //DebugDisplay.update("SELECTED POWER", "SHIELD");
             }
 
             if (GameScreen.getGV().selectedPower == 2)
             {
                 spriteBatch.Draw(pickupFreeze, destination, source, Color.White);
+                powerupValue = (int)Math.Round((double)freeze / GoodVibe.MAX_FREEZE * 100);
                 //DebugDisplay.update("SELECTED POWER", "FREEZE");
             }
-
         }
     }
 
