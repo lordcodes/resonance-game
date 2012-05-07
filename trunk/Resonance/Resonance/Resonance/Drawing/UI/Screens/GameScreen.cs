@@ -30,7 +30,7 @@ namespace Resonance
         public const int INSANE = 5;
 
         public static int DIFFICULTY = BEGINNER;
-        public static GameMode mode;
+        public static GameMode mode = new GameMode(GameMode.OBJECTIVES);
         public static GameStats stats;
 
         public static bool GV_KILLED = false;
@@ -71,7 +71,6 @@ namespace Resonance
             this.ScreenManager = scrn;
             countDown = TimeSpan.FromSeconds(4);
             intro = false;
-            mode = new GameMode(GameMode.TIME_ATTACK);
             MusicHandler.reset();
             stats = new GameStats();
             graphics = Program.game.GraphicsManager;
@@ -399,7 +398,7 @@ namespace Resonance
                 }
             }
 
-            BulletManager.updateBullet();
+            //BulletManager.updateBullet();
             
             gv.FreezeActive = false;
             return numberKilled;

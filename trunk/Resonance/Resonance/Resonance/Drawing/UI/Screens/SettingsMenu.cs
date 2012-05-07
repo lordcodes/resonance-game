@@ -13,6 +13,7 @@ namespace Resonance
     {
         List<string> difficulties;
         int currentDifficulty = GameScreen.DIFFICULTY;
+        List<string> gameModes;
         Vector2 begSize;
         Vector2 lrOrigin;
 
@@ -21,10 +22,12 @@ namespace Resonance
         public SettingsMenu()
             : base("Settings")
         {
+            MenuElement gameMode = new MenuElement("Game Mode", changeGameMode);
             MenuElement difficulty = new MenuElement("Difficulty", changeDifficulty);
             MenuElement musicVolume = new MenuElement("Music Volume", changeMusicVolume);
             MenuElement back = new MenuElement("Back to Main Menu", toMainMenu);
 
+            MenuItems.Add(gameMode);
             MenuItems.Add(difficulty);
             MenuItems.Add(musicVolume);
             MenuItems.Add(back);
@@ -38,6 +41,10 @@ namespace Resonance
             difficulties.Add("Hard");
             difficulties.Add("Expert");
             difficulties.Add("Insane");
+
+            gameModes = new List<string>(2);
+            gameModes.Add("Arcade");
+            gameModes.Add("Objectives");
 
             currentMusicVolume = (int)(MediaPlayer.Volume * 10);
         }
@@ -73,10 +80,15 @@ namespace Resonance
             {
                 if (Selected == 0)
                 {
+                    GameScreen.mode.MODE--;
+                    if (GameScreen.mode.MODE < 0) GameScreen.mode.MODE = 1;
+                }
+                else if (Selected == 1)
+                {
                     GameScreen.DIFFICULTY--;
                     if (GameScreen.DIFFICULTY < 0) GameScreen.DIFFICULTY = 5;
                 }
-                else if (Selected == 1)
+                else if (Selected == 2)
                 {
                     currentMusicVolume--;
                     if (currentMusicVolume < 0) currentMusicVolume = 10;
@@ -87,10 +99,15 @@ namespace Resonance
             {
                 if (Selected == 0)
                 {
+                    GameScreen.mode.MODE++;
+                    if (GameScreen.mode.MODE > 1) GameScreen.mode.MODE = 0;
+                }
+                else if (Selected == 1)
+                {
                     GameScreen.DIFFICULTY++;
                     if (GameScreen.DIFFICULTY > 5) GameScreen.DIFFICULTY = 0;
                 }
-                else if (Selected == 1)
+                else if (Selected == 2)
                 {
                     currentMusicVolume++;
                     if (currentMusicVolume > 10) currentMusicVolume = 0;
@@ -126,9 +143,20 @@ namespace Resonance
 
             Vector2 difficultyPos = MenuItems[0].Position;
             difficultyPos.X = screenSize.X + 120;
-            Vector2 msgSize = Font.MeasureString(difficulties[GameScreen.DIFFICULTY]);
+            Vector2 msgSize = Font.MeasureString(gameModes[GameScreen.mode.MODE]);
             Vector2 textOrigin = new Vector2(msgSize.X / 2, msgSize.Y / 2);
             Vector2 pos = difficultyPos;
+            pos.X -= begSize.X / 2;
+            ScreenManager.SpriteBatch.DrawString(Font, "<", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
+            ScreenManager.SpriteBatch.DrawString(Font, gameModes[GameScreen.mode.MODE], difficultyPos, Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+            pos.X += begSize.X;
+            ScreenManager.SpriteBatch.DrawString(Font, ">", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
+
+            difficultyPos = MenuItems[1].Position;
+            difficultyPos.X = screenSize.X + 120;
+            msgSize = Font.MeasureString(difficulties[GameScreen.DIFFICULTY]);
+            textOrigin = new Vector2(msgSize.X / 2, msgSize.Y / 2);
+            pos = difficultyPos;
             pos.X -= begSize.X / 2;
             ScreenManager.SpriteBatch.DrawString(Font, "<", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, difficulties[GameScreen.DIFFICULTY], difficultyPos, Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
@@ -136,7 +164,7 @@ namespace Resonance
             ScreenManager.SpriteBatch.DrawString(Font, ">", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
 
             x = pos.X -= begSize.X;
-            y = MenuItems[1].Position.Y - 5;
+            y = MenuItems[2].Position.Y - 5;
 
             for (int i = 0; i < 10; i++)
             {
@@ -150,6 +178,11 @@ namespace Resonance
         private void toMainMenu()
         {
             ExitScreen();
+        }
+
+        private void changeGameMode()
+        {
+           
         }
 
         private void changeDifficulty()
