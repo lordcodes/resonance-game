@@ -27,7 +27,7 @@ namespace Resonance
         private static long TIMESPAN = 15000000;
         private static Random Rand = new Random();
         private static int CHUNK = 15;     
-        private static string[] colors = new string[] { "red", "blue", "green", "yellow", "cymbal"};
+        private static string[] colors = new string[] { "red", "blue", "green", "yellow"};
         private static int index;
 
 
@@ -37,10 +37,8 @@ namespace Resonance
                 bulletPosition = bulPos;                
                 ScreenManager.game.World.addObject(bullet);                
                 index = Rand.Next();
-                DebugDisplay.update("Random ", index.ToString());
-                DebugDisplay.update("Random 2", (index % 5).ToString());
-                bullet.setColor(colors[index % 5]);
-                bullet.ModelInstance.setTexture(index % 5);
+                bullet.setColor(colors[index % 4]);
+                bullet.ModelInstance.setTexture(index % 4);
         }
 
 
@@ -55,7 +53,7 @@ namespace Resonance
              iteration = ScreenManager.game.Iteration;
              if (bulletIndex == ACTIVE)
              {
-                if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 5f )
+                if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 2f )
                  {
                      GameScreen.getGV().AdjustHealth(-DAMAGE);
                      ScreenManager.game.World.removeObject(bullet);
@@ -77,8 +75,8 @@ namespace Resonance
                      else
                          bulletPosition += dir / CHUNK;
                      bullet = new Bullet(17, "activeBullet", bulletPosition);
-                     bullet.setColor(colors[index % 5]);
-                     bullet.ModelInstance.setTexture(index % 5);
+                     bullet.setColor(colors[index % 4]);
+                     bullet.ModelInstance.setTexture(index % 4);
                      ScreenManager.game.World.addObject(bullet);
                  }   
                 
@@ -92,7 +90,7 @@ namespace Resonance
         public static void destroyBullet(string color)
         {
            
-            if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 25f && bullet.getColor().Equals(color))
+            if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 30f && bullet.getColor().Equals(color))
             {
                 bulletIndex = INACTIVE;
                 ScreenManager.game.World.removeObject(bullet);               

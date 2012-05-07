@@ -1350,11 +1350,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Textures\cymbal.jpg">
-      <Name>cymbal</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Textures\green.jpg">
       <Name>green</Name>
       <Importer>TextureImporter</Importer>
