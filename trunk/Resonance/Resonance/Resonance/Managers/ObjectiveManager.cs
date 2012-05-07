@@ -15,12 +15,13 @@ namespace Resonance {
 
         private const int DEFAULT_OBJECTIVE     = KILL_ALL_BV;
 
-        public const int FINAL_OBJECTIVE        = KILL_BOSS;
+        public  const int FINAL_OBJECTIVE       = KILL_BOSS;
 
         private static int cObj                 = DEFAULT_OBJECTIVE;
 
         private static int bvKilledAtStart      = 0;
         private static TimeSpan initialDistThroughSong;
+        private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
 
         public static void loadObjectivesGame(ScreenManager sm) {
             ScreenManager.game = new GameScreen(sm, 0);
@@ -71,8 +72,8 @@ namespace Resonance {
                     int total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
                     oStr = "" + killed + " / " + total + " destroyed";
 
-                    if (killed == total) return true; else return false;
-                    //if (killed >= 1) return true; else return false;
+                    //if (killed == total) return true; else return false;
+                    if (killed >= 1) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     int collected = 0;
@@ -90,7 +91,7 @@ namespace Resonance {
                     if (bossHealth == 0) return true; else return false;
                 }
                 case (SURVIVE) : {
-                    TimeSpan ts = MusicHandler.getTrack().Song.Duration - MediaPlayer.PlayPosition - initialDistThroughSong;
+                    TimeSpan ts = survivalTime - MediaPlayer.PlayPosition - initialDistThroughSong;
                     string formattedTimeSpan = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
 
                     oStr = "Stay alive for " + formattedTimeSpan;
