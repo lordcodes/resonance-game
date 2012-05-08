@@ -12,7 +12,7 @@ using System.Xml.Serialization;
 
 namespace Resonance
 {
-    class HighScoreManager
+    public class HighScoreManager
     {
         public struct HighScoreData
         {
@@ -26,12 +26,12 @@ namespace Resonance
                 SIZE = count;
             }
         }
-        public static string HighScoresFilename = "HighScore.lst";
-
-        public static void SaveHighScores(HighScoreData data, string filename)
+        public static string HighScoresFilename = "HighScore.xml";
+        
+        public static void SaveHighScores(HighScoreData data)
         {
             // Get the path of the save game
-            string fullpath = filename;
+            string fullpath = HighScoresFilename;
 
             // Open the file, creating it if necessary
             FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate);
@@ -47,32 +47,6 @@ namespace Resonance
                 stream.Close();
             }
         }
-
-        public static HighScoreData LoadHighScores(string filename)
-        {
-            HighScoreData data;
-
-            // Get the path of the save game
-            string fullpath =  filename;
-
-            // Open the file
-            FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate,
-            FileAccess.Read);
-            try
-            {
-
-                // Read the data from the file
-                XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
-                data = (HighScoreData)serializer.Deserialize(stream);
-            }
-            finally
-            {
-                // Close the file
-                stream.Close();
-            }
-
-            return (data);
-        }
         public static void Initialize()
         {
             // Get the path of the save game
@@ -85,24 +59,71 @@ namespace Resonance
                 // Create the data to save
                 HighScoreData data = new HighScoreData(5);
                 data.PlayerName[0] = "Neil";
-                data.Score[0] = 50;
+                data.Score[0] = 200500;
 
                 data.PlayerName[1] = "Shawn";
-                data.Score[1] = 40;
+                data.Score[1] = 187000;
 
                 data.PlayerName[2] = "Mark";
-                data.Score[2] = 30;
+                data.Score[2] = 113300;
 
                 data.PlayerName[3] = "Cindy";
-                data.Score[3] = 20;
+                data.Score[3] = 95100;
 
                 data.PlayerName[4] = "Sam";
-                data.Score[4] = 10;
-
-                SaveHighScores(data, HighScoresFilename);
+                data.Score[4] = 1000;
+                SaveHighScores(data);
             }
 
         }
+        public static HighScoreData LoadHighScores()
+        {
+            HighScoreData data;
+            // Get the path of the save game
+            string fullpath = HighScoresFilename;
+            // Open the file
+            FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate,
+            FileAccess.Read);
+            try
+            {
+                // Read the data from the file
+                XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
+                data = (HighScoreData)serializer.Deserialize(stream);
+            }
+            finally
+            {
+                // Close the file
+                stream.Close();
+            }
 
+            return (data);
+        }
+        private void SaveHighScore(int score,string player)
+        {
+            // Create the data to save
+            HighScoreData data = LoadHighScores();
+            int scoreIndex = -1;
+            for (int i = 0; i < data.SIZE; i++)
+            {
+                if (score > data.Score[i])
+                {
+                    scoreIndex = i;
+                    break;
+                }
+            }
+
+            if (scoreIndex > -1)
+            {
+                //New high score found ... do swaps
+                for (int i = data.SIZE - 1; i > scoreIndex; i--)
+                {
+                    data.PlayerName[i] = data.PlayerName[i - 1];
+                    data.Score[i] = data.Score[i - 1];
+                }
+                data.PlayerName[scoreIndex] = player; //Retrieve User Name Here
+                data.Score[scoreIndex] = score;
+                SaveHighScores(data);
+            }
+        }
     }
 }
