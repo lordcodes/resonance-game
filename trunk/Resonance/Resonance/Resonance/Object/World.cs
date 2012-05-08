@@ -265,6 +265,8 @@ namespace Resonance
 
         public void readXmlFile(string levelName, ContentManager Content)
         {
+            BulletManager.BOSS_EXISTS = false;
+
             StoredObjects objs = Content.Load<StoredObjects>(levelName);
             clear();
 
@@ -272,31 +274,32 @@ namespace Resonance
             {
                 StoredObject obj = objs.list[i];
                 Vector3 pos = new Vector3(obj.xWorldCoord, obj.yWorldCoord, obj.zWorldCoord);
-                if (obj.type.Equals("Ground") == true)
+                if (obj.type.Equals("Ground"))
                 {
                     addObject(new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero));
                     addObject(new StaticObject(GameModels.WALLS, "Walls", new Vector3(0, -1, 0)));
                 }
-                if (obj.type.Equals("Boss") == true)
+                if (obj.type.Equals("Boss"))
                 {
+                    BulletManager.BOSS_EXISTS = true;
                     addObject(new StaticObject(GameModels.BOSS, "Boss", pos));
                     BulletManager.updateBossPosition(pos);
                 }
-                if (obj.type.Equals("Good_vibe") == true)
+                if (obj.type.Equals("Good_vibe"))
                 {
                     GoodVibe player = new GoodVibe(GameModels.GOOD_VIBE, "Player", pos);
                     addObject(player);
                     player.calculateSize();
                 }
-                if (obj.type.Equals("Neuron") == true)
+                if (obj.type.Equals("Neuron"))
                 {
                     addObject(new StaticObject(GameModels.NEURON, obj.identifier, pos));
                 }
-                if (obj.type.Equals("Bacteria") == true)
+                if (obj.type.Equals("Bacteria"))
                 {
                     addObject(new StaticObject(GameModels.BACTERIA, obj.identifier, pos));
                 }
-                if (obj.type.Equals("BVSpawner") == true)
+                if (obj.type.Equals("BVSpawner"))
                 {
                     BVSpawnManager.addNewSpawner(pos);
                 }

@@ -14,6 +14,8 @@ namespace Resonance
    
     static class BulletManager
     {
+        public static bool BOSS_EXISTS = false;
+
         private static Vector3 bulletPosition;
         private static int bulletIndex = 0;
         private static Vector3 bossPosition;
@@ -50,50 +52,55 @@ namespace Resonance
 
         public static void updateBullet()
         {
-             iteration = ScreenManager.game.Iteration;
-             if (bulletIndex == ACTIVE)
-             {
-                if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 2f )
-                 {
-                     GameScreen.getGV().AdjustHealth(-DAMAGE);
-                     ScreenManager.game.World.removeObject(bullet);
-                     Drawing.addWave(bulletPosition);
-                     bulletIndex = INACTIVE;
-                 }
-                 else 
-                 {
-                     timeNow = DateTime.Now;
-                     long ticks = timeNow.Ticks - beatTimeBefore.Ticks;
-                     DebugDisplay.update("Time difference", ticks.ToString());
-                     ScreenManager.game.World.removeObject(bullet);
-                     Vector3 dir = GameScreen.getGV().Body.Position - bulletPosition;
-                     if (ticks >= TIMESPAN)
-                     {
-                         beatTimeBefore = DateTime.Now;
-                         bulletPosition += dir;
-                     }
-                     else
-                         bulletPosition += dir / CHUNK;
-                     bullet = new Bullet(17, "activeBullet", bulletPosition);
-                     bullet.setColor(colors[index % 4]);
-                     bullet.ModelInstance.setTexture(index % 4);
-                     ScreenManager.game.World.addObject(bullet);
-                 }   
-                
-             }
-             if (bulletIndex == INACTIVE)
-             {
-                 shoot(bossPosition);
-             }
+            if (BOSS_EXISTS)
+            {
+                iteration = ScreenManager.game.Iteration;
+                if (bulletIndex == ACTIVE)
+                {
+                    if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 2f)
+                    {
+                        GameScreen.getGV().AdjustHealth(-DAMAGE);
+                        ScreenManager.game.World.removeObject(bullet);
+                        Drawing.addWave(bulletPosition);
+                        bulletIndex = INACTIVE;
+                    }
+                    else
+                    {
+                        timeNow = DateTime.Now;
+                        long ticks = timeNow.Ticks - beatTimeBefore.Ticks;
+                        DebugDisplay.update("Time difference", ticks.ToString());
+                        ScreenManager.game.World.removeObject(bullet);
+                        Vector3 dir = GameScreen.getGV().Body.Position - bulletPosition;
+                        if (ticks >= TIMESPAN)
+                        {
+                            beatTimeBefore = DateTime.Now;
+                            bulletPosition += dir;
+                        }
+                        else
+                            bulletPosition += dir / CHUNK;
+                        bullet = new Bullet(17, "activeBullet", bulletPosition);
+                        bullet.setColor(colors[index % 4]);
+                        bullet.ModelInstance.setTexture(index % 4);
+                        ScreenManager.game.World.addObject(bullet);
+                    }
+
+                }
+                if (bulletIndex == INACTIVE)
+                {
+                    shoot(bossPosition);
+                }
+            }
         }
         
         public static void destroyBullet(string color)
         {
-           
-            if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 30f && bullet.getColor().Equals(color))
+            if (BOSS_EXISTS)
             {
-                bulletIndex = INACTIVE;
-                ScreenManager.game.World.removeObject(bullet);               
+                if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 30f && bullet.getColor().Equals(color))
+                {
+                    bulletIndex = INACTIVE;
+                    ScreenManager.game.World.removeObject(bullet);
+                }
             }
         }
     }
