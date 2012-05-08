@@ -81,6 +81,8 @@ namespace Resonance
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
             deadVibes = new string[50];
+            HighScoreManager.Initialize();
+            HighScoreManager.LoadHighScores();
         }
 
         public int Iteration
