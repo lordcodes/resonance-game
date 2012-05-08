@@ -136,6 +136,7 @@
     </Compile>
     <Compile Include="Drawing\UI\Screens\SettingsMenu.cs" />
     <Compile Include="Managers\BulletManager.cs" />
+    <Compile Include="Managers\HighScoreManager.cs" />
     <Compile Include="Managers\ObjectiveManager.cs" />
     <Compile Include="Object\Bullet.cs" />
     <Compile Include="Utilities\GameMode.cs" />

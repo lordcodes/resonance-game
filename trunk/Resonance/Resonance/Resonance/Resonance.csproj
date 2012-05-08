@@ -52,6 +52,9 @@
     <Reference Include="Microsoft.Xna.Framework">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Microsoft.Xna.Framework.Content.Pipeline">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Microsoft XNA\XNA Game Studio\v4.0\References\Windows\x86\Microsoft.Xna.Framework.Content.Pipeline.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Xna.Framework.Game">
       <Private>False</Private>
     </Reference>
@@ -94,6 +97,7 @@
     <Reference Include="System.Net">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Xml.Serialization, Version=2.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing\Graphics\ChaseCamera.cs" />
@@ -141,6 +145,7 @@
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />
+    <Compile Include="Managers\HighScoreManager.cs" />
     <Compile Include="Managers\ObjectiveManager.cs" />
     <Compile Include="Managers\ParticleEmitterManager.cs" />
     <Compile Include="Managers\DrumManager.cs" />
