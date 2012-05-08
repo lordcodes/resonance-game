@@ -110,7 +110,6 @@ namespace Resonance {
             spin.Z       = 1f;
         }
 
-
         // s only used for testing
         public void update() {
             pos += (direction * speed);

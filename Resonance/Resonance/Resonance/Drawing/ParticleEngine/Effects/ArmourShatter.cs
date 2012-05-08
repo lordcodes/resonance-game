@@ -12,7 +12,7 @@ namespace Resonance {
         Vector3 blastVec;
 
         // The 'spread' of the particles in the blast.
-        float radius = 1.75f;
+        float radius = 2.75f;
 
         // Reference to the bad vibe.
         BadVibe bVRef;
@@ -34,9 +34,9 @@ namespace Resonance {
             pTex               = ParticleEmitterManager.TEX_TRIANGLE;
             bVRef              = v;
             blastVec           = blast;
-            emissionsPerUpdate = 40; //200
+            emissionsPerUpdate = 15; //200
             particlesLeft      = 40; //200
-            maxParticleSpd     = 1.2f;
+            maxParticleSpd     = 2.2f;
             maxParticleLife    = 50;
             iPSize             = 0.4f;
             iColour            = c;
@@ -72,15 +72,17 @@ namespace Resonance {
                     posOffset *= bVRad;
                     pos += posOffset;
 
-                    Vector3 gravity = new Vector3(0f, -0.05f, 0f);
+                    Vector3 gravity = new Vector3(0f, -0.1f, 0f);
 
                     if (gen.Next() % 5 == 0) {
                         Particle p = ParticleEmitterManager.getParticle();
                         p.init(pos, iDir, iSpd, iPSize, iLife, iColour, 1f, gravity, deceleration, true);
+                        p.setSpin(new Vector3((float) gen.NextDouble(),(float) gen.NextDouble(),(float) gen.NextDouble()));
                         particles.Add(p);
                     } else {
                         Particle p = ParticleEmitterManager.getParticle();
                         p.init(pos, iDir, iSpd, iPSize, iLife, Color.Black, 1f, gravity, deceleration, true);
+                        p.setSpin(new Vector3((float) gen.NextDouble(),(float) gen.NextDouble(),(float) gen.NextDouble()));
                         particles.Add(p);
                     }
                     particlesLeft--;
