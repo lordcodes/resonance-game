@@ -54,7 +54,7 @@ namespace Resonance {
                 if (gen.Next() % 2 == 0) posOffset.X *= -1;
                 if (gen.Next() % 2 == 0) posOffset.Z *= -1;
 
-                Vector3 gravity = new Vector3(0f, -0.05f, 0f);
+                Vector3 gravity = new Vector3(0f, -0.3f, 0f);
                 //gravity.X += 0.2f;
 
                 Particle p = ParticleEmitterManager.getParticle();

@@ -350,7 +350,7 @@ namespace Resonance
             Vector3 pos;
             float size;
             Matrix texturePos, rX, rY, rZ, rR;
-            Vector3 gVFwd, gVRdp, angV;
+            Vector3 gVFwd, gVRdp, angV, camToGV, camPos;
             Quaternion ang;
 
             List<Emitter> emitters = ParticleEmitterManager.getEmitters();
@@ -375,8 +375,12 @@ namespace Resonance
                                 texturePos = Matrix.Multiply(rX, Matrix.Multiply(rY, Matrix.Multiply(rZ, texturePos)));
                             }
                         } else {
+                            //camPos = CameraMotionManager.Camera.Position;
+                            //camToGV = GameScreen.getGV().Body.Position - camPos;
                             gVFwd = GameScreen.getGV().Body.OrientationMatrix.Forward;
                             gVRdp = p.getPos() - GameScreen.getGV().Body.Position;
+                            //gVFwd = camToGV;
+                            //gVRdp = camPos;
                             gVFwd.Normalize();
                             gVRdp.Normalize();
 

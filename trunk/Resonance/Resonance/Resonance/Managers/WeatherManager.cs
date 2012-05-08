@@ -39,8 +39,8 @@ namespace Resonance {
         public const float rainMaxAt            = 0.57f;
         public const float gentleLightningStart = 0.55f;
         public const float quietLightningStart  = 0.4f;
-        public const float midLightningStart    = 0.25f;
-        public const float loudLightningStart   = 0.1f;
+        public const float midLightningStart    = 0.3f;
+        public const float loudLightningStart   = 0.2f;
 
         // Max no of ticks which have to pass between 2 lightning strikes.
         private const long maxLightningSep = 10000000; // 1 second.
@@ -90,7 +90,7 @@ namespace Resonance {
 
             rain = (Rain) ParticleEmitterManager.getEmitter<Rain>();
             if (rain == null) rain = new Rain();
-            rain.init(new Vector3(0f, 10f, 0f));
+            rain.init(new Vector3(0f, 18f, 0f));
 
             Drawing.setAmbientLight(new Vector3(0.1f, 0.1f, 0.1f));
         }
