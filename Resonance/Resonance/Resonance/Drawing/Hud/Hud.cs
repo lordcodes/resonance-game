@@ -336,6 +336,9 @@ namespace Resonance
 
             float alphaC;
 
+            // Don't draw if BV dead and no armour left.
+            if (arm.Count == 0) return;
+
             if (bvDist <= BadVibe.MAX_ARMOUR_TRANSPARENCY_DIST) {
                 alphaC  = 1f;
             } else {
