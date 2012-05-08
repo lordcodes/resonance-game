@@ -8,27 +8,36 @@ namespace Resonance
 {
     class PickupSpawnManager
     {
-        private static int MIN_PICKUPS = 10;
-        private static int MIN_PICKUP_TIME_LIVE = 300; //length of time the pickup is on the world
-        private static int MAX_PICKUP_TIME_LIVE = 600;
-        private static int MIN_PICKUP_TIME_EFFECT = 600; //length of time the pickup has an effect
-        private static int MAX_PICKUP_TIME_EFFECT = 1200;
+        private static int MIN_PICKUPS = 10; //minimum number of pickups in the world
+        private static int MIN_PICKUP_TIME_LIVE = (int)(5 * ResonanceGame.FPS); //length of time the pickup is on the world
+        private static int MAX_PICKUP_TIME_LIVE = (int)(15 * ResonanceGame.FPS);
+        private static int MIN_PICKUP_TIME_EFFECT = (int)(5 * ResonanceGame.FPS); //length of time the pickup has an effect
+        private static int MAX_PICKUP_TIME_EFFECT = (int)(10 * ResonanceGame.FPS);
         private static int DISTANCE_FROM_PLAYER = 100;
 
         private int numPickups;
         private int totalNumPickups;
 
+        /// <summary>
+        /// Creates a new PickupSpawnManager
+        /// </summary>
         public PickupSpawnManager() 
         {
             numPickups = 0;
             totalNumPickups = 0;
         }
 
+        /// <summary>
+        /// Decreases the number of pickups in the world
+        /// </summary>
         public void pickupPickedUp()
         {
             numPickups--;
         }
 
+        /// <summary>
+        /// Spawns new pickups if there are less than MIN_PICKUPS in the world
+        /// </summary>
         public void update()
         {
             //DebugDisplay.update("num pickups", numPickups.ToString());
