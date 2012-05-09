@@ -33,6 +33,7 @@ namespace Resonance
         public static readonly int BULLET           = 17;
         public static readonly int BOSS             = 18;
         public static readonly int WALLS            = 19;
+        public static readonly int CheckPoint       = 20;
 
 
         private static ContentManager Content;

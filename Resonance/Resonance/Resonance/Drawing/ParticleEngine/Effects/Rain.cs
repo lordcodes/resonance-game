@@ -25,7 +25,7 @@ namespace Resonance {
             maxParticleSpd     = 2f;
             maxParticleLife    = 1000; // Particles are removed after they hit the ground.
             iPSize             = 0f;
-            iColour            = new Color(0f, 0f, 1f, 0.5f);
+            iColour            = new Color(0.94f, 1f, 1f, 0.3f);
             deceleration       = 0f;
 
             ParticleEmitterManager.addEmitter(this);

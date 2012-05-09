@@ -28,6 +28,7 @@ x2, Models\x2.fbx
 x3, Models\x3.fbx
 plus4, Models\plus4.fbx
 plus5, Models\plus5.fbx
+CheckPoint, Models\checkPoint.fbx
 
 
 TEXTURES
@@ -67,12 +68,13 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 8,			box,					2,			pickup,					2,				animationTest
 9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0,				goodVibeShieldTexture
 10,         BVSpawner,              0.6,		BVSpawner-physics,      0.6,            spawnTexture,                           1
-11,         BadVibe-explosion,      0.1,		BadVibe-explosion,      0.1,                          ,							1
+11,         BadVibe-explosion,      0.2,		BadVibe-explosion,      0.2,                          ,							1
 12,			x2,						0.25,		x2,						0.25
 13,			x3,						0.25,		x3,						0.25
 14,			plus4,					0.25,		plus4,					0.25
 15,			plus5,					0.25,		plus5,					0.25
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         Boss,                   2,          Bacteria-physics,       0.5
+18,         Boss,                   1.5,          Bacteria-physics,       1.5
 19,			Walls,					245,		Walls,					245,			wallTexture
+20,			CheckPoint,				1.5,          CheckPoint,             1.5
