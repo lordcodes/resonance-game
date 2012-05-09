@@ -309,7 +309,7 @@ namespace Resonance
         {
             GraphicsDevice gd = graphics.GraphicsDevice;
             gd.SetRenderTarget(miniMapBuffer);
-            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque); //TODO: change to alpha blend and fix corner masking
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend); //TODO: change to alpha blend and fix corner masking
 
             // Good Vibe reference
             gVRef = (GoodVibe) ScreenManager.game.World.getObject("Player");
