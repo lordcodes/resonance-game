@@ -73,8 +73,8 @@ namespace Resonance {
                     int total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
                     oStr = "" + killed + " / " + total + " destroyed";
 
-                    if (killed == total) return true; else return false;
-                    //if (killed >= 1) return true; else return false;
+                    //if (killed == total) return true; else return false;
+                    if (killed >= 1) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     int collected = 0;
