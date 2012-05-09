@@ -73,11 +73,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\Boss.fbx">
-      <Name>Boss</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\Bacteria-physics.fbx">
       <Name>Bacteria-physics</Name>
       <Importer>FbxImporter</Importer>
@@ -117,6 +112,11 @@
       <Name>HealthBarSmallFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Boss.fbx">
+      <Name>Boss</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
@@ -167,6 +167,11 @@
     </Compile>
     <Compile Include="Drawing\Models\BVSpawner.fbx">
       <Name>BVSpawner</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\checkPoint.fbx">
+      <Name>checkPoint</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>

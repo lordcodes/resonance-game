@@ -303,6 +303,10 @@ namespace Resonance
                 {
                     BVSpawnManager.addNewSpawner(pos);
                 }
+                if (obj.type.Equals("CheckPoint"))
+                {
+                    addObject(new StaticObject(GameModels.CheckPoint, obj.identifier, pos));
+                }
             }
         }
 
