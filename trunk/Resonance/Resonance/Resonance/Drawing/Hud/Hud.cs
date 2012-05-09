@@ -151,15 +151,15 @@ namespace Resonance
         {
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
+            drawBadVibeArmour();
+            drawDamage(gameTime); 
             drawHealthBar();
             highlightedPower();
             drawShieldBar();
             drawNitroBar();
             drawFreezeBar();
             highlightedPowerPercentage();
-            if (GameScreen.USE_MINIMAP) drawMiniMap();
-            drawBadVibeArmour();
-            drawDamage(gameTime);        
+            if (GameScreen.USE_MINIMAP) drawMiniMap();  
             drawThrobber();
             drawCountDown();
             drawScore();           
