@@ -272,7 +272,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Sound::dfb2cadc-bd5f-4442-8567-740ea557a8f5;
+            Name = Sound::a2072b0d-eae5-4c6e-9d5d-08ee40e9ba71;
             Property = 0;
             Sound = 1;
             Line Color = 4282020790;
@@ -310,7 +310,7 @@ Global Settings
 
         RPC Curve
         {
-            Name = Effect::5e9d656f-5a1d-4add-ad67-1ccd71b237ae;
+            Name = Effect::54e57042-6415-44a3-a03c-339118681ed5;
             Property = 5;
             Sound = 0;
             Line Color = 4292328747;
@@ -1636,7 +1636,7 @@ Sound Bank
     Sound
     {
         Name = thunderLoud1;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 
@@ -1688,7 +1688,7 @@ Sound Bank
     Sound
     {
         Name = thunderLoud2;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 
@@ -1740,7 +1740,7 @@ Sound Bank
     Sound
     {
         Name = thunderMid1;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 
@@ -1792,7 +1792,7 @@ Sound Bank
     Sound
     {
         Name = thunderQuiet2;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 
@@ -1844,7 +1844,7 @@ Sound Bank
     Sound
     {
         Name = thunderLoud3;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 
@@ -1896,7 +1896,7 @@ Sound Bank
     Sound
     {
         Name = thunderQuiet1;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 
@@ -1948,7 +1948,7 @@ Sound Bank
     Sound
     {
         Name = thunderMid2;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 
@@ -2000,7 +2000,7 @@ Sound Bank
     Sound
     {
         Name = thunderMid3;
-        Volume = -1800;
+        Volume = -1400;
         Pitch = 0;
         Priority = 0;
 

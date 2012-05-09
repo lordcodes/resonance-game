@@ -35,7 +35,7 @@ namespace Resonance
         public static float AUTO_ZOOM_STRENGTH   = 2f;
 
         public static bool  DRAW_SCALE_LINES     = true;
-        public static int   SCALE_LINE_INTERVAL  = 12;
+        public static int   SCALE_LINE_INTERVAL  = 24;
 
         public static bool  SWEEPER_ON           = true;
         public static int   SWEEPER_LENGTH       = 20;
@@ -47,7 +47,7 @@ namespace Resonance
         public static int   BOX_THICKNESS        = 1;
 
         // Distance outside radar at which distant Vibe marker fades. 
-        public static float VANISHING_POINT      = 5f;
+        public static float VANISHING_POINT      = 20f;
 
         public static float BAD_VIBE_ALPHA       = 0.5f;
         public static float PICKUP_ALPHA         = 0.5f;
@@ -61,7 +61,7 @@ namespace Resonance
         public static Color PROJ_BAD_VIBE_COLOUR = new Color(0.8f, 0.0f, 0.0f, BAD_VIBE_ALPHA);
         public static Color        PICKUP_COLOUR = new Color(0.7f, 0.7f, 0.0f, PICKUP_ALPHA  );
         public static Color       SPAWNER_COLOUR = new Color(0.7f, 0.7f, 0.0f, SPAWNER_ALPHA );
-        public static Color    SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.5f          );
+        public static Color    SCALE_LINE_COLOUR = new Color(0.1f, 0.1f, 0.1f, 0.7f          );
         public static Color       SWEEPER_COLOUR = new Color(0.0f, 0.0f, 0.9f, 0.5f          );
         public static Color            BOX_COLOR = new Color(1.0f, 1.0f, 1.0f, 0.5f          );
         public static Color     WORLD_BOX_COLOUR = new Color(0.0f, 0.0f, 0.5f, 0.05f         );
