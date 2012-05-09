@@ -48,7 +48,10 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 	float4 texColor = tex2D(ColorTextureSampler, input.TexCoord);
 	if(texColor.a == 0)
-		return float4(0,0,0,0);
+	{
+		clip(-1);
+		//return float4(0,0,0,0);
+	}
     return float4(Colour.xyz, texColor.a*xTransparency);
 }
 
