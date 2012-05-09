@@ -185,6 +185,9 @@ namespace Resonance
                 ((ParticleShader)shader).setColour(colour);
             }
 
+            shader.Transparency = 1;
+            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+
             if (particleHeight != height || particleWidth != width)
             {
                 particleHeight = height;
@@ -230,26 +233,29 @@ namespace Resonance
             Vector3 cameraPosition2 = CameraMotionManager.Camera.Position;
             Matrix projection2 = projection;
             Shader currentShader;
+            Matrix lightsViewProjectionMatrix;
 
-            currentShader = shaders.Default;
-            if (Drawing.SHADOWS)
-            {
-                Matrix lightsViewProjectionMatrix;
-
-                Matrix lightsView = Matrix.CreateLookAt(new Vector3(0,20, 0), new Vector3(0.1f, 0.1f, 0.1f), new Vector3(0, 1, 0));
-                //Matrix lightsView = view;
-                Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 5f, 1000f);
+                Vector3 pos = GameScreen.getGV().Body.Position;
+                float lheight = 55;
+                Vector3 lightPos = new Vector3(cameraPosition.X, 50f, cameraPosition.Z);
+                Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(pos.X, 0, pos.Z), new Vector3(0, 1, 0));
+                Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 25f,1000f);
 
                 lightsViewProjectionMatrix = lightsView * lightsProjection;
-                Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
-                Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
-                Shaders.Ground.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * theView * projection);
-            }
+
+
+            currentShader = shaders.Default;
+            currentShader.Transparency = modelVariables.Transparency;
             if (drawingShadows)
             {
-                //Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(Matrix.Identity * lightsViewProjectionMatrix);
-                //Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(Matrix.Identity * lightsViewProjectionMatrix);
-                DebugDisplay.update("sh", "done");
+                /**/
+                //Vector3 pos = GameScreen.getGV().Body.Position;
+
+
+                Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                Shaders.Ground.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * lightsView * projection);
+                //DebugDisplay.update("sh", "done");
             }
             else if (drawingReflection)
             {
@@ -268,7 +274,6 @@ namespace Resonance
             {
                 currentShader = shaders.Ground;
                 ((GroundShader)currentShader).setDispMap(dispMap.getMap());
-
                 try
                 {
                     ((GroundShader)currentShader).GoodVibePos = Drawing.groundPos(GameScreen.getGV().Body.Position, true);
@@ -279,7 +284,11 @@ namespace Resonance
                     ((GroundShader)currentShader).GoodVibePos = Vector2.Zero;
                     ((GroundShader)currentShader).CameraPos = Vector2.Zero;
                 }
-                
+
+
+                currentShader.Parameters["xWorldViewProjection"].SetValue(world * theView * projection);
+                currentShader.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
+                currentShader.Parameters["xLightPos"].SetValue(lightPos);
             }
             else
             {
@@ -320,13 +329,13 @@ namespace Resonance
                 {
                     currentShader.Technique = "Animation";
                     ((DefaultShader)currentShader).Bones = modelVariables.Bones;
+                    if (drawingShadows) currentShader.Technique = "AnimationShadow";
                 }
                 else
                 {
                     currentShader.Technique = "StaticObject";
+                    if(drawingShadows)currentShader.Technique = "ShadowMap";
                 }
-                if(drawingShadows)currentShader.Technique = "ShadowMap";
-                //else currentShader.Technique = "ShadowedScene";
 
                 ModelMeshPartCollection meshParts = mesh.MeshParts;
                 for(int j = 0; j < meshParts.Count; j++)

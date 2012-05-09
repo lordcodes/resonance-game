@@ -56,12 +56,11 @@ namespace Resonance
                 // Draw reflections
                 if (GraphicsSettings.FLOOR_REFLECTIONS)
                 {
-                    if (Drawing.requestReflectionRender)
-                    {
-                        Drawing.drawReflection();
-                        DrawableManager.DrawObjects(gameTime);
-                    }
-                    Drawing.drawReflections();
+                    Drawing.renderReflections(gameTime);
+                }
+                if (GraphicsSettings.FLOOR_SHADOWS)
+                {
+                    Drawing.renderShadows(gameTime);
                 }
 
                 DrawObjects(gameTime);

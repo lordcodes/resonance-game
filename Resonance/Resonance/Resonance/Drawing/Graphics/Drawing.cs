@@ -16,7 +16,7 @@ namespace Resonance
     class Drawing
     {
         private static bool FLOOR_REFLECTIONS = true;
-        public static bool SHADOWS = false;
+        public static bool SHADOWS = true;
 
         private static GraphicsDeviceManager graphics;
         private static ContentManager content;
@@ -50,32 +50,6 @@ namespace Resonance
             get { return content; }
         }
 
-        public static bool requestReflectionRender
-        {
-            get
-            {
-                if (FLOOR_REFLECTIONS && drawCount > 0)
-                {
-                    drawCount = 0;
-                    return true;
-                }
-                return false;
-            }
-        }
-
-        public static bool requestShadowsRender
-        {
-            get
-            {
-                if (SHADOWS)
-                {
-                    drawCount = 0;
-                    return true;
-                }
-                return false;
-            }
-        }
-
         public static bool DoDisp
         {
             get;set;
@@ -94,13 +68,12 @@ namespace Resonance
             graphics.GraphicsDevice.Clear(Color.Black);
         }
 
-
         public static void reset()
         {
             if (gameGraphics != null) gameGraphics.reset();
         }
 
-        public static void drawReflection()
+        public static void setReflectionsRenderTarget()
         {
             graphics.GraphicsDevice.Clear(Color.Black);
             graphics.GraphicsDevice.SetRenderTarget(mirrorRenderTarget);
@@ -108,14 +81,30 @@ namespace Resonance
             drawingShadows = false;
         }
 
-        public static void drawShadow()
+        public static void setShadowsRenderTarget()
         {
             graphics.GraphicsDevice.SetRenderTarget(shadowsRenderTarget);
             drawingShadows = true;
             drawingReflection = false;
         }
 
-        public static void drawReflections()
+        public static void renderShadows(GameTime gameTime)
+        {
+
+            Drawing.setShadowsRenderTarget();
+            DrawableManager.DrawObjects(gameTime);
+            Drawing.saveShadowsTexture();
+
+        }
+
+        public static void renderReflections(GameTime gameTime)
+        {
+            Drawing.setReflectionsRenderTarget();
+            DrawableManager.DrawObjects(gameTime);
+            Drawing.saveReflectionTexture();
+        }
+
+        public static void saveReflectionTexture()
         {
             if (FLOOR_REFLECTIONS)
             {
@@ -126,13 +115,12 @@ namespace Resonance
                     ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
                 }
                 catch (Exception)
-                {
-                }
+                {}
                 drawingReflection = false;
             }
         }
 
-        public static void drawShadows()
+        public static void saveShadowsTexture()
         {
             if (SHADOWS)
             {
@@ -140,12 +128,9 @@ namespace Resonance
                 shadowsTexture = (Texture2D)shadowsRenderTarget;
                 try
                 {
-                    //((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
-                    gameGraphics.Shaders.setShadowTexture(shadowsTexture);
+                    ((GroundShader)gameGraphics.CustomShaders.Ground).setShadowTexture(shadowsTexture);
                 }
-                catch (Exception)
-                {
-                }
+                catch (Exception){}
                 drawingShadows = false;
             }
         }
@@ -263,6 +248,9 @@ namespace Resonance
             hud = new Hud(content,graphics, gameGraphics);
             playerPos = new Vector3(0,0,0);
             DoDisp = true;
+
+            TextureAnimation ta = new TextureAnimation(shinyFloorTexture);
+            TextureEffect te = new TextureEffect(200,200, new Vector3(10,10,10), true, ta);
         }
 
         /// <summary>
@@ -277,14 +265,20 @@ namespace Resonance
             gameGraphics.loadContent(content, graphics.GraphicsDevice);
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
             mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
-            shadowsRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
+            shadowsRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.SHADOWS_TEXTURE_SIZE, GraphicsSettings.SHADOWS_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
             //te = new TextureEffect(5, 5, new Vector3(0,6,0), true, new TextureAnimation(gameGraphics.DispMap.getMap()));
             //te.Textures = gameGraphics.DispMap.getTextures();
 
+            //te = new TextureEffect(5, 5, new Vector3(0, 6, 0), true, new TextureAnimation(shadowsTexture));
 
             gameGraphics.Shaders.setPointLightPos(new Vector3(0, 8, 0));
+
+            Color[] c = {Color.White};
+            shadowsTexture = new Texture2D(graphics.GraphicsDevice, 1, 1);
+            shadowsTexture.SetData<Color>(c);
+            ((GroundShader)gameGraphics.CustomShaders.Ground).setShadowTexture(shadowsTexture);
         
         }
 
@@ -430,47 +424,50 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            if (!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection))
+            if ((!worldObject.returnIdentifier().Equals("Walls") || (worldObject.returnIdentifier().Equals("Walls") && !drawingShadows)))
             {
-                bool blend = false;
-                Vector2 playerGroundPos = new Vector2(0f, 0f);
-                if (drawingShadows) graphics.GraphicsDevice.BlendState = BlendState.Opaque;
-                else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-                if (worldObject is GoodVibe)
+                if ((!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection)))
                 {
-                    int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
-                    int score = GameScreen.stats.Score;
-                    int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
-                    int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
-                    int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
+                    bool blend = false;
+                    Vector2 playerGroundPos = new Vector2(0f, 0f);
+                    if (drawingShadows) graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+                    else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+                    if (worldObject is GoodVibe)
+                    {
+                        int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
+                        int score = GameScreen.stats.Score;
+                        int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
+                        int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
+                        int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
 
 
-                    //DebugDisplay.update("HEALTH", health.ToString());
-                    //DebugDisplay.update("SCORE", score.ToString());
-                    //DebugDisplay.update("nitro", nitro.ToString());
-                    //DebugDisplay.update("shield", shield.ToString());
-                    //DebugDisplay.update("freeze", freeze.ToString());
+                        //DebugDisplay.update("HEALTH", health.ToString());
+                        //DebugDisplay.update("SCORE", score.ToString());
+                        //DebugDisplay.update("nitro", nitro.ToString());
+                        //DebugDisplay.update("shield", shield.ToString());
+                        //DebugDisplay.update("freeze", freeze.ToString());
 
-                    hud.updateGoodVibe(health, score, nitro, shield, freeze);
-                    playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
-                }
+                        hud.updateGoodVibe(health, score, nitro, shield, freeze);
+                        playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
+                    }
 
-                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-                if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
-                {
-                    blend = true;
-                    graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+                    graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+                    if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
+                    {
+                        blend = true;
+                        graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+                        graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+                    }
+
+                    gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
                     graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-                }
 
-                gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
-                graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-
-                if (worldObject is BadVibe)
-                {
-                    //Gets list of remaining armour layers
-                    List<int> seq = ((BadVibe)worldObject).getLayers();
-                    hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
+                    if (worldObject is BadVibe)
+                    {
+                        //Gets list of remaining armour layers
+                        List<int> seq = ((BadVibe)worldObject).getLayers();
+                        hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
+                    }
                 }
             }
         }

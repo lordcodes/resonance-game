@@ -15,6 +15,11 @@ namespace Resonance
         public static bool FLOOR_REFLECTIONS = true;
 
         /// <summary>
+        /// Shadows appear on the floor if true
+        /// </summary>
+        public static bool FLOOR_SHADOWS = true;
+
+        /// <summary>
         /// Resolution of the reflection texture of the floor reflections.
         /// </summary>
         public static int REFLECTION_TEXTURE_SIZE = 2048;

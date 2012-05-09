@@ -164,7 +164,6 @@ namespace Resonance
 
                 }
             }
-
             textureAnimation.Update(gameTime);
         }
 
