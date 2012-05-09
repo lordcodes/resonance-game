@@ -47,5 +47,10 @@ namespace Resonance
             Effect.Parameters["ReflectionTexture"].SetValue(map);
         }
 
+        public void setShadowTexture(Texture2D map)
+        {
+            Effect.Parameters["ShadowTexture"].SetValue(map);
+        }
+
     }
 }

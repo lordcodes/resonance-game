@@ -192,7 +192,41 @@ VertexShaderOutput AnimationVertexShader(VSInputNmTxWeights input)
 	output.Depth =  output.Position.z;
 	output.XHeight = worldPosition.y;
     return output;  
-}  
+}
+
+struct SMapVertexToPixel
+{
+    float4 Position     : POSITION;
+    float4 Position2D    : TEXCOORD0;
+};
+
+
+
+struct SMapPixelToFrame
+{
+    float4 Color : COLOR0;
+};
+ 
+SMapVertexToPixel AnimationShadowVertexShader(VSInputNmTxWeights input)  
+{  
+    Skin(input, 2);
+    SMapVertexToPixel Output = (SMapVertexToPixel)0;
+
+    Output.Position = mul(input.Position, xLightsWorldViewProjection);
+    Output.Position2D = Output.Position;
+
+    return Output;
+} 
+
+SMapVertexToPixel ShadowMapVertexShader( float4 inPos : POSITION)
+{
+    SMapVertexToPixel Output = (SMapVertexToPixel)0;
+
+    Output.Position = mul(inPos, xLightsWorldViewProjection);
+    Output.Position2D = Output.Position;
+
+    return Output;
+}
  
 float4 AnimationPixelShader(Animation_VSOut PSIn) : Color  
 {       
@@ -207,6 +241,14 @@ technique Animation
         VertexShader = compile vs_3_0 AnimationVertexShader();  
         PixelShader = compile ps_3_0 PixelShaderFunction();  
     }  
+} 
+technique AnimationShadow
+{  
+    Pass  
+    {  
+        VertexShader = compile vs_3_0 AnimationShadowVertexShader();  
+        PixelShader = compile ps_3_0 PixelShaderFunction();  
+    }  
 }
 
 technique StaticObject
@@ -218,26 +260,7 @@ technique StaticObject
     }
 }
 
-struct SMapVertexToPixel
-{
-    float4 Position     : POSITION;
-    float4 Position2D    : TEXCOORD0;
-};
 
-SMapVertexToPixel ShadowMapVertexShader( float4 inPos : POSITION)
-{
-    SMapVertexToPixel Output = (SMapVertexToPixel)0;
-
-    Output.Position = mul(inPos, xLightsWorldViewProjection);
-    Output.Position2D = Output.Position;
-
-    return Output;
-}
-
-struct SMapPixelToFrame
-{
-    float4 Color : COLOR0;
-};
 
 SMapPixelToFrame ShadowMapPixelShader(SMapVertexToPixel PSIn)
 {
@@ -274,7 +297,7 @@ sampler ShadowMapSampler = sampler_state
 	texture = <ShadowTexture>;
 	magfilter = LINEAR;
 	minfilter = LINEAR;
-	mipfilter=LINEAR;
+	mipfilter = LINEAR;
 	AddressU = clamp;
 	AddressV = clamp;
 };
