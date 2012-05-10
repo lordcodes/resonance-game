@@ -66,6 +66,38 @@ namespace Resonance {
             return "";
         }
 
+        public static void getObjectiveStrings(ref string longStr, ref string shortStr) {
+            switch (cObj) {
+                case (KILL_ALL_BV) : {
+                    longStr  = "Destroy all the Bad Vibes to heal the Cerebellum.";
+                    shortStr = "Destroy the Bad Vibes";
+                    break;
+                }
+                case (COLLECT_ALL_PICKUPS) : {
+                    longStr  = "Collect all the pickups to heal the Occipital Lobe.";
+                    shortStr = "Collect the Pickups.";
+                    break;
+                }
+                case (KILL_BOSS) : {
+                    longStr  = "Destroy the Master Bad Vibe to heal the Frontal Lobe and wake up from the coma.";
+                    shortStr = "Destroy the Boss.";
+                    break;
+                }
+                case (SURVIVE) : {
+                    longStr  = "The Bad Vibes are fighting back. Survive the onslaught to heal the Temporal Lobe.";
+                    shortStr = "Stay alive.";
+                    break;
+                }
+                case (TERRITORIES) : {
+                    longStr  = "Neutralise the synaptic gateways to heal the Parietal Lobe.";
+                    shortStr = "Neutralise the gateways.";
+                    break;
+                }
+            }
+
+            return;
+        }
+
         public static bool getProgress(ref string oStr) {
             switch (cObj) {
                 case (KILL_ALL_BV) : {
@@ -105,6 +137,8 @@ namespace Resonance {
                     if ((ts.Minutes == 0) && (ts.Seconds <= 0)) return true; else return false;
                 }
                 case (TERRITORIES) : {
+                    //ScreenManager.game.World.returnObjectSubset<Checkpoint>();
+
                     int healed = 0;
                     int total = 0;
                     oStr = "" + healed + " / " + total + " areas healed";
