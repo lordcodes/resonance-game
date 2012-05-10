@@ -186,13 +186,9 @@ namespace Resonance
         private static void drawCountDown()
         {
             TimeSpan time = ScreenManager.game.CountDown;
-            if (time.TotalSeconds >= 1)
+            if (time.Milliseconds > 0)
             {
                 countDownFont.drawCentre(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
-            }
-            else if (time.TotalMilliseconds < 1000 && time.TotalMilliseconds > 0)
-            {
-                //spriteBatch.DrawString(font, "GET READY!", new Vector2(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15)), Color.White);
             }
             else if (time.TotalMilliseconds < 0 && time.TotalMilliseconds > -2000)
             {
