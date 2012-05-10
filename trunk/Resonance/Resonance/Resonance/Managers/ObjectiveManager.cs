@@ -75,22 +75,22 @@ namespace Resonance {
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     longStr  = "Collect all the pickups to heal the Occipital Lobe.";
-                    shortStr = "Collect the Pickups.";
+                    shortStr = "Collect the Pickups";
                     break;
                 }
                 case (KILL_BOSS) : {
                     longStr  = "Destroy the Master Bad Vibe to heal the Frontal Lobe and wake up from the coma.";
-                    shortStr = "Destroy the Boss.";
+                    shortStr = "Destroy the Boss";
                     break;
                 }
                 case (SURVIVE) : {
                     longStr  = "The Bad Vibes are fighting back. Survive the onslaught to heal the Temporal Lobe.";
-                    shortStr = "Stay alive.";
+                    shortStr = "Stay alive";
                     break;
                 }
                 case (TERRITORIES) : {
                     longStr  = "Neutralise the synaptic gateways to heal the Parietal Lobe.";
-                    shortStr = "Neutralise the gateways.";
+                    shortStr = "Neutralise the gateways";
                     break;
                 }
             }
