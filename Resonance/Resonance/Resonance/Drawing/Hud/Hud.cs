@@ -434,9 +434,9 @@ namespace Resonance
         {
             healthBarClass.draw(spriteBatch);
 
-            string objectiveString = ObjectiveManager.getObjectiveString();
+            string objectiveString ="";
             string progressString = "";
-            //ScreenManager.game.objectiveManager.getProgress(ref progressString);
+            ObjectiveManager.getObjectiveStrings(ref progressString, ref objectiveString);
             ObjectiveManager.getProgress(ref progressString);
 
             int xOffset = (int)Math.Round(font.MeasureString(objectiveString).X / 2);
