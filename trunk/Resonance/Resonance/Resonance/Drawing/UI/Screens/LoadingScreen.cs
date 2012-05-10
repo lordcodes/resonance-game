@@ -29,6 +29,8 @@ namespace Resonance
         Screen screenToLoad;
 
         int displaySplash;
+        float fadeValue;
+        private static float FADE_INC = 1f / 100f;
         bool startLoading = true;
         bool loadingDone = false;
 
@@ -37,6 +39,7 @@ namespace Resonance
             displaySplash = displayScreen;
             screenToLoad = loadScreen;
             bgs = new Texture2D[14];
+            fadeValue = 0.0f;
         }
 
         public override void LoadContent()
@@ -83,6 +86,7 @@ namespace Resonance
                 ScreenManager.removeScreen(this);
                 ScreenManager.addScreen(screenToLoad);
             }
+            fadeValue = Math.Min(1f, fadeValue + FADE_INC);
         }
 
         public override void Draw(GameTime gameTime)
@@ -95,7 +99,16 @@ namespace Resonance
 
                 Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight / 2);
 
-                if(displaySplash <= 7) ScreenManager.SpriteBatch.Draw(bgs[6 + displaySplash], new Vector2((int)screenSize.X - 250, (int)screenSize.Y - 275), Color.White);
+                if (displaySplash <= 7) 
+                {
+                    ScreenManager.SpriteBatch.Draw(bgs[5 + displaySplash], new Vector2((int)screenSize.X - 250, (int)screenSize.Y - 275), Color.White);
+                    ScreenManager.SpriteBatch.Draw(bgs[6 + displaySplash], new Vector2((int)screenSize.X - 250, (int)screenSize.Y - 275), Color.White * fadeValue);
+                }
+
+                if (displaySplash == OBJECTIVE_SPLASH1)
+                {
+                    //Display "story" text
+                }
 
                 ScreenManager.SpriteBatch.Draw(bgs[frameNumber], new Vector2(ScreenManager.pixelsX(1650), ScreenManager.pixelsY(825)), Color.White);
                 ScreenManager.SpriteBatch.DrawString(font, text, new Vector2(ScreenManager.pixelsX(100), ScreenManager.pixelsY(950)), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);

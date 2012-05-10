@@ -42,7 +42,7 @@ namespace Resonance
             {
                 MusicHandler.playSound(MusicHandler.GREEN);
                 MusicHandler.getTrack().inTime();
-                increaseHealth();
+                if(GameMode.HEALTH_RECHARGE) increaseHealth();
                 GameScreen.getGV().createShockwave(Shockwave.GREEN);
                 BulletManager.destroyBullet("green");
                 
