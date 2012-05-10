@@ -82,8 +82,8 @@ namespace Resonance
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
             deadVibes = new string[50];
 
-            //HighScoreManager.initializeData();
-            HighScoreManager.loadFile();
+            
+           
 
         }
 
