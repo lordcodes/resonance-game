@@ -117,6 +117,7 @@
     <Compile Include="Drawing\TextureEffects\FireTextureEffect.cs" />
     <Compile Include="Drawing\TextureEffects\TextureEffect.cs" />
     <Compile Include="Drawing\UI\Loading.cs" />
+    <Compile Include="Drawing\UI\Screens\CreditsScreen.cs" />
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs">
       <SubType>Code</SubType>
     </Compile>
