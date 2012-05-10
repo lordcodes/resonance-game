@@ -183,17 +183,28 @@ namespace Resonance
             //scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
         }
 
+
+        /// <summary>
+        /// Draws the 3 second coundtown in the top centre of the screen
+        /// </summary>
         private static void drawCountDown()
         {
+            string objectiveString = "";
+            string temp = "";
+            ObjectiveManager.getObjectiveStrings(ref objectiveString, ref temp);
+            int xOffset = (int)Math.Round(font.MeasureString(objectiveString).X / 2);
+
             TimeSpan time = ScreenManager.game.CountDown;
             if (time.Milliseconds > 0)
             {
-                countDownFont.drawCentre(ScreenManager.pixelsX(960), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
+                spriteBatch.DrawString(font, objectiveString, new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(5)), Color.White);
+                countDownFont.drawCentre(ScreenManager.pixelsX(960), ScreenManager.pixelsY(40), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
             }
             else if (time.TotalMilliseconds < 0 && time.TotalMilliseconds > -2000)
             {
-                int xOffset = (int)Math.Round(font.MeasureString("GO!").X / 2);
-                spriteBatch.DrawString(font, "GO!", new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(15)), Color.White);
+                spriteBatch.DrawString(font, objectiveString, new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(5)), Color.White);
+                xOffset = (int)Math.Round(font.MeasureString("GO!").X / 2);
+                spriteBatch.DrawString(font, "GO!", new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(40)), Color.White);
             }
         }
 
