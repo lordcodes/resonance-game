@@ -44,40 +44,45 @@ namespace Resonance
             data.PlayerName[3] = "Michael Jones";
             data.Score[3] = 0;
 
-            data.PlayerName[4] = "Phillip Tattersal";
+            data.PlayerName[4] = "Phillip Tattersall";
             data.Score[4] = 0;
 
             data.PlayerName[5] = "Tom Pickering";
             data.Score[5] = 0;
         }
+
         public static void updateTable(int score)
         {
-            int index = data.SIZE;
-            while (data.Score[index-1] < score && index-1 >= 0)
+            int scoreIndex = -1;
+            for (int i = 0; i < data.SIZE; i++)
             {
-                index--;
-            }
-            if (index != data.SIZE)
-            {
-                int index2 = data.SIZE - 1;
-                while (index2 > index)
+                if (score > data.Score[i])
                 {
-                    data.Score[index2] = data.Score[index2 - 1];
-                    index2--;
+                    scoreIndex = i;
+                    break;
                 }
-                data.Score[index] = score;
+            }
+            if (scoreIndex > -1)
+            {
+                //New high score found ... do swaps
+                for (int i = data.SIZE - 1; i > scoreIndex; i--)
+                {
+                
+                    data.Score[i] = data.Score[i - 1];
+                
+                }                
+                data.Score[scoreIndex] = score;                
             }
             Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
-            for (index = 0; index < data.SIZE; index++)
+            for (int index = 0; index < data.SIZE; index++)
             {
-                Console.WriteLine(data.PlayerName[index] + " " + data.Score[index]);
+                Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
             }
         }
        
         public static void saveFile()
         {
-            if (!Guide.IsVisible)
-            {
+            
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
                 if(result.IsCompleted)
                 {
@@ -87,12 +92,11 @@ namespace Resonance
                        createFile(device);
                     }
                  }
-            }
+            
         }
         public static void loadFile()
         {
-            if (!Guide.IsVisible)
-            {
+            
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
                 if (result.IsCompleted)
                 {
@@ -102,7 +106,7 @@ namespace Resonance
                         readFile(device);
                     }
                 }
-            }
+            
         }
         private static void readFile(StorageDevice device)
         {
@@ -128,7 +132,7 @@ namespace Resonance
             Console.WriteLine("THIS IS THE TABLE WHEN READ FROM TABLE");
             for (int index = 0; index < data.SIZE; index++)
             {
-                Console.WriteLine(data.PlayerName[index] + " " + data.Score[index]);
+                Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
             }
             // Close the file.
             stream.Close();

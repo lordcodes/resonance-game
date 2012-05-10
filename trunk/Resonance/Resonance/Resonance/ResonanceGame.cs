@@ -17,8 +17,12 @@ namespace Resonance
         public ResonanceGame()
         {
             Content.RootDirectory = "Content";
-            this.Components.Add(new GamerServicesComponent(this));
+            //this.Components.Add(new GamerServicesComponent(this));
             graphics = new GraphicsDeviceManager(this);
+
+            //HighScoreManager.initializeData();
+            HighScoreManager.loadFile();
+
 
             IsMouseVisible = false;
             IsFixedTimeStep = true;
