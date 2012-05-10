@@ -21,7 +21,7 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint</identifier>
+        <identifier>CheckPoint0</identifier>
         <type>CheckPoint</type>
         <xWorldCoord>140</xWorldCoord>
         <zWorldCoord>140</zWorldCoord>
