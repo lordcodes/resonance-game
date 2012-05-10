@@ -137,13 +137,19 @@ namespace Resonance {
                     if ((ts.Minutes == 0) && (ts.Seconds <= 0)) return true; else return false;
                 }
                 case (TERRITORIES) : {
-                    //ScreenManager.game.World.returnObjectSubset<Checkpoint>();
+                    List<Object> cps =  ScreenManager.game.World.returnObjectSubset<Checkpoint>();
 
                     int healed = 0;
-                    int total = 10;
+                    int total = cps.Count;
+
+                    for (int i = 0; i < total; i++) {
+                        Checkpoint cp = (Checkpoint) cps.ElementAt(i);
+                        if (cp.beenHit()) healed++;
+                    }
+
                     oStr = "" + healed + " / " + total + " areas healed";
 
-                    if (healed == total) return true; else return false;
+                    if (healed >= total) return true; else return false;
                 }
             }
 
