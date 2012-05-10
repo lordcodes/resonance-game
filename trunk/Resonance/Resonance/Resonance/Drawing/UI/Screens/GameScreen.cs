@@ -178,10 +178,13 @@ namespace Resonance
             {
                 ScreenManager.addScreen(ScreenManager.debugMenu);
             }
-            //Player One
-            GVManager.input(input);
-            //Player Two
-            DrumManager.input(input);
+            if (intro)
+            {
+                //Player One
+                GVManager.input(input);
+                //Player Two
+                DrumManager.input(input);
+            }
             //Camera
             CameraMotionManager.update(input);
         }
@@ -230,7 +233,6 @@ namespace Resonance
                         PickupManager.update();
                         pickupSpawner.update();
                     }
-                    //PickupManager.updateTimeRemaining();
 
                     if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
                     if (WeatherManager.isPaused()) WeatherManager.pause(false);
@@ -274,26 +276,6 @@ namespace Resonance
                             Drawing.setAmbientLight(newLt);
                         }
                     }
-
-                    //DebugDisplay.update("In time", musicHandler.getTrack().inTime().ToString());
-
-                    // Recoded in Hud.cs
-                    /*if (musicHandler.getTrack().inTime() > 0.8f) {
-                        if (!beatTested) {
-                            //musicHandler.playSound("chink");
-                            DebugDisplay.update("Hit", "Now!");
-                            beatTested = true;
-
-                            Game.getGV().showBeat();
-                        }
-                    } else {
-                        if (beatTested) {
-                            beatTested = false;
-                            //musicHandler.playSound("chink");
-                            DebugDisplay.update("Hit", "Not now!");
-                        }
-                    }*/
-                    //}
                 }
 
                 iteration++;
@@ -316,22 +298,25 @@ namespace Resonance
         {
             GV_KILLED = GV_KILLED_AT_GAME_END;
             if (mode.MODE == GameMode.ARCADE) {
-                if (GV_KILLED) WeatherManager.playLightning();
-                ScreenManager.addScreen(new EndGameScreen(stats));
+                if (GV_KILLED)
+                {
+                    WeatherManager.playLightning();
+                    ScreenManager.addScreen(new GameOverScreen(stats));
+                }
+                ScreenManager.addScreen(new SuccessScreen(stats));
             } else if (mode.MODE == GameMode.OBJECTIVES) {
                 if (!GV_KILLED) {
                     if (ObjectiveManager.currentObjective() != ObjectiveManager.FINAL_OBJECTIVE) {
                         ObjectiveManager.nextObjective();
                         ObjectiveManager.loadObjectivesGame(ScreenManager);
                     } else {
-                        
-                        ScreenManager.addScreen(new EndGameScreen(stats));
+                        ScreenManager.addScreen(new SuccessScreen(stats));
                     }
                 } else {
-                    if (GV_KILLED) WeatherManager.playLightning();
+                    WeatherManager.playLightning();
                     HighScoreManager.updateTable(stats.Score);
                     HighScoreManager.saveFile();
-                    ScreenManager.addScreen(new EndGameScreen(stats));
+                    ScreenManager.addScreen(new GameOverScreen(stats));
                 }
             }
 
