@@ -440,13 +440,6 @@ namespace Resonance
                         int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
                         int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
 
-
-                        //DebugDisplay.update("HEALTH", health.ToString());
-                        //DebugDisplay.update("SCORE", score.ToString());
-                        //DebugDisplay.update("nitro", nitro.ToString());
-                        //DebugDisplay.update("shield", shield.ToString());
-                        //DebugDisplay.update("freeze", freeze.ToString());
-
                         hud.updateGoodVibe(health, score, nitro, shield, freeze);
                         playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
                     }

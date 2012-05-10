@@ -49,8 +49,7 @@ fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1
 virus,          Textures\virus.png
 wallTexture,    Textures\walls.jpg
 goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
-CheckPointWhite, Textures\gateWhite.png
-
+checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlue.png;Textures\gateGreen.png;Textures\gateWhite.png
 bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\yellow.jpg
 ---You can use dashes at the start of lines for comments
 
@@ -76,6 +75,6 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 15,			plus5,					0.25,		plus5,					0.25
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         Boss,                   1.5,          Bacteria-physics,       1.5
+18,         Boss,                   1.5,        Bacteria-physics,       1.5
 19,			Walls,					245,		Walls,					245,			wallTexture
-20,			CheckPoint,				1.5,          CheckPoint,             1.5,          CheckPointWhite
+20,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours

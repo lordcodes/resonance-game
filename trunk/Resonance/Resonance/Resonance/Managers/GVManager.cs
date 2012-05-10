@@ -29,6 +29,8 @@ namespace Resonance
             GamePadState pad = input.PlayerOne;
             GamePadState lastPad = input.LastPlayerOne;
 
+            bool shoulders = pad.Buttons.LeftShoulder == ButtonState.Pressed || pad.Buttons.RightShoulder == ButtonState.Pressed;
+
             if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) || (pad.Buttons.LeftStick == ButtonState.Pressed && lastPad.Buttons.LeftStick != ButtonState.Pressed))
             {
                 Drawing.DoDisp = true;
@@ -50,7 +52,7 @@ namespace Resonance
             {
                 MusicHandler.getTrack().pauseTrack();
             }
-            if (pad.Buttons.LeftShoulder == ButtonState.Pressed || kbd.IsKeyDown(Keys.M))
+            if (shoulders || kbd.IsKeyDown(Keys.M))
             {
                 if (GameScreen.USE_MINIMAP) MiniMap.enlarge();
             }
@@ -68,7 +70,6 @@ namespace Resonance
             {
                 
                 GameScreen.getGV().selectedPower = SHIELD;
-
                 GVMotionManager.resetBoost();
             }
 
@@ -89,7 +90,7 @@ namespace Resonance
                 if (GameScreen.getGV().getFreezer() != null) GameScreen.getGV().getFreezer().switchOff();
             }
 
-            if (pad.Triggers.Right > 0.1 || kbd.IsKeyDown(Keys.T))
+            if (pad.Triggers.Right > 0.1 || pad.Triggers.Left > 0.1 || kbd.IsKeyDown(Keys.T))
             {
                usePower(GameScreen.getGV().selectedPower);
             }
