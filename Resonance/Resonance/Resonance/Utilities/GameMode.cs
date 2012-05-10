@@ -10,6 +10,9 @@ namespace Resonance {
     /// </summary>
     class GameMode {
 
+        public static bool HEALTH_RECHARGE = false;
+        public static bool MUSIC_REPEAT = false;
+
         public int MODE;
 
         public const int ARCADE      = 0; // == ARCADE
@@ -22,6 +25,15 @@ namespace Resonance {
         public GameMode(int m) {
             MODE = m;
             TERMINATION_CRITERION_MET = false;
+
+            if (MODE == ARCADE) {
+                HEALTH_RECHARGE = true;
+                MUSIC_REPEAT = false;
+            }
+            else if (MODE == OBJECTIVES) {
+                HEALTH_RECHARGE = false;
+                MUSIC_REPEAT = true;
+            }
         }
 
         public bool terminated() {

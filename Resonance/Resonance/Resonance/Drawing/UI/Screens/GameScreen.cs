@@ -210,6 +210,7 @@ namespace Resonance
 
                 if (intro)
                 {
+                    DebugDisplay.update("REPEAT", MediaPlayer.IsRepeating.ToString());
                     if (USE_MINIMAP) Hud.saveMiniMap();
 
                     float health = getGV().healthFraction();
