@@ -29,9 +29,9 @@ namespace Resonance
         }
         public static HighScoreData data;
 
-        public static void initializeData()
+        private static void initializeData()
         {
-            data = new HighScoreData(6);
+            data = new HighScoreData(10);
             data.PlayerName[0] = "Alex Sheppard";
             data.Score[0] = 0;
 
@@ -49,6 +49,18 @@ namespace Resonance
 
             data.PlayerName[5] = "Tom Pickering";
             data.Score[5] = 0;
+
+            data.PlayerName[6] = "Chuck Norris";
+            data.Score[6] = 0;
+
+            data.PlayerName[7] = "Bruce Lee";
+            data.Score[7] = 0;
+
+            data.PlayerName[8] = "Rocky Balboa";
+            data.Score[8] = 0;
+
+            data.PlayerName[9] = "Muhammad Ali";
+            data.Score[9] = 0;
         }
 
         public static void updateTable(int score)
@@ -121,6 +133,7 @@ namespace Resonance
             if (!container.FileExists(filename))
             {
                 // If not, dispose of the container and return.
+                initializeData();
                 container.Dispose();
                 return;
             }

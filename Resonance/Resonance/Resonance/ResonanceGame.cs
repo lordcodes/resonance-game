@@ -20,7 +20,7 @@ namespace Resonance
             //this.Components.Add(new GamerServicesComponent(this));
             graphics = new GraphicsDeviceManager(this);
 
-            //HighScoreManager.initializeData();
+           // HighScoreManager.initializeData();
             HighScoreManager.loadFile();
 
 
