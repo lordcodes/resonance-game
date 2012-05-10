@@ -35,7 +35,7 @@ namespace Resonance
             transform = Matrix.CreateTranslation(position);
             float angle = MathHelper.ToRadians(randomGen.Next(0, 360));
             Matrix rot = Matrix.CreateRotationY(angle);
-            transform = Matrix.Multiply(transform, rot);
+            transform = Matrix.Multiply(rot, transform);
         }
 
         public bool beenHit() {

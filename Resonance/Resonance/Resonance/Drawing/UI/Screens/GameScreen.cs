@@ -178,13 +178,11 @@ namespace Resonance
             {
                 ScreenManager.addScreen(ScreenManager.debugMenu);
             }
-            if (intro)
-            {
-                //Player One
-                GVManager.input(input);
-                //Player Two
-                DrumManager.input(input);
-            }
+
+            //Player One
+            GVManager.input(input);
+            //Player Two
+            if(intro) DrumManager.input(input);
             //Camera
             CameraMotionManager.update(input);
         }

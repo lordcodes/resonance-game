@@ -90,12 +90,6 @@ namespace Resonance
             int y = (int)screenSize.Y / 2 - 287;
 
             ScreenManager.SpriteBatch.Draw(Bgs[index], new Vector2(x, y), Color.White);
-
-            //Draw lines from menu items to the associated ring
-
-            Vector2 start = new Vector2(screenSize.X / 2, screenSize.Y / 4);
-            Vector2 end = new Vector2(screenSize.X + 100, screenSize.Y / 4);
-            //Utility.drawLine(ScreenManager.SpriteBatch, Bgs[4], start, end, Color.Orange, 3);
         }
 
         public void startGame()
