@@ -135,7 +135,7 @@
     <Compile Include="Drawing\UI\Screens\HighscoreScreen.cs" />
     <Compile Include="Drawing\UI\Screens\HintScreen.cs" />
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs" />
-    <Compile Include="Drawing\UI\Screens\EndGameScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\GameOverScreen.cs" />
     <Compile Include="Drawing\UI\Screens\InGameSettingsMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MainMenu.cs" />
     <Compile Include="Drawing\UI\Screens\MenuElement.cs" />
@@ -143,6 +143,7 @@
     <Compile Include="Drawing\UI\Screens\PauseMenu.cs" />
     <Compile Include="Drawing\UI\Screens\PopupScreen.cs" />
     <Compile Include="Drawing\UI\Screens\SettingsMenu.cs" />
+    <Compile Include="Drawing\UI\Screens\SuccessScreen.cs" />
     <Compile Include="Managers\AIManager.cs" />
     <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Managers\CameraMotionManager.cs" />

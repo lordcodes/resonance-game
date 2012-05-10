@@ -120,7 +120,7 @@
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Drawing\UI\Screens\EndGameScreen.cs" />
+    <Compile Include="Drawing\UI\Screens\GameOverScreen.cs" />
     <Compile Include="Drawing\UI\Screens\GameScreen.cs" />
     <Compile Include="Drawing\UI\Screens\HighscoreScreen.cs" />
     <Compile Include="Drawing\UI\Screens\HintScreen.cs" />
@@ -136,6 +136,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Drawing\UI\Screens\SettingsMenu.cs" />
+    <Compile Include="Drawing\UI\Screens\SuccessScreen.cs" />
     <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Managers\HighScoreManager.cs" />
     <Compile Include="Managers\ObjectiveManager.cs" />

@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Media;
+using Microsoft.Xna.Framework.Input;
 
 namespace Resonance
 {
@@ -121,6 +122,7 @@ namespace Resonance
 
         public void addScreen(Screen screen)
         {
+            GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
             if (!screen.LoadedUsingLoading)
             {
                 screen.ScreenManager = this;

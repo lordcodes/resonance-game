@@ -30,7 +30,8 @@ namespace Resonance
 
         public void Draw(MenuScreen screen, GameTime gameTime, bool selected)
         {
-            if (screen is PauseMenu || screen is EndGameScreen) fontSize = 0.8f;
+            bool smallFont = (screen is PauseMenu || screen is GameOverScreen || screen is SuccessScreen);
+            if (smallFont) fontSize = 0.8f;
             else fontSize = 1f;
 
             Color colour;
