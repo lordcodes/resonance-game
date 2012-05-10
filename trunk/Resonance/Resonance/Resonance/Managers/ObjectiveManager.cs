@@ -13,7 +13,7 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int KILL_BOSS              = 4;
 
-        public const int DEFAULT_OBJECTIVE      = KILL_ALL_BV;
+        public const int DEFAULT_OBJECTIVE      = TERRITORIES;
 
         public  const int FINAL_OBJECTIVE       = KILL_BOSS;
 
@@ -140,7 +140,7 @@ namespace Resonance {
                     //ScreenManager.game.World.returnObjectSubset<Checkpoint>();
 
                     int healed = 0;
-                    int total = 0;
+                    int total = 10;
                     oStr = "" + healed + " / " + total + " areas healed";
 
                     if (healed == total) return true; else return false;
