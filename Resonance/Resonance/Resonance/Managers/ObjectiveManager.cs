@@ -44,6 +44,10 @@ namespace Resonance {
             return cObj;
         }
 
+        /// <summary>
+        /// Deprecated. Use getObjectiveStrings().
+        /// </summary>
+        /// <returns></returns>
         public static String getObjectiveString() {
             switch (cObj) {
                 case (KILL_ALL_BV) : {
