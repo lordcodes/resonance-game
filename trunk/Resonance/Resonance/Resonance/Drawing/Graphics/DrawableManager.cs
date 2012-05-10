@@ -93,6 +93,8 @@ namespace Resonance
                     }
                     else if (component is Checkpoint)
                     {
+                        Checkpoint c = (Checkpoint)component;
+                        Drawing.Draw(c.Transform, c.Position, (Object)component);
                     }
                     else if (component is TextureEffect)
                     {

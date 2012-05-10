@@ -132,7 +132,6 @@ namespace Resonance
             List<Object> points = ScreenManager.game.World.returnObjectSubset<Checkpoint>();
 
             Vector3 gvPos = GameScreen.getGV().Body.Position;
-
             for (int i = 0; i < points.Count; i++)
             {
                 Checkpoint point = (Checkpoint)points[i];
@@ -141,7 +140,7 @@ namespace Resonance
 
                 if (Radius + 1 >= dist)
                 {
-                    if (point.hitPoint(colour))
+                    if (point.hitPoint(colour-1))
                     {
                         GameScreen.stats.addScore(15);
                     }
