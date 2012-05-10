@@ -14,6 +14,7 @@ namespace Resonance
             using (game = new ResonanceGame())
             {
                 game.Run();
+
             }
         }
     }

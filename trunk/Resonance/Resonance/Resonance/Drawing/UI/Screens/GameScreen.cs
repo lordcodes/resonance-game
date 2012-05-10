@@ -81,8 +81,10 @@ namespace Resonance
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
             deadVibes = new string[50];
-            HighScoreManager.Initialize();
-            HighScoreManager.LoadHighScores();
+
+            //HighScoreManager.initializeData();
+            HighScoreManager.loadFile();
+
         }
 
         public int Iteration
@@ -322,13 +324,17 @@ namespace Resonance
                         ObjectiveManager.nextObjective();
                         ObjectiveManager.loadObjectivesGame(ScreenManager);
                     } else {
+                        
                         ScreenManager.addScreen(new EndGameScreen(stats));
                     }
                 } else {
                     if (GV_KILLED) WeatherManager.playLightning();
+                    HighScoreManager.updateTable(stats.Score);
+                    HighScoreManager.saveFile();
                     ScreenManager.addScreen(new EndGameScreen(stats));
                 }
             }
+
         }
 
         /// <summary>
