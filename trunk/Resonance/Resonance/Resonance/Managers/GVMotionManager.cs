@@ -30,6 +30,10 @@ namespace Resonance {
         public static float          BOOST_POWER                     =   2.00f;
         public static bool           BOOSTING                        =   false;
 
+        public static float          BANK_ANGLE                      = 0f;
+        public const  float          MAX_BANK_ANGLE                  = (float) (Math.PI / 8d);
+        public const  float          MAX_BANK_SPEED                  = MAX_BANK_ANGLE / 8f;
+
         //private static bool MOVING_F         = false;
         //private static bool MOVING_B         = false;
 
@@ -104,6 +108,8 @@ namespace Resonance {
             float posSpd = R_SPEED;
             if (posInc < 0) posInc *= -1;
             if (posSpd < 0) posSpd *= -1;
+
+            if (Math.Abs(BANK_ANGLE - power * MAX_BANK_SPEED) <= MAX_BANK_ANGLE) BANK_ANGLE -= power * MAX_BANK_SPEED;
 
             float max = power * MAX_R_SPEED;
             if (max < 0) max *= -1;
@@ -232,6 +238,18 @@ namespace Resonance {
                 if (R_SPEED > 0) if (R_DECELERATION > R_SPEED)  R_SPEED = 0f; else R_SPEED -= R_DECELERATION;
                 if (R_SPEED < 0) if (R_DECELERATION > -R_SPEED) R_SPEED = 0f; else R_SPEED += R_DECELERATION;
                 rotate(0f);
+            }
+
+            if (!(rotateL ^ rotateR) && BANK_ANGLE != 0) {
+                if (Math.Abs(BANK_ANGLE) - MAX_BANK_SPEED < 0) {
+                    BANK_ANGLE = 0f;
+                } else {
+                    if (BANK_ANGLE < 0) {
+                        BANK_ANGLE += MAX_BANK_SPEED;
+                    } else {
+                        BANK_ANGLE -= MAX_BANK_SPEED;
+                    }
+                }
             }
 
             if (BOOSTING && gv.Nitro > 0) {

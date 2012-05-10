@@ -76,7 +76,13 @@ namespace Resonance
                 {
                     if (component is DynamicObject)
                     {
-                        Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, (Object)component);
+                        if (component is GoodVibe) {
+                            Matrix r = Matrix.CreateRotationZ(GVMotionManager.BANK_ANGLE);
+                            Matrix t = Matrix.Multiply(r, ((DynamicObject)component).Body.WorldTransform);
+                            Drawing.Draw(t, ((DynamicObject)component).Body.Position, (Object)component);
+                        } else {
+                            Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, (Object)component);
+                        }
                         // Draw the shield if it is up
                         if (component is GoodVibe && ((GoodVibe)component).ShieldOn)
                         {
