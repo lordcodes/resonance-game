@@ -1726,6 +1726,33 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\drumkit.png">
+      <Name>drumkit</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\drumkitb.png">
+      <Name>drumkitb</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\drumkitg.png">
+      <Name>drumkitg</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\drumkitr.png">
+      <Name>drumkitr</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\HUD\Textures\drumkity.png">
+      <Name>drumkity</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\Textures\CreditsPlaceholder.png">
       <Name>CreditsPlaceholder</Name>
       <Importer>TextureImporter</Importer>
