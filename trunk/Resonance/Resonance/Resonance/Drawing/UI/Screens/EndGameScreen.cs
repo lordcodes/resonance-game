@@ -80,6 +80,11 @@ namespace Resonance
             message += "Number of Shield Uses: " + stats.ShieldUses + "\n\n";
             message += "Number of Freeze Uses: " + stats.FreezeUses + "\n\n";
             message += "Number of Pickups: " + stats.Powerups + "\n\n";
+            message += "\n            HIGHSCORES             \n";
+            for (int ii = 0; ii < HighScoreManager.data.SIZE; ii++)
+            {
+                message += "    " + HighScoreManager.data.PlayerName[ii] + "       " + HighScoreManager.data.Score[ii] + "           \n";
+            }
 
             ScreenManager.SpriteBatch.DrawString(Font, message, new Vector2(x, y), Color.White);
         }

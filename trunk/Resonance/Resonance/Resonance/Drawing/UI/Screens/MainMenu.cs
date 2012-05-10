@@ -116,6 +116,7 @@ namespace Resonance
 
         private void openHighScores()
         {
+            ScreenManager.addScreen(new HighscoreScreen(Font));
         }
 
         private void quitGame()
