@@ -132,6 +132,7 @@
     <Compile Include="Drawing\ParticleEngine\Emitter.cs" />
     <Compile Include="Drawing\TextureEffects\FireTextureEffect.cs" />
     <Compile Include="Drawing\TextureEffects\TextureEffect.cs" />
+    <Compile Include="Drawing\UI\Screens\CreditsScreen.cs" />
     <Compile Include="Drawing\UI\Screens\HighscoreScreen.cs" />
     <Compile Include="Drawing\UI\Screens\HintScreen.cs" />
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs" />
