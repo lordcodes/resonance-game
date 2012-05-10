@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace Resonance
 {
@@ -16,7 +17,7 @@ namespace Resonance
         public ResonanceGame()
         {
             Content.RootDirectory = "Content";
-
+            this.Components.Add(new GamerServicesComponent(this));
             graphics = new GraphicsDeviceManager(this);
 
             IsMouseVisible = false;

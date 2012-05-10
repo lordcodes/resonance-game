@@ -14,6 +14,7 @@ namespace Resonance
 {
     public class HighScoreManager
     {
+        
         public struct HighScoreData
         {
             public string[] PlayerName;
@@ -26,104 +27,142 @@ namespace Resonance
                 SIZE = count;
             }
         }
-        public static string HighScoresFilename = "HighScore.xml";
-        
-        public static void SaveHighScores(HighScoreData data)
-        {
-            // Get the path of the save game
-            string fullpath = HighScoresFilename;
+        public static HighScoreData data;
 
-            // Open the file, creating it if necessary
-            FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate);
-            try
-            {
-                // Convert the object to XML data and put it in the stream
-                XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
-                serializer.Serialize(stream, data);
-            }
-            finally
-            {
-                // Close the file
-                stream.Close();
-            }
+        public static void initializeData()
+        {
+            data = new HighScoreData(6);
+            data.PlayerName[0] = "Alex Sheppard";
+            data.Score[0] = 0;
+
+            data.PlayerName[1] = "Andrew Lord";
+            data.Score[1] = 0;
+
+            data.PlayerName[2] = "Mihai Nemes";
+            data.Score[2] = 0;
+
+            data.PlayerName[3] = "Michael Jones";
+            data.Score[3] = 0;
+
+            data.PlayerName[4] = "Phillip Tattersal";
+            data.Score[4] = 0;
+
+            data.PlayerName[5] = "Tom Pickering";
+            data.Score[5] = 0;
         }
-        public static void Initialize()
+        public static void updateTable(int score)
         {
-            // Get the path of the save game
-            string fullpath = HighScoresFilename;
-
-            // Check to see if the save exists
-            if (!File.Exists(fullpath))
+            int index = data.SIZE;
+            while (data.Score[index-1] < score && index-1 >= 0)
             {
-                //If the file doesn't exist, make a fake one...
-                // Create the data to save
-                HighScoreData data = new HighScoreData(5);
-                data.PlayerName[0] = "Neil";
-                data.Score[0] = 200500;
-
-                data.PlayerName[1] = "Shawn";
-                data.Score[1] = 187000;
-
-                data.PlayerName[2] = "Mark";
-                data.Score[2] = 113300;
-
-                data.PlayerName[3] = "Cindy";
-                data.Score[3] = 95100;
-
-                data.PlayerName[4] = "Sam";
-                data.Score[4] = 1000;
-                SaveHighScores(data);
+                index--;
             }
-
-        }
-        public static HighScoreData LoadHighScores()
-        {
-            HighScoreData data;
-            // Get the path of the save game
-            string fullpath = HighScoresFilename;
-            // Open the file
-            FileStream stream = File.Open(fullpath, FileMode.OpenOrCreate,
-            FileAccess.Read);
-            try
+            if (index != data.SIZE)
             {
-                // Read the data from the file
-                XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
-                data = (HighScoreData)serializer.Deserialize(stream);
-            }
-            finally
-            {
-                // Close the file
-                stream.Close();
-            }
-
-            return (data);
-        }
-        private void SaveHighScore(int score,string player)
-        {
-            // Create the data to save
-            HighScoreData data = LoadHighScores();
-            int scoreIndex = -1;
-            for (int i = 0; i < data.SIZE; i++)
-            {
-                if (score > data.Score[i])
+                int index2 = data.SIZE - 1;
+                while (index2 > index)
                 {
-                    scoreIndex = i;
-                    break;
+                    data.Score[index2] = data.Score[index2 - 1];
+                    index2--;
+                }
+                data.Score[index] = score;
+            }
+            Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
+            for (index = 0; index < data.SIZE; index++)
+            {
+                Console.WriteLine(data.PlayerName[index] + " " + data.Score[index]);
+            }
+        }
+       
+        public static void saveFile()
+        {
+            if (!Guide.IsVisible)
+            {
+                IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
+                if(result.IsCompleted)
+                {
+                    StorageDevice device = StorageDevice.EndShowSelector(result);
+                    if (device != null && device.IsConnected)
+                    {
+                       createFile(device);
+                    }
+                 }
+            }
+        }
+        public static void loadFile()
+        {
+            if (!Guide.IsVisible)
+            {
+                IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
+                if (result.IsCompleted)
+                {
+                    StorageDevice device = StorageDevice.EndShowSelector(result);
+                    if (device != null && device.IsConnected)
+                    {
+                        readFile(device);
+                    }
                 }
             }
-
-            if (scoreIndex > -1)
+        }
+        private static void readFile(StorageDevice device)
+        {
+            IAsyncResult result2 = device.BeginOpenContainer("StorageScore", null, null);
+            // Wait for the WaitHandle to become signaled.
+            result2.AsyncWaitHandle.WaitOne();
+            StorageContainer container = device.EndOpenContainer(result2);
+            // Close the wait handle.
+            result2.AsyncWaitHandle.Close();
+            string filename = "Highscore.sav";
+            // Check to see whether the save exists.
+            if (!container.FileExists(filename))
             {
-                //New high score found ... do swaps
-                for (int i = data.SIZE - 1; i > scoreIndex; i--)
-                {
-                    data.PlayerName[i] = data.PlayerName[i - 1];
-                    data.Score[i] = data.Score[i - 1];
-                }
-                data.PlayerName[scoreIndex] = player; //Retrieve User Name Here
-                data.Score[scoreIndex] = score;
-                SaveHighScores(data);
+                // If not, dispose of the container and return.
+                container.Dispose();
+                return;
             }
+            Console.WriteLine("STARTING TO READ FILE");
+            // Open the file.
+            Stream stream = container.OpenFile(filename, FileMode.Open);
+            XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
+            data = (HighScoreData)serializer.Deserialize(stream);
+            Console.WriteLine("THIS IS THE TABLE WHEN READ FROM TABLE");
+            for (int index = 0; index < data.SIZE; index++)
+            {
+                Console.WriteLine(data.PlayerName[index] + " " + data.Score[index]);
+            }
+            // Close the file.
+            stream.Close();
+            // Dispose the container.
+            container.Dispose();
+
+        }
+        private static void createFile(StorageDevice device)
+        {
+            // Open a storage container.
+            IAsyncResult result2 =
+                device.BeginOpenContainer("StorageScore", null, null);
+
+            // Wait for the WaitHandle to become signaled.
+            result2.AsyncWaitHandle.WaitOne();
+
+            StorageContainer container = device.EndOpenContainer(result2);
+
+            // Close the wait handle.
+            result2.AsyncWaitHandle.Close();
+            string filename = "Highscore.sav";
+
+            // Check to see whether the save exists.
+            if (container.FileExists(filename))
+            {
+                // Delete it so that we can create one fresh.
+                container.DeleteFile(filename);
+                Console.WriteLine("FILE EXISTS");
+            }
+            Stream stream = container.CreateFile(filename);
+            XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
+            serializer.Serialize(stream, data);
+            stream.Close();
+            container.Dispose();
         }
     }
 }
