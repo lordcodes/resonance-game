@@ -31,6 +31,10 @@ namespace Resonance
             position = pos;
         }
 
+        public bool beenHit() {
+            return hit;
+        }
+
         public bool hitPoint(int drum)
         {
             if (!hit && drum == this.colour)
