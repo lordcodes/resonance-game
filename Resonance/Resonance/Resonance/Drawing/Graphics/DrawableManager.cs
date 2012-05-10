@@ -91,6 +91,9 @@ namespace Resonance
                     {
                         Drawing.Draw(((Shockwave)component).Transform, ((Shockwave)component).Position, (Object)component);
                     }
+                    else if (component is Checkpoint)
+                    {
+                    }
                     else if (component is TextureEffect)
                     {
                         Drawing.DrawTexture(((TextureEffect)component).Texture, ((TextureEffect)component).Position, ((TextureEffect)component).Width, ((TextureEffect)component).Height);

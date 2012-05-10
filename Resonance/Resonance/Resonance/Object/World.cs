@@ -279,7 +279,7 @@ namespace Resonance
                 }
                 if (obj.type.Equals("Boss"))
                 {
-                    BulletManager.BOSS_EXISTS = true;
+                    BulletManager.BOSS_EXISTS = false;
                     addObject(new StaticObject(GameModels.BOSS, "Boss", pos));
                     BulletManager.updateBossPosition(pos);
                 }
@@ -303,7 +303,7 @@ namespace Resonance
                 }
                 if (obj.type.Equals("CheckPoint"))
                 {
-                    addObject(new Checkpoint(GameModels.CheckPoint, obj.identifier, pos, Checkpoint.RED));
+                    addObject(new Checkpoint(GameModels.CHECKPOINT, obj.identifier, pos, Checkpoint.RED));
                 }
             }
         }
