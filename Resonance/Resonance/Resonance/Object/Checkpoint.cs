@@ -17,8 +17,11 @@ namespace Resonance
         public const int GREEN = 3;
         public const int WHITE = 4;
 
+        private static Random randomGen = new Random((int)(DateTime.Now.Ticks));
+
         int colour;
         Vector3 position;
+        Matrix transform;
 
         bool hit;
 
@@ -29,6 +32,10 @@ namespace Resonance
             hit = false;
             this.colour = colour;
             position = pos;
+            transform = Matrix.CreateTranslation(position);
+            float angle = MathHelper.ToRadians(randomGen.Next(0, 360));
+            Matrix rot = Matrix.CreateRotationY(angle);
+            transform = Matrix.Multiply(transform, rot);
         }
 
         public bool beenHit() {
@@ -37,10 +44,11 @@ namespace Resonance
 
         public bool hitPoint(int drum)
         {
-            if (!hit && drum == this.colour)
+            if (drum == this.colour)
             {
                 hit = true;
                 ModelInstance.setTexture(WHITE);
+                colour = WHITE;
                 return true;
             }
             return false;
@@ -49,6 +57,11 @@ namespace Resonance
         public Vector3 Position
         {
             get { return position; }
+        }
+
+        public Matrix Transform
+        {
+            get { return transform; }
         }
     }
 }
