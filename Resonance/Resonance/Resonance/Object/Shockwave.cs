@@ -33,6 +33,7 @@ namespace Resonance
         // List of Bad Vibes which this shockwave has already hit
         List<BadVibe> bVibes;
         int numHit = 0;
+
         // Location
         Vector3 position;
         int colour;
@@ -46,7 +47,7 @@ namespace Resonance
         public Shockwave(int modelNum, string name, Vector3 pos, Matrix t, int colour)
             : base(modelNum, name, pos)
         {
-            bVibes = new List<BadVibe>();
+            bVibes = new List<BadVibe>(10);
             this.init(pos, t, colour);
         }
 
@@ -126,8 +127,29 @@ namespace Resonance
             }
         }
 
-        // Properties
+        public void checkCheckpoints()
+        {
+            List<Object> points = ScreenManager.game.World.returnObjectSubset<Checkpoint>();
 
+            Vector3 gvPos = GameScreen.getGV().Body.Position;
+
+            for (int i = 0; i < points.Count; i++)
+            {
+                Checkpoint point = (Checkpoint)points[i];
+                
+                double dist = Vector3.Distance(Position, point.Position);
+
+                if (Radius + 1 >= dist)
+                {
+                    if (point.hitPoint(colour))
+                    {
+                        GameScreen.stats.addScore(15);
+                    }
+                }
+            }
+        }
+
+        // Properties
         public double Radius
         {
             get

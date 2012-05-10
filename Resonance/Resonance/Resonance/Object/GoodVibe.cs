@@ -145,7 +145,6 @@ namespace Resonance
         /// <param name="colour">Colour of the shockwave</param>
         public void createShockwave(int colour)
         {
-            //Shockwave w;// = new Shockwave(GameModels.SHOCKWAVE, waveName, this.Body.Position, this.Body.WorldTransform, colour);
             Shockwave w = Shockwave.getWave(this.Body.Position, this.Body.WorldTransform, colour);
             switch (colour) {
                 case Shockwave.GREEN: {
@@ -183,7 +182,15 @@ namespace Resonance
             {
                 Shockwave w = waves[i];
                 w.grow();
-                w.checkBadVibes();
+                if (GameScreen.mode.MODE == GameMode.OBJECTIVES &&
+                    ObjectiveManager.currentObjective() == ObjectiveManager.TERRITORIES)
+                {
+                    w.checkCheckpoints();
+                }
+                else
+                {
+                    w.checkBadVibes();
+                }
             }
             removeWaves();
         }

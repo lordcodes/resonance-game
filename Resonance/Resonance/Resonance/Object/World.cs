@@ -89,7 +89,6 @@ namespace Resonance
             }
             else if(obj is StaticObject)
             {
-                
                 space.Add(((StaticObject)obj).Body);
                 if (obj.returnIdentifier() == "Ground")
                 {
@@ -152,7 +151,6 @@ namespace Resonance
 
             if (queryList.Count > 1)
             {
-                Console.WriteLine(queryList.Count + " " + queryList[0].Tag);
                 return true;
             }
             else return false;
@@ -281,7 +279,7 @@ namespace Resonance
                 }
                 if (obj.type.Equals("Boss"))
                 {
-                    BulletManager.BOSS_EXISTS = false;
+                    BulletManager.BOSS_EXISTS = true;
                     addObject(new StaticObject(GameModels.BOSS, "Boss", pos));
                     BulletManager.updateBossPosition(pos);
                 }
@@ -305,7 +303,7 @@ namespace Resonance
                 }
                 if (obj.type.Equals("CheckPoint"))
                 {
-                    addObject(new StaticObject(GameModels.CheckPoint, obj.identifier, pos));
+                    addObject(new Checkpoint(GameModels.CheckPoint, obj.identifier, pos, Checkpoint.RED));
                 }
             }
         }

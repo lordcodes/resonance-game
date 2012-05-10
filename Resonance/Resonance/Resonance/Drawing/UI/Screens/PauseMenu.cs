@@ -71,7 +71,7 @@ namespace Resonance
             ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
 
             x += 30;
-            y += 50;
+            y += 100;
 
             ScreenManager.SpriteBatch.Draw(Bgs[2], new Vector2(x, y), Color.White);
         }
