@@ -17,22 +17,15 @@ namespace Resonance
         public ResonanceGame()
         {
             Content.RootDirectory = "Content";
-            //this.Components.Add(new GamerServicesComponent(this));
+            Components.Add(new GamerServicesComponent(this));
             graphics = new GraphicsDeviceManager(this);
-
-           // HighScoreManager.initializeData();
-            HighScoreManager.loadFile();
-
-
+            
             IsMouseVisible = false;
             IsFixedTimeStep = true;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / FPS);
             graphics.SynchronizeWithVerticalRetrace = true;
-            //graphics.IsFullScreen = true;
             graphics.IsFullScreen = false;
             graphics.PreferMultiSampling = true;
-            //graphics.PreferredBackBufferWidth = 1920;
-            //graphics.PreferredBackBufferHeight = 1080;
             graphics.PreferredBackBufferWidth = 1280;
             graphics.PreferredBackBufferHeight = 720;
             Window.AllowUserResizing = true;            
@@ -46,9 +39,12 @@ namespace Resonance
         protected override void Initialize()
         {
             base.Initialize();
+
+            //Must come after base.initialise()
+            HighScoreManager.initializeData();
+            HighScoreManager.loadFile();
         }
-
-
+        
         /// <summary>
         /// Loads graphics content.
         /// </summary>
