@@ -90,6 +90,7 @@ namespace Resonance {
             rain.init(new Vector3(0f, 18f, 0f));
 
             Drawing.setAmbientLight(new Vector3(0.1f, 0.1f, 0.1f));
+            Drawing.setSaturation(new Vector3(1f, 1f, 1f));
         }
 
         public static void setParams() {
@@ -226,12 +227,17 @@ namespace Resonance {
         }
 
         public static void drawLightning(SpriteBatch s, Texture2D tex) {
-            if (lastLightningStarted > DateTime.Now.Ticks - lightningLength) {
+            if (lastLightningStarted > DateTime.Now.Ticks - lightningLength)
+            {
                 Drawing.setAmbientLight(new Vector3(lightningAlpha, lightningAlpha, lightningAlpha + 1));
             } else {
-                if (!forceAmbLight) {
+                if (!forceAmbLight)
+                {
                     Drawing.setAmbientLight(new Vector3(0.1f - cloudCover, 0.1f - cloudCover, 0.1f - cloudCover));
-                } else {
+                    Drawing.setSaturation(new Vector3(1f - cloudCover, 1f - cloudCover, 1f - cloudCover));
+                }
+                else
+                {
                     Drawing.setAmbientLight(forcedAmbLight);
                 }
             }

@@ -26,6 +26,7 @@ float4x4 xWorldViewProjection;
 float xFogStart;
 float xFogEnd;
 float3 xFogColor;
+float3 xSaturation = float3(1,1,1); 
 
 sampler ShadowMapSampler : register(s0) = sampler_state
 {
@@ -221,10 +222,11 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     }
 	if(inShadow)
 	{
-		c *= 0.4f;
+		c = saturate(c*0.4f);
 	}
-
-    return c;
+	float grey = dot(c.rgb, float3(0.3, 0.59, 0.11));
+	float3 saturation = lerp(grey, c, xSaturation);
+	return float4(saturation, c.a);
 }
 
 technique StaticObject

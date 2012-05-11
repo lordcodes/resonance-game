@@ -46,6 +46,13 @@ namespace Resonance
             Particle.AmbientLightColour = light;
         }
 
+        public void setSaturation(Vector3 saturation)
+        {
+            Default.Saturation = saturation;
+            Ground.Saturation = saturation;
+            Particle.Saturation = saturation;
+        }
+
         public void setPointLightPos(Vector3 pos)
         {
             defaultShader.PointLightPosition = pos;
