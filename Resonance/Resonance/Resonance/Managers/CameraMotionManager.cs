@@ -91,8 +91,8 @@ namespace Resonance
 
             //Check if camera is going through wall here
 
-
-            camera.update(currentPosition);
+            if (targetPosition == topDownPos) camera.update(currentPosition, false);
+            else camera.update(currentPosition, true);
         }
 
         private static void defaultGV()
