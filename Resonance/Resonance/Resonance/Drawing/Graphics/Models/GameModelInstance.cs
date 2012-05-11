@@ -16,7 +16,20 @@ namespace Resonance
         private TextureAnimation textureAnimation;
         private bool modelAnimPaused = false;
         private bool modelAnimPlayOnce = false;
+        private bool shadow = true;
         private float transparency = 1;
+
+        public bool Shadow
+        {
+            get
+            {
+                return shadow;
+            }
+            set
+            {
+                shadow = value;
+            }
+        }
 
         /// <summary>
         /// The transparency of the object
