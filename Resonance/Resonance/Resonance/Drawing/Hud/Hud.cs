@@ -1,13 +1,9 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
@@ -40,7 +36,6 @@ namespace Resonance
         private static Texture2D damage;
         private static MiniMap miniMap;
         private static Texture2D mask;
-        //private static ImportedCustomFont scoreFont;
         private static SpriteFont scoreFont;
         private static ImportedCustomFont countDownFont;
         private static HealthBar healthBarClass;
@@ -84,7 +79,6 @@ namespace Resonance
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
             tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
             damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
-            //scoreFont   = Content.Load<ImportedCustomFont> ("Drawing/Fonts/Custom/Score/ScoreFont");
             scoreFont   = Content.Load<SpriteFont>         ("Drawing/Fonts/ScoreFont");
             countDownFont= Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
             mask         = Content.Load<Texture2D>         ("Drawing/HUD/Textures/minimapalpha");
@@ -113,9 +107,6 @@ namespace Resonance
             freezeBar = new FreezeBar(graphics);
             freezeBar.loadTextures(Content);
         }
-
-        //private TestEmitter tEmm = new TestEmitter(new Vector3(250f, 250f, 250f));
-        //public static Texture2D getBlock() { return block; }
 
         /// <summary>
         /// Called to draw text in the debug position on screen
@@ -171,16 +162,12 @@ namespace Resonance
 
         private static void drawScore()
         {
-            //TODO: add bounding box to score
-
             int xOffset = (int)Math.Round(scoreFont.MeasureString(score.ToString()).X);
             Vector2 coords = new Vector2(ScreenManager.pixelsX(1895) - xOffset, ScreenManager.pixelsY(20));
             spriteBatch.DrawString(scoreFont, score.ToString(), coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             coords.X--;
             coords.Y--;
             spriteBatch.DrawString(scoreFont, score.ToString(), coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-
-            //scoreFont.drawLeft(ScreenManager.pixelsX(1890), ScreenManager.pixelsY(15), ScreenManager.WidthRatio, ScreenManager.HeightRatio, score.ToString(), spriteBatch);
         }
 
 
@@ -208,7 +195,6 @@ namespace Resonance
             }
         }
 
-        //draws a bullet in the set position
         public static void showDamage()
         {
             AlphaValue = 0.6f;
@@ -301,7 +287,6 @@ namespace Resonance
 
                     if (badVibes.ContainsKey(name)) badVibes[name] = new BadVibeDetails(screenPosition, armour,bvDist);
                     else badVibes.Add(name, new BadVibeDetails(screenPosition, armour, bvDist));
-
                 }
             }
         }
