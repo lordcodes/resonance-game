@@ -190,7 +190,23 @@ namespace Resonance
         {
             Rectangle destination = new Rectangle(ScreenManager.pixelsX(1895 - plusFour.Width), ScreenManager.pixelsY(110), ScreenManager.pixelsX(plusFour.Width), ScreenManager.pixelsY(plusFour.Height));
             Rectangle source = new Rectangle(0, 0, plusFour.Width, plusFour.Height);
-            spriteBatch.Draw(plusFour, destination, source, Color.White);
+
+            if (PickupManager.pickupType == Pickup.X2)
+            {
+                spriteBatch.Draw(x2, destination, source, Color.White);
+            }
+            else if (PickupManager.pickupType == Pickup.X3)
+            {
+                spriteBatch.Draw(x3, destination, source, Color.White);
+            }
+            else if (PickupManager.pickupType == Pickup.PLUS4)
+            {
+                spriteBatch.Draw(plusFour, destination, source, Color.White);
+            }
+            else if (PickupManager.pickupType == Pickup.PLUS5)
+            {
+                spriteBatch.Draw(plusFive, destination, source, Color.White);
+            }            
         }
 
         /// <summary>

@@ -6,7 +6,7 @@ namespace Resonance
     class PickupManager
     {
         //public static int currentMultipler = 1;
-        public static int pickupType;
+        public static int pickupType = -1;
         private static int timeRemaining = 0;
         //List<int> multiplierValues;
 
