@@ -77,7 +77,9 @@ namespace Resonance
                     if (component is DynamicObject)
                     {
                         if (component is GoodVibe) {
-                            Matrix r = Matrix.CreateRotationZ(GVMotionManager.BANK_ANGLE);
+                            Matrix r1 = Matrix.CreateRotationZ(GVMotionManager.BANK_ANGLE);
+                            Matrix r2 = Matrix.CreateRotationX(GVMotionManager.PITCH_ANGLE);
+                            Matrix r = Matrix.Multiply(r1, r2);
                             Matrix t = Matrix.Multiply(r, ((DynamicObject)component).Body.WorldTransform);
                             Drawing.Draw(t, ((DynamicObject)component).Body.Position, (Object)component);
                         } else {
