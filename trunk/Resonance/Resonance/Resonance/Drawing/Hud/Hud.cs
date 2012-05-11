@@ -49,6 +49,10 @@ namespace Resonance
         private static Texture2D pickupShield;
         private static Texture2D pickupNitro;
         private static Texture2D pickupFreeze;
+        private static Texture2D plusFour;
+        private static Texture2D plusFive;
+        private static Texture2D x2;
+        private static Texture2D x3;
 
         private static float ARMOUR_SCALE = 1.5f;
 
@@ -95,7 +99,10 @@ namespace Resonance
             pickupShield = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
             pickupNitro  = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupnitro");
             pickupFreeze = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupfreeze");
-
+            plusFour     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/plus4");
+            plusFive     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/plus5");
+            x2           = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x2");
+            x3           = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x3");
 
             if (GameScreen.USE_MINIMAP)
             {
@@ -162,6 +169,7 @@ namespace Resonance
             drawThrobber();
             drawCountDown();
             drawScore();
+            drawMultiplier();
             drawLightning();
             spriteBatch.End();
             
@@ -178,6 +186,12 @@ namespace Resonance
             spriteBatch.DrawString(scoreFont, score.ToString(), coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
+        private static void drawMultiplier()
+        {
+            Rectangle destination = new Rectangle(ScreenManager.pixelsX(1895 - plusFour.Width), ScreenManager.pixelsY(110), ScreenManager.pixelsX(plusFour.Width), ScreenManager.pixelsY(plusFour.Height));
+            Rectangle source = new Rectangle(0, 0, plusFour.Width, plusFour.Height);
+            spriteBatch.Draw(plusFour, destination, source, Color.White);
+        }
 
         /// <summary>
         /// Draws the 3 second coundtown in the top centre of the screen
