@@ -29,7 +29,7 @@ namespace Resonance
         }
         public static HighScoreData data;
 
-        private static void initializeData()
+        public static void initializeData()
         {
             data = new HighScoreData(10);
             data.PlayerName[0] = "Alex Sheppard";
