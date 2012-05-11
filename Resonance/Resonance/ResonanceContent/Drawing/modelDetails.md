@@ -29,6 +29,7 @@ x3, Models\x3.fbx
 plus4, Models\plus4.fbx
 plus5, Models\plus5.fbx
 CheckPoint, Models\checkPoint.fbx
+BossPhysics, Models\BossPhysics.fbx
 
 
 TEXTURES
@@ -75,6 +76,6 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 15,			plus5,					0.25,		plus5,					0.25
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         Boss,                   1.5,        Bacteria-physics,       1.5
+18,         Boss,                   1.3,          BossPhysics,       1.3,          CheckPointWhite,							1
 19,			Walls,					245,		Walls,					245,			wallTexture
 20,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
