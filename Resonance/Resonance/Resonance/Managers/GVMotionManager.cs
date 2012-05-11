@@ -109,8 +109,6 @@ namespace Resonance {
             if (posInc < 0) posInc *= -1;
             if (posSpd < 0) posSpd *= -1;
 
-            if (Math.Abs(BANK_ANGLE - power * MAX_BANK_SPEED) <= MAX_BANK_ANGLE) BANK_ANGLE -= power * MAX_BANK_SPEED;
-
             float max = power * MAX_R_SPEED;
             if (max < 0) max *= -1;
             if (max > MAX_R_SPEED) max = MAX_R_SPEED;
@@ -240,7 +238,29 @@ namespace Resonance {
                 rotate(0f);
             }
 
-            if (!(rotateL ^ rotateR) && BANK_ANGLE != 0) {
+            if ((rotateL ^ rotateR && !rChange) || (strafeL ^ strafeR && !xChange)) {
+                float power;
+                if (rightX != 0) power = rightX; else power = 1f;
+                if (power < 0) power *= -1;
+                if (!(rotateR ^ backward)) power *= -1;
+
+                if (!(rotateL ^ rotateR)) {
+                    if (leftX != 0) power = leftX; else power = 1f;
+                    if (power < 0) power *= -1;
+                    if (strafeL) power *= -1;
+                }
+
+                /*float rpower, spower, power;
+                if (rightX != 0) rpower = rightX; else rpower = 1f;
+                if (!(rotateR ^ backward)) rpower *= -1;
+                if (leftX  != 0) spower = leftX;  else spower = 1f;
+                if (strafeR) spower *= -1;
+                power = (rpower + spower) / 2f;*/
+                
+                if (Math.Abs(BANK_ANGLE - power * MAX_BANK_SPEED) <= MAX_BANK_ANGLE) BANK_ANGLE -= power * MAX_BANK_SPEED;
+            }
+
+            if ((!(rotateL ^ rotateR) && BANK_ANGLE != 0) && (!(strafeL ^ strafeR) && BANK_ANGLE != 0)) {
                 if (Math.Abs(BANK_ANGLE) - MAX_BANK_SPEED < 0) {
                     BANK_ANGLE = 0f;
                 } else {
