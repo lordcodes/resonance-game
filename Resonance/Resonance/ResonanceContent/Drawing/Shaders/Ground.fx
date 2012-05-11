@@ -145,6 +145,26 @@ float ComputeFogFactor(float d)
     return clamp((d - xFogStart) / (xFogEnd - xFogStart), 0, 1) * 1;
 }
 
+bool checkShadow(float4 Pos2DAsSeenByLight, int xoff, int yoff)
+{
+	float2 ProjectedTexCoords;
+    ProjectedTexCoords[0] = (Pos2DAsSeenByLight.x/Pos2DAsSeenByLight.w/2.0f +0.5f)+xoff;
+    ProjectedTexCoords[1] = (-Pos2DAsSeenByLight.y/Pos2DAsSeenByLight.w/2.0f +0.5f)+yoff;
+
+	bool inShadow = false;
+    if ((saturate(ProjectedTexCoords).x == ProjectedTexCoords.x) && (saturate(ProjectedTexCoords).y == ProjectedTexCoords.y))
+    {
+		inShadow = true;
+        float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
+        float realDistance = Pos2DAsSeenByLight.z/Pos2DAsSeenByLight.w;
+        if ((realDistance - 1.0f/100.0f) <= depthStoredInShadowMap)
+        {
+			inShadow = false;      
+        }
+    }
+	return inShadow;
+}
+
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 	float3 normal = normalize(input.Normal);
@@ -201,29 +221,8 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float4 c = (fullColor*(diffuseLightingFactor+xAmbient));
 	c = float4(lerp(c.xyz, xFogColor, ComputeFogFactor(input.Depth)),1);
 
-    float2 ProjectedTexCoords;
-    ProjectedTexCoords[0] = (input.Pos2DAsSeenByLight.x/input.Pos2DAsSeenByLight.w/2.0f +0.5f);
-    ProjectedTexCoords[1] = (-input.Pos2DAsSeenByLight.y/input.Pos2DAsSeenByLight.w/2.0f +0.5f);
+	if(checkShadow(input.Pos2DAsSeenByLight, 0, 0)) c = saturate(c*0.4);
 
-	diffuseLightingFactor = 0;
-	bool inShadow = false;
-    if ((saturate(ProjectedTexCoords).x == ProjectedTexCoords.x) && (saturate(ProjectedTexCoords).y == ProjectedTexCoords.y))
-    {
-		inShadow = true;
-        float depthStoredInShadowMap = tex2D(ShadowMapSampler, ProjectedTexCoords).r;
-        float realDistance = input.Pos2DAsSeenByLight.z/input.Pos2DAsSeenByLight.w;
-        if ((realDistance - 1.0f/100.0f) <= depthStoredInShadowMap)
-        {
-            //diffuseLightingFactor = DotProduct(xLightPos, input.Position3D, input.Normal);
-            //diffuseLightingFactor = saturate(diffuseLightingFactor);     
-			diffuseLightingFactor = 0;
-			inShadow = false;      
-        }
-    }
-	if(inShadow)
-	{
-		c = saturate(c*0.4f);
-	}
 	float grey = dot(c.rgb, float3(0.3, 0.59, 0.11));
 	float3 saturation = lerp(grey, c, xSaturation);
 	return float4(saturation, c.a);

@@ -142,7 +142,8 @@ namespace Resonance
                     }
                     GameScreen.stats.gotPowerup();
                     //Drawing.addWave(pickupPoint);
-                    ScreenManager.game.World.removeObject(pickups[i]);
+                    //ScreenManager.game.World.removeObject(pickups[i]);
+                    ScreenManager.game.World.fadeObjectAway(pickups[i], 0.6f);
                     ScreenManager.game.pickupSpawner.pickupPickedUp();
                     continue;
                 }
@@ -150,7 +151,8 @@ namespace Resonance
                 pickups[i].TimeToLive--;
                 if (pickups[i].TimeToLive == 0)
                 {
-                    ScreenManager.game.World.removeObject(pickups[i]);
+                    //ScreenManager.game.World.removeObject(pickups[i]);
+                    ScreenManager.game.World.fadeObjectAway(pickups[i], 0.6f);
                     ScreenManager.game.pickupSpawner.pickupPickedUp();
                 }
             }

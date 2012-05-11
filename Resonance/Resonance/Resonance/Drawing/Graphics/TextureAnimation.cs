@@ -11,7 +11,7 @@ namespace Resonance
         private List<Texture2D> textures;
         private int currentFrame = 0;
         private double frameDelay;
-        private double timeElapsed;
+        private double timeElapsed = 0f;
         private bool textureAnimPaused = false;
         private bool textureAnimPlayOnce = false;
 

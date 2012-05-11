@@ -135,6 +135,7 @@ namespace Resonance
         {
             this.ModelInstance = deathAnimation;
             this.ModelInstance.playModelAnim();
+            this.ModelInstance.fadeAway(0.6f);
             deathAnimationFrames--;
             Explosion e = (Explosion) ParticleEmitterManager.getEmitter<Explosion>();
             if (e == null) e = new Explosion();

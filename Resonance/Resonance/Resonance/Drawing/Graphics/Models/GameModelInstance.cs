@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using AnimationLibrary;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 
 namespace Resonance
 {
@@ -18,6 +19,11 @@ namespace Resonance
         private bool modelAnimPlayOnce = false;
         private bool shadow = true;
         private float transparency = 1;
+        private bool fadingAway = false;
+        private float fadeTimeElapsed;
+        private float fadeFrameDelay;
+        private float fadeStep;
+        private Action finishedFadingAction;
 
         public bool Shadow
         {
@@ -174,12 +180,44 @@ namespace Resonance
                 }
             }
             textureAnimation.Update(gameTime);
+            if (fadingAway)
+            {
+                fadeTimeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+                if (fadeTimeElapsed > fadeFrameDelay)
+                {
+                    fadeTimeElapsed -= fadeFrameDelay;
+                    transparency = transparency - fadeStep;
+                    if (transparency <= 0)
+                    {
+                        transparency = 0;
+                        finishedFadingAction();
+                    }
+                }
+
+
+
+            }
         }
 
         public void resetAnimation()
         {
             animPlayer.StartClip(clip);
             modelAnimPaused = true;
+        }
+
+        public void fadeAway(float seconds, Action finishedFadingAction)
+        {
+            this.finishedFadingAction = finishedFadingAction;
+            fadeTimeElapsed = 0;
+            fadeStep = 1 / seconds / 30;
+            fadeFrameDelay = 1 / 30 * 1000;
+            fadingAway = true;
+        }
+
+        public void fadeAway(float seconds)
+        {
+            fadeAway(seconds, delegate(){});
         }
     }
 }

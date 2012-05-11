@@ -427,7 +427,7 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            if (!drawingShadows || (drawingShadows && worldObject.ModelInstance.Shadow))
+            if (!drawingShadows || (drawingShadows && worldObject.ModelInstance.Shadow && worldObject.ModelInstance.Transparency > 0))
             {
                 if ((!worldObject.returnIdentifier().Equals("Walls") || (worldObject.returnIdentifier().Equals("Walls") && !drawingShadows)))
                 {
