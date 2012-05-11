@@ -16,7 +16,7 @@
         <type>Boss</type>
         <xWorldCoord>120</xWorldCoord>
         <zWorldCoord>120</zWorldCoord>
-        <yWorldCoord>4.3</yWorldCoord>
+        <yWorldCoord>2.7</yWorldCoord>
         <gameModelNum>0</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
