@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
@@ -150,17 +151,17 @@ namespace Resonance
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
             drawBadVibeArmour();
-            drawDamage(gameTime); 
+            drawDamage(gameTime);
             drawHealthBar();
             highlightedPower();
             drawShieldBar();
             drawNitroBar();
             drawFreezeBar();
             highlightedPowerPercentage();
-            if (GameScreen.USE_MINIMAP) drawMiniMap();  
+            if (GameScreen.USE_MINIMAP) drawMiniMap();
             drawThrobber();
             drawCountDown();
-            drawScore();           
+            drawScore();
             drawLightning();
             spriteBatch.End();
             
@@ -454,10 +455,23 @@ namespace Resonance
         {
             healthBarClass.draw(spriteBatch);
 
-            string objectiveString ="";
+            string objectiveString = "";
             string progressString = "";
-            ObjectiveManager.getObjectiveStrings(ref progressString, ref objectiveString);
-            ObjectiveManager.getProgress(ref progressString);
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES)
+            {
+                ObjectiveManager.getObjectiveStrings(ref progressString, ref objectiveString);
+                ObjectiveManager.getProgress(ref progressString);
+            }
+            else
+            {
+                TimeSpan ts = MusicHandler.getTrack().Song.Duration - MediaPlayer.PlayPosition;
+                int remainingM = ts.Minutes;
+                int remainingS = ts.Seconds;
+                if (remainingS < 0) remainingS = 0;
+                string formattedTimeSpan = string.Format("{0:D2}:{1:D2}", remainingM, remainingS);
+                objectiveString = "Arcade Mode";
+                progressString = "Time remaining: " + formattedTimeSpan;
+            }
 
             int xOffset = (int)Math.Round(font.MeasureString(objectiveString).X / 2);
             Vector2 coords = new Vector2(ScreenManager.pixelsX(350) - xOffset, ScreenManager.pixelsY(24));
@@ -470,7 +484,6 @@ namespace Resonance
             xOffset = (int)Math.Round(font.MeasureString(progressString).X / 2);
             coords.X = ScreenManager.pixelsX(315) - xOffset;
             coords.Y = ScreenManager.pixelsY(95);
-            //spriteBatch.DrawString(font, "Time remaining: " + formattedTimeSpan, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             spriteBatch.DrawString(font, progressString, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             coords.X--;
             coords.Y--;
