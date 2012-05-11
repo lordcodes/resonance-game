@@ -213,6 +213,7 @@ namespace Resonance
         {
             AlphaValue = 0.6f;
             vibration = GameScreen.VIBRATION;
+            //Console.WriteLine("reset to max");
         }
 
         private void drawDamage(GameTime gameTime)
@@ -227,7 +228,10 @@ namespace Resonance
                     TempColour *= AlphaValue;
                     spriteBatch.Draw(damage, new Rectangle(ScreenManager.pixelsX(0), ScreenManager.pixelsY(0), ScreenManager.ScreenWidth, ScreenManager.ScreenHeight), TempColour);
                     AlphaValue -= 0.01f;
-                    vibration -= 0.01f;
+                    if (vibration > 0.01f)
+                    {
+                        vibration -= 0.01f;
+                    }
                     GamePad.SetVibration(PlayerIndex.One, vibration, vibration);
                 }
                 else
@@ -235,6 +239,7 @@ namespace Resonance
                     GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
                 }
             }
+            Console.WriteLine(vibration.ToString());
         }
 
         private void drawThrobber() {
