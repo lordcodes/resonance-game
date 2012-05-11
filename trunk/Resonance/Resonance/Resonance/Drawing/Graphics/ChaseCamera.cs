@@ -83,10 +83,11 @@ namespace Resonance
         /// Updates Camera and HUD based of player position
         /// </summary>
         /// <param name="player">The good vibe class</param>
-        public void update(Vector3 newPosition)
+        public void update(Vector3 newPosition, bool lag)
         {
             Vector3 oldPos = position;
-            position = Vector3.SmoothStep(oldPos, calcCamera(newPosition), 0.2f);
+            if(lag) position = Vector3.SmoothStep(oldPos, calcCamera(newPosition), 0.2f);
+            else position = calcCamera(newPosition);
             view = Matrix.CreateLookAt(position, chaseObject.Position, Vector3.Up);
         }
 
