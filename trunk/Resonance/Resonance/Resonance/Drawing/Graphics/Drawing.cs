@@ -39,6 +39,15 @@ namespace Resonance
             gameGraphics.CustomShaders.setAmbientLight(light);
         }
 
+        /// <summary>
+        /// Change the saturation level of the scene, the nearer to 1 the channel is the more of that colour will show up e.g Vector3(1,0,0) will show black and white and red colours only.  
+        /// </summary>
+        /// <param name="light">Vector3 of the additions that should be made to the RGB of the saturation</param>
+        public static void setSaturation(Vector3 saturation)
+        {
+            gameGraphics.CustomShaders.setSaturation(saturation);
+        }
+
         public static ContentManager Content
         {
             get { return content; }

@@ -23,6 +23,7 @@ float xFogStart;
 float xFogEnd;
 float3 xFogColor;
 float xTransparency = 1;
+float3 xSaturation = float3(1,1,1); 
 
 sampler DispMapSampler = sampler_state
 {
@@ -138,7 +139,11 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
     float3 c = finalColor*(diffuseLightingFactor+xAmbient);
 	c = lerp(c, xFogColor, ComputeFogFactor(input.Depth, xFogStart, xFogEnd));
 	c = lerp(c, xFogColor, ComputeFogFactor(input.XHeight, 5, 15));
-	return float4(c,  fullColor.a * xTransparency);
+
+	float4 col = float4(c, fullColor.a * xTransparency);
+	float grey = dot(col.rgb, float3(0.3, 0.59, 0.11));
+	float3 saturation = lerp(grey, col, xSaturation);
+	return float4(saturation, col.a);
 }
 
 

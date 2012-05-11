@@ -8,6 +8,7 @@ float3 DiffuseLightColor;
 float3 CameraPosition;
 float4 Colour;
 float xTransparency = 1;
+float3 xSaturation = float3(1,1,1); 
 
 sampler ColorTextureSampler : register(s0) = sampler_state
 {
@@ -47,12 +48,11 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
 	float4 texColor = tex2D(ColorTextureSampler, input.TexCoord);
-	if(texColor.a == 0)
-	{
-		clip(-1);
-		//return float4(0,0,0,0);
-	}
-    return float4(Colour.xyz, texColor.a*xTransparency);
+	clip(texColor.a - 0.1);
+    float4 c = float4(Colour.xyz, texColor.a*xTransparency);
+	float grey = dot(c.rgb, float3(0.3, 0.59, 0.11));
+	float3 saturation = lerp(grey, c, xSaturation);
+	return float4(saturation, c.a);
 }
 
 technique StaticObject

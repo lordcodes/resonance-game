@@ -14,6 +14,7 @@ namespace Resonance
         private Vector3 currentAmbientLight;
         private Vector3 currentCameraPosition;
         private Vector3 pointLightPosition;
+        private Vector3 currentSaturation;
         private string currentTechnique = "";
         private bool lights;
         private Color currentFogColor;
@@ -29,6 +30,18 @@ namespace Resonance
                 {
                     currentTechnique = value;
                     Effect.CurrentTechnique = customEffect.Techniques[value];
+                }
+            }
+        }
+
+        public Vector3 Saturation
+        {
+            set
+            {
+                if (!currentSaturation.Equals(value))
+                {
+                    currentSaturation = value;
+                    Effect.Parameters["xSaturation"].SetValue(currentSaturation);
                 }
             }
         }
