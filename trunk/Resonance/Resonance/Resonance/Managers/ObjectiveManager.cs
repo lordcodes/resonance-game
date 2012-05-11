@@ -101,6 +101,50 @@ namespace Resonance {
             return;
         }
 
+        public static void getLoadingScreenString(ref string obj, ref string con, ref string drum)
+        {
+            switch (cObj)
+            {
+                case (KILL_ALL_BV):
+                    {
+                        obj = "Clear the area of Bad Vibes to heal the Cerebullum.";
+                        con = "Move out of the way to avoid damage.";
+                        drum = "The Bad Vibes have a set armour sequence, hit the drum\ncorresponding with the bottom of the sequence to destroy the layer.";
+                        break;
+                    }
+                case (COLLECT_ALL_PICKUPS):
+                    {
+                        obj = "Collect all the orbs to heal the Occipital Lobe.";
+                        con = "Manoeuvre the landscape to obtain the orbs.";
+                        drum = "Hit the drums to destroy the corresponding coloured\nincoming projectiles to defend from damage.";
+                        break;
+                    }
+                case (KILL_BOSS):
+                    {
+                        obj = "Defeat the boss to heal the Frontal Lobe and awake from the coma.";
+                        con = "Collect pickups to fill the deflection bar.";
+                        drum = "Hit the drums to deflect the corresponding coloured incoming projectiles\nto damage the boss. If the bar is depleted the drums will simply absorb to prevent damage.";
+                        break;
+                    }
+                case (SURVIVE):
+                    {
+                        obj = "Survive for 2 minutes to heal the Temporal Lobe.";
+                        con = "Move out of the way to avoid damage.";
+                        drum = "No where is safe, help survive by destroying Bad Vibes.";
+                        break;
+                    }
+                case (TERRITORIES):
+                    {
+                        obj = "Neutralise all the gateways to heal the Parietal Lobe.";
+                        con = "You are always moving forwards, steer towards the gates to allow them to be hit.";
+                        drum = "Hit the gateways with the same-coloured drum to neutralise them.";
+                        break;
+                    }
+            }
+
+            return;
+        }
+
         public static bool getProgress(ref string oStr) {
             switch (cObj) {
                 case (KILL_ALL_BV) : {

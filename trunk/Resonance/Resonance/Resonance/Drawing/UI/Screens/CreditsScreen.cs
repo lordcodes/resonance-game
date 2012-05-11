@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 
 namespace Resonance
 {
@@ -9,13 +10,14 @@ namespace Resonance
     {
         List<Texture2D> images;
         List<string> names;
+        List<List<string>> titles;
         SpriteFont font;
 
         Vector2 lPos;
         Vector2 lPosImage;
         Vector2 rPos;
         Vector2 rPosImage;
-        Vector2 textOrigin;
+        Vector2 nameOrigin;
 
         private float timeElapsed;
         private int frame;
@@ -42,8 +44,17 @@ namespace Resonance
             names.Add("Thomas Pickering");
             names.Add("Alex Sheppard");
             names.Add("Philip Tattersall");
-            names.Add("Geoffrey Birch");
+            names.Add("Geoffrey Burch");
             names.Add("Paul Keast");
+            titles = new List<List<string>>(8);
+            titles.Add(new List<string>(3) { "Graphics", "Content Pipeline", "Advanced Textures" });
+            titles.Add(new List<string>(3) { "Physics", "Artificial Intelligence", "Games Screens and Menus" });
+            titles.Add(new List<string>(3) { "Level Editor", "Projectiles", "High Scores" });
+            titles.Add(new List<string>(3) { "Mechanics", "Particle Engine", "Mini-Map" });
+            titles.Add(new List<string>(3) { "Pickups", "HUD", "Render Targets" });
+            titles.Add(new List<string>(3) { "3D Modelling", "Animation", "Bad Vibe Spawners" });
+            titles.Add(new List<string>(3) { "Game Music Composer" });
+            titles.Add(new List<string>(3) { "Team Mentor", "Technical Consultant"});
 
             timeElapsed = 0;
             fadeValue = 0.0f;
@@ -56,7 +67,7 @@ namespace Resonance
             lPosImage = new Vector2(40, screenSize.Y - 250);
             rPos = new Vector2(screenSize.X * 1.5f, screenSize.Y);
             rPosImage = new Vector2((screenSize.X * 2f) - 752, screenSize.Y - 250);
-            textOrigin = Vector2.Zero;
+            nameOrigin = Vector2.Zero;
         }
 
         public override void LoadContent() 
@@ -122,28 +133,55 @@ namespace Resonance
         {
             ScreenManager.darkenBackground(1f);
             ScreenManager.SpriteBatch.Begin();
-            Vector2 msgSize = font.MeasureString(names[frame]);
-            textOrigin.X = msgSize.X / 2;
-            textOrigin.Y = msgSize.Y / 2;
+            Vector2 nameSize = font.MeasureString(names[frame]);
+            nameOrigin.X = nameSize.X / 2;
+            nameOrigin.Y = nameSize.Y / 2;
+
             if (frame % 2 == 0)
             {
-                //int prevInd = Math.Max(0, frame - 1);
-                //ScreenManager.SpriteBatch.Draw(images[prevInd], new Vector2(rPos.X - 250f, rPos.Y - 250f), Color.White);
                 ScreenManager.SpriteBatch.Draw(images[frame], lPosImage, Color.White * fadeValue);
-                ScreenManager.SpriteBatch.DrawString(font, names[frame], rPos, Color.White * fadeValue, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+                ScreenManager.SpriteBatch.DrawString(font, names[frame], rPos, Color.White * fadeValue, 0f, nameOrigin, 1f, SpriteEffects.None, 0f);
+                drawTitles(rPos);
             }
             else
             {
-                //int prevInd = Math.Max(0, frame - 1);
-                //ScreenManager.SpriteBatch.Draw(images[prevInd], new Vector2(lPos.X - 250f, lPos.Y - 250f), Color.White);
                 ScreenManager.SpriteBatch.Draw(images[frame], rPosImage, Color.White * fadeValue);
-                ScreenManager.SpriteBatch.DrawString(font, names[frame], lPos, Color.White * fadeValue, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+                ScreenManager.SpriteBatch.DrawString(font, names[frame], lPos, Color.White * fadeValue, 0f, nameOrigin, 1f, SpriteEffects.None, 0f);
+                drawTitles(lPos);
             }
             ScreenManager.SpriteBatch.End();
         }
 
+        private void drawTitles(Vector2 pos)
+        {
+            Vector2 titlePos = new Vector2(pos.X, pos.Y);
+            int titleNum = titles[frame].Count;
+            Vector2 titleSize = Vector2.Zero;
+            Vector2 titleOrigin = Vector2.Zero;
+
+            titlePos.Y += 50f;
+
+            for (int i = 0; i < titleNum; i++)
+            {
+                string title = titles[frame][i];
+                titleSize = font.MeasureString(title);
+                titleOrigin.X = titleSize.X / 2;
+                titleOrigin.Y = titleSize.Y / 2;
+
+                ScreenManager.SpriteBatch.DrawString(font, title, titlePos, Color.White * fadeValue, 0f, titleOrigin, 0.7f, SpriteEffects.None, 0f);
+                titlePos.Y += 30f;
+            }
+        }
+
         public override void HandleInput(InputDevices input) 
-        { 
+        {
+            bool select = (!input.LastKeys.IsKeyDown(Keys.Enter) && input.LastPlayerOne.Buttons.A != ButtonState.Pressed) &&
+                          (input.Keys.IsKeyDown(Keys.Enter) || input.PlayerOne.Buttons.A == ButtonState.Pressed);
+            bool back = (!input.LastKeys.IsKeyDown(Keys.Escape) && !input.LastPlayerOne.IsButtonDown(Buttons.B)) &&
+                         (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.IsButtonDown(Buttons.B));
+            bool backPause = !input.LastPlayerOne.IsButtonDown(Buttons.Start) && input.PlayerOne.IsButtonDown(Buttons.Start);
+
+            if (select || back || backPause) ExitScreen();
         }
     }
 }
