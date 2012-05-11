@@ -14,6 +14,9 @@ namespace Resonance
     {
         private static SpriteBatch spriteBatch;
         private static SpriteFont font;
+        private static SpriteFont scoreFont;
+        private static SpriteFont objectivefont;
+        private static ImportedCustomFont countDownFont;
         private static GraphicsDeviceManager graphics;
         private static ContentManager Content;
         private static Graphics gameGraphics;
@@ -36,8 +39,6 @@ namespace Resonance
         private static Texture2D damage;
         private static MiniMap miniMap;
         private static Texture2D mask;
-        private static SpriteFont scoreFont;
-        private static ImportedCustomFont countDownFont;
         private static HealthBar healthBarClass;
         private static ShieldBar shieldBar;
         private static FreezeBar freezeBar;
@@ -69,9 +70,17 @@ namespace Resonance
         public void loadContent()
         {
             if (ScreenManager.ScreenWidth >= 1450)
-                font    = Content.Load<SpriteFont>         ("Drawing/Fonts/HealthBarFont");
+            {
+                font = Content.Load<SpriteFont>("Drawing/Fonts/HealthBarFont");
+                objectivefont = Content.Load<SpriteFont>("Drawing/Fonts/ObjectiveFont");
+            }
             else
-                font    = Content.Load<SpriteFont>         ("Drawing/Fonts/HealthBarSmallFont");
+            {
+                font = Content.Load<SpriteFont>("Drawing/Fonts/HealthBarSmallFont");
+                objectivefont = Content.Load<SpriteFont>("Drawing/Fonts/ObjectiveSmallFont");
+            }
+            scoreFont   = Content.Load<SpriteFont>         ("Drawing/Fonts/ScoreFont");
+            countDownFont = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
             healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
             healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
             drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
@@ -79,8 +88,6 @@ namespace Resonance
             block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
             tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
             damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
-            scoreFont   = Content.Load<SpriteFont>         ("Drawing/Fonts/ScoreFont");
-            countDownFont= Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
             mask         = Content.Load<Texture2D>         ("Drawing/HUD/Textures/minimapalpha");
             pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
             pickupPercentageBackground = Content.Load<Texture2D>("Drawing/HUD/Textures/pickuppercentagebackground");
@@ -179,19 +186,31 @@ namespace Resonance
             string objectiveString = "";
             string temp = "";
             ObjectiveManager.getObjectiveStrings(ref objectiveString, ref temp);
-            int xOffset = (int)Math.Round(font.MeasureString(objectiveString).X / 2);
+            int xOffset;
 
-            TimeSpan time = ScreenManager.game.CountDown;
-            if (time.Milliseconds > 0)
+            string[] fragments = objectiveString.Split(new[] { Environment.NewLine, "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            for (int i = 0; i < fragments.Length; i++)
             {
-                spriteBatch.DrawString(font, objectiveString, new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(5)), Color.White);
-                countDownFont.drawCentre(ScreenManager.pixelsX(960), ScreenManager.pixelsY(40), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
-            }
-            else if (time.TotalMilliseconds < 0 && time.TotalMilliseconds > -2000)
-            {
-                spriteBatch.DrawString(font, objectiveString, new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(5)), Color.White);
-                xOffset = (int)Math.Round(font.MeasureString("GO!").X / 2);
-                spriteBatch.DrawString(font, "GO!", new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(40)), Color.White);
+                xOffset = (int)Math.Round(objectivefont.MeasureString(fragments[i]).X / 2);                
+
+                TimeSpan time = ScreenManager.game.CountDown;
+                if (time.Milliseconds > 0)
+                {
+                    spriteBatch.DrawString(objectivefont, fragments[i], new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(20 + i * 35)), Color.White);
+                    if (i == fragments.Length-1)
+                    {
+                        countDownFont.drawCentre(ScreenManager.pixelsX(960), ScreenManager.pixelsY(55 + i * 35), ScreenManager.WidthRatio, ScreenManager.HeightRatio, time.Seconds.ToString(), spriteBatch);
+                    }
+                }
+                else if (time.TotalMilliseconds < 0 && time.TotalMilliseconds > -2000)
+                {
+                    spriteBatch.DrawString(objectivefont, fragments[i], new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(20 + i * 35)), Color.White);
+                    xOffset = (int)Math.Round(objectivefont.MeasureString("GO!").X / 2);
+                    if (i == fragments.Length - 1)
+                    {
+                        spriteBatch.DrawString(objectivefont, "GO!", new Vector2(ScreenManager.pixelsX(960) - xOffset, ScreenManager.pixelsY(55 + i * 35)), Color.White);
+                    }
+                }
             }
         }
 

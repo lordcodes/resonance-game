@@ -123,6 +123,16 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Fonts\ObjectiveFont.spritefont">
+      <Name>ObjectiveFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Fonts\ObjectiveSmallFont.spritefont">
+      <Name>ObjectiveSmallFont</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>

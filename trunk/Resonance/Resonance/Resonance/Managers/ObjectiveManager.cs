@@ -72,27 +72,27 @@ namespace Resonance {
         public static void getObjectiveStrings(ref string longStr, ref string shortStr) {
             switch (cObj) {
                 case (KILL_ALL_BV) : {
-                    longStr  = "Destroy all the Bad Vibes to heal the Cerebellum.";
+                    longStr = "Destroy all the Bad Vibes\nto heal the Cerebellum.";
                     shortStr = "Destroy the Bad Vibes";
                     break;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
-                    longStr  = "Collect all the pickups to heal the Occipital Lobe.";
+                    longStr = "Collect all the pickups\nto heal the Occipital Lobe.";
                     shortStr = "Collect the Pickups";
                     break;
                 }
                 case (KILL_BOSS) : {
-                    longStr  = "Destroy the Master Bad Vibe to heal the Frontal Lobe and wake up from the coma.";
+                    longStr  = "Destroy the Master Bad Vibe to heal the Frontal Lobe\nand wake up from the coma.";
                     shortStr = "Destroy the Boss";
                     break;
                 }
                 case (SURVIVE) : {
-                    longStr  = "The Bad Vibes are fighting back. Survive the onslaught to heal the Temporal Lobe.";
+                    longStr = "The Bad Vibes are fighting back.\nSurvive the onslaught to heal the Temporal Lobe.";
                     shortStr = "Stay alive";
                     break;
                 }
                 case (TERRITORIES) : {
-                    longStr  = "Hit the gateways with the same-coloured drum to heal the Parietal Lobe.";
+                    longStr  = "Hit the gateways with the same-coloured drum\nto heal the Parietal Lobe.";
                     shortStr = "Neutralise the gateways";
                     break;
                 }
