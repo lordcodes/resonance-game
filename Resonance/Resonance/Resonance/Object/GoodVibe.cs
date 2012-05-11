@@ -182,15 +182,8 @@ namespace Resonance
             {
                 Shockwave w = waves[i];
                 w.grow();
-                if (GameScreen.mode.MODE == GameMode.OBJECTIVES &&
-                    ObjectiveManager.currentObjective() == ObjectiveManager.TERRITORIES)
-                {
-                    w.checkCheckpoints();
-                }
-                else
-                {
-                    w.checkBadVibes();
-                }
+                w.checkCheckpoints();
+                w.checkBadVibes();
             }
             removeWaves();
         }

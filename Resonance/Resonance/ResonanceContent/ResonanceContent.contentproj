@@ -1689,41 +1689,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\gateWhite.png">
-      <Name>gateWhite</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\Textures\gateBlue.png">
-      <Name>gateBlue</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\Textures\gateGreen.png">
-      <Name>gateGreen</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\Textures\gateRed.png">
-      <Name>gateRed</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\Textures\gateYellow.png">
-      <Name>gateYellow</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Music\song.mp3">
       <Name>song</Name>
       <Importer>Mp3Importer</Importer>
@@ -1754,6 +1719,13 @@
   <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\gateWhite.png">
       <Name>gateWhite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\UI\Credits\bacteria_render.png">
+      <Name>bacteria_render</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
