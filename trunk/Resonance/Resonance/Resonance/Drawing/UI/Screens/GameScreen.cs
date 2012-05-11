@@ -65,7 +65,10 @@ namespace Resonance
             this.ScreenManager = scrn;
             countDown = TimeSpan.FromSeconds(5);
             intro = false;
-            MusicHandler.reset();
+            if (mode.MODE == GameMode.ARCADE ||((mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.DEFAULT_OBJECTIVE)))
+            {
+                MusicHandler.reset();
+            }
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
             preEndGameTimer = new Stopwatch();
@@ -73,10 +76,6 @@ namespace Resonance
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
             deadVibes = new string[50];
-
-            
-           
-
         }
 
         public int Iteration
@@ -150,7 +149,6 @@ namespace Resonance
         /// </summary>
         public override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
         }
 
         public override void HandleInput(InputDevices input)
