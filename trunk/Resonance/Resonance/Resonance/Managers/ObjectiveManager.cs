@@ -93,7 +93,7 @@ namespace Resonance {
                     break;
                 }
                 case (TERRITORIES) : {
-                    longStr  = "Neutralise the synaptic gateways to heal the Parietal Lobe.";
+                    longStr  = "Hit the gateways with the same-coloured drum to heal the Parietal Lobe.";
                     shortStr = "Neutralise the gateways";
                     break;
                 }
