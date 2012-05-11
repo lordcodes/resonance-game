@@ -24,7 +24,7 @@ namespace Resonance
             {
                 componentsTertiary.Add(component);
             }
-            else if (component is TextureEffect)
+            else if (component is Pickup || component is TextureEffect)
             {
                 componentsSecondary.Add(component);
             }
@@ -38,8 +38,9 @@ namespace Resonance
         {
             Drawing.Clear();
             DrawSet(components, gameTime);
-            DrawSet(componentsSecondary, gameTime);
             DrawSet(componentsTertiary, gameTime);
+            DrawSet(componentsSecondary, gameTime);
+            DebugDisplay.update("DrawableObjects", components.Count + componentsSecondary.Count+componentsTertiary.Count+"");
         }
 
         /// <summary>

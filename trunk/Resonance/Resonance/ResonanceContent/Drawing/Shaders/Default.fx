@@ -143,7 +143,7 @@ float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 	float4 col = float4(c, fullColor.a * xTransparency);
 	float grey = dot(col.rgb, float3(0.3, 0.59, 0.11));
 	float3 saturation = lerp(grey, col, xSaturation);
-	return float4(saturation, col.a);
+	return float4(saturation* xTransparency, col.a);
 }
 
 

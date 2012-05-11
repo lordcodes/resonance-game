@@ -193,8 +193,7 @@ namespace Resonance
             removeObject(objects[id]);
         }
 
-        //removes the object from the dictionary
-        public void removeObject(Object obj)
+        private void removeObjectFromPhysics(Object obj)
         {
             objects.Remove(obj.returnIdentifier());
             if (obj is DynamicObject)
@@ -209,8 +208,26 @@ namespace Resonance
             {
                 space.Remove(((StaticObject)obj).Body);
             }
+        }
+        
+        //removes the object from the dictionary
+        public void removeObject(Object obj)
+        {
+            removeObjectFromPhysics(obj);
             DrawableManager.Remove(obj);
         }
+
+        //removes the object from the dictionary
+        public void fadeObjectAway(Object obj, float seconds)
+        {
+            removeObjectFromPhysics(obj);
+            obj.ModelInstance.fadeAway(seconds, delegate()
+            {
+                DrawableManager.Remove(obj);
+            });
+        }
+
+
 
         public Object getObject(String name)
         {
