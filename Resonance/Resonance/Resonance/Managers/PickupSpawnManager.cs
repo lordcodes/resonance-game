@@ -64,7 +64,7 @@ namespace Resonance
                     int x = r.Next(minX, maxX);
                     int z = r.Next(minZ, maxZ);
 
-                    Vector3 pos = new Vector3((float)x, 20f, (float)z);
+                    Vector3 pos = new Vector3((float)x, 5f, (float)z);
 
                     if (!ScreenManager.game.World.querySpace(pos))
                     {
