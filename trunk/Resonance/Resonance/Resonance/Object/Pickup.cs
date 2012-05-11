@@ -56,6 +56,9 @@ namespace Resonance
             Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
             servo.Settings.Servo.Goal = orientation;
             ScreenManager.game.World.addToSpace(servo);
+
+            // Set it so the pickup does not cast a shadow
+            this.ModelInstance.Shadow = false;
         }
 
         /// <summary>
