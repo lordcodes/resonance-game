@@ -1,15 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BEPUphysics.Entities.Prefabs;
 using Microsoft.Xna.Framework;
-using BEPUphysics.DataStructures;
 using BEPUphysics.Entities;
-using BEPUphysics.EntityStateManagement;
-using BEPUphysics.MathExtensions;
-using BEPUphysics;
-using BEPUphysics.Paths.PathFollowing;
 
 namespace Resonance
 {

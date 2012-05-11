@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using BEPUphysics.CollisionShapes;
 using Microsoft.Xna.Framework;
 using BEPUphysics.DataStructures;

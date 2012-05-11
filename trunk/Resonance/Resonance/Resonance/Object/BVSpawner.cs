@@ -1,13 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using BEPUphysics;
-using BEPUphysics.Collidables;
 using Microsoft.Xna.Framework;
-using BEPUphysics.DataStructures;
-using BEPUphysics.MathExtensions;
-using BEPUphysics.Entities;
 
 namespace Resonance
 {
