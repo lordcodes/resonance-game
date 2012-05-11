@@ -34,6 +34,10 @@ namespace Resonance {
         public const  float          MAX_BANK_ANGLE                  = (float) (Math.PI / 8d);
         public const  float          MAX_BANK_SPEED                  = MAX_BANK_ANGLE / 8f;
 
+        public static float          PITCH_ANGLE                      = 0f;
+        public const  float          MAX_PITCH_ANGLE                  = (float) (Math.PI / 16d);
+        public const  float          MAX_PITCH_SPEED                  = MAX_PITCH_ANGLE / 8f;
+
         //private static bool MOVING_F         = false;
         //private static bool MOVING_B         = false;
 
@@ -151,6 +155,8 @@ namespace Resonance {
             float posSpd = spd;
             float max = power * maxSpd;
 
+            if (Math.Abs(PITCH_ANGLE - power * MAX_PITCH_SPEED) <= MAX_PITCH_ANGLE) PITCH_ANGLE -= power * MAX_PITCH_SPEED;
+
             if (posInc < 0) posInc *= -1;
             if (posSpd < 0) posSpd *= -1;
             if (max < 0) max *= -1;
@@ -242,25 +248,18 @@ namespace Resonance {
                 float power;
                 if (rightX != 0) power = rightX; else power = 1f;
                 if (power < 0) power *= -1;
-                if (!(rotateR ^ backward)) power *= -1;
+                if (!rotateR) power *= -1;
 
                 if (!(rotateL ^ rotateR)) {
                     if (leftX != 0) power = leftX; else power = 1f;
                     if (power < 0) power *= -1;
                     if (strafeL) power *= -1;
                 }
-
-                /*float rpower, spower, power;
-                if (rightX != 0) rpower = rightX; else rpower = 1f;
-                if (!(rotateR ^ backward)) rpower *= -1;
-                if (leftX  != 0) spower = leftX;  else spower = 1f;
-                if (strafeR) spower *= -1;
-                power = (rpower + spower) / 2f;*/
                 
                 if (Math.Abs(BANK_ANGLE - power * MAX_BANK_SPEED) <= MAX_BANK_ANGLE) BANK_ANGLE -= power * MAX_BANK_SPEED;
             }
 
-            if ((!(rotateL ^ rotateR) && BANK_ANGLE != 0) && (!(strafeL ^ strafeR) && BANK_ANGLE != 0)) {
+            if (!(rotateL ^ rotateR) && !(strafeL ^ strafeR) && BANK_ANGLE != 0) {
                 if (Math.Abs(BANK_ANGLE) - MAX_BANK_SPEED < 0) {
                     BANK_ANGLE = 0f;
                 } else {
@@ -297,6 +296,18 @@ namespace Resonance {
                 if (Z_SPEED > 0) if (Z_DECELERATION > Z_SPEED)  Z_SPEED = 0f; else Z_SPEED -= Z_DECELERATION;
                 if (Z_SPEED < 0) if (Z_DECELERATION > -Z_SPEED) Z_SPEED = 0f; else Z_SPEED += Z_DECELERATION;
                 move(lamZ, 0f);
+            }
+
+            if (!(forward ^ backward) && !BOOSTING && (PITCH_ANGLE != 0)) {
+                if (Math.Abs(PITCH_ANGLE) - MAX_PITCH_SPEED < 0) {
+                    PITCH_ANGLE = 0f;
+                } else {
+                    if (PITCH_ANGLE < 0) {
+                        PITCH_ANGLE += MAX_PITCH_SPEED;
+                    } else {
+                        PITCH_ANGLE -= MAX_PITCH_SPEED;
+                    }
+                }
             }
 
             // Strafe based on keyboard.
