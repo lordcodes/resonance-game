@@ -4,6 +4,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using System.Diagnostics;
+using System.IO;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Resonance
 {
