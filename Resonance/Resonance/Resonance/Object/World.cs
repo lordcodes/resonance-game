@@ -84,31 +84,28 @@ namespace Resonance
                 {
                     Vector3 max = ((StaticObject)obj).Body.BoundingBox.Max;
                     Vector3 min = ((StaticObject)obj).Body.BoundingBox.Min;
-
                     MAP_MIN_X = min.X;
                     MAP_MIN_Z = min.Z;
-
                     MAP_Z = Math.Abs(max.Z - min.Z);
                     MAP_X = Math.Abs(max.X - min.X);
-
-                    PLAYABLE_MAP_X = MAP_X;
-                    PLAYABLE_MAP_Z = MAP_Z;
                 }
-                //Add walls
-                float wall_length = 20f;
-                float wall_height = 150f;
-                Vector3 pos1 = new Vector3(0, 75f, (MAP_Z / 2 - 5) + (wall_length / 2));
-                Vector3 pos2 = new Vector3((PLAYABLE_MAP_X / 2 - 5) + (wall_length / 2), 75f, 0);
-                Vector3 pos3 = new Vector3(0, 75f, (-PLAYABLE_MAP_Z / 2 + 5) - (wall_length / 2));
-                Vector3 pos4 = new Vector3((-PLAYABLE_MAP_X / 2 + 5) - (wall_length / 2), 75f, 0);
-                Box b1 = new Box(pos1, PLAYABLE_MAP_X, wall_height, wall_length);
-                Box b2 = new Box(pos2, wall_length, wall_height, PLAYABLE_MAP_Z);
-                Box b3 = new Box(pos3, PLAYABLE_MAP_X, wall_height, wall_length);
-                Box b4 = new Box(pos4, wall_length, wall_height, PLAYABLE_MAP_Z);
-                space.Add(b1);
-                space.Add(b2);
-                space.Add(b3);
-                space.Add(b4);
+                else if(obj.returnIdentifier() == "Walls")
+                {
+                    float wall_length = 20f;
+                    float wall_height = 150f;
+                    Vector3 pos1 = new Vector3(0, 75f, (PLAYABLE_MAP_Z / 2 - 7) + (wall_length / 2));
+                    Vector3 pos2 = new Vector3((PLAYABLE_MAP_X / 2 - 7) + (wall_length / 2), 75f, 0);
+                    Vector3 pos3 = new Vector3(0, 75f, (-PLAYABLE_MAP_Z / 2 + 7) - (wall_length / 2));
+                    Vector3 pos4 = new Vector3((-PLAYABLE_MAP_X / 2 + 7) - (wall_length / 2), 75f, 0);
+                    Box b1 = new Box(pos1, PLAYABLE_MAP_X, wall_height, wall_length);
+                    Box b2 = new Box(pos2, wall_length, wall_height, PLAYABLE_MAP_Z);
+                    Box b3 = new Box(pos3, PLAYABLE_MAP_X, wall_height, wall_length);
+                    Box b4 = new Box(pos4, wall_length, wall_height, PLAYABLE_MAP_Z);
+                    space.Add(b1);
+                    space.Add(b2);
+                    space.Add(b3);
+                    space.Add(b4);
+                }
             }
             //Program.game.Components.Add(obj);
             DrawableManager.Add(obj);
@@ -283,7 +280,55 @@ namespace Resonance
                 if (obj.type.Equals("Ground"))
                 {
                     addObject(new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero));
-                    addObject(new StaticObject(GameModels.TRAININGWALLS, "Walls", new Vector3(0, -1, 0)));
+                    int cObj = 0;
+                    if (GameScreen.mode.MODE == GameMode.OBJECTIVES) cObj = ObjectiveManager.currentObjective();
+                    else cObj = -1;
+                    switch (cObj)
+                    {
+                        case -1:
+                            {
+                                PLAYABLE_MAP_X = 400;
+                                PLAYABLE_MAP_Z = 400;
+                                addObject(new StaticObject(GameModels.TRAININGWALLS, "Walls", new Vector3(0, -1, 0)));
+                                break;
+                            }
+                        case ObjectiveManager.KILL_ALL_BV:
+                            {
+                                PLAYABLE_MAP_X = 400;
+                                PLAYABLE_MAP_Z = 400;
+                                addObject(new StaticObject(GameModels.TRAININGWALLS, "Walls", new Vector3(0, -1, 0)));
+                                break;
+                            }
+                        case ObjectiveManager.TERRITORIES:
+                            {
+                                PLAYABLE_MAP_X = 400;
+                                PLAYABLE_MAP_Z = 400;
+                                addObject(new StaticObject(GameModels.CHECKPOINTWALLS, "Walls", new Vector3(0, -1, 0)));
+                                break;
+                            }
+                        case ObjectiveManager.SURVIVE:
+                            {
+                                PLAYABLE_MAP_X = 200;
+                                PLAYABLE_MAP_Z = 200;
+                                addObject(new StaticObject(GameModels.SURVIVALWALLS, "Walls", new Vector3(0, -1, 0)));
+                                break;
+                            }
+                        case ObjectiveManager.COLLECT_ALL_PICKUPS:
+                            {
+                                PLAYABLE_MAP_X = 400;
+                                PLAYABLE_MAP_Z = 400;
+                                addObject(new StaticObject(GameModels.PICKUPSWALLS, "Walls", new Vector3(0, -1, 0)));
+                                break;
+                            }
+                        case ObjectiveManager.KILL_BOSS:
+                            {
+                                PLAYABLE_MAP_X = 300;
+                                PLAYABLE_MAP_Z = 300;
+                                addObject(new StaticObject(GameModels.BOSSWALLS, "Walls", new Vector3(0, -1, 0)));
+                                break;
+                            }
+                    }
+                    Console.WriteLine("WORLD: " + PLAYABLE_MAP_X);
                 }
                 if (obj.type.Equals("Boss"))
                 {

@@ -360,7 +360,7 @@ namespace Resonance
             int gvy =(int) (mapH / 2f);
 
             // Draw world
-            if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Ground")).Body.BoundingBox, gvx, gvy);
+            if (DRAW_WORLD_BOX) drawWorldBox(spriteBatch, ((StaticObject)ScreenManager.game.World.getObject("Walls")).Body.BoundingBox, gvx, gvy);
 
             List<Object> objs = ScreenManager.game.World.returnObjectSubset<StaticObject>();
 
