@@ -46,6 +46,7 @@ namespace Resonance
         // Distance outside radar at which distant Vibe marker fades. 
         public static float VANISHING_POINT      = 20f;
 
+        public static float ENTIRE_MAP_ALPHA     = 0.7f;
         public static float BAD_VIBE_ALPHA       = 0.5f;
         public static float PICKUP_ALPHA         = 0.5f;
         public static float SPAWNER_ALPHA        = 0.5f;
@@ -295,7 +296,7 @@ namespace Resonance
         /// </summary>
         public void draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw((Texture2D)miniMapBuffer, new Vector2(mapX, mapY), Color.White);
+            spriteBatch.Draw((Texture2D)miniMapBuffer, new Vector2(mapX, mapY), Color.White * ENTIRE_MAP_ALPHA);
             spriteBatch.Draw(outline, new Rectangle(mapX, mapY, mapW, mapH), Color.White);
         }
 
