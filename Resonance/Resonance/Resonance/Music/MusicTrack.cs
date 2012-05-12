@@ -256,10 +256,10 @@ namespace Resonance
             halfBeatLength    = 250000000;
             quarterBeatLength = 125000000;
 
-            mode = NoteMode.QUARTER;
+            mode = NoteMode.WHOLE;
             if (state == PlayState.PLAYING)
             {
-                long time = (DateTime.Now.Ticks * 100) - startTime;
+                long time = (DateTime.Now.Ticks * 100) - startTime + 50000000 - 125000000;
                 float scoreWeight = -1f;
                 for (; ; lastI++)
                 {

@@ -1,8 +1,9 @@
 ﻿---Name---||---ModelNumber----||----Color----||------Pickup-----||
-tree             1                 Brown             No
-house            2                 Red               No
-goodVibe         4                 White             No
-terrain64        5                 Green             No
-box              8                 Yellow            Yes
-BV_Spawner       10                Silver            No
-ProjectyleBV     16                Blue              NO
+Neuron           3                Brown             No
+Bacteria         2                Red               No
+Good_vibe		 4                White             No
+terrain64        5                Green             No
+Pickup           8                Yellow            No
+BVSpawner       10                Silver            No
+Boss			16                Blue              NO
+CheckPoint		20				  Black				NO

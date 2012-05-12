@@ -280,7 +280,7 @@ namespace Resonance
                 if (obj.type.Equals("Ground"))
                 {
                     addObject(new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero));
-                    addObject(new StaticObject(GameModels.WALLS, "Walls", new Vector3(0, -1, 0)));
+                    addObject(new StaticObject(GameModels.SURVIVALWALLS, "Walls", new Vector3(0, -1, 0)));
                 }
                 if (obj.type.Equals("Boss"))
                 {

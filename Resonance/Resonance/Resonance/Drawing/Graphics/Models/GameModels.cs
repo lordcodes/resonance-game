@@ -23,7 +23,12 @@ namespace Resonance
         public static readonly int BULLET           = 17;
         public static readonly int BOSS             = 18;
         public static readonly int WALLS            = 19;
-        public static readonly int CHECKPOINT       = 20;
+        public static readonly int TRAININGWALLS    = 20;
+        public static readonly int CHECKPOINT       = 21;
+        public static readonly int PICKUPSWALLS     = 22;
+        public static readonly int SURVIVALWALLS    = 23;
+        public static readonly int CHECKPOINTWALLS  = 24;
+        public static readonly int BOSSWALLS        = 25;
 
 
         private static ContentManager Content;

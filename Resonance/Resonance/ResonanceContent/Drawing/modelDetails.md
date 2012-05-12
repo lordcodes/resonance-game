@@ -79,4 +79,9 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
 18,         Boss,                   1.3,          BossPhysics,       1.3,          CheckPointWhite,							1
 19,			Walls,					245,		Walls,					245,			wallTexture
-20,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
+20,			Walls,					195,		Walls,					195,			wallTexture
+22,			Walls,					195,		Walls,					195,			wallTexture
+23,			Walls,					95,			Walls,					95,				wallTexture
+24,			Walls,					195,		Walls,					195,			wallTexture
+25,			Walls,					145,		Walls,					145,			wallTexture
+21,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
