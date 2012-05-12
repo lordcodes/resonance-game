@@ -1,14 +1,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace Resonance
 {
     class HighscoreScreen : Screen
     {
-        Texture2D textBG;
+        
         SpriteFont headingFont;
         Texture2D box;
+        private int index = 0;
+        private System.IAsyncResult result = null;
+        private string name = "";
 
         public HighscoreScreen(SpriteFont newFont)
             : base()
@@ -40,6 +44,7 @@ namespace Resonance
         {
             string title = "HIGHSCORES\n";
             string message = "\n\n";
+            
             Vector2 msgSize = headingFont.MeasureString(title);
             Vector2 textOrigin = new Vector2(msgSize.X / 2, msgSize.Y / 2);
             ScreenManager.darkenBackground(1f);
@@ -60,7 +65,37 @@ namespace Resonance
                 ScreenManager.SpriteBatch.DrawString(headingFont, message, new Vector2(ScreenManager.ScreenWidth / 2 + 250, 200 + i * 30),
                Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
             }
+           
+            
+            if (Guide.IsVisible == false)
+            {
 
+                if (index == 0) index = 1;
+
+                switch (index)
+                {
+                    case 1:
+                        result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
+                        index = 2;
+                        break;
+
+                    case 2:
+                        if (result.IsCompleted)
+                        {
+                            name = Guide.EndShowKeyboardInput(result);
+                           // index = 0;                           
+                            index = 3;
+                            //System.Console.WriteLine(message);
+                        }
+
+                        break;
+                }
+
+               
+                GamerServicesDispatcher.Update();
+            }
+            ScreenManager.SpriteBatch.DrawString(headingFont, name, new Vector2(ScreenManager.ScreenWidth / 2 + 250, 200 + 12 * 30),
+            Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.End();
         }
 
