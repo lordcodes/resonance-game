@@ -33,12 +33,12 @@ namespace Resonance
             float z = cameraPos.Z;
 
             bool locked = false;
-            if (x + 15 >= World.PLAYABLE_MAP_X/2 || x - 15 <= -World.PLAYABLE_MAP_X/2)
+            if (x + 7 >= World.PLAYABLE_MAP_X/2 || x - 7 <= -World.PLAYABLE_MAP_X/2)
             {
                 cameraPos.X = this.position.X;
                 locked = true;
             }
-            else if (z + 15 >= World.PLAYABLE_MAP_Z/2 || z - 15 <= -World.PLAYABLE_MAP_Z/2)
+            else if (z + 7 >= World.PLAYABLE_MAP_Z/2 || z - 7 <= -World.PLAYABLE_MAP_Z/2)
             {
                 cameraPos.Z = this.position.Z;
                 locked = true;
