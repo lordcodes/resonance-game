@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Storage;
 using System.IO;
 using System.Xml.Serialization;
-
+using Microsoft.Xna.Framework.GamerServices;
 
 namespace Resonance
 {
@@ -94,21 +94,23 @@ namespace Resonance
        
         public static void saveFile()
         {
-            
+            if (!Guide.IsVisible)
+            {
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
-                if(result.IsCompleted)
+                if (result.IsCompleted)
                 {
                     StorageDevice device = StorageDevice.EndShowSelector(result);
                     if (device != null && device.IsConnected)
                     {
-                       createFile(device);
+                        createFile(device);
                     }
-                 }
-            
+                }
+            }
         }
         public static void loadFile()
         {
-            
+            if (!Guide.IsVisible)
+            {
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
                 if (result.IsCompleted)
                 {
@@ -118,6 +120,7 @@ namespace Resonance
                         readFile(device);
                     }
                 }
+            }
             
         }
         private static void readFile(StorageDevice device)
