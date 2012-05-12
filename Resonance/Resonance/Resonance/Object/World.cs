@@ -304,7 +304,7 @@ namespace Resonance
                 }
                 if (obj.type.Equals("BVSpawner"))
                 {
-                    BVSpawnManager.addNewSpawner(pos);
+                    if (GameScreen.USE_BV_SPAWNER) BVSpawnManager.addNewSpawner(pos);
                 }
                 if (obj.type.Equals("CheckPoint"))
                 {
