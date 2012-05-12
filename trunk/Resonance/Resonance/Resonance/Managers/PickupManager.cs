@@ -38,8 +38,6 @@ namespace Resonance
         /// </summary>
         private static void updateTimeRemaining()
         {
-            //DebugDisplay.update("multiplier time left", timeRemaining.ToString());
-            //DebugDisplay.update("multiplierindex", pickupType.ToString());
             if (timeRemaining > 0)
             {
                 timeRemaining--;

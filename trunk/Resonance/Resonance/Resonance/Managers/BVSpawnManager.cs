@@ -17,18 +17,14 @@ namespace Resonance
         //Allocated variables
         private static List<BadVibe> bvPool;
 
-        public BVSpawnManager() 
-        {
-            spawnerCount = 1;
-            spawners = new List<BVSpawner>();
-        }
-
         public static int getSpawnerCount() {
             return spawners.Count;
         }
 
         public static void allocate()
         {
+            spawnerCount = 1;
+            spawners = new List<BVSpawner>();
             bvPool = new List<BadVibe>(50);
             for (int i = 0; i < 50; i++)
             {
