@@ -127,9 +127,10 @@ namespace Resonance
         /// Methods
         
         public static void createScaledTextures() {
-               scaledVibes[0] = texPixel;
-             scaledPickups[0] = texPixel;
-            scaledSpawners[0] = texPixel;
+                  scaledVibes[0] = texPixel;
+                scaledPickups[0] = texPixel;
+               scaledSpawners[0] = texPixel;
+            scaledCheckpoints[0] = texPixel;
 
             float scale = 1f / (float) SCALE_GRANULARITY;
             float step  = scale;
@@ -383,7 +384,7 @@ namespace Resonance
             spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, sF, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.
-            List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup), typeof(Checkpoint)};
+            List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup), typeof(Checkpoint), typeof(ObjectivePickup)};
             List<Object> toDraw = ScreenManager.game.World.returnObjectSubset(drawnTypes);
 
             Vector2 gVPos = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
@@ -406,27 +407,31 @@ namespace Resonance
             Texture2D scaledSpawner    =    scaledSpawners[idx];
             Texture2D scaledCheckpoint = scaledCheckpoints[idx];
 
-            Object     o;
-            BadVibe    v;
-            Pickup     p;
-            BVSpawner  s;
-            Checkpoint c;
+            Object          o;
+            BadVibe         v;
+            Pickup          p;
+            BVSpawner       s;
+            Checkpoint      c;
+            ObjectivePickup op;
             for (int i = 0; i < toDraw.Count; i++ )
             {
-                o = toDraw[i];
-                v = null;
-                p = null;
-                s = null;
-                c = null;
-                if (o is BadVibe)    v = (BadVibe)    o;
-                if (o is Pickup)     p = (Pickup)     o;
-                if (o is BVSpawner)  s = (BVSpawner)  o;
-                if (o is Checkpoint) c = (Checkpoint) o;
+                o  = toDraw[i];
+                v  = null;
+                p  = null;
+                s  = null;
+                c  = null;
+                op = null;
+                if (o is BadVibe)         v  = (BadVibe)         o;
+                if (o is Pickup)          p  = (Pickup)          o;
+                if (o is BVSpawner)       s  = (BVSpawner)       o;
+                if (o is Checkpoint)      c  = (Checkpoint)      o;
+                if (o is ObjectivePickup) op = (ObjectivePickup) o;
 
                 if (o is BadVibe) objPos = new Vector2(v.Body.Position.X, v.Body.Position.Z);
                 else if (o is Pickup) objPos = new Vector2(p.OriginalPosition.X, p.OriginalPosition.Z);
                 else if (o is BVSpawner) objPos = new Vector2(s.OriginalPosition.X, s.OriginalPosition.Z);
                 else if (o is Checkpoint) objPos = new Vector2(c.OriginalPosition.X, c.OriginalPosition.Z);
+                else if (o is ObjectivePickup) objPos = new Vector2(op.Body.Position.X, op.Body.Position.Z);
 
                 relToGV = gVPos - objPos;
                 float angle = (Utility.QuaternionToEuler(gVRef.Body.Orientation)).Y;
@@ -457,7 +462,7 @@ namespace Resonance
                         scaledTex = scaledVibe;
                         if (o is BadVibe) drawColour = BAD_VIBE_COLOUR;
                         else drawColour = PROJ_BAD_VIBE_COLOUR;
-                    } else if (o is Pickup) {
+                    } else if (o is Pickup || o is ObjectivePickup) {
                         scaledTex = scaledPickup;
                         drawColour = PICKUP_COLOUR;
                     } else if (o is BVSpawner)  {

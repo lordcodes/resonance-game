@@ -93,5 +93,10 @@ namespace Resonance
                 }
             }
         }
+
+        public static string getBulletColour() {
+            if (bullet == null) return "";
+            return bullet.getColor();
+        }
     }
 }

@@ -145,6 +145,7 @@ namespace Resonance {
             return;
         }
 
+        static int maxPickups = 0;
         public static bool getProgress(ref string oStr) {
             switch (cObj) {
                 case (KILL_ALL_BV) : {
@@ -157,11 +158,15 @@ namespace Resonance {
                     if (killed >= 1) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
-                    int collected = 0;
-                    int total = 0;
-                    oStr = "" + collected + " / " + total + " collected";
+                    List<Object> ps = ScreenManager.game.World.returnObjectSubset<ObjectivePickup>();
+                    if (ps.Count > maxPickups) maxPickups = ps.Count;
+                    int collected = maxPickups - ps.Count;
+                    oStr = "" + collected + " / " + maxPickups + " collected";
 
-                    if (collected == total) return true; else return false;
+                    if (collected == maxPickups) {
+                        return true;
+                    }
+                    else return false;
                 }
                 case (KILL_BOSS) : {
                     int bossHealth = 0;
