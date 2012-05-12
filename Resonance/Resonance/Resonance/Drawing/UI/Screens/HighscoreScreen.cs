@@ -59,41 +59,15 @@ namespace Resonance
             for (int i = 0; i < HighScoreManager.data.SIZE; i++)
             {
                 message = HighScoreManager.data.PlayerName[i];
+                if(message != null)
                 ScreenManager.SpriteBatch.DrawString(headingFont, message, new Vector2(ScreenManager.ScreenWidth / 2 - 100, 200 + i * 30),
                Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
                 message =  HighScoreManager.data.Score[i].ToString();
+                if(message != null)
                 ScreenManager.SpriteBatch.DrawString(headingFont, message, new Vector2(ScreenManager.ScreenWidth / 2 + 250, 200 + i * 30),
                Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
             }
            
-            
-            if (Guide.IsVisible == false)
-            {
-
-                if (index == 0) index = 1;
-
-                switch (index)
-                {
-                    case 1:
-                        result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
-                        index = 2;
-                        break;
-
-                    case 2:
-                        if (result.IsCompleted)
-                        {
-                            name = Guide.EndShowKeyboardInput(result);
-                           // index = 0;                           
-                            index = 3;
-                            //System.Console.WriteLine(message);
-                        }
-
-                        break;
-                }
-
-               
-                GamerServicesDispatcher.Update();
-            }
             ScreenManager.SpriteBatch.DrawString(headingFont, name, new Vector2(ScreenManager.ScreenWidth / 2 + 250, 200 + 12 * 30),
             Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.End();

@@ -310,6 +310,8 @@ namespace Resonance
                         ObjectiveManager.nextObjective();
                         ObjectiveManager.loadObjectivesGame(ScreenManager);
                     } else {
+                        HighScoreManager.updateTable(stats.Score);
+                        HighScoreManager.saveFile();
                         ScreenManager.addScreen(new SuccessScreen(stats));
                     }
                 } else {

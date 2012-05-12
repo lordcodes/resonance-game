@@ -20,7 +20,6 @@ namespace Resonance
 
         private static System.IAsyncResult result = null;
         private int ii = 0;
-        private string name = "";
 
         public GameOverScreen(GameStats stats)
             : base("Game Over")
@@ -124,13 +123,17 @@ namespace Resonance
                 {
                     case 1:
                         {
-                            result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
+                            if (HighScoreManager.position != -1)
+                            {
+                                result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
+                            }
                             ii = 2;
                             break;
                         }
 
                     case 2:
                         {
+                           
                             if (result.IsCompleted)
                             {
                                 HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
@@ -141,6 +144,10 @@ namespace Resonance
                 }
                 GamerServicesDispatcher.Update();
             }
+            HighScoreManager.saveFile();
+            Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
+            int x = (int)screenSize.X / 2 - 200;
+            int y = (int)screenSize.Y / 2 - 240;
 
             string message = "Final score: " + stats.Score + "\n\n";
             message += "Total Bad Vibes Killed: " + stats.BVsKilled + "\n\n";
@@ -155,6 +162,7 @@ namespace Resonance
             }
 
             ScreenManager.SpriteBatch.DrawString(Font, message, rPosText, Color.White);
+
         }
 
         private void playGameAgain()
