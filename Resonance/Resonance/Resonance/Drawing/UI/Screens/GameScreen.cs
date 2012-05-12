@@ -353,6 +353,8 @@ namespace Resonance
 #endif 
         }
 
+        float isintime;
+        bool restbrokenthisbeat = false;
         /// <summary>
         /// Process all the bad vibes, either move or kill them
         /// </summary>
@@ -362,7 +364,18 @@ namespace Resonance
             int numberKilled = 0;
             int i;
 
-            bool breakRest = (MusicHandler.getTrack().nextQuarterBeat());
+            //bool breakRest = (MusicHandler.getTrack().nextQuarterBeat())
+            bool breakRest = false;
+            isintime = MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.QUARTER);
+            if (isintime > 0.9) {
+                if (!restbrokenthisbeat) {
+                    breakRest = true;
+                    restbrokenthisbeat = true;
+                }
+            } else {
+                restbrokenthisbeat = false;
+            }
+
             GoodVibe gv = getGV();
             gv.InCombat = false;
             List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
