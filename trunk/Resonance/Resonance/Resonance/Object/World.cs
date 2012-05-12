@@ -328,7 +328,6 @@ namespace Resonance
                                 break;
                             }
                     }
-                    Console.WriteLine("WORLD: " + PLAYABLE_MAP_X);
                 }
                 if (obj.type.Equals("Boss"))
                 {
