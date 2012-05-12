@@ -12,7 +12,7 @@ namespace Resonance
         Song music;
 
         public MainMenu()
-            : base("Welcome to the Resonance Chamber")
+            : base("")
         {
             MenuElement play = new MenuElement("Enter the Resonance Chamber", startGame);
             MenuElement settings = new MenuElement("Settings", openSettings);

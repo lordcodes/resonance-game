@@ -34,6 +34,8 @@ namespace Resonance
         List<Object> returnObjs;
         Ray ray;
 
+        Random randomGen;
+
         public World() 
         {
             space = new Space();
@@ -53,6 +55,7 @@ namespace Resonance
 #endif
 
             objects = new Dictionary<string, Object>(5000);
+            randomGen = new Random((int)DateTime.Now.Ticks);
         }
 
         public void allocate()
@@ -355,7 +358,8 @@ namespace Resonance
                 }
                 if (obj.type.Equals("CheckPoint"))
                 {
-                    addObject(new Checkpoint(GameModels.CHECKPOINT, obj.identifier, pos, Checkpoint.RED));
+                    int chance = randomGen.Next(0, 16) % 4;
+                    addObject(new Checkpoint(GameModels.CHECKPOINT, obj.identifier, pos, chance));
                 }
                 if (obj.type.Equals("ObjectivePickup"))
                 {
