@@ -145,7 +145,8 @@ namespace Resonance
                 }
                 GamerServicesDispatcher.Update();
             }
-            HighScoreManager.saveFile();
+            if (HighScoreManager.data.PlayerName[HighScoreManager.position].Equals("") == false)
+                HighScoreManager.saveFile();
 
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
