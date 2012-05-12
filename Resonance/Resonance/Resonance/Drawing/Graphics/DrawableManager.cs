@@ -10,8 +10,9 @@ namespace Resonance
     class DrawableManager
     {
         private static List<GameComponent> components = new List<GameComponent>(1000);
-        private static List<GameComponent> componentsSecondary = new List<GameComponent>(1000);
-        private static List<GameComponent> componentsTertiary = new List<GameComponent>(1000);
+        private static List<GameComponent> pickupComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> goodVibeComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> groundComponents = new List<GameComponent>(1000);
         static Profile ThisSection = Profile.Get("Drawing3D");
 
         /// <summary>
@@ -20,13 +21,17 @@ namespace Resonance
         /// <param name="component">The GameComponent you wish to add</param>
         public static void Add(GameComponent component)
         {
-            if (component is GoodVibe)
+            if (component is Pickup || component is TextureEffect)
             {
-                componentsTertiary.Add(component);
+                pickupComponents.Add(component);
             }
-            else if (component is Pickup || component is TextureEffect)
+            else if (component is GoodVibe)
             {
-                componentsSecondary.Add(component);
+                goodVibeComponents.Add(component);
+            }
+            else if (component is Object && ((Object)component).returnIdentifier().Equals("Ground"))
+            {
+                groundComponents.Add(component);
             }
             else
             {
@@ -37,10 +42,11 @@ namespace Resonance
         public static void DrawObjects(GameTime gameTime)
         {
             Drawing.Clear();
+            DrawSet(groundComponents, gameTime);
             DrawSet(components, gameTime);
-            DrawSet(componentsTertiary, gameTime);
-            DrawSet(componentsSecondary, gameTime);
-            DebugDisplay.update("DrawableObjects", components.Count + componentsSecondary.Count+componentsTertiary.Count+"");
+            DrawSet(goodVibeComponents, gameTime);
+            DrawSet(pickupComponents, gameTime);
+            DebugDisplay.update("DrawableObjects", components.Count + pickupComponents.Count+goodVibeComponents.Count+"");
         }
 
         /// <summary>
@@ -80,13 +86,13 @@ namespace Resonance
                             Matrix r = Matrix.Multiply(r1, r2);
                             Matrix t = Matrix.Multiply(r, ((DynamicObject)component).Body.WorldTransform);
                             Drawing.Draw(t, ((DynamicObject)component).Body.Position, (Object)component);
+                            // Draw the shield if it is up
+                            if (((GoodVibe)component).ShieldOn)
+                            {
+                                Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, ((GoodVibe)component).ShieldObject);
+                            }
                         } else {
                             Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, (Object)component);
-                        }
-                        // Draw the shield if it is up
-                        if (component is GoodVibe && ((GoodVibe)component).ShieldOn)
-                        {
-                            Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, ((GoodVibe)component).ShieldObject);
                         }
                     }
                     else if (component is StaticObject)
@@ -129,8 +135,9 @@ namespace Resonance
         public static void Update(GameTime time)
         {
             UpdateSet(components, time);
-            UpdateSet(componentsSecondary, time);
-            UpdateSet(componentsTertiary, time);
+            UpdateSet(pickupComponents, time);
+            UpdateSet(goodVibeComponents, time);
+            UpdateSet(groundComponents, time);
         }
 
         /// <summary>
@@ -139,13 +146,21 @@ namespace Resonance
         /// <param name="component"></param>
         public static void Remove(GameComponent component)
         {
-            if (components.Contains(component))
+            if (pickupComponents.Contains(component))
+            {
+                pickupComponents.Remove(component);
+            }
+            else if (components.Contains(component))
             {
                 components.Remove(component);
             }
-            else
+            else if (goodVibeComponents.Contains(component))
             {
-                componentsSecondary.Remove(component);
+                goodVibeComponents.Remove(component);
+            }
+            else if (groundComponents.Contains(component))
+            {
+                groundComponents.Remove(component);
             }
         }
 
@@ -155,8 +170,9 @@ namespace Resonance
         public static void Clear()
         {
             components.Clear();
-            componentsSecondary.Clear();
-            componentsTertiary.Clear();
+            pickupComponents.Clear();
+            goodVibeComponents.Clear();
+            groundComponents.Clear();
             DebugDisplay.clear();
         }
     }
