@@ -3,7 +3,7 @@
   <Asset Type="ResonanceLibrary.StoredObjects">
     <list>
       <Item>
-        <identifier>ground</identifier>
+        <identifier>Ground</identifier>
         <type>Ground</type>
         <xWorldCoord>0</xWorldCoord>
         <zWorldCoord>0</zWorldCoord>
@@ -12,74 +12,263 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Boss</identifier>
-        <type>Boss</type>
-        <xWorldCoord>0</xWorldCoord>
-        <zWorldCoord>6</zWorldCoord>
-        <yWorldCoord>0.5</yWorldCoord>
-        <gameModelNum>0</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Player</identifier>
-        <type>Good_vibe</type>
-        <xWorldCoord>0</xWorldCoord>
-        <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>0.5</yWorldCoord>
-        <gameModelNum>2</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Bacteria0</identifier>
-        <type>Bacteria</type>
-        <xWorldCoord>-25</xWorldCoord>
-        <zWorldCoord>105</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>2</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
         <identifier>Neuron0</identifier>
         <type>Neuron</type>
-        <xWorldCoord>1</xWorldCoord>
-        <zWorldCoord>-5</zWorldCoord>
-        <yWorldCoord>-0.1</yWorldCoord>
+        <xWorldCoord>-110</xWorldCoord>
+        <zWorldCoord>110</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
         <identifier>Neuron1</identifier>
         <type>Neuron</type>
-        <xWorldCoord>5</xWorldCoord>
-        <zWorldCoord>-5</zWorldCoord>
-        <yWorldCoord>-0.1</yWorldCoord>
+        <xWorldCoord>90</xWorldCoord>
+        <zWorldCoord>110</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron2</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>10</xWorldCoord>
-        <zWorldCoord>-5</zWorldCoord>
-        <yWorldCoord>-0.1</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
+        <identifier>Bacteria2</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-90</xWorldCoord>
+        <zWorldCoord>90</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
         <identifier>Neuron3</identifier>
         <type>Neuron</type>
-        <xWorldCoord>14</xWorldCoord>
-        <zWorldCoord>-5</zWorldCoord>
-        <yWorldCoord>-0.1</yWorldCoord>
+        <xWorldCoord>-50</xWorldCoord>
+        <zWorldCoord>90</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>bv0</identifier>
-        <type>Bad_vibe</type>
-        <xWorldCoord>-8</xWorldCoord>
-        <zWorldCoord>6</zWorldCoord>
-        <yWorldCoord>0.5</yWorldCoord>
+        <identifier>Bacteria4</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>90</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron5</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>50</xWorldCoord>
+        <zWorldCoord>90</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria6</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>70</xWorldCoord>
+        <zWorldCoord>70</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria7</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-90</xWorldCoord>
+        <zWorldCoord>50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner8</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-50</xWorldCoord>
+        <zWorldCoord>50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria9</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner10</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>30</xWorldCoord>
+        <zWorldCoord>50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron11</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>-70</xWorldCoord>
+        <zWorldCoord>30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner12</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron13</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>-90</xWorldCoord>
+        <zWorldCoord>10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron14</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>-30</xWorldCoord>
+        <zWorldCoord>10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron15</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>10</xWorldCoord>
+        <zWorldCoord>10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria16</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>70</xWorldCoord>
+        <zWorldCoord>10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria17</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-90</xWorldCoord>
+        <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Good_vibe18</identifier>
+        <type>Good_vibe</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>4</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria19</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-30</xWorldCoord>
+        <zWorldCoord>-30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron20</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>70</xWorldCoord>
+        <zWorldCoord>-30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner21</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-50</xWorldCoord>
+        <zWorldCoord>-50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner22</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>-50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner23</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>30</xWorldCoord>
+        <zWorldCoord>-50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria24</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-90</xWorldCoord>
+        <zWorldCoord>-70</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Bacteria25</identifier>
+        <type>Bacteria</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>-70</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>2</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron26</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>70</xWorldCoord>
+        <zWorldCoord>-70</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron27</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>-110</xWorldCoord>
+        <zWorldCoord>-90</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron28</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>90</xWorldCoord>
+        <zWorldCoord>-90</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
