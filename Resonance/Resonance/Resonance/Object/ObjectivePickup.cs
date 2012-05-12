@@ -7,6 +7,7 @@ namespace Resonance
 {
     class ObjectivePickup : DynamicObject
     {
+        private int SCORE_PER_OBJECTIVE_PICKUP = 20;
         private SingleEntityAngularMotor servo;
         private float rotateSpeed = -1f;
         Random r;
@@ -55,6 +56,7 @@ namespace Resonance
             if (diff < this.Size + 3) //TODO: fix with correct GV physics model
             {
                 MusicHandler.playSound(MusicHandler.CHINK);
+                GameScreen.getGV().adjustScore(SCORE_PER_OBJECTIVE_PICKUP);
                 ScreenManager.game.World.fadeObjectAway(this, 0.6f);
             }           
         }
