@@ -220,6 +220,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\pickuporb.fbx">
+      <Name>pickuporb</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\terrain128.fbx">
       <Name>terrain128</Name>
       <Importer>FbxImporter</Importer>
