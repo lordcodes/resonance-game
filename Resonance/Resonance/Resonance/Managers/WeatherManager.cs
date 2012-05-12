@@ -20,7 +20,7 @@ namespace Resonance {
         static long  thunderOffset;   // Avg temporal thunder offset after lightning.
         static float lightningAlpha;  // Alpha (brightness) of lightning. 
 
-        const  float maxCloudCover     = 0.9f;  // Change to set max clods in final game.
+        const  float maxCloudCover     = 1.2f;  // Change to set max clods in final game.
         const  float maxCloudHeaviness = 0.75f;
         const  int   maxRainfall       = 15;
         const  float maxRaindropSize   = 0.4f;
@@ -172,7 +172,7 @@ namespace Resonance {
         }
 
         public static void update() {
-
+            MusicHandler.getTrack().inTime2();
             if (!paused) {
                 setParams();
                 float health = gVRef.healthFraction();
