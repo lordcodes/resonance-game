@@ -34,7 +34,11 @@ namespace Resonance
         public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
-        public const bool USE_PROFILER = true;
+        public const bool USE_PROFILER = false;
+
+        // Time in milliseconds between each update of the hud and the minimap
+        private const float HUD_UPDATE_DELAY = 500;
+        private const float MAP_UPDATE_DELAY = 100;
 
         private Stopwatch preEndGameTimer;
         private int preEndGameDuration = 4000;
@@ -49,6 +53,9 @@ namespace Resonance
         TimeSpan countDown;
         bool intro;
 
+        private float hudTimeElapsed = 0;
+        private float mapTimeElapsed = 0;
+
         private int zone;
 
         static Profile DrawSection = Profile.Get("DrawingTotal");
@@ -56,6 +63,7 @@ namespace Resonance
 
         //Allocated variables
         string[] deadVibes;
+
 
         public GameScreen(ScreenManager scrn, int level)
         {
@@ -437,11 +445,21 @@ namespace Resonance
         {
             using (IDisposable d = DrawSection.Measure())
             {
-                if (USE_MINIMAP && intro) Hud.saveMiniMap();
-                Hud.saveHealthBar();
-                Hud.saveShieldBar();
-                Hud.saveNitroBar();
-                Hud.saveFreezeBar();
+                hudTimeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                if (hudTimeElapsed > HUD_UPDATE_DELAY)
+                {
+                    hudTimeElapsed -= HUD_UPDATE_DELAY;
+                    Hud.saveHud();
+                }
+                if (USE_MINIMAP && intro)
+                {
+                    mapTimeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+                    if (mapTimeElapsed > MAP_UPDATE_DELAY)
+                    {
+                        mapTimeElapsed -= MAP_UPDATE_DELAY;
+                        Hud.saveMiniMap();
+                    }
+                }
                 Drawing.Draw(gameTime);
             }
         }
