@@ -17,7 +17,6 @@ namespace Resonance
         {
             Content.RootDirectory = "Content";
 
-            Components.Add(new GamerServicesComponent(this));
          
             graphics = new GraphicsDeviceManager(this);
             
@@ -39,6 +38,7 @@ namespace Resonance
 
         protected override void Initialize()
         {
+            Components.Add(new GamerServicesComponent(this));
             base.Initialize();
 
             //Must come after base.initialise()

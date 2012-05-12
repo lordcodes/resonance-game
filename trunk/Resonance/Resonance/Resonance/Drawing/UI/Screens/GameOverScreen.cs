@@ -131,7 +131,8 @@ namespace Resonance
                             break;
                         }
                     case 2:
-                        {                           
+                        {   
+                        
                             if (result.IsCompleted)
                             {
                                 HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
@@ -143,7 +144,7 @@ namespace Resonance
                 }
                 GamerServicesDispatcher.Update();
             }           
-                
+            
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
             headings += "Highest Multi-Kill: \n\n";
