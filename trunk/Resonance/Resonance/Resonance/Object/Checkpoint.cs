@@ -58,5 +58,17 @@ namespace Resonance
         {
             get { return transform; }
         }
+
+        public Color getColour() {
+            switch (colour) {
+                case WHITE  : return Color.White;
+                case BLUE   : return Color.Blue;
+                case RED    : return Color.Red;
+                case GREEN  : return Color.Green;
+                case YELLOW : return Color.Yellow;
+            }
+
+            return Color.White;
+        }
     }
 }
