@@ -113,11 +113,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\Boss.fbx">
-      <Name>Boss</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Fonts\ObjectiveFont.spritefont">
       <Name>ObjectiveFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -133,6 +128,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\Boss.fbx">
+      <Name>Boss</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
       <Importer>FbxImporter</Importer>
@@ -142,11 +142,6 @@
   <ItemGroup>
     <Compile Include="Drawing\Models\Bullet.fbx">
       <Name>Bullet</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\GoodVibe.fbx">
-      <Name>GoodVibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -222,6 +217,11 @@
     </Compile>
     <Compile Include="Drawing\Models\pickuporb.fbx">
       <Name>pickuporb</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\GoodVibe.fbx">
+      <Name>GoodVibe</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -1857,6 +1857,13 @@
   <ItemGroup>
     <Compile Include="Drawing\UI\Menus\Textures\MenuItemBG.png">
       <Name>MenuItemBG</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\GoodVibeNewTexture.png">
+      <Name>GoodVibeNewTexture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
