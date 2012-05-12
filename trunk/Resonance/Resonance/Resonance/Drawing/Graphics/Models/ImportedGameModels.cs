@@ -8,12 +8,12 @@ namespace Resonance
         private Dictionary<int, GameModel> gameModels = new Dictionary<int, GameModel>();
         private Dictionary<int, Model> models = new Dictionary<int, Model>();
         private Dictionary<string, TextureAnimation> textureAnimations = new Dictionary<string, TextureAnimation>();
-        //public  DisplacementMap dispMap;
+        public  DisplacementMap dispMap;
 
-        public ImportedGameModels()
+        /*public ImportedGameModels()
         {
-            //dispMap = new DisplacementMap(Graphics.DISP_WIDTH, Graphics.DISP_WIDTH);
-        }
+            dispMap = new DisplacementMap(Graphics.DISP_WIDTH, Graphics.DISP_WIDTH);
+        }*/
 
         public TextureAnimation getTextureAnimationOriginal(string id)
         {

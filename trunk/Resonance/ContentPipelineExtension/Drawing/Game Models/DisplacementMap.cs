@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Resonance
+namespace ContentPipelineExtension
 {
     public class DisplacementMap
     {
@@ -16,7 +16,7 @@ namespace Resonance
         private int width;
         private int height;
         private float[] buffer;
-        private List<float[]> masterBuffer;
+        public List<float[]> masterBuffer;
         private float[] damageBuffer;
         private float[] emptyBuffer;
         private Vector2 lastPosition;
