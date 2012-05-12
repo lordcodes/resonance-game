@@ -77,7 +77,7 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 15,			plus5,					0.25,		plus5,					0.25
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         Boss,                   1.3,          BossPhysics,       1.3,          CheckPointWhite,							1
+18,         Boss,                   1.3,          BossPhysics,       1.3,          blue,							1
 19,			Walls,					245,		Walls,					245,			wallTexture
 20,			Walls,					195,		Walls,					195,			wallTexture
 22,			Walls,					195,		Walls,					195,			wallTexture

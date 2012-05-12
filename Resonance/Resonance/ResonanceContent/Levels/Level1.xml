@@ -12,295 +12,184 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Boss</identifier>
-        <type>Boss</type>
-        <xWorldCoord>0</xWorldCoord>
-        <zWorldCoord>6</zWorldCoord>
-        <yWorldCoord>0.5</yWorldCoord>
-        <gameModelNum>0</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Player</identifier>
+        <identifier>Good_vibe0</identifier>
         <type>Good_vibe</type>
-        <xWorldCoord>0</xWorldCoord>
-        <zWorldCoord>1</zWorldCoord>
-        <yWorldCoord>0.5</yWorldCoord>
-        <gameModelNum>2</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Bacteria0</identifier>
-        <type>Bacteria</type>
-        <xWorldCoord>10</xWorldCoord>
-        <zWorldCoord>10</zWorldCoord>
+        <xWorldCoord>-170</xWorldCoord>
+        <zWorldCoord>170</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>2</gameModelNum>
+        <gameModelNum>4</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron0</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-65</xWorldCoord>
-        <zWorldCoord>105</zWorldCoord>
+        <identifier>CheckPoint1</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-50</xWorldCoord>
+        <zWorldCoord>170</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron1</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>35</xWorldCoord>
-        <zWorldCoord>105</zWorldCoord>
+        <identifier>CheckPoint2</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-170</xWorldCoord>
+        <zWorldCoord>150</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron2</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>95</xWorldCoord>
-        <zWorldCoord>105</zWorldCoord>
+        <identifier>Boss3</identifier>
+        <type>Boss</type>
+        <xWorldCoord>130</xWorldCoord>
+        <zWorldCoord>150</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
+        <gameModelNum>16</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>BVSpawner0</identifier>
+        <identifier>CheckPoint4</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-70</xWorldCoord>
+        <zWorldCoord>130</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint5</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-90</xWorldCoord>
+        <zWorldCoord>90</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint6</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-170</xWorldCoord>
+        <zWorldCoord>70</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint7</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-110</xWorldCoord>
+        <zWorldCoord>50</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint8</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-70</xWorldCoord>
+        <zWorldCoord>30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint9</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>30</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint10</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-170</xWorldCoord>
+        <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint11</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-130</xWorldCoord>
+        <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>CheckPoint12</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>30</xWorldCoord>
+        <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner13</identifier>
         <type>BVSpawner</type>
-        <xWorldCoord>-105</xWorldCoord>
-        <zWorldCoord>95</zWorldCoord>
+        <xWorldCoord>-90</xWorldCoord>
+        <zWorldCoord>-50</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>10</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>BVSpawner1</identifier>
+        <identifier>BVSpawner14</identifier>
         <type>BVSpawner</type>
-        <xWorldCoord>50</xWorldCoord>
-        <zWorldCoord>95</zWorldCoord>
+        <xWorldCoord>-30</xWorldCoord>
+        <zWorldCoord>-50</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>10</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron3</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-35</xWorldCoord>
-        <zWorldCoord>95</zWorldCoord>
+        <identifier>CheckPoint15</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>30</xWorldCoord>
+        <zWorldCoord>-70</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      <Item>
-        <identifier>Neuron4</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-85</xWorldCoord>
-        <zWorldCoord>75</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      <Item>
-        <identifier>Neuron5</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>95</xWorldCoord>
-        <zWorldCoord>65</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron6</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-115</xWorldCoord>
-        <zWorldCoord>55</zWorldCoord>
+        <identifier>CheckPoint16</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-170</xWorldCoord>
+        <zWorldCoord>-90</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      <Item>
-        <identifier>Neuron7</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-25</xWorldCoord>
-        <zWorldCoord>55</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron8</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>55</xWorldCoord>
-        <zWorldCoord>55</zWorldCoord>
+        <identifier>CheckPoint17</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-130</xWorldCoord>
+        <zWorldCoord>-130</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron9</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>5</xWorldCoord>
-        <zWorldCoord>45</zWorldCoord>
+        <identifier>CheckPoint18</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-70</xWorldCoord>
+        <zWorldCoord>-130</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      <Item>
-        <identifier>Neuron10</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>105</xWorldCoord>
-        <zWorldCoord>35</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      <Item>
-        <identifier>Neuron11</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-25</xWorldCoord>
-        <zWorldCoord>15</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron12</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>25</xWorldCoord>
-        <zWorldCoord>5</zWorldCoord>
+        <identifier>CheckPoint19</identifier>
+        <type>CheckPoint</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>-130</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron13</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-75</xWorldCoord>
-        <zWorldCoord>-5</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron14</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>55</xWorldCoord>
-        <zWorldCoord>-5</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      <Item>
-        <identifier>Neuron15</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-105</xWorldCoord>
-        <zWorldCoord>-15</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      
-      <Item>
-        <identifier>Neuron16</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-25</xWorldCoord>
-        <zWorldCoord>-45</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron17</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-115</xWorldCoord>
-        <zWorldCoord>-55</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron18</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>5</xWorldCoord>
-        <zWorldCoord>-55</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron19</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>45</xWorldCoord>
-        <zWorldCoord>-55</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      <Item>
-        <identifier>Neuron20</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>105</xWorldCoord>
-        <zWorldCoord>-65</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron21</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-55</xWorldCoord>
-        <zWorldCoord>-85</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      
-      
-      
-      <Item>
-        <identifier>Neuron22</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>95</xWorldCoord>
-        <zWorldCoord>-95</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron23</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-95</xWorldCoord>
-        <zWorldCoord>-105</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron24</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>5</xWorldCoord>
-        <zWorldCoord>-105</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>pickup0</identifier>
-        <type>Pickup</type>
-        <xWorldCoord>10</xWorldCoord>
-        <zWorldCoord>10</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>17</gameModelNum>
-        <pickuptype>0</pickuptype>
+        <gameModelNum>20</gameModelNum>
+        <pickuptype>1</pickuptype>
       </Item>
     </list>
   </Asset>
