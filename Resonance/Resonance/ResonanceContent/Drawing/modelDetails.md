@@ -52,6 +52,7 @@ wallTexture,    Textures\walls.jpg
 goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
 checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlue.png;Textures\gateGreen.png;Textures\gateWhite.png
 bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\yellow.jpg
+
 ---You can use dashes at the start of lines for comments
 
 ---Texture delay(ms) is the time spent on each frame of the animation.
@@ -59,8 +60,8 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 ---If "Start texture anim." is set to 1 the animation will start automatically.
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
-1,			Neuron,					0.5,		Neuron-physics,			0.5,			neuronTexture
-2,			Bacteria,				0.25,		Bacteria-physics,		0.25,			spawnTexture
+1,			Neuron,					0.5,		Neuron-physics,			0.5,			neuronTexture,                      1
+2,			Bacteria,				0.25,		Bacteria-physics,		0.25,			spawnTexture,						1
 3,			BadVibe,			    0.2,		BadVibe-physics,		0.2,			allColours,								1
 4,			GoodVibe,    			0.35,		GoodVibe-physics,		0.35, 			goodVibeTexture					
 5,			terrain128,			    250,		terrain,			    250,			tronFloor													
