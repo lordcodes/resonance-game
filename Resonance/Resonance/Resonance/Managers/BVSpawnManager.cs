@@ -21,6 +21,10 @@ namespace Resonance
             return spawners.Count;
         }
 
+        public static List<BVSpawner> getSpawners() {
+            return spawners;
+        }
+
         public static void allocate()
         {
             spawnerCount = 1;

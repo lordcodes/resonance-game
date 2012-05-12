@@ -13,6 +13,9 @@ namespace Resonance
         private int totalSpawned;
         private List<BadVibe> badVibes;
 
+        public const int MAX_SPAWNER_COUNT_DISPLAY_DIST = 60;
+        public const int MAX_SPAWNER_COUNT_TRANSPARENCY_DIST = 15;
+
         public BVSpawner(int modelNum, String name, Vector3 pos, int maxbvs, int radius, int maxactive)
             : base(modelNum, name, pos)
         {

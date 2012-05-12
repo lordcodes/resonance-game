@@ -58,6 +58,7 @@ namespace Resonance
         private static Texture2D drumkity;
         private static Texture2D drumkitb;
         private static Texture2D drumkitg;
+        private static Texture2D spawnercount;
 
         private static float ARMOUR_SCALE = 1.5f;
 
@@ -113,6 +114,7 @@ namespace Resonance
             drumkity     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkity");
             drumkitg     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitg");
             drumkitb     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitb");
+            spawnercount = Content.Load<Texture2D>         ("Drawing/HUD/Textures/spawnercount");
 
             if (GameScreen.USE_MINIMAP)
             {
@@ -169,6 +171,7 @@ namespace Resonance
             
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
+            drawSpawnCount();
             drawBadVibeArmour();
             drawDamage(gameTime);
             drawHealthBar();
@@ -389,13 +392,40 @@ namespace Resonance
                         xOffset = drumPad.Width / 2;
                     }
 
-                    Vector2 newpos = new Vector2(500 + pos.X, 200 + pos.Z);
                     Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 1.2f, pos.Z), gameGraphics.Projection, CameraMotionManager.Camera.View, Matrix.Identity);
                     Vector2 screenPosition = new Vector2(projectedPosition.X - xOffset, projectedPosition.Y);
 
                     if (badVibes.ContainsKey(name)) badVibes[name] = new BadVibeDetails(screenPosition, armour,bvDist);
                     else badVibes.Add(name, new BadVibeDetails(screenPosition, armour, bvDist));
                 }
+            }
+        }
+
+        private void drawSpawnCount() {
+
+            List<BVSpawner> spawners =  BVSpawnManager.getSpawners();
+
+            for (int i = 0; i < spawners.Count; i++) {
+                Vector3 pos = spawners[i].OriginalPosition;
+                Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 9f, pos.Z), gameGraphics.Projection, CameraMotionManager.Camera.View, Matrix.Identity);
+                Vector2 screenPosition = new Vector2(projectedPosition.X - spawnercount.Width / 2, projectedPosition.Y);
+
+                float alphaC;
+                int dist = (int) (GameScreen.getGV().Body.Position - spawners[i].OriginalPosition).Length();
+
+                if (dist <= BVSpawner.MAX_SPAWNER_COUNT_TRANSPARENCY_DIST) {
+                  alphaC  = 1f;
+                } else if (dist > BVSpawner.MAX_SPAWNER_COUNT_DISPLAY_DIST) {
+                    continue;
+                } else {
+                  int window = BVSpawner.MAX_SPAWNER_COUNT_DISPLAY_DIST - BVSpawner.MAX_SPAWNER_COUNT_TRANSPARENCY_DIST;
+                  int diff   = dist - BVSpawner.MAX_SPAWNER_COUNT_TRANSPARENCY_DIST;
+
+                  alphaC  = (float) (1.0 - ((float) diff / (float) window));
+                }
+
+                Color c = new Color(1f, 1f, 1f, alphaC);
+                spriteBatch.Draw(spawnercount, new Rectangle((int) screenPosition.X, (int) screenPosition.Y, spawnercount.Width, spawnercount.Height), c);
             }
         }
 
