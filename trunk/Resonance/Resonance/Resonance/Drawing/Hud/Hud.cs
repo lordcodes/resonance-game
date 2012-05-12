@@ -53,6 +53,11 @@ namespace Resonance
         private static Texture2D plusFive;
         private static Texture2D x2;
         private static Texture2D x3;
+        private static Texture2D drumkit;
+        private static Texture2D drumkitr;
+        private static Texture2D drumkity;
+        private static Texture2D drumkitb;
+        private static Texture2D drumkitg;
 
         private static float ARMOUR_SCALE = 1.5f;
 
@@ -103,6 +108,11 @@ namespace Resonance
             plusFive     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/plus5");
             x2           = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x2");
             x3           = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x3");
+            drumkit      = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkit2");
+            drumkitr     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitr");
+            drumkity     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkity");
+            drumkitg     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitg");
+            drumkitb     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitb");
 
             if (GameScreen.USE_MINIMAP)
             {
@@ -166,6 +176,7 @@ namespace Resonance
             drawFreezeBar();
             highlightedPowerPercentage();
             if (GameScreen.USE_MINIMAP) drawMiniMap();
+            drawDrumkit();
             drawThrobber();
             drawCountDown();
             drawScore();
@@ -302,8 +313,19 @@ namespace Resonance
           //  Console.WriteLine(vibration.ToString());
         }
 
+        private void drawDrumkit() {
+            if ((ScreenManager.game.getMode().MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)) {
+                Color col = new Color(0.35f, 0.35f, 0.35f, 0.7f);
+                spriteBatch.Draw(drumkit,  new Rectangle(ScreenManager.pixelsX(770), ScreenManager.pixelsY(820), drumkit.Width, drumkit.Height), col);
+                /*spriteBatch.Draw(drumkitr, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);
+                spriteBatch.Draw(drumkity, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);
+                spriteBatch.Draw(drumkitg, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);
+                spriteBatch.Draw(drumkitb, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);*/
+            }
+        }
+
         private void drawThrobber() {
-            if (MusicHandler.getTrack().inTime() > 0.5f)
+            if (MusicHandler.getTrack().inTime2() > 0.8f)
             {
                 spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(50), ScreenManager.pixelsY(1000), tempo.Width, tempo.Height), Color.White);
                 GameScreen.getGV().showBeat();
