@@ -1734,8 +1734,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\HUD\Textures\drumkit.png">
-      <Name>drumkit</Name>
+    <Compile Include="Drawing\HUD\Textures\drumkit2.png">
+      <Name>drumkit2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
