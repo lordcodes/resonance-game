@@ -319,8 +319,18 @@ namespace Resonance
             if ((ScreenManager.game.getMode().MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)) {
                 Color col = new Color(0.35f, 0.35f, 0.35f, 0.7f);
                 spriteBatch.Draw(drumkit,  new Rectangle(ScreenManager.pixelsX(770), ScreenManager.pixelsY(820), drumkit.Width, drumkit.Height), col);
-                /*spriteBatch.Draw(drumkitr, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);
-                spriteBatch.Draw(drumkity, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);
+                string c = BulletManager.getBulletColour();
+                Texture2D dTex = null;
+
+                switch (c) {
+                    case "red"    : { dTex = drumkitr; break; }
+                    case "yellow" : { dTex = drumkity; break; }
+                    case "blue"   : { dTex = drumkitb; break; }
+                    case "green"  : { dTex = drumkitg; break; }
+                }
+
+                if (dTex != null) spriteBatch.Draw(dTex, new Rectangle(ScreenManager.pixelsX(770), ScreenManager.pixelsY(820), drumkit.Width, drumkit.Height), col);
+                /*spriteBatch.Draw(drumkity, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);
                 spriteBatch.Draw(drumkitg, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);
                 spriteBatch.Draw(drumkitb, new Rectangle(ScreenManager.pixelsX(200), ScreenManager.pixelsY(800), drumkit.Width, drumkit.Height), col);*/
             }
