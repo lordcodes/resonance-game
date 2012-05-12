@@ -57,7 +57,8 @@ namespace Resonance
                          (input.Keys.IsKeyDown(Keys.K) || input.PlayerOne.IsButtonDown(Buttons.Y));
             if (credits)
             {
-                ScreenManager.addScreen(new CreditsScreen());
+                //ScreenManager.addScreen(new CreditsScreen());
+                ScreenManager.addScreen(new GameOverScreen(new GameStats()));
             }
 
             if (back)

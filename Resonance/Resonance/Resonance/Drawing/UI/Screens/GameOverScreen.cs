@@ -40,7 +40,7 @@ namespace Resonance
             rPos = new Vector2(screenSize.X + 30f, screenSize.Y - 550);
 
             lPosText = new Vector2(lPos.X + 60f, lPos.Y + 60f);
-            rPosText = new Vector2(rPos.X + 60f, rPos.Y + 60f);
+            rPosText = new Vector2(rPos.X + 60f, rPos.Y + 120f);
 
             leftTimes = 0;
             rightTimes = 0;
@@ -145,23 +145,32 @@ namespace Resonance
                 GamerServicesDispatcher.Update();
             }
             HighScoreManager.saveFile();
-            Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-            int x = (int)screenSize.X / 2 - 200;
-            int y = (int)screenSize.Y / 2 - 240;
 
-            string message = "Final score: " + stats.Score + "\n\n";
-            message += "Total Bad Vibes Killed: " + stats.BVsKilled + "\n\n";
-            message += "Highest Multi-Kill with Single Wave: " + stats.Multikill + "\n\n";
+            string headings = "Final score: \n\n";
+            headings += "Total Bad Vibes Killed: \n\n";
+            headings += "Highest Multi-Kill: \n\n";
+            headings += "Round 1 Killed: \n\n";
+            headings += "Round 2 Time: \n\n";
+            headings += "Round 3 Damage Taken: \n\n";
+            headings += "Round 4 Time: \n\n";
+            headings += "Round 5 Time: \n\n";
 
-            ScreenManager.SpriteBatch.DrawString(Font, message, lPosText, Color.White);
+            string scores = stats.Score + "\n\n" + stats.BVsKilled + "\n\n" + stats.Multikill + "\n\n";
 
-            message = "            HIGHSCORES             \n";
+            ScreenManager.SpriteBatch.DrawString(Font, headings, lPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
+            ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(lPosText.X + 410, lPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
+
+            headings = "";
+            scores = "";
             for (int ii = 0; ii < HighScoreManager.data.SIZE; ii++)
             {
-                message += "    " + HighScoreManager.data.PlayerName[ii] + "       " + HighScoreManager.data.Score[ii] + "           \n";
+                headings += HighScoreManager.data.PlayerName[ii] + "\n";
+                scores += HighScoreManager.data.Score[ii] + "\n";
             }
 
-            ScreenManager.SpriteBatch.DrawString(Font, message, rPosText, Color.White);
+            ScreenManager.SpriteBatch.DrawString(Font, "HIGHSCORES", new Vector2(rPos.X + 225f, rPos.Y + 60f), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            ScreenManager.SpriteBatch.DrawString(Font, headings, rPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
+            ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(rPosText.X + 410, rPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
 
         }
 
