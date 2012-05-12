@@ -327,7 +327,7 @@ namespace Resonance
         }
 
         private void drawThrobber() {
-            if (MusicHandler.getTrack().inTime2() > 0.8f)
+            if (MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.HALF) > 0.9f)
             {
                 spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(50), ScreenManager.pixelsY(1000), tempo.Width, tempo.Height), Color.White);
                 GameScreen.getGV().showBeat();
