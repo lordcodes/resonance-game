@@ -172,7 +172,7 @@ namespace Resonance {
         }
 
         public static void update() {
-            MusicHandler.getTrack().inTime2();
+            //MusicHandler.getTrack().inTime2();
             if (!paused) {
                 setParams();
                 float health = gVRef.healthFraction();
