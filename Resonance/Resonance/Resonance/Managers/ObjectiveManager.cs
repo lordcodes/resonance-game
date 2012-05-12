@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Resonance {
     class ObjectiveManager {
-
         public const int KILL_ALL_BV            = 0;
         public const int COLLECT_ALL_PICKUPS    = 1;
         public const int SURVIVE                = 2;
