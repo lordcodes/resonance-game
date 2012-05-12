@@ -24,7 +24,7 @@ namespace Resonance {
         //private static TimeSpan survivalTime = new TimeSpan(0, 0, 10); // 1 sec
 
         public static void loadObjectivesGame(ScreenManager sm) {
-            ScreenManager.game = new GameScreen(sm, 0);
+            ScreenManager.game = new GameScreen(sm, cObj);
             LoadingScreen.LoadAScreen(sm, cObj + 2, ScreenManager.game);
         }
 
