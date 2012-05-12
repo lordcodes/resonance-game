@@ -34,7 +34,7 @@ namespace Resonance
         public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
-        public const bool USE_PROFILER = false;
+        public const bool USE_PROFILER = true;
 
         private Stopwatch preEndGameTimer;
         private int preEndGameDuration = 4000;
@@ -198,7 +198,6 @@ namespace Resonance
 
                 if (intro)
                 {
-                    if (USE_MINIMAP) Hud.saveMiniMap();
 
                     float health = getGV().healthFraction();
                     if (health < 0.1) MusicHandler.HeartBeat = true;
@@ -438,6 +437,7 @@ namespace Resonance
         {
             using (IDisposable d = DrawSection.Measure())
             {
+                if (USE_MINIMAP && intro) Hud.saveMiniMap();
                 Hud.saveHealthBar();
                 Hud.saveShieldBar();
                 Hud.saveNitroBar();
