@@ -118,11 +118,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\Bacteria.fbx">
-      <Name>Bacteria</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Fonts\ObjectiveFont.spritefont">
       <Name>ObjectiveFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -132,6 +127,11 @@
       <Name>ObjectiveSmallFont</Name>
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Bacteria.fbx">
+      <Name>Bacteria</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
     </Compile>
     <None Include="Drawing\Models\box.fbx">
       <Name>box</Name>
@@ -157,11 +157,6 @@
     </Compile>
     <Compile Include="Drawing\Models\GoodVibe-physics.fbx">
       <Name>GoodVibe-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\Neuron.fbx">
-      <Name>Neuron</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -217,6 +212,11 @@
     </Compile>
     <Compile Include="Drawing\Models\GoodVibe-emptyShield.fbx">
       <Name>GoodVibe-emptyShield</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Neuron.fbx">
+      <Name>Neuron</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -1796,6 +1796,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\Textures\checkbox_pTorusShape1.png">
+      <Name>checkbox_pTorusShape1</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\plus4.png">
       <Name>plus4</Name>
       <Importer>TextureImporter</Importer>
@@ -1813,6 +1820,35 @@
     </Compile>
     <Compile Include="Drawing\HUD\Textures\x3.png">
       <Name>x3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\gateRed.png">
+      <Name>gateRed</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\gateBlue.png">
+      <Name>gateBlue</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Textures\gateGreen.png">
+      <Name>gateGreen</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Textures\gateWhite.png">
+      <Name>gateWhite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Textures\gateYellow.png">
+      <Name>gateYellow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

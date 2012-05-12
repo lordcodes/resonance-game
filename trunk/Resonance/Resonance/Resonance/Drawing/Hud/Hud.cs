@@ -268,6 +268,10 @@ namespace Resonance
                     {
                         vibration -= 0.01f;
                     }
+                    else
+                    {
+                        vibration = 0;
+                    }
                     GamePad.SetVibration(PlayerIndex.One, vibration, vibration);
                 }
                 else
@@ -275,7 +279,7 @@ namespace Resonance
                     GamePad.SetVibration(PlayerIndex.One, 0f, 0f);
                 }
             }
-            Console.WriteLine(vibration.ToString());
+          //  Console.WriteLine(vibration.ToString());
         }
 
         private void drawThrobber() {
