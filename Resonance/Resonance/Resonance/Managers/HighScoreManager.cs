@@ -67,7 +67,7 @@ namespace Resonance
             int scoreIndex = -1;
             for (int i = 0; i < data.SIZE; i++)
             {
-                if (score > data.Score[i])
+                if (score >= data.Score[i])
                 {
                     scoreIndex = i;
                     break;
@@ -135,6 +135,7 @@ namespace Resonance
                 // If not, dispose of the container and return.
                 initializeData();
                 container.Dispose();
+                Console.WriteLine("The file does not exist");
                 return;
             }
             Console.WriteLine("STARTING TO READ FILE");

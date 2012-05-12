@@ -11,7 +11,8 @@ namespace Resonance
         GameStats stats;
 
         private static System.IAsyncResult result = null;
-        private int ii = 0;
+        private static int ii = 0;
+
         private string name = "";
 
         public SuccessScreen(GameStats stats)
@@ -60,29 +61,33 @@ namespace Resonance
             //Ratio 1.32 (H / W)
 
             //ScreenManager.SpriteBatch.Draw(textBG, Vector2.Zero, Color.White);
-
-            if (!Guide.IsVisible)
+            if (!Guide.IsVisible && ii < 3)
             {
                 if (ii == 0) ii = 1;
 
                 switch (ii)
                 {
                     case 1:
-                        result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
-                        ii = 2;
-                        break;
-
-                    case 2:
-                        if (result.IsCompleted)
                         {
-                            HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
-                            ii = 3;
+                            if (HighScoreManager.position != -1)
+                            {
+                                result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
+                            }
+                            ii = 2;
+                            break;
                         }
-                        break;
+                    case 2:
+                        {
+                            if (result.IsCompleted)
+                            {
+                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                                ii = 3;
+                                HighScoreManager.saveFile();
+                            }
+                            break;
+                        }
                 }
-
                 GamerServicesDispatcher.Update();
-
             }
             HighScoreManager.saveFile();
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
@@ -107,9 +112,9 @@ namespace Resonance
             message += "Number of Freeze Uses: " + stats.FreezeUses + "\n\n";
             message += "Number of Pickups: " + stats.Powerups + "\n\n";
             message += "\n            HIGHSCORES             \n";
-            for (int ii = 0; ii < HighScoreManager.data.SIZE; ii++)
+            for (int jj = 0; jj < HighScoreManager.data.SIZE; jj++)
             {
-                message += "    " + HighScoreManager.data.PlayerName[ii] + "       " + HighScoreManager.data.Score[ii] + "           \n";
+                message += "    " + HighScoreManager.data.PlayerName[jj] + "       " + HighScoreManager.data.Score[ii] + "           \n";
             }
 
             ScreenManager.SpriteBatch.DrawString(Font, message, new Vector2(x, y), Color.White);

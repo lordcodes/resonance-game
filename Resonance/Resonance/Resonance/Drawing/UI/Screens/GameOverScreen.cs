@@ -19,7 +19,7 @@ namespace Resonance
         int rightTimes;
 
         private static System.IAsyncResult result = null;
-        private int ii = 0;
+        private static int ii = 0;
 
         public GameOverScreen(GameStats stats)
             : base("Game Over")
@@ -115,7 +115,7 @@ namespace Resonance
             ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
             ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White);
 
-            if (!Guide.IsVisible)
+            if (!Guide.IsVisible && ii < 3)
             {
                 if (ii == 0) ii = 1;
 
@@ -130,21 +130,20 @@ namespace Resonance
                             ii = 2;
                             break;
                         }
-
                     case 2:
-                        {
-                           
+                        {                           
                             if (result.IsCompleted)
                             {
                                 HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
                                 ii = 3;
+                                HighScoreManager.saveFile();
                             }
                             break;
                         }
                 }
                 GamerServicesDispatcher.Update();
             }
-            HighScoreManager.saveFile();
+           
 
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
@@ -162,10 +161,10 @@ namespace Resonance
 
             headings = "";
             scores = "";
-            for (int ii = 0; ii < HighScoreManager.data.SIZE; ii++)
+            for (int jj = 0; jj < HighScoreManager.data.SIZE; jj++)
             {
-                headings += HighScoreManager.data.PlayerName[ii] + "\n";
-                scores += HighScoreManager.data.Score[ii] + "\n";
+                headings += HighScoreManager.data.PlayerName[jj] + "\n";
+                scores += HighScoreManager.data.Score[jj] + "\n";
             }
 
             ScreenManager.SpriteBatch.DrawString(Font, "HIGHSCORES", new Vector2(rPos.X + 225f, rPos.Y + 60f), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
