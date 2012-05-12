@@ -78,22 +78,22 @@ namespace Resonance
             if (modelNum == GameModels.X2)
             {
                 pickupType = X2;
-                this.ModelInstance = X2Instance;
+                //this.ModelInstance = X2Instance;
             }
             else if (modelNum == GameModels.X3)
             {
                 pickupType = X3;
-                this.ModelInstance = X3Instance;
+                //this.ModelInstance = X3Instance;
             }
             else if (modelNum == GameModels.PLUS4)
             {
                 pickupType = PLUS4;
-                this.ModelInstance = Plus4Instance;
+                //this.ModelInstance = Plus4Instance;
             }
             else if (modelNum == GameModels.PLUS5)
             {
                 pickupType = PLUS5;
-                this.ModelInstance = Plus5Instance;
+                //this.ModelInstance = Plus5Instance;
             }
 
             Body.Position = pos;
@@ -105,7 +105,7 @@ namespace Resonance
             float angle = MathHelper.ToRadians(r.Next(0, 360));
 
             Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
-            servo.Settings.Servo.Goal = orientation;
+            //servo.Settings.Servo.Goal = orientation;
         }
 
         /// <summary>

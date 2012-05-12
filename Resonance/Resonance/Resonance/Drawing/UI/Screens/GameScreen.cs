@@ -30,7 +30,7 @@ namespace Resonance
         public static bool GV_KILLED_AT_GAME_END = false;
         public static bool GAME_CAN_END = true;
         public const bool USE_BV_SPAWNER = true;
-        public const bool USE_PICKUP_SPAWNER = false;
+        public const bool USE_PICKUP_SPAWNER = true;
         public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
@@ -44,8 +44,6 @@ namespace Resonance
         private int preEndGameDuration = 4000;
         GraphicsDeviceManager graphics;
         World world;
-        BVSpawnManager bvSpawner;
-        public PickupSpawnManager pickupSpawner;
 
         bool isLoaded;
         int iteration = 0;
@@ -81,7 +79,6 @@ namespace Resonance
             Drawing.Init(ScreenManager.Content, graphics);
             preEndGameTimer = new Stopwatch();
 
-            if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
             deadVibes = new string[50];
         }
 
@@ -229,7 +226,7 @@ namespace Resonance
 
                     // Update shockwaves
                     getGV().updateWaves();
-                    getBoss().faceGV();
+                    //getBoss().faceGV();
 
                     //Update pickups
                     if (USE_PICKUP_SPAWNER)
