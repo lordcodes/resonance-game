@@ -124,7 +124,7 @@ namespace LevelEditor
             obj.xWorldCoord = 0;
             obj.yWorldCoord = 0;
             obj.zWorldCoord = 0;
-            obj.gameModelNum = 5;
+            obj.gameModelNum = 0;
             obj.pickuptype = -1;
             list.addObject(obj);
             int treeNumber = 0;
@@ -355,15 +355,15 @@ namespace LevelEditor
             var target = sender as Label;
             if (selectedOption != null && selectedColor != null)
             {
-                if (selectedOption.Equals("goodVibe") == true && goodVibe == false)
+                if (selectedOption.Equals("Good_vibe") == true && goodVibe == false)
                 {
                     goodVibe = true;
                     target.Text = selectedOption;
                     target.BackColor = selectedColor;
                 }
-                else if(selectedOption.Equals("goodVibe") == false)
+                else if (selectedOption.Equals("Good_vibe") == false)
                 {
-                    if(target.Text.Equals("goodVibe") == true)
+                    if (target.Text.Equals("Good_vibe") == true)
                         goodVibe = false;
                     target.Text = selectedOption;
                     target.BackColor = selectedColor;
