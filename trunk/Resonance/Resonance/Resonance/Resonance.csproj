@@ -104,7 +104,7 @@
     <Compile Include="Drawing\Graphics\DrawableManager.cs" />
     <Compile Include="Drawing\Graphics\GraphicsSettings.cs" />
     <Compile Include="Drawing\Graphics\Models\GameModel.cs" />
-    <Compile Include="Drawing\Graphics\Models\LoadedModels.cs" />
+    <Compile Include="Drawing\Graphics\Models\LoadedContent.cs" />
     <Compile Include="Drawing\Graphics\Shaders\ParticleShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\DefaultShader.cs" />
     <Compile Include="Drawing\Graphics\Shaders\GroundShader.cs" />

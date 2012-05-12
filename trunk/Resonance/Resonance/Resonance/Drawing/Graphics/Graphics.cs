@@ -105,14 +105,14 @@ namespace Resonance
         /// LoadContent will be called once per game and is the place to load
         /// all of your content needed for drawing the world.
         /// </summary>
-        public void loadContent(ContentManager content, GraphicsDevice graphicsDevice)
+        public void loadContent(ImportedGameModels importedModels, ContentManager content, GraphicsDevice graphicsDevice)
         {
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, GraphicsSettings.DRAW_DISTANCE);
             world = Matrix.Identity;
             shaders = new Shaders();
             shaders.Default.sceneSetup(world, CameraMotionManager.Camera.View, projection, Vector3.Zero);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            dispMap = new DisplacementMap(graphicsDevice, DISP_WIDTH, DISP_WIDTH);
+            dispMap = LoadedContent.getDisp(importedModels, graphics.GraphicsDevice);
             init2dTextures();
 
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;

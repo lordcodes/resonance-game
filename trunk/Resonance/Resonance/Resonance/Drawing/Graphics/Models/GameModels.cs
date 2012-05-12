@@ -58,10 +58,11 @@ namespace Resonance
         /// <summary>
         /// Load all the models for the game
         /// </summary>
-        public static void Load()
+        public static ImportedGameModels Load()
         {
             // Edit "Content/Drawing/modelDetails.md" to add new models to the game
-            importedGameModels = LoadedModels.get(Content);
+            importedGameModels = LoadedContent.getModels(Content);
+            return importedGameModels;
         }
 
         /// <summary>

@@ -117,9 +117,13 @@ namespace Resonance
 
             if (!isLoaded)
             {
+                LoadingScreen.CurrentlyLoading = "Initialising Bad Vibes";
                 BadVibe.initialiseBank();
+                LoadingScreen.CurrentlyLoading = "Initialising Camera";
                 CameraMotionManager.initCamera();
+                LoadingScreen.CurrentlyLoading = "Drawing";
                 Drawing.loadContent();
+                LoadingScreen.CurrentlyLoading = "Level";
                 world = new World();
 
                 //When loading a level via MenuActions the load is done in a separate thread and you get a nice loading screen

@@ -17,6 +17,8 @@ namespace Resonance
         public const int OBJECTIVE_SPLASH4 = 5;
         public const int OBJECTIVE_SPLASH5 = 6;
 
+        public static string CurrentlyLoading = "";
+
         private Texture2D[] bgs;
         private SpriteFont font;
         private float timeElapsed = 0;
@@ -92,7 +94,7 @@ namespace Resonance
             if (displaySplash > 0)
             {
                 ScreenManager.SpriteBatch.Begin();
-                string text = "Loading";
+                string text = "Loading (" + CurrentlyLoading+ ")";
                 for (int i = 0; i < frameNumber; i++) text += ".";
 
                 Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight / 2);

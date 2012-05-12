@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace Resonance
 {
-    class DisplacementMap
+    public class DisplacementMap
     {
         // Variables that control the wave dimensions, changing wave width will probably give weird looking results.
         public const float WAVE_HEIGHT = 1f;
@@ -39,9 +39,14 @@ namespace Resonance
             dispMap.SetData<float>(buffer, 0, buffer.Length);
         }
 
-        public DisplacementMap(GraphicsDevice nGraphics, int nWidth, int nHeight)
+        public void setGD(GraphicsDevice nGraphics)
         {
             graphicsDevice = nGraphics;
+        }
+
+
+        public DisplacementMap(int nWidth, int nHeight)
+        {
             width = nWidth;
             height = nHeight;
             damageBuffer = new float[width * height];
