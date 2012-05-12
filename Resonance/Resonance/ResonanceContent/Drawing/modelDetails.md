@@ -30,6 +30,7 @@ plus4, Models\plus4.fbx
 plus5, Models\plus5.fbx
 CheckPoint, Models\checkPoint.fbx
 BossPhysics, Models\BossPhysics.fbx
+PickupOrb, Models\pickuporb.fbx
 
 
 TEXTURES
@@ -85,3 +86,4 @@ bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\y
 24,			Walls,					195,		Walls,					195,			wallTexture
 25,			Walls,					145,		Walls,					145,			wallTexture
 21,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
+26,			PickupOrb,				0.25,		PickupOrb,				0.25
