@@ -53,7 +53,7 @@ namespace Resonance
             Vector3 pos = this.Body.Position;
             double diff = Vector3.Distance(GameScreen.getGV().Body.Position, pos);
 
-            if (diff < this.Size + 3) //TODO: fix with correct GV physics model
+            if (diff < this.Size + 4) //TODO: fix with correct GV physics model
             {
                 MusicHandler.playSound(MusicHandler.CHINK);
                 GameScreen.getGV().adjustScore(SCORE_PER_OBJECTIVE_PICKUP);
