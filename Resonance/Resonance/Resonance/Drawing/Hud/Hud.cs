@@ -700,9 +700,19 @@ namespace Resonance
             miniMap.draw(spriteBatch);
         }
 
+        public static void saveHud()
+        {
+            saveHealthBar();
+            saveShieldBar();
+            saveNitroBar();
+            saveFreezeBar();
+        }
+
         public void drawLightning() {
             WeatherManager.drawLightning(spriteBatch, block);
         }
+
+
 
         /// <summary>
         /// Updates the HUD with infomation about the player.

@@ -100,6 +100,8 @@ namespace Resonance
 
         private static int mapX, mapY, mapH, mapW;
 
+        private static Texture2D savedMinimap;
+
         /// Constructor
 
         ///<summary>
@@ -296,7 +298,7 @@ namespace Resonance
         /// </summary>
         public void draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw((Texture2D)miniMapBuffer, new Vector2(mapX, mapY), Color.White * ENTIRE_MAP_ALPHA);
+            if(savedMinimap != null)spriteBatch.Draw(savedMinimap, new Vector2(mapX, mapY), Color.White * ENTIRE_MAP_ALPHA);
             spriteBatch.Draw(outline, new Rectangle(mapX, mapY, mapW, mapH), Color.White);
         }
 
@@ -550,6 +552,8 @@ namespace Resonance
 
             spriteBatch.End();
             gd.SetRenderTarget(null);
+
+            savedMinimap = (Texture2D)miniMapBuffer;
         }
 
         // Calculates the alpha transparency of a bad vibe.
