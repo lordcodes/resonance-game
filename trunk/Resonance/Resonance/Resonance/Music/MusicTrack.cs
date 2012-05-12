@@ -161,6 +161,7 @@ namespace Resonance
 
         /// <summary>
         /// Detect if you are in time to the beat
+        /// DEPRECATED use inTime2()
         /// </summary>
         public float inTime()
         {
@@ -244,14 +245,92 @@ namespace Resonance
         private static List<long> lasts = new List<long>();
 
         static bool blap = false;
+
+        public float inTime2()
+        {
+            beatLength        = 500000000;
+            halfBeatLength    = 250000000;
+            quarterBeatLength = 125000000;
+
+            mode = NoteMode.QUARTER;
+            if (state == PlayState.PLAYING)
+            {
+                long time = (DateTime.Now.Ticks * 100) - startTime + 50000000 - 125000000;
+                float scoreWeight = -1f;
+                lastI = 0;
+                for (; ; lastI++)
+                {
+                    long beatTime;
+                    long lastBeatTime;
+
+                    if (mode == NoteMode.WHOLE)
+                    {
+                        beatTime = (lastI * beatLength);
+                        lastBeatTime = beatTime - beatLength;
+                    }
+                    else if (mode == NoteMode.HALF)
+                    {
+                        beatTime = (lastI * halfBeatLength);
+                        lastBeatTime = beatTime - halfBeatLength;
+                    }
+                    else
+                    {
+                        beatTime = (lastI * quarterBeatLength);
+                        lastBeatTime = beatTime - quarterBeatLength;
+                    }
+
+                    if (time < beatTime)
+                    {
+                        if (time > (beatTime - WINDOW))
+                        {
+                            beats++;
+                            //HIT
+                            //Console.WriteLine("HIT1");
+
+                            //return true;
+                            long numerator = time - beatTime + WINDOW;
+                            long window    = WINDOW;// >> 15;
+                            //numerator >>= 15;
+                            float div  = (numerator / (float) window);
+                            double div2 = ((1f - div) * (Math.PI / 2d));
+                            scoreWeight = (float) Math.Cos(div2);
+                        }
+                        if (time < lastBeatTime + WINDOW)
+                        {
+                            beats++;
+                            //HIT
+                            //Console.WriteLine("HIT2");
+                            //return true;
+                            long numerator = lastBeatTime + WINDOW - time;
+                            long window = WINDOW;// >> 15;
+                            //numerator >>= 15;
+                            float div = (numerator / (float) window);
+                            double div2 = ((1f - div) * (Math.PI / 2d));
+                            float result = (float) Math.Cos(div2);
+                            if (result > scoreWeight) scoreWeight = result;
+                        }
+                        if (scoreWeight == -1f) offbeat++;
+
+                        //DebugDisplay.update("Beats    ",   beats.ToString());
+                        //DebugDisplay.update("Offbeats ", offbeat.ToString());
+                        break;
+                    }
+                }
+                //DebugDisplay.update("TIMING:", scoreWeight.ToString());
+
+                return scoreWeight;
+            } else {
+                // Not playing. Return false.
+                //return false;
+                return -1f;
+            }
+        }
+
         bool goingup = true;
         bool prevgoingup = false;
         float prevscore = 0f;
-        /// <summary>
-        /// TESTING ONLY!
-        /// </summary>
-        public float inTime2()
-        {
+
+        public bool timesong() {
             beatLength        = 500000000;
             halfBeatLength    = 250000000;
             quarterBeatLength = 125000000;
@@ -259,6 +338,7 @@ namespace Resonance
             mode = NoteMode.WHOLE;
             if (state == PlayState.PLAYING)
             {
+                lastI = 0;
                 long time = (DateTime.Now.Ticks * 100) - startTime + 50000000 - 125000000;
                 float scoreWeight = -1f;
                 for (; ; lastI++)
@@ -326,15 +406,16 @@ namespace Resonance
                     goingup = true;
                 }
 
-                if (/*!blap && scoreWeight > 0.85*/ prevgoingup && !goingup) { blap = true; MusicHandler.playSound(MusicHandler.RED); Console.WriteLine(time.ToString());}
+                // The following 'if' statement fires on every beat.
+                if (/*!blap && scoreWeight > 0.85*/ prevgoingup && !goingup) { blap = true; /*MusicHandler.playSound(MusicHandler.RED);*/ }
                 if (scoreWeight == -1) blap = false;
                 prevscore = scoreWeight;
                 prevgoingup = goingup;
-                return scoreWeight;
+                return (prevgoingup && !goingup);
             } else {
                 // Not playing. Return false.
                 //return false;
-                return -1f;
+                return false;
             }
         }
     }
