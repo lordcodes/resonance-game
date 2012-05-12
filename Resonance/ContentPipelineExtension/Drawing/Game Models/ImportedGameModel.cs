@@ -24,7 +24,6 @@ namespace ContentPipelineExtension
         private Matrix physicsScale;
         private List<TextureContent> textures = new List<TextureContent>();
         private bool animation;
-        private List<float[]> masterBuffer;
 
         public string TextureRef
         {
@@ -125,9 +124,6 @@ namespace ContentPipelineExtension
             this.textureRef = textureRef;
             this.graphicsScaleFloat = graphicsModelScale;
             this.physicsScaleFloat = physicsModelScale;
-
-            //DisplacementMap dispMap = new DisplacementMap(128, 128);
-            //this.masterBuffer = dispMap.masterBuffer;
         }
 
     }

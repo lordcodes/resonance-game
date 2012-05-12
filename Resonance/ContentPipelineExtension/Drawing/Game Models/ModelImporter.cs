@@ -427,8 +427,6 @@ namespace ContentPipelineExtension
             Dictionary<int, ModelContent> models = value.getModelDic();
             Dictionary<string, ImportedTextureAnimation> textureAnimations = value.TextureAnimations;
 
-            //output.write
-
             output.Write(textureAnimations.Count);
             foreach (KeyValuePair<string, ImportedTextureAnimation> pair in textureAnimations)
             {
