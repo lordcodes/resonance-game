@@ -134,11 +134,6 @@ namespace Resonance
             init2dTextures();
         }
 
-        public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
-        {
-            drawModel(worldObject, worldTransform, disp, drawingReflection, drawingShadows);
-        }
-
         public void update(Vector2 playerPos)
         {
             if (dispMap != null) dispMap.update(playerPos);
@@ -215,7 +210,7 @@ namespace Resonance
         }
 
 
-        private void drawModel(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
+        public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
@@ -229,32 +224,25 @@ namespace Resonance
             Shader currentShader;
             Matrix lightsViewProjectionMatrix;
 
-                Vector3 pos = GameScreen.getGV().Body.Position;
-                float lheight = 55;
-                Vector3 lightPos = new Vector3(cameraPosition.X, 50f, cameraPosition.Z);
-                Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(pos.X, 0, pos.Z), new Vector3(0, 1, 0));
-                Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 25f,1000f);
+            Vector3 pos = GameScreen.getGV().Body.Position;
+            Vector3 lightPos = new Vector3(cameraPosition.X, 50f, cameraPosition.Z);
+            Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(pos.X, 0, pos.Z), new Vector3(0, 1, 0));
+            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 25f,1000f);
 
-                lightsViewProjectionMatrix = lightsView * lightsProjection;
+            lightsViewProjectionMatrix = lightsView * lightsProjection;
 
 
             currentShader = shaders.Default;
             currentShader.Transparency = modelVariables.Transparency;
             if (drawingShadows)
             {
-                /**/
-                //Vector3 pos = GameScreen.getGV().Body.Position;
-
-
                 Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
                 Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
                 Shaders.Ground.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * lightsView * projection);
-                //DebugDisplay.update("sh", "done");
             }
             else if (drawingReflection)
             {
                 float height = 11.5f;
-                //float dimension = 12.7f for 0.1 square;
                 float dimension = 16.5f * height;
                 float scale = (float)(10.463 * Math.Pow((cameraPosition.Y), -0.9));
                 Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -height, cameraPosition.Z + 0.1f);
@@ -290,16 +278,7 @@ namespace Resonance
                 currentShader.Transparency = modelVariables.Transparency;
             }
 
-            int meshCount = 0;
             Texture2D colorTexture = null;
-            try
-            {
-                colorTexture = ((BasicEffect)m.Meshes[0].Effects[0]).Texture;
-            }
-            catch (Exception)
-            {
-            }
-            if (colorTexture == null) colorTexture = modelVariables.Texture;
             currentShader.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
 
             ModelMeshCollection meshes = m.Meshes;
@@ -308,14 +287,11 @@ namespace Resonance
                 ModelMesh mesh = meshes[i];
                 try
                 {
-                    colorTexture = ((BasicEffect)m.Meshes[meshCount].Effects[0]).Texture;
+                    colorTexture = ((BasicEffect)m.Meshes[i].Effects[0]).Texture;
                 }
-                catch (Exception)
-                {
-                }
+                catch (Exception){}
                 if (colorTexture == null) colorTexture = modelVariables.Texture;
                 currentShader.ColourTexture = colorTexture;
-                meshCount++;
 
                 currentShader.World = modelTransforms[mesh.ParentBone.Index] * world;
                 
