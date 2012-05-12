@@ -313,9 +313,13 @@ namespace Resonance
                 {
                     addObject(new Checkpoint(GameModels.CHECKPOINT, obj.identifier, pos, Checkpoint.RED));
                 }
+                if (obj.type.Equals("ObjectivePickup"))
+                {
+                    //ObjectivePickup p = new ObjectivePickup(GameModels.PICKUPORB, "ObjectivePickup" + 0, new Vector3(0f, 5f, 25f));
+                    ObjectivePickup p = new ObjectivePickup(GameModels.PICKUPORB, obj.identifier, new Vector3(obj.xWorldCoord, obj.yWorldCoord, obj.zWorldCoord)); //TODO: change to pool
+                    addObject(p);
+                }
             }
-        }
-
-       
+        }       
     }
 }
