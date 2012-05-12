@@ -164,7 +164,7 @@ namespace Resonance
                 menuItems[i].Draw(this, gameTime, isSelect);
             }
 
-            ScreenManager.SpriteBatch.DrawString(headingFont, title, new Vector2(ScreenManager.ScreenWidth / 2 - headingFont.MeasureString(title).X / 2, 50), Color.White);
+            ScreenManager.SpriteBatch.DrawString(headingFont, title, new Vector2(ScreenManager.ScreenWidth / 2 - headingFont.MeasureString(title).X / 2, ScreenManager.pixelsY(50)), Color.White);
             ScreenManager.SpriteBatch.End();
         }
 

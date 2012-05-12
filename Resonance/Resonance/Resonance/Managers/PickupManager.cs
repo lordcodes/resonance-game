@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using System;
 
 namespace Resonance
 {
@@ -8,14 +9,6 @@ namespace Resonance
         //public static int currentMultipler = 1;
         private static int pickupType = -1;
         private static int timeRemaining = 0;
-        //List<int> multiplierValues;
-
-        //public PickupManager()
-        //{
-        //    currentMultipler = 1;
-        //    timeRemaining = 0;
-        //    //multiplierValues = new List<int>();
-        //}
 
         /// <summary>
         /// Adds the new multiplier values when it is hit
@@ -34,8 +27,9 @@ namespace Resonance
         /// </summary>
         public static void update()
         {
-            youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(returnPickups());
-            pickupCollision(returnPickups());
+            List<Object> pickups = ScreenManager.game.World.returnObjectSubset<Pickup>();
+            youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(pickups);
+            pickupCollision(pickups);
             updateTimeRemaining();
         }
 
@@ -56,33 +50,12 @@ namespace Resonance
                 //currentMultipler = 1;
             }
         }
-        
-        /// <summary>
-        /// Returns a list of Pickup objects
-        /// </summary>
-        /// <returns>The list of Pickup Objects</returns>
-        public static List<Pickup> returnPickups()
-        {
-            List<Pickup> pickups = new List<Pickup>();
 
-            foreach (KeyValuePair<string, Object> kVP in ScreenManager.game.World.returnObjects())
-            {
-                Object obj = kVP.Value;
-
-                if (obj is Pickup)
-                {
-                    pickups.Add((Pickup)obj);
-                }
-            }
-
-            return pickups;
-        }
-
-        private static void youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(List<Pickup> pickups)
+        private static void youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(List<Object> pickups)
         {
             for (int i = 0; i < pickups.Count; i++)
             {
-                pickups[i].spinMe();
+                ((Pickup)pickups[i]).spinMe();
             }
         }
 
@@ -90,70 +63,34 @@ namespace Resonance
         /// Checks if Pickups intersect with GoodVibe and remove pickups with TimeToLive = 0
         /// </summary>
         /// <param name="pickups">List of Pickup objects</param>
-        private static void pickupCollision(List<Pickup> pickups)
+        private static void pickupCollision(List<Object> pickups)
         {
-            //pickUpCollision(Game.getGV().Body.Position, Game.getGV().Body.OrientationMatrix.Forward, 3f);
-
             for (int i = 0; i < pickups.Count; i++)
             {
-                Vector3 pickupPoint = pickups[i].Body.Position;
+                Pickup p = (Pickup)pickups[i];
+                Vector3 pickupPoint = p.Body.Position;
                 double diff = Vector3.Distance(GameScreen.getGV().Body.Position, pickupPoint);
 
-                if (diff < pickups[i].Size+3) //TODO: fix with correct GV physics model
+                if (diff < p.Size+3) //TODO: fix with correct GV physics model
                 {
-                    
-                    //new Explosion(pickups[i].Body.Position);
+                    MusicHandler.playSound(MusicHandler.DING);
+                    PickupManager.newMultiplier(p.PowerUpType, p.PowerupLength);
 
-                    switch (pickups[i].PowerUpType)
-                    {
-                        case Pickup.X3:
-                            {
-                                MusicHandler.playSound(MusicHandler.DING);
-                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
-                                //Game.getGV().adjustNitro(10);
-                                break;
-                            }
-                        case Pickup.PLUS4:
-                            {
-                                MusicHandler.playSound(MusicHandler.DING);
-                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
-                                //Game.getGV().adjustShield(5);
-                                break;
-                            }
-                        case Pickup.X2:
-                            {
-                                MusicHandler.playSound(MusicHandler.DING);
-                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
-                                //Game.getGV().AdjustHealth(5);
-                                break;
-                            }
-                        case Pickup.PLUS5:
-                            {
-                                MusicHandler.playSound(MusicHandler.DING);
-                                PickupManager.newMultiplier(pickups[i].PowerUpType, pickups[i].PowerupLength);
-                                //Game.getGV().adjustFreeze(5);
-                                break;
-                            }
-                        default:
-                            {
-                                //Program.game.Music.playSound("lobster");
-                                break;
-                            }
-                    }
                     GameScreen.stats.gotPowerup();
-                    //Drawing.addWave(pickupPoint);
-                    //ScreenManager.game.World.removeObject(pickups[i]);
-                    ScreenManager.game.World.fadeObjectAway(pickups[i], 0.6f);
-                    ScreenManager.game.pickupSpawner.pickupPickedUp();
+                    //PickupSpawnManager.addToPool(p);
+                    ScreenManager.game.World.fadeObjectAway(p, 0.6f);
+                    //ScreenManager.game.World.removeObject(p);
+                    PickupSpawnManager.pickupPickedUp();
                     continue;
                 }
 
-                pickups[i].TimeToLive--;
-                if (pickups[i].TimeToLive == 0)
+                p.TimeToLive--;
+                if (p.TimeToLive == 0)
                 {
-                    //ScreenManager.game.World.removeObject(pickups[i]);
-                    ScreenManager.game.World.fadeObjectAway(pickups[i], 0.6f);
-                    ScreenManager.game.pickupSpawner.pickupPickedUp();
+                    //PickupSpawnManager.addToPool(p);
+                    ScreenManager.game.World.fadeObjectAway(p, 0.6f);
+                    //ScreenManager.game.World.removeObject(p);
+                    PickupSpawnManager.pickupPickedUp();
                 }
             }
         }

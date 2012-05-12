@@ -99,28 +99,32 @@ namespace Resonance
 
                 if (displaySplash <= 7) 
                 {
-                    string obj = "";
-                    string con = "";
-                    string drum = "";
-                    ObjectiveManager.getLoadingScreenString(ref obj, ref con, ref drum);
-
-                    ScreenManager.SpriteBatch.DrawString(font, "Objective", new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 140), Color.White, 0f,
-                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                    ScreenManager.SpriteBatch.DrawString(font, obj, new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 115), Color.White, 0f,
-                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-
-                    ScreenManager.SpriteBatch.DrawString(font, "Controller player", new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 55), Color.White, 0f,
-                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                    ScreenManager.SpriteBatch.DrawString(font, con, new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 30), Color.White, 0f,
-                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-
-                    ScreenManager.SpriteBatch.DrawString(font, "Drum kit player", new Vector2(ScreenManager.pixelsX(80), screenSize.Y + 30), Color.White, 0f,
-                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                    ScreenManager.SpriteBatch.DrawString(font, drum, new Vector2(ScreenManager.pixelsX(80), screenSize.Y + 55), Color.White, 0f,
-                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-
                     bool arcade = displaySplash == ARCADE_SPLASH;
                     bool firstObj = displaySplash == OBJECTIVE_SPLASH1;
+
+                    if (!arcade)
+                    {
+                        string obj = "";
+                        string con = "";
+                        string drum = "";
+                        ObjectiveManager.getLoadingScreenString(ref obj, ref con, ref drum);
+
+                        ScreenManager.SpriteBatch.DrawString(font, "Objective", new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 140), Color.White, 0f,
+                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                        ScreenManager.SpriteBatch.DrawString(font, obj, new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 115), Color.White, 0f,
+                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+
+                        ScreenManager.SpriteBatch.DrawString(font, "Controller player", new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 55), Color.White, 0f,
+                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                        ScreenManager.SpriteBatch.DrawString(font, con, new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 30), Color.White, 0f,
+                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+
+                        ScreenManager.SpriteBatch.DrawString(font, "Drum kit player", new Vector2(ScreenManager.pixelsX(80), screenSize.Y + 30), Color.White, 0f,
+                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                        ScreenManager.SpriteBatch.DrawString(font, drum, new Vector2(ScreenManager.pixelsX(80), screenSize.Y + 55), Color.White, 0f,
+                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                    }
+
                     float x = (screenSize.X * 1.5f) - 287;
                     float y = screenSize.Y - 249;
                     if(!arcade && !firstObj) ScreenManager.SpriteBatch.Draw(bgs[5 + displaySplash], new Vector2(x,y), Color.White);

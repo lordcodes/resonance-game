@@ -16,6 +16,8 @@ namespace Resonance
     {
         public static float MAP_X;
         public static float MAP_Z;
+        public static float PLAYABLE_MAP_X;
+        public static float PLAYABLE_MAP_Z;
         public static float MAP_MIN_X;
         public static float MAP_MIN_Z;
         private const float ACCURACY = 0.1f;
@@ -88,18 +90,21 @@ namespace Resonance
 
                     MAP_Z = Math.Abs(max.Z - min.Z);
                     MAP_X = Math.Abs(max.X - min.X);
+
+                    PLAYABLE_MAP_X = MAP_X;
+                    PLAYABLE_MAP_Z = MAP_Z;
                 }
                 //Add walls
                 float wall_length = 20f;
                 float wall_height = 150f;
                 Vector3 pos1 = new Vector3(0, 75f, (MAP_Z / 2 - 5) + (wall_length / 2));
-                Vector3 pos2 = new Vector3((MAP_X / 2 - 5) + (wall_length / 2), 75f, 0);
-                Vector3 pos3 = new Vector3(0, 75f, (-MAP_Z / 2 + 5) - (wall_length / 2));
-                Vector3 pos4 = new Vector3((-MAP_X / 2 + 5) - (wall_length / 2), 75f, 0);
-                Box b1 = new Box(pos1, MAP_X, wall_height, wall_length);
-                Box b2 = new Box(pos2, wall_length, wall_height, MAP_Z);
-                Box b3 = new Box(pos3, MAP_X, wall_height, wall_length);
-                Box b4 = new Box(pos4, wall_length, wall_height, MAP_Z);
+                Vector3 pos2 = new Vector3((PLAYABLE_MAP_X / 2 - 5) + (wall_length / 2), 75f, 0);
+                Vector3 pos3 = new Vector3(0, 75f, (-PLAYABLE_MAP_Z / 2 + 5) - (wall_length / 2));
+                Vector3 pos4 = new Vector3((-PLAYABLE_MAP_X / 2 + 5) - (wall_length / 2), 75f, 0);
+                Box b1 = new Box(pos1, PLAYABLE_MAP_X, wall_height, wall_length);
+                Box b2 = new Box(pos2, wall_length, wall_height, PLAYABLE_MAP_Z);
+                Box b3 = new Box(pos3, PLAYABLE_MAP_X, wall_height, wall_length);
+                Box b4 = new Box(pos4, wall_length, wall_height, PLAYABLE_MAP_Z);
                 space.Add(b1);
                 space.Add(b2);
                 space.Add(b3);
@@ -226,8 +231,6 @@ namespace Resonance
                 DrawableManager.Remove(obj);
             });
         }
-
-
 
         public Object getObject(String name)
         {

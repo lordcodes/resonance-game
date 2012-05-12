@@ -1,13 +1,22 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
+using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
 
 namespace Resonance
 {
     class GameOverScreen : MenuScreen
     {
-        Texture2D textBG;
         GameStats stats;
+
+        Vector2 lPos;
+        Vector2 lPosText;
+        Vector2 rPos;
+        Vector2 rPosText;
+
+        int leftTimes;
+        int rightTimes;
 
         private static System.IAsyncResult result = null;
         private int ii = 0;
@@ -25,15 +34,66 @@ namespace Resonance
             MenuItems.Add(playAgain);
             MenuItems.Add(quit);
             MenuItems.Add(quitCompletely);
+
+            
+            Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
+            lPos = new Vector2(screenSize.X - 580f, screenSize.Y - 550);
+            rPos = new Vector2(screenSize.X + 30f, screenSize.Y - 550);
+
+            lPosText = new Vector2(lPos.X + 60f, lPos.Y + 60f);
+            rPosText = new Vector2(rPos.X + 60f, rPos.Y + 60f);
+
+            leftTimes = 0;
+            rightTimes = 0;
         }
 
         public override void LoadContent()
         {
             base.LoadContent();
 
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuBox"));
-            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/PauseMenuStatsBox"));
-            textBG = this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/MenuItemBG");
+            Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/GameOverScreenBox"));
+        }
+
+        public override void HandleInput(InputDevices input)
+        {
+            base.HandleInput(input);
+
+            bool lastLeft = (input.LastKeys.IsKeyDown(Keys.Left) && input.Keys.IsKeyDown(Keys.Left)) ||
+                                (input.LastPlayerOne.IsButtonDown(Buttons.DPadLeft) && input.PlayerOne.IsButtonDown(Buttons.DPadLeft)) ||
+                                (input.LastPlayerOne.IsButtonDown(Buttons.LeftThumbstickLeft) && input.PlayerOne.IsButtonDown(Buttons.LeftThumbstickLeft));
+            bool lastRight = (input.LastKeys.IsKeyDown(Keys.Right) && input.Keys.IsKeyDown(Keys.Right)) ||
+                                (input.LastPlayerOne.IsButtonDown(Buttons.DPadRight) && input.PlayerOne.IsButtonDown(Buttons.DPadRight)) ||
+                                (input.LastPlayerOne.IsButtonDown(Buttons.LeftThumbstickRight) && input.PlayerOne.IsButtonDown(Buttons.LeftThumbstickRight));
+
+            bool left = (!input.LastKeys.IsKeyDown(Keys.Left) && !input.LastPlayerOne.IsButtonDown(Buttons.DPadLeft) &&
+                       !input.LastPlayerOne.IsButtonDown(Buttons.LeftThumbstickLeft)) &&
+                      (input.Keys.IsKeyDown(Keys.Left) || input.PlayerOne.IsButtonDown(Buttons.DPadLeft) ||
+                       input.PlayerOne.IsButtonDown(Buttons.LeftThumbstickLeft));
+            bool right = (!input.LastKeys.IsKeyDown(Keys.Right) && !input.LastPlayerOne.IsButtonDown(Buttons.DPadRight) &&
+                       !input.LastPlayerOne.IsButtonDown(Buttons.LeftThumbstickRight)) &&
+                      (input.Keys.IsKeyDown(Keys.Right) || input.PlayerOne.IsButtonDown(Buttons.DPadRight) ||
+                       input.PlayerOne.IsButtonDown(Buttons.LeftThumbstickRight));
+
+            if (left) moveUp();
+            else if (lastLeft)
+            {
+                leftTimes++;
+                if (leftTimes == 25)
+                {
+                    moveUp();
+                    leftTimes = 0;
+                }
+            }
+            if (right) moveDown();
+            else if (lastRight)
+            {
+                rightTimes++;
+                if (rightTimes == 25)
+                {
+                    moveDown();
+                    rightTimes = 0;
+                }
+            }
         }
 
         protected override void updateItemLocations()
@@ -43,20 +103,19 @@ namespace Resonance
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
 
             //Centre in x is 400
-            Vector2 position = new Vector2(0f, screenSize.Y / 2 - 100 - Font.LineSpacing);
+            Vector2 position = new Vector2(screenSize.X - 500, ScreenManager.pixelsY(200));
             for (int i = 0; i < MenuItems.Count; i++)
             {
-                position.X = (int)screenSize.X / 2;
+                position.X = position.X + 250;
                 MenuItems[i].Position = position;
-
-                position.Y += MenuItems[i].Size(this).Y + 100;
             }
         }
 
         protected override void  drawMenu(int index)
         {
-            //410 width by 540 height
-            //Ratio 1.32 (H / W)
+            ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
+            ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White);
+
             if (!Guide.IsVisible)
             {
                 if (ii == 0) ii = 1;
@@ -64,45 +123,38 @@ namespace Resonance
                 switch (ii)
                 {
                     case 1:
-                        result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
-                        ii = 2;
-                        break;
+                        {
+                            result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
+                            ii = 2;
+                            break;
+                        }
 
                     case 2:
-                        if (result.IsCompleted)
                         {
-                           HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
-                           ii = 3;
+                            if (result.IsCompleted)
+                            {
+                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                                ii = 3;
+                            }
+                            break;
                         }
-                        break;
                 }
-
                 GamerServicesDispatcher.Update();
             }
-            Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-            int x = (int)screenSize.X / 2 - 200;
-            int y = (int)screenSize.Y / 2 - 240;
-
-            ScreenManager.SpriteBatch.Draw(Bgs[0], new Vector2(x, y), Color.White);
-
-            x = (int)((screenSize.X * 2) * 0.75f - 360);
-            y = (int)screenSize.Y / 2 - 250;
-
-            ScreenManager.SpriteBatch.Draw(Bgs[1], new Vector2(x, y), Color.White);
-
-            x += 60;
-            y += 60;
 
             string message = "Final score: " + stats.Score + "\n\n";
             message += "Total Bad Vibes Killed: " + stats.BVsKilled + "\n\n";
             message += "Highest Multi-Kill with Single Wave: " + stats.Multikill + "\n\n";
-            message += "\n            HIGHSCORES             \n";
+
+            ScreenManager.SpriteBatch.DrawString(Font, message, lPosText, Color.White);
+
+            message = "            HIGHSCORES             \n";
             for (int ii = 0; ii < HighScoreManager.data.SIZE; ii++)
             {
                 message += "    " + HighScoreManager.data.PlayerName[ii] + "       " + HighScoreManager.data.Score[ii] + "           \n";
             }
 
-            ScreenManager.SpriteBatch.DrawString(Font, message, new Vector2(x, y), Color.White);
+            ScreenManager.SpriteBatch.DrawString(Font, message, rPosText, Color.White);
         }
 
         private void playGameAgain()
