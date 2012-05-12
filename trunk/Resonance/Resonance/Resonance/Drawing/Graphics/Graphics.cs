@@ -90,7 +90,6 @@ namespace Resonance
                 6,
                 BufferUsage.None
                 );
-
             particleIndexBuffer.SetData<short>(particleIndices);
             particleRasterizerState = new RasterizerState();
             particleRasterizerState.CullMode = CullMode.None;

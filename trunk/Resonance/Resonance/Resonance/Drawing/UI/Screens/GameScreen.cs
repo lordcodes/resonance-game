@@ -300,6 +300,8 @@ namespace Resonance
             if (mode.MODE == GameMode.ARCADE) {
                 if (GV_KILLED)
                 {
+                    HighScoreManager.updateTable(stats.Score);
+                    HighScoreManager.saveFile();
                     WeatherManager.playLightning();
                     ScreenManager.addScreen(new GameOverScreen(stats));
                 }
