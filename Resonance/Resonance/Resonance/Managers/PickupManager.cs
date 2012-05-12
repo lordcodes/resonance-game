@@ -6,7 +6,7 @@ namespace Resonance
     class PickupManager
     {
         //public static int currentMultipler = 1;
-        public static int pickupType = -1;
+        private static int pickupType = -1;
         private static int timeRemaining = 0;
         //List<int> multiplierValues;
 
@@ -155,6 +155,22 @@ namespace Resonance
                     ScreenManager.game.World.fadeObjectAway(pickups[i], 0.6f);
                     ScreenManager.game.pickupSpawner.pickupPickedUp();
                 }
+            }
+        }
+
+        public static int PickupType
+        {
+            get
+            {
+                return pickupType;
+            }
+        }
+
+        public static int TimeRemaining
+        {
+            get
+            {
+                return timeRemaining;
             }
         }
     }
