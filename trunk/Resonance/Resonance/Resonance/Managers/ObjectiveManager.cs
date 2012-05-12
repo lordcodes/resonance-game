@@ -169,10 +169,11 @@ namespace Resonance {
                     else return false;
                 }
                 case (KILL_BOSS) : {
-                    int bossHealth = 0;
-                    int bossMaxHealth = 0;
-                    double pct = 100d * (double) bossHealth / (double) bossMaxHealth;
-                    oStr = "Master Bad Vibe " + ((int) pct) + " destroyed";
+                    Boss b = GameScreen.getBoss();
+                    int bossHealth = b.getHealth();
+
+                    double pct = 100d * (double) bossHealth / (double) Boss.MAX_HEALTH;
+                    oStr = "Master Bad Vibe " + ((int) pct) + "% destroyed";
 
                     if (bossHealth == 0) return true; else return false;
                 }
