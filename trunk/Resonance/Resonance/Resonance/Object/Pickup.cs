@@ -17,6 +17,12 @@ namespace Resonance
         private int initialTime; //initial time
         private int timeToLive; //current time left
         private SingleEntityAngularMotor servo;
+        Random r;
+
+        GameModelInstance X2Instance;
+        GameModelInstance X3Instance;
+        GameModelInstance Plus4Instance;
+        GameModelInstance Plus5Instance;
 
         public Pickup(int modelNum, String name, Vector3 pos, int length, int time)
             : base(modelNum, name, pos)
@@ -47,10 +53,7 @@ namespace Resonance
             servo.Settings.Servo.SpringSettings.DampingConstant *= 1f;
             servo.Settings.Servo.SpringSettings.StiffnessConstant *= 5f;
 
-            //int uniqueId = 0;
-            //foreach (byte x in Encoding.Unicode.GetBytes(name)) uniqueId += x;
-            //Random r = new Random((int)(DateTime.Now.Ticks * uniqueId));
-            Random r = new Random((int)(DateTime.Now.Ticks));
+            r = new Random((int)(DateTime.Now.Ticks));
             float angle = MathHelper.ToRadians(r.Next(0, 360));
 
             Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
@@ -59,6 +62,50 @@ namespace Resonance
 
             // Set it so the pickup does not cast a shadow
             this.ModelInstance.Shadow = false;
+
+            X2Instance = new GameModelInstance(GameModels.X2);
+            X3Instance = new GameModelInstance(GameModels.X3);
+            Plus4Instance = new GameModelInstance(GameModels.PLUS4);
+            Plus5Instance = new GameModelInstance(GameModels.PLUS5);
+            X2Instance.Shadow = false;
+            X3Instance.Shadow = false;
+            Plus4Instance.Shadow = false;
+            Plus5Instance.Shadow = false;
+        }
+
+        public void init(int modelNum, Vector3 pos, int length, int time)
+        {
+            if (modelNum == GameModels.X2)
+            {
+                pickupType = X2;
+                this.ModelInstance = X2Instance;
+            }
+            else if (modelNum == GameModels.X3)
+            {
+                pickupType = X3;
+                this.ModelInstance = X3Instance;
+            }
+            else if (modelNum == GameModels.PLUS4)
+            {
+                pickupType = PLUS4;
+                this.ModelInstance = Plus4Instance;
+            }
+            else if (modelNum == GameModels.PLUS5)
+            {
+                pickupType = PLUS5;
+                this.ModelInstance = Plus5Instance;
+            }
+
+            Body.Position = pos;
+
+            pickupLength = length;
+            initialTime = time;
+            timeToLive = time;
+
+            float angle = MathHelper.ToRadians(r.Next(0, 360));
+
+            Quaternion orientation = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
+            servo.Settings.Servo.Goal = orientation;
         }
 
         /// <summary>

@@ -63,9 +63,9 @@ namespace Resonance
 
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight / 2);
 
-            lPos = new Vector2(screenSize.X / 2, screenSize.Y);
+            lPos = new Vector2(screenSize.X / 2, screenSize.Y - 50f);
             lPosImage = new Vector2(40, screenSize.Y - 250);
-            rPos = new Vector2(screenSize.X * 1.5f, screenSize.Y);
+            rPos = new Vector2(screenSize.X * 1.5f, screenSize.Y - 50f);
             rPosImage = new Vector2((screenSize.X * 2f) - 752, screenSize.Y - 250);
             nameOrigin = Vector2.Zero;
         }
@@ -73,8 +73,8 @@ namespace Resonance
         public override void LoadContent() 
         {
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
-            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
-            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
+            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bad_vibe_render_green"));
+            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/neuron_render"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));

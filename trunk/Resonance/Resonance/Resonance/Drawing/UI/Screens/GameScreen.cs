@@ -82,7 +82,6 @@ namespace Resonance
             preEndGameTimer = new Stopwatch();
 
             if (USE_BV_SPAWNER) bvSpawner = new BVSpawnManager();
-            if (USE_PICKUP_SPAWNER) pickupSpawner = new PickupSpawnManager();
             deadVibes = new string[50];
         }
 
@@ -142,6 +141,7 @@ namespace Resonance
             ParticleEmitterManager.initialise();
             WeatherManager.initialise();
             CameraMotionManager.initialise();
+            PickupSpawnManager.init();
         }
 
         private void allocate()
@@ -149,6 +149,7 @@ namespace Resonance
             world.allocate();
             BVSpawnManager.allocate();
             Shockwave.fillPool();
+            PickupSpawnManager.allocate();
         }
 
         /// <summary>
@@ -226,7 +227,7 @@ namespace Resonance
                     if (USE_PICKUP_SPAWNER)
                     {
                         PickupManager.update();
-                        pickupSpawner.update();
+                        PickupSpawnManager.update();
                     }
 
                     if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
