@@ -112,6 +112,7 @@ namespace Resonance
             if (!Guide.IsVisible)
             {
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
+                while (!result.IsCompleted) { };
                 if (result.IsCompleted)
                 {
                     StorageDevice device = StorageDevice.EndShowSelector(result);
