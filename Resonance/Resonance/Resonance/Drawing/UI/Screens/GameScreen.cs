@@ -234,6 +234,9 @@ namespace Resonance
                         PickupSpawnManager.update();
                     }
 
+                    //Update Objective Pickups
+                    if(GameScreen.mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.COLLECT_ALL_PICKUPS) updateObjectivePickups();
+
                     if (ParticleEmitterManager.isPaused()) ParticleEmitterManager.pause(false);
                     if (WeatherManager.isPaused()) WeatherManager.pause(false);
                 }
@@ -357,6 +360,20 @@ namespace Resonance
 
         float isintime;
         bool restbrokenthisbeat = false;
+        /// <summary>
+        /// Updates the Objective Pickups (collision and spin)
+        /// </summary>
+        private void updateObjectivePickups()
+        {
+            List<Object> objectivePickups = ScreenManager.game.World.returnObjectSubset<ObjectivePickup>();            
+
+            for (int i = 0; i < objectivePickups.Count; i++)
+            {
+                ((ObjectivePickup)objectivePickups[i]).collision();
+                ((ObjectivePickup)objectivePickups[i]).spinMe();
+            }
+        }
+
         /// <summary>
         /// Process all the bad vibes, either move or kill them
         /// </summary>

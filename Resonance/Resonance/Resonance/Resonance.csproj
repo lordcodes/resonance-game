@@ -162,6 +162,7 @@
     <Compile Include="Managers\ScreenManager\ScreenManager.cs" />
     <Compile Include="Object\Bullet.cs" />
     <Compile Include="Object\Checkpoint.cs" />
+    <Compile Include="Object\ObjectivePickup.cs" />
     <Compile Include="Utilities\GameMode.cs" />
     <Compile Include="Utilities\GameStats.cs" />
     <Compile Include="Utilities\Profile.cs" />

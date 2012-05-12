@@ -21,8 +21,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint1</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup1</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-50</xWorldCoord>
         <zWorldCoord>170</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -30,8 +30,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint2</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup2</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-170</xWorldCoord>
         <zWorldCoord>150</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -48,8 +48,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint4</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup4</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-70</xWorldCoord>
         <zWorldCoord>130</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -57,8 +57,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint5</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup5</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-90</xWorldCoord>
         <zWorldCoord>90</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -66,8 +66,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint6</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup6</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-170</xWorldCoord>
         <zWorldCoord>70</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -75,8 +75,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint7</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup7</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-110</xWorldCoord>
         <zWorldCoord>50</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -84,8 +84,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint8</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup8</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-70</xWorldCoord>
         <zWorldCoord>30</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -93,8 +93,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint9</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup9</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-10</xWorldCoord>
         <zWorldCoord>30</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -102,8 +102,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint10</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup10</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-170</xWorldCoord>
         <zWorldCoord>-10</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -111,8 +111,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint11</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup11</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-130</xWorldCoord>
         <zWorldCoord>-10</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -120,8 +120,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint12</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup12</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>30</xWorldCoord>
         <zWorldCoord>-10</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -147,8 +147,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint15</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup15</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>30</xWorldCoord>
         <zWorldCoord>-70</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -156,8 +156,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint16</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup16</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-170</xWorldCoord>
         <zWorldCoord>-90</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -165,8 +165,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint17</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup17</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-130</xWorldCoord>
         <zWorldCoord>-130</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -174,8 +174,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint18</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup18</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-70</xWorldCoord>
         <zWorldCoord>-130</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -183,8 +183,8 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint19</identifier>
-        <type>CheckPoint</type>
+        <identifier>ObjectivePickup19</identifier>
+        <type>ObjectivePickup</type>
         <xWorldCoord>-10</xWorldCoord>
         <zWorldCoord>-130</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
