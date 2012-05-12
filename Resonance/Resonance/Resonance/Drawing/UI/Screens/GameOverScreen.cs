@@ -143,8 +143,8 @@ namespace Resonance
                 }
                 GamerServicesDispatcher.Update();
             }
-
-            HighScoreManager.saveFile();
+            if(HighScoreManager.data.PlayerName[HighScoreManager.position].Equals("") == false)
+                HighScoreManager.saveFile();
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
             headings += "Highest Multi-Kill: \n\n";
@@ -162,11 +162,10 @@ namespace Resonance
             headings = "";
             scores = "";
             for (int jj = 0; jj < HighScoreManager.data.SIZE; jj++)
-            {
+            { 
                 headings += HighScoreManager.data.PlayerName[jj] + "\n";
                 scores += HighScoreManager.data.Score[jj] + "\n";
             }
-
             ScreenManager.SpriteBatch.DrawString(Font, "HIGHSCORES", new Vector2(rPos.X + 225f, rPos.Y + 60f), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, headings, rPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(rPosText.X + 410, rPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
