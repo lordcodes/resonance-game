@@ -59,8 +59,8 @@ namespace Resonance
 
             masterBuffer = createMasterBuffer(width, height);
 
-            half = (int)Math.Round((double)nWidth / 2);
-            max = nHeight * nWidth;
+            half = (int)Math.Round((double)Graphics.DISP_WIDTH / 2);
+            max = Graphics.DISP_WIDTH * Graphics.DISP_WIDTH;
         }
 
         public void addHole(float x , float y)
