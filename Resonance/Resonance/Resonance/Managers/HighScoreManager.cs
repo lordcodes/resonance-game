@@ -4,11 +4,13 @@ using Microsoft.Xna.Framework.Storage;
 using System.IO;
 using System.Xml.Serialization;
 
+
 namespace Resonance
 {
     public class HighScoreManager
     {
         
+
         public struct HighScoreData
         {
             public string[] PlayerName;
@@ -22,6 +24,7 @@ namespace Resonance
             }
         }
         public static HighScoreData data;
+        public static int position = -1;
 
         public static void initializeData()
         {
@@ -59,10 +62,12 @@ namespace Resonance
 
         public static void updateTable(int score)
         {
+            string name = "NEW USER";
+            position = -1;
             int scoreIndex = -1;
             for (int i = 0; i < data.SIZE; i++)
             {
-                if (score > data.Score[i])
+                if (score >= data.Score[i])
                 {
                     scoreIndex = i;
                     break;
@@ -72,13 +77,14 @@ namespace Resonance
             {
                 //New high score found ... do swaps
                 for (int i = data.SIZE - 1; i > scoreIndex; i--)
-                {
-                
+                {                
                     data.Score[i] = data.Score[i - 1];
-                
+                    data.PlayerName[i] = data.PlayerName[i - 1];                
                 }                
-                data.Score[scoreIndex] = score;                
+                data.Score[scoreIndex] = score;
+                data.PlayerName[scoreIndex] = name;
             }
+            position = scoreIndex;
             Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
             for (int index = 0; index < data.SIZE; index++)
             {

@@ -16,9 +16,9 @@ namespace Resonance
         public ResonanceGame()
         {
             Content.RootDirectory = "Content";
-#if XBOX
+
             Components.Add(new GamerServicesComponent(this));
-#endif            
+         
             graphics = new GraphicsDeviceManager(this);
             
             IsMouseVisible = false;
@@ -33,7 +33,7 @@ namespace Resonance
 
             screenManager = new ScreenManager(this);
             Components.Add(screenManager);
-
+           
             screenManager.addScreen(new MainMenu());
         }
 

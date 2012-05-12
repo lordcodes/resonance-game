@@ -1,12 +1,18 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+using Microsoft.Xna.Framework.GamerServices;
+
 namespace Resonance
 {
     class SuccessScreen : MenuScreen
     {
         Texture2D textBG;
         GameStats stats;
+
+        private static System.IAsyncResult result = null;
+        private int ii = 0;
+        private string name = "";
 
         public SuccessScreen(GameStats stats)
             : base("Success")
@@ -54,6 +60,30 @@ namespace Resonance
             //Ratio 1.32 (H / W)
 
             //ScreenManager.SpriteBatch.Draw(textBG, Vector2.Zero, Color.White);
+
+            if (!Guide.IsVisible)
+            {
+                if (ii == 0) ii = 1;
+
+                switch (ii)
+                {
+                    case 1:
+                        result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
+                        ii = 2;
+                        break;
+
+                    case 2:
+                        if (result.IsCompleted)
+                        {
+                            HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                            ii = 3;
+                        }
+                        break;
+                }
+
+                GamerServicesDispatcher.Update();
+
+            }
 
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
             int x = (int)screenSize.X / 2 - 200;

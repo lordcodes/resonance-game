@@ -59,7 +59,6 @@ namespace Resonance
                     {
                         timeNow = DateTime.Now;
                         long ticks = timeNow.Ticks - beatTimeBefore.Ticks;
-                        DebugDisplay.update("Time difference", ticks.ToString());
                         ScreenManager.game.World.removeObject(bullet);
                         Vector3 dir = GameScreen.getGV().Body.Position - bulletPosition;
                         if (ticks >= TIMESPAN)
