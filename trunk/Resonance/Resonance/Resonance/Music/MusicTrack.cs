@@ -96,6 +96,14 @@ namespace Resonance
             }
         }
 
+        private void loopInTime() {
+            while (true) {
+                Console.Out.WriteLine("WOOPA");
+                inTime2();
+                Console.Out.WriteLine("WOOPB");
+            }
+        }
+
         /// <summary>
         /// Stop the track
         /// </summary>
@@ -235,15 +243,24 @@ namespace Resonance
         private static List<long> nexts = new List<long>();
         private static List<long> lasts = new List<long>();
 
+        static bool blap = false;
+        bool goingup = true;
+        bool prevgoingup = false;
+        float prevscore = 0f;
         /// <summary>
         /// TESTING ONLY!
         /// </summary>
-        public void inTime2()
+        public float inTime2()
         {
+            beatLength        = 500000000;
+            halfBeatLength    = 250000000;
+            quarterBeatLength = 125000000;
+
+            mode = NoteMode.QUARTER;
             if (state == PlayState.PLAYING)
             {
-                long time = (DateTime.Now.Ticks * 100) - startTime + EXTRA_OFF;
-                //float scoreWeight = -1f;
+                long time = (DateTime.Now.Ticks * 100) - startTime;
+                float scoreWeight = -1f;
                 for (; ; lastI++)
                 {
                     long beatTime;
@@ -251,56 +268,73 @@ namespace Resonance
 
                     if (mode == NoteMode.WHOLE)
                     {
-                        beatTime = offset + (lastI * beatLength);
+                        beatTime = (lastI * beatLength);
                         lastBeatTime = beatTime - beatLength;
                     }
                     else if (mode == NoteMode.HALF)
                     {
-                        beatTime = offset + (lastI * halfBeatLength);
+                        beatTime = (lastI * halfBeatLength);
                         lastBeatTime = beatTime - halfBeatLength;
                     }
                     else
                     {
-                        beatTime = offset + (lastI * quarterBeatLength);
+                        beatTime = (lastI * quarterBeatLength);
                         lastBeatTime = beatTime - quarterBeatLength;
                     }
 
                     if (time < beatTime)
                     {
-                        lasts.Add(time - lastBeatTime);
-                        nexts.Add(beatTime - time);
+                        if (time > (beatTime - WINDOW))
+                        {
+                            beats++;
+                            //HIT
+                            //Console.WriteLine("HIT1");
 
-                        long   nAv  = 0;
-                        long   lAv  = 0;
-                        double dNAv = 0d;
-                        double dLAv = 0d;
-
-                        for (int i = 0; i < lasts.Count; i++) {
-                            nAv += nexts.ElementAt(i);
-                            lAv += lasts.ElementAt(i);
+                            //return true;
+                            long numerator = time - beatTime + WINDOW;
+                            long window    = WINDOW;// >> 15;
+                            //numerator >>= 15;
+                            float div  = (numerator / (float) window);
+                            double div2 = ((1f - div) * (Math.PI / 2d));
+                            scoreWeight = (float) Math.Cos(div2);
                         }
-
-                        dNAv = (double) nAv;
-                        dLAv = (double) lAv;
-
-                        dNAv /= (double) nexts.Count;
-                        dLAv /= (double) lasts.Count;
-
-                        DebugDisplay.update("Average next beat diff", dNAv.ToString());
-                        DebugDisplay.update("Average last beat diff", dLAv.ToString());
-                        //if (scoreWeight == -1f) offbeat++;
+                        if (time < lastBeatTime + WINDOW)
+                        {
+                            beats++;
+                            //HIT
+                            //Console.WriteLine("HIT2");
+                            //return true;
+                            long numerator = lastBeatTime + WINDOW - time;
+                            long window = WINDOW;// >> 15;
+                            //numerator >>= 15;
+                            float div = (numerator / (float) window);
+                            double div2 = ((1f - div) * (Math.PI / 2d));
+                            float result = (float) Math.Cos(div2);
+                            if (result > scoreWeight) scoreWeight = result;
+                        }
+                        if (scoreWeight == -1f) offbeat++;
 
                         //DebugDisplay.update("Beats    ",   beats.ToString());
                         //DebugDisplay.update("Offbeats ", offbeat.ToString());
                         break;
                     }
                 }
+                //DebugDisplay.update("TIMING:", scoreWeight.ToString());
+                if (prevscore > scoreWeight) {
+                    goingup = false;
+                } else {
+                    goingup = true;
+                }
 
-                //return scoreWeight;
+                if (/*!blap && scoreWeight > 0.85*/ prevgoingup && !goingup) { blap = true; MusicHandler.playSound(MusicHandler.RED); Console.WriteLine(time.ToString());}
+                if (scoreWeight == -1) blap = false;
+                prevscore = scoreWeight;
+                prevgoingup = goingup;
+                return scoreWeight;
             } else {
                 // Not playing. Return false.
                 //return false;
-                //return -1f;
+                return -1f;
             }
         }
     }
