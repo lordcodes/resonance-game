@@ -30,7 +30,7 @@ namespace Resonance
         public static bool GV_KILLED_AT_GAME_END = false;
         public static bool GAME_CAN_END = true;
         public const bool USE_BV_SPAWNER = true;
-        public const bool USE_PICKUP_SPAWNER = true;
+        public const bool USE_PICKUP_SPAWNER = false;
         public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;

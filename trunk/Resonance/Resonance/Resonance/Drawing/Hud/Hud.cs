@@ -165,6 +165,8 @@ namespace Resonance
         /// </summary>
         public void Draw(GameTime gameTime)
         {
+            updateGoodVibe();
+            
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
             drawBadVibeArmour();
@@ -737,17 +739,27 @@ namespace Resonance
 
 
         /// <summary>
+        /// Deprecated.
         /// Updates the HUD with infomation about the player.
         /// </summary>
         /// <param name="h">Players health</param>
         /// <param name="s">Players score</param>
-        public void updateGoodVibe(int h, int s, int n, int sh, int f)
+        private void updateGoodVibe(int h, int s, int n, int sh, int f)
         {
             health = h;
             score = s;
             nitro = n;
             shield = sh;
             freeze = f;
+        }
+
+        private void updateGoodVibe()
+        {
+            health = GameScreen.getGV().Health;
+            score = GameScreen.stats.Score;
+            nitro = GameScreen.getGV().Nitro;
+            shield = GameScreen.getGV().Shield;
+            freeze = GameScreen.getGV().Freeze;
         }
 
         private void highlightedPowerPercentage()
