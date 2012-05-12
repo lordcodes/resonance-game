@@ -136,15 +136,14 @@ namespace Resonance
                             {
                                 HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
                                 ii = 3;
-                                
+                                HighScoreManager.saveFile();
                             }
                             break;
                         }
                 }
                 GamerServicesDispatcher.Update();
-            }
-            if(HighScoreManager.data.PlayerName[HighScoreManager.position].Equals("") == false)
-                HighScoreManager.saveFile();
+            }           
+                
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
             headings += "Highest Multi-Kill: \n\n";
