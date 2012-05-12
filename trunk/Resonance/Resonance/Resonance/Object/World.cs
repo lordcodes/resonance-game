@@ -335,7 +335,7 @@ namespace Resonance
                 if (obj.type.Equals("Boss"))
                 {
                     BulletManager.BOSS_EXISTS = false;
-                    addObject(new StaticObject(GameModels.BOSS, "Boss", pos));
+                    addObject(new Boss(GameModels.BOSS, "Boss", pos));
                     BulletManager.updateBossPosition(pos);
                 }
                 if (obj.type.Equals("Good_vibe"))
