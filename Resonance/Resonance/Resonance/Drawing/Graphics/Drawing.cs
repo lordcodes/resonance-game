@@ -19,7 +19,6 @@ namespace Resonance
         private static int frameCounter;
         private static int frameTime;
         private static int currentFrameRate;
-        private static Vector3 playerPos;
         private static bool drawingReflection = false;
         private static bool drawingShadows = false;
         private static RenderTarget2D mirrorRenderTarget;
@@ -249,7 +248,6 @@ namespace Resonance
             GameModels.Init(content);
             gameGraphics = new Graphics(content, graphics);
             hud = new Hud(content,graphics, gameGraphics);
-            playerPos = new Vector3(0,0,0);
             DoDisp = true;
 
             TextureAnimation ta = new TextureAnimation(shinyFloorTexture);
@@ -429,17 +427,12 @@ namespace Resonance
         {
             if (worldObject.ModelInstance.Transparency > 0)
             {
-                
                 if ((!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection)))
                 {
                     bool blend = false;
                     Vector2 playerGroundPos = new Vector2(0f, 0f);
                     if (drawingShadows) graphics.GraphicsDevice.BlendState = BlendState.Opaque;
                     else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-                    if (worldObject is GoodVibe)
-                    {
-                        playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
-                    }
 
                     graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
                     if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
@@ -459,7 +452,6 @@ namespace Resonance
                         hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
                     }
                 }
-                
             }
         }
 
