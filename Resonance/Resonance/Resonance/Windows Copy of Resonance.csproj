@@ -142,6 +142,7 @@
     <Compile Include="Managers\BulletManager.cs" />
     <Compile Include="Managers\HighScoreManager.cs" />
     <Compile Include="Managers\ObjectiveManager.cs" />
+    <Compile Include="Object\Boss.cs" />
     <Compile Include="Object\Bullet.cs" />
     <Compile Include="Object\Checkpoint.cs" />
     <Compile Include="Object\ObjectivePickup.cs" />

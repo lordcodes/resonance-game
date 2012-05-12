@@ -215,7 +215,6 @@ namespace Resonance
 
                 if (intro)
                 {
-                    DebugDisplay.update("GV-POS", getGV().Body.Position.ToString());
                     float health = getGV().healthFraction();
                     if (health < 0.1) MusicHandler.HeartBeat = true;
                     else MusicHandler.HeartBeat = false;
@@ -230,6 +229,7 @@ namespace Resonance
 
                     // Update shockwaves
                     getGV().updateWaves();
+                    getBoss().faceGV();
 
                     //Update pickups
                     if (USE_PICKUP_SPAWNER)
@@ -468,6 +468,11 @@ namespace Resonance
         public static GoodVibe getGV()
         {
             return (GoodVibe)ScreenManager.game.World.getObject("Player");
+        }
+
+        public static Boss getBoss()
+        {
+            return (Boss)ScreenManager.game.World.getObject("Boss");
         }
 
         public World World
