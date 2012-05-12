@@ -62,12 +62,12 @@ namespace Resonance
 
         public static void updateTable(int score)
         {
-            string name = "NEW USER";
+            
             position = -1;
             int scoreIndex = -1;
             for (int i = 0; i < data.SIZE; i++)
             {
-                if (score >= data.Score[i])
+                if (score > data.Score[i])
                 {
                     scoreIndex = i;
                     break;
@@ -79,10 +79,10 @@ namespace Resonance
                 for (int i = data.SIZE - 1; i > scoreIndex; i--)
                 {                
                     data.Score[i] = data.Score[i - 1];
-                    data.PlayerName[i] = data.PlayerName[i - 1];                
+                    data.PlayerName[i] = data.PlayerName[i - 1]; 
                 }                
                 data.Score[scoreIndex] = score;
-                data.PlayerName[scoreIndex] = name;
+                data.PlayerName[scoreIndex] = "";
             }
             position = scoreIndex;
             Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");

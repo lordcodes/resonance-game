@@ -84,7 +84,7 @@ namespace Resonance
                 GamerServicesDispatcher.Update();
 
             }
-
+            HighScoreManager.saveFile();
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
             int x = (int)screenSize.X / 2 - 200;
             int y = (int)screenSize.Y / 2 - 240;
