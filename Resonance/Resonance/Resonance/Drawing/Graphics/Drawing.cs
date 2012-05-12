@@ -438,13 +438,6 @@ namespace Resonance
                     else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
                     if (worldObject is GoodVibe)
                     {
-                        int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
-                        int score = GameScreen.stats.Score;
-                        int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
-                        int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
-                        int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
-
-                        hud.updateGoodVibe(health, score, nitro, shield, freeze);
                         playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
                     }
 
