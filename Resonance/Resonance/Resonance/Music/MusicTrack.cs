@@ -36,7 +36,7 @@ namespace Resonance
         const long EXTRA_OFF = 250000000;
         //const long EXTRA_OFF = 0;
 
-        enum NoteMode { WHOLE, HALF, QUARTER };
+        public enum NoteMode { WHOLE, HALF, QUARTER };
         enum PlayState { PLAYING, PAUSED, STOPPED };
 
         public MusicTrack(ContentManager newContent) 
@@ -99,7 +99,7 @@ namespace Resonance
         private void loopInTime() {
             while (true) {
                 Console.Out.WriteLine("WOOPA");
-                inTime2();
+                inTime2(MusicTrack.NoteMode.WHOLE);
                 Console.Out.WriteLine("WOOPB");
             }
         }
@@ -246,13 +246,15 @@ namespace Resonance
 
         static bool blap = false;
 
-        public float inTime2()
+        public float inTime2(NoteMode m)
         {
+            mode = m;
+
             beatLength        = 500000000;
             halfBeatLength    = 250000000;
             quarterBeatLength = 125000000;
 
-            mode = NoteMode.QUARTER;
+            //mode = NoteMode.QUARTER;
             if (state == PlayState.PLAYING)
             {
                 long time = (DateTime.Now.Ticks * 100) - startTime + 50000000 - 125000000;
