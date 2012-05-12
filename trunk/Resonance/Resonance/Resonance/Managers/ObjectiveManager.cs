@@ -149,7 +149,8 @@ namespace Resonance {
             switch (cObj) {
                 case (KILL_ALL_BV) : {
                     int killed = GameScreen.stats.BVsKilled - bvKilledAtStart;
-                    int total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
+                    int total = 0;
+                    if (GameScreen.USE_BV_SPAWNER) total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
                     oStr = "" + killed + " / " + total + " destroyed";
 
                     //if (killed == total) return true; else return false;
