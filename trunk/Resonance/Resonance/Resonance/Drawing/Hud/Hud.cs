@@ -186,27 +186,47 @@ namespace Resonance
             spriteBatch.DrawString(scoreFont, score.ToString(), coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
         }
 
+        /// <summary>
+        /// Draws the current multiplier value under the score. 
+        /// Change instantiation of showtime to true to display the time left of the current multiplier. 
+        /// bool showTime = true;
+        /// </summary>
         private static void drawMultiplier()
         {
             Rectangle destination = new Rectangle(ScreenManager.pixelsX(1895 - plusFour.Width), ScreenManager.pixelsY(110), ScreenManager.pixelsX(plusFour.Width), ScreenManager.pixelsY(plusFour.Height));
             Rectangle source = new Rectangle(0, 0, plusFour.Width, plusFour.Height);
+            bool showTime = false;
 
-            if (PickupManager.pickupType == Pickup.X2)
+            if (PickupManager.PickupType == Pickup.X2)
             {
                 spriteBatch.Draw(x2, destination, source, Color.White);
             }
-            else if (PickupManager.pickupType == Pickup.X3)
+            else if (PickupManager.PickupType == Pickup.X3)
             {
                 spriteBatch.Draw(x3, destination, source, Color.White);
             }
-            else if (PickupManager.pickupType == Pickup.PLUS4)
+            else if (PickupManager.PickupType == Pickup.PLUS4)
             {
                 spriteBatch.Draw(plusFour, destination, source, Color.White);
             }
-            else if (PickupManager.pickupType == Pickup.PLUS5)
+            else if (PickupManager.PickupType == Pickup.PLUS5)
             {
                 spriteBatch.Draw(plusFive, destination, source, Color.White);
-            }            
+            }
+            else
+            {
+                showTime = false;
+            }
+
+            if (showTime)
+            {
+                string time = String.Format("{0:0.0}", (PickupManager.TimeRemaining / ResonanceGame.FPS)).Trim();
+                Vector2 coords = new Vector2(ScreenManager.pixelsX(1895 - plusFour.Width / 2), ScreenManager.pixelsY(180));
+                spriteBatch.DrawString(font, time, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                coords.X--;
+                coords.Y--;
+                spriteBatch.DrawString(font, time, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+            }
         }
 
         /// <summary>
