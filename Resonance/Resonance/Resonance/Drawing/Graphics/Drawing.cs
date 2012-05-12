@@ -95,7 +95,7 @@ namespace Resonance
         {
 
             Drawing.setShadowsRenderTarget();
-            DrawableManager.DrawObjects(gameTime);
+            DrawableManager.DrawShadowedObjects(gameTime);
             Drawing.saveShadowsTexture();
 
         }
@@ -427,47 +427,46 @@ namespace Resonance
         /// <param name="worldTransform">The world transform for the object you want to draw, use [object body].WorldTransform </param>
         public static void Draw(Matrix worldTransform, Vector3 pos, Object worldObject)
         {
-            if (!drawingShadows || (drawingShadows && worldObject.ModelInstance.Shadow && worldObject.ModelInstance.Transparency > 0))
+            if (worldObject.ModelInstance.Transparency > 0)
             {
-                if ((!worldObject.returnIdentifier().Equals("Walls") || (worldObject.returnIdentifier().Equals("Walls") && !drawingShadows)))
+                
+                if ((!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection)))
                 {
-                    if ((!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection)))
+                    bool blend = false;
+                    Vector2 playerGroundPos = new Vector2(0f, 0f);
+                    if (drawingShadows) graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+                    else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+                    if (worldObject is GoodVibe)
                     {
-                        bool blend = false;
-                        Vector2 playerGroundPos = new Vector2(0f, 0f);
-                        if (drawingShadows) graphics.GraphicsDevice.BlendState = BlendState.Opaque;
-                        else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-                        if (worldObject is GoodVibe)
-                        {
-                            int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
-                            int score = GameScreen.stats.Score;
-                            int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
-                            int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
-                            int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
+                        int health = ((GoodVibe)((DynamicObject)worldObject)).Health;
+                        int score = GameScreen.stats.Score;
+                        int nitro = ((GoodVibe)((DynamicObject)worldObject)).Nitro;
+                        int shield = ((GoodVibe)((DynamicObject)worldObject)).Shield;
+                        int freeze = ((GoodVibe)((DynamicObject)worldObject)).Freeze;
 
-                            hud.updateGoodVibe(health, score, nitro, shield, freeze);
-                            playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
-                        }
+                        hud.updateGoodVibe(health, score, nitro, shield, freeze);
+                        playerPos = ((GoodVibe)((DynamicObject)worldObject)).Body.Position;
+                    }
 
-                        graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-                        if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
-                        {
-                            blend = true;
-                            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
-                            graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-                        }
-
-                        gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
+                    graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
+                    if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
+                    {
+                        blend = true;
+                        graphics.GraphicsDevice.BlendState = BlendState.Opaque;
                         graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+                    }
 
-                        if (worldObject is BadVibe)
-                        {
-                            //Gets list of remaining armour layers
-                            List<int> seq = ((BadVibe)worldObject).getLayers();
-                            hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
-                        }
+                    gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
+                    graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
+
+                    if (worldObject is BadVibe)
+                    {
+                        //Gets list of remaining armour layers
+                        List<int> seq = ((BadVibe)worldObject).getLayers();
+                        hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
                     }
                 }
+                
             }
         }
 

@@ -13,6 +13,10 @@ namespace Resonance
         private static List<GameComponent> pickupComponents = new List<GameComponent>(1000);
         private static List<GameComponent> goodVibeComponents = new List<GameComponent>(1000);
         private static List<GameComponent> groundComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> wallComponents = new List<GameComponent>(1000);
+
+        // Lists below store duplicate refrences so i dont have to re check at draw time
+        private static List<GameComponent> shadowedComponents = new List<GameComponent>(1000);
         static Profile ThisSection = Profile.Get("Drawing3D");
 
         /// <summary>
@@ -29,13 +33,28 @@ namespace Resonance
             {
                 goodVibeComponents.Add(component);
             }
-            else if (component is Object && ((Object)component).returnIdentifier().Equals("Ground"))
+            else if (component is Object && (
+                (((Object)component).returnIdentifier().Equals("Ground")) || 
+                ((Object)component).returnIdentifier().Equals("Walls")))
             {
-                groundComponents.Add(component);
+                if(((Object)component).returnIdentifier().Equals("Walls"))
+                {
+                    ((Object)component).ModelInstance.Shadow = false;
+                    groundComponents.Add(component);
+                }
+                else
+                {
+                    wallComponents.Add(component);
+                }
             }
             else
             {
                 components.Add(component);
+            }
+
+            if (component is Object && ((Object)component).ModelInstance.Shadow)
+            {
+                shadowedComponents.Add(component);
             }
         }
 
@@ -43,11 +62,19 @@ namespace Resonance
         {
             Drawing.Clear();
             DrawSet(groundComponents, gameTime);
+            DrawSet(wallComponents, gameTime);
             DrawSet(components, gameTime);
             DrawSet(goodVibeComponents, gameTime);
             DrawSet(pickupComponents, gameTime);
-            DebugDisplay.update("DrawableObjects", components.Count + pickupComponents.Count+goodVibeComponents.Count+"");
+            DebugDisplay.update("DrawableObjects", components.Count + pickupComponents.Count + goodVibeComponents.Count + "");
         }
+
+        public static void DrawShadowedObjects(GameTime gameTime)
+        {
+            Drawing.Clear();
+            DrawSet(shadowedComponents, gameTime);
+        }
+
 
         /// <summary>
         /// Draws all the currently stored GameComponents
@@ -138,6 +165,7 @@ namespace Resonance
             UpdateSet(pickupComponents, time);
             UpdateSet(goodVibeComponents, time);
             UpdateSet(groundComponents, time);
+            UpdateSet(wallComponents, time);
         }
 
         /// <summary>
@@ -162,6 +190,18 @@ namespace Resonance
             {
                 groundComponents.Remove(component);
             }
+            else if (wallComponents.Contains(component))
+            {
+                wallComponents.Remove(component);
+            }
+            
+            if (shadowedComponents.Contains(component))
+            {
+                shadowedComponents.Remove(component);
+            }
+
+
+
         }
 
         /// <summary>
@@ -173,6 +213,7 @@ namespace Resonance
             pickupComponents.Clear();
             goodVibeComponents.Clear();
             groundComponents.Clear();
+            shadowedComponents.Clear();
             DebugDisplay.clear();
         }
     }
