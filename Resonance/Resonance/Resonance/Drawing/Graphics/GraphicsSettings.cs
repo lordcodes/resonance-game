@@ -8,12 +8,20 @@ namespace Resonance
         /// <summary>
         /// Reflections appear on the floor if true
         /// </summary>
+#if XBOX
+        public static bool FLOOR_REFLECTIONS = false;
+#else
         public static bool FLOOR_REFLECTIONS = true;
+#endif
 
         /// <summary>
         /// Shadows appear on the floor if true
         /// </summary>
+#if XBOX
+        public static bool FLOOR_SHADOWS = false;
+#else
         public static bool FLOOR_SHADOWS = true;
+#endif
 
         /// <summary>
         /// Resolution of the reflection texture of the floor reflections.
