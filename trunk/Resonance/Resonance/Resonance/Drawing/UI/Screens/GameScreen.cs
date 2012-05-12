@@ -211,7 +211,7 @@ namespace Resonance
 
                 if (intro)
                 {
-
+                    DebugDisplay.update("GV-POS", getGV().Body.Position.ToString());
                     float health = getGV().healthFraction();
                     if (health < 0.1) MusicHandler.HeartBeat = true;
                     else MusicHandler.HeartBeat = false;
