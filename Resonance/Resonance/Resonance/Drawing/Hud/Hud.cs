@@ -319,7 +319,7 @@ namespace Resonance
         }
 
         private void drawDrumkit() {
-            if ((ScreenManager.game.getMode().MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)) {
+            if ((ScreenManager.game.getMode().MODE == GameMode.OBJECTIVES) && ((ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS) || (ObjectiveManager.currentObjective() == ObjectiveManager.COLLECT_ALL_PICKUPS))) {
                 Color col = new Color(0.35f, 0.35f, 0.35f, 0.7f);
                 spriteBatch.Draw(drumkit,  new Rectangle(ScreenManager.pixelsX(770), ScreenManager.pixelsY(820), drumkit.Width, drumkit.Height), col);
                 string c = BulletManager.getBulletColour();
