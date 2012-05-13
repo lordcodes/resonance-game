@@ -21,6 +21,7 @@ namespace Resonance {
         private static int cObj                 = DEFAULT_OBJECTIVE;
 
         private static int bvKilledAtStart      = 0;
+        private static int initialGVHealth      = 0;
         private static TimeSpan initialDistThroughSong;
         private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
 
@@ -34,10 +35,12 @@ namespace Resonance {
 
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
             /*if (newObj == SURVIVE)*/ initialDistThroughSong = MediaPlayer.PlayPosition;
+            initialGVHealth = GameScreen.getGV().Health;
         }
 
         public static void nextObjective() {
-            cObj++;
+            //cObj++;
+            setObjective(cObj + 1);
         }
 
         public static int currentObjective() {
@@ -223,7 +226,7 @@ namespace Resonance {
         /// <summary>
         /// Calculate the score bonus for each of the objectives
         /// </summary>
-        public static void calcuateScoreBonus()
+        public static int calcuateScoreBonus()
         {
             int bonus = 0;
             TimeSpan ts = MediaPlayer.PlayPosition - initialDistThroughSong;
@@ -232,34 +235,40 @@ namespace Resonance {
             switch (cObj)
             {
             case (KILL_ALL_BV):
-                {                    
-                    bonus = 42;
+                {              
+                    bonus = 800 - (int) (2 * ts.TotalSeconds);
+                    if (bonus < 0) bonus = 0;
                     break;
                 }
             case (COLLECT_ALL_PICKUPS):
                 {
-                    bonus = 42;
+                    bonus = 600 - (int) (2 * ts.TotalSeconds);
+                    if (bonus < 0) bonus = 0;
                     break;
                 }
             case (SURVIVE):
                 {
-                    bonus = 42;
+                    int healthLost = initialGVHealth - GameScreen.getGV().Health;
+                    bonus = 300 - (3 * healthLost);
                     break;
                 }
             case (TERRITORIES):
                 {
-                    bonus = 240 - timeTaken;
+                    bonus = 600 - (int) (2 * ts.TotalSeconds);
+                    if (bonus < 0) bonus = 0;
                     break;
                 }
             case (KILL_BOSS):
                 {
-                    bonus = 240 - timeTaken;
+                    bonus = 800 - (int) (2 * ts.TotalSeconds);
+                    if (bonus < 0) bonus = 0;
                     break;
                 }
             }
 
             if (bonus < 0) bonus = 0;
             GameStats.setScoreBonus(cObj, bonus);
+            return bonus;
         }
     }
 }
