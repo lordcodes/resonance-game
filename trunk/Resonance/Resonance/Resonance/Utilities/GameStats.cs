@@ -4,82 +4,80 @@ namespace Resonance
 {
     class GameStats
     {
-        private int score;
-        private int bvsKilled;
-        private int bvsAtOnce;
-        private int healthCritical;
-        private int nitroUses;
-        private int shieldUses;
-        private int freezeUses;
-        private int powerups;
+        private static int score;
+        private static int bvsKilled;
+        private static int bvsAtOnce;
+        private static TimeSpan round1;
+        private static TimeSpan round2;
+        private static int round3;
+        private static TimeSpan round4;
+        private static TimeSpan round5;
 
-        public GameStats()
+
+
+        public static void init()
         {
             score = 0;
             bvsKilled = 0;
             bvsAtOnce = 0;
-            healthCritical = 0;
-            nitroUses = 0;
-            shieldUses = 0;
-            freezeUses = 0;
-            powerups = 0;
+            round1 = TimeSpan.Zero;
+            round2 = TimeSpan.Zero;
+            round3 = 0;
+            round4 = TimeSpan.Zero;
+            round5 = TimeSpan.Zero;
         }
 
-        public void addScore(int value)
-        {
-            score += value;
-        }
+        public static void addBV() { bvsKilled++; }
 
-        public void addBV() { bvsKilled++; }
-        public void criticalHealth() { healthCritical++; }
-        public void usedNitro() { nitroUses++; }
-        public void usedShield() { shieldUses++; }
-        public void usedFreeze() { freezeUses++; }
-        public void gotPowerup() { powerups++; }
-
-        public void multiKill(int number)
+        public static void multiKill(int number)
         {
             bvsAtOnce = Math.Max(bvsAtOnce, number);
         }
 
-        public int Score
+        public static int Score
         {
             get { return score; }
+            set { score += value; }
         }
 
-        public int BVsKilled
+        public static int BVsKilled
         {
             get { return bvsKilled; }
         }
 
-        public int Multikill
+        public static int Multikill
         {
             get { return bvsAtOnce; }
         }
 
-        public int HealthCritical
+        public static TimeSpan Round1
         {
-            get { return healthCritical; }
+            get { return round1; }
+            set { round1 = value; }
         }
 
-        public int NitroUses
+        public static TimeSpan Round2
         {
-            get { return nitroUses; }
+            get { return round2; }
+            set { round2 = value; }
         }
 
-        public int ShieldUses
+        public static int Round3
         {
-            get { return shieldUses; }
+            get { return round3; }
+            set { round3 += value; }
         }
 
-        public int FreezeUses
+        public static TimeSpan Round4
         {
-            get { return freezeUses; }
+            get { return round4; }
+            set { round4 = value; }
         }
 
-        public int Powerups
+        public static TimeSpan Round5
         {
-            get { return powerups; }
+            get { return round5; }
+            set { round5 = value; }
         }
     }
 }

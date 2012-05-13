@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Media;
 namespace Resonance {
     class ObjectiveManager {
         public const bool DEBUG_MODE            = false;
+        public const bool QUICK_GAME            = true;
 
         public const int KILL_ALL_BV            = 0;
         public const int COLLECT_ALL_PICKUPS    = 1;
@@ -22,7 +23,6 @@ namespace Resonance {
         private static int bvKilledAtStart      = 0;
         private static TimeSpan initialDistThroughSong;
         private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
-        //private static TimeSpan survivalTime = new TimeSpan(0, 0, 10); // 1 sec
 
         public static void loadObjectivesGame(ScreenManager sm) {
             ScreenManager.game = new GameScreen(sm, cObj);
@@ -32,7 +32,7 @@ namespace Resonance {
         public static void setObjective(int newObj) {
             cObj = newObj;
 
-            if (newObj == KILL_ALL_BV) bvKilledAtStart = GameScreen.stats.BVsKilled;
+            if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
             if (newObj == SURVIVE) initialDistThroughSong = MediaPlayer.PlayPosition;
         }
 
@@ -148,16 +148,16 @@ namespace Resonance {
 
         static int maxPickups = 0;
         public static bool getProgress(ref string oStr) {
-            if (DEBUG_MODE) return true;
             switch (cObj) {
                 case (KILL_ALL_BV) : {
-                    int killed = GameScreen.stats.BVsKilled - bvKilledAtStart;
+                    int killed = GameStats.BVsKilled - bvKilledAtStart;
                     int total = 0;
                     if (GameScreen.USE_BV_SPAWNER) total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
                     oStr = "" + killed + " / " + total + " destroyed";
 
-                    //if (killed == total) return true; else return false;
-                    if (killed >= 4) return true; else return false;
+                    if (DEBUG_MODE) return true;
+                    if(QUICK_GAME) if (killed >= 1) return true; else return false;
+                    else if(!QUICK_GAME) if (killed == total) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     List<Object> ps = ScreenManager.game.World.returnObjectSubset<ObjectivePickup>();
@@ -165,10 +165,9 @@ namespace Resonance {
                     int collected = maxPickups - ps.Count;
                     oStr = "" + collected + " / " + maxPickups + " collected";
 
-                    if (collected == maxPickups) {
-                        return true;
-                    }
-                    else return false;
+                    if (DEBUG_MODE) return true;
+                    if (QUICK_GAME) if (collected >= 1) return true; else return false;
+                    else if(!QUICK_GAME) if (collected == maxPickups) return true; else return false;
                 }
                 case (KILL_BOSS) : {
                     Boss b = GameScreen.getBoss();
@@ -177,7 +176,10 @@ namespace Resonance {
                     double pct = 100d * (double) bossHealth / (double) Boss.MAX_HEALTH;
                     oStr = "Master Bad Vibe " + ((int) pct) + "% destroyed";
 
-                    if (bossHealth == 0) return true; else return false;
+                    if (DEBUG_MODE || QUICK_GAME) return true;
+                    else {
+                        if (bossHealth == 0) return true; else return false;
+                    }
                 }
                 case (SURVIVE) : {
                     TimeSpan ts = survivalTime - MediaPlayer.PlayPosition - initialDistThroughSong;
@@ -190,7 +192,10 @@ namespace Resonance {
 
                     oStr = "Stay alive for " + formattedTimeSpan;
 
-                    if ((ts.Minutes == 0) && (ts.Seconds <= 0)) return true; else return false;
+                    if (DEBUG_MODE || QUICK_GAME) return true;
+                    else {
+                        if ((ts.Minutes == 0) && (ts.Seconds <= 0)) return true; else return false;
+                    }
                 }
                 case (TERRITORIES) : {
                     List<Object> cps =  ScreenManager.game.World.returnObjectSubset<Checkpoint>();
@@ -205,7 +210,9 @@ namespace Resonance {
 
                     oStr = "" + healed + " / " + total + " areas healed";
 
-                    if (healed >= total) return true; else return false;
+                    if (DEBUG_MODE) return true;
+                    if (QUICK_GAME) if (healed >= 1) return true; else return false;
+                    else if(!QUICK_GAME) if (healed >= total) return true; else return false;
                 }
             }
 

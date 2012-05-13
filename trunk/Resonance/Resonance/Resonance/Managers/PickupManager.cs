@@ -74,7 +74,6 @@ namespace Resonance
                     MusicHandler.playSound(MusicHandler.DING);
                     PickupManager.newMultiplier(p.PowerUpType, p.PowerupLength);
 
-                    GameScreen.stats.gotPowerup();
                     //PickupSpawnManager.addToPool(p);
                     ScreenManager.game.World.fadeObjectAway(p, 0.6f);
                     //ScreenManager.game.World.removeObject(p);

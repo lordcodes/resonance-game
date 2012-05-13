@@ -139,7 +139,7 @@ namespace Resonance
                 {
                     if (point.hitPoint(colour-1))
                     {
-                        GameScreen.stats.addScore(15);
+                        GameStats.Score = 15;
                     }
                 }
             }

@@ -108,7 +108,6 @@ namespace Resonance
                     GameScreen.getGV().shieldUp();
                     if (!usedShield)
                     {
-                        GameScreen.stats.usedShield();
                         usedShield = true;
                     }
                 }
@@ -134,7 +133,6 @@ namespace Resonance
                     GameScreen.getGV().getFreezer().switchOn();
                     if (!usedFreeze)
                     {
-                        GameScreen.stats.usedFreeze();
                         usedFreeze = true;
                     }
                 }
@@ -149,7 +147,6 @@ namespace Resonance
                     GVMotionManager.BOOSTING = true;
                     if (!usedBoost)
                     {
-                        GameScreen.stats.usedNitro();
                         usedBoost = true;
                     }
                 }
