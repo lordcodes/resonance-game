@@ -10,6 +10,8 @@ namespace Resonance
         public const int MAX_ACTIVE = 1;
         public const int MAX_BV = 12;
 
+        public const int OBJECTIVE_MAX_BV = 3;
+
         private static int spawnerCount;
         private static int bvcount = 0;
         private static List<BVSpawner> spawners;
@@ -52,8 +54,13 @@ namespace Resonance
         public static void addNewSpawner(Vector3 position)
         {
             int i = 0;
+            BVSpawner spawn;
 
-            BVSpawner spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, MAX_BV, SPAWN_RADIUS, MAX_ACTIVE);
+            if ((GameScreen.mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_ALL_BV)) {
+                spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, OBJECTIVE_MAX_BV, SPAWN_RADIUS, MAX_ACTIVE);
+            } else {
+                spawn= new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, MAX_BV, SPAWN_RADIUS, MAX_ACTIVE);
+            }
             ScreenManager.game.World.addObject(spawn);
             spawners.Add(spawn);
 

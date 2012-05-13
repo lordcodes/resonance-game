@@ -155,7 +155,7 @@ namespace Resonance {
                 case (KILL_ALL_BV) : {
                     int killed = GameStats.BVsKilled - bvKilledAtStart;
                     int total = 0;
-                    if (GameScreen.USE_BV_SPAWNER) total = BVSpawnManager.MAX_BV * BVSpawnManager.getSpawnerCount();
+                    if (GameScreen.USE_BV_SPAWNER) total = BVSpawnManager.OBJECTIVE_MAX_BV * BVSpawnManager.getSpawnerCount();
                     oStr = "" + killed + " / " + total + " destroyed";
 
                     if (DEBUG_MODE) return true;
@@ -176,8 +176,8 @@ namespace Resonance {
                     Boss b = GameScreen.getBoss();
                     int bossHealth = b.getHealth();
 
-                    double pct = 100d * (double) bossHealth / (double) Boss.MAX_HEALTH;
-                    oStr = "Master Bad Vibe " + ((int) pct) + "% destroyed";
+                    int pct = 100 - (int) (100d * (double) bossHealth / (double) Boss.MAX_HEALTH);
+                    oStr = "Master Bad Vibe " + pct + "% destroyed";
 
                     if (DEBUG_MODE || QUICK_GAME) return true;
                     else {

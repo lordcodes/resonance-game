@@ -37,7 +37,7 @@ namespace Resonance
         {
             badVibes.Remove(bv);
             ScreenManager.game.World.removeObject(bv);
-            if(badVibes.Count < maxActive && totalSpawned <= maxBVs)
+            if(badVibes.Count < maxActive && totalSpawned < maxBVs)
             {
                 newBv.setup(getSpawnCords(), spawnNumber);
                 badVibes.Add(newBv);
