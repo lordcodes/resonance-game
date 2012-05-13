@@ -18,6 +18,7 @@ namespace Resonance
         private int timeToLive; //current time left
         private SingleEntityAngularMotor servo;
         Random r;
+        float ROTATE_SPEED = -0.1f;
 
         GameModelInstance X2Instance;
         GameModelInstance X3Instance;
@@ -121,8 +122,7 @@ namespace Resonance
         /// </summary>
         public void spinMe()
         {
-            float angle = -0.1f;
-            Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, angle);
+            Quaternion change = Quaternion.CreateFromAxisAngle(Vector3.Up, ROTATE_SPEED);
             Quaternion orientation = Quaternion.Concatenate(this.Body.Orientation, change);
             servo.Settings.Servo.Goal = orientation;
         }
