@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Resonance {
     class ObjectiveManager {
+        public const bool DEBUG_MODE            = true;
+
         public const int KILL_ALL_BV            = 0;
         public const int COLLECT_ALL_PICKUPS    = 1;
         public const int SURVIVE                = 2;
@@ -146,6 +148,7 @@ namespace Resonance {
 
         static int maxPickups = 0;
         public static bool getProgress(ref string oStr) {
+            if (DEBUG_MODE) return true;
             switch (cObj) {
                 case (KILL_ALL_BV) : {
                     int killed = GameScreen.stats.BVsKilled - bvKilledAtStart;
