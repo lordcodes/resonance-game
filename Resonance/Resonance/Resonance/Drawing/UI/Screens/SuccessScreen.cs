@@ -95,9 +95,7 @@ namespace Resonance
         protected override void updateItemLocations()
         {
             base.updateItemLocations();
-
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-
             //Centre in x is 400
             Vector2 position = new Vector2(screenSize.X - 500, ScreenManager.pixelsY(200));
             for (int i = 0; i < MenuItems.Count; i++)
@@ -120,9 +118,8 @@ namespace Resonance
                 case 1:
                     if (HighScoreManager.position >= 0)
                         if (result.IsCompleted)
-                        {
-                        
-                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                        {                        
+                            HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
                             HighScoreManager.saveFile();
                             async = 2;
                         }
