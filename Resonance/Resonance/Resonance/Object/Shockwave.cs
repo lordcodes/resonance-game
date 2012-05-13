@@ -94,6 +94,8 @@ namespace Resonance
             Matrix translate;
             Matrix.CreateTranslation((float)-GROWTH_RATE * position.X, 0.0f, (float)-GROWTH_RATE * position.Z, out translate);
             Matrix.Multiply(ref transform, ref translate, out transform);
+
+            BulletManager.destroyBullet(colour - 1);
         }
 
         public void checkBadVibes() 

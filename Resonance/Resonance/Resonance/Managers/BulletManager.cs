@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using BEPUphysics.Entities;
 namespace Resonance
 {
    
@@ -7,86 +8,80 @@ namespace Resonance
     {
         public static bool BOSS_EXISTS = false;
 
-        private static Vector3 bulletPosition;
-        private static int bulletIndex = 0;
-        private static Vector3 bossPosition;
-        private static Bullet bullet = new Bullet(17, "activeBullet", bulletPosition);
-        private static int iteration;
-        private static int DAMAGE = 5;
-        private static int ACTIVE = 1;
-        private static int INACTIVE = 0;
-        private static DateTime beatTimeBefore = DateTime.Now;
+        public  const int  INACTIVE = 0;
+        public  const int  ACTIVE   = 1;
+        private const int  DAMAGE   = 4;
+        private const long TIMESPAN = 150000000;
+        private const int  CHUNK    = 15;     
+
+        private static int bulletIndex;
+        private static Bullet bullet;
+        private static DateTime beatTimeBefore;
         private static DateTime timeNow;
-        private static long TIMESPAN = 15000000;
-        private static Random Rand = new Random();
-        private static int CHUNK = 15;     
-        private static string[] colors = new string[] { "red", "blue", "green", "yellow"};
-        private static int index;
+        private static Random rand;
+        private static Entity target;
+        private static Entity start;
 
+        public static void init()
+        {
+            bulletIndex = INACTIVE;
+            beatTimeBefore = DateTime.Now;
+            rand = new Random();
+            target = GameScreen.getGV().Body;
+            start = GameScreen.getBoss().Body;
+            bullet = new Bullet(17, "activeBullet", start.Position);
+        }
 
-        public static void shoot(Vector3 bulPos)
+        public static void shoot()
         {
                 bulletIndex = ACTIVE;
-                bulletPosition = bulPos;                
+                bullet.Position = start.Position;  
                 ScreenManager.game.World.addObject(bullet);                
-                index = Rand.Next();
-                bullet.setColor(colors[index % 4]);
-                bullet.ModelInstance.setTexture(index % 4);
+                int r = rand.Next();
+                bullet.Colour = r % 4;
         }
-
-
-        public static void updateBossPosition(Vector3 position)
-        {
-            bossPosition = position;
-        }
-
 
         public static void updateBullet()
         {
             if (BOSS_EXISTS)
             {
-                iteration = ScreenManager.game.Iteration;
                 if (bulletIndex == ACTIVE)
                 {
-                    if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 2f)
+                    if (Vector3.Distance(bullet.Position, target.Position) < 0.5f)
                     {
                         GameScreen.getGV().AdjustHealth(-DAMAGE);
-                        ScreenManager.game.World.removeObject(bullet);
-                        Drawing.addWave(bulletPosition);
+                        Drawing.addWave(bullet.Position);
                         bulletIndex = INACTIVE;
                     }
                     else
                     {
                         timeNow = DateTime.Now;
                         long ticks = timeNow.Ticks - beatTimeBefore.Ticks;
-                        ScreenManager.game.World.removeObject(bullet);
-                        Vector3 dir = GameScreen.getGV().Body.Position - bulletPosition;
+                        Vector3 dir = target.Position - bullet.Position;
                         if (ticks >= TIMESPAN)
                         {
                             beatTimeBefore = DateTime.Now;
-                            bulletPosition += dir;
+                            bullet.Position += dir;
                         }
                         else
-                            bulletPosition += dir / CHUNK;
-                        bullet = new Bullet(17, "activeBullet", bulletPosition);
-                        bullet.setColor(colors[index % 4]);
-                        bullet.ModelInstance.setTexture(index % 4);
-                        ScreenManager.game.World.addObject(bullet);
+                        {
+                            bullet.Position += dir / CHUNK;
+                        }
                     }
 
                 }
-                if (bulletIndex == INACTIVE)
+                else if (bulletIndex == INACTIVE)
                 {
-                    shoot(bossPosition);
+                    shoot();
                 }
             }
         }
         
-        public static void destroyBullet(string color)
+        public static void destroyBullet(int colour)
         {
             if (BOSS_EXISTS)
             {
-                if (Vector3.Distance(bulletPosition, GameScreen.getGV().Body.Position) < 30f && bullet.getColor().Equals(color))
+                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour == colour)
                 {
                     bulletIndex = INACTIVE;
                     ScreenManager.game.World.removeObject(bullet);
@@ -94,9 +89,8 @@ namespace Resonance
             }
         }
 
-        public static string getBulletColour() {
-            if (bullet == null) return "";
-            return bullet.getColor();
+        public static int getBulletColour() {
+            return bullet.Colour;
         }
     }
 }

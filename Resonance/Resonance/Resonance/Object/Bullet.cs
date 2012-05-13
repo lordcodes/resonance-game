@@ -6,23 +6,40 @@ namespace Resonance
 
     class Bullet : DynamicObject
     {
-        private GameModelInstance bullet;
-        private static string color = "red";
+        public const int RED = 0;
+        public const int YELLOW = 1;
+        public const int BLUE = 2;
+        public const int GREEN = 3;
+
+        private int colour;
+        private Vector3 position;
+
         public Bullet(int modelNum, String name, Vector3 pos)
             : base(modelNum, name, pos)
         {
-           
-
+            position = pos;
         }
 
-        public void setColor(string col)
+        public Vector3 Position
         {
-           color = col;
+            get { return position; }
+            set { position = value; }
         }
 
-        public string getColor()
+        public Matrix getTransform()
         {
-            return color;
+            Matrix transform = Matrix.CreateTranslation(position);
+            return transform;
+        }
+
+        public int Colour
+        {
+            get { return colour; }
+            set 
+            { 
+                colour = value;
+                ModelInstance.setTexture(colour);
+            }
         }
     }
 }

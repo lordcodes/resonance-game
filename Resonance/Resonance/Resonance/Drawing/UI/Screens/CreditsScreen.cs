@@ -48,7 +48,7 @@ namespace Resonance
             names.Add("Paul Keast");
             titles = new List<List<string>>(8);
             titles.Add(new List<string>(3) { "Graphics", "Content Pipeline", "Advanced Textures" });
-            titles.Add(new List<string>(3) { "Physics", "Artificial Intelligence", "Games Screens and Menus" });
+            titles.Add(new List<string>(3) { "Cock", "Physics", "Artificial Intelligence", "Games Screens and Menus" });
             titles.Add(new List<string>(3) { "Level Editor", "Projectiles", "High Scores" });
             titles.Add(new List<string>(3) { "Mechanics", "Particle Engine", "Mini-Map" });
             titles.Add(new List<string>(3) { "Pickups", "HUD", "Render Targets" });
