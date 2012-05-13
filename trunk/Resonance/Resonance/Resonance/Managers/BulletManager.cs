@@ -11,21 +11,23 @@ namespace Resonance
         public  const int  INACTIVE = 0;
         public  const int  ACTIVE   = 1;
         private const int  DAMAGE   = 4;
-        private const long TIMESPAN = 150000000;
-        private const int  CHUNK    = 15;     
+        private const int WRONG_DAMAGE = 2;
+        //private const long TIMESPAN = 15000000;
+        private const long TIMESPAN = 72500000;
+        private const double DEFAULT_CHUNK = 0.0000002;
+
+        private static double CHUNK = DEFAULT_CHUNK;    
 
         private static int bulletIndex;
         private static Bullet bullet;
-        private static DateTime beatTimeBefore;
-        private static DateTime timeNow;
         private static Random rand;
         private static Entity target;
         private static Entity start;
+        private static TimeSpan timeAlive;
 
         public static void init()
         {
             bulletIndex = INACTIVE;
-            beatTimeBefore = DateTime.Now;
             rand = new Random();
             target = GameScreen.getGV().Body;
             start = GameScreen.getBoss().Body;
@@ -34,39 +36,38 @@ namespace Resonance
 
         public static void shoot()
         {
-                bulletIndex = ACTIVE;
-                bullet.Position = start.Position;  
-                ScreenManager.game.World.addObject(bullet);                
-                int r = rand.Next();
-                bullet.Colour = r % 4;
+            bulletIndex = ACTIVE;
+            bullet.Position = start.Position;  
+            ScreenManager.game.World.addObject(bullet);                
+            int r = rand.Next();
+            bullet.Colour = r % 4;
+            timeAlive = TimeSpan.Zero;
+            CHUNK = DEFAULT_CHUNK;
         }
 
-        public static void updateBullet()
+        public static void updateBullet(GameTime gameTime)
         {
             if (BOSS_EXISTS)
             {
                 if (bulletIndex == ACTIVE)
                 {
-                    if (Vector3.Distance(bullet.Position, target.Position) < 0.5f)
+                    if (Vector3.Distance(bullet.Position, target.Position) < 3f)
                     {
                         GameScreen.getGV().AdjustHealth(-DAMAGE);
-                        Drawing.addWave(bullet.Position);
                         bulletIndex = INACTIVE;
                     }
                     else
                     {
-                        timeNow = DateTime.Now;
-                        long ticks = timeNow.Ticks - beatTimeBefore.Ticks;
+                        timeAlive += gameTime.ElapsedGameTime;
                         Vector3 dir = target.Position - bullet.Position;
-                        if (ticks >= TIMESPAN)
-                        {
-                            beatTimeBefore = DateTime.Now;
-                            bullet.Position += dir;
-                        }
-                        else
-                        {
-                            bullet.Position += dir / CHUNK;
-                        }
+                        float dist = Vector3.Distance(bullet.Position, target.Position);
+                        dir.Normalize();
+
+                        long ticks = gameTime.ElapsedGameTime.Ticks;
+
+                        bullet.Position += dir * (float)(dist * CHUNK * ticks);
+
+                        if (timeAlive.TotalSeconds > 1.6) CHUNK *= 1.05;
                     }
 
                 }
@@ -85,6 +86,10 @@ namespace Resonance
                 {
                     bulletIndex = INACTIVE;
                     ScreenManager.game.World.removeObject(bullet);
+                }
+                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour != colour)
+                {
+                    GameScreen.getGV().AdjustHealth(-WRONG_DAMAGE);
                 }
             }
         }

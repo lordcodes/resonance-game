@@ -12,8 +12,8 @@ namespace Resonance
 {
     class AIManager
     {
-        public static float MAX_MOVE_SPEED = 6f;
-        public static float MOVE_ACCEL = 0.8f;
+        public static float MAX_MOVE_SPEED = 12f;
+        public static float MOVE_ACCEL = 1.6f;
         public static float ROT_SPEED = 0.1f;
 
         private static float TARGET_RANGE = 25f;

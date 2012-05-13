@@ -61,7 +61,7 @@ namespace Resonance {
 
             gv.Body.Material.KineticFriction *= 2f;
             gv.Body.Material.StaticFriction  *= 2f;
-            gv.Body.Mass *= 2f;
+            //gv.Body.Mass *= 2f;
 
             // ADD SERVO TO GV
             servo = new SingleEntityAngularMotor(gv.Body);

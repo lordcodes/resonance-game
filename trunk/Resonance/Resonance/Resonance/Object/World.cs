@@ -253,6 +253,8 @@ namespace Resonance
             StoredObjects objs = Content.Load<StoredObjects>(levelName);
             clear();
 
+            Random random = new Random((int)DateTime.Now.Ticks);
+
             for (int i = 0; i < objs.list.Count; i++)
             {
                 StoredObject obj = objs.list[i];
@@ -326,11 +328,17 @@ namespace Resonance
                 }
                 if (obj.type.Equals("Neuron"))
                 {
-                    addObject(new StaticObject(GameModels.NEURON, obj.identifier, pos));
+                    int r = random.Next(0, 360);
+                    float angle = MathHelper.ToRadians(r);
+                    Quaternion q = Quaternion.CreateFromAxisAngle(Vector3.Up, r);
+                    addObject(new StaticObject(GameModels.NEURON, obj.identifier, pos, q));
                 }
                 if (obj.type.Equals("Bacteria"))
                 {
-                    addObject(new StaticObject(GameModels.BACTERIA, obj.identifier, pos));
+                    int r = random.Next(0, 360);
+                    float angle = MathHelper.ToRadians(r);
+                    Quaternion q = Quaternion.CreateFromAxisAngle(Vector3.Up, r);
+                    addObject(new StaticObject(GameModels.BACTERIA, obj.identifier, pos, q));
                 }
                 if (obj.type.Equals("BVSpawner"))
                 {

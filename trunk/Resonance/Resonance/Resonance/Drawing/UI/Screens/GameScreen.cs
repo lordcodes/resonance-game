@@ -233,7 +233,7 @@ namespace Resonance
                     // Update shockwaves
                     getGV().updateWaves();
                     if (BulletManager.BOSS_EXISTS) getBoss().faceGV();
-                    BulletManager.updateBullet();
+                    BulletManager.updateBullet(gameTime);
 
                     //Update pickups
                     if (USE_PICKUP_SPAWNER)

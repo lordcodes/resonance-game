@@ -95,7 +95,7 @@ namespace Resonance
             physicsScale = physicsModelScale;
             this.modelAnimation = modelAnimation;
             this.textureAnimation = textureAnimation;
-            mass = 25f;
+            mass = 1f;
         }
 
     }

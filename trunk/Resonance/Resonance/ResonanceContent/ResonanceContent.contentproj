@@ -1886,6 +1886,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\UI\Credits\good_vibe_render.png">
+      <Name>good_vibe_render</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\Textures\ramp1.jpg">
       <Name>ramp1</Name>
       <Importer>TextureImporter</Importer>

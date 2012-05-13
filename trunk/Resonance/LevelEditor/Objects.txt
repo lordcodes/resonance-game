@@ -7,3 +7,4 @@ Pickup           8                Yellow            No
 BVSpawner       10                Silver            No
 Boss			16                Blue              NO
 CheckPoint		20				  Black				NO
+Ramp			27				  Pink				NO
