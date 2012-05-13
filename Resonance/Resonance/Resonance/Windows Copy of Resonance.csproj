@@ -145,6 +145,7 @@
     <Compile Include="Object\Boss.cs" />
     <Compile Include="Object\Bullet.cs" />
     <Compile Include="Object\Checkpoint.cs" />
+    <Compile Include="Object\ObjectDictionary.cs" />
     <Compile Include="Object\ObjectivePickup.cs" />
     <Compile Include="Utilities\GameMode.cs" />
     <Compile Include="Utilities\GameStats.cs" />

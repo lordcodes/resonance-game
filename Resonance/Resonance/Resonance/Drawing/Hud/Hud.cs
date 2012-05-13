@@ -168,6 +168,7 @@ namespace Resonance
         public void Draw(GameTime gameTime)
         {
             updateGoodVibe();
+            updateBadVibes();
             
             if (spriteBatch == null) spriteBatch = ScreenManager.game.ScreenManager.SpriteBatch;
             spriteBatch.Begin();
@@ -794,6 +795,16 @@ namespace Resonance
             nitro = n;
             shield = sh;
             freeze = f;
+        }
+
+        private void updateBadVibes()
+        {
+            List<Object> bvs = ScreenManager.game.World.returnObjectSubset<BadVibe>();
+            for (int i = 0; i < bvs.Count; i++)
+            {
+                List<int> seq = ((BadVibe)bvs[i]).getLayers();
+                updateEnemy(bvs[i].returnIdentifier(), ((DynamicObject)bvs[i]).Body.Position, seq);
+            }
         }
 
         private void updateGoodVibe()

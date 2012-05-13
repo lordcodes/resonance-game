@@ -203,9 +203,6 @@ namespace Resonance
             {
                 shadowedComponents.Remove(component);
             }
-
-
-
         }
 
         /// <summary>

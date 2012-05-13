@@ -22,7 +22,7 @@ namespace Resonance
         public static float MAP_MIN_Z;
         private const float ACCURACY = 0.1f;
 
-        private Dictionary<string, Object> objects;
+        private ObjectDictionary objects = new ObjectDictionary();
         Space space;
 
         //Allocated variables
@@ -54,12 +54,13 @@ namespace Resonance
             space.ThreadManager.AddThread(o => System.Threading.Thread.CurrentThread.SetProcessorAffinity(5), null);
 #endif
 
-            objects = new Dictionary<string, Object>(5000);
+            
             randomGen = new Random((int)DateTime.Now.Ticks);
         }
 
         public void allocate()
         {
+            objects.allocate();
             queryList = new List<BroadPhaseEntry>(objects.Count);
             bSphere = new BoundingSphere(Vector3.Zero, ACCURACY);
             rayCastObs = new List<Object>(objects.Count);
@@ -73,7 +74,7 @@ namespace Resonance
         {
             try {
                 objects.Add(obj.returnIdentifier(), obj); 
-            } catch (Exception e) {}
+            } catch (Exception){}
             
             if (obj is DynamicObject)
             {
@@ -126,13 +127,7 @@ namespace Resonance
 
         public void reset()
         {
-            foreach (KeyValuePair<string,Object> pair in objects)
-            {
-                if (pair.Value is DynamicObject)
-                {
-                    ((DynamicObject)pair.Value).reset();
-                }
-            }
+            objects.reset();
         }
 
         public bool querySpace(Vector3 point)
@@ -243,30 +238,13 @@ namespace Resonance
             space.Update();
         }
 
-        public Dictionary<string, Object> returnObjects()
-        {
-            return objects;
-        }
-
         public List<Object> returnObjectSubset<T>() {
-            returnObjs.Clear();
-            foreach(KeyValuePair<string, Object> kVP in objects) {
-                Object o = kVP.Value;
-                if (o is T) returnObjs.Add(o);
-            }
-
-            return returnObjs;
+            if (typeof(BadVibe) is T) objects.getBadVibes();
+            return objects.returnObjectSubset<T>();
         }
 
         public List<Object> returnObjectSubset(List<Type> types) {
-            returnObjs.Clear();
-            foreach(KeyValuePair<string, Object> kVP in objects) {
-                Object o = kVP.Value;
-                for (int i = 0; i < types.Count; i++) {
-                    if (types[i].Equals(o.GetType())) returnObjs.Add(o);
-                }
-            }
-            return returnObjs;
+            return objects.returnObjectSubset(types);
         }
 
         public void readXmlFile(string levelName, ContentManager Content)
