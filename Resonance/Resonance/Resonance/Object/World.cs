@@ -239,7 +239,6 @@ namespace Resonance
         }
 
         public List<Object> returnObjectSubset<T>() {
-            if (typeof(BadVibe) is T) objects.getBadVibes();
             return objects.returnObjectSubset<T>();
         }
 
