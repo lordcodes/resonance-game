@@ -137,6 +137,7 @@ namespace Resonance
                             {
                                 HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
                                 ii = 3;
+                                //Console.WriteLine(HighScoreManager.data.PlayerName[HighScoreManager.position]);
                                 HighScoreManager.saveFile();
                             }
                             break;

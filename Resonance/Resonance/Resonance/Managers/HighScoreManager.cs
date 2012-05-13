@@ -94,8 +94,7 @@ namespace Resonance
        
         public static void saveFile()
         {
-            if (!Guide.IsVisible)
-            {
+            
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
                 if (result.IsCompleted)
                 {
@@ -105,12 +104,11 @@ namespace Resonance
                         createFile(device);
                     }
                 }
-            }
+            
         }
         public static void loadFile()
         {
-            if (!Guide.IsVisible)
-            {
+            
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
                 while (!result.IsCompleted) { };
                 if (result.IsCompleted)
@@ -121,8 +119,7 @@ namespace Resonance
                         readFile(device);
                     }
                 }
-            }
-            
+                       
         }
         private static void readFile(StorageDevice device)
         {

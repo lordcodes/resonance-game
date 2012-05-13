@@ -16,8 +16,8 @@ namespace Resonance
         public ResonanceGame()
         {
             Content.RootDirectory = "Content";
-
-         
+            
+                    
             graphics = new GraphicsDeviceManager(this);
             
             IsMouseVisible = false;
@@ -39,11 +39,13 @@ namespace Resonance
         protected override void Initialize()
         {
             Components.Add(new GamerServicesComponent(this));
+
+            HighScoreManager.initializeData();
+            HighScoreManager.loadFile();
             base.Initialize();
 
             //Must come after base.initialise()
-            HighScoreManager.initializeData();
-            HighScoreManager.loadFile();
+            
         }
         
         /// <summary>

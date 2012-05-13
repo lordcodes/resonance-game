@@ -116,7 +116,6 @@ namespace Resonance
             ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
             ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White);
 
-            //ScreenManager.SpriteBatch.Draw(textBG, Vector2.Zero, Color.White);
             if (!Guide.IsVisible && ii < 3)
             {
                 if (ii == 0) ii = 1;
@@ -134,19 +133,19 @@ namespace Resonance
                         }
                     case 2:
                         {
+
                             if (result.IsCompleted)
                             {
                                 HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
                                 ii = 3;
+                                //Console.WriteLine(HighScoreManager.data.PlayerName[HighScoreManager.position]);
                                 HighScoreManager.saveFile();
                             }
                             break;
                         }
                 }
                 GamerServicesDispatcher.Update();
-            }
-            if (HighScoreManager.data.PlayerName[HighScoreManager.position].Equals("") == false)
-                HighScoreManager.saveFile();
+            } 
 
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
