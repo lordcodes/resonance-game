@@ -11,7 +11,7 @@ namespace Resonance
         public  const int  INACTIVE = 0;
         public  const int  ACTIVE   = 1;
         private const int  DAMAGE   = 4;
-        private const int WRONG_DAMAGE = 2;
+        private const int WRONG_DAMAGE = 1;
         //private const long TIMESPAN = 15000000;
         private const long TIMESPAN = 72500000;
         private const double DEFAULT_CHUNK = 0.0000002;
@@ -24,6 +24,7 @@ namespace Resonance
         private static Entity target;
         private static Entity start;
         private static TimeSpan timeAlive;
+        private static bool deflected;
 
         public static void init()
         {
@@ -31,7 +32,8 @@ namespace Resonance
             rand = new Random();
             target = GameScreen.getGV().Body;
             start = GameScreen.getBoss().Body;
-            bullet = new Bullet(17, "activeBullet", start.Position);
+            bullet = new Bullet(GameModels.BULLET, "activeBullet", start.Position);
+            deflected = false;
         }
 
         public static void shoot()
@@ -53,7 +55,13 @@ namespace Resonance
                 {
                     if (Vector3.Distance(bullet.Position, target.Position) < 3f)
                     {
-                        GameScreen.getGV().AdjustHealth(-DAMAGE);
+                        if (deflected)
+                        {
+                            GameScreen.getBoss().damage(true);
+                            target = GameScreen.getGV().Body;
+                            deflected = false;
+                        }
+                        else GameScreen.getGV().AdjustHealth(-DAMAGE);
                         bulletIndex = INACTIVE;
                     }
                     else
@@ -86,6 +94,22 @@ namespace Resonance
                 {
                     bulletIndex = INACTIVE;
                     ScreenManager.game.World.removeObject(bullet);
+                }
+                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour != colour)
+                {
+                    //GameScreen.getGV().AdjustHealth(-WRONG_DAMAGE);
+                }
+            }
+        }
+
+        public static void deflectBullet(int colour)
+        {
+            if (BOSS_EXISTS)
+            {
+                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour == colour)
+                {
+                    target = GameScreen.getBoss().Body;
+                    deflected = true;
                 }
                 if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour != colour)
                 {

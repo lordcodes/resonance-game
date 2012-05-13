@@ -6,8 +6,6 @@ namespace Resonance
 {
     class MainMenu : MenuScreen
     {
-        private static int level = 0;
-
         Texture2D textBG;
         Song music;
 
@@ -94,7 +92,7 @@ namespace Resonance
                 ObjectiveManager.setObjective(ObjectiveManager.DEFAULT_OBJECTIVE);
                 ObjectiveManager.loadObjectivesGame(ScreenManager);
             } else {
-                ScreenManager.game = new GameScreen(ScreenManager,level);
+                ScreenManager.game = new GameScreen(ScreenManager, 5);
                 LoadingScreen.LoadAScreen(ScreenManager, 1, ScreenManager.game);
             }
         }
