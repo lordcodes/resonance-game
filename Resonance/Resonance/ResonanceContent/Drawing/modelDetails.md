@@ -1,7 +1,7 @@
 ﻿MODELS
 -Model Ref-|--File name
 Neuron, Models\Neuron.fbx
-Neuron-physics, Models\Neuron-physics.fbx
+Neuron-physics, Models\neuron-physics.fbx
 Bacteria, Models\Bacteria.fbx
 Bacteria-physics, Models\Bacteria-physics.fbx
 GoodVibe, Models\GoodVibe.fbx

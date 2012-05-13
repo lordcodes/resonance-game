@@ -215,11 +215,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\Neuron-Physics.fbx">
-      <Name>Neuron-Physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\GoodVibe-physics.fbx">
       <Name>GoodVibe-physics</Name>
       <Importer>FbxImporter</Importer>
@@ -232,6 +227,11 @@
     </Compile>
     <Compile Include="Drawing\Models\Ramp_physics.fbx">
       <Name>Ramp_physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\neuron-physics.fbx">
+      <Name>neuron-physics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
