@@ -52,9 +52,12 @@ namespace Resonance
             }
         }
 
-
         public List<Object> returnObjectSubset<T>()
         {
+            if (typeof(BadVibe) is T)
+            {
+                return badVibeObjects.Select(fruit => fruit.Value).ToList();
+            }
             returnObjs.Clear();
             foreach (KeyValuePair<string, Object> kVP in objects)
             {
@@ -73,11 +76,6 @@ namespace Resonance
                 }
             }
             return returnObjs;
-        }
-
-        public List<Object> getBadVibes()
-        {
-            return badVibeObjects.Select(fruit => fruit.Value).ToList();
         }
 
         public void allocate()

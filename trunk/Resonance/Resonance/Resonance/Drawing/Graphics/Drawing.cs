@@ -9,9 +9,6 @@ namespace Resonance
 {
     class Drawing
     {
-        private static bool FLOOR_REFLECTIONS = true;
-        public static bool SHADOWS = true;
-
         private static GraphicsDeviceManager graphics;
         private static ContentManager content;
         private static Hud hud;
@@ -27,6 +24,7 @@ namespace Resonance
         private static Texture2D shadowsTexture;
         private static int drawCount = 0;
         static Texture2D sampleTexture;
+        private static bool blend = false;
         //static TextureEffect te;
 
         /// <summary>
@@ -50,11 +48,6 @@ namespace Resonance
         public static ContentManager Content
         {
             get { return content; }
-        }
-
-        public static bool DoDisp
-        {
-            get;set;
         }
 
         public static bool DrawingReflection
@@ -102,39 +95,33 @@ namespace Resonance
         public static void renderReflections(GameTime gameTime)
         {
             Drawing.setReflectionsRenderTarget();
-            DrawableManager.DrawObjects(gameTime);
+            DrawableManager.DrawReflectedObjects(gameTime);
             Drawing.saveReflectionTexture();
         }
 
         public static void saveReflectionTexture()
         {
-            if (FLOOR_REFLECTIONS)
+            graphics.GraphicsDevice.SetRenderTarget(null);
+            shinyFloorTexture = (Texture2D)mirrorRenderTarget;
+            try
             {
-                graphics.GraphicsDevice.SetRenderTarget(null);
-                shinyFloorTexture = (Texture2D)mirrorRenderTarget;
-                try
-                {
-                    ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
-                }
-                catch (Exception)
-                {}
-                drawingReflection = false;
+                ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
             }
+            catch (Exception)
+            {}
+            drawingReflection = false;
         }
 
         public static void saveShadowsTexture()
         {
-            if (SHADOWS)
+            graphics.GraphicsDevice.SetRenderTarget(null);
+            shadowsTexture = (Texture2D)shadowsRenderTarget;
+            try
             {
-                graphics.GraphicsDevice.SetRenderTarget(null);
-                shadowsTexture = (Texture2D)shadowsRenderTarget;
-                try
-                {
-                    ((GroundShader)gameGraphics.CustomShaders.Ground).setShadowTexture(shadowsTexture);
-                }
-                catch (Exception){}
-                drawingShadows = false;
+                ((GroundShader)gameGraphics.CustomShaders.Ground).setShadowTexture(shadowsTexture);
             }
+            catch (Exception){}
+            drawingShadows = false;
         }
 
         public static Texture2D flipTexture(Texture2D source, bool vertical, bool horizontal)
@@ -248,7 +235,6 @@ namespace Resonance
             GameModels.Init(content);
             gameGraphics = new Graphics(content, graphics);
             hud = new Hud(content,graphics, gameGraphics);
-            DoDisp = true;
 
             TextureAnimation ta = new TextureAnimation(shinyFloorTexture);
             TextureEffect te = new TextureEffect(200,200, new Vector3(10,10,10), true, ta);
@@ -348,7 +334,7 @@ namespace Resonance
             Vector3 pos;
             float size;
             Matrix texturePos, rX, rY, rZ, rR;
-            Vector3 gVFwd, gVRdp, angV, camToGV, camPos;
+            Vector3 gVFwd, gVRdp, angV;
             Quaternion ang;
 
             List<Emitter> emitters = ParticleEmitterManager.getEmitters();
@@ -421,6 +407,26 @@ namespace Resonance
             checkFrameRate(gameTime);
         }
 
+        public static void blendOn()
+        {
+            blend = true;
+        }
+
+        public static void blendOff()
+        {
+            blend = false;
+        }
+
+        public static void setShadows()
+        {
+            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+        }
+
+        public static void unsetShadows()
+        {
+            graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
+        }
+
         /// <summary>
         /// This is called when you would like to draw an object on screen.
         /// </summary>
@@ -430,24 +436,7 @@ namespace Resonance
         {
             if (worldObject.ModelInstance.Transparency > 0)
             {
-                if ((!worldObject.returnIdentifier().Equals("Ground") || (worldObject.returnIdentifier().Equals("Ground") && !DrawingReflection)))
-                {
-                    bool blend = false;
-                    Vector2 playerGroundPos = new Vector2(0f, 0f);
-                    if (drawingShadows) graphics.GraphicsDevice.BlendState = BlendState.Opaque;
-                    else graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
-
-                    graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
-                    if (DoDisp && worldObject.returnIdentifier().Equals("Ground"))
-                    {
-                        blend = true;
-                        graphics.GraphicsDevice.BlendState = BlendState.Opaque;
-                        graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-                    }
-
-                    gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
-                    graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-                }
+                gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
             }
         }
 

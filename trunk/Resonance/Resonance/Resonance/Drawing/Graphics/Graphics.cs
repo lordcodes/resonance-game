@@ -115,6 +115,7 @@ namespace Resonance
             dispMap = LoadedContent.getDisp(importedModels, graphics.GraphicsDevice);
             init2dTextures();
 
+            graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
         }
 

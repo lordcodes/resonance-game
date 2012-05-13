@@ -23,7 +23,6 @@ namespace Resonance
 
             if ((kbd.IsKeyDown(Keys.Q) && !lastKbd.IsKeyDown(Keys.Q)) || (pad.Buttons.LeftStick == ButtonState.Pressed && lastPad.Buttons.LeftStick != ButtonState.Pressed))
             {
-                Drawing.DoDisp = true;
                 Drawing.addWave(GameScreen.getGV().Body.Position);
             }
             if ((kbd.IsKeyDown(Keys.L) && !lastKbd.IsKeyDown(Keys.L)))
