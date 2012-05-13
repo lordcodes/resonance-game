@@ -390,6 +390,7 @@ namespace Resonance
 
         public static void DrawTexture(Texture2D texture, Matrix position, float width, float height)
         {
+            graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
             gameGraphics.drawTexture(texture, position, width, height, drawingReflection);
         }
 
