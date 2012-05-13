@@ -87,6 +87,7 @@ namespace Resonance
 
         public static void setScoreBonus(int i, int value)
         {
+            score += value;
             scoreBonus[i] = value;
         }
     }

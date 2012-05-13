@@ -201,6 +201,23 @@ namespace Resonance
             coords.X--;
             coords.Y--;
             spriteBatch.DrawString(scoreFont, score.ToString(), coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES) {
+                string bonusString = "+" + ObjectiveManager.calcuateScoreBonus(false).ToString();
+                int yOff = (int) scoreFont.MeasureString("").Y + 60;
+                int xOff = (int) (Math.Round(scoreFont.MeasureString(bonusString.ToString()).X) * 0.3);
+                coords = new Vector2(ScreenManager.pixelsX(1895) - xOff, ScreenManager.pixelsY(20) + yOff);
+                spriteBatch.DrawString(scoreFont, bonusString, coords, Color.Black, 0f, Vector2.Zero, 0.3f, SpriteEffects.None, 0f);
+                coords.X--;
+                coords.Y--;
+                spriteBatch.DrawString(scoreFont, bonusString, coords, Color.White, 0f, Vector2.Zero, 0.3f, SpriteEffects.None, 0f);
+                /*string time =  "+" + ObjectiveManager.calcuateScoreBonus().ToString();
+                coords = new Vector2(ScreenManager.pixelsX(1895 - plusFour.Width / 2), ScreenManager.pixelsY(110));
+                spriteBatch.DrawString(font, time, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                coords.X--;
+                coords.Y--;
+                spriteBatch.DrawString(font, time, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);*/
+            }
         }
 
         /// <summary>
@@ -210,7 +227,7 @@ namespace Resonance
         /// </summary>
         private static void drawMultiplier()
         {
-            Rectangle destination = new Rectangle(ScreenManager.pixelsX(1895 - plusFour.Width), ScreenManager.pixelsY(110), ScreenManager.pixelsX(plusFour.Width), ScreenManager.pixelsY(plusFour.Height));
+            Rectangle destination = new Rectangle(ScreenManager.pixelsX(1895 - plusFour.Width), ScreenManager.pixelsY(170), ScreenManager.pixelsX(plusFour.Width), ScreenManager.pixelsY(plusFour.Height));
             Rectangle source = new Rectangle(0, 0, plusFour.Width, plusFour.Height);
             bool showTime = false;
 
@@ -232,6 +249,7 @@ namespace Resonance
             }
             else
             {
+                spriteBatch.Draw(x2, destination, source, Color.White);
                 showTime = false;
             }
 
