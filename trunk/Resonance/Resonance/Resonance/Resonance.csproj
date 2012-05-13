@@ -160,6 +160,7 @@
     <Compile Include="Managers\ScreenManager\InputDevices.cs" />
     <Compile Include="Managers\ScreenManager\Screen.cs" />
     <Compile Include="Managers\ScreenManager\ScreenManager.cs" />
+    <Compile Include="Object\ObjectDictionary.cs" />
     <Compile Include="Object\Boss.cs" />
     <Compile Include="Object\Bullet.cs" />
     <Compile Include="Object\Checkpoint.cs" />

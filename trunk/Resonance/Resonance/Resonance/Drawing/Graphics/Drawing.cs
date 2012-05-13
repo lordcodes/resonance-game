@@ -447,13 +447,6 @@ namespace Resonance
 
                     gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
                     graphics.GraphicsDevice.RasterizerState = RasterizerState.CullNone;
-
-                    if (worldObject is BadVibe)
-                    {
-                        //Gets list of remaining armour layers
-                        List<int> seq = ((BadVibe)worldObject).getLayers();
-                        hud.updateEnemy(worldObject.returnIdentifier(), pos, seq);
-                    }
                 }
             }
         }
