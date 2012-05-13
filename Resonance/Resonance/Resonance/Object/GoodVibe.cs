@@ -39,6 +39,7 @@ namespace Resonance
         public GoodVibe(int modelNum, String name, Vector3 pos)
             : base(modelNum, name, pos)
         {
+            Body.Mass = 2f;
             waves = new List<Shockwave>();
             //currentScore = 0;
             health = MAX_HEALTH;

@@ -30,6 +30,7 @@ namespace Resonance
         public BadVibe(int modelNum, String name, Vector3 pos, int spawner)
             : base(modelNum, name, pos)
         {
+            Body.Mass = 100f;
             armour = ArmourSequence.random();
             setColour();
             spawnerNumber = spawner;
