@@ -343,6 +343,10 @@ namespace Resonance
                     addObject(player);
                     player.calculateSize();
                 }
+                if (obj.type.Equals("Ramp"))
+                {
+                    addObject(new StaticObject(GameModels.RAMP,obj.identifier,pos));
+                }
                 if (obj.type.Equals("Neuron"))
                 {
                     addObject(new StaticObject(GameModels.NEURON, obj.identifier, pos));

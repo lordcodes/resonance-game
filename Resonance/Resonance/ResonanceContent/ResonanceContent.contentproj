@@ -225,6 +225,16 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\Ramp.fbx">
+      <Name>Ramp</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Ramp_physics.fbx">
+      <Name>Ramp_physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\terrain128.fbx">
       <Name>terrain128</Name>
       <Importer>FbxImporter</Importer>
