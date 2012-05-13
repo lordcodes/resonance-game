@@ -25,6 +25,17 @@ namespace Resonance
         private static float particleHalfWidth = 0;
         public static int DISP_WIDTH = 128;
 
+
+        float reflectionHeight = 11.5f;
+        float reflectionDimension = 16.5f * 11.5f;
+        float heightDisp = 11.5f;
+        float dimension = 16.5f;
+        float reflectionScale;
+        Vector3 reflecCameraCoords;
+        Matrix reflectionView;
+        Matrix reflectionProjection;
+        Matrix reflectionWorldScale;
+
         public DisplacementMap DispMap
         {
             get
@@ -156,8 +167,6 @@ namespace Resonance
             Matrix projection2 = projection;
             if (drawingReflection)
             {
-                float heightDisp = 11.5f;
-                float dimension = 16.5f;
                 float scale = (float)(10.4 * Math.Pow((cameraPosition.Y), -0.9));
                 Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -heightDisp, cameraPosition.Z + 0.1f);
                 theView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
@@ -209,6 +218,15 @@ namespace Resonance
             graphics.GraphicsDevice.RasterizerState = RasterizerState.CullCounterClockwise;
         }
 
+        public void setUpReflectionCamera()
+        {
+            Vector3 cameraPosition = CameraMotionManager.Camera.Position;
+            reflectionScale = (float)(10.463 * Math.Pow((cameraPosition.Y), -0.9));
+            reflecCameraCoords = new Vector3(cameraPosition.X, -reflectionHeight, cameraPosition.Z + 0.1f);
+            reflectionView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
+            reflectionProjection = Matrix.CreatePerspective(reflectionDimension, reflectionDimension, reflectionHeight, 100.0f);
+            reflectionWorldScale = Matrix.CreateScale(1f, reflectionScale, 1f);
+        }
 
         public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
@@ -231,7 +249,6 @@ namespace Resonance
 
             lightsViewProjectionMatrix = lightsView * lightsProjection;
 
-
             currentShader = shaders.Default;
             currentShader.Transparency = modelVariables.Transparency;
             if (drawingShadows)
@@ -242,15 +259,10 @@ namespace Resonance
             }
             else if (drawingReflection)
             {
-                float height = 11.5f;
-                float dimension = 16.5f * height;
-                float scale = (float)(10.463 * Math.Pow((cameraPosition.Y), -0.9));
-                Vector3 reflecCameraCoords = new Vector3(cameraPosition.X, -height, cameraPosition.Z + 0.1f);
                 cameraPosition2 = reflecCameraCoords;
-                theView = Matrix.CreateLookAt(reflecCameraCoords, cameraPosition, Vector3.Up);
-                projection2 = Matrix.CreatePerspective(dimension, dimension, height, 100.0f);
-                Matrix heightScale = Matrix.CreateScale(1f, scale, 1f);
-                world = Matrix.Multiply(heightScale, world);
+                theView = reflectionView;
+                projection2 = reflectionProjection;
+                world = Matrix.Multiply(reflectionWorldScale, world);
             }
             else if (disp)
             {
@@ -280,8 +292,8 @@ namespace Resonance
 
             Texture2D colorTexture = null;
             currentShader.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
-
             ModelMeshCollection meshes = m.Meshes;
+
             for(int i = 0; i < meshes.Count; i++)
             {
                 ModelMesh mesh = meshes[i];
