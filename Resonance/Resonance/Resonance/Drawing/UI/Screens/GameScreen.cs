@@ -313,7 +313,8 @@ namespace Resonance
                     WeatherManager.playLightning();
                     ScreenManager.addScreen(new GameOverScreen());
                 }
-                ScreenManager.addScreen(new SuccessScreen());
+                else
+                    ScreenManager.addScreen(new SuccessScreen());
             } else if (mode.MODE == GameMode.OBJECTIVES) {
                 if (!GV_KILLED) {
                     if (ObjectiveManager.currentObjective() != ObjectiveManager.FINAL_OBJECTIVE) {
