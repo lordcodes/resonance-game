@@ -23,7 +23,6 @@ namespace Resonance
 
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode = new GameMode(GameMode.OBJECTIVES);
-        public static GameStats stats = new GameStats();
         public static float VIBRATION = 0.4f;
 
         public static bool GV_KILLED = false;
@@ -78,6 +77,12 @@ namespace Resonance
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
             preEndGameTimer = new Stopwatch();
+            
+            if(mode.MODE == GameMode.ARCADE || 
+                (mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.DEFAULT_OBJECTIVE)) 
+            {
+                GameStats.init();
+            }
 
             deadVibes = new string[50];
         }
@@ -304,24 +309,24 @@ namespace Resonance
             if (mode.MODE == GameMode.ARCADE) {
                 if (GV_KILLED)
                 {
-                    HighScoreManager.updateTable(stats.Score);
+                    HighScoreManager.updateTable(GameStats.Score);
                     WeatherManager.playLightning();
-                    ScreenManager.addScreen(new GameOverScreen(stats));
+                    ScreenManager.addScreen(new GameOverScreen());
                 }
-                ScreenManager.addScreen(new SuccessScreen(stats));
+                ScreenManager.addScreen(new SuccessScreen());
             } else if (mode.MODE == GameMode.OBJECTIVES) {
                 if (!GV_KILLED) {
                     if (ObjectiveManager.currentObjective() != ObjectiveManager.FINAL_OBJECTIVE) {
                         ObjectiveManager.nextObjective();
                         ObjectiveManager.loadObjectivesGame(ScreenManager);
                     } else {
-                        HighScoreManager.updateTable(stats.Score);
-                        ScreenManager.addScreen(new SuccessScreen(stats));
+                        HighScoreManager.updateTable(GameStats.Score);
+                        ScreenManager.addScreen(new SuccessScreen());
                     }
                 } else {
                     WeatherManager.playLightning();
-                    HighScoreManager.updateTable(stats.Score);
-                    ScreenManager.addScreen(new GameOverScreen(stats));
+                    HighScoreManager.updateTable(GameStats.Score);
+                    ScreenManager.addScreen(new GameOverScreen());
                 }
             }
 
@@ -455,7 +460,7 @@ namespace Resonance
             for (int i = 0; i < numberKilled; i++)
             {
                 if (USE_BV_SPAWNER) BVSpawnManager.vibeDied((BadVibe)World.getObject(deadVibes[i]));
-                stats.addBV();
+                GameStats.addBV();
             }
         }
 

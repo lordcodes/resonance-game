@@ -59,25 +59,24 @@ namespace Resonance
         {
             if (PickupManager.PickupType == -1)
             {
-                GameScreen.stats.addScore(change);
+                GameStats.Score = change;
             }
             else if (PickupManager.PickupType == Pickup.X2)
             {
-                GameScreen.stats.addScore(change * 2);
+                GameStats.Score = change * 2;
             }
             else if (PickupManager.PickupType == Pickup.X3)
             {
-                GameScreen.stats.addScore(change * 3);
+                GameStats.Score = change * 3;
             }
             else if (PickupManager.PickupType == Pickup.PLUS4)
             {
-                GameScreen.stats.addScore(change + 4);
+                GameStats.Score = change + 4;
             }
             else if (PickupManager.PickupType == Pickup.PLUS5)
             {
-                GameScreen.stats.addScore(change + 5);
+                GameStats.Score = change + 5;
             }
-            //GameScreen.stats.addScore(change * PickupManager.currentMultipler);
         }
 
         /// <summary>
@@ -196,7 +195,7 @@ namespace Resonance
                 {
                     if (waves[i].Colour == Shockwave.CYMBAL && waves[i].NumberHit > 1)
                     {
-                        GameScreen.stats.multiKill(waves[i].NumberHit);
+                        GameStats.multiKill(waves[i].NumberHit);
                     }
                     else if (waves[i].NumberHit == 0 && isInCombat)
                     {

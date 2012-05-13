@@ -802,7 +802,7 @@ namespace Resonance
         private void updateGoodVibe()
         {
             health = GameScreen.getGV().Health;
-            score = GameScreen.stats.Score;
+            score = GameStats.Score;
             nitro = GameScreen.getGV().Nitro;
             shield = GameScreen.getGV().Shield;
             freeze = GameScreen.getGV().Freeze;

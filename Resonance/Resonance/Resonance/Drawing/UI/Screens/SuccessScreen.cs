@@ -8,8 +8,6 @@ namespace Resonance
 {
     class SuccessScreen : MenuScreen
     {
-        GameStats stats;
-
         Vector2 lPos;
         Vector2 lPosText;
         Vector2 rPos;
@@ -22,11 +20,9 @@ namespace Resonance
         private static int ii = 0;
 
 
-        public SuccessScreen(GameStats stats)
+        public SuccessScreen()
             : base("Success")
         {
-            this.stats = stats;
-
             MenuElement playAgain = new MenuElement("Play Again", playGameAgain);
             MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
             MenuElement quitCompletely = new MenuElement("Quit Game", quitGameCompletely);
@@ -156,7 +152,7 @@ namespace Resonance
             headings += "Round 4 Time: \n\n";
             headings += "Round 5 Time: \n\n";
 
-            string scores = stats.Score + "\n\n" + stats.BVsKilled + "\n\n" + stats.Multikill + "\n\n";
+            string scores = GameStats.Score + "\n\n" + GameStats.BVsKilled + "\n\n" + GameStats.Multikill + "\n\n";
 
             ScreenManager.SpriteBatch.DrawString(Font, headings, lPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(lPosText.X + 410, lPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);

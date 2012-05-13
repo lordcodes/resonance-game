@@ -8,8 +8,6 @@ namespace Resonance
 {
     class GameOverScreen : MenuScreen
     {
-        GameStats stats;
-
         Vector2 lPos;
         Vector2 lPosText;
         Vector2 rPos;
@@ -21,10 +19,9 @@ namespace Resonance
         private static System.IAsyncResult result = null;
         private static int async = 0;
 
-        public GameOverScreen(GameStats stats)
+        public GameOverScreen()
             : base("Game Over")
         {
-            this.stats = stats;
             async = 0;
             MenuElement playAgain = new MenuElement("Play Again", playGameAgain);
             MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
@@ -137,13 +134,13 @@ namespace Resonance
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
             headings += "Highest Multi-Kill: \n\n";
-            headings += "Round 1 Killed: \n\n";
+            headings += "Round 1 Time: \n\n";
             headings += "Round 2 Time: \n\n";
             headings += "Round 3 Damage Taken: \n\n";
             headings += "Round 4 Time: \n\n";
             headings += "Round 5 Time: \n\n";
 
-            string scores = stats.Score + "\n\n" + stats.BVsKilled + "\n\n" + stats.Multikill + "\n\n";
+            string scores = GameStats.Score + "\n\n" + GameStats.BVsKilled + "\n\n" + GameStats.Multikill + "\n\n";
             ScreenManager.SpriteBatch.DrawString(Font, headings, lPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(lPosText.X + 410, lPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
 
