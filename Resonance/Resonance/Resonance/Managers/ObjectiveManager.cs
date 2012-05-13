@@ -35,7 +35,7 @@ namespace Resonance {
 
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
             /*if (newObj == SURVIVE)*/ initialDistThroughSong = MediaPlayer.PlayPosition;
-            initialGVHealth = GameScreen.getGV().Health;
+            initialGVHealth = GoodVibe.MAX_HEALTH;
         }
 
         public static void nextObjective() {
