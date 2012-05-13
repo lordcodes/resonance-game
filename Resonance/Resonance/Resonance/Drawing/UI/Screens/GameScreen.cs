@@ -388,7 +388,7 @@ namespace Resonance
             int numberKilled = 0;
             int i;
 
-            //bool breakRest = (MusicHandler.getTrack().nextQuarterBeat())
+            //bool breakRest = (MusicHandler.getTrack().nextQuarterBeat());
             bool breakRest = false;
             isintime = MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.QUARTER);
             if (isintime > 0.9) {
