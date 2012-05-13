@@ -40,7 +40,6 @@ namespace Resonance
         {
             Components.Add(new GamerServicesComponent(this));
 
-            HighScoreManager.initializeData();
             HighScoreManager.loadFile();
             base.Initialize();
 

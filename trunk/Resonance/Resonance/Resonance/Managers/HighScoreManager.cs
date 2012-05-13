@@ -79,12 +79,13 @@ namespace Resonance
                 for (int i = data.SIZE - 1; i > scoreIndex; i--)
                 {                
                     data.Score[i] = data.Score[i - 1];
-                    data.PlayerName[i] = data.PlayerName[i - 1]; 
+                    data.PlayerName[i] = data.PlayerName[i - 1];
                 }                
                 data.Score[scoreIndex] = score;
-                data.PlayerName[scoreIndex] = "";
+                data.PlayerName[scoreIndex] = DateTime.Now.ToString();
             }
             position = scoreIndex;
+
             Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
             for (int index = 0; index < data.SIZE; index++)
             {

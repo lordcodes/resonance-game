@@ -19,13 +19,13 @@ namespace Resonance
         int rightTimes;
 
         private static System.IAsyncResult result = null;
-        private static int ii = 0;
+        private static int async = 0;
 
         public GameOverScreen(GameStats stats)
             : base("Game Over")
         {
             this.stats = stats;
-
+            async = 0;
             MenuElement playAgain = new MenuElement("Play Again", playGameAgain);
             MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
             MenuElement quitCompletely = new MenuElement("Quit Game", quitGameCompletely);
@@ -112,39 +112,27 @@ namespace Resonance
 
         protected override void  drawMenu(int index)
         {
-            ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
-            ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White);
 
-            if (!Guide.IsVisible && ii < 3)
+            switch (async)
             {
-                if (ii == 0) ii = 1;
+                case 0:
+                    result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", 
+                        "Congratulations!!! You made it in the hall of fame!!! \n Tell us your name stranger:", "", null, null);                    
+                    async = 1;
+                    break;
+                case 1:
+                    if (result.IsCompleted)
+                    {
+                        HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                        HighScoreManager.saveFile();
+                        async = 2;
+                    }
+                    break;
+            }
+            
 
-                switch (ii)
-                {
-                    case 1:
-                        {
-                            if (HighScoreManager.position != -1)
-                            {
-                                result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", "Enter your name:", "", null, null);
-                            }
-                            ii = 2;
-                            break;
-                        }
-                    case 2:
-                        {   
-                        
-                            if (result.IsCompleted)
-                            {
-                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
-                                ii = 3;
-                                //Console.WriteLine(HighScoreManager.data.PlayerName[HighScoreManager.position]);
-                                HighScoreManager.saveFile();
-                            }
-                            break;
-                        }
-                }
-                GamerServicesDispatcher.Update();
-            }           
+            ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
+            ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White); 
             
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
@@ -156,7 +144,6 @@ namespace Resonance
             headings += "Round 5 Time: \n\n";
 
             string scores = stats.Score + "\n\n" + stats.BVsKilled + "\n\n" + stats.Multikill + "\n\n";
-
             ScreenManager.SpriteBatch.DrawString(Font, headings, lPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(lPosText.X + 410, lPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
 

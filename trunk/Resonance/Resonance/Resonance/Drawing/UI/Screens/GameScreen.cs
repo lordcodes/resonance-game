@@ -305,7 +305,6 @@ namespace Resonance
                 if (GV_KILLED)
                 {
                     HighScoreManager.updateTable(stats.Score);
-                    HighScoreManager.saveFile();
                     WeatherManager.playLightning();
                     ScreenManager.addScreen(new GameOverScreen(stats));
                 }
@@ -317,13 +316,11 @@ namespace Resonance
                         ObjectiveManager.loadObjectivesGame(ScreenManager);
                     } else {
                         HighScoreManager.updateTable(stats.Score);
-                        HighScoreManager.saveFile();
                         ScreenManager.addScreen(new SuccessScreen(stats));
                     }
                 } else {
                     WeatherManager.playLightning();
                     HighScoreManager.updateTable(stats.Score);
-                    HighScoreManager.saveFile();
                     ScreenManager.addScreen(new GameOverScreen(stats));
                 }
             }
