@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<XnaContent>
+  <Asset Type="ResonanceLibrary.StoredObjects">
+    <list>
+      <Item>
+        <identifier>Ground</identifier>
+        <type>Ground</type>
+        <xWorldCoord>0</xWorldCoord>
+        <zWorldCoord>0</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>0</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>BVSpawner0</identifier>
+        <type>BVSpawner</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>110</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>10</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Good_vibe1</identifier>
+        <type>Good_vibe</type>
+        <xWorldCoord>-10</xWorldCoord>
+        <zWorldCoord>-10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>4</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+    </list>
+  </Asset>
+</XnaContent>

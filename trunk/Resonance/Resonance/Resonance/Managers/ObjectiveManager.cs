@@ -47,30 +47,18 @@ namespace Resonance {
             return cObj;
         }
 
-        /// <summary>
-        /// Deprecated. Use getObjectiveStrings().
-        /// </summary>
-        /// <returns></returns>
-        public static String getObjectiveString() {
-            switch (cObj) {
-                case (KILL_ALL_BV) : {
-                    return "Destroy the Bad Vibes";
-                }
-                case (COLLECT_ALL_PICKUPS) : {
-                    return "Collect the Pickups";
-                }
-                case (KILL_BOSS) : {
-                    return "Destroy the Master Bad Vibe";
-                }
-                case (SURVIVE) : {
-                    return "Stay alive";
-                }
-                case (TERRITORIES) : {
-                    return "Heal each brain area by destroying the Bad Vibes therein";
-                }
-            }
+        public static void surviveSetup() {
+            AIManager.MAX_MOVE_SPEED *= 1.5f;
+            AIManager.TARGET_RANGE *= 4f;
+            AIManager.ATTACK_RATE = 8;
+            AIManager.CHANCE_MISS = 15;
+        }
 
-            return "";
+        public static void defaultSetup() {
+            AIManager.MAX_MOVE_SPEED = AIManager.DEFAULT_MOVE;
+            AIManager.TARGET_RANGE = AIManager.DEFAULT_TARGET;
+            AIManager.ATTACK_RATE = AIManager.DEFAULT_RATE;
+            AIManager.CHANCE_MISS = AIManager.DEFAULT_MISS;
         }
 
         public static void getObjectiveStrings(ref string longStr, ref string shortStr) {
@@ -179,10 +167,9 @@ namespace Resonance {
                     int pct = 100 - (int) (100d * (double) bossHealth / (double) Boss.MAX_HEALTH);
                     oStr = "Master Bad Vibe " + pct + "% destroyed";
 
-                    if (DEBUG_MODE || QUICK_GAME) return true;
-                    else {
-                        if (bossHealth == 0) return true; else return false;
-                    }
+                    if (DEBUG_MODE) return true;
+                    if (QUICK_GAME) if (pct <= 50) return true; else return false;
+                    else if(!QUICK_GAME) if (bossHealth == 0) return true; else return false;
                 }
                 case (SURVIVE) : {
                     TimeSpan ts = survivalTime - MediaPlayer.PlayPosition - initialDistThroughSong;
@@ -235,13 +222,15 @@ namespace Resonance {
             switch (cObj)
             {
             case (KILL_ALL_BV):
-                {              
+                {
+                    if (set) GameStats.Round1 = ts;
                     bonus = 800 - (int) (2 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;
                 }
             case (COLLECT_ALL_PICKUPS):
                 {
+                    if (set) GameStats.Round2 = ts;
                     bonus = 600 - (int) (2 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;
@@ -249,17 +238,20 @@ namespace Resonance {
             case (SURVIVE):
                 {
                     int healthLost = initialGVHealth - GameScreen.getGV().Health;
+                    if (set) GameStats.Round3 = healthLost;
                     bonus = 300 - (3 * healthLost);
                     break;
                 }
             case (TERRITORIES):
                 {
+                    if (set) GameStats.Round4 = ts;
                     bonus = 600 - (int) (2 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;
                 }
             case (KILL_BOSS):
                 {
+                    if (set) GameStats.Round5 = ts;
                     bonus = 800 - (int) (2 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;

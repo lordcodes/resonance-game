@@ -153,6 +153,8 @@ namespace Resonance
             CameraMotionManager.initialise();
             PickupSpawnManager.init();
             if(BulletManager.BOSS_EXISTS) BulletManager.init();
+            ObjectiveManager.defaultSetup();
+            if (mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.SURVIVE) ObjectiveManager.surviveSetup();
         }
 
         private void allocate()
@@ -218,6 +220,8 @@ namespace Resonance
 
                 if (intro)
                 {
+                    DebugDisplay.update("WORLD", World.PLAYABLE_MAP_X.ToString());
+
                     float health = getGV().healthFraction();
                     if (health < 0.1) MusicHandler.HeartBeat = true;
                     else MusicHandler.HeartBeat = false;

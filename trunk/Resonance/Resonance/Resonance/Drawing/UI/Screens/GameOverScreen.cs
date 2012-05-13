@@ -115,7 +115,7 @@ namespace Resonance
                 case 0:
                     if(HighScoreManager.position >= 0)
                         result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", 
-                            "Congratulations!!! You made it in the hall of fame!!! \n Tell us your name stranger:", "", null, null);                    
+                            "You have made it into the Resonance Chamber high scores.\nPlease enter your name:", "", null, null);                    
                     async = 1;
                     break;
                 case 1:
@@ -143,6 +143,28 @@ namespace Resonance
             headings += "Round 5 Time: \n\n";
 
             string scores = GameStats.Score + "\n\n" + GameStats.BVsKilled + "\n\n" + GameStats.Multikill + "\n\n";
+            TimeSpan round = GameStats.Round1;
+            int mins = round.Minutes;
+            int secs = Math.Max(round.Seconds, 0);
+            string ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+            scores += ts + "\n\n";
+            round = GameStats.Round2;
+            mins = round.Minutes;
+            secs = Math.Max(round.Seconds, 0);
+            ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+            scores += ts + "\n\n";
+            scores += (GameStats.Round3 + "\n\n");
+            round = GameStats.Round4;
+            mins = round.Minutes;
+            secs = Math.Max(round.Seconds, 0);
+            ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+            scores += ts + "\n\n";
+            round = GameStats.Round5;
+            mins = round.Minutes;
+            secs = Math.Max(round.Seconds, 0);
+            ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+            scores += ts + "\n\n";
+
             ScreenManager.SpriteBatch.DrawString(Font, headings, lPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(lPosText.X + 410, lPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
 

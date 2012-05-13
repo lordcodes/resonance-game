@@ -95,7 +95,14 @@ namespace Resonance
             Matrix.CreateTranslation((float)-GROWTH_RATE * position.X, 0.0f, (float)-GROWTH_RATE * position.Z, out translate);
             Matrix.Multiply(ref transform, ref translate, out transform);
 
-            BulletManager.destroyBullet(colour - 1);
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)
+            {
+                BulletManager.deflectBullet(colour - 1);
+            }
+            else
+            {
+                BulletManager.destroyBullet(colour - 1);
+            }
         }
 
         public void checkBadVibes() 
