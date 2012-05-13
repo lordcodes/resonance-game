@@ -118,7 +118,11 @@ namespace Resonance
                             {
                                 Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, ((GoodVibe)component).ShieldObject);
                             }
-                        } else {
+                        } else if (component is Bullet) {
+                            Drawing.Draw(((Bullet)component).getTransform(), ((Bullet)component).Position, (Object)component);
+                        }
+                        else
+                        {
                             Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, (Object)component);
                         }
                     }

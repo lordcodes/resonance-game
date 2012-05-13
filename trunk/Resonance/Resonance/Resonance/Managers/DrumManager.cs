@@ -34,7 +34,7 @@ namespace Resonance
                 MusicHandler.getTrack().inTime();
                 if(GameMode.HEALTH_RECHARGE) increaseHealth();
                 GameScreen.getGV().createShockwave(Shockwave.GREEN);
-                BulletManager.destroyBullet("green");
+                //BulletManager.destroyBullet(Bullet.GREEN);
                 
             }
             if (yellow)
@@ -43,7 +43,7 @@ namespace Resonance
                 MusicHandler.getTrack().inTime();
                 increaseSpeed();
                 GameScreen.getGV().createShockwave(Shockwave.YELLOW);
-                BulletManager.destroyBullet("yellow");
+                //BulletManager.destroyBullet(Bullet.YELLOW);
             }
             if (blue)
             {
@@ -51,7 +51,7 @@ namespace Resonance
                 MusicHandler.getTrack().inTime();
                 increaseShield();
                 GameScreen.getGV().createShockwave(Shockwave.BLUE);
-                BulletManager.destroyBullet("blue");
+                //BulletManager.destroyBullet(Bullet.BLUE);
             }
             if (red)
             {
@@ -59,14 +59,13 @@ namespace Resonance
                 MusicHandler.getTrack().inTime();
                 increaseFreeze();
                 GameScreen.getGV().createShockwave(Shockwave.RED);
-                BulletManager.destroyBullet("red");
+                //BulletManager.destroyBullet(Bullet.RED);
             }
             if (cymbal)
             {
                 MusicHandler.playSound(MusicHandler.CYMBAL);
                 MusicHandler.getTrack().inTime();
                 GameScreen.getGV().createShockwave(Shockwave.CYMBAL);
-                BulletManager.destroyBullet("cymbal");
             }
 
 

@@ -152,6 +152,7 @@ namespace Resonance
             WeatherManager.initialise();
             CameraMotionManager.initialise();
             PickupSpawnManager.init();
+            if(BulletManager.BOSS_EXISTS) BulletManager.init();
         }
 
         private void allocate()
@@ -231,7 +232,8 @@ namespace Resonance
 
                     // Update shockwaves
                     getGV().updateWaves();
-                    if(BulletManager.BOSS_EXISTS) getBoss().faceGV();
+                    if (BulletManager.BOSS_EXISTS) getBoss().faceGV();
+                    BulletManager.updateBullet();
 
                     //Update pickups
                     if (USE_PICKUP_SPAWNER)
@@ -446,8 +448,6 @@ namespace Resonance
                     }
                 }
             }
-
-            BulletManager.updateBullet();
             
             gv.FreezeActive = false;
             return numberKilled;

@@ -52,7 +52,7 @@ virus,          Textures\virus.png
 wallTexture,    Textures\walls.jpg
 goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
 checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlue.png;Textures\gateGreen.png;Textures\gateWhite.png
-bulletColors,   Textures\red.jpg;Textures\blue.png;Textures\green.jpg;Textures\yellow.jpg
+bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\green.jpg
 
 ---You can use dashes at the start of lines for comments
 
