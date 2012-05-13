@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace Resonance {
     class ObjectiveManager {
-        public const bool DEBUG_MODE            = true;
+        public const bool DEBUG_MODE            = false;
 
         public const int KILL_ALL_BV            = 0;
         public const int COLLECT_ALL_PICKUPS    = 1;
@@ -157,7 +157,7 @@ namespace Resonance {
                     oStr = "" + killed + " / " + total + " destroyed";
 
                     //if (killed == total) return true; else return false;
-                    if (killed >= 1) return true; else return false;
+                    if (killed >= 4) return true; else return false;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     List<Object> ps = ScreenManager.game.World.returnObjectSubset<ObjectivePickup>();
