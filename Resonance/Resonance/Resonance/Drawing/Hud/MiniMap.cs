@@ -314,6 +314,7 @@ namespace Resonance
         {
             GraphicsDevice gd = graphics.GraphicsDevice;
             gd.SetRenderTarget(miniMapBuffer);
+            gd.Clear(Color.Transparent);
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend); //TODO: change to alpha blend and fix corner masking
 
             // Good Vibe reference
