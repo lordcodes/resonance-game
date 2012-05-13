@@ -230,11 +230,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\neuron-physics.fbx">
-      <Name>neuron-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <None Include="Drawing\Models\terrain128.fbx">
       <Name>terrain128</Name>
       <Importer>FbxImporter</Importer>
