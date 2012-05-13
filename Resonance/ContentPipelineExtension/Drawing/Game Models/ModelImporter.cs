@@ -215,6 +215,7 @@ namespace ContentPipelineExtension
                 ImportedGameModel newModel = new ImportedGameModel(graphicsModel, model.GraphicsScaleFloat, physicsModel, model.PhysicsScaleFloat, model.TextureRef, animation);
                 models.addModel(newModel, pair.Key);
             }
+            models.doDisp();
             return models;
         }
 
@@ -426,6 +427,20 @@ namespace ContentPipelineExtension
             Dictionary<int, ImportedGameModel> gameModels = value.getModels();
             Dictionary<int, ModelContent> models = value.getModelDic();
             Dictionary<string, ImportedTextureAnimation> textureAnimations = value.TextureAnimations;
+
+            //value.doDisp();
+            List<float[]> mBuffer = value.masterBuffer;
+
+            output.Write(mBuffer.Count);
+            for (int i = 0; i < mBuffer.Count; i++)
+            {
+                int length = mBuffer[i].Length;
+                output.Write(length);
+                for (int j = 0; j < length; j++)
+                {
+                    output.Write((double)mBuffer[i][j]);
+                }
+            }
 
             output.Write(textureAnimations.Count);
             foreach (KeyValuePair<string, ImportedTextureAnimation> pair in textureAnimations)

@@ -20,6 +20,14 @@ namespace ContentPipelineExtension
         private Dictionary<int, string> modelsString = new Dictionary<int, string>();
         private Dictionary<string, int> modelsRef = new Dictionary<string, int>();
         private Dictionary<int, ModelContent> models = new Dictionary<int, ModelContent>();
+        public List<float[]> masterBuffer = new List<float[]>();
+
+        public void doDisp()
+        {
+            DisplacementMap dispMap = new DisplacementMap();
+            masterBuffer = dispMap.masterBuffer;
+        }
+
 
         public Dictionary<string, ImportedTextureAnimation> TextureAnimations
         {

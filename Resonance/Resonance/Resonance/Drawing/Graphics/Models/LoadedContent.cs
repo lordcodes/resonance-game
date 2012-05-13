@@ -26,7 +26,7 @@ namespace Resonance
             if (dispMap == null)
             {
                 //dispMap = importedModels.dispMap;
-                dispMap = new DisplacementMap(Graphics.DISP_WIDTH, Graphics.DISP_WIDTH);
+                dispMap = new DisplacementMap(importedGameModels.masterBuffer, Graphics.DISP_WIDTH, Graphics.DISP_WIDTH);
             }
             dispMap.setGD(graphicsDevice);
             dispMap.reset();
