@@ -73,6 +73,7 @@ namespace Resonance
             graphics.GraphicsDevice.Clear(Color.Black);
             graphics.GraphicsDevice.SetRenderTarget(mirrorRenderTarget);
             drawingReflection = true;
+            gameGraphics.setUpReflectionCamera();
             drawingShadows = false;
         }
 
