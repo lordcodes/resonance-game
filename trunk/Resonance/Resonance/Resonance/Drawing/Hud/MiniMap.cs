@@ -44,12 +44,12 @@ namespace Resonance
         public static int   BOX_THICKNESS        = 1;
 
         // Distance outside radar at which distant Vibe marker fades. 
-        public static float VANISHING_POINT      = 20f;
+        public static float VANISHING_POINT      = 80f;
 
         public static float ENTIRE_MAP_ALPHA     = 0.7f;
-        public static float BAD_VIBE_ALPHA       = 0.5f;
-        public static float PICKUP_ALPHA         = 0.5f;
-        public static float SPAWNER_ALPHA        = 0.5f;
+        public static float BAD_VIBE_ALPHA       = 0.8f;
+        public static float PICKUP_ALPHA         = 0.8f;
+        public static float SPAWNER_ALPHA        = 0.8f;
 
         // Colours
         //public static Color       OUTLINE_COLOUR = new Color(0.0f, 0.0f, 0.0f, 1.0f          ); // 0.8 alpha?
@@ -489,21 +489,27 @@ namespace Resonance
 
                     if (inXRange) {
                         if (bVPos.Y < gVPos.Y) {
-                            bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapY - (dVibe.Height / 2));
+                            //bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapY - (dVibe.Height / 2));
+                            if (!large) bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), 3);
+                            else bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), 13);
                         } else {
-                            bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapY + mapH - (dVibe.Height / 2));
+                            //bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapY + mapH - (dVibe.Height / 2));
+                            if (!large) bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapH - 20);
+                            else bVScreenPos = new Vector2(gvx + ((bVPos.X - gVPos.X) * scaleFactor), mapH - 30);
                         }
                     } else {
                         if (bVPos.X < gVPos.X) {
-                            bVScreenPos = new Vector2((dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                            if (!large) bVScreenPos = new Vector2(3, gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                            else bVScreenPos = new Vector2(13, gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
                         } else {
-                            bVScreenPos = new Vector2(mapW - (dVibe.Width / 2), gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                            if (!large) bVScreenPos = new Vector2(mapW - 20, gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
+                            else bVScreenPos = new Vector2(mapW - 30, gvy + ((bVPos.Y - gVPos.Y) * scaleFactor));
                         }
                     }
 
                     if (visible) {
                         Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
-                        Color col = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
+                        Color col = new Color(cVec.X, cVec.Y, cVec.Z, alpha + 0.2f);
                         spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), col);
                     }
                 }
