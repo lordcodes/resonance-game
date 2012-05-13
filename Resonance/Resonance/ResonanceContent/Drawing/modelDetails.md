@@ -55,6 +55,7 @@ wallTexture,    Textures\walls.jpg
 goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
 checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlue.png;Textures\gateGreen.png;Textures\gateWhite.png
 bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\green.jpg
+rampText,       Textures\ramp1.jpg
 
 ---You can use dashes at the start of lines for comments
 
@@ -89,4 +90,4 @@ bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\
 25,			Walls,					145,		Walls,					145,			wallTexture
 21,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
 26,			PickupOrb,				0.25,		PickupOrb,				0.25
-27,         Ramp,                   1,          Ramp_phys,                1
+27,         Ramp,                   1,          Ramp_phys,                1,            rampText

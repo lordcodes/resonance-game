@@ -112,17 +112,20 @@ namespace Resonance
             switch (async)
             {
                 case 0:
-                    result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name",
-                        "Congratulations!!! You made it in the hall of fame!!! \n Tell us your name stranger:", "", null, null);
+                    if(HighScoreManager.position >= 0)
+                        result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name",
+                            "Congratulations!!! You made it in the hall of fame!!! \n Tell us your name stranger:", "", null, null);
                     async = 1;
                     break;
                 case 1:
-                    if (result.IsCompleted)
-                    {
-                        HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
-                        HighScoreManager.saveFile();
-                        async = 2;
-                    }
+                    if (HighScoreManager.position >= 0)
+                        if (result.IsCompleted)
+                        {
+                        
+                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                            HighScoreManager.saveFile();
+                            async = 2;
+                        }
                     break;
             } 
             ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
