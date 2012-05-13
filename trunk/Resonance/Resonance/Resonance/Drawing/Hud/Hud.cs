@@ -406,6 +406,7 @@ namespace Resonance
             List<BVSpawner> spawners =  BVSpawnManager.getSpawners();
 
             for (int i = 0; i < spawners.Count; i++) {
+                string count = (spawners[i].MaxBVs - spawners[i].TotalSpawned).ToString();
                 Vector3 pos = spawners[i].OriginalPosition;
                 Vector3 projectedPosition = graphics.GraphicsDevice.Viewport.Project(new Vector3(pos.X, pos.Y + 9f, pos.Z), gameGraphics.Projection, CameraMotionManager.Camera.View, Matrix.Identity);
                 Vector2 screenPosition = new Vector2(projectedPosition.X - spawnercount.Width / 2, projectedPosition.Y);
@@ -426,6 +427,11 @@ namespace Resonance
 
                 Color c = new Color(1f, 1f, 1f, alphaC);
                 spriteBatch.Draw(spawnercount, new Rectangle((int) screenPosition.X, (int) screenPosition.Y, spawnercount.Width, spawnercount.Height), c);
+
+                Vector2 ssize = scoreFont.MeasureString(count);
+                //Vector2 countPos = new Vector2(screenPosition.X + (spawnercount.Width / 2) - (ssize.X / 2), screenPosition.Y + (spawnercount.Height / 2) - (ssize.Y / 2));
+
+                spriteBatch.DrawString(scoreFont, count, new Vector2(screenPosition.X + (spawnercount.Width / 2) + 3, screenPosition.Y + (spawnercount.Height / 2) + 5), c, 0f, new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
             }
         }
 
