@@ -226,7 +226,7 @@ namespace Resonance {
         /// <summary>
         /// Calculate the score bonus for each of the objectives
         /// </summary>
-        public static int calcuateScoreBonus()
+        public static int calcuateScoreBonus(bool set)
         {
             int bonus = 0;
             TimeSpan ts = MediaPlayer.PlayPosition - initialDistThroughSong;
@@ -267,7 +267,7 @@ namespace Resonance {
             }
 
             if (bonus < 0) bonus = 0;
-            GameStats.setScoreBonus(cObj, bonus);
+            if (set) GameStats.setScoreBonus(cObj, bonus);
             return bonus;
         }
     }
