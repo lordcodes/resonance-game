@@ -192,6 +192,15 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
+        <identifier>Ramp0</identifier>
+        <type>Ramp</type>
+        <xWorldCoord>-100</xWorldCoord>
+        <zWorldCoord>10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>27</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
         <identifier>Neuron20</identifier>
         <type>Neuron</type>
         <xWorldCoord>-70</xWorldCoord>

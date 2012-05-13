@@ -30,6 +30,7 @@ namespace Resonance
         public static readonly int CHECKPOINTWALLS  = 24;
         public static readonly int BOSSWALLS        = 25;
         public static readonly int PICKUPORB        = 26;
+        public static readonly int RAMP             = 27;
 
 
         private static ContentManager Content;
