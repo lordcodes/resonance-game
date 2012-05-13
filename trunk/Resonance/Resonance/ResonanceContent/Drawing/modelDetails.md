@@ -43,19 +43,25 @@ yellow,			Textures\texYellow.jpg
 blue,			Textures\texBlue.jpg
 red,			Textures\texRed.jpg
 cymbal,			Textures\texCymbal.jpg
+bacteriaTexture, Textures\TextureHouse.jpg
+badvibes,     Textures\texGreen.jpg;Textures\texYellow.jpg;Textures\texBlue.jpg;Textures\texRed.jpg;Textures\texCymbal.jpg
 --pulseGreyToRed,	Textures\pulseGreyToRed\pulseGreyToRed0001.jpg;Textures\pulseGreyToRed\pulseGreyToRed0004.jpg;Textures\pulseGreyToRed\pulseGreyToRed0003.jpg;Textures\pulseGreyToRed\pulseGreyToRed0002.jpg;Textures\pulseGreyToRed\pulseGreyToRed0001.jpg
-allColours,		Textures\texGreen.jpg;Textures\texYellow.jpg;Textures\texBlue.jpg;Textures\texRed.jpg;Textures\texCymbal.jpg
+allColours,		Textures\greenWave.png;Textures\yellowWave.png;Textures\blueWave.png;Textures\redWave.png;Textures\whiteWave.png
 --animationTest,	Textures\animationTest\animationTest0001.jpg;Textures\animationTest\animationTest0002.jpg;Textures\animationTest\animationTest0003.jpg;Textures\animationTest\animationTest0004.jpg;Textures\animationTest\animationTest0005.jpg;Textures\animationTest\animationTest0006.jpg;Textures\animationTest\animationTest0007.jpg;Textures\animationTest\animationTest0008.jpg;Textures\animationTest\animationTest0009.jpg;Textures\animationTest\animationTest0010.jpg;Textures\animationTest\animationTest0011.jpg;Textures\animationTest\animationTest0012.jpg;Textures\animationTest\animationTest0013.jpg;Textures\animationTest\animationTest0014.jpg;Textures\animationTest\animationTest0015.jpg;Textures\animationTest\animationTest0016.jpg;Textures\animationTest\animationTest0017.jpg;Textures\animationTest\animationTest0018.jpg;Textures\animationTest\animationTest0019.jpg;Textures\animationTest\animationTest0020.jpg;Textures\animationTest\animationTest0021.jpg;Textures\animationTest\animationTest0022.jpg;Textures\animationTest\animationTest0023.jpg;Textures\animationTest\animationTest0024.jpg, 80, 1
 goodVibeTexture, Textures\GoodVibeNewTexture.png
 neuronTexture,	Textures\neuronTexture.jpg
-spawnTexture,	Textures\TextureHouse.jpg
+spawnTexture,	Textures\spawnerTexture.png
 fireAnimation,	Textures\fireAnimation\fire1_ 01.png;Textures\fireAnimation\fire1_ 02.png;Textures\fireAnimation\fire1_ 03.png;Textures\fireAnimation\fire1_ 04.png;Textures\fireAnimation\fire1_ 05.png;Textures\fireAnimation\fire1_ 06.png;Textures\fireAnimation\fire1_ 07.png;Textures\fireAnimation\fire1_ 08.png;Textures\fireAnimation\fire1_ 09.png;Textures\fireAnimation\fire1_ 10.png;Textures\fireAnimation\fire1_ 11.png;Textures\fireAnimation\fire1_ 12.png;Textures\fireAnimation\fire1_ 13.png;Textures\fireAnimation\fire1_ 14.png;Textures\fireAnimation\fire1_ 15.png;Textures\fireAnimation\fire1_ 16.png;Textures\fireAnimation\fire1_ 17.png;Textures\fireAnimation\fire1_ 18.png;Textures\fireAnimation\fire1_ 19.png;Textures\fireAnimation\fire1_ 20.png;Textures\fireAnimation\fire1_ 21.png;Textures\fireAnimation\fire1_ 22.png;Textures\fireAnimation\fire1_ 23.png;Textures\fireAnimation\fire1_ 24.png;Textures\fireAnimation\fire1_ 25.png;Textures\fireAnimation\fire1_ 26.png;Textures\fireAnimation\fire1_ 27.png;Textures\fireAnimation\fire1_ 28.png;Textures\fireAnimation\fire1_ 29.png;Textures\fireAnimation\fire1_ 30.png;Textures\fireAnimation\fire1_ 31.png;Textures\fireAnimation\fire1_ 32.png;Textures\fireAnimation\fire1_ 33.png;Textures\fireAnimation\fire1_ 34.png;Textures\fireAnimation\fire1_ 35.png;Textures\fireAnimation\fire1_ 36.png;Textures\fireAnimation\fire1_ 37.png;Textures\fireAnimation\fire1_ 38.png;Textures\fireAnimation\fire1_ 39.png;Textures\fireAnimation\fire1_ 40.png;Textures\fireAnimation\fire1_ 41.png;Textures\fireAnimation\fire1_ 42.png;Textures\fireAnimation\fire1_ 43.png;Textures\fireAnimation\fire1_ 44.png;Textures\fireAnimation\fire1_ 45.png;Textures\fireAnimation\fire1_ 46.png;Textures\fireAnimation\fire1_ 47.png;Textures\fireAnimation\fire1_ 48.png;Textures\fireAnimation\fire1_ 49.png;Textures\fireAnimation\fire1_ 50.png, 40, 1
 virus,          Textures\virus.png
 wallTexture,    Textures\walls.jpg
 goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
 checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlue.png;Textures\gateGreen.png;Textures\gateWhite.png
 bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\green.jpg
+<<<<<<< .mine
+boss,    Textures\bossTexture.png
+=======
 rampText,       Textures\ramp1.jpg
+>>>>>>> .r922
 
 ---You can use dashes at the start of lines for comments
 
@@ -65,11 +71,11 @@ rampText,       Textures\ramp1.jpg
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
 1,			Neuron,					0.5,		Neuron-physics,			0.5,			neuronTexture,                      1
-2,			Bacteria,				0.25,		Bacteria-physics,		0.25,			spawnTexture,						1
-3,			BadVibe,			    0.2,		BadVibe-physics,		0.2,			allColours,								1
+2,			Bacteria,				0.25,		Bacteria-physics,		0.25,			bacteriaTexture,						1
+3,			BadVibe,			    0.2,		BadVibe-physics,		0.2,			badvibes,								1
 4,			GoodVibe,    			0.35,		GoodVibe-physics,		0.35, 			goodVibeTexture					
 5,			terrain128,			    250,		terrain,			    250,			tronFloor													
-6,			Bacteria-physics,		1,			Bacteria-physics,		1,
+6,			Bacteria-physics,		1,			Bacteria-physics,		1,				
 7,			Wave,					1,			Wave,					1,				allColours												
 8,			box,					2,			pickup,					2,				animationTest
 9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0,				goodVibeShieldTexture
@@ -81,7 +87,7 @@ rampText,       Textures\ramp1.jpg
 15,			plus5,					0.25,		plus5,					0.25
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         Boss,                   1.3,          BossPhysics,       1.3,          blue,							1
+18,         Boss,                   1.3,          BossPhysics,       1.3,          boss,							1
 19,			Walls,					245,		Walls,					245,			wallTexture
 20,			Walls,					195,		Walls,					195,			wallTexture
 22,			Walls,					195,		Walls,					195,			wallTexture

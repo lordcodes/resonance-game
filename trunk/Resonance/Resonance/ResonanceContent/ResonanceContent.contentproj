@@ -68,16 +68,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\Bacteria-physics.fbx">
-      <Name>Bacteria-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\BadVibe-physics.fbx">
-      <Name>BadVibe-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\BadVibe-explosion.fbx">
       <Name>BadVibe-explosion</Name>
       <Importer>FbxImporter</Importer>
@@ -108,11 +98,6 @@
       <Importer>FontDescriptionImporter</Importer>
       <Processor>FontDescriptionProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\BossPhysics.fbx">
-      <Name>BossPhysics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Fonts\ObjectiveFont.spritefont">
       <Name>ObjectiveFont</Name>
       <Importer>FontDescriptionImporter</Importer>
@@ -125,6 +110,21 @@
     </Compile>
     <Compile Include="Drawing\Models\Bacteria.fbx">
       <Name>Bacteria</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BadVibe-physics.fbx">
+      <Name>BadVibe-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Bacteria-physics.fbx">
+      <Name>Bacteria-physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossPhysics.fbx">
+      <Name>BossPhysics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -150,18 +150,13 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\GoodVibe-physics.fbx">
-      <Name>GoodVibe-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\Neuron-physics.fbx">
-      <Name>Neuron-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\GoodVibe-shield.fbx">
       <Name>GoodVibe-shield</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\checkPoint.fbx">
+      <Name>checkPoint</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -172,11 +167,6 @@
     </Compile>
     <Compile Include="Drawing\Models\BVSpawner.fbx">
       <Name>BVSpawner</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\checkPoint.fbx">
-      <Name>checkPoint</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -222,6 +212,16 @@
     </Compile>
     <Compile Include="Drawing\Models\GoodVibe.fbx">
       <Name>GoodVibe</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Neuron-Physics.fbx">
+      <Name>Neuron-Physics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\GoodVibe-physics.fbx">
+      <Name>GoodVibe-physics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -1410,13 +1410,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\menu.mp3">
-      <Name>menu</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Music\menuMusic.wav">
       <Name>menuMusic</Name>
       <Importer>WavImporter</Importer>
@@ -1707,29 +1700,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Music\song.mp3">
-      <Name>song</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Music\VictoryMusic.mp3">
-      <Name>VictoryMusic</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Music\GameOverMusic.mp3">
       <Name>GameOverMusic</Name>
-      <Importer>Mp3Importer</Importer>
-      <Processor>SongProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Music\PauseMenuMusic.mp3">
-      <Name>PauseMenuMusic</Name>
       <Importer>Mp3Importer</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
@@ -1872,6 +1844,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\spawnercount.png">
+      <Name>spawnercount</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\Textures\GoodVibeNewTexture.png">
       <Name>GoodVibeNewTexture</Name>
       <Importer>TextureImporter</Importer>
@@ -1879,8 +1858,42 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\HUD\Textures\spawnercount.png">
-      <Name>spawnercount</Name>
+    <Compile Include="Drawing\Textures\blueWave.png">
+      <Name>blueWave</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Textures\greenWave.png">
+      <Name>greenWave</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Textures\redWave.png">
+      <Name>redWave</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Textures\whiteWave.png">
+      <Name>whiteWave</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Textures\yellowWave.png">
+      <Name>yellowWave</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Models\bossTexture.png">
+      <Name>bossTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\bossTexture.png">
+      <Name>bossTexture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -1897,6 +1910,34 @@
       <Name>ramp1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\spawnerTexture.png">
+      <Name>spawnerTexture</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Music\song.mp3">
+      <Name>song</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Music\VictoryMusic.mp3">
+      <Name>VictoryMusic</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Music\menu.mp3">
+      <Name>menu</Name>
+      <Importer>Mp3Importer</Importer>
+      <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
