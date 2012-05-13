@@ -12,9 +12,8 @@ namespace Resonance
         private static int round3;
         private static TimeSpan round4;
         private static TimeSpan round5;
-
-
-
+        private static int[] scoreBonus;
+        
         public static void init()
         {
             score = 0;
@@ -25,6 +24,7 @@ namespace Resonance
             round3 = 0;
             round4 = TimeSpan.Zero;
             round5 = TimeSpan.Zero;
+            scoreBonus = new int[] { 0, 0, 0, 0, 0 };
         }
 
         public static void addBV() { bvsKilled++; }
@@ -78,6 +78,16 @@ namespace Resonance
         {
             get { return round5; }
             set { round5 = value; }
+        }
+
+        public static int getScoreBonus(int i)
+        {
+            return scoreBonus[i];
+        }
+
+        public static void setScoreBonus(int i, int value)
+        {
+            scoreBonus[i] = value;
         }
     }
 }

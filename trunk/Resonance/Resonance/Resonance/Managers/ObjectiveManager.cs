@@ -33,7 +33,7 @@ namespace Resonance {
             cObj = newObj;
 
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
-            if (newObj == SURVIVE) initialDistThroughSong = MediaPlayer.PlayPosition;
+            /*if (newObj == SURVIVE)*/ initialDistThroughSong = MediaPlayer.PlayPosition;
         }
 
         public static void nextObjective() {
@@ -218,6 +218,48 @@ namespace Resonance {
 
             oStr = "";
             return false;
+        }
+
+        /// <summary>
+        /// Calculate the score bonus for each of the objectives
+        /// </summary>
+        public static void calcuateScoreBonus()
+        {
+            int bonus = 0;
+            TimeSpan ts = MediaPlayer.PlayPosition - initialDistThroughSong;
+            int timeTaken = (int) ts.TotalSeconds;
+
+            switch (cObj)
+            {
+            case (KILL_ALL_BV):
+                {                    
+                    bonus = 42;
+                    break;
+                }
+            case (COLLECT_ALL_PICKUPS):
+                {
+                    bonus = 42;
+                    break;
+                }
+            case (SURVIVE):
+                {
+                    bonus = 42;
+                    break;
+                }
+            case (TERRITORIES):
+                {
+                    bonus = 240 - timeTaken;
+                    break;
+                }
+            case (KILL_BOSS):
+                {
+                    bonus = 240 - timeTaken;
+                    break;
+                }
+            }
+
+            if (bonus < 0) bonus = 0;
+            GameStats.setScoreBonus(cObj, bonus);
         }
     }
 }
