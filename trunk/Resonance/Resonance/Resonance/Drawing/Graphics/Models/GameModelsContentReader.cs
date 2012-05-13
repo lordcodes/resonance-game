@@ -11,6 +11,21 @@ namespace Resonance
         {
             Dictionary<string, Model> gameModels = new Dictionary<string, Model>();
             ImportedGameModels models = new ImportedGameModels();
+            List<float[]> masterBuffer = new List<float[]>();
+
+            int dispCount = input.ReadInt32();
+            for (int i = 0; i < dispCount; i++)
+            {
+                int aCount = input.ReadInt32();
+                float[] frame = new float[aCount];
+                for (int j = 0; j < aCount; j++)
+                {
+                    frame[j] = (float)input.ReadDouble();
+                }
+                masterBuffer.Add(frame);
+            }
+
+            models.masterBuffer = masterBuffer;
 
             int textureCount = input.ReadInt32();
             for (int i = 0; i < textureCount; i++)

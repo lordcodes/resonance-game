@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 
-namespace Resonance
+namespace ContentPipelineExtension
 {
     public class DisplacementMap
     {
@@ -11,12 +11,13 @@ namespace Resonance
         public const float WAVE_HEIGHT = 1f;
         public const float WAVE_WIDTH = 1f;
         public const float WAVE_SPEED = 0.4f;
+        public const int DISP_WIDTH = 128;
 
         private GraphicsDevice graphicsDevice;
         private int width;
         private int height;
         private float[] buffer;
-        private List<float[]> masterBuffer;
+        public List<float[]> masterBuffer;
         private float[] damageBuffer;
         private float[] emptyBuffer;
         private Vector2 lastPosition;
@@ -45,24 +46,23 @@ namespace Resonance
         }
 
 
-        public DisplacementMap(List<float[]> masterBuffer, int nWidth, int nHeight)
+        public DisplacementMap()
         {
-            width = nWidth;
-            height = nHeight;
+            width = DISP_WIDTH;
+            height = DISP_WIDTH;
             damageBuffer = new float[width * height];
             buffer = new float[width * height];
             emptyBuffer = new float[width * height];
-            lastPosition = new Vector2(-1, -1);
+            lastPosition = new Vector2(-1,-1);
             for (int i = 0; i < buffer.Length; i++) buffer[i] = 0f;
             for (int i = 0; i < damageBuffer.Length; i++) damageBuffer[i] = 0f;
             for (int i = 0; i < emptyBuffer.Length; i++) emptyBuffer[i] = 0f;
 
-            this.masterBuffer = masterBuffer;
+            masterBuffer = createMasterBuffer(width, height);
 
-            half = (int)Math.Round((double)Graphics.DISP_WIDTH / 2);
-            max = Graphics.DISP_WIDTH * Graphics.DISP_WIDTH;
+            half = (int)Math.Round((double)DISP_WIDTH / 2);
+            max = DISP_WIDTH * DISP_WIDTH;
         }
-
 
         public void addHole(float x , float y)
         {
@@ -157,6 +157,36 @@ namespace Resonance
                 reset();
             }
             //DebugDisplay.update("DMAPI",itcount+"");
+        }
+
+        private List<float[]> createMasterBuffer(int width, int height)
+        {
+            List<float[]> bList = new List<float[]>();
+            int xpos = (int)Math.Round((double)width / 2);
+            int ypos = (int)Math.Round((double)height / 2);
+            Wave wave = new Wave(new Vector2(xpos,ypos));
+            while (wave.Distance < 90 && wave.IsActive)
+            {
+                float[] mBuffer = new float[width * height];
+                float depth;
+                for (int xi = 0; xi < width; xi++)
+                {
+                    for (int yi = 0; yi < width; yi++)
+                    {
+                        depth = 0;
+                        for (int i = 0; i < waves.Length; i++)
+                        {
+                            float dis = trigDistance(xi, yi, wave.Epicenter);
+                            float ndepth = waveDepth(dis, wave.Distance, wave.Height);
+                            depth += ndepth;
+                        }
+                        mBuffer[xi + yi * width] = depth;
+                    }
+                }
+                bList.Add(mBuffer);
+                wave.update();
+            }
+            return bList;
         }
 
         public void update(Vector2 position)

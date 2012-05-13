@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Drawing\Custom Fonts\CustomFont.cs" />
     <Compile Include="Drawing\Custom Fonts\CustomFontImporter.cs" />
+    <Compile Include="Drawing\Game Models\DisplacementMap.cs" />
     <Compile Include="Drawing\Game Models\ImportedGameModel.cs" />
     <Compile Include="Drawing\Game Models\ImportedGameModels.cs" />
     <Compile Include="Drawing\Game Models\ImportedTextureAnimation.cs" />

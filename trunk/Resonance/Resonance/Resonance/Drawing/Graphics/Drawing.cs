@@ -261,11 +261,11 @@ namespace Resonance
         public static void loadContent()
         {
             sampleTexture = content.Load<Texture2D>("Drawing/Textures/texMissing");
-            LoadingScreen.CurrentlyLoading = "Drawing: Hud Content";
+            LoadingScreen.CurrentlyLoading = "Hud Content";
             hud.loadContent();
-            LoadingScreen.CurrentlyLoading = "Drawing: Game Models";
+            LoadingScreen.CurrentlyLoading = "Models, Textures and Animations";
             ImportedGameModels importedModels = GameModels.Load();
-            LoadingScreen.CurrentlyLoading = "Drawing: Graphics";
+            LoadingScreen.CurrentlyLoading = "Displacement Maps";
             gameGraphics.loadContent(importedModels,content, graphics.GraphicsDevice);
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
             mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
