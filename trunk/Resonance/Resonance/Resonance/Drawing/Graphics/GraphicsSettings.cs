@@ -20,7 +20,7 @@ namespace Resonance
 #if XBOX
         public static bool FLOOR_SHADOWS = false;
 #else
-        public static bool FLOOR_SHADOWS = false;
+        public static bool FLOOR_SHADOWS = true;
 #endif
 
         /// <summary>
