@@ -92,6 +92,7 @@ namespace Resonance
                         if (deflected)
                         {
                             GameScreen.getBoss().damage(true);
+                            GameScreen.getGV().adjustDeflectShield(-1);                           
                             target = GameScreen.getGV().Body;
                             deflected = false;
                         }

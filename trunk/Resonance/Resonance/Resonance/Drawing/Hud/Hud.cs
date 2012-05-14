@@ -246,7 +246,6 @@ namespace Resonance
             }
             else
             {
-                spriteBatch.Draw(x2, destination, source, Color.White);
                 showTime = false;
             }
 
