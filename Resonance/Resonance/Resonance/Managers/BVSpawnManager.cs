@@ -7,7 +7,7 @@ namespace Resonance
     class BVSpawnManager
     {
         public const int SPAWN_RADIUS = 10;
-        public const int MAX_ACTIVE = 1;
+        public const int MAX_ACTIVE = 2;
         public const int MAX_BV = 12;
 
         public const int OBJECTIVE_MAX_BV = 3;
