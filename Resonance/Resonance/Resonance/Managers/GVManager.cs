@@ -41,14 +41,18 @@ namespace Resonance
             {
                 MusicHandler.getTrack().pauseTrack();
             }
+
             if (shoulders || kbd.IsKeyDown(Keys.M))
             {
+#if WINDOWS
                 if (GameScreen.USE_MINIMAP) MiniMap.enlarge();
+#endif
             }
             else
             {
                 if (GameScreen.USE_MINIMAP) MiniMap.ensmall();
             }
+
 
             if (kbd.IsKeyDown(Keys.PrintScreen) && !lastKbd.IsKeyDown(Keys.PrintScreen))
             {
