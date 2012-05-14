@@ -39,7 +39,7 @@ namespace Resonance
         public World() 
         {
             space = new Space();
-            space.ForceUpdater.Gravity = new Vector3(0, -9.8f, 0);
+            space.ForceUpdater.Gravity = new Vector3(0, -10, 0);
 
             //Speed improvements
             SolverSettings.DefaultMinimumIterations = 0;
@@ -252,7 +252,6 @@ namespace Resonance
             clear();
 
             Random random = new Random((int)DateTime.Now.Ticks);
-
             for (int i = 0; i < objs.list.Count; i++)
             {
                 StoredObject obj = objs.list[i];
