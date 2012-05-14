@@ -9,6 +9,7 @@ namespace Resonance
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
         public const float FPS = 30f;
+        private const bool HD1080 = true;
 
         /// <summary>
         /// The main game constructor.
@@ -16,8 +17,6 @@ namespace Resonance
         public ResonanceGame()
         {
             Content.RootDirectory = "Content";
-            
-                    
             graphics = new GraphicsDeviceManager(this);
             
             IsMouseVisible = false;
@@ -26,8 +25,16 @@ namespace Resonance
             graphics.SynchronizeWithVerticalRetrace = true;
             graphics.IsFullScreen = false;
             graphics.PreferMultiSampling = true;
-            graphics.PreferredBackBufferWidth = 1280;
-            graphics.PreferredBackBufferHeight = 720;
+            if (HD1080)
+            {
+                graphics.PreferredBackBufferWidth = 1920;
+                graphics.PreferredBackBufferHeight = 1080;
+            }
+            else
+            {
+                graphics.PreferredBackBufferWidth = 1280;
+                graphics.PreferredBackBufferHeight = 720;
+            }
             Window.AllowUserResizing = true;            
 
             screenManager = new ScreenManager(this);
@@ -43,7 +50,6 @@ namespace Resonance
             base.Initialize();
 
             //Must come after base.initialise()
-            //while (!Guide.IsVisible) { }
             HighScoreManager.loadFile();
         }
         

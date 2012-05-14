@@ -243,7 +243,7 @@ namespace Resonance
                     BulletManager.updateBullet(gameTime);
 
                     //Update pickups
-                    if (USE_PICKUP_SPAWNER)
+                    if (USE_PICKUP_SPAWNER && ObjectiveManager.currentObjective() != ObjectiveManager.COLLECT_ALL_PICKUPS)
                     {
                         PickupManager.update();
                         PickupSpawnManager.update();
