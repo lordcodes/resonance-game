@@ -92,6 +92,8 @@ namespace Resonance {
         public static void fillEmitterPool() {
             emitterPool.Add(new Freeze());
             emitterPool.Add(new Rain());
+            emitterPool.Add(new BulletImpact());
+            emitterPool.Add(new BulletImpact());
             for (int i = 2; i < INITIAL_EMITTER_POOL_SIZE; i++) {
                 if (i % 4 == 0) emitterPool.Add(new Explosion());
                 else emitterPool.Add(new ArmourShatter());

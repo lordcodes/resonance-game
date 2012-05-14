@@ -53,6 +53,10 @@ namespace Resonance
             if (deflect)
             {
                 if(health > 0) health --;
+                BulletImpact e = (BulletImpact) ParticleEmitterManager.getEmitter<BulletImpact>();
+                if (e == null) e = new BulletImpact();
+                Vector3 bPos = BulletManager.getBullet().Body.Position;
+                e.init(bPos, bPos - Body.Position);
             }
             if (health <= 0)
             {

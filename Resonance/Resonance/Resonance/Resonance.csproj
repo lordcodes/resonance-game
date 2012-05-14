@@ -125,6 +125,7 @@
     <Compile Include="Drawing\Hud\PickupBar.cs" />
     <Compile Include="Drawing\Hud\ShieldBar.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\ArmourShatter.cs" />
+    <Compile Include="Drawing\ParticleEngine\Effects\BulletImpact.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Freeze.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\Rain.cs" />
     <Compile Include="Drawing\ParticleEngine\Effects\TestEmitter.cs" />
