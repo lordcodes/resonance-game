@@ -50,6 +50,7 @@ namespace Resonance
             {
                 goodVibeComponents.Add(component);
                 reflectedComponents.Add(component);
+                ((Object)component).ModelInstance.Shadow = true;
             }
             else if (component is Object && ((Object)component).returnIdentifier().Equals("Ground"))
             {
@@ -69,6 +70,7 @@ namespace Resonance
 
             if (component is Object && ((Object)component).ModelInstance.Shadow)
             {
+                if (component is GoodVibe) Console.WriteLine("add gv shadow");
                 shadowedComponents.Add(component);
             }
         }
@@ -90,9 +92,15 @@ namespace Resonance
         public static void DrawShadowedObjects(GameTime gameTime)
         {
             Drawing.Clear();
-            Drawing.setShadows();
+            //Drawing.setShadows();
             DrawSet(shadowedComponents, gameTime);
-            Drawing.unsetShadows();
+            //Drawing.unsetShadows();
+
+            /*for (int i = 0; i < shadowedComponents.Count; i++)
+            {
+                if (shadowedComponents[i] is GoodVibe) Console.WriteLine("" + ((Object)shadowedComponents[i]).returnIdentifier());
+                    
+            }*/
         }
 
         public static void DrawReflectedObjects(GameTime gameTime)

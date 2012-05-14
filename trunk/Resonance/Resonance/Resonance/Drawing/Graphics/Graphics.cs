@@ -245,7 +245,7 @@ namespace Resonance
             Vector3 pos = GameScreen.getGV().Body.Position;
             Vector3 lightPos = new Vector3(cameraPosition.X, 50f, cameraPosition.Z);
             Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(pos.X, 0, pos.Z), new Vector3(0, 1, 0));
-            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 25f,1000f);
+            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 1f,200f);
 
             lightsViewProjectionMatrix = lightsView * lightsProjection;
 
