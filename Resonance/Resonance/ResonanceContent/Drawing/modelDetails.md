@@ -33,6 +33,22 @@ BossPhysics, Models\BossPhysics.fbx
 PickupOrb, Models\pickuporb.fbx
 Ramp,Models\Ramp.fbx
 Ramp_phys,Models\Ramp_physics.fbx
+bossBackTwig, Models\BossDeath\backTwig.fbx
+bossBodyLeftBottom, Models\BossDeath\bodyLeftBottom.fbx
+bossBodyLeftMiddle, Models\BossDeath\bodyLeftMidle.fbx
+bossBodyLeftMiddleBottom, Models\BossDeath\bodyLeftMidleBotom.fbx
+bossBodyRightBottom, Models\BossDeath\bodyRightBottom.fbx
+bossBodyRightMiddle, Models\BossDeath\bodyRightMiddle.fbx
+bossBodyRightMiddleBottom, Models\BossDeath\bodyRightMiddleBottom.fbx
+bossBodyTopLeft, Models\BossDeath\bodyTopLeft.fbx
+bossBodyTopRight, Models\BossDeath\bodyTopRight.fbx
+bossCentralOrb, Models\BossDeath\centralOrb.fbx
+bosscentralSpike, Models\BossDeath\centralSpike.fbx
+bossLeftOrb, Models\BossDeath\leftOrb.fbx
+bossLeftTwig, Models\BossDeath\leftTwig.fbx
+bossRightOrb, Models\BossDeath\rightOrb.fbx
+bossRightTwig, Models\BossDeath\rightTwig.fbx
+
 
 
 TEXTURES
@@ -94,4 +110,19 @@ rampText,       Textures\ramp1.jpg
 21,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
 26,			PickupOrb,				0.25,		PickupOrb,				0.25
 27,         Ramp,                   1,          Ramp_phys,                1,            rampText
-28,			PickupOrb,				0.5,		PickupOrb,				0.5
+28,         bossBackTwig,			1.3,		bossBackTwig,			1.3,			boss
+29,			bossBodyLeftBottom,		1.3,		bossBodyLeftBottom,		1.3,			boss
+30,			bossBodyLeftMiddle,		1.3,		bossBodyLeftMiddle,		1.3,			boss
+31,			bossBodyLeftMiddleBottom, 1.3,		bossBodyLeftMiddleBottom,	1.3,		boss
+32,			bossBodyRightBottom,	1.3,		bossBodyRightBottom,	1.3,			boss
+33,			bossBodyRightMiddle,	1.3,		bossBodyRightMiddle,	1.3,			boss
+34,			bossBodyRightMiddleBottom, 1.3,		bossBodyRightMiddleBottom,	1.3,		boss
+35,			bossBodyTopLeft,		1.3,		bossBodyTopLeft,		1.3,			boss
+36,			bossBodyTopRight,		1.3,		bossBodyTopRight,		1.3,			boss
+37,			bossCentralOrb,			1.3,		bossCentralOrb,			1.3,			boss
+38,			bosscentralSpike,		1.3,		bosscentralSpike,		1.3,			boss
+39,			bossLeftOrb,			1.3,		bossLeftOrb,			1.3,			boss
+40,			bossLeftTwig,			1.3,		bossLeftTwig,			1.3,			boss
+41,			bossRightOrb,			1.3,		bossRightOrb,			1.3,			boss
+42,			bossRightTwig,			1.3,		bossRightTwig,			1.3,			boss
+43,			PickupOrb,				0.5,		PickupOrb,				0.5
