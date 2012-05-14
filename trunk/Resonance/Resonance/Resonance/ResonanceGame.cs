@@ -43,6 +43,7 @@ namespace Resonance
             base.Initialize();
 
             //Must come after base.initialise()
+            //while (!Guide.IsVisible) { }
             HighScoreManager.loadFile();
         }
         

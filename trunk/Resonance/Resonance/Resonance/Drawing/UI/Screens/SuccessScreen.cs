@@ -118,16 +118,22 @@ namespace Resonance
                 case 1:
                     if (HighScoreManager.position >= 0)
                         if (result.IsCompleted)
-                        {                        
-                            HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
-                            HighScoreManager.saveFile();
+                        {
+                            try
+                            {
+                                while (!Guide.IsVisible) { Console.WriteLine(DateTime.Now.ToString()); };
+                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                                HighScoreManager.saveFile();
+                            }
+                            catch (Exception ex) { Console.WriteLine("ERROR WHEN RETRIEVEING NAME"); }
                             async = 2;
                         }
                     break;
-            } 
+                 
+            }
+            GamerServicesDispatcher.Update();
             ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
-            ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White);           
-
+            ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White);
             string headings = "Final score: \n\n";
             headings += "Total Bad Vibes Killed: \n\n";
             headings += "Highest Multi-Kill: \n\n";
