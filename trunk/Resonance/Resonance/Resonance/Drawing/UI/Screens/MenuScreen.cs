@@ -70,8 +70,7 @@ namespace Resonance
                 {
                     if (this is MainMenu)
                     {
-                        string msg = "Are you sure you want to quit the game?\n";
-                        msg += "(Enter - OK, Escape - Cancel)";
+                        string msg = "Are you sure you want to quit the game?";
 
                         ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
                     }
