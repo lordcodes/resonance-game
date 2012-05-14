@@ -39,7 +39,7 @@ namespace Resonance
             }
         }
 
-        private static BadVibe getBadVibe()
+        public static BadVibe getBadVibe()
         {
             BadVibe bv = bvPool[bvPool.Count - 1];
             bvPool.RemoveAt(bvPool.Count - 1);
@@ -57,10 +57,13 @@ namespace Resonance
             BVSpawner spawn;
 
             if ((GameScreen.mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_ALL_BV)) {
-                spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, OBJECTIVE_MAX_BV, SPAWN_RADIUS, MAX_ACTIVE);
+                spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, OBJECTIVE_MAX_BV, SPAWN_RADIUS, MAX_ACTIVE, false);
+            } else if ((GameScreen.mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.SURVIVE)) {
+                spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, OBJECTIVE_MAX_BV, SPAWN_RADIUS, MAX_ACTIVE, true);
             } else {
-                spawn= new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, MAX_BV, SPAWN_RADIUS, MAX_ACTIVE);
+                spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, MAX_BV, SPAWN_RADIUS, MAX_ACTIVE, false);
             }
+
             ScreenManager.game.World.addObject(spawn);
             spawners.Add(spawn);
 
@@ -73,7 +76,8 @@ namespace Resonance
                     //BadVibe bv = new BadVibe(GameModels.BAD_VIBE, "BVA" + bvcount, spawn.getSpawnCords(), (spawners.Count - 1));
                 BadVibe bv = getBadVibe();
                 bv.setup(spawn.getSpawnCords(), spawners.Count - 1);
-                spawn.addBV(bv);
+                if (!(spawn.spawnerIsObjectiveSpawner())) spawn.addBV(bv); else BVSpawnManager.addToPool(bv);
+
                 /*}
                 else
                 {
@@ -83,6 +87,12 @@ namespace Resonance
                 i++;
             }
             spawnerCount++;
+        }
+
+        public static BVSpawner randomSpawner() {
+            Random r = new Random();
+            int i  = r.Next(spawners.Count);
+            return spawners[i];
         }
 
         public static void vibeDied(BadVibe bv)
