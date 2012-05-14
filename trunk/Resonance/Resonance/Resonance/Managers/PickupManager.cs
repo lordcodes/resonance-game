@@ -22,14 +22,19 @@ namespace Resonance
             timeRemaining = time;
         }
 
+        private static void newDeflectShield()
+        {
+            GameScreen.getGV().adjustDeflectShield(1);
+        }
+
         /// <summary>
         /// Updates pickups each game loop
         /// </summary>
         public static void update()
         {
             List<Object> pickups = ScreenManager.game.World.returnObjectSubset<Pickup>();
-            youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(pickups);
             pickupCollision(pickups);
+            youSpinMeRightRoundBabyRightRoundLikeAPickupBabyRightRoundRoundRound(pickups);
             updateTimeRemaining();
         }
 
@@ -72,7 +77,14 @@ namespace Resonance
                 if (diff < p.Size+3) //TODO: fix with correct GV physics model
                 {
                     MusicHandler.playSound(MusicHandler.DING);
-                    PickupManager.newMultiplier(p.PowerUpType, p.PowerupLength);
+                    if (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)
+                    {
+                        newDeflectShield();
+                    }
+                    else
+                    {
+                        newMultiplier(p.PowerUpType, p.PowerupLength);
+                    }
 
                     //PickupSpawnManager.addToPool(p);
                     ScreenManager.game.World.fadeObjectAway(p, 0.6f);
