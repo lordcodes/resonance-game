@@ -100,7 +100,7 @@ bossTopRightJawPhysics, Models\BossDeath\Physics\topRightJawPhysics.fbx
 
 TEXTURES
 -Texture Ref-|----------------------------Files Name(s)--------------------------------------------------------------------|-Texture delay(ms)-|--Start texture anim.--|
-tronFloor,		Textures\texOrganicGround.png
+tronFloor,		Textures\GroundBlue.png;Textures\GroundRed.png;Textures\GroundYellow.png;Textures\GroundLightBlue.png;Textures\GroundGreen.png
 green,			Textures\texGreen.jpg
 yellow,			Textures\texYellow.jpg
 blue,			Textures\texBlue.jpg
