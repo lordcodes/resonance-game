@@ -83,7 +83,7 @@ namespace Resonance
                     data.PlayerName[i] = data.PlayerName[i - 1];
                 }                
                 data.Score[scoreIndex] = score;
-                data.PlayerName[scoreIndex] = DateTime.Now.ToString();
+                data.PlayerName[scoreIndex] = "Player";
             }
             position = scoreIndex;
 
