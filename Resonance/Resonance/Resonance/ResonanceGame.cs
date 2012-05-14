@@ -9,7 +9,7 @@ namespace Resonance
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
         public const float FPS = 30f;
-        private const bool HD1080 = true;
+        private const bool HD1080 = false;
 
         /// <summary>
         /// The main game constructor.
