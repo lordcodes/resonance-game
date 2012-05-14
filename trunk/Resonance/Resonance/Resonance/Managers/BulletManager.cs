@@ -95,7 +95,15 @@ namespace Resonance
                             target = GameScreen.getGV().Body;
                             deflected = false;
                         }
-                        else GameScreen.getGV().AdjustHealth(-DAMAGE);
+                        else
+                        {
+                            BulletImpact e = (BulletImpact) ParticleEmitterManager.getEmitter<BulletImpact>();
+                            if (e == null) e = new BulletImpact();
+                            Vector3 bPos = bullet.Body.Position;
+                            e.init(bPos, bPos - GameScreen.getGV().Body.Position);
+                            GameScreen.getGV().AdjustHealth(-DAMAGE);
+                        }
+
                         bulletIndex = INACTIVE;
                     }
                     else
@@ -157,6 +165,10 @@ namespace Resonance
 
         public static int getBulletColour() {
             return bullet.Colour;
+        }
+
+        public static Bullet getBullet() {
+            return bullet;
         }
     }
 }
