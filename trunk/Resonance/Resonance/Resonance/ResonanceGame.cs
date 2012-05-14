@@ -39,12 +39,11 @@ namespace Resonance
         protected override void Initialize()
         {
             Components.Add(new GamerServicesComponent(this));
-
-            HighScoreManager.loadFile();
+            
             base.Initialize();
 
             //Must come after base.initialise()
-            
+            HighScoreManager.loadFile();
         }
         
         /// <summary>
