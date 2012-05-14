@@ -10,7 +10,7 @@ namespace Resonance
 
         public  const int  INACTIVE = 0;
         public  const int  ACTIVE   = 1;
-        private const int  DAMAGE   = 4;
+        private static int  DAMAGE  = 4;
         private const int WRONG_DAMAGE = 1;
         //private const long TIMESPAN = 15000000;
         private const long TIMESPAN = 72500000;
@@ -34,6 +34,40 @@ namespace Resonance
             start = GameScreen.getBoss().Body;
             bullet = new Bullet(GameModels.BULLET, "activeBullet", start.Position);
             deflected = false;
+
+            switch (GameScreen.DIFFICULTY)
+            {
+                case GameScreen.BEGINNER:
+                    {
+                        DAMAGE = 5;
+                        break;
+                    }
+                case GameScreen.EASY:
+                    {
+                        DAMAGE = 8;
+                        break;
+                    }
+                case GameScreen.MEDIUM:
+                    {
+                        DAMAGE = 11;
+                        break;
+                    }
+                case GameScreen.HARD:
+                    {
+                        DAMAGE = 14;
+                        break;
+                    }
+                case GameScreen.EXPERT:
+                    {
+                        DAMAGE = 17;
+                        break;
+                    }
+                case GameScreen.INSANE:
+                    {
+                        DAMAGE = 20;
+                        break;
+                    }
+            }
         }
 
         public static void shoot()

@@ -156,15 +156,6 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>BVSpawner16</identifier>
-        <type>BVSpawner</type>
-        <xWorldCoord>-90</xWorldCoord>
-        <zWorldCoord>-30</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>10</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
         <identifier>CheckPoint17</identifier>
         <type>CheckPoint</type>
         <xWorldCoord>-50</xWorldCoord>
@@ -217,15 +208,6 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>20</gameModelNum>
         <pickuptype>1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>BVSpawner23</identifier>
-        <type>BVSpawner</type>
-        <xWorldCoord>-90</xWorldCoord>
-        <zWorldCoord>-110</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>10</gameModelNum>
-        <pickuptype>-1</pickuptype>
       </Item>
       <Item>
         <identifier>CheckPoint24</identifier>

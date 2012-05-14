@@ -79,9 +79,14 @@ namespace Resonance
                         DAMAGE = 5;
                         break;
                     }
-                case GameScreen.INSANE:
+                case GameScreen.EXPERT:
                     {
                         DAMAGE = 6;
+                        break;
+                    }
+                case GameScreen.INSANE:
+                    {
+                        DAMAGE = 7;
                         break;
                     }
             }

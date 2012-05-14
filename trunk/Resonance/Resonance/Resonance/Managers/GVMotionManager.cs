@@ -10,7 +10,7 @@ namespace Resonance {
     /// </summary>
     class GVMotionManager {
         public static readonly float DEFAULT_Z_ACCELERATION          =   150f / ResonanceGame.FPS;
-        public static readonly float DEFAULT_MAX_Z_SPEED             =   1800f / ResonanceGame.FPS;
+        public static float          DEFAULT_MAX_Z_SPEED             =   1800f / ResonanceGame.FPS;
         public static float          MAX_R_SPEED                     =   4.5f / ResonanceGame.FPS;
         public static float          MAX_X_SPEED                     =   1800f / ResonanceGame.FPS;
         public static float          MAX_Z_SPEED                     =   720f / ResonanceGame.FPS;
@@ -57,7 +57,7 @@ namespace Resonance {
         /// Methods
 
         public static void init() {
-            gv = (GoodVibe)ScreenManager.game.World.getObject("Player");
+            gv = GameScreen.getGV();
 
             gv.Body.Material.KineticFriction *= 2f;
             gv.Body.Material.StaticFriction  *= 2f;
@@ -91,6 +91,41 @@ namespace Resonance {
             lamX.Axis          = new Vector3(0f, 0f, 1f);
             lamX.IsActive      = true;
             ScreenManager.game.World.addToSpace(lamX);
+
+            
+            switch (GameScreen.DIFFICULTY)
+            {
+                case GameScreen.BEGINNER:
+                    {
+                        DEFAULT_MAX_Z_SPEED = 1800f / ResonanceGame.FPS;
+                        break;
+                    }
+                case GameScreen.EASY:
+                    {
+                        DEFAULT_MAX_Z_SPEED = 2240f / ResonanceGame.FPS;
+                        break;
+                    }
+                case GameScreen.MEDIUM:
+                    {
+                        DEFAULT_MAX_Z_SPEED = 2680f / ResonanceGame.FPS;
+                        break;
+                    }
+                case GameScreen.HARD:
+                    {
+                        DEFAULT_MAX_Z_SPEED = 3120f / ResonanceGame.FPS;
+                        break;
+                    }
+                case GameScreen.EXPERT:
+                    {
+                        DEFAULT_MAX_Z_SPEED = 3560f / ResonanceGame.FPS;
+                        break;
+                    }
+                case GameScreen.INSANE:
+                    {
+                        DEFAULT_MAX_Z_SPEED = 4000f / ResonanceGame.FPS;
+                        break;
+                    }
+            }
 
             // INITIALISATION COMPLETE
             initialised = true;
