@@ -36,6 +36,7 @@ namespace Resonance {
 
         public static void setObjective(int newObj) {
             cObj = newObj;
+            cObj = 2;
 
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
             initialDistThroughSong = MediaPlayer.PlayPosition;

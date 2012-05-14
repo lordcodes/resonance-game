@@ -59,6 +59,7 @@ namespace Resonance
         private static Texture2D drumkitb;
         private static Texture2D drumkitg;
         private static Texture2D spawnercount;
+        private static Texture2D infSpawnercount;
 
         private static float ARMOUR_SCALE = 1.5f;
 
@@ -90,31 +91,32 @@ namespace Resonance
                 font = Content.Load<SpriteFont>("Drawing/Fonts/HealthBarSmallFont");
                 objectivefont = Content.Load<SpriteFont>("Drawing/Fonts/ObjectiveSmallFont");
             }
-            scoreFont   = Content.Load<SpriteFont>         ("Drawing/Fonts/ScoreFont");
-            countDownFont = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
-            healthBar   = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
-            healthSlice = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
-            drumPad     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
-            rest        = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
-            block       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
-            tempo       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
-            damage      = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
-            mask         = Content.Load<Texture2D>         ("Drawing/HUD/Textures/minimapalpha");
+            scoreFont       = Content.Load<SpriteFont>         ("Drawing/Fonts/ScoreFont");
+            countDownFont   = Content.Load<ImportedCustomFont>("Drawing/Fonts/Custom/CountDown/CountDownFont");
+            healthBar       = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthBar");
+            healthSlice     = Content.Load<Texture2D>          ("Drawing/HUD/Textures/healthSlice");
+            drumPad         = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
+            rest            = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
+            block           = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
+            tempo           = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
+            damage          = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
+            mask            = Content.Load<Texture2D>         ("Drawing/HUD/Textures/minimapalpha");
             pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
             pickupPercentageBackground = Content.Load<Texture2D>("Drawing/HUD/Textures/pickuppercentagebackground");
-            pickupShield = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
-            pickupNitro  = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupnitro");
-            pickupFreeze = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupfreeze");
-            plusFour     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/plus4");
-            plusFive     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/plus5");
-            x2           = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x2");
-            x3           = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x3");
-            drumkit      = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkit2");
-            drumkitr     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitr");
-            drumkity     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkity");
-            drumkitg     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitg");
-            drumkitb     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitb");
-            spawnercount = Content.Load<Texture2D>         ("Drawing/HUD/Textures/spawnercount");
+            pickupShield    = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupshield");
+            pickupNitro     = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupnitro");
+            pickupFreeze    = Content.Load<Texture2D>         ("Drawing/HUD/Textures/pickupfreeze");
+            plusFour        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/plus4");
+            plusFive        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/plus5");
+            x2              = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x2");
+            x3              = Content.Load<Texture2D>         ("Drawing/HUD/Textures/x3");
+            drumkit         = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkit2");
+            drumkitr        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitr");
+            drumkity        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkity");
+            drumkitg        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitg");
+            drumkitb        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitb");
+            spawnercount    = Content.Load<Texture2D>         ("Drawing/HUD/Textures/spawnercount");
+            infSpawnercount = Content.Load<Texture2D>         ("Drawing/HUD/Textures/infcountnice");
 
             if (GameScreen.USE_MINIMAP)
             {
@@ -436,15 +438,16 @@ namespace Resonance
                 }
 
                 Color c = new Color(1f, 1f, 1f, alphaC);
-                spriteBatch.Draw(spawnercount, new Rectangle((int) screenPosition.X, (int) screenPosition.Y, spawnercount.Width, spawnercount.Height), c);
-
-                Vector2 ssize = scoreFont.MeasureString(count);
+                
                 //Vector2 countPos = new Vector2(screenPosition.X + (spawnercount.Width / 2) - (ssize.X / 2), screenPosition.Y + (spawnercount.Height / 2) - (ssize.Y / 2));
 
                 if (!(GameScreen.mode.MODE == GameMode.OBJECTIVES) || (ObjectiveManager.currentObjective() != ObjectiveManager.SURVIVE)) {
+                    spriteBatch.Draw(spawnercount, new Rectangle((int) screenPosition.X, (int) screenPosition.Y, spawnercount.Width, spawnercount.Height), c);
+                    Vector2 ssize = scoreFont.MeasureString(count);
                     spriteBatch.DrawString(scoreFont, count, new Vector2(screenPosition.X + (spawnercount.Width / 2) + 3, screenPosition.Y + (spawnercount.Height / 2) + 5), c, 0f, new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
                 } else {
-                    spriteBatch.DrawString(scoreFont, "8", new Vector2(screenPosition.X + (spawnercount.Width / 2) - 7, screenPosition.Y + (spawnercount.Height / 2) + 3), c, (float) (Math.PI / 2d), new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
+                    spriteBatch.Draw(infSpawnercount, new Rectangle((int) screenPosition.X, (int) screenPosition.Y, spawnercount.Width, spawnercount.Height), c);
+                    //spriteBatch.DrawString(scoreFont, "8", new Vector2(screenPosition.X + (spawnercount.Width / 2) - 7, screenPosition.Y + (spawnercount.Height / 2) + 3), c, (float) (Math.PI / 2d), new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
                 }
             }
         }
