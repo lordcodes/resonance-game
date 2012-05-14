@@ -44,12 +44,15 @@ namespace Resonance
 
         public void Add(String key, Object obj)
         {
-            objects.Add(key, obj);
-
-            if (obj is BadVibe)
+            try
             {
-                badVibeObjects.Add(key, obj);
-            }
+                objects.Add(key, obj);
+
+                if (obj is BadVibe)
+                {
+                    badVibeObjects.Add(key, obj);
+                }
+            }catch(Exception){}
         }
 
         public List<Object> returnObjectSubset<T>()

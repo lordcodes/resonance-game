@@ -184,7 +184,7 @@ namespace Resonance
             }
 
             shader.Transparency = 1;
-            graphics.GraphicsDevice.BlendState = BlendState.Opaque;
+            //graphics.GraphicsDevice.BlendState = BlendState.Opaque;
 
             if (particleHeight != height || particleWidth != width)
             {

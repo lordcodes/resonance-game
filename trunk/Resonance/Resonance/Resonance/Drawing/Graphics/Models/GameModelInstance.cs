@@ -162,7 +162,7 @@ namespace Resonance
             textureAnimation = gameModel.TextureAnimation.Copy;
             
             //Program.game.Components.Add(this);
-            DrawableManager.Add(this);
+            //DrawableManager.Add(this);
         }
 
         /// <summary>
@@ -202,8 +202,11 @@ namespace Resonance
 
         public void resetAnimation()
         {
-            animPlayer.StartClip(clip);
-            modelAnimPaused = true;
+            if (gameModel.ModelAnimation)
+            {
+                animPlayer.StartClip(clip);
+                modelAnimPaused = true;
+            }
         }
 
         public void fadeAway(float seconds, Action finishedFadingAction)

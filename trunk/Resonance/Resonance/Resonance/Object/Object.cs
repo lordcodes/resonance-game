@@ -49,5 +49,10 @@ namespace Resonance
         {
             // Code that was here is now done in DrawableManager 
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            modelInstance.Update(gameTime);
+        }
     }
 }

@@ -71,7 +71,7 @@ namespace Resonance
             this.textureAnimation = textureAnimation;
             this.width = width;
             this.height = height;
-            DrawableManager.Add(this);
+            //DrawableManager.Add(this);
         }
 
         public override void Draw(GameTime gameTime)
