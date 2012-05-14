@@ -21,7 +21,7 @@ namespace Resonance
             bvsAtOnce = 0;
             round1 = TimeSpan.Zero;
             round2 = TimeSpan.Zero;
-            round3 = 0;
+            round3 = -1;
             round4 = TimeSpan.Zero;
             round5 = TimeSpan.Zero;
             scoreBonus = new int[] { 0, 0, 0, 0, 0 };
