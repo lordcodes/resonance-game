@@ -438,6 +438,7 @@ namespace Resonance
         {
             if (worldObject.ModelInstance.Transparency > 0)
             {
+                graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
                 gameGraphics.Draw(worldObject, worldTransform, blend, drawingReflection, drawingShadows);
             }
         }
