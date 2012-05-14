@@ -57,11 +57,8 @@ wallTexture,    Textures\walls.jpg
 goodVibeShieldTexture, Textures\GoodVibeShieldTexture.png
 checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlue.png;Textures\gateGreen.png;Textures\gateWhite.png
 bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\green.jpg
-<<<<<<< .mine
 boss,    Textures\bossTexture.png
-=======
 rampText,       Textures\ramp1.jpg
->>>>>>> .r922
 
 ---You can use dashes at the start of lines for comments
 
@@ -81,13 +78,13 @@ rampText,       Textures\ramp1.jpg
 9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0,				goodVibeShieldTexture
 10,         BVSpawner,              0.6,		BVSpawner-physics,      0.6,            spawnTexture,                           1
 11,         BadVibe-explosion,      0.2,		BadVibe-explosion,      0.2,                          ,							1
-12,			x2,						0.25,		x2,						0.25
-13,			x3,						0.25,		x3,						0.25
-14,			plus4,					0.25,		plus4,					0.25
-15,			plus5,					0.25,		plus5,					0.25
+12,			x2,						0.25,		pickup,					0.25
+13,			x3,						0.25,		pickup,					0.25
+14,			plus4,					0.25,		pickup,					0.25
+15,			plus5,					0.25,		pickup,					0.25
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         Boss,                   1.3,          BossPhysics,       1.3,          boss,							1
+18,         Boss,                   1.3,        BossPhysics,			1.3,			boss,							1
 19,			Walls,					245,		Walls,					245,			wallTexture
 20,			Walls,					195,		Walls,					195,			wallTexture
 22,			Walls,					195,		Walls,					195,			wallTexture
