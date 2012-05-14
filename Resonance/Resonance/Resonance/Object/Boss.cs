@@ -13,6 +13,7 @@ namespace Resonance
         public const int MAX_HEALTH = 20;
 
         private int health;
+        private bool dead;
 
         private SingleEntityAngularMotor servo;
 
@@ -24,6 +25,7 @@ namespace Resonance
             ScreenManager.game.World.addToSpace(servo);
 
             health = MAX_HEALTH;
+            dead = false;
         }
 
         /// <summary>
@@ -46,24 +48,26 @@ namespace Resonance
         /// Damage the bad vibe
         /// </summary>
         /// <param name="colour">The colour wave that has been attacked with</param>
-        public bool damage(bool deflect)
+        public void damage(bool deflect)
         {
             if (deflect)
             {
-                if(health > 0) health--;
+                if(health > 0) health --;
             }
             if (health <= 0)
             {
-                return true;
-            }
-            else
-            {
-                return true;
+                dead = true;
             }
         }
 
-        public int getHealth() {
-            return health;
+        public int Health
+        {
+            get { return health; }
+        }
+
+        public bool Dead
+        {
+            get { return dead; }
         }
     }
 }
