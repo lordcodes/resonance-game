@@ -31,7 +31,24 @@ namespace Resonance
         public static readonly int BOSSWALLS        = 25;
         public static readonly int PICKUPORB        = 26;
         public static readonly int RAMP             = 27;
-        public static readonly int PICKUPDEFLECT    = 28;
+<<<<<<< .mine
+        public static readonly int BOSSBACKTWIG = 28;
+        public static readonly int BOSSLEFTBOTTOM = 29;
+        public static readonly int BOSSLEFTMIDDLE = 30;
+        public static readonly int BOSSLEFTMIDDLEBOTTOM = 31;
+        public static readonly int BOSSRIGHTBOTTOM = 32;
+        public static readonly int BOSSRIGHTMIDDLE = 33;
+        public static readonly int BOSSRIGHTMIDDLEBOTTOM = 34;
+        public static readonly int BOSSTOPLEFT = 35;
+        public static readonly int BOSSTOPRIGHT = 36;
+        public static readonly int BOSSCENTRALORB = 37;
+        public static readonly int BOSSCENTRALSPIKE = 38;
+        public static readonly int BOSSLEFTORB = 39;
+        public static readonly int BOSSLEFTTWIG = 40;
+        public static readonly int BOSSRIGHTORB = 41;
+        public static readonly int BOSSRIGHTTWIG = 42;
+        public static readonly int PICKUPDEFLECT    = 43;
+
 
 
         private static ContentManager Content;
