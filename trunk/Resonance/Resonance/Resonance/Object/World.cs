@@ -39,7 +39,7 @@ namespace Resonance
         public World() 
         {
             space = new Space();
-            space.ForceUpdater.Gravity = new Vector3(0, -9.81f, 0);
+            space.ForceUpdater.Gravity = new Vector3(0, -9.8f, 0);
 
             //Speed improvements
             SolverSettings.DefaultMinimumIterations = 0;
@@ -95,10 +95,10 @@ namespace Resonance
                 {
                     float wall_length = 20f;
                     float wall_height = 150f;
-                    Vector3 pos1 = new Vector3(0, 75f, (PLAYABLE_MAP_Z / 2 - 7) + (wall_length / 2));
-                    Vector3 pos2 = new Vector3((PLAYABLE_MAP_X / 2 - 7) + (wall_length / 2), 75f, 0);
-                    Vector3 pos3 = new Vector3(0, 75f, (-PLAYABLE_MAP_Z / 2 + 7) - (wall_length / 2));
-                    Vector3 pos4 = new Vector3((-PLAYABLE_MAP_X / 2 + 7) - (wall_length / 2), 75f, 0);
+                    Vector3 pos1 = new Vector3(0, 75f, (PLAYABLE_MAP_Z / 2) + (wall_length / 2));
+                    Vector3 pos2 = new Vector3((PLAYABLE_MAP_X / 2) + (wall_length / 2), 75f, 0);
+                    Vector3 pos3 = new Vector3(0, 75f, (-PLAYABLE_MAP_Z / 2) - (wall_length / 2));
+                    Vector3 pos4 = new Vector3((-PLAYABLE_MAP_X / 2) - (wall_length / 2), 75f, 0);
                     Box b1 = new Box(pos1, PLAYABLE_MAP_X, wall_height, wall_length);
                     Box b2 = new Box(pos2, wall_length, wall_height, PLAYABLE_MAP_Z);
                     Box b3 = new Box(pos3, PLAYABLE_MAP_X, wall_height, wall_length);
