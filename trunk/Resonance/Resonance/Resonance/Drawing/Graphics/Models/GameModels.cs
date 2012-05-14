@@ -31,6 +31,7 @@ namespace Resonance
         public static readonly int BOSSWALLS        = 25;
         public static readonly int PICKUPORB        = 26;
         public static readonly int RAMP             = 27;
+        public static readonly int PICKUPDEFLECT    = 28;
 
 
         private static ContentManager Content;

@@ -11,6 +11,7 @@ namespace Resonance
         public const int X3 = 1;
         public const int PLUS4 = 2;
         public const int PLUS5 = 3;
+        public const int DEFLECT = 4;
 
         private int pickupType;
         private int pickupLength; //length of time the pickup has an effect
@@ -20,10 +21,10 @@ namespace Resonance
         Random r;
         float ROTATE_SPEED = -0.1f;
 
-        GameModelInstance X2Instance;
-        GameModelInstance X3Instance;
-        GameModelInstance Plus4Instance;
-        GameModelInstance Plus5Instance;
+        //GameModelInstance X2Instance;
+        //GameModelInstance X3Instance;
+        //GameModelInstance Plus4Instance;
+        //GameModelInstance Plus5Instance;
 
         public Pickup(int modelNum, String name, Vector3 pos, int length, int time)
             : base(modelNum, name, pos)
@@ -43,6 +44,10 @@ namespace Resonance
             else if (modelNum == GameModels.PLUS5)
             {
                 pickupType = PLUS5;
+            }
+            else if (modelNum == GameModels.PICKUPDEFLECT)
+            {
+                pickupType = DEFLECT;
             }
 
             pickupLength = length;
@@ -64,14 +69,14 @@ namespace Resonance
             // Set it so the pickup does not cast a shadow
             this.ModelInstance.Shadow = false;
 
-            X2Instance = new GameModelInstance(GameModels.X2);
-            X3Instance = new GameModelInstance(GameModels.X3);
-            Plus4Instance = new GameModelInstance(GameModels.PLUS4);
-            Plus5Instance = new GameModelInstance(GameModels.PLUS5);
-            X2Instance.Shadow = false;
-            X3Instance.Shadow = false;
-            Plus4Instance.Shadow = false;
-            Plus5Instance.Shadow = false;
+            //X2Instance = new GameModelInstance(GameModels.X2);
+            //X3Instance = new GameModelInstance(GameModels.X3);
+            //Plus4Instance = new GameModelInstance(GameModels.PLUS4);
+            //Plus5Instance = new GameModelInstance(GameModels.PLUS5);
+            //X2Instance.Shadow = false;
+            //X3Instance.Shadow = false;
+            //Plus4Instance.Shadow = false;
+            //Plus5Instance.Shadow = false;
         }
 
         public void init(int modelNum, Vector3 pos, int length, int time)

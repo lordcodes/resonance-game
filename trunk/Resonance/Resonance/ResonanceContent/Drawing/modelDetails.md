@@ -94,3 +94,4 @@ rampText,       Textures\ramp1.jpg
 21,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
 26,			PickupOrb,				0.25,		PickupOrb,				0.25
 27,         Ramp,                   1,          Ramp_phys,                1,            rampText
+28,			PickupOrb,				0.5,		PickupOrb,				0.5
