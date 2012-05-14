@@ -95,13 +95,13 @@ namespace Resonance
             Matrix.CreateTranslation((float)-GROWTH_RATE * position.X, 0.0f, (float)-GROWTH_RATE * position.Z, out translate);
             Matrix.Multiply(ref transform, ref translate, out transform);
 
-            if (GameScreen.mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS && GameScreen.getGV().DeflectShield > 0)
             {
-                BulletManager.deflectBullet(colour - 1);
+                BulletManager.deflectBullet(colour - 1, position, radius);
             }
             else
             {
-                BulletManager.destroyBullet(colour - 1);
+                BulletManager.destroyBullet(colour - 1, position, radius);
             }
         }
 
