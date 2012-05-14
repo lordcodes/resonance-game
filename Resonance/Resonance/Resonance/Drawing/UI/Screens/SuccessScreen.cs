@@ -144,26 +144,59 @@ namespace Resonance
 
             string scores = GameStats.Score + "\n\n" + GameStats.BVsKilled + "\n\n" + GameStats.Multikill + "\n\n";
             TimeSpan round = GameStats.Round1;
-            int mins = round.Minutes;
-            int secs = Math.Max(round.Seconds, 0);
-            string ts = string.Format("{0:D2}:{1:D2}", mins, secs);
-            scores += ts + "\n\n";
+            int mins;
+            int secs;
+            string ts;
+
+            if (round == TimeSpan.Zero)
+            {
+                scores += "n/a \n\n";
+            }
+            else
+            {
+                mins = round.Minutes;
+                secs = Math.Max(round.Seconds, 0);
+                ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+                scores += ts + "\n\n";
+            }
             round = GameStats.Round2;
-            mins = round.Minutes;
-            secs = Math.Max(round.Seconds, 0);
-            ts = string.Format("{0:D2}:{1:D2}", mins, secs);
-            scores += ts + "\n\n";
-            scores += (GameStats.Round3 + "\n\n");
+            if (round == TimeSpan.Zero)
+            {
+                scores += "n/a \n\n";
+            }
+            else
+            {
+                mins = round.Minutes;
+                secs = Math.Max(round.Seconds, 0);
+                ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+                scores += ts + "\n\n";
+            }
+            if (GameStats.Round3 == -1) scores += "n/a \n\n";
+            else scores += (GameStats.Round3 + "\n\n");
             round = GameStats.Round4;
-            mins = round.Minutes;
-            secs = Math.Max(round.Seconds, 0);
-            ts = string.Format("{0:D2}:{1:D2}", mins, secs);
-            scores += ts + "\n\n";
+            if (round == TimeSpan.Zero)
+            {
+                scores += "n/a \n\n";
+            }
+            else
+            {
+                mins = round.Minutes;
+                secs = Math.Max(round.Seconds, 0);
+                ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+                scores += ts + "\n\n";
+            }
             round = GameStats.Round5;
-            mins = round.Minutes;
-            secs = Math.Max(round.Seconds, 0);
-            ts = string.Format("{0:D2}:{1:D2}", mins, secs);
-            scores += ts + "\n\n";
+            if (round == TimeSpan.Zero)
+            {
+                scores += "n/a \n\n";
+            }
+            else
+            {
+                mins = round.Minutes;
+                secs = Math.Max(round.Seconds, 0);
+                ts = string.Format("{0:D2}:{1:D2}", mins, secs);
+                scores += ts + "\n\n";
+            }           
 
             ScreenManager.SpriteBatch.DrawString(Font, headings, lPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(lPosText.X + 410, lPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
