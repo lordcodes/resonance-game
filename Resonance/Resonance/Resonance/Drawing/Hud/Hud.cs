@@ -188,6 +188,7 @@ namespace Resonance
             drawThrobber();
             drawCountDown();
             drawScore();
+            if(ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS) drawDeflectShield();
             drawMultiplier();
             drawLightning();
             spriteBatch.End();
@@ -258,6 +259,17 @@ namespace Resonance
                 coords.Y--;
                 spriteBatch.DrawString(font, time, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             }
+        }
+
+        private static void drawDeflectShield()
+        {
+            string deflectShieldString = "Deflection: " + GameScreen.getGV().DeflectShield.ToString();
+            int xOff = (int)(Math.Round(scoreFont.MeasureString(deflectShieldString).X) * 0.5);
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(1895) - xOff, ScreenManager.pixelsY(200));
+            spriteBatch.DrawString(scoreFont, deflectShieldString, coords, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            coords.X--;
+            coords.Y--;
+            spriteBatch.DrawString(scoreFont, deflectShieldString, coords, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
 
         /// <summary>

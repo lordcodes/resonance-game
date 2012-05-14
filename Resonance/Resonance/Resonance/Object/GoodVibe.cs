@@ -14,6 +14,7 @@ namespace Resonance
         public static int MAX_NITRO  = 200;
         public static int MAX_SHIELD = 300;
         public static int MAX_FREEZE = 200;
+        public static int MAX_DEFLECTSHIELD = 5;
 
         private Object shieldUpObject;
 
@@ -25,6 +26,7 @@ namespace Resonance
         private int shield; //shield between 0 - MAX_SHIELD.
         private int freeze; //SOMETHINGELSE between 0 - 100.
         private int currentPower;
+        private int deflectShield; //deflect shield value for final boss
 
         private bool isInCombat;
         private bool freezeActive;
@@ -106,7 +108,6 @@ namespace Resonance
             }
 
             if (health <= 0) GameScreen.GV_KILLED = true;
-
         }
 
         /// <summary>
@@ -134,6 +135,15 @@ namespace Resonance
         public void adjustFreeze(int change)
         {
             freeze = (int)MathHelper.Clamp(freeze += change, 0, MAX_FREEZE);
+        }
+
+        /// <summary>
+        /// Adjust deflectShield between 0 - MAX_DEFLECTSHIELD
+        /// </summary>
+        /// <param name="change">Amount to change by</param>
+        public void adjustDeflectShield(int change)
+        {
+            deflectShield = (int)MathHelper.Clamp(deflectShield += change, 0, MAX_DEFLECTSHIELD);
         }
 
         /// <summary>
@@ -273,6 +283,11 @@ namespace Resonance
         public int Shield
         {
             get { return shield; }
+        }
+
+        public int DeflectShield
+        {
+            get { return deflectShield; }
         }
 
         public bool ShieldOn

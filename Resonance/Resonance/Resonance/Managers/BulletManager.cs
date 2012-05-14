@@ -58,6 +58,7 @@ namespace Resonance
                         if (deflected)
                         {
                             GameScreen.getBoss().damage(true);
+                            GameScreen.getGV().adjustDeflectShield(-1);
                             target = GameScreen.getGV().Body;
                             deflected = false;
                         }
@@ -106,7 +107,7 @@ namespace Resonance
         {
             if (BOSS_EXISTS)
             {
-                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour == colour)
+                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour == colour && GameScreen.getGV().DeflectShield > 0)
                 {
                     target = GameScreen.getBoss().Body;
                     deflected = true;
