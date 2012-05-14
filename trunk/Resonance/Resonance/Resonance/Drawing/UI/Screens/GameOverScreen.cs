@@ -121,18 +121,13 @@ namespace Resonance
                 case 1:
                     if(HighScoreManager.position >= 0)
                         if (result.IsCompleted)
-                        {
-                            try
-                            {
-                                while (!Guide.IsVisible) { Console.WriteLine(DateTime.Now.ToString()); };                             
-                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
-                                HighScoreManager.saveFile();
-                             }
-                            catch (Exception ex) { Console.WriteLine("ERROR WHEN RETRIEVEING NAME"); }
+                        {                                                            
+                            HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                            HighScoreManager.saveFile();                             
                             async = 2;
                         }
                     break;
-            }            
+            }
 
             ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
             ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White); 
