@@ -184,19 +184,22 @@ namespace Resonance
             bool pad2Ever = input.PlayerTwoHasBeenConnected;
             bool connected = input.PlayerOne.IsConnected;
 
-            if (pad1Ever && !connected || pause)
+            if (!endgame)
             {
-                ScreenManager.addScreen(ScreenManager.pauseMenu);
-            }
-            if (debug)
-            {
-                ScreenManager.addScreen(ScreenManager.debugMenu);
-            }
+                if (pad1Ever && !connected || pause)
+                {
+                    ScreenManager.addScreen(ScreenManager.pauseMenu);
+                }
+                if (debug)
+                {
+                    ScreenManager.addScreen(ScreenManager.debugMenu);
+                }
 
-            //Player One
-            GVManager.input(input);
-            //Player Two
-            if(intro) DrumManager.input(input);
+                //Player One
+                GVManager.input(input);
+                //Player Two
+                if (intro) DrumManager.input(input);
+            }
             //Camera
             CameraMotionManager.update(input);
         }
