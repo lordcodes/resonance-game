@@ -25,6 +25,7 @@ namespace Resonance
         }
         public static HighScoreData data;
         public static int position = -1;
+        public static StorageDevice device = null;
 
         public static void initializeData()
         {
@@ -41,7 +42,7 @@ namespace Resonance
             data.PlayerName[3] = "Michael Jones";
             data.Score[3] = 0;
 
-            data.PlayerName[4] = "Phillip Tattersall";
+            data.PlayerName[4] = "Philip Tattersall";
             data.Score[4] = 0;
 
             data.PlayerName[5] = "Tom Pickering";
@@ -95,16 +96,17 @@ namespace Resonance
        
         public static void saveFile()
         {
-            
-                IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
-                if (result.IsCompleted)
-                {
-                    StorageDevice device = StorageDevice.EndShowSelector(result);
+           
+                
+               // IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
+               // if (result.IsCompleted)
+               // {
+                 //   device = StorageDevice.EndShowSelector(result);
                     if (device != null && device.IsConnected)
                     {
-                        createFile(device);
+                        createFile();
                     }
-                }
+               // }
             
         }
         public static void loadFile()
@@ -114,15 +116,15 @@ namespace Resonance
                 while (!result.IsCompleted) { };
                 if (result.IsCompleted)
                 {
-                    StorageDevice device = StorageDevice.EndShowSelector(result);
+                    device = StorageDevice.EndShowSelector(result);
                     if (device != null && device.IsConnected)
                     {
-                        readFile(device);
+                        readFile();
                     }
                 }
                        
         }
-        private static void readFile(StorageDevice device)
+        private static void readFile()
         {
             IAsyncResult result2 = device.BeginOpenContainer("StorageScore", null, null);
             // Wait for the WaitHandle to become signaled.
@@ -156,7 +158,7 @@ namespace Resonance
             container.Dispose();
 
         }
-        private static void createFile(StorageDevice device)
+        private static void createFile()
         {
             // Open a storage container.
             IAsyncResult result2 =
