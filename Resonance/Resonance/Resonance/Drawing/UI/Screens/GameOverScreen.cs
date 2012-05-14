@@ -122,9 +122,13 @@ namespace Resonance
                     if(HighScoreManager.position >= 0)
                         if (result.IsCompleted)
                         {
-                        
-                             HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
-                            HighScoreManager.saveFile();
+                            try
+                            {
+                                while (!Guide.IsVisible) { Console.WriteLine(DateTime.Now.ToString()); };                             
+                                HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                                HighScoreManager.saveFile();
+                             }
+                            catch (Exception ex) { Console.WriteLine("ERROR WHEN RETRIEVEING NAME"); }
                             async = 2;
                         }
                     break;
