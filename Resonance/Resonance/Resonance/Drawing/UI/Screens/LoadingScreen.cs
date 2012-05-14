@@ -103,6 +103,11 @@ namespace Resonance
                 startLoading = false;
             }
             if(!loadingDone) fadeValue = Math.Min(1f, fadeValue + FADE_INC);
+            if (loadingDone && displaySplash == NONE)
+            {
+                ScreenManager.removeScreen(this);
+                ScreenManager.addScreen(screenToLoad);
+            }
         }
 
         public override void Draw(GameTime gameTime)
