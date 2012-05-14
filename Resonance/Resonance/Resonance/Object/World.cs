@@ -296,8 +296,8 @@ namespace Resonance
                             }
                         case ObjectiveManager.SURVIVE:
                             {
-                                PLAYABLE_MAP_X = 200;
-                                PLAYABLE_MAP_Z = 200;
+                                PLAYABLE_MAP_X = 130;
+                                PLAYABLE_MAP_Z = 130;
                                 addObject(new StaticObject(GameModels.SURVIVALWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }
