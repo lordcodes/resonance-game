@@ -48,7 +48,8 @@ bossLeftOrb, Models\BossDeath\leftOrb.fbx
 bossLeftTwig, Models\BossDeath\leftTwig.fbx
 bossRightOrb, Models\BossDeath\rightOrb.fbx
 bossRightTwig, Models\BossDeath\rightTwig.fbx
-
+Virus, Models\Virus.fbx
+Virus_phys, Models\Virus_phys.fbx
 
 
 TEXTURES
@@ -75,6 +76,7 @@ checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlu
 bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\green.jpg
 boss,    Textures\bossTexture.png
 rampText,       Textures\ramp1.jpg
+virus_texture, Textures\virus_texture.jpg
 
 ---You can use dashes at the start of lines for comments
 
@@ -126,3 +128,4 @@ rampText,       Textures\ramp1.jpg
 41,			bossRightOrb,			1.3,		bossRightOrb,			1.3,			boss
 42,			bossRightTwig,			1.3,		bossRightTwig,			1.3,			boss
 43,			PickupOrb,				0.5,		PickupOrb,				0.5
+44,         Virus,                  1,          Virus_phys,             1,              virus_texture

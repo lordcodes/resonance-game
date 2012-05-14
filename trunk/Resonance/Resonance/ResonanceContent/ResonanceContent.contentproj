@@ -370,6 +370,16 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\Virus.fbx">
+      <Name>Virus</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Virus_phys.fbx">
+      <Name>Virus_phys</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\x2.fbx">
       <Name>x2</Name>
       <Importer>FbxImporter</Importer>
@@ -2044,6 +2054,13 @@
   <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\infcountnice.png">
       <Name>infcountnice</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\virus_texture.jpg">
+      <Name>virus_texture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
