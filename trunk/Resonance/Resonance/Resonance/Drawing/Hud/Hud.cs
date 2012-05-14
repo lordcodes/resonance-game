@@ -211,12 +211,6 @@ namespace Resonance
                 coords.X--;
                 coords.Y--;
                 spriteBatch.DrawString(scoreFont, bonusString, coords, Color.White, 0f, Vector2.Zero, 0.3f, SpriteEffects.None, 0f);
-                /*string time =  "+" + ObjectiveManager.calcuateScoreBonus().ToString();
-                coords = new Vector2(ScreenManager.pixelsX(1895 - plusFour.Width / 2), ScreenManager.pixelsY(110));
-                spriteBatch.DrawString(font, time, coords, Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                coords.X--;
-                coords.Y--;
-                spriteBatch.DrawString(font, time, coords, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);*/
             }
         }
 
@@ -447,7 +441,11 @@ namespace Resonance
                 Vector2 ssize = scoreFont.MeasureString(count);
                 //Vector2 countPos = new Vector2(screenPosition.X + (spawnercount.Width / 2) - (ssize.X / 2), screenPosition.Y + (spawnercount.Height / 2) - (ssize.Y / 2));
 
-                spriteBatch.DrawString(scoreFont, count, new Vector2(screenPosition.X + (spawnercount.Width / 2) + 3, screenPosition.Y + (spawnercount.Height / 2) + 5), c, 0f, new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
+                if (!(GameScreen.mode.MODE == GameMode.OBJECTIVES) || (ObjectiveManager.currentObjective() != ObjectiveManager.SURVIVE)) {
+                    spriteBatch.DrawString(scoreFont, count, new Vector2(screenPosition.X + (spawnercount.Width / 2) + 3, screenPosition.Y + (spawnercount.Height / 2) + 5), c, 0f, new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
+                } else {
+                    spriteBatch.DrawString(scoreFont, "8", new Vector2(screenPosition.X + (spawnercount.Width / 2) - 7, screenPosition.Y + (spawnercount.Height / 2) + 3), c, (float) (Math.PI / 2d), new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
+                }
             }
         }
 

@@ -257,6 +257,10 @@ namespace Resonance
                 MusicHandler.Update();
                 world.update();
 
+                if ((mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.SURVIVE)) {
+                    ObjectiveManager.updateSpawners();
+                }
+
                 if(intro)
                 {
 

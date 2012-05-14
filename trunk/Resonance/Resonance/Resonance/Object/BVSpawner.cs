@@ -16,7 +16,9 @@ namespace Resonance
         public const int MAX_SPAWNER_COUNT_DISPLAY_DIST = 60;
         public const int MAX_SPAWNER_COUNT_TRANSPARENCY_DIST = 15;
 
-        public BVSpawner(int modelNum, String name, Vector3 pos, int maxbvs, int radius, int maxactive)
+        public bool isObjectiveSpawner = false;
+
+        public BVSpawner(int modelNum, String name, Vector3 pos, int maxbvs, int radius, int maxactive, bool objspawner)
             : base(modelNum, name, pos)
         {
             badVibes = new List<BadVibe>(maxBVs);
@@ -24,10 +26,20 @@ namespace Resonance
             spawnRadius = radius;
             maxActive = maxactive;
             totalSpawned = 0;
+            isObjectiveSpawner = objspawner;
         }
 
         public void addBV(BadVibe bv)
         {
+            badVibes.Add(bv);
+            ScreenManager.game.World.addObject(bv);
+            totalSpawned++;
+        }
+
+        public void addBVFromPool()
+        {
+            BadVibe bv = BVSpawnManager.getBadVibe();
+            bv.setup(getSpawnCords(), BVSpawnManager.getSpawnerCount() - 1);
             badVibes.Add(bv);
             ScreenManager.game.World.addObject(bv);
             totalSpawned++;
@@ -54,6 +66,10 @@ namespace Resonance
         public int TotalSpawned
         {
             get { return totalSpawned; }
+        }
+
+        public bool spawnerIsObjectiveSpawner() {
+            return isObjectiveSpawner;
         }
 
         public int MaxActive

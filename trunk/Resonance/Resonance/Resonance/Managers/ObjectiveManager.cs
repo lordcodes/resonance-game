@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework.Media;
+using System.Diagnostics;
 
 namespace Resonance {
     class ObjectiveManager {
@@ -25,6 +26,9 @@ namespace Resonance {
         private static TimeSpan initialDistThroughSong;
         private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
 
+        private static int SURVIVAL_SPAWN_FREQ = 5000; // 5 secs.
+        private static Stopwatch spawnWatch = new Stopwatch();
+
         public static void loadObjectivesGame(ScreenManager sm) {
             ScreenManager.game = new GameScreen(sm, cObj);
             LoadingScreen.LoadAScreen(sm, cObj + 2, ScreenManager.game);
@@ -34,7 +38,8 @@ namespace Resonance {
             cObj = newObj;
 
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
-            /*if (newObj == SURVIVE)*/ initialDistThroughSong = MediaPlayer.PlayPosition;
+            initialDistThroughSong = MediaPlayer.PlayPosition;
+            if (newObj == SURVIVE) { spawnWatch.Stop(); spawnWatch.Reset(); }
             initialGVHealth = GoodVibe.MAX_HEALTH;
         }
 
@@ -49,7 +54,7 @@ namespace Resonance {
 
         public static void surviveSetup() {
             //AIManager.MAX_MOVE_SPEED *= 1.5f;
-            AIManager.TARGET_RANGE *= 4f;
+            AIManager.TARGET_RANGE *= 1.5f;
             AIManager.ATTACK_RATE = 8;
             AIManager.CHANCE_MISS = 15;
         }
@@ -208,6 +213,19 @@ namespace Resonance {
 
             oStr = "";
             return false;
+        }
+
+        public static void updateSpawners() {
+            if (cObj == SURVIVE) {
+                if (!spawnWatch.IsRunning) {
+                    spawnWatch.Start();
+                } else if (spawnWatch.ElapsedMilliseconds >= SURVIVAL_SPAWN_FREQ) {
+                    BVSpawner randSpawner = BVSpawnManager.randomSpawner();
+                    randSpawner.addBVFromPool();
+                    spawnWatch.Reset();
+                    spawnWatch.Stop();
+                }
+            }
         }
 
         /// <summary>
