@@ -11,6 +11,7 @@ namespace Resonance
         private TextureAnimation textureAnimation;
         private float width;
         private float height;
+        private int life = 0; 
 
         public List<Texture2D> Textures
         {
@@ -81,7 +82,9 @@ namespace Resonance
 
         public override void Update(GameTime gameTime)
         {
+            life++;
             textureAnimation.Update(gameTime);
+            if (life > 100) DrawableManager.Remove(this);
         }
     }
 }
