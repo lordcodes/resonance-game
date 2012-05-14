@@ -178,18 +178,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\BossDeath\centralOrb.fbx">
-      <Name>centralOrb</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\BossDeath\centralSpike.fbx">
       <Name>centralSpike</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\BossDeath\leftOrb.fbx">
-      <Name>leftOrb</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
@@ -198,13 +188,228 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\BossDeath\rightTwig.fbx">
+      <Name>rightTwig</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\leftJaw.fbx">
+      <Name>leftJaw</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\middleStalkBottom.fbx">
+      <Name>middleStalkBottom</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\middleStalkTop.fbx">
+      <Name>middleStalkTop</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\rightJaw.fbx">
+      <Name>rightJaw</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\rightStalkBottom.fbx">
+      <Name>rightStalkBottom</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\rightStalkTop.fbx">
+      <Name>rightStalkTop</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\topJaw.fbx">
+      <Name>topJaw</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\topLeftJaw.fbx">
+      <Name>topLeftJaw</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\topRightJaw.fbx">
+      <Name>topRightJaw</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\bottomLeftJaw.fbx">
+      <Name>bottomLeftJaw</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\bottomRightJaw.fbx">
+      <Name>bottomRightJaw</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\leftStalkTop.fbx">
+      <Name>leftStalkTop</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\leftStalkBottom.fbx">
+      <Name>leftStalkBottom</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bottomLeftJawPhysics.fbx">
+      <Name>bottomLeftJawPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bottomRightJawPhysics.fbx">
+      <Name>bottomRightJawPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\leftJawPhysics.fbx">
+      <Name>leftJawPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\leftStalkBottomPhysics.fbx">
+      <Name>leftStalkBottomPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\leftStalkTopPhysics.fbx">
+      <Name>leftStalkTopPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\middleStalkBottomPhysics.fbx">
+      <Name>middleStalkBottomPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\middleStalkTopPhysics.fbx">
+      <Name>middleStalkTopPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\rightJawPhysics.fbx">
+      <Name>rightJawPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\rightStalkBottomPhysics.fbx">
+      <Name>rightStalkBottomPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\rightStalkTopPhysics.fbx">
+      <Name>rightStalkTopPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\topJawPhysics.fbx">
+      <Name>topJawPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\topLeftJawPhysics.fbx">
+      <Name>topLeftJawPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\topRightJawPhysics.fbx">
+      <Name>topRightJawPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\backTwigPhysics.fbx">
+      <Name>backTwigPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyLeftBottomPhysics.fbx">
+      <Name>bodyLeftBottomPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyLeftMidleBotomPhysics.fbx">
+      <Name>bodyLeftMidleBotomPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyLeftMidlePhysics.fbx">
+      <Name>bodyLeftMidlePhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyrightbottomPhysics.fbx">
+      <Name>bodyrightbottomPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyRightMiddleBottomPhysics.fbx">
+      <Name>bodyRightMiddleBottomPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyRightMiddlePhysics.fbx">
+      <Name>bodyRightMiddlePhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyTopLeftPhysics.fbx">
+      <Name>bodyTopLeftPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\bodyTopRightPhysics.fbx">
+      <Name>bodyTopRightPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\centralOrbPhysics.fbx">
+      <Name>centralOrbPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\centralSpikePhysics.fbx">
+      <Name>centralSpikePhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\leftOrbPhysics.fbx">
+      <Name>leftOrbPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\leftTwigPhysics.fbx">
+      <Name>leftTwigPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\rightOrbPhysics.fbx">
+      <Name>rightOrbPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\Physics\rightTwigPhysics.fbx">
+      <Name>rightTwigPhysics</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\BossDeath\leftOrb.fbx">
+      <Name>leftOrb</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <Compile Include="Drawing\Models\BossDeath\rightOrb.fbx">
       <Name>rightOrb</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\BossDeath\rightTwig.fbx">
-      <Name>rightTwig</Name>
+    <Compile Include="Drawing\Models\BossDeath\centralOrb.fbx">
+      <Name>centralOrb</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
