@@ -72,9 +72,7 @@ namespace Resonance
 
         public void addObject(Object obj)
         {
-            try {
-                objects.Add(obj.returnIdentifier(), obj); 
-            } catch (Exception){}
+            objects.Add(obj.returnIdentifier(), obj);
             
             if (obj is DynamicObject)
             {
