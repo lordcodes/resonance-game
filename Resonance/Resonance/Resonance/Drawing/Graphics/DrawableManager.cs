@@ -9,16 +9,15 @@ namespace Resonance
     /// </summary>
     class DrawableManager
     {
-        private static List<Object> components = new List<Object>(1000);
-        private static List<Object> pickupComponents = new List<Object>(1000);
-        private static List<Object> goodVibeComponents = new List<Object>(1000);
-        private static List<Object> groundComponents = new List<Object>(1000);
-        private static List<Object> wallComponents = new List<Object>(1000);
-        private static Object gvi = null;
+        private static List<GameComponent> components = new List<GameComponent>(1000);
+        private static List<GameComponent> pickupComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> goodVibeComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> groundComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> wallComponents = new List<GameComponent>(1000);
 
         // Lists below store duplicate refrences so i dont have to re check at draw time
-        private static List<Object> shadowedComponents = new List<Object>(1000);
-        private static List<Object> reflectedComponents = new List<Object>(1000);
+        private static List<GameComponent> shadowedComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> reflectedComponents = new List<GameComponent>(1000);
 
         static Profile ThisSection = Profile.Get("Drawing3D");
 
@@ -26,7 +25,7 @@ namespace Resonance
         /// Add a game component
         /// </summary>
         /// <param name="component">The GameComponent you wish to add</param>
-        public static void Add(Object component)
+        public static void Add(GameComponent component)
         {
             if (component is Pickup)
             {
@@ -38,26 +37,18 @@ namespace Resonance
                 goodVibeComponents.Add(component);
                 reflectedComponents.Add(component);
             }
-            else if (component.returnIdentifier().Equals("Ground"))
+            else if (component is Object && ((Object)component).returnIdentifier().Equals("Ground"))
             {
                 groundComponents.Add(component);
             }
-            else if (component.returnIdentifier().Equals("Walls"))
+            else if (component is Object && ((Object)component).returnIdentifier().Equals("Walls"))
             {
-                component.ModelInstance.Shadow = false;
+                ((Object)component).ModelInstance.Shadow = false;
                 wallComponents.Add(component);
                 reflectedComponents.Add(component);
             }
             else
             {
-                string output = "_";
-                if (component is StaticObject) output = "so: ";
-                try
-                {
-                    output += ((Object)component).returnIdentifier();
-                }
-                catch (Exception) { }
-                Console.WriteLine("Added: " + output);
                 components.Add(component);
                 reflectedComponents.Add(component);
             }
@@ -118,73 +109,57 @@ namespace Resonance
             }
         }
 
-        private static void DrawSet(List<Object> components, GameTime time)
+        private static void DrawSet(List<GameComponent> components, GameTime time)
         {
             for (int i = 0; i < components.Count; i++)
             {
-                Object component = components[i];
-                //if (component is DrawableGameComponent)
+                GameComponent component = components[i];
+                if (component is DynamicObject)
                 {
-                    if (component is DynamicObject)
-                    {
-                        if (component is GoodVibe) {
-                            Matrix r1 = Matrix.CreateRotationZ(GVMotionManager.BANK_ANGLE);
-                            Matrix r2 = Matrix.CreateRotationX(GVMotionManager.PITCH_ANGLE);
-                            Matrix r = Matrix.Multiply(r1, r2);
-                            Matrix t = Matrix.Multiply(r, ((DynamicObject)component).Body.WorldTransform);
-                            Drawing.Draw(t, ((DynamicObject)component).Body.Position, component);
-                            // Draw the shield if it is up
-                            if (((GoodVibe)component).ShieldOn)
-                            {
-                                Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, ((GoodVibe)component).ShieldObject);
-                            }
-                        } else if (component is Bullet) {
-                            Drawing.Draw(((Bullet)component).getTransform(), ((Bullet)component).Position, (Object)component);
-                        }
-                        else
+                    if (component is GoodVibe) {
+                        Matrix r1 = Matrix.CreateRotationZ(GVMotionManager.BANK_ANGLE);
+                        Matrix r2 = Matrix.CreateRotationX(GVMotionManager.PITCH_ANGLE);
+                        Matrix r = Matrix.Multiply(r1, r2);
+                        Matrix t = Matrix.Multiply(r, ((DynamicObject)component).Body.WorldTransform);
+                        Drawing.Draw(t, ((DynamicObject)component).Body.Position, (Object)component);
+                        // Draw the shield if it is up
+                        if (((GoodVibe)component).ShieldOn)
                         {
-                            Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, component);
+                            Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, ((GoodVibe)component).ShieldObject);
                         }
-                    }
-                    else if (component is StaticObject)
-                    {
-
-                        string output = "_";
-                        if (component is StaticObject) output = "so: ";
-                        try
-                        {
-                            output += ((Object)component).returnIdentifier();
-                        }
-                        catch (Exception) { }
-                        //Console.WriteLine("Drawing: " + output);
-                        Drawing.Draw(((StaticObject)component).Body.WorldTransform.Matrix, ((StaticObject)component).Body.WorldTransform.Translation, component);
-                    }
-                    else if (component is Shockwave)
-                    {
-                        Drawing.Draw(((Shockwave)component).Transform, ((Shockwave)component).Position, component);
-                    }
-                    else if (component is Checkpoint)
-                    {
-                        Checkpoint c = (Checkpoint)component;
-                        Drawing.Draw(c.Transform, c.Position, component);
+                    } else if (component is Bullet) {
+                        Drawing.Draw(((Bullet)component).getTransform(), ((Bullet)component).Position, (Object)component);
                     }
                     else
                     {
-                        Console.Write("Not drawn");
+                        Drawing.Draw(((DynamicObject)component).Body.WorldTransform, ((DynamicObject)component).Body.Position, (Object)component);
                     }
+                }
+                else if (component is StaticObject)
+                {
+                    Drawing.Draw(((StaticObject)component).Body.WorldTransform.Matrix, ((StaticObject)component).Body.WorldTransform.Translation, (Object)component);
+                }
+                else if (component is Shockwave)
+                {
+                    Drawing.Draw(((Shockwave)component).Transform, ((Shockwave)component).Position, (Object)component);
+                }
+                else if (component is Checkpoint)
+                {
+                    Checkpoint c = (Checkpoint)component;
+                    Drawing.Draw(c.Transform, c.Position, (Object)component);
+                }
+                else if (component is TextureEffect)
+                {
+                    Drawing.DrawTexture(((TextureEffect)component).Texture, ((TextureEffect)component).Position, ((TextureEffect)component).Width, ((TextureEffect)component).Height);
                 }
             }
         }
 
-        private static void UpdateSet(List<Object> components, GameTime time)
+        private static void UpdateSet(List<GameComponent> components, GameTime time)
         {
             for (int i = 0; i < components.Count; i++)
             {
-                try
-                {
-                    components[i].Update(time);
-                }
-                catch (Exception) { }
+                components[i].Update(time);
             }
         }
 
