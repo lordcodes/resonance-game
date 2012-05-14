@@ -22,11 +22,6 @@ namespace Resonance
             timeRemaining = time;
         }
 
-        private static void newDeflectShield()
-        {
-            GameScreen.getGV().adjustDeflectShield(1);
-        }
-
         /// <summary>
         /// Updates pickups each game loop
         /// </summary>
@@ -79,7 +74,7 @@ namespace Resonance
                     MusicHandler.playSound(MusicHandler.DING);
                     if (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)
                     {
-                        newDeflectShield();
+                        GameScreen.getGV().adjustDeflectShield(1);
                     }
                     else
                     {
