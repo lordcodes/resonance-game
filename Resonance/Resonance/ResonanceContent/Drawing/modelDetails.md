@@ -141,7 +141,7 @@ virus_texture, Textures\virus_texture.jpg
 8,			box,					2,			pickup,					2,				animationTest
 9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0,				goodVibeShieldTexture
 10,         BVSpawner,              0.6,		BVSpawner-physics,      0.6,            spawnTexture,                           1
-11,         BadVibe-explosion,      0.2,		BadVibe-explosion,      0.2,                          ,							1
+11,         BadVibe-explosion,      0.2,		BadVibe-explosion,      0.2,            cymbal,							1
 12,			x2,						0.25,		pickup,					0.25
 13,			x3,						0.25,		pickup,					0.25
 14,			plus4,					0.25,		pickup,					0.25
