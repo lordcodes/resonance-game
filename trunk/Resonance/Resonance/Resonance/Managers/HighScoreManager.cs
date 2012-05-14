@@ -9,8 +9,6 @@ namespace Resonance
 {
     public class HighScoreManager
     {
-        
-
         public struct HighScoreData
         {
             public string[] PlayerName;
@@ -32,31 +30,22 @@ namespace Resonance
             data = new HighScoreData(10);
             data.PlayerName[0] = "Alex Sheppard";
             data.Score[0] = 0;
-
             data.PlayerName[1] = "Andrew Lord";
             data.Score[1] = 0;
-
             data.PlayerName[2] = "Mihai Nemes";
             data.Score[2] = 0;
-
             data.PlayerName[3] = "Michael Jones";
             data.Score[3] = 0;
-
             data.PlayerName[4] = "Philip Tattersall";
             data.Score[4] = 0;
-
             data.PlayerName[5] = "Tom Pickering";
             data.Score[5] = 0;
-
             data.PlayerName[6] = "Chuck Norris";
             data.Score[6] = 0;
-
             data.PlayerName[7] = "Bruce Lee";
             data.Score[7] = 0;
-
             data.PlayerName[8] = "Rocky Balboa";
             data.Score[8] = 0;
-
             data.PlayerName[9] = "Muhammad Ali";
             data.Score[9] = 0;
         }
@@ -86,32 +75,21 @@ namespace Resonance
                 data.PlayerName[scoreIndex] = "Player";
             }
             position = scoreIndex;
-
             Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
             for (int index = 0; index < data.SIZE; index++)
             {
                 Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
             }
-        }
-       
+        }       
         public static void saveFile()
         {
-           
-                
-               // IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
-               // if (result.IsCompleted)
-               // {
-                 //   device = StorageDevice.EndShowSelector(result);
                     if (device != null && device.IsConnected)
                     {
                         createFile();
-                    }
-               // }
-            
+                    }            
         }
         public static void loadFile()
-        {
-            
+        {            
                 IAsyncResult result = StorageDevice.BeginShowSelector(PlayerIndex.One, null, null);
                 while (!result.IsCompleted) { };
                 if (result.IsCompleted)
@@ -121,8 +99,7 @@ namespace Resonance
                     {
                         readFile();
                     }
-                }
-                       
+                }                       
         }
         private static void readFile()
         {
@@ -156,23 +133,18 @@ namespace Resonance
             stream.Close();
             // Dispose the container.
             container.Dispose();
-
         }
         private static void createFile()
         {
             // Open a storage container.
             IAsyncResult result2 =
                 device.BeginOpenContainer("StorageScore", null, null);
-
             // Wait for the WaitHandle to become signaled.
             result2.AsyncWaitHandle.WaitOne();
-
             StorageContainer container = device.EndOpenContainer(result2);
-
             // Close the wait handle.
             result2.AsyncWaitHandle.Close();
             string filename = "Highscore.sav";
-
             // Check to see whether the save exists.
             if (container.FileExists(filename))
             {
