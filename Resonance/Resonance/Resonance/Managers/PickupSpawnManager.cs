@@ -16,7 +16,7 @@ namespace Resonance
         private static int PICKUP_DEFLECT_MIN_PICKUPS = 5;
         private static int PICKUP_DEFLECT_MIN_TIME_LIVE = (int)(20 * ResonanceGame.FPS);
         private static int PICKUP_DEFLECT_MAX_TIME_LIVE = (int)(30 * ResonanceGame.FPS);
-        private static int PICKUP_DEFLECT_DISTANCE_FROM_PLAYER = 130;
+        //private static int PICKUP_DEFLECT_DISTANCE_FROM_PLAYER = 10;
 
         private static int PICKUP_CURRENT_MIN_PICKUPS;
         private static int PICKUP_CURRENT_MIN_TIME_LIVE;
@@ -45,7 +45,40 @@ namespace Resonance
                 PICKUP_CURRENT_MIN_PICKUPS = PICKUP_DEFLECT_MIN_PICKUPS;
                 PICKUP_CURRENT_MIN_TIME_LIVE = PICKUP_DEFLECT_MIN_TIME_LIVE;
                 PICKUP_CURRENT_MAX_TIME_LIVE = PICKUP_DEFLECT_MAX_TIME_LIVE;
-                PICKUP_CURRENT_DISTANCE_FROM_PLAYER = PICKUP_DEFLECT_DISTANCE_FROM_PLAYER;
+
+                switch (GameScreen.DIFFICULTY)
+                {
+                    case GameScreen.BEGINNER:
+                        {
+                            PICKUP_CURRENT_DISTANCE_FROM_PLAYER = 130;
+                            break;
+                        }
+                    case GameScreen.EASY:
+                        {
+                            PICKUP_CURRENT_DISTANCE_FROM_PLAYER = 106;
+                            break;
+                        }
+                    case GameScreen.MEDIUM:
+                        {
+                            PICKUP_CURRENT_DISTANCE_FROM_PLAYER = 82;
+                            break;
+                        }
+                    case GameScreen.HARD:
+                        {
+                            PICKUP_CURRENT_DISTANCE_FROM_PLAYER = 58;
+                            break;
+                        }
+                    case GameScreen.EXPERT:
+                        {
+                            PICKUP_CURRENT_DISTANCE_FROM_PLAYER = 34;
+                            break;
+                        }
+                    case GameScreen.INSANE:
+                        {
+                            PICKUP_CURRENT_DISTANCE_FROM_PLAYER = 10;
+                            break;
+                        }
+                }
             }
             else
             {
@@ -106,24 +139,42 @@ namespace Resonance
             //DebugDisplay.update("total pickups", totalNumPickups.ToString());
             if (numPickups < PICKUP_CURRENT_MIN_PICKUPS)
             {
-                Vector3 gvPos = GameScreen.getGV().Body.Position;
+                Vector3 pos;
+                int minX, maxX, minZ, maxZ;
+                if (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)
+                {
+                    pos = GameScreen.getBoss().Body.Position;
+                    minX = (int)pos.X - PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (minX < (int)-World.MAP_X) minX = (int)-World.PLAYABLE_MAP_X - 15;
 
-                int minX = (int)gvPos.X - PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
-                if (minX < (int)-World.MAP_X) minX = (int)-World.PLAYABLE_MAP_X - 15;
+                    maxX = (int)pos.X + PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (maxX > (int)World.MAP_X) maxX = (int)World.PLAYABLE_MAP_X - 15;
 
-                int maxX = (int)gvPos.X + PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
-                if (maxX > (int)World.MAP_X) maxX = (int)World.PLAYABLE_MAP_X - 15;
+                    minZ = (int)pos.Z - PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (minZ < (int)-World.MAP_Z) minZ = (int)-World.PLAYABLE_MAP_Z - 15;
 
-                int minZ = (int)gvPos.Z - PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
-                if (minZ < (int)-World.MAP_Z) minZ = (int)-World.PLAYABLE_MAP_Z - 15;
+                    maxZ = (int)pos.Z + PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (maxZ > (int)World.MAP_Z) maxZ = (int)World.PLAYABLE_MAP_Z - 15;
+                }
+                else
+                {
+                    pos = GameScreen.getGV().Body.Position;
+                    minX = (int)pos.X - PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (minX < (int)-World.MAP_X) minX = (int)-World.PLAYABLE_MAP_X - 15;
 
-                int maxZ = (int)gvPos.Z + PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
-                if (maxZ > (int)World.MAP_Z) maxZ = (int)World.PLAYABLE_MAP_Z - 15;
+                    maxX = (int)pos.X + PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (maxX > (int)World.MAP_X) maxX = (int)World.PLAYABLE_MAP_X - 15;
 
-                int x = r.Next(minX, maxX);
-                int z = r.Next(minZ, maxZ);
+                    minZ = (int)pos.Z - PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (minZ < (int)-World.MAP_Z) minZ = (int)-World.PLAYABLE_MAP_Z - 15;
 
-                Vector3 pos = new Vector3((float)x, 5f, (float)z);
+                    maxZ = (int)pos.Z + PICKUP_CURRENT_DISTANCE_FROM_PLAYER;
+                    if (maxZ > (int)World.MAP_Z) maxZ = (int)World.PLAYABLE_MAP_Z - 15;
+                }
+
+                pos.X = r.Next(minX, maxX);
+                pos.Y = 5f;
+                pos.Z = r.Next(minZ, maxZ);
 
                 if (!ScreenManager.game.World.querySpace(pos))
                 {
