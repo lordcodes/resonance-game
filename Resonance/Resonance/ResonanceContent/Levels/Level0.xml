@@ -201,6 +201,15 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
+        <identifier>Virus0</identifier>
+        <type>Virus</type>
+        <xWorldCoord>-80</xWorldCoord>
+        <zWorldCoord>10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>44</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
         <identifier>Neuron20</identifier>
         <type>Neuron</type>
         <xWorldCoord>-70</xWorldCoord>

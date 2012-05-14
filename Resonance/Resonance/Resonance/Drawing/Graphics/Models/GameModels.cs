@@ -47,6 +47,7 @@ namespace Resonance
         public static readonly int BOSSRIGHTORB = 41;
         public static readonly int BOSSRIGHTTWIG = 42;
         public static readonly int PICKUPDEFLECT    = 43;
+        public static readonly int VIRUS = 44;
 
 
 

@@ -324,6 +324,10 @@ namespace Resonance
                 {
                     addObject(new StaticObject(GameModels.RAMP,obj.identifier,pos));
                 }
+                if (obj.type.Equals("Virus"))
+                {
+                    addObject(new StaticObject(GameModels.VIRUS, obj.identifier, pos));
+                }
                 if (obj.type.Equals("Neuron"))
                 {
                     int r = random.Next(0, 360);
