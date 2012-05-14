@@ -14,6 +14,7 @@ namespace Resonance
         private static List<GameComponent> goodVibeComponents = new List<GameComponent>(1000);
         private static List<GameComponent> groundComponents = new List<GameComponent>(1000);
         private static List<GameComponent> wallComponents = new List<GameComponent>(1000);
+        private static List<GameComponent> textureComponents = new List<GameComponent>(1000);
 
         // Lists below store duplicate refrences so i dont have to re check at draw time
         private static List<GameComponent> shadowedComponents = new List<GameComponent>(1000);
@@ -27,9 +28,22 @@ namespace Resonance
         /// <param name="component">The GameComponent you wish to add</param>
         public static void Add(GameComponent component)
         {
+            string output = "Added: non-Object";
+            if (component is Object)
+            {
+                output = "Added: "+((Object)component).returnIdentifier();
+            }
+            Console.WriteLine(output);
+
+
             if (component is Pickup)
             {
                 pickupComponents.Add(component);
+                reflectedComponents.Add(component);
+            }
+            else if (component is TextureEffect)
+            {
+                textureComponents.Add(component);
                 reflectedComponents.Add(component);
             }
             else if (component is GoodVibe)
@@ -69,7 +83,8 @@ namespace Resonance
             DrawSet(components, gameTime);
             DrawSet(goodVibeComponents, gameTime);
             DrawSet(pickupComponents, gameTime);
-            DebugDisplay.update("DrawableObjects", components.Count + pickupComponents.Count + goodVibeComponents.Count + groundComponents.Count + wallComponents.Count + "");
+            DrawSet(textureComponents, gameTime);
+            DebugDisplay.update("DrawableObjects", components.Count + pickupComponents.Count + goodVibeComponents.Count + groundComponents.Count + wallComponents.Count + textureComponents.Count + "");
         }
 
         public static void DrawShadowedObjects(GameTime gameTime)
@@ -172,6 +187,7 @@ namespace Resonance
             UpdateSet(groundComponents, time);
             UpdateSet(components, time);
             UpdateSet(pickupComponents, time);
+            UpdateSet(textureComponents, time);
             UpdateSet(goodVibeComponents, time);
             UpdateSet(wallComponents, time);
         }
@@ -180,9 +196,20 @@ namespace Resonance
         /// Remove a GameComponent so it is no longer Updated/Drawn
         /// </summary>
         /// <param name="component"></param>
-        public static void Remove(Object component)
+        public static void Remove(GameComponent component)
         {
-            if (pickupComponents.Contains(component))
+            string output = "Removed: non-Object";
+            if (component is Object)
+            {
+                output = "Removed: " + ((Object)component).returnIdentifier();
+            }
+            Console.WriteLine(output);
+
+            if (textureComponents.Contains(component))
+            {
+                textureComponents.Remove(component);
+            }
+            else if (pickupComponents.Contains(component))
             {
                 pickupComponents.Remove(component);
             }
