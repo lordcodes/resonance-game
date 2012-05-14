@@ -109,11 +109,11 @@ namespace Resonance
 
         protected override void  drawMenu(int index)
         {
-
             switch (async)
             {
                 case 0:
-                    if(HighScoreManager.position >= 0)
+                    if (HighScoreManager.position >= 0)
+                        lockedControls = true;
                         result = Guide.BeginShowKeyboardInput(PlayerIndex.One, "Player Name", 
                             "You have made it into the Resonance Chamber high scores.\nPlease enter your name:", "", null, null);                    
                     async = 1;
@@ -125,6 +125,7 @@ namespace Resonance
                             HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
                             HighScoreManager.saveFile();                             
                             async = 2;
+                            lockedControls = false;
                         }
                     break;
             }

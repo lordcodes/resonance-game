@@ -7,6 +7,8 @@ namespace Resonance
 {
     abstract class MenuScreen : Screen
     {
+        protected bool lockedControls;
+
         SpriteFont headingFont;
         SpriteFont font;
         List<Texture2D> bg;
@@ -22,6 +24,7 @@ namespace Resonance
         {
             this.title = title;
             bg = new List<Texture2D>();
+            lockedControls = false;
         }
 
         public override void LoadContent()
@@ -61,48 +64,51 @@ namespace Resonance
                 //ScreenManager.addScreen(new GameOverScreen(new GameStats()));
             }
 
-            if (back)
+            if (!lockedControls)
             {
-                if (this is MainMenu)
+                if (back)
                 {
-                    string msg = "Are you sure you want to quit the game?\n";
-                    msg += "(Enter - OK, Escape - Cancel)";
+                    if (this is MainMenu)
+                    {
+                        string msg = "Are you sure you want to quit the game?\n";
+                        msg += "(Enter - OK, Escape - Cancel)";
 
-                    ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
+                        ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
+                    }
+                    else
+                    {
+                        selected = 0;
+                        ExitScreen();
+                    }
                 }
-                else
+                if (backPause && !(this is MainMenu))
                 {
                     selected = 0;
                     ExitScreen();
                 }
-            }
-            if (backPause && !(this is MainMenu))
-            {
-                selected = 0;
-                ExitScreen();
-            }
 
-            if (up) moveUp();
-            else if (lastUp)
-            {
-                upTimes++;
-                if (upTimes == 25)
+                if (up) moveUp();
+                else if (lastUp)
                 {
-                    moveUp();
-                    upTimes = 0;
+                    upTimes++;
+                    if (upTimes == 25)
+                    {
+                        moveUp();
+                        upTimes = 0;
+                    }
                 }
-            }
-            if (down) moveDown();
-            else if (lastDown)
-            {
-                downTimes++;
-                if (downTimes == 25)
+                if (down) moveDown();
+                else if (lastDown)
                 {
-                    moveDown();
-                    downTimes = 0;
+                    downTimes++;
+                    if (downTimes == 25)
+                    {
+                        moveDown();
+                        downTimes = 0;
+                    }
                 }
+                if (select) itemSelect();
             }
-            if (select) itemSelect();
         }
 
         public void moveUp()

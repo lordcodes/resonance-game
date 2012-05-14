@@ -166,15 +166,38 @@ namespace Resonance {
                     else if(!QUICK_GAME) if (collected == maxPickups) return true; else return false;
                 }
                 case (KILL_BOSS) : {
-                    Boss b = GameScreen.getBoss();
-                    int bossHealth = b.getHealth();
+                    if (BulletManager.BOSS_EXISTS)
+                    {
+                        Boss b = GameScreen.getBoss();
+                        int bossHealth = b.Health;
+                        bool bossDead = b.Dead;
 
-                    int pct = 100 - (int) (100d * (double) bossHealth / (double) Boss.MAX_HEALTH);
-                    oStr = "Master Bad Vibe " + pct + "% destroyed";
+                        int pct = 100 - (int)(100d * (double)bossHealth / (double)Boss.MAX_HEALTH);
+                        oStr = "Master Bad Vibe " + pct + "% destroyed";
 
-                    if (DEBUG_MODE) return true;
-                    if (QUICK_GAME) if (pct <= 50) return true; else return false;
-                    else if(!QUICK_GAME) if (bossHealth == 0) return true; else return false;
+                        if (DEBUG_MODE) return true;
+                        if (QUICK_GAME) if (pct <= 50) return true; else return false;
+                        else if (!QUICK_GAME)
+                        {
+                            if (bossDead)
+                            {
+                                ScreenManager.game.World.fadeObjectAway(b, 0.2f);
+                                BulletManager.BOSS_EXISTS = false;
+                                int z = GameModels.BOSSBACKTWIG;
+                                while (z <= GameModels.BOSSRIGHTTWIG)
+                                {
+                                    ScreenManager.game.World.addObject(new DynamicObject(z, "boss" + z, b.Body.Position));
+                                    z++;
+                                }
+                                return true;
+                            }
+                            else return false;
+                        }
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
                 case (SURVIVE) : {
                     TimeSpan ts = survivalTime - (MediaPlayer.PlayPosition - initialDistThroughSong);

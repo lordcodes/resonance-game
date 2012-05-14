@@ -15,11 +15,11 @@ namespace Resonance
     class GameScreen : Screen
     {
         public const int BEGINNER = 0;
-        public const int EASY = 1;
-        public const int MEDIUM = 2;
-        public const int HARD = 3;
-        public const int EXPERT = 4;
-        public const int INSANE = 5;
+        public const int EASY     = 1;
+        public const int MEDIUM   = 2;
+        public const int HARD     = 3;
+        public const int EXPERT   = 4;
+        public const int INSANE   = 5;
 
         public static int DIFFICULTY = BEGINNER;
         public static GameMode mode = new GameMode(GameMode.OBJECTIVES);
@@ -29,7 +29,7 @@ namespace Resonance
         public static bool GV_KILLED_AT_GAME_END = false;
         public static bool GAME_CAN_END = true;
         public const bool USE_BV_SPAWNER = true;
-        public const bool USE_PICKUP_SPAWNER = false;
+        public const bool USE_PICKUP_SPAWNER = true;
         public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
@@ -49,6 +49,7 @@ namespace Resonance
 
         TimeSpan countDown;
         bool intro;
+        bool endgame;
 
         private float hudTimeElapsed = 0;
         private float mapTimeElapsed = 0;
@@ -70,6 +71,7 @@ namespace Resonance
             this.ScreenManager = scrn;
             countDown = TimeSpan.FromSeconds(5);
             intro = false;
+            endgame = false;
             if (mode.MODE == GameMode.ARCADE ||((mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.DEFAULT_OBJECTIVE)))
             {
                 MusicHandler.reset();
@@ -218,10 +220,8 @@ namespace Resonance
                 Drawing.Update(gameTime);
                 MusicHandler.getTrack().playTrack();
 
-                if (intro)
+                if (intro && !endgame)
                 {
-                    DebugDisplay.update("WORLD", World.PLAYABLE_MAP_X.ToString());
-
                     float health = getGV().healthFraction();
                     if (health < 0.1) MusicHandler.HeartBeat = true;
                     else MusicHandler.HeartBeat = false;
@@ -267,13 +267,14 @@ namespace Resonance
                     if (GAME_CAN_END)
                     {
                         string x = "";
-                        if (GV_KILLED || mode.terminated() || (mode.MODE == GameMode.OBJECTIVES && (ObjectiveManager.getProgress(ref x))))
+                        if (!endgame && GV_KILLED || mode.terminated() || (mode.MODE == GameMode.OBJECTIVES && (ObjectiveManager.getProgress(ref x))))
                         {
                             if (!preEndGameTimer.IsRunning)
                             {
                                 preEndGameTimer.Start();
                                 if (!GV_KILLED) MusicHandler.playSound("winwhoosh");
                                 GV_KILLED_AT_GAME_END = GV_KILLED;
+                                endgame = true;
                             }
                         }
 
