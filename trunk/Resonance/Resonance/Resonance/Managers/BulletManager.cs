@@ -75,7 +75,7 @@ namespace Resonance
             bulletIndex = ACTIVE;
             bullet.Position = start.Position;  
             ScreenManager.game.World.addObject(bullet);                
-            int r = rand.Next();
+            int r = rand.Next(0, 16);
             bullet.Colour = r % 4;
             timeAlive = TimeSpan.Zero;
             CHUNK = DEFAULT_CHUNK;
