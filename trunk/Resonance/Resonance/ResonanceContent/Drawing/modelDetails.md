@@ -48,8 +48,54 @@ bossLeftOrb, Models\BossDeath\leftOrb.fbx
 bossLeftTwig, Models\BossDeath\leftTwig.fbx
 bossRightOrb, Models\BossDeath\rightOrb.fbx
 bossRightTwig, Models\BossDeath\rightTwig.fbx
+bossBottomLeftJaw, Models\BossDeath\bottomLeftJaw.fbx
+bossBottomRightJaw, Models\BossDeath\bottomRightJaw.fbx
+bossLeftJaw, Models\BossDeath\leftJaw.fbx
+bossLeftStalkBottom, Models\BossDeath\leftStalkBottom.fbx
+bossLeftStalkTop, Models\BossDeath\leftStalkTop.fbx
+bossMiddleStalkBottom, Models\BossDeath\middleStalkBottom.fbx
+bossMiddleStalkTop, Models\BossDeath\middleStalkTop.fbx
+bossRightJaw, Models\BossDeath\rightJaw.fbx
+bossRightStalkBottom, Models\BossDeath\rightStalkBottom.fbx
+bossRightStalkTop, Models\BossDeath\rightStalkTop.fbx
+bossTopJaw, Models\BossDeath\topJaw.fbx
+bossTopLeftJaw, Models\BossDeath\topLeftJaw.fbx
+bossTopRIghtJaw, Models\BossDeath\topRightJaw.fbx
 Virus, Models\Virus.fbx
 Virus_phys, Models\Virus_phys.fbx
+bossBackTwigPhysics, Models\BossDeath\Physics\backTwigPhysics.fbx
+bossBodyLeftBottomPhysics, Models\BossDeath\Physics\bodyLeftBottomPhysics.fbx
+bossBodyLeftMidleBottomPhysics, Models\BossDeath\Physics\bodyLeftMidleBotomPhysics.fbx
+bossBodyLeftMidlePhysics, Models\BossDeath\Physics\bodyLeftMidlePhysics.fbx
+bossBodyRightBottomPhysics, Models\BossDeath\Physics\bodyrightbottomPhysics.fbx
+bossBodyRightMiddleBottomPhysics, Models\BossDeath\Physics\bodyRightMiddleBottomPhysics.fbx
+bossBodyRightMiddlePhysics, Models\BossDeath\Physics\bodyRightMiddlePhysics.fbx
+bossBodyTopLeftPhysiscs, Models\BossDeath\Physics\bodyTopLeftPhysics.fbx
+bossBodyTopRightPhysics, Models\BossDeath\Physics\bodyTopRightPhysics.fbx
+bossBottomLeftJawPhysics, Models\BossDeath\Physics\bottomLeftJawPhysics.fbx
+bossBottomRightJawPhysics, Models\BossDeath\Physics\bottomRightJawPhysics.fbx
+bossCentralOrbPhysics, Models\BossDeath\Physics\centralOrbPhysics.fbx
+bossCentralSpikePhysics, Models\BossDeath\Physics\centralSpikePhysics.fbx
+bossLeftJawPhysics, Models\BossDeath\Physics\leftJawPhysics.fbx
+bossLeftOrbPhysics, Models\BossDeath\Physics\leftOrbPhysics.fbx
+bossLeftStalkBottomPhysics, Models\BossDeath\Physics\leftStalkBottomPhysics.fbx
+bossLeftStalkTopPhysics, Models\BossDeath\Physics\leftStalkTopPhysics.fbx
+bossLeftTwigPhysics, Models\BossDeath\Physics\leftTwigPhysics.fbx
+bossMiddleStalkBottomPhysics, Models\BossDeath\Physics\middleStalkBottomPhysics.fbx
+bossMiddleStalkTopPhysics, Models\BossDeath\Physics\middleStalkTopPhysics.fbx
+bossRightJawPhysics, Models\BossDeath\Physics\rightJawPhysics.fbx
+bossRightOrbPhysics, Models\BossDeath\Physics\rightOrbPhysics.fbx
+bossRightStalkBottomPhysics, Models\BossDeath\Physics\rightStalkBottomPhysics.fbx
+bossRightStalkTopPhysics, Models\BossDeath\Physics\rightStalkTopPhysics.fbx
+bossRightTwigPhysics, Models\BossDeath\Physics\rightTwigPhysics.fbx
+bossTopJawPhysics, Models\BossDeath\Physics\topJawPhysics.fbx
+bossTopLeftJawPhysics, Models\BossDeath\Physics\topLeftJawPhysics.fbx
+bossTopRightJawPhysics, Models\BossDeath\Physics\topRightJawPhysics.fbx
+
+
+
+
+
 
 
 TEXTURES
@@ -112,20 +158,33 @@ virus_texture, Textures\virus_texture.jpg
 21,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
 26,			PickupOrb,				0.25,		PickupOrb,				0.25
 27,         Ramp,                   1,          Ramp_phys,                1,            rampText
-28,         bossBackTwig,			1.3,		bossBackTwig,			1.3,			boss
-29,			bossBodyLeftBottom,		1.3,		bossBodyLeftBottom,		1.3,			boss
-30,			bossBodyLeftMiddle,		1.3,		bossBodyLeftMiddle,		1.3,			boss
-31,			bossBodyLeftMiddleBottom, 1.3,		bossBodyLeftMiddleBottom,	1.3,		boss
-32,			bossBodyRightBottom,	1.3,		bossBodyRightBottom,	1.3,			boss
-33,			bossBodyRightMiddle,	1.3,		bossBodyRightMiddle,	1.3,			boss
-34,			bossBodyRightMiddleBottom, 1.3,		bossBodyRightMiddleBottom,	1.3,		boss
-35,			bossBodyTopLeft,		1.3,		bossBodyTopLeft,		1.3,			boss
-36,			bossBodyTopRight,		1.3,		bossBodyTopRight,		1.3,			boss
-37,			bossCentralOrb,			1.3,		bossCentralOrb,			1.3,			boss
-38,			bosscentralSpike,		1.3,		bosscentralSpike,		1.3,			boss
-39,			bossLeftOrb,			1.3,		bossLeftOrb,			1.3,			boss
-40,			bossLeftTwig,			1.3,		bossLeftTwig,			1.3,			boss
-41,			bossRightOrb,			1.3,		bossRightOrb,			1.3,			boss
-42,			bossRightTwig,			1.3,		bossRightTwig,			1.3,			boss
-43,			PickupOrb,				0.5,		PickupOrb,				0.5
-44,         Virus,                  1,          Virus_phys,             1,              virus_texture
+28,         bossBackTwig,			1.3,		bossBackTwigPhysics,			1.3,			boss
+29,			bossBodyLeftBottom,		1.3,		bossBodyLeftBottomPhysics,		1.3,			boss
+30,			bossBodyLeftMiddle,		1.3,		bossBodyLeftMidlePhysics,		1.3,			boss
+31,			bossBodyLeftMiddleBottom, 1.3,		bossBodyLeftMidleBottomPhysics,	1.3,		boss
+32,			bossBodyRightBottom,	1.3,		bossBodyRightBottomPhysics,	1.3,			boss
+33,			bossBodyRightMiddle,	1.3,		bossBodyRightMiddlePhysics,	1.3,			boss
+34,			bossBodyRightMiddleBottom, 1.3,		bossBodyRightMiddleBottomPhysics,	1.3,		boss
+35,			bossBodyTopLeft,		1.3,		bossBodyTopLeftPhysiscs,		1.3,			boss
+36,			bossBodyTopRight,		1.3,		bossBodyTopRightPhysics,		1.3,			boss
+37,			bossCentralOrb,			1.3,		bossCentralOrbPhysics,			1.3,			boss
+38,			bosscentralSpike,		1.3,		bossCentralSpikePhysics,		1.3,			boss
+39,			bossLeftOrb,			1.3,		bossLeftOrbPhysics,			1.3,			boss
+40,			bossLeftTwig,			1.3,		bossLeftTwigPhysics,			1.3,			boss
+41,			bossRightOrb,			1.3,		bossRightOrbPhysics,			1.3,			boss
+42,			bossRightTwig,			1.3,		bossRightTwigPhysics,			1.3,			boss
+43,			bossBottomLeftJaw,		1.3,		bossBottomLeftJawPhysics,		1.3,			boss
+44,			bossBottomRightJaw,		1.3,		bossBottomRightJawPhysics,		1.3,			boss
+45,			bossLeftJaw,			1.3,		bossLeftJawPhysics,			1.3,			boss
+46,			bossLeftStalkBottom,	1.3,		bossLeftStalkBottomPhysics,	1.3,			boss
+47,			bossLeftStalkTop,		1.3,		bossLeftStalkTopPhysics,		1.3,			boss
+48,			bossMiddleStalkBottom,	1.3,		bossMiddleStalkBottomPhysics,	1.3,			boss
+49,			bossMiddleStalkTop,		1.3,		bossMiddleStalkTopPhysics,		1.3,			boss
+50,			bossRightJaw,			1.3,		bossRightJawPhysics,			1.3,			boss
+51,			bossRightStalkBottom,	1.3,		bossRightStalkBottomPhysics,	1.3,			boss
+52,			bossRightStalkTop,		1.3,		bossRightStalkTopPhysics,		1.3,			boss
+53,			bossTopJaw,				1.3,		bossTopJawPhysics,				1.3,			boss
+54,			bossTopLeftJaw,			1.3,		bossTopLeftJawPhysics,			1.3,			boss
+55,			bossTopRIghtJaw,		1.3,		bossTopRightJawPhysics,		1.3,			boss
+56,			PickupOrb,				0.5,		PickupOrb,				0.5
+57,         Virus,                  1,          Virus_phys,             1,              virus_texture

@@ -46,8 +46,21 @@ namespace Resonance
         public static readonly int BOSSLEFTTWIG = 40;
         public static readonly int BOSSRIGHTORB = 41;
         public static readonly int BOSSRIGHTTWIG = 42;
-        public static readonly int PICKUPDEFLECT    = 43;
-        public static readonly int VIRUS = 44;
+        public static readonly int BOSSBOTTOMLEFTJAW = 43;
+        public static readonly int BOSSBOTTOMRIGHTJAW = 44;
+        public static readonly int BOSSLEFTJAW = 45;
+        public static readonly int BOSSLEFTSTALKBOTTOM = 46;
+        public static readonly int BOSSLEFTSTALKTOP = 47;
+        public static readonly int BOSSMIDDLESTALKBOTTOM = 48;
+        public static readonly int BOSSMIDDLESTALKTOP = 49;
+        public static readonly int BOSSRIGHTJAW = 50;
+        public static readonly int BOSSRIGHTSTALKBOTTOM = 51;
+        public static readonly int BOSSRIGHTSTALKTOP = 52;
+        public static readonly int BOSSTOPJAW = 53;
+        public static readonly int BOSSTOPLEFTJAW = 54;
+        public static readonly int BOSSTOPRIGHTJAW = 55;
+        public static readonly int PICKUPDEFLECT    = 56;
+        public static readonly int VIRUS = 57;
 
 
 

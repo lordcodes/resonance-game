@@ -252,6 +252,13 @@ namespace Resonance
             clear();
 
             Random random = new Random((int)DateTime.Now.Ticks);
+
+            int z = 28;
+            while ( z <=55 )
+            {
+                addObject(new DynamicObject(z,"boss" + z,new Vector3(-120f,3f,10f)));
+                z++;
+            }
            
             for (int i = 0; i < objs.list.Count; i++)
             {
