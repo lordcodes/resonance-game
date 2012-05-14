@@ -14,7 +14,7 @@ namespace Resonance
         public static int MAX_NITRO  = 200;
         public static int MAX_SHIELD = 300;
         public static int MAX_FREEZE = 200;
-        public static int MAX_DEFLECTSHIELD = 5;
+        public static int MAX_DEFLECTSHIELD = 100;
 
         private Object shieldUpObject;
 
