@@ -326,7 +326,7 @@ SScenePixelToFrame ShadowedScenePixelShader(SSceneVertexToPixel PSIn)
     ProjectedTexCoords[1] = -PSIn.Pos2DAsSeenByLight.y/PSIn.Pos2DAsSeenByLight.w/2.0f +0.5f;
 
     Output.Color = tex2D(ShadowMapSampler, ProjectedTexCoords);
-
+	Output.Color.z = 1.0f;
     return Output;
 }
 

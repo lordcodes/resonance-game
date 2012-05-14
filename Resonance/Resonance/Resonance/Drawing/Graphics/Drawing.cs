@@ -79,6 +79,7 @@ namespace Resonance
 
         public static void setShadowsRenderTarget()
         {
+            graphics.GraphicsDevice.Clear(Color.Black);
             graphics.GraphicsDevice.SetRenderTarget(shadowsRenderTarget);
             drawingShadows = true;
             drawingReflection = false;

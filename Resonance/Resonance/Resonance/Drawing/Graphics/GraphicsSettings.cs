@@ -22,11 +22,11 @@ namespace Resonance
 #if XBOX
         // Dont change for your pc
         public static bool FLOOR_SHADOWS = false;
-#else
-        public static bool FLOOR_SHADOWS = false;
-#endif
-
         public static int SHADOWS_TEXTURE_SIZE = 1024;
+#else
+        public static bool FLOOR_SHADOWS = true;
+        public static int SHADOWS_TEXTURE_SIZE = 1024;
+#endif
 
         /// <summary>
         /// Distance from the camera to the clip plane.
