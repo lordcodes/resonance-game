@@ -14,7 +14,7 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int KILL_BOSS              = 4;
 
-        public const int DEFAULT_OBJECTIVE      = KILL_ALL_BV;
+        public const int DEFAULT_OBJECTIVE      = SURVIVE;//KILL_ALL_BV;
 
         public  const int FINAL_OBJECTIVE       = KILL_BOSS;
 
@@ -48,7 +48,7 @@ namespace Resonance {
         }
 
         public static void surviveSetup() {
-            AIManager.MAX_MOVE_SPEED *= 1.5f;
+            //AIManager.MAX_MOVE_SPEED *= 1.5f;
             AIManager.TARGET_RANGE *= 4f;
             AIManager.ATTACK_RATE = 8;
             AIManager.CHANCE_MISS = 15;
@@ -172,7 +172,7 @@ namespace Resonance {
                     else if(!QUICK_GAME) if (bossHealth == 0) return true; else return false;
                 }
                 case (SURVIVE) : {
-                    TimeSpan ts = survivalTime - MediaPlayer.PlayPosition - initialDistThroughSong;
+                    TimeSpan ts = survivalTime - (MediaPlayer.PlayPosition - initialDistThroughSong);
 
                     int remainingM = ts.Minutes;
                     int remainingS = ts.Seconds;
@@ -184,7 +184,7 @@ namespace Resonance {
 
                     if (DEBUG_MODE || QUICK_GAME) return true;
                     else {
-                        if ((ts.Minutes == 0) && (ts.Seconds <= 0)) return true; else return false;
+                        if ((ts.Minutes <= 0) && (ts.Seconds <= 0)) return true; else return false;
                     }
                 }
                 case (TERRITORIES) : {
