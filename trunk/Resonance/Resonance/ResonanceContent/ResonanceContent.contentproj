@@ -2261,6 +2261,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\boss.png">
+      <Name>boss</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\UI\LoadingScreen\Textures\button_a.png">
       <Name>button_a</Name>
       <Importer>TextureImporter</Importer>
