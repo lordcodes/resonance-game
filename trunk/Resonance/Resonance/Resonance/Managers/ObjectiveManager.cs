@@ -36,7 +36,6 @@ namespace Resonance {
 
         public static void setObjective(int newObj) {
             cObj = newObj;
-            cObj = 2;
 
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
             initialDistThroughSong = MediaPlayer.PlayPosition;
@@ -55,9 +54,9 @@ namespace Resonance {
 
         public static void surviveSetup() {
             //AIManager.MAX_MOVE_SPEED *= 1.5f;
-            AIManager.TARGET_RANGE *= 0.4f;
-            AIManager.ATTACK_RATE = 8;
-            AIManager.CHANCE_MISS = 15;
+            AIManager.TARGET_RANGE *= 0.2f;
+            //AIManager.ATTACK_RATE = 8;
+            //AIManager.CHANCE_MISS = 15;
         }
 
         public static void defaultSetup() {
