@@ -26,7 +26,7 @@ namespace Resonance {
         private static TimeSpan initialDistThroughSong;
         private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
 
-        private static int SURVIVAL_SPAWN_FREQ = 5000; // 5 secs.
+        private static int SURVIVAL_SPAWN_FREQ = 8000; // 5 secs.
         private static Stopwatch spawnWatch = new Stopwatch();
 
         public static void loadObjectivesGame(ScreenManager sm) {
