@@ -235,6 +235,7 @@ namespace Resonance
             pickupComponents.Clear();
             goodVibeComponents.Clear();
             groundComponents.Clear();
+            wallComponents.Clear();
             shadowedComponents.Clear();
             reflectedComponents.Clear();
             DebugDisplay.clear();
