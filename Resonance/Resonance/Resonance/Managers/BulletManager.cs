@@ -92,7 +92,6 @@ namespace Resonance
                         if (deflected)
                         {
                             GameScreen.getBoss().damage(true);
-                            GameScreen.getGV().adjustDeflectShield(-1);
                             target = GameScreen.getGV().Body;
                             deflected = false;
                         }
@@ -120,35 +119,38 @@ namespace Resonance
                 }
             }
         }
-        
-        public static void destroyBullet(int colour)
+
+        public static void destroyBullet(int colour, Vector3 shockwave, double radius)
         {
             if (BOSS_EXISTS)
             {
-                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour == colour)
+                float distance = Vector3.Distance(bullet.Position, shockwave);
+                if (distance <= radius && bullet.Colour == colour)
                 {
                     bulletIndex = INACTIVE;
                     ScreenManager.game.World.removeObject(bullet);
                 }
-                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour != colour)
+                if (distance <= radius && bullet.Colour != colour)
                 {
                     //GameScreen.getGV().AdjustHealth(-WRONG_DAMAGE);
                 }
             }
         }
 
-        public static void deflectBullet(int colour)
+        public static void deflectBullet(int colour, Vector3 shockwave, double radius)
         {
             if (BOSS_EXISTS)
             {
-                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour == colour && GameScreen.getGV().DeflectShield > 0)
+                float distance = Vector3.Distance(bullet.Position, shockwave);
+                if (distance <= radius && bullet.Colour == colour)
                 {
                     target = GameScreen.getBoss().Body;
                     deflected = true;
+                    GameScreen.getGV().adjustDeflectShield(-1);
                 }
-                if (Vector3.Distance(bullet.Position, target.Position) <= 30f && bullet.Colour != colour)
+                if (distance <= radius && bullet.Colour != colour)
                 {
-                    GameScreen.getGV().AdjustHealth(-WRONG_DAMAGE);
+                    //GameScreen.getGV().AdjustHealth(-WRONG_DAMAGE);
                 }
             }
         }

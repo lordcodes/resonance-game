@@ -233,12 +233,13 @@ namespace Resonance {
             bool  strafeL  = kbd.IsKeyDown(Keys.OemComma)  || leftX < 0;
             bool  strafeR  = kbd.IsKeyDown(Keys.OemPeriod) || leftX > 0;
 
-            bool chargeNitro  = kbd.IsKeyDown(Keys.D1); //TODO: change to non combat drum pattern
-            bool nitro        = kbd.IsKeyDown(Keys.D2);
-            bool chargeShield = kbd.IsKeyDown(Keys.D3); //TODO: change to non combat drum pattern
-            bool shield       = kbd.IsKeyDown(Keys.D4);
-            bool chargeFreeze = kbd.IsKeyDown(Keys.D5); //TODO: change to non combat drum pattern
-            bool freeze       = kbd.IsKeyDown(Keys.D6);
+            bool chargeNitro   = kbd.IsKeyDown(Keys.D1); //TODO: change to non combat drum pattern
+            bool nitro         = kbd.IsKeyDown(Keys.D2);
+            bool chargeShield  = kbd.IsKeyDown(Keys.D3); //TODO: change to non combat drum pattern
+            bool shield        = kbd.IsKeyDown(Keys.D4);
+            bool chargeFreeze  = kbd.IsKeyDown(Keys.D5); //TODO: change to non combat drum pattern
+            bool freeze        = kbd.IsKeyDown(Keys.D6);
+            bool chargeDeflect = kbd.IsKeyDown(Keys.D7);
 
             // Trigger positions
             float lTrig = pad.Triggers.Left;
@@ -384,6 +385,11 @@ namespace Resonance {
             //Charge freeze when not in combat
             if (!gv.InCombat && chargeFreeze) {
                 gv.adjustFreeze(1);
+            }
+
+            //Charge deflect power
+            if (chargeDeflect) {
+                gv.adjustDeflectShield(1);
             }
         }
     }
