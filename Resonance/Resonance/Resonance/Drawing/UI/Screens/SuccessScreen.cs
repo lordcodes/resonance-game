@@ -120,7 +120,9 @@ namespace Resonance
                     if (HighScoreManager.position >= 0)
                         if (result.IsCompleted)
                         {
-                            HighScoreManager.data.PlayerName[HighScoreManager.position] = Guide.EndShowKeyboardInput(result);
+                            string name  = Guide.EndShowKeyboardInput(result);
+                            if (name.Length > 0)
+                                HighScoreManager.data.PlayerName[HighScoreManager.position] = name;                            
                             HighScoreManager.saveFile();                            
                             async = 2;
                             lockedControls = false;
