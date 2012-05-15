@@ -242,7 +242,6 @@ namespace Resonance
 
         public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
-
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
             Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
@@ -255,7 +254,6 @@ namespace Resonance
             Shader currentShader;
             Matrix lightsViewProjectionMatrix;
 
-
             lightsViewProjectionMatrix = lightsView * lightsProjection;
 
             currentShader = shaders.Default;
@@ -263,8 +261,6 @@ namespace Resonance
             if (drawingShadows)
             {
                 Shaders.Default.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
-                Shaders.Ground.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
-                Shaders.Ground.Parameters["xWorldViewProjection"].SetValue(Matrix.Identity * lightsView * projection);
             }
             else if (drawingReflection)
             {
@@ -288,8 +284,6 @@ namespace Resonance
                     ((GroundShader)currentShader).CameraPos = Vector2.Zero;
                 }
 
-
-                currentShader.Parameters["xWorldViewProjection"].SetValue(world * theView * projection);
                 currentShader.Parameters["xLightsWorldViewProjection"].SetValue(world * lightsViewProjectionMatrix);
                 currentShader.Parameters["xLightPos"].SetValue(lightPos);
             }
