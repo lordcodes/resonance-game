@@ -66,6 +66,12 @@ namespace Resonance
 
                         ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
                     }
+                    else if (this is SuccessScreen || this is GameOverScreen)
+                    {
+                        selected = 0;
+                        ExitScreen();
+                        ScreenManager.addScreen(new MainMenu());
+                    }
                     else
                     {
                         selected = 0;
