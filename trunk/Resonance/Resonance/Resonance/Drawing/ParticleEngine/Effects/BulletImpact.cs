@@ -27,7 +27,7 @@ namespace Resonance {
         // p = position.
         // Blast is the direction of the blast. When initialising, pass bulletPos - targetPos
         public void init(Vector3 p, Vector3 blast) {
-            pos = p;
+            pos                = p;
             pTex               = ParticleEmitterManager.TEX_TRIANGLE;
             blastVec           = blast;
             emissionsPerUpdate = 15; //200

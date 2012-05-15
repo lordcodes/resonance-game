@@ -106,5 +106,10 @@ namespace Resonance
             addToPool(bv);
         }
 
+        public static void spawnOneBVFromEachSpawner() {
+            for (int i = 0; i < spawners.Count; i++) {
+                spawners[i].addBVFromPool();
+            }
+        }
     }
 }
