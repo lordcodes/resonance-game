@@ -21,10 +21,10 @@ namespace Resonance
         private float[] emptyBuffer;
         private Vector2 lastPosition;
         private Vector2 gVPosition;
-        private Texture2D dispMap;
+        private Texture2D dispMap = null;
         private int waveCount = 0;
         private static Dictionary<string, float> distanceValues = new Dictionary<string, float>();
-        private Wave[] waves = new Wave[5];
+        private Wave[] waves = new Wave[1];
 
         private int half;
         private int max;
