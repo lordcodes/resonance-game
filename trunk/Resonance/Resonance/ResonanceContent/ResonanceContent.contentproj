@@ -2136,13 +2136,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Textures\virus_texture.jpg">
-      <Name>virus_texture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Drawing\HUD\Textures\boss.png">
       <Name>boss</Name>
       <Importer>TextureImporter</Importer>
@@ -2212,6 +2205,13 @@
     </Compile>
     <Compile Include="Drawing\UI\eye_open.png">
       <Name>eye_open</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\virus_texture.png">
+      <Name>virus_texture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
