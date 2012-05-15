@@ -535,11 +535,6 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <Compile Include="Drawing\Models\Virus.fbx">
-      <Name>Virus</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\Virus_phys.fbx">
       <Name>Virus_phys</Name>
       <Importer>FbxImporter</Importer>
@@ -557,6 +552,11 @@
     </Compile>
     <Compile Include="Drawing\Models\Tunnel_phys.fbx">
       <Name>Tunnel_phys</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Virus.fbx">
+      <Name>Virus</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
