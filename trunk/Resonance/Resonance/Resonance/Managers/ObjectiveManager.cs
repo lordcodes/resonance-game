@@ -174,8 +174,8 @@ namespace Resonance {
                         int bossHealth = b.Health;
                         bool bossDead = b.Dead;
 
-                        int pct = 100 - (int)(100d * (double)bossHealth / (double)Boss.MAX_HEALTH);
-                        oStr = "Master Bad Vibe " + pct + "% destroyed";
+                        int pct = (int)(100d * (double)bossHealth / (double)Boss.MAX_HEALTH);
+                        oStr = "Master Bad Vibe at " + pct + "% health";
 
                         if (DEBUG_MODE) return true;
                         if (QUICK_GAME) if (pct <= 50) return true; else return false;
