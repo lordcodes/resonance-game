@@ -79,6 +79,7 @@ namespace Resonance
             Content = newContent;
             graphics = newGraphics;
             gameGraphics = newGameGraphics;
+            whiteness = 0f;
         }
 
         /// <summary>
