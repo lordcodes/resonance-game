@@ -170,6 +170,7 @@ namespace Resonance
 
 
         public static void enlarge() {
+            bool alreadyEnlarged = large;
             large = true;
 
             mapX = LARGE_MAP_X;
@@ -178,7 +179,7 @@ namespace Resonance
             mapH = LARGE_MAP_HEIGHT;
 
             scaleFactor = (LARGE_MAP_WIDTH / (2 * DEFAULT_ZOOM));
-            miniMapBuffer = new RenderTarget2D(graphics.GraphicsDevice, LARGE_MAP_WIDTH, LARGE_MAP_HEIGHT, true, SurfaceFormat.Color, DepthFormat.Depth24);
+            if (!alreadyEnlarged) miniMapBuffer = new RenderTarget2D(graphics.GraphicsDevice, LARGE_MAP_WIDTH, LARGE_MAP_HEIGHT, true, SurfaceFormat.Color, DepthFormat.Depth24);
         }
 
         public static void ensmall()
