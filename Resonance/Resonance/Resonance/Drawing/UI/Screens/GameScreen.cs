@@ -41,7 +41,9 @@ namespace Resonance
         private const float MAP_UPDATE_DELAY = 100;
 
         private Stopwatch preEndGameTimer;
+        private Stopwatch prePreEndGameTimer;
         private int preEndGameDuration = 4000;
+        private int prePreEndGameDuration = 2000;
         GraphicsDeviceManager graphics;
         World world;
 
@@ -80,6 +82,7 @@ namespace Resonance
             graphics = Program.game.GraphicsManager;
             Drawing.Init(ScreenManager.Content, graphics);
             preEndGameTimer = new Stopwatch();
+            prePreEndGameTimer = new Stopwatch();
             
             if(mode.MODE == GameMode.ARCADE || 
                 (mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.DEFAULT_OBJECTIVE)) 
@@ -277,12 +280,21 @@ namespace Resonance
                         string x = "";
                         if (!endgame && GV_KILLED || mode.terminated() || (mode.MODE == GameMode.OBJECTIVES && (ObjectiveManager.getProgress(ref x))))
                         {
+                            if (!prePreEndGameTimer.IsRunning)
+                            {
+                                prePreEndGameTimer.Start();
+                                endgame = true;
+                            }
+                        }
+
+                        if (prePreEndGameTimer.ElapsedMilliseconds >= prePreEndGameDuration)
+                        {
                             if (!preEndGameTimer.IsRunning)
                             {
                                 preEndGameTimer.Start();
                                 if (!GV_KILLED) MusicHandler.playSound("winwhoosh");
                                 GV_KILLED_AT_GAME_END = GV_KILLED;
-                                endgame = true;
+                                BulletManager.TRACK_BOSS = false;
                             }
                         }
 
@@ -290,6 +302,7 @@ namespace Resonance
                         {
                             endGame();
                         }
+
                         else if (preEndGameTimer.IsRunning)
                         {
                             Vector3 lt = WeatherManager.getCurrentAmbientLight();

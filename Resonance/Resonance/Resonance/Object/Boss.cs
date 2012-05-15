@@ -10,7 +10,7 @@ namespace Resonance
     class Boss : DynamicObject
     {
         //Number of deflected bullets to kill
-        public const int MAX_HEALTH = 20;
+        public const int MAX_HEALTH = 4;
 
         private int health;
         private bool dead;

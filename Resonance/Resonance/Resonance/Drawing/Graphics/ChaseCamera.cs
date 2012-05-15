@@ -26,8 +26,20 @@ namespace Resonance
             Matrix rot = Matrix.CreateRotationY(rotation.Y);
             return Vector3.Transform(newPosition, rot) + position;*/
 
-            Vector3 cameraPos = Matrix3X3.Transform(newPosition, chaseObject.BufferedStates.InterpolatedStates.OrientationMatrix);
-            cameraPos += chaseObject.BufferedStates.InterpolatedStates.Position;
+            Vector3 cameraPos;
+
+            if (BulletManager.TRACK_BOSS)
+            {
+                //Vector3 dir = GameScreen.getBoss().Body.Position - chaseObject.Position;
+                //float dist = Vector3.Distance(chaseObject.Position, BulletManager.getBullet().Position);
+                cameraPos = Matrix3X3.Transform(newPosition, chaseObject.OrientationMatrix);
+                cameraPos += BulletManager.getBullet().Position;
+            }
+            else
+            {
+                cameraPos = Matrix3X3.Transform(newPosition, chaseObject.BufferedStates.InterpolatedStates.OrientationMatrix);
+                cameraPos += chaseObject.BufferedStates.InterpolatedStates.Position;
+            }
 
             float x = cameraPos.X;
             float z = cameraPos.Z;
@@ -84,7 +96,15 @@ namespace Resonance
             Vector3 oldPos = position;
             if(lag) position = Vector3.SmoothStep(oldPos, calcCamera(newPosition), 0.2f);
             else position = calcCamera(newPosition);
-            view = Matrix.CreateLookAt(position, chaseObject.Position, Vector3.Up);
+
+            if (BulletManager.TRACK_BOSS)
+            {
+                view = Matrix.CreateLookAt(position, BulletManager.getBullet().Position, Vector3.Up);
+            }
+            else
+            {
+                view = Matrix.CreateLookAt(position, chaseObject.Position, Vector3.Up);
+            }
         }
 
         bool RayCastFilter(BroadPhaseEntry entry)
