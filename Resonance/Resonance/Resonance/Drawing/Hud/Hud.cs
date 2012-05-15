@@ -348,17 +348,20 @@ namespace Resonance
             if ((ScreenManager.game.getMode().MODE == GameMode.OBJECTIVES) && ((ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS) || (ObjectiveManager.currentObjective() == ObjectiveManager.COLLECT_ALL_PICKUPS))) {
                 Color col = new Color(0.35f, 0.35f, 0.35f, 0.7f);
                 spriteBatch.Draw(drumkit, new Rectangle(ScreenManager.ScreenWidth / 2 - drumkit.Width / 2, ScreenManager.pixelsY(820), drumkit.Width, drumkit.Height), col);
-                int c = BulletManager.getBulletColour();
-                Texture2D dTex = null;
 
-                switch (c) {
-                    case Bullet.RED    : { dTex = drumkitr; break; }
-                    case Bullet.YELLOW : { dTex = drumkity; break; }
-                    case Bullet.BLUE   : { dTex = drumkitb; break; }
-                    case Bullet.GREEN  : { dTex = drumkitg; break; }
+                if (BulletManager.bulletIndex != BulletManager.INACTIVE) {
+                    int c = BulletManager.getBulletColour();
+                    Texture2D dTex = null;
+
+                    switch (c) {
+                        case Bullet.RED    : { dTex = drumkitr; break; }
+                        case Bullet.YELLOW : { dTex = drumkity; break; }
+                        case Bullet.BLUE   : { dTex = drumkitb; break; }
+                        case Bullet.GREEN  : { dTex = drumkitg; break; }
+                    }
+
+                    if (dTex != null) spriteBatch.Draw(dTex, new Rectangle(ScreenManager.ScreenWidth / 2 - drumkit.Width / 2, ScreenManager.pixelsY(820), drumkit.Width, drumkit.Height), col);
                 }
-
-                if (dTex != null) spriteBatch.Draw(dTex, new Rectangle(ScreenManager.ScreenWidth / 2 - drumkit.Width / 2, ScreenManager.pixelsY(820), drumkit.Width, drumkit.Height), col);
             }
         }
 
