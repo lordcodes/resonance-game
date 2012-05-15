@@ -68,6 +68,8 @@ namespace Resonance
 
         public static float whiteness = 0f;
 
+        private bool throbberOn;
+
         /// <summary>
         /// Create a new HUD object.
         /// </summary>
@@ -80,6 +82,8 @@ namespace Resonance
             graphics = newGraphics;
             gameGraphics = newGameGraphics;
             whiteness = 0f;
+
+            throbberOn = true;
         }
 
         /// <summary>
@@ -375,10 +379,15 @@ namespace Resonance
         }
 
         private void drawThrobber() {
-            if (MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.WHOLE) > 0.9f)
+            bool switchThrobber = MusicHandler.getTrack().timesong();
+            DebugDisplay.update("SWITCH", switchThrobber.ToString());
+            if (switchThrobber) throbberOn = !throbberOn;
+
+            //if (MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.WHOLE) > 0.9f)
+            if (throbberOn)
             {
                 spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(100), ScreenManager.pixelsY(900), tempo.Width, tempo.Height), Color.White);
-                GameScreen.getGV().showBeat();
+                //GameScreen.getGV().showBeat();
             } else {
                 spriteBatch.Draw(tempo2, new Rectangle(ScreenManager.pixelsX(100), ScreenManager.pixelsY(900), tempo.Width, tempo.Height), Color.White);
             }
