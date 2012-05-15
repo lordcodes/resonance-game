@@ -75,11 +75,11 @@ namespace Resonance
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/neuron_render"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/spawner_render"));
-            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
+            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/pickup_render"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bad_vibe_render_green"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/boss_render"));
             images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/good_vibe_render"));
-            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/bacteria_render"));
+            images.Add(ScreenManager.Content.Load<Texture2D>("Drawing/UI/Credits/logo_render"));
             font = ScreenManager.Content.Load<SpriteFont>("Drawing/Fonts/MenuFont");
         }
 
