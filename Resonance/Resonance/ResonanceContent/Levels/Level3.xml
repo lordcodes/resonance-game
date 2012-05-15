@@ -30,15 +30,6 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>CheckPoint2</identifier>
-        <type>CheckPoint</type>
-        <xWorldCoord>150</xWorldCoord>
-        <zWorldCoord>150</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>1</pickuptype>
-      </Item>
-      <Item>
         <identifier>CheckPoint3</identifier>
         <type>CheckPoint</type>
         <xWorldCoord>-110</xWorldCoord>

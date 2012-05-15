@@ -12,30 +12,12 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron0</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-130</xWorldCoord>
-        <zWorldCoord>130</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
         <identifier>Virus0</identifier>
         <type>Virus</type>
         <xWorldCoord>-80</xWorldCoord>
         <zWorldCoord>10</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>44</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron1</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>110</xWorldCoord>
-        <zWorldCoord>130</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
@@ -93,8 +75,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Neuron8</identifier>
-        <type>Neuron</type>
+        <identifier>Virus2</identifier>
+        <type>Virus</type>
         <xWorldCoord>-50</xWorldCoord>
         <zWorldCoord>50</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -129,8 +111,8 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
-        <identifier>Bacteria12</identifier>
-        <type>Bacteria</type>
+        <identifier>Virus</identifier>
+        <type>Virus</type>
         <xWorldCoord>50</xWorldCoord>
         <zWorldCoord>10</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
@@ -216,15 +198,6 @@
         <zWorldCoord>-90</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>10</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Neuron22</identifier>
-        <type>Neuron</type>
-        <xWorldCoord>-130</xWorldCoord>
-        <zWorldCoord>-110</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
