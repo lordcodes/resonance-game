@@ -34,6 +34,8 @@ namespace Resonance {
         public const  float          MAX_PITCH_ANGLE                  = (float) (Math.PI / 16d);
         public const  float          MAX_PITCH_SPEED                  = MAX_PITCH_ANGLE / 8f;
 
+        public static bool           FLIP_REVERSE_CONTROLS            = false;
+
         //private static bool MOVING_F         = false;
         //private static bool MOVING_B         = false;
 
@@ -255,7 +257,7 @@ namespace Resonance {
 
                 //power = (float) Math.Sin(power * (Math.PI / 2));
 
-                posR = rotateR ^ backward;
+                posR = (rotateR ^ backward) ^ !FLIP_REVERSE_CONTROLS;
 
                 if (posR) {
                     if (prevRR) rChange = true; else rChange = false;
