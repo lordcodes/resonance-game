@@ -124,7 +124,7 @@ checkpointColours, Textures\gateRed.png;Textures\gateYellow.png;Textures\gateBlu
 bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\green.jpg
 boss,    Textures\bossTexture.png
 rampText,       Textures\ramp1.jpg
-virus_texture, Textures\virus_texture.jpg
+virus_texture, Textures\virus_texture.png
 tunnel_texture, Textures\tunnel_texture.png
 
 ---You can use dashes at the start of lines for comments
@@ -152,8 +152,8 @@ tunnel_texture, Textures\tunnel_texture.png
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,          0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                         0.5,            bulletColors
 18,         Boss,                   1.3,        BossPhysics,			        1.3,			boss,							1
-19,			Walls,					245,		Walls,					        245,			wallTexture
-20,			Walls,					195,		Walls,					        195,			wallTexture
+19,			Walls,					150,		Walls,					        150,			wallTexture
+20,			Walls,					120,		Walls,					        120,			wallTexture
 22,			Walls,					195,		Walls,					        195,			wallTexture
 23,			Walls,					65,			Walls,					        65,				wallTexture
 24,			Walls,					195,		Walls,					        195,			wallTexture
