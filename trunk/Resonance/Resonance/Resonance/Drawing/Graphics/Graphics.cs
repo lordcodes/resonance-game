@@ -23,6 +23,9 @@ namespace Resonance
         private static RasterizerState particleRasterizerState;
         private static float particleHalfHeight = 0;
         private static float particleHalfWidth = 0;
+        Vector3 lightPos;
+        Matrix lightsView;
+        Matrix lightsProjection;
         public static int DISP_WIDTH = 128;
 
 
@@ -228,6 +231,15 @@ namespace Resonance
             reflectionWorldScale = Matrix.CreateScale(1f, reflectionScale, 1f);
         }
 
+        public void setUpShadowCamera()
+        {
+            Vector3 cameraPosition = CameraMotionManager.Camera.Position;
+            Vector3 pos = GameScreen.getGV().Body.Position;
+            lightPos = new Vector3(cameraPosition.X, 50f, cameraPosition.Z);
+            lightsView = Matrix.CreateLookAt(lightPos, new Vector3(pos.X, 0, pos.Z), new Vector3(0, 1, 0));
+            lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 1f, 200f);
+        }
+
         public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
 
@@ -242,12 +254,6 @@ namespace Resonance
             Matrix projection2 = projection;
             Shader currentShader;
             Matrix lightsViewProjectionMatrix;
-
-
-            Vector3 pos = GameScreen.getGV().Body.Position;
-            Vector3 lightPos = new Vector3(cameraPosition.X, 50f, cameraPosition.Z);
-            Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(pos.X, 0, pos.Z), new Vector3(0, 1, 0));
-            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 1f, 200f);
 
 
             lightsViewProjectionMatrix = lightsView * lightsProjection;

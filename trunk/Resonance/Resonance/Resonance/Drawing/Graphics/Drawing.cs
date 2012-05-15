@@ -81,6 +81,7 @@ namespace Resonance
             graphics.GraphicsDevice.Clear(Color.Black);
             graphics.GraphicsDevice.SetRenderTarget(shadowsRenderTarget);
             drawingShadows = true;
+            gameGraphics.setUpShadowCamera();
             drawingReflection = false;
         }
 
