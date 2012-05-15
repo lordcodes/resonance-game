@@ -59,8 +59,8 @@ namespace Resonance
 
         private int zone;
 
-        static Profile DrawSection = Profile.Get("DrawingTotal");
-        static Profile UpdateSection = Profile.Get("UpdateTotal");
+        //static Profile DrawSection = Profile.Get("DrawingTotal");
+        //static Profile UpdateSection = Profile.Get("UpdateTotal");
 
         //Allocated variables
         string[] deadVibes;
@@ -217,7 +217,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Update(GameTime gameTime)
         {
-            using (IDisposable d = UpdateSection.Measure())
+            //using (IDisposable d = UpdateSection.Measure())
             {
                 if(countDown.TotalMilliseconds > -2000) countDown -= gameTime.ElapsedGameTime;
                 if(countDown < TimeSpan.Zero && !intro)
@@ -535,7 +535,7 @@ namespace Resonance
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public override void Draw(GameTime gameTime)
         {
-            using (IDisposable d = DrawSection.Measure())
+            //using (IDisposable d = DrawSection.Measure())
             {
                 hudTimeElapsed += (float)gameTime.ElapsedGameTime.TotalMilliseconds;
                 if (hudTimeElapsed > HUD_UPDATE_DELAY)
