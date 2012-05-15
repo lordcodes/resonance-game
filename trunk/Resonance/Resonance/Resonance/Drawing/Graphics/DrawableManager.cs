@@ -33,10 +33,8 @@ namespace Resonance
             {
                 output = "Added: "+((Object)component).returnIdentifier();
             }
-            //Console.WriteLine(output);
 
-
-            if (component is Pickup)
+            if (component is Pickup || component is Checkpoint)
             {
                 pickupComponents.Add(component);
                 reflectedComponents.Add(component);

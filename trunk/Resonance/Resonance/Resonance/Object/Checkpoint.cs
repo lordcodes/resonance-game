@@ -24,6 +24,8 @@ namespace Resonance
             : base(modelNum, name, pos)
         {
             ModelInstance.setTexture(colour);
+            ModelInstance.Transparency = 0.5f;
+            ModelInstance.Shadow = false;
             hit = false;
             this.colour = colour;
             position = pos;
