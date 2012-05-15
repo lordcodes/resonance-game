@@ -15,9 +15,9 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int KILL_BOSS              = 4;
 
-        public const int DEFAULT_OBJECTIVE      = KILL_BOSS;
+        public  static int DEFAULT_OBJECTIVE    = KILL_ALL_BV;
 
-        public  const int FINAL_OBJECTIVE       = KILL_BOSS;
+        public  const  int FINAL_OBJECTIVE      = KILL_BOSS;
 
         private static int cObj                 = DEFAULT_OBJECTIVE;
 
@@ -82,7 +82,7 @@ namespace Resonance {
                 }
                 case (KILL_BOSS) : {
                     longStr  = "Destroy the Master Bad Vibe to heal the Frontal Lobe\nand wake up from the coma.";
-                    shortStr = "Destroy the Mast Bad Vibe";
+                    shortStr = "Destroy the Master Bad Vibe";
                     break;
                 }
                 case (SURVIVE) : {
