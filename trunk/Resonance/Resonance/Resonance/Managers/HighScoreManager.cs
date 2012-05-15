@@ -75,11 +75,11 @@ namespace Resonance
                 data.PlayerName[scoreIndex] = "Player";
             }
             position = scoreIndex;
-            Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
-            for (int index = 0; index < data.SIZE; index++)
-            {
-                Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
-            }
+            //Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
+            //for (int index = 0; index < data.SIZE; index++)
+            //{
+            //    Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
+            //}
         }       
         public static void saveFile()
         {
@@ -116,19 +116,19 @@ namespace Resonance
                 // If not, dispose of the container and return.
                 initializeData();
                 container.Dispose();
-                Console.WriteLine("The file does not exist");
+                //Console.WriteLine("The file does not exist");
                 return;
             }
-            Console.WriteLine("STARTING TO READ FILE");
+            //Console.WriteLine("STARTING TO READ FILE");
             // Open the file.
             Stream stream = container.OpenFile(filename, FileMode.Open);
             XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
             data = (HighScoreData)serializer.Deserialize(stream);
-            Console.WriteLine("THIS IS THE TABLE WHEN READ FROM TABLE");
-            for (int index = 0; index < data.SIZE; index++)
-            {
-                Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
-            }
+            //Console.WriteLine("THIS IS THE TABLE WHEN READ FROM TABLE");
+            //for (int index = 0; index < data.SIZE; index++)
+            //{
+            //    Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
+            //}
             // Close the file.
             stream.Close();
             // Dispose the container.
@@ -150,7 +150,7 @@ namespace Resonance
             {
                 // Delete it so that we can create one fresh.
                 container.DeleteFile(filename);
-                Console.WriteLine("FILE EXISTS");
+                //Console.WriteLine("FILE EXISTS");
             }
             Stream stream = container.CreateFile(filename);
             XmlSerializer serializer = new XmlSerializer(typeof(HighScoreData));
