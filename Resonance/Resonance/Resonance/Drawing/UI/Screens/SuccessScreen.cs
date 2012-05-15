@@ -146,7 +146,9 @@ namespace Resonance
                     if (HighScoreManager.position >= 0)
                         if (result.IsCompleted)
                         {
-                            string name  = Guide.EndShowKeyboardInput(result);
+                            string name = Guide.EndShowKeyboardInput(result);
+                            if (name == null) name = "Player " + DateTime.Now.ToString();
+                            if (name.Length > 23) name = name.Substring(0, 23);
                             if (name.Length > 0)
                                 HighScoreManager.data.PlayerName[HighScoreManager.position] = name;                            
                             HighScoreManager.saveFile();                            

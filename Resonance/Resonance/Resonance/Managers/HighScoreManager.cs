@@ -56,7 +56,7 @@ namespace Resonance
             int scoreIndex = -1;
             for (int i = 0; i < data.SIZE; i++)
             {
-                if (score >= data.Score[i])
+                if (score > data.Score[i])
                 {
                     scoreIndex = i;
                     break;
