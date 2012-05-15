@@ -10,7 +10,7 @@ namespace Resonance
         /// </summary>
 #if XBOX
         public static bool FLOOR_REFLECTIONS = true;
-        public static int REFLECTION_TEXTURE_SIZE = 1024;
+        public static int REFLECTION_TEXTURE_SIZE = 2048;
 #else
         public static bool FLOOR_REFLECTIONS = true;
         public static int REFLECTION_TEXTURE_SIZE = 2048;
@@ -21,11 +21,11 @@ namespace Resonance
         /// </summary>
 #if XBOX
         // Dont change for your pc
-        public static bool FLOOR_SHADOWS = false;
-        public static int SHADOWS_TEXTURE_SIZE = 1024;
+        public static bool FLOOR_SHADOWS = true;
+        public static int SHADOWS_TEXTURE_SIZE = 2048;
 #else
         public static bool FLOOR_SHADOWS = true;
-        public static int SHADOWS_TEXTURE_SIZE = 1024;
+        public static int SHADOWS_TEXTURE_SIZE = 2048;
 #endif
 
         /// <summary>
