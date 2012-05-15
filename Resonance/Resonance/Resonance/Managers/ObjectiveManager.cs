@@ -82,7 +82,7 @@ namespace Resonance {
                 }
                 case (KILL_BOSS) : {
                     longStr  = "Destroy the Master Bad Vibe to heal the Frontal Lobe\nand wake up from the coma.";
-                    shortStr = "Destroy the Boss";
+                    shortStr = "Destroy the Mast Bad Vibe";
                     break;
                 }
                 case (SURVIVE) : {
@@ -175,7 +175,7 @@ namespace Resonance {
                         bool bossDead = b.Dead;
 
                         int pct = (int)(100d * (double)bossHealth / (double)Boss.MAX_HEALTH);
-                        oStr = "Master Bad Vibe at " + pct + "% health";
+                        oStr = "Boss at " + pct + "% health";
 
                         if (DEBUG_MODE) return true;
                         if (QUICK_GAME) if (pct <= 50) return true; else return false;
