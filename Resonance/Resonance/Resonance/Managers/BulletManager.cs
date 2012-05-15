@@ -105,6 +105,7 @@ namespace Resonance
                             GameScreen.getGV().AdjustHealth(-DAMAGE);
                         }
 
+                        ScreenManager.game.World.removeObject(bullet);
                         bulletIndex = INACTIVE;
                     }
                     else
