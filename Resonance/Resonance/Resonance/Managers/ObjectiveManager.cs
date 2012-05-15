@@ -15,7 +15,7 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int KILL_BOSS              = 4;
 
-        public const int DEFAULT_OBJECTIVE      = KILL_ALL_BV;
+        public const int DEFAULT_OBJECTIVE      = KILL_BOSS;
 
         public  const int FINAL_OBJECTIVE       = KILL_BOSS;
 

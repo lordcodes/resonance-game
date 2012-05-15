@@ -61,8 +61,12 @@ namespace Resonance
         private static Texture2D drumkitg;
         private static Texture2D spawnercount;
         private static Texture2D infSpawnercount;
+        private static Texture2D texPixel;
+
 
         private static float ARMOUR_SCALE = 1.5f;
+
+        public static float whiteness = 0f;
 
         /// <summary>
         /// Create a new HUD object.
@@ -119,6 +123,7 @@ namespace Resonance
             drumkitb        = Content.Load<Texture2D>         ("Drawing/HUD/Textures/drumkitb");
             spawnercount    = Content.Load<Texture2D>         ("Drawing/HUD/Textures/spawnercount");
             infSpawnercount = Content.Load<Texture2D>         ("Drawing/HUD/Textures/infcountnice");
+            texPixel        = Content.Load<Texture2D>         ("Drawing/Textures/texPixel");
 
             if (GameScreen.USE_MINIMAP)
             {
@@ -193,6 +198,7 @@ namespace Resonance
             if(ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS) drawDeflectShield();
             drawMultiplier();
             drawLightning();
+            if (whiteness > 0) drawWhiteness();
             spriteBatch.End();
             
             Drawing.resetGraphics();
@@ -375,6 +381,10 @@ namespace Resonance
             } else {
                 spriteBatch.Draw(tempo2, new Rectangle(ScreenManager.pixelsX(100), ScreenManager.pixelsY(900), tempo.Width, tempo.Height), Color.White);
             }
+        }
+
+        private void drawWhiteness() {
+            spriteBatch.Draw(texPixel, new Rectangle(ScreenManager.pixelsX(0), ScreenManager.pixelsY(0), ScreenManager.ScreenWidth, ScreenManager.ScreenHeight), Color.White * whiteness);
         }
 
         /// <summary>
