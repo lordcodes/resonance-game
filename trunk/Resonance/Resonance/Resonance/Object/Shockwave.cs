@@ -148,7 +148,8 @@ namespace Resonance
                 {
                     if (point.hitPoint(colour-1))
                     {
-                        GameStats.Score = 15;
+                        ScreenManager.game.World.fadeObjectAway(point, 0.6f);
+                        GameScreen.getGV().adjustScore(15);
                     }
                 }
             }

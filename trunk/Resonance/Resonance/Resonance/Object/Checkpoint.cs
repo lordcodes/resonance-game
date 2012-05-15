@@ -44,7 +44,7 @@ namespace Resonance
             if (drum == this.colour)
             {
                 hit = true;
-                ModelInstance.setTexture(WHITE);
+                //ModelInstance.setTexture(WHITE);
                 colour = WHITE;
                 return true;
             }
