@@ -56,7 +56,7 @@ namespace Resonance {
 
         public static void surviveSetup() {
             //AIManager.MAX_MOVE_SPEED *= 1.5f;
-            AIManager.TARGET_RANGE *= 0.2f;
+            AIManager.TARGET_RANGE *= 0.3f;
             //AIManager.ATTACK_RATE = 8;
             //AIManager.CHANCE_MISS = 15;
         }
@@ -175,6 +175,7 @@ namespace Resonance {
                         bool bossDead = b.Dead;
 
                         int pct = (int)(100d * (double)bossHealth / (double)Boss.MAX_HEALTH);
+
                         oStr = "Boss at " + pct + "% health";
 
                         if (DEBUG_MODE) return true;
