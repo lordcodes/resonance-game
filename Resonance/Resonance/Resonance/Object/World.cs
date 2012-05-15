@@ -244,7 +244,7 @@ namespace Resonance
             return objects.returnObjectSubset(types);
         }
 
-        public void readXmlFile(string levelName, ContentManager Content)
+        public void readXmlFile(string levelName, ContentManager Content, int index)
         {
             BulletManager.BOSS_EXISTS = false;
 
@@ -259,6 +259,8 @@ namespace Resonance
                 if (obj.type.Equals("Ground"))
                 {
                     addObject(new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero));
+                    Object o = getObject("Ground");
+                    o.ModelInstance.setTexture(index);
                     int cObj = 0;
                     if (GameScreen.mode.MODE == GameMode.OBJECTIVES) cObj = ObjectiveManager.currentObjective();
                     else cObj = -1;

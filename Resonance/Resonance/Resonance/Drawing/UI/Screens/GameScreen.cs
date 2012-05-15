@@ -147,7 +147,7 @@ namespace Resonance
         {
             allocate();
             string level = "Levels/Level" + i;
-            world.readXmlFile(level, ScreenManager.Content);
+            world.readXmlFile(level, ScreenManager.Content, i);
 
             GVMotionManager.initialised = false;
             ParticleEmitterManager.initialise();

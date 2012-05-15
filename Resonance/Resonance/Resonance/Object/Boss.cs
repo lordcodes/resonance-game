@@ -33,7 +33,7 @@ namespace Resonance
         /// </summary>
         public void faceGV()
         {
-            Vector3 dir = Body.OrientationMatrix.Forward;
+            Vector3 dir = Body.OrientationMatrix.Backward;
             Vector3 pos = Body.Position;
             Vector3 gvPos = GameScreen.getGV().Body.Position;
             Vector3 diff = Vector3.Normalize(gvPos - pos);
