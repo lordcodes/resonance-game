@@ -71,14 +71,9 @@ namespace Resonance
                     data.PlayerName[i] = data.PlayerName[i - 1];
                 }                
                 data.Score[scoreIndex] = score;
-                data.PlayerName[scoreIndex] = "Player";
+                data.PlayerName[scoreIndex] = DateTime.Now.ToString();
             }
-            position = scoreIndex;
-            //Console.WriteLine("THIS IS THE UPDATED VERSION OF THE TABLE THAT WILL BE SAVED");
-            //for (int index = 0; index < data.SIZE; index++)
-            //{
-            //    Console.WriteLine(index+1 + " " + data.PlayerName[index] + " " + data.Score[index]);
-            //}
+            position = scoreIndex;            
         }       
         public static void saveFile()
         {

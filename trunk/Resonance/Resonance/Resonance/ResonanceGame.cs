@@ -51,6 +51,7 @@ namespace Resonance
 
             //Must come after base.initialise()
             HighScoreManager.loadFile();
+            //HighScoreManager.initializeData();
         }
         
         /// <summary>
