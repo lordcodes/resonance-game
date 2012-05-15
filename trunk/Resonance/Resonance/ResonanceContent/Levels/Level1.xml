@@ -30,15 +30,6 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Tunnel101</identifier>
-        <type>Tunnel</type>
-        <xWorldCoord>-50</xWorldCoord>
-        <zWorldCoord>170</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>0</pickuptype>
-      </Item>
-      <Item>
         <identifier>ObjectivePickup2</identifier>
         <type>ObjectivePickup</type>
         <xWorldCoord>-170</xWorldCoord>
@@ -73,15 +64,6 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>20</gameModelNum>
         <pickuptype>1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Ramp105</identifier>
-        <type>Ramp</type>
-        <xWorldCoord>-90</xWorldCoord>
-        <zWorldCoord>90</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>0</pickuptype>
       </Item>
       <Item>
         <identifier>ObjectivePickup6</identifier>
@@ -120,15 +102,6 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Ramp109</identifier>
-        <type>Ramp9</type>
-        <xWorldCoord>-70</xWorldCoord>
-        <zWorldCoord>30</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>0</pickuptype>
-      </Item>
-      <Item>
         <identifier>ObjectivePickup9</identifier>
         <type>ObjectivePickup</type>
         <xWorldCoord>-10</xWorldCoord>
@@ -165,33 +138,6 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>Tunnel112</identifier>
-        <type>Tunnel</type>
-        <xWorldCoord>30</xWorldCoord>
-        <zWorldCoord>-10</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>0</pickuptype>
-      </Item>
-      <Item>
-        <identifier>BVSpawner13</identifier>
-        <type>BVSpawner</type>
-        <xWorldCoord>-90</xWorldCoord>
-        <zWorldCoord>-50</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>10</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>BVSpawner14</identifier>
-        <type>BVSpawner</type>
-        <xWorldCoord>-30</xWorldCoord>
-        <zWorldCoord>-50</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>10</gameModelNum>
-        <pickuptype>-1</pickuptype>
-      </Item>
-      <Item>
         <identifier>ObjectivePickup15</identifier>
         <type>ObjectivePickup</type>
         <xWorldCoord>30</xWorldCoord>
@@ -208,15 +154,6 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>20</gameModelNum>
         <pickuptype>1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Tunnel106</identifier>
-        <type>Tunnel</type>
-        <xWorldCoord>-170</xWorldCoord>
-        <zWorldCoord>-90</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>0</pickuptype>
       </Item>
       <Item>
         <identifier>ObjectivePickup17</identifier>
@@ -244,15 +181,6 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>20</gameModelNum>
         <pickuptype>1</pickuptype>
-      </Item>
-      <Item>
-        <identifier>Ramp19</identifier>
-        <type>Ramp</type>
-        <xWorldCoord>-10</xWorldCoord>
-        <zWorldCoord>-130</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>0</pickuptype>
       </Item>
     </list>
   </Asset>
