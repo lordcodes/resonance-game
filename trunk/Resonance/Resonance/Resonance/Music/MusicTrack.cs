@@ -32,7 +32,7 @@ namespace Resonance
         int offbeat = 0;
 
         //public const long WINDOW = 80000000;//45000000;
-        public const long WINDOW = 160000000;//45000000;
+        public const long WINDOW = 62500000;//160000000;//45000000;
         const long EXTRA_OFF = 250000000;
         //const long EXTRA_OFF = 0;
 
@@ -320,7 +320,11 @@ namespace Resonance
                 }
                 //DebugDisplay.update("TIMING:", scoreWeight.ToString());
 
-                return scoreWeight;
+                //return scoreWeight;
+
+                // Sinusoidal score. Or as I calli, SINUSCORAL!
+                return (float) Math.Sin(scoreWeight * Math.PI / 2);
+
             } else {
                 // Not playing. Return false.
                 //return false;
