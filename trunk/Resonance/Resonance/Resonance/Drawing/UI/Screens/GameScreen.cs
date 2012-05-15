@@ -278,12 +278,24 @@ namespace Resonance
                     if (GAME_CAN_END)
                     {
                         string x = "";
+                        bool prePre = ((mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.FINAL_OBJECTIVE));
                         if (!endgame && GV_KILLED || mode.terminated() || (mode.MODE == GameMode.OBJECTIVES && (ObjectiveManager.getProgress(ref x))))
                         {
-                            if (!prePreEndGameTimer.IsRunning)
+                            if (prePre && !prePreEndGameTimer.IsRunning)
                             {
                                 prePreEndGameTimer.Start();
                                 endgame = true;
+                            }
+                            else if (!prePre)
+                            {
+                                if (!preEndGameTimer.IsRunning)
+                                {
+                                    preEndGameTimer.Start();
+                                    if (!GV_KILLED) MusicHandler.playSound("winwhoosh");
+                                    GV_KILLED_AT_GAME_END = GV_KILLED;
+                                    BulletManager.TRACK_BOSS = false;
+                                    endgame = true;
+                                }
                             }
                         }
 

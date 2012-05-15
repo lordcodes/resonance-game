@@ -112,7 +112,7 @@ namespace Resonance
                 screenToLoad.LoadedUsingLoading = true;
                 startLoading = false;
             }
-            if(!loadingDone) fadeValue = Math.Min(1f, fadeValue + FADE_INC);
+            fadeValue = Math.Min(1f, fadeValue + FADE_INC);
             if (loadingDone && displaySplash == NONE)
             {
                 ScreenManager.removeScreen(this);
