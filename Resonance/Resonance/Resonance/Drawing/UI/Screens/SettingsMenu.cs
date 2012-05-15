@@ -11,6 +11,7 @@ namespace Resonance
     {
         List<string> difficulties;
         List<string> gameModes;
+        List<string> objectives;
         Vector2 begSize;
         Vector2 lrOrigin;
 
@@ -23,12 +24,14 @@ namespace Resonance
             : base("Settings")
         {
             MenuElement gameMode = new MenuElement("Game Mode", changeGameMode);
+            MenuElement objective = new MenuElement("Start At", changeObj);
             MenuElement difficulty = new MenuElement("Difficulty", changeDifficulty);
             MenuElement musicVolume = new MenuElement("Music Volume", changeMusicVolume);
             MenuElement vibration = new MenuElement("Vibration", changeVibration);
             MenuElement back = new MenuElement("Back to Main Menu", toMainMenu);
 
             MenuItems.Add(gameMode);
+            MenuItems.Add(objective);
             MenuItems.Add(difficulty);
             MenuItems.Add(musicVolume);
             MenuItems.Add(vibration);
@@ -48,6 +51,13 @@ namespace Resonance
             gameModes.Add("Arcade");
             gameModes.Add("Objectives");
 
+            objectives = new List<string>(5);
+            objectives.Add("1 - Elimination");
+            objectives.Add("2 - Pickups");
+            objectives.Add("3 - Survival");
+            objectives.Add("4 - Checkpoint");
+            objectives.Add("5 - Final Boss");
+
             currentMusicVolume = (int)Math.Round(MediaPlayer.Volume * 10f, 0);
             currentVibrationLevel = (int)Math.Round(GameScreen.VIBRATION * 10, 0);
         }
@@ -60,7 +70,7 @@ namespace Resonance
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/VolumeFull"));
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/VolumeBlank"));
 
-            begSize = Font.MeasureString("   Beginner   ");
+            begSize = Font.MeasureString("  1 - Elimination  ");
 
             Vector2 size = Font.MeasureString(">");
             lrOrigin = new Vector2(size.X / 2, size.Y / 2);
@@ -88,16 +98,21 @@ namespace Resonance
                 }
                 else if (Selected == 1)
                 {
+                    ObjectiveManager.DEFAULT_OBJECTIVE--;
+                    if (ObjectiveManager.DEFAULT_OBJECTIVE < 0) ObjectiveManager.DEFAULT_OBJECTIVE = 4;
+                }
+                else if (Selected == 2)
+                {
                     GameScreen.DIFFICULTY--;
                     if (GameScreen.DIFFICULTY < 0) GameScreen.DIFFICULTY = 5;
                 }
-                else if (Selected == 2)
+                else if (Selected == 3)
                 {
                     currentMusicVolume--;
                     if (currentMusicVolume < 0) currentMusicVolume = 10;
                     MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
                 }
-                else if (Selected == 3)
+                else if (Selected == 4)
                 {
                     currentVibrationLevel--;
                     if (currentVibrationLevel < 0) currentVibrationLevel = 10;
@@ -113,16 +128,21 @@ namespace Resonance
                 }
                 else if (Selected == 1)
                 {
+                    ObjectiveManager.DEFAULT_OBJECTIVE++;
+                    if (ObjectiveManager.DEFAULT_OBJECTIVE > 4) ObjectiveManager.DEFAULT_OBJECTIVE = 0;
+                }
+                else if (Selected == 2)
+                {
                     GameScreen.DIFFICULTY++;
                     if (GameScreen.DIFFICULTY > 5) GameScreen.DIFFICULTY = 0;
                 }
-                else if (Selected == 2)
+                else if (Selected == 3)
                 {
                     currentMusicVolume++;
                     if (currentMusicVolume > 10) currentMusicVolume = 0;
                     MediaPlayer.Volume = ((float)currentMusicVolume) / 10f;
                 }
-                else if (Selected == 3)
+                else if (Selected == 4)
                 {
                     currentVibrationLevel++;
                     if (currentVibrationLevel > 10) currentVibrationLevel = 0;
@@ -158,7 +178,7 @@ namespace Resonance
             {
                 position.X = (int)screenSize.X + diff;
                 MenuItems[i].Position = position;
-                position.Y += MenuItems[i].Size(this).Y + 40;
+                position.Y += MenuItems[i].Size(this).Y + 30;
                 if(i == MenuItems.Count - 2) diff = 0f;
             }
         }
@@ -184,6 +204,17 @@ namespace Resonance
 
             difficultyPos = MenuItems[1].Position;
             difficultyPos.X = screenSize.X + 120;
+            msgSize = Font.MeasureString(objectives[ObjectiveManager.DEFAULT_OBJECTIVE]);
+            textOrigin = new Vector2(msgSize.X / 2, msgSize.Y / 2);
+            pos = difficultyPos;
+            pos.X -= begSize.X / 2;
+            ScreenManager.SpriteBatch.DrawString(Font, "<", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
+            ScreenManager.SpriteBatch.DrawString(Font, objectives[ObjectiveManager.DEFAULT_OBJECTIVE], difficultyPos, Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+            pos.X += begSize.X;
+            ScreenManager.SpriteBatch.DrawString(Font, ">", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
+
+            difficultyPos = MenuItems[2].Position;
+            difficultyPos.X = screenSize.X + 120;
             msgSize = Font.MeasureString(difficulties[GameScreen.DIFFICULTY]);
             textOrigin = new Vector2(msgSize.X / 2, msgSize.Y / 2);
             pos = difficultyPos;
@@ -194,7 +225,7 @@ namespace Resonance
             ScreenManager.SpriteBatch.DrawString(Font, ">", pos, Color.White, 0f, lrOrigin, 1f, SpriteEffects.None, 0f);
 
             x = (pos.X - begSize.X);
-            y = MenuItems[2].Position.Y - 5;
+            y = MenuItems[3].Position.Y - 5;
 
             for (int i = 0; i < 10; i++)
             {
@@ -204,7 +235,7 @@ namespace Resonance
             }
 
             x = (pos.X - begSize.X);
-            y = MenuItems[3].Position.Y - 5;
+            y = MenuItems[4].Position.Y - 5;
 
             for (int i = 0; i < 10; i++)
             {
@@ -230,6 +261,12 @@ namespace Resonance
         {
             GameScreen.DIFFICULTY++;
             if (GameScreen.DIFFICULTY > 5) GameScreen.DIFFICULTY = 0;
+        }
+
+        private void changeObj()
+        {
+            ObjectiveManager.DEFAULT_OBJECTIVE++;
+            if (ObjectiveManager.DEFAULT_OBJECTIVE > 4) ObjectiveManager.DEFAULT_OBJECTIVE = 0;
         }
 
         private void changeMusicVolume()
