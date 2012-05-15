@@ -15,7 +15,8 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int KILL_BOSS              = 4;
 
-        public const int DEFAULT_OBJECTIVE = KILL_ALL_BV;
+
+        public const int DEFAULT_OBJECTIVE      = KILL_ALL_BV;
 
         public  const int FINAL_OBJECTIVE       = KILL_BOSS;
 
@@ -26,7 +27,9 @@ namespace Resonance {
         private static TimeSpan initialDistThroughSong;
         private static TimeSpan survivalTime = new TimeSpan(0, 2, 0); // 2 mins
 
-        private static int SURVIVAL_SPAWN_FREQ = 8000; // 5 secs.
+        private static int SURVIVAL_SPAWN_FREQ = 7000; // 5 secs.
+
+        private static bool JUST_STARTED_SURVIVAL = true;
         private static Stopwatch spawnWatch = new Stopwatch();
 
         public static void loadObjectivesGame(ScreenManager sm) {
@@ -39,7 +42,7 @@ namespace Resonance {
 
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
             initialDistThroughSong = MediaPlayer.PlayPosition;
-            if (newObj == SURVIVE) { spawnWatch.Stop(); spawnWatch.Reset(); }
+            if (newObj == SURVIVE) { spawnWatch.Stop(); spawnWatch.Reset(); JUST_STARTED_SURVIVAL = true;}
             initialGVHealth = GoodVibe.MAX_HEALTH;
         }
 
@@ -241,6 +244,11 @@ namespace Resonance {
 
         public static void updateSpawners() {
             if (cObj == SURVIVE) {
+                if (JUST_STARTED_SURVIVAL) {
+                    BVSpawnManager.spawnOneBVFromEachSpawner();
+                    JUST_STARTED_SURVIVAL = false;
+                }
+
                 if (!spawnWatch.IsRunning) {
                     spawnWatch.Start();
                 } else if (spawnWatch.ElapsedMilliseconds >= SURVIVAL_SPAWN_FREQ) {
