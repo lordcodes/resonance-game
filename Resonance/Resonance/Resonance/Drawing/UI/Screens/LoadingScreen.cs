@@ -27,7 +27,8 @@ namespace Resonance
         private int frameNumber = 0;
         Screen screenToLoad;
 
-        private static float OBJ_FONT_SIZE = 0.6f;
+         
+        private static float OBJ_FONT_SIZE;
 
         int displaySplash;
         float fadeValue;
@@ -41,6 +42,15 @@ namespace Resonance
             screenToLoad = loadScreen;
             bgs = new Texture2D[15];
             fadeValue = 0.0f;
+
+            if (ScreenManager.ScreenWidth >= 1450)
+            {
+                OBJ_FONT_SIZE = 1f;
+            }
+            else
+            {
+                OBJ_FONT_SIZE = 0.6f;
+            }
         }
 
         public override void LoadContent()
@@ -127,6 +137,11 @@ namespace Resonance
                     bool arcade = displaySplash == ARCADE_SPLASH;
                     bool firstObj = displaySplash == OBJECTIVE_SPLASH1;
 
+                    float x = (screenSize.X * 1.5f) - 287 + ScreenManager.pixelsX(100);
+                    float y = screenSize.Y - 249;
+                    if (!arcade && !firstObj) ScreenManager.SpriteBatch.Draw(bgs[5 + displaySplash], new Vector2(x, y), Color.White);
+                    ScreenManager.SpriteBatch.Draw(bgs[6 + displaySplash], new Vector2(x, y), Color.White * fadeValue);
+
                     if (!arcade)
                     {
                         string obj = "";
@@ -149,11 +164,6 @@ namespace Resonance
                         ScreenManager.SpriteBatch.DrawString(font, drum, new Vector2(ScreenManager.pixelsX(80), screenSize.Y + 55), Color.White, 0f,
                             Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
                     }
-
-                    float x = (screenSize.X * 1.5f) - 287;
-                    float y = screenSize.Y - 249;
-                    if(!arcade && !firstObj) ScreenManager.SpriteBatch.Draw(bgs[5 + displaySplash], new Vector2(x,y), Color.White);
-                    ScreenManager.SpriteBatch.Draw(bgs[6 + displaySplash], new Vector2(x,y), Color.White * fadeValue);
                 }
 
                 if (displaySplash == OBJECTIVE_SPLASH1)
@@ -164,7 +174,7 @@ namespace Resonance
                 Vector2 textSize = font.MeasureString(text);
                 int ax = ScreenManager.pixelsX(150) + (int)textSize.X;
                 int width = (int)textSize.Y + 10;
-                int ay = ScreenManager.pixelsY(950) - (width / 2);
+                int ay = ScreenManager.pixelsY(945) - (width / 2);
 
                 ScreenManager.SpriteBatch.Draw(bgs[frameNumber], new Vector2(ScreenManager.pixelsX(1650), ScreenManager.pixelsY(825)), Color.White);
                 ScreenManager.SpriteBatch.DrawString(font, text, new Vector2(ScreenManager.pixelsX(100), ScreenManager.pixelsY(950)), Color.White, 0f, new Vector2(0, textSize.Y / 2), 1f, SpriteEffects.None, 0f);
