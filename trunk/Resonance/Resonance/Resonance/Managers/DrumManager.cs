@@ -34,7 +34,7 @@ namespace Resonance
             {
                 MusicHandler.playSound(MusicHandler.GREEN);
                 MusicHandler.getTrack().inTime();
-                if(GameMode.HEALTH_RECHARGE) increaseHealth();
+                if(GameScreen.mode.MODE == GameMode.ARCADE) increaseHealth();
                 GameScreen.getGV().createShockwave(Shockwave.GREEN);
                 //BulletManager.destroyBullet(Bullet.GREEN);
                 
