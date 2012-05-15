@@ -34,6 +34,7 @@ namespace Resonance
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
         public const bool USE_PROFILER = true;
+        public const bool USE_DEBUG = true;
 
         // Time in milliseconds between each update of the hud and the minimap
         private const float HUD_UPDATE_DELAY = 500;

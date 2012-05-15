@@ -406,9 +406,12 @@ namespace Resonance
             DrawableManager.Draw(gameTime);
             drawParticles();
             hud.Draw(gameTime);
-            if(GameScreen.USE_PROFILER) hud.drawDebugInfo(DebugDisplay.getString()+Profile.DumpAndReset());
-            else hud.drawDebugInfo(DebugDisplay.getString());
-            checkFrameRate(gameTime);
+            if(GameScreen.USE_DEBUG)
+            {
+                if(GameScreen.USE_PROFILER) hud.drawDebugInfo(DebugDisplay.getString()+Profile.DumpAndReset());
+                else hud.drawDebugInfo(DebugDisplay.getString());
+                checkFrameRate(gameTime);
+            }
         }
 
         public static void blendOn()

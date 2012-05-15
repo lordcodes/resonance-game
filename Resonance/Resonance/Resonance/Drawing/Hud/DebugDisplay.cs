@@ -19,8 +19,11 @@ namespace Resonance
         /// <param name="message">The value of the debug info</param>
         public static void update(String name, String message)
         {
-            if (dictionary.ContainsKey(name)) dictionary[name] = message;
-            else dictionary.Add(name, message);
+            if (GameScreen.USE_DEBUG)
+            {
+                if (dictionary.ContainsKey(name)) dictionary[name] = message;
+                else dictionary.Add(name, message);
+            }
         }
 
         /// <summary>
