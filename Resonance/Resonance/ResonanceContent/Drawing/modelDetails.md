@@ -31,6 +31,7 @@ plus5, Models\plus5.fbx
 CheckPoint, Models\checkPoint.fbx
 BossPhysics, Models\BossPhysics.fbx
 PickupOrb, Models\pickuporb.fbx
+PickupDeflect, Models\pickupdeflect.fbx
 Ramp,Models\Ramp.fbx
 Ramp_phys,Models\Ramp_physics.fbx
 bossBackTwig, Models\BossDeath\backTwig.fbx
@@ -188,6 +189,6 @@ tunnel_texture, Textures\tunnel_texture.png
 53,			bossTopJaw,				1.3,		bossTopJawPhysics,				1.3,			boss
 54,			bossTopLeftJaw,			1.3,		bossTopLeftJawPhysics,			1.3,			boss
 55,			bossTopRIghtJaw,		1.3,		bossTopRightJawPhysics,		    1.3,			boss
-56,			PickupOrb,				0.5,		PickupOrb,				        0.5
+56,			PickupDeflect,			0.25,		pickup,							0.25
 57,         Virus,                  1,          Virus_phys,                     1,              virus_texture
 58,         Tunnel,                 1,          Tunnel_phys,                    1,              tunnel_texture
