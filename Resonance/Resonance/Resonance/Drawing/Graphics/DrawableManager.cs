@@ -20,7 +20,7 @@ namespace Resonance
         private static List<GameComponent> shadowedComponents = new List<GameComponent>(1000);
         private static List<GameComponent> reflectedComponents = new List<GameComponent>(1000);
 
-        static Profile ThisSection = Profile.Get("Drawing3D");
+        //static Profile ThisSection = Profile.Get("Drawing3D");
 
         /// <summary>
         /// Add a game component
@@ -114,7 +114,7 @@ namespace Resonance
         /// <param name="gameTime">The gameTime</param>
         public static void Draw(GameTime gameTime)
         {
-            using (IDisposable d = ThisSection.Measure())
+            //using (IDisposable d = ThisSection.Measure())
             {
                 // Draw reflections
                 if (GraphicsSettings.FLOOR_REFLECTIONS)
