@@ -18,8 +18,8 @@ namespace Resonance
         private static int currentFrameRate;
         private static bool drawingReflection = false;
         private static bool drawingShadows = false;
-        private static RenderTarget2D mirrorRenderTarget;
-        private static RenderTarget2D shadowsRenderTarget;
+        private static RenderTarget2D mirrorRenderTarget = null;
+        private static RenderTarget2D shadowsRenderTarget = null;
         private static Texture2D shinyFloorTexture;
         private static Texture2D shadowsTexture;
         static Texture2D sampleTexture;
@@ -257,13 +257,8 @@ namespace Resonance
             LoadingScreen.CurrentlyLoading = "Displacement Maps";
             gameGraphics.loadContent(importedModels,content, graphics.GraphicsDevice);
             PresentationParameters pp = graphics.GraphicsDevice.PresentationParameters;
-            mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
-            shadowsRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.SHADOWS_TEXTURE_SIZE, GraphicsSettings.SHADOWS_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
-
-
-            
-            
-
+            if(mirrorRenderTarget == null) mirrorRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.REFLECTION_TEXTURE_SIZE, GraphicsSettings.REFLECTION_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
+            if (shadowsRenderTarget == null) shadowsRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.SHADOWS_TEXTURE_SIZE, GraphicsSettings.SHADOWS_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
             //te = new TextureEffect(5, 5, new Vector3(0, 6, 0), true, new TextureAnimation(shadowsTexture));
 
             gameGraphics.Shaders.setPointLightPos(new Vector3(0, 8, 0));
