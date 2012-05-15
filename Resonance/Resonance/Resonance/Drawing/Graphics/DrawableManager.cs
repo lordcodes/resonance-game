@@ -33,7 +33,7 @@ namespace Resonance
             {
                 output = "Added: "+((Object)component).returnIdentifier();
             }
-            Console.WriteLine(output);
+            //Console.WriteLine(output);
 
 
             if (component is Pickup)
@@ -70,7 +70,7 @@ namespace Resonance
 
             if (component is Object && ((Object)component).ModelInstance.Shadow && !((Object)component).returnIdentifier().Equals("Ground"))
             {
-                if (component is GoodVibe) Console.WriteLine("add gv shadow");
+                //if (component is GoodVibe) Console.WriteLine("add gv shadow");
                 shadowedComponents.Add(component);
             }
         }
@@ -211,7 +211,7 @@ namespace Resonance
             {
                 output = "Removed: " + ((Object)component).returnIdentifier();
             }
-            Console.WriteLine(output);
+            //Console.WriteLine(output);
 
             if (textureComponents.Contains(component))
             {

@@ -266,7 +266,7 @@ namespace Resonance
                     ObjectiveManager.updateSpawners();
                 }
 
-                DebugDisplay.update("numpickups", PickupSpawnManager.numPickups.ToString());
+                //DebugDisplay.update("numpickups", PickupSpawnManager.numPickups.ToString());
 
                 if(intro)
                 {
