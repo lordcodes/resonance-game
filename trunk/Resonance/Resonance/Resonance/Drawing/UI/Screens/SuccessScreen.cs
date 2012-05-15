@@ -12,10 +12,8 @@ namespace Resonance
         Vector2 lPosText;
         Vector2 rPos;
         Vector2 rPosText;
-
         int leftTimes;
         int rightTimes;
-
         private static System.IAsyncResult result = null;
         private static int async = 0;
 
@@ -208,7 +206,6 @@ namespace Resonance
                 headings += HighScoreManager.data.PlayerName[jj] + "\n";
                 scores += HighScoreManager.data.Score[jj] + "\n";
             }
-
             ScreenManager.SpriteBatch.DrawString(Font, "HIGHSCORES", new Vector2(rPos.X + 225f, rPos.Y + 60f), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, headings, rPosText, Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.DrawString(Font, scores, new Vector2(rPosText.X + 410, rPosText.Y), Color.White, 0f, Vector2.Zero, 0.8f, SpriteEffects.None, 0f);

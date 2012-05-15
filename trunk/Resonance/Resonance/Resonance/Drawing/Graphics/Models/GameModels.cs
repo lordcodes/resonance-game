@@ -61,6 +61,7 @@ namespace Resonance
         public static readonly int BOSSTOPRIGHTJAW = 55;
         public static readonly int PICKUPDEFLECT    = 56;
         public static readonly int VIRUS = 57;
+        public static readonly int TUNNEL = 58;
 
 
 

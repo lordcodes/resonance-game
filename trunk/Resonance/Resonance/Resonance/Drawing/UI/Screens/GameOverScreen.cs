@@ -12,10 +12,8 @@ namespace Resonance
         Vector2 lPosText;
         Vector2 rPos;
         Vector2 rPosText;
-
         int leftTimes;
         int rightTimes;
-
         private static System.IAsyncResult result = null;
         private static int async = 0;
 
