@@ -328,16 +328,18 @@ namespace Resonance
             }
         }
 
-        bool goingup = true;
+        bool goingup = false;
         bool prevgoingup = false;
         float prevscore = 0f;
 
         public bool timesong() {
+            long longWindow = 250000000;
+
             beatLength        = 500000000;
             halfBeatLength    = 250000000;
             quarterBeatLength = 125000000;
 
-            mode = NoteMode.WHOLE;
+            mode = NoteMode.HALF;
             if (state == PlayState.PLAYING)
             {
                 lastI = 0;
@@ -412,8 +414,10 @@ namespace Resonance
                 if (/*!blap && scoreWeight > 0.85*/ prevgoingup && !goingup) { blap = true; /*MusicHandler.playSound(MusicHandler.RED);*/ }
                 if (scoreWeight == -1) blap = false;
                 prevscore = scoreWeight;
+
+                bool ans = prevgoingup && !goingup;
                 prevgoingup = goingup;
-                return (prevgoingup && !goingup);
+                return ans;
             } else {
                 // Not playing. Return false.
                 //return false;
