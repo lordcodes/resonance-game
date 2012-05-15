@@ -257,7 +257,7 @@ namespace Resonance {
 
                 //power = (float) Math.Sin(power * (Math.PI / 2));
 
-                posR = (rotateR ^ backward) ^ !FLIP_REVERSE_CONTROLS;
+                if (FLIP_REVERSE_CONTROLS) posR = (rotateR ^ backward); /*^ !FLIP_REVERSE_CONTROLS;*/ else posR = rotateR;
 
                 if (posR) {
                     if (prevRR) rChange = true; else rChange = false;
