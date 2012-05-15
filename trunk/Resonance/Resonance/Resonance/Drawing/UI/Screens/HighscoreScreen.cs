@@ -12,7 +12,7 @@ namespace Resonance
         Texture2D box;
         private int index = 0;
         private System.IAsyncResult result = null;
-        private string name = "";
+        //private string name = "";
 
         public HighscoreScreen(SpriteFont newFont)
             : base()
@@ -60,16 +60,17 @@ namespace Resonance
             {
                 message = HighScoreManager.data.PlayerName[i];
                 if(message != null)
-                ScreenManager.SpriteBatch.DrawString(headingFont, message, new Vector2(ScreenManager.ScreenWidth / 2 - 100, 200 + i * 30),
+                    ScreenManager.SpriteBatch.DrawString(headingFont, message, new Vector2(x+200, y+125 + i * 30/*ScreenManager.ScreenWidth / 2 - 100, 200 + i * 30*/),
                Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+
                 message =  HighScoreManager.data.Score[i].ToString();
                 if(message != null)
-                ScreenManager.SpriteBatch.DrawString(headingFont, message, new Vector2(ScreenManager.ScreenWidth / 2 + 250, 200 + i * 30),
+                    ScreenManager.SpriteBatch.DrawString(headingFont, message, new Vector2(x+550, y+125 + i * 30/*ScreenManager.ScreenWidth / 2 + 250, 200 + i * 30*/),
                Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
             }
            
-            ScreenManager.SpriteBatch.DrawString(headingFont, name, new Vector2(ScreenManager.ScreenWidth / 2 + 250, 200 + 12 * 30),
-            Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
+            //ScreenManager.SpriteBatch.DrawString(headingFont, name, new Vector2(ScreenManager.ScreenWidth / 2 + 250, 200 + 12 * 30),
+            //Color.White, 0f, textOrigin, 1f, SpriteEffects.None, 0f);
             ScreenManager.SpriteBatch.End();
         }
 
