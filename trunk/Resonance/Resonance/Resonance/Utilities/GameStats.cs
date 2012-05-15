@@ -4,6 +4,11 @@ namespace Resonance
 {
     class GameStats
     {
+        public const  int BV_ARMOUR_SCORE =  10;
+        public const  int BV_CYMBAL_SCORE =  50;
+        public const  int BV_KILL_SCORE   = 100;
+
+
         private static int score;
         private static int bvsKilled;
         private static int bvsAtOnce;

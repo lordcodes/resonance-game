@@ -38,17 +38,20 @@ namespace Resonance
         // WorldTransform
         Matrix transform;
 
+        float scoreWeight = 0f;
+
         private static int WAVE_POOL_SIZE = 12;
         private static List<Shockwave> wavePool;
 
-        public Shockwave(int modelNum, string name, Vector3 pos, Matrix t, int colour)
+        public Shockwave(int modelNum, string name, Vector3 pos, Matrix t, int colour, float sWeight)
             : base(modelNum, name, pos)
         {
             bVibes = new List<BadVibe>(10);
-            this.init(pos, t, colour);
+            this.init(pos, t, colour, sWeight);
         }
 
-        public void init(Vector3 pos, Matrix t, int colour) {
+        public void init(Vector3 pos, Matrix t, int colour, float sWeight) {
+            scoreWeight = sWeight + 0.05f;
             this.colour = colour;
             position = new Vector3(pos.X, pos.Y, pos.Z);
             transform = t;
@@ -63,7 +66,7 @@ namespace Resonance
         public static void fillPool() {
             wavePool = new List<Shockwave>(WAVE_POOL_SIZE);
             for (int i = 0; i < WAVE_POOL_SIZE; i++) {
-                wavePool.Add(new Shockwave(GameModels.SHOCKWAVE, "", Vector3.Zero, Matrix.Identity, 0));
+                wavePool.Add(new Shockwave(GameModels.SHOCKWAVE, "", Vector3.Zero, Matrix.Identity, 0, 0f));
             }
         }
 
@@ -71,14 +74,14 @@ namespace Resonance
             wavePool.Add(w);
         }
 
-        public static Shockwave getWave(Vector3 pos, Matrix t, int colour) {
+        public static Shockwave getWave(Vector3 pos, Matrix t, int colour, float scoreWeight) {
             if (wavePool.Count > 0) {
                 Shockwave w = wavePool.Last();
                 wavePool.Remove(w);
-                w.init(pos, t, colour);
+                w.init(pos, t, colour, scoreWeight);
                 return w;
             } else {
-                return new Shockwave(GameModels.SHOCKWAVE, "", pos, t, colour);
+                return new Shockwave(GameModels.SHOCKWAVE, "", pos, t, colour, scoreWeight);
             }
         }
 
@@ -124,7 +127,7 @@ namespace Resonance
                         bVibes.Add(bv);
 
                         Vector3 blast = bv.Body.Position - position;
-                        if (bv.damage(colour, blast))
+                        if (bv.damage(colour, blast, scoreWeight))
                         {
                             numHit++;
                         }
@@ -149,7 +152,7 @@ namespace Resonance
                     if (point.hitPoint(colour-1))
                     {
                         ScreenManager.game.World.fadeObjectAway(point, 0.6f);
-                        GameScreen.getGV().adjustScore(15);
+                        GameScreen.getGV().adjustScore(150);
                     }
                 }
             }

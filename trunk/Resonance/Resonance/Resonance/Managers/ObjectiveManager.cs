@@ -274,14 +274,14 @@ namespace Resonance {
             case (KILL_ALL_BV):
                 {
                     if (set) GameStats.Round1 = ts;
-                    bonus = 800 - (int) (2 * ts.TotalSeconds);
+                    bonus = 8000 - (int) (20 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;
                 }
             case (COLLECT_ALL_PICKUPS):
                 {
                     if (set) GameStats.Round2 = ts;
-                    bonus = 600 - (int) (2 * ts.TotalSeconds);
+                    bonus = 6000 - (int) (20 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;
                 }
@@ -289,20 +289,20 @@ namespace Resonance {
                 {
                     int healthLost = initialGVHealth - GameScreen.getGV().Health;
                     if (set) GameStats.Round3 = healthLost;
-                    bonus = 300 - (3 * healthLost);
+                    bonus = 3000 - (30 * healthLost);
                     break;
                 }
             case (TERRITORIES):
                 {
                     if (set) GameStats.Round4 = ts;
-                    bonus = 600 - (int) (2 * ts.TotalSeconds);
+                    bonus = 6000 - (int) (20 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;
                 }
             case (KILL_BOSS):
                 {
                     if (set) GameStats.Round5 = ts;
-                    bonus = 800 - (int) (2 * ts.TotalSeconds);
+                    bonus = 8000 - (int) (20 * ts.TotalSeconds);
                     if (bonus < 0) bonus = 0;
                     break;
                 }

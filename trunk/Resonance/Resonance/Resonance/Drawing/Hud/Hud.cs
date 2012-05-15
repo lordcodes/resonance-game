@@ -380,7 +380,6 @@ namespace Resonance
 
         private void drawThrobber() {
             bool switchThrobber = MusicHandler.getTrack().timesong();
-            DebugDisplay.update("SWITCH", switchThrobber.ToString());
             if (switchThrobber) throbberOn = !throbberOn;
 
             //if (MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.WHOLE) > 0.9f)
