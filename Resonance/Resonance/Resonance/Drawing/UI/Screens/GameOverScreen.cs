@@ -131,7 +131,6 @@ namespace Resonance
                         }
                     break;
             }
-
             ScreenManager.SpriteBatch.Draw(Bgs[0], lPos, Color.White);
             ScreenManager.SpriteBatch.Draw(Bgs[0], rPos, Color.White); 
             
