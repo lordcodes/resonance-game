@@ -440,28 +440,8 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\dude.fbx">
-      <Name>dude</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <Compile Include="Drawing\HUD\Textures\pickup.png">
       <Name>pickup</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\head.tga">
-      <Name>head</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\jacket.tga">
-      <Name>jacket</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\pants.tga">
-      <Name>pants</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
@@ -530,21 +510,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
-    <Compile Include="Drawing\Models\upBodyC.tga">
-      <Name>upBodyC</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Models\tree-physics.fbx">
       <Name>tree-physics</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\truck.fbx">
-      <Name>truck</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <Compile Include="Drawing\Shaders\Ground.fx">
       <Name>Ground</Name>
       <Importer>EffectImporter</Importer>
@@ -618,16 +588,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\tree.fbx">
-      <Name>tree</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <None Include="Drawing\Models\house.fbx">
-      <Name>house</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <None Include="Drawing\Models\terrain.fbx">
       <Name>terrain</Name>
       <Importer>FbxImporter</Importer>
@@ -658,38 +618,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Drawing\Models\boxTexture.png">
-      <Name>boxTexture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </None>
     <None Include="Music\song.timing">
       <Name>song</Name>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Drawing\Models\log_texture.png">
-      <Name>log_texture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </None>
-    <None Include="Drawing\Models\tree_texture.png">
-      <Name>tree_texture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </None>
-    <None Include="Drawing\Models\trunk_texture.png">
-      <Name>trunk_texture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Drawing\Models\english_house_texture.bmp">
-      <Name>english_house_texture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -917,63 +848,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Drawing\Models\truck_bump.jpg">
-      <Name>truck_bump</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_color-blue.jpg">
-      <Name>truck_color-blue</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_color-green.jpg">
-      <Name>truck_color-green</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_color-red.jpg">
-      <Name>truck_color-red</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_color-silver.jpg">
-      <Name>truck_color-silver</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_color.jpg">
-      <Name>truck_color</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_color_clean.jpg">
-      <Name>truck_color_clean</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_refl.jpg">
-      <Name>truck_refl</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_refl_clean.jpg">
-      <Name>truck_refl_clean</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_spec.jpg">
-      <Name>truck_spec</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-    <Compile Include="Drawing\Models\truck_spec_clean.jpg">
-      <Name>truck_spec_clean</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Drawing\Textures\animationTest\animationTest0001.jpg">
       <Name>animationTest0001</Name>
       <Importer>TextureImporter</Importer>
@@ -1178,13 +1052,6 @@
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Drawing\Models\x2_texture.png">
-      <Name>x2_texture</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Drawing\Textures\texPopup.png">
