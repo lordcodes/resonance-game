@@ -313,6 +313,14 @@ namespace Resonance
         }
 
         /// <summary>
+        /// Clears minimap rendertarget between levels
+        /// </summary>
+        public static void clear()
+        {
+            savedMinimap = null;
+        }
+
+        /// <summary>
         /// Renders the mini map texture in the miniMapBuffer render target
         /// </summary>
         public void saveTexture(SpriteBatch spriteBatch)
