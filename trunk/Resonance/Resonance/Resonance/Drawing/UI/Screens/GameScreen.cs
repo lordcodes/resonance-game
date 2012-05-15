@@ -154,6 +154,7 @@ namespace Resonance
             WeatherManager.initialise();
             CameraMotionManager.initialise();
             PickupSpawnManager.init();
+            PickupManager.init();
             if(BulletManager.BOSS_EXISTS) BulletManager.init();
             ObjectiveManager.defaultSetup();
             if (mode.MODE == GameMode.OBJECTIVES && ObjectiveManager.currentObjective() == ObjectiveManager.SURVIVE) ObjectiveManager.surviveSetup();

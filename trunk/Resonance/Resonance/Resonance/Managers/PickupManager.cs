@@ -7,8 +7,14 @@ namespace Resonance
     class PickupManager
     {
         //public static int currentMultipler = 1;
-        private static int pickupType = -1;
-        private static int timeRemaining = 0;
+        private static int pickupType;
+        private static int timeRemaining;
+
+        public static void init()
+        {
+             pickupType = -1;
+            timeRemaining = 0;
+        }
 
         /// <summary>
         /// Adds the new multiplier values when it is hit
