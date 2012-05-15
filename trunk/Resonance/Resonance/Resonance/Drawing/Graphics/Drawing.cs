@@ -121,6 +121,7 @@ namespace Resonance
             try
             {
                 ((GroundShader)gameGraphics.CustomShaders.Ground).setShadowTexture(shadowsTexture);
+                //te.Texture = shadowsTexture;
             }
             catch (Exception){}
             drawingShadows = false;
@@ -238,8 +239,8 @@ namespace Resonance
             gameGraphics = new Graphics(content, graphics);
             hud = new Hud(content,graphics, gameGraphics);
 
-            TextureAnimation ta = new TextureAnimation(shinyFloorTexture);
-            TextureEffect te = new TextureEffect(200,200, new Vector3(10,10,10), true, ta);
+            //TextureAnimation ta = new TextureAnimation(shinyFloorTexture);
+            //TextureEffect te = new TextureEffect(200,200, new Vector3(10,10,10), true, ta);
         }
 
         /// <summary>
@@ -260,8 +261,8 @@ namespace Resonance
             shadowsRenderTarget = new RenderTarget2D(graphics.GraphicsDevice, GraphicsSettings.SHADOWS_TEXTURE_SIZE, GraphicsSettings.SHADOWS_TEXTURE_SIZE, false, graphics.GraphicsDevice.DisplayMode.Format, DepthFormat.Depth24, 0, RenderTargetUsage.PlatformContents);
 
 
-            //te = new TextureEffect(5, 5, new Vector3(0,6,0), true, new TextureAnimation(gameGraphics.DispMap.getMap()));
-            //te.Textures = gameGraphics.DispMap.getTextures();
+            
+            
 
             //te = new TextureEffect(5, 5, new Vector3(0, 6, 0), true, new TextureAnimation(shadowsTexture));
 

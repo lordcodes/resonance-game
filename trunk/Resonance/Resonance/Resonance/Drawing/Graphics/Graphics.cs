@@ -230,6 +230,7 @@ namespace Resonance
 
         public void Draw(Object worldObject, Matrix worldTransform, bool disp, bool drawingReflection, bool drawingShadows)
         {
+
             GameModel gmodel = worldObject.ModelInstance.Model;
             GameModelInstance modelVariables = worldObject.ModelInstance;
             Matrix world = Matrix.Multiply(gmodel.GraphicsScale, worldTransform);
@@ -242,10 +243,12 @@ namespace Resonance
             Shader currentShader;
             Matrix lightsViewProjectionMatrix;
 
+
             Vector3 pos = GameScreen.getGV().Body.Position;
             Vector3 lightPos = new Vector3(cameraPosition.X, 50f, cameraPosition.Z);
             Matrix lightsView = Matrix.CreateLookAt(lightPos, new Vector3(pos.X, 0, pos.Z), new Vector3(0, 1, 0));
-            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 1f,200f);
+            Matrix lightsProjection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver2, 1f, 1f, 200f);
+
 
             lightsViewProjectionMatrix = lightsView * lightsProjection;
 
@@ -290,6 +293,7 @@ namespace Resonance
                 currentShader.Transparency = modelVariables.Transparency;
             }
 
+
             Texture2D colorTexture = null;
             currentShader.sceneSetup(theView, projection2, cameraPosition2, colorTexture);
             ModelMeshCollection meshes = m.Meshes;
@@ -316,7 +320,7 @@ namespace Resonance
                 else
                 {
                     currentShader.Technique = "StaticObject";
-                    if(drawingShadows)currentShader.Technique = "ShadowMap";
+                    if (drawingShadows) currentShader.Technique = "ShadowMap";
                 }
 
                 ModelMeshPartCollection meshParts = mesh.MeshParts;

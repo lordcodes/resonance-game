@@ -162,7 +162,7 @@ bool checkShadow(float4 Pos2DAsSeenByLight, int xoff, int yoff)
 			inShadow = false;      
         }
     }
-	return inShadow;
+	return !inShadow;
 }
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
