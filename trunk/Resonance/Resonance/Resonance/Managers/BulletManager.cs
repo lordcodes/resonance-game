@@ -18,7 +18,7 @@ namespace Resonance
 
         private static double CHUNK = DEFAULT_CHUNK;    
 
-        private static int bulletIndex;
+        public  static int bulletIndex;
         private static Bullet bullet;
         private static Random rand;
         private static Entity target;
