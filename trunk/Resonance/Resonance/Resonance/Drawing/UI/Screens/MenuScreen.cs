@@ -56,14 +56,6 @@ namespace Resonance
                          (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.IsButtonDown(Buttons.B));
             bool backPause = !input.LastPlayerOne.IsButtonDown(Buttons.Start) && input.PlayerOne.IsButtonDown(Buttons.Start);
 
-            bool credits = (!input.LastKeys.IsKeyDown(Keys.K) && !input.LastPlayerOne.IsButtonDown(Buttons.Y)) &&
-                         (input.Keys.IsKeyDown(Keys.K) || input.PlayerOne.IsButtonDown(Buttons.Y));
-            if (credits)
-            {
-                ScreenManager.addScreen(new CreditsScreen());
-                //ScreenManager.addScreen(new GameOverScreen(new GameStats()));
-            }
-
             if (!lockedControls)
             {
                 if (back)

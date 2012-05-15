@@ -15,11 +15,13 @@ namespace Resonance
             MenuElement play = new MenuElement("Enter the Resonance Chamber", startGame);
             MenuElement settings = new MenuElement("Settings", openSettings);
             MenuElement highScores = new MenuElement("High Scores", openHighScores);
+            MenuElement credits = new MenuElement("View Credits", viewCredits);
             MenuElement quit = new MenuElement("Quit Game", quitGame);
 
             MenuItems.Add(play);
             MenuItems.Add(settings);
             MenuItems.Add(highScores);
+            MenuItems.Add(credits);
             MenuItems.Add(quit);
 
             this.musicStart = true;
@@ -105,6 +107,11 @@ namespace Resonance
         private void openHighScores()
         {
             ScreenManager.addScreen(new HighscoreScreen(Font));
+        }
+
+        private void viewCredits()
+        {
+            ScreenManager.addScreen(new CreditsScreen());
         }
 
         private void quitGame()
