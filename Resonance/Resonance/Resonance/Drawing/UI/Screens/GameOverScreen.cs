@@ -34,8 +34,16 @@ namespace Resonance
 
             
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
-            lPos = new Vector2(screenSize.X - 580f, screenSize.Y - 550);
-            rPos = new Vector2(screenSize.X + 30f, screenSize.Y - 550);
+            if (ScreenManager.ScreenWidth >= 1450)
+            {
+                lPos = new Vector2(screenSize.X - 580f, screenSize.Y / 2 - 250);
+                rPos = new Vector2(screenSize.X + 30f, screenSize.Y / 2 - 250);
+            }
+            else
+            {
+                lPos = new Vector2(screenSize.X - 580f, screenSize.Y - 550);
+                rPos = new Vector2(screenSize.X + 30f, screenSize.Y - 550);
+            }
 
             lPosText = new Vector2(lPos.X + 60f, lPos.Y + 60f);
             rPosText = new Vector2(rPos.X + 60f, rPos.Y + 120f);
