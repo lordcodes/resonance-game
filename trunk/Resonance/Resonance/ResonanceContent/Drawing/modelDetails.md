@@ -154,10 +154,10 @@ tunnel_texture, Textures\tunnel_texture.png
 18,         Boss,                   1.3,        BossPhysics,			        1.3,			boss,							1
 19,			Walls,					150,		Walls,					        150,			wallTexture
 20,			Walls,					120,		Walls,					        120,			wallTexture
-22,			Walls,					195,		Walls,					        195,			wallTexture
-23,			Walls,					65,			Walls,					        65,				wallTexture
-24,			Walls,					195,		Walls,					        195,			wallTexture
-25,			Walls,					145,		Walls,					        145,			wallTexture
+22,			Walls,					200,		Walls,					        195,			wallTexture
+23,			Walls,					70,			Walls,					        65,				wallTexture
+24,			Walls,					200,		Walls,					        195,			wallTexture
+25,			Walls,					150,		Walls,					        145,			wallTexture
 21,			CheckPoint,				1.5,        CheckPoint,                     1.5,            checkpointColours
 26,			PickupOrb,				0.25,		PickupOrb,				        0.25
 27,         Ramp,                   1,          Ramp_phys,                      1,            rampText

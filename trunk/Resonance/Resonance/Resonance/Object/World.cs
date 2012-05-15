@@ -261,6 +261,7 @@ namespace Resonance
                     addObject(new StaticObject(GameModels.GROUND, "Ground", Vector3.Zero));
                     Object o = getObject("Ground");
                     o.ModelInstance.setTexture(index);
+                    if (index > 4) o.ModelInstance.setTexture(0);
                     int cObj = 0;
                     if (GameScreen.mode.MODE == GameMode.OBJECTIVES) cObj = ObjectiveManager.currentObjective();
                     else cObj = -1;
@@ -268,15 +269,15 @@ namespace Resonance
                     {
                         case -1:
                             {
-                                PLAYABLE_MAP_X = 400;
-                                PLAYABLE_MAP_Z = 400;
+                                PLAYABLE_MAP_X = 240;
+                                PLAYABLE_MAP_Z = 240;
                                 addObject(new StaticObject(GameModels.TRAININGWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }
                         case ObjectiveManager.KILL_ALL_BV:
                             {
-                                PLAYABLE_MAP_X = 400;
-                                PLAYABLE_MAP_Z = 400;
+                                PLAYABLE_MAP_X = 240;
+                                PLAYABLE_MAP_Z = 240;
                                 addObject(new StaticObject(GameModels.TRAININGWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }
@@ -289,8 +290,8 @@ namespace Resonance
                             }
                         case ObjectiveManager.SURVIVE:
                             {
-                                PLAYABLE_MAP_X = 130;
-                                PLAYABLE_MAP_Z = 130;
+                                PLAYABLE_MAP_X = 140;
+                                PLAYABLE_MAP_Z = 140;
                                 addObject(new StaticObject(GameModels.SURVIVALWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }
