@@ -545,6 +545,16 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\Tunnel.fbx">
+      <Name>Tunnel</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
+    <Compile Include="Drawing\Models\Tunnel_phys.fbx">
+      <Name>Tunnel_phys</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\x2.fbx">
       <Name>x2</Name>
       <Importer>FbxImporter</Importer>
@@ -2164,6 +2174,13 @@
     </Compile>
     <Compile Include="Drawing\Textures\GroundYellow.png">
       <Name>GroundYellow</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Textures\tunnel_texture.png">
+      <Name>tunnel_texture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

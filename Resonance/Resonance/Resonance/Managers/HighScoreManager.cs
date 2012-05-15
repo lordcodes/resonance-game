@@ -24,7 +24,6 @@ namespace Resonance
         public static HighScoreData data;
         public static int position = -1;
         public static StorageDevice device = null;
-
         public static void initializeData()
         {
             data = new HighScoreData(10);

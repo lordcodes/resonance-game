@@ -210,6 +210,15 @@
         <pickuptype>-1</pickuptype>
       </Item>
       <Item>
+        <identifier>Tunnel0</identifier>
+        <type>Tunnel</type>
+        <xWorldCoord>-20</xWorldCoord>
+        <zWorldCoord>10</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>58</gameModelNum>
+        <pickuptype>-1</pickuptype>
+      </Item>
+      <Item>
         <identifier>Neuron20</identifier>
         <type>Neuron</type>
         <xWorldCoord>-70</xWorldCoord>

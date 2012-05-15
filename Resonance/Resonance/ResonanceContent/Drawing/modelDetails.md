@@ -91,7 +91,8 @@ bossRightTwigPhysics, Models\BossDeath\Physics\rightTwigPhysics.fbx
 bossTopJawPhysics, Models\BossDeath\Physics\topJawPhysics.fbx
 bossTopLeftJawPhysics, Models\BossDeath\Physics\topLeftJawPhysics.fbx
 bossTopRightJawPhysics, Models\BossDeath\Physics\topRightJawPhysics.fbx
-
+Tunnel, Models\Tunnel.fbx
+Tunnel_phys, Models\Tunnel_phys.fbx
 
 
 
@@ -123,6 +124,7 @@ bulletColors,   Textures\red.jpg;Textures\yellow.jpg;Textures\blue.png;Textures\
 boss,    Textures\bossTexture.png
 rampText,       Textures\ramp1.jpg
 virus_texture, Textures\virus_texture.jpg
+tunnel_texture, Textures\tunnel_texture.png
 
 ---You can use dashes at the start of lines for comments
 
@@ -131,52 +133,52 @@ virus_texture, Textures\virus_texture.jpg
 ---If "Start texture anim." is set to 1 the animation will start automatically.
 
 -Model No.-|--Graphics Model----|-- Scale--|----Physics Model---|-P. Scale--|------Texture(s) (if needed)------|-Model Animation (if needed)-|
-1,			Neuron,					0.5,		Neuron-physics,			0.5,			neuronTexture,                      1
-2,			Bacteria,				0.25,		Bacteria-physics,		0.25,			bacteriaTexture,						1
-3,			BadVibe,			    0.2,		BadVibe-physics,		0.2,			badvibes,								1
-4,			GoodVibe,    			0.35,		GoodVibe-physics,		0.35, 			goodVibeTexture					
-5,			terrain128,			    250,		terrain,			    250,			tronFloor													
-6,			Bacteria-physics,		1,			Bacteria-physics,		1,				
-7,			Wave,					1,			Wave,					1,				allColours												
-8,			box,					2,			pickup,					2,				animationTest
-9,          GoodVibe-shield,        0.35,		GoodVibe-physics,       0,				goodVibeShieldTexture
-10,         BVSpawner,              0.6,		BVSpawner-physics,      0.6,            spawnTexture,                           1
-11,         BadVibe-explosion,      0.2,		BadVibe-explosion,      0.2,            cymbal,							1
-12,			x2,						0.25,		pickup,					0.25
-13,			x3,						0.25,		pickup,					0.25
-14,			plus4,					0.25,		pickup,					0.25
-15,			plus5,					0.25,		pickup,					0.25
-16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,  0.5,             virus,                        1
-17,         Bullet,                 0.5,        pickup,                 0.5,            bulletColors
-18,         Boss,                   1.3,        BossPhysics,			1.3,			boss,							1
-19,			Walls,					245,		Walls,					245,			wallTexture
-20,			Walls,					195,		Walls,					195,			wallTexture
-22,			Walls,					195,		Walls,					195,			wallTexture
-23,			Walls,					65,			Walls,					65,				wallTexture
-24,			Walls,					195,		Walls,					195,			wallTexture
-25,			Walls,					145,		Walls,					145,			wallTexture
-21,			CheckPoint,				1.5,        CheckPoint,             1.5,            checkpointColours
-26,			PickupOrb,				0.25,		PickupOrb,				0.25
-27,         Ramp,                   1,          Ramp_phys,                1,            rampText
+1,			Neuron,					0.5,		Neuron-physics,			        0.5,			neuronTexture,                      1
+2,			Bacteria,				0.25,		Bacteria-physics,		        0.25,			bacteriaTexture,						1
+3,			BadVibe,			    0.2,		BadVibe-physics,		        0.2,			badvibes,								1
+4,			GoodVibe,    			0.35,		GoodVibe-physics,		        0.35, 			goodVibeTexture					
+5,			terrain128,			    250,		terrain,			            250,			tronFloor													
+6,			Bacteria-physics,		1,			Bacteria-physics,		        1,				
+7,			Wave,					1,			Wave,					        1,				allColours												
+8,			box,					2,			pickup,					        2,				animationTest
+9,          GoodVibe-shield,        0.35,		GoodVibe-physics,               0,				goodVibeShieldTexture
+10,         BVSpawner,              0.6,		BVSpawner-physics,              0.6,            spawnTexture,                           1
+11,         BadVibe-explosion,      0.2,		BadVibe-explosion,              0.2,            cymbal,							1
+12,			x2,						0.25,		pickup,					        0.25
+13,			x3,						0.25,		pickup,					        0.25
+14,			plus4,					0.25,		pickup,					        0.25
+15,			plus5,					0.25,		pickup,					        0.25
+16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,          0.5,             virus,                        1
+17,         Bullet,                 0.5,        pickup,                         0.5,            bulletColors
+18,         Boss,                   1.3,        BossPhysics,			        1.3,			boss,							1
+19,			Walls,					245,		Walls,					        245,			wallTexture
+20,			Walls,					195,		Walls,					        195,			wallTexture
+22,			Walls,					195,		Walls,					        195,			wallTexture
+23,			Walls,					65,			Walls,					        65,				wallTexture
+24,			Walls,					195,		Walls,					        195,			wallTexture
+25,			Walls,					145,		Walls,					        145,			wallTexture
+21,			CheckPoint,				1.5,        CheckPoint,                     1.5,            checkpointColours
+26,			PickupOrb,				0.25,		PickupOrb,				        0.25
+27,         Ramp,                   1,          Ramp_phys,                      1,            rampText
 28,         bossBackTwig,			1.3,		bossBackTwigPhysics,			1.3,			boss
 29,			bossBodyLeftBottom,		1.3,		bossBodyLeftBottomPhysics,		1.3,			boss
 30,			bossBodyLeftMiddle,		1.3,		bossBodyLeftMidlePhysics,		1.3,			boss
 31,			bossBodyLeftMiddleBottom, 1.3,		bossBodyLeftMidleBottomPhysics,	1.3,		boss
-32,			bossBodyRightBottom,	1.3,		bossBodyRightBottomPhysics,	1.3,			boss
-33,			bossBodyRightMiddle,	1.3,		bossBodyRightMiddlePhysics,	1.3,			boss
+32,			bossBodyRightBottom,	1.3,		bossBodyRightBottomPhysics,	    1.3,			boss
+33,			bossBodyRightMiddle,	1.3,		bossBodyRightMiddlePhysics,	    1.3,			boss
 34,			bossBodyRightMiddleBottom, 1.3,		bossBodyRightMiddleBottomPhysics,	1.3,		boss
 35,			bossBodyTopLeft,		1.3,		bossBodyTopLeftPhysiscs,		1.3,			boss
 36,			bossBodyTopRight,		1.3,		bossBodyTopRightPhysics,		1.3,			boss
 37,			bossCentralOrb,			1.3,		bossCentralOrbPhysics,			1.3,			boss
 38,			bosscentralSpike,		1.3,		bossCentralSpikePhysics,		1.3,			boss
-39,			bossLeftOrb,			1.3,		bossLeftOrbPhysics,			1.3,			boss
+39,			bossLeftOrb,			1.3,		bossLeftOrbPhysics,			    1.3,			boss
 40,			bossLeftTwig,			1.3,		bossLeftTwigPhysics,			1.3,			boss
 41,			bossRightOrb,			1.3,		bossRightOrbPhysics,			1.3,			boss
 42,			bossRightTwig,			1.3,		bossRightTwigPhysics,			1.3,			boss
 43,			bossBottomLeftJaw,		1.3,		bossBottomLeftJawPhysics,		1.3,			boss
 44,			bossBottomRightJaw,		1.3,		bossBottomRightJawPhysics,		1.3,			boss
-45,			bossLeftJaw,			1.3,		bossLeftJawPhysics,			1.3,			boss
-46,			bossLeftStalkBottom,	1.3,		bossLeftStalkBottomPhysics,	1.3,			boss
+45,			bossLeftJaw,			1.3,		bossLeftJawPhysics,			    1.3,			boss
+46,			bossLeftStalkBottom,	1.3,		bossLeftStalkBottomPhysics,	    1.3,			boss
 47,			bossLeftStalkTop,		1.3,		bossLeftStalkTopPhysics,		1.3,			boss
 48,			bossMiddleStalkBottom,	1.3,		bossMiddleStalkBottomPhysics,	1.3,			boss
 49,			bossMiddleStalkTop,		1.3,		bossMiddleStalkTopPhysics,		1.3,			boss
@@ -185,6 +187,7 @@ virus_texture, Textures\virus_texture.jpg
 52,			bossRightStalkTop,		1.3,		bossRightStalkTopPhysics,		1.3,			boss
 53,			bossTopJaw,				1.3,		bossTopJawPhysics,				1.3,			boss
 54,			bossTopLeftJaw,			1.3,		bossTopLeftJawPhysics,			1.3,			boss
-55,			bossTopRIghtJaw,		1.3,		bossTopRightJawPhysics,		1.3,			boss
-56,			PickupOrb,				0.5,		PickupOrb,				0.5
-57,         Virus,                  1,          Virus_phys,             1,              virus_texture
+55,			bossTopRIghtJaw,		1.3,		bossTopRightJawPhysics,		    1.3,			boss
+56,			PickupOrb,				0.5,		PickupOrb,				        0.5
+57,         Virus,                  1,          Virus_phys,                     1,              virus_texture
+58,         Tunnel,                 1,          Tunnel_phys,                    1,              tunnel_texture
