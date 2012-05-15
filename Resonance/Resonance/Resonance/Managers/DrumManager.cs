@@ -28,6 +28,8 @@ namespace Resonance
                           (kbd.IsKeyDown(Keys.B) && !lastKbd.IsKeyDown(Keys.B)) ||
                           (pad.Buttons.RightShoulder == ButtonState.Pressed && !lastPad.IsButtonDown(Buttons.RightShoulder));
 
+            //DebugDisplay.update("TIMING", MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.QUARTER).ToString());
+
             if (green)
             {
                 MusicHandler.playSound(MusicHandler.GREEN);
