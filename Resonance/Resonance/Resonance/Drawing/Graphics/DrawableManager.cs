@@ -68,7 +68,7 @@ namespace Resonance
                 reflectedComponents.Add(component);
             }
 
-            if (component is Object && ((Object)component).ModelInstance.Shadow)
+            if (component is Object && ((Object)component).ModelInstance.Shadow && !((Object)component).returnIdentifier().Equals("Ground"))
             {
                 if (component is GoodVibe) Console.WriteLine("add gv shadow");
                 shadowedComponents.Add(component);

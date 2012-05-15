@@ -10,7 +10,7 @@ namespace Resonance
         /// </summary>
 #if XBOX
         public static bool FLOOR_REFLECTIONS = true;
-        public static int REFLECTION_TEXTURE_SIZE = 2048;
+        public static int REFLECTION_TEXTURE_SIZE = 1024;
 #else
         public static bool FLOOR_REFLECTIONS = true;
         public static int REFLECTION_TEXTURE_SIZE = 2048;
