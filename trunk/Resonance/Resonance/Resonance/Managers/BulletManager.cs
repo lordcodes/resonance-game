@@ -157,6 +157,7 @@ namespace Resonance
                     target = GameScreen.getBoss().Body;
                     deflected = true;
                     GameScreen.getGV().adjustDeflectShield(-1);
+                    CHUNK *= 2;
                 }
                 if (distance <= radius && bullet.Colour != colour)
                 {

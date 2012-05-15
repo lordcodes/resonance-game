@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.GamerServices;
+using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
@@ -17,6 +18,7 @@ namespace Resonance
         private static System.IAsyncResult result = null;
         private static int async = 0;
 
+        Song music;
 
         public SuccessScreen()
             : base("Success")
@@ -39,6 +41,8 @@ namespace Resonance
 
             leftTimes = 0;
             rightTimes = 0;
+
+            this.musicStart = true;
         }
 
         public override void LoadContent()
@@ -46,6 +50,10 @@ namespace Resonance
             base.LoadContent();
 
             Bgs.Add(this.ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/GameOverScreenBox"));
+            music = this.ScreenManager.Content.Load<Song>("Music/VictoryMusic");
+
+            ScreenManager.game.ExitScreen();
+            WeatherManager.pause(true);
         }
 
         public override void HandleInput(InputDevices input)
@@ -87,6 +95,24 @@ namespace Resonance
                     moveDown();
                     rightTimes = 0;
                 }
+            }
+        }
+
+        public override void controlMusic(bool play)
+        {
+            base.controlMusic(play);
+
+            if (play)
+            {
+                //play
+                MediaPlayer.IsRepeating = true;
+                MediaPlayer.Play(music);
+                this.musicStart = false;
+            }
+            else
+            {
+                //stop
+                MediaPlayer.Stop();
             }
         }
 
