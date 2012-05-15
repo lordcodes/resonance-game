@@ -7,7 +7,7 @@ namespace Resonance
 {
     class ObjectivePickup : DynamicObject
     {
-        private int SCORE_PER_OBJECTIVE_PICKUP = 20;
+        private int SCORE_PER_OBJECTIVE_PICKUP = 200;
         private SingleEntityAngularMotor servo;
         private float rotateSpeed = -1f;
         Random r;

@@ -97,7 +97,7 @@ namespace Resonance
         {
             if (state != State.DEAD)
             {
-                armour.breakLayer(colour, this, Vector3.Zero);
+                armour.breakLayer(colour, this, Vector3.Zero, 1f);
                 if (state != State.DEAD)
                 {
                     setColour();
@@ -105,12 +105,12 @@ namespace Resonance
             }
         }
 
-        public bool damage(int colour, Vector3 blast)
+        public bool damage(int colour, Vector3 blast, float sWeight)
         {
             bool hit = false;
             if (state != State.DEAD)
             {
-                hit = armour.breakLayer(colour, this, blast);
+                hit = armour.breakLayer(colour, this, blast, sWeight);
                 if (state != State.DEAD)
                 {
                     setColour();
@@ -291,10 +291,9 @@ namespace Resonance
             /// Break the amour layer
             /// </summary>
             /// <param name="colour">The colour of wave</param>
-            public bool breakLayer(int colour, BadVibe vibe, Vector3 blast)
+            public bool breakLayer(int colour, BadVibe vibe, Vector3 blast, float sWeight)
             {
                 bool hit = false;
-
                 if (sequence[0] == colour)
                 {
                     Color c = new Color (0f, 0f, 0f, 0f);
@@ -302,31 +301,31 @@ namespace Resonance
                     {
                         case Shockwave.GREEN:
                             {
-                                GameScreen.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore((int) ((float) GameStats.BV_ARMOUR_SCORE * sWeight));
                                 c = new Color(0f, 1f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.YELLOW:
                             {
-                                GameScreen.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore((int) ((float) GameStats.BV_ARMOUR_SCORE * sWeight));
                                 c = new Color(1f, 1f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.BLUE:
                             {
-                                GameScreen.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore((int) ((float) GameStats.BV_ARMOUR_SCORE * sWeight));
                                 c = new Color(0f, 0f, 1f, 1f);
                                 break;
                             }
                         case Shockwave.RED:
                             {
-                                GameScreen.getGV().adjustScore(1);
+                                GameScreen.getGV().adjustScore((int) ((float) GameStats.BV_ARMOUR_SCORE * sWeight));
                                 c = new Color(1f, 0f, 0f, 1f);
                                 break;
                             }
                         case Shockwave.CYMBAL:
                             {
-                                GameScreen.getGV().adjustScore(5);
+                                GameScreen.getGV().adjustScore((int) ((float) GameStats.BV_CYMBAL_SCORE * sWeight));
                                 MusicHandler.playSound("beast-dying");
                                 break;
                             }
@@ -350,7 +349,7 @@ namespace Resonance
                 }
                 if (sequence.Count == 0)
                 {
-                    GameScreen.getGV().adjustScore(10);
+                    GameScreen.getGV().adjustScore((int) ((float) GameStats.BV_KILL_SCORE * sWeight));
                     vibe.kill();
                 }
                 return hit;

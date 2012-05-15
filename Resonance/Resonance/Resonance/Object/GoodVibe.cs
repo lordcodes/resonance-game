@@ -152,7 +152,7 @@ namespace Resonance
         /// <param name="colour">Colour of the shockwave</param>
         public void createShockwave(int colour)
         {
-            Shockwave w = Shockwave.getWave(this.Body.Position, this.Body.WorldTransform, colour);
+            Shockwave w = Shockwave.getWave(this.Body.Position, this.Body.WorldTransform, colour, MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.QUARTER));
             switch (colour) {
                 case Shockwave.GREEN: {
                         w.ModelInstance.setTexture(0);
