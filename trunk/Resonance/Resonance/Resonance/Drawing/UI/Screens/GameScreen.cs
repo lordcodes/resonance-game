@@ -320,6 +320,7 @@ namespace Resonance
                             Vector3 lt = WeatherManager.getCurrentAmbientLight();
                             Vector3 newLt;
                             if (!GV_KILLED) {
+                                if ((mode.MODE == GameMode.OBJECTIVES) && ObjectiveManager.currentObjective() == ObjectiveManager.FINAL_OBJECTIVE) Hud.whiteness += 0.01f;
                                 newLt = new Vector3(lt.X + 0.05f, lt.Y + 0.05f, lt.Z + 0.05f);
                                 getGV().Body.Position += new Vector3(0f, 0.075f, 0f);
                                 getGV().Body.LinearVelocity = Vector3.Zero;
