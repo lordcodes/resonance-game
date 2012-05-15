@@ -22,7 +22,6 @@ namespace Resonance
         private static RenderTarget2D shadowsRenderTarget;
         private static Texture2D shinyFloorTexture;
         private static Texture2D shadowsTexture;
-        private static int drawCount = 0;
         static Texture2D sampleTexture;
         private static bool blend = false;
         //static TextureEffect te;
@@ -401,7 +400,6 @@ namespace Resonance
         /// </summary>
         public static void Draw(GameTime gameTime)
         {
-            drawCount++;
             resetGraphics();
             DrawableManager.Draw(gameTime);
             drawParticles();

@@ -44,9 +44,7 @@ namespace Resonance
 
             if (shoulders || kbd.IsKeyDown(Keys.M))
             {
-#if WINDOWS
                 if (GameScreen.USE_MINIMAP) MiniMap.enlarge();
-#endif
             }
             else
             {
