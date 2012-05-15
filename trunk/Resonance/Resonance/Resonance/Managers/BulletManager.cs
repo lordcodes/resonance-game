@@ -6,6 +6,8 @@ namespace Resonance
    
     static class BulletManager
     {
+        public static bool TRACK_BOSS = false;
+
         public static bool BOSS_EXISTS = false;
 
         public  const int  INACTIVE = 0;
@@ -120,6 +122,9 @@ namespace Resonance
                         bullet.Position += dir * (float)(dist * CHUNK * ticks);
 
                         if (timeAlive.TotalSeconds > 1.6) CHUNK *= 1.05;
+
+                        if (GameScreen.getBoss().Health == 1 && deflected) TRACK_BOSS = true;
+                        else TRACK_BOSS = false;
                     }
 
                 }
