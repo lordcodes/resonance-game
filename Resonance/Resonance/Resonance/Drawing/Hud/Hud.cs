@@ -36,6 +36,7 @@ namespace Resonance
         private static Texture2D drumPad;
         private static Texture2D rest;
         private static Texture2D tempo;
+        private static Texture2D tempo2;
         private static Texture2D block;
         private static Texture2D damage;
         private static MiniMap miniMap;
@@ -98,7 +99,8 @@ namespace Resonance
             drumPad         = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour");
             rest            = Content.Load<Texture2D>          ("Drawing/HUD/Textures/armour_rest");
             block           = Content.Load<Texture2D>          ("Drawing/HUD/Textures/block");
-            tempo           = Content.Load<Texture2D>          ("Drawing/HUD/Textures/tempo");
+            tempo           = Content.Load<Texture2D>          ("Drawing/HUD/Textures/musicalWhite");
+            tempo2          = Content.Load<Texture2D>          ("Drawing/HUD/Textures/musicalBlack");
             damage          = Content.Load<Texture2D>          ("Drawing/HUD/Textures/damage");
             mask            = Content.Load<Texture2D>         ("Drawing/HUD/Textures/minimapalpha");
             pickupBackground = Content.Load<Texture2D>     ("Drawing/HUD/Textures/pickupbackground");
@@ -368,10 +370,10 @@ namespace Resonance
         private void drawThrobber() {
             if (MusicHandler.getTrack().inTime2(MusicTrack.NoteMode.WHOLE) > 0.9f)
             {
-                spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(50), ScreenManager.pixelsY(1000), tempo.Width, tempo.Height), Color.White);
+                spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(100), ScreenManager.pixelsY(900), tempo.Width, tempo.Height), Color.White);
                 GameScreen.getGV().showBeat();
             } else {
-                spriteBatch.Draw(tempo, new Rectangle(ScreenManager.pixelsX(50), ScreenManager.pixelsY(1000), tempo.Width, tempo.Height), Color.Black);
+                spriteBatch.Draw(tempo2, new Rectangle(ScreenManager.pixelsX(100), ScreenManager.pixelsY(900), tempo.Width, tempo.Height), Color.White);
             }
         }
 

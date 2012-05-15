@@ -2186,6 +2186,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\musicalWhite.png">
+      <Name>musicalWhite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\HUD\Textures\musicalBlack.png">
+      <Name>musicalBlack</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Drawing\UI\eye_closed.png">
       <Name>eye_closed</Name>
       <Importer>TextureImporter</Importer>
