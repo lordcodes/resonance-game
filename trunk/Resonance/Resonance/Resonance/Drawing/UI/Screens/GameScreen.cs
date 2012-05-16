@@ -472,7 +472,7 @@ namespace Resonance
                     double d = Math.Pow(dx, 2) + Math.Pow(dz, 2);
                     d = Math.Sqrt(d);
 
-                    if (d <= Shockwave.MAX_RADIUS * 2) //Doubled radius of influence of freeze
+                    if (d <= Shockwave.MAX_RADIUS * 4) //*4 radius of influence of freeze
                     {
                         if (gv.FreezeActive)
                         {

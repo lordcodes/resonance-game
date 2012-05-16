@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace Resonance {
     class ObjectiveManager {
         public const bool DEBUG_MODE            = false;
-        public const bool QUICK_GAME            = true;
+        public const bool QUICK_GAME            = false;
 
         public const int KILL_ALL_BV            = 0;
         public const int COLLECT_ALL_PICKUPS    = 1;
