@@ -196,6 +196,7 @@ namespace Resonance
             drawFreezeBar();
             highlightedPowerPercentage();
             if (GameScreen.USE_MINIMAP) drawMiniMap();
+            drawProgressBar();
             drawDrumkit();
             drawThrobber();
             drawCountDown();
@@ -282,6 +283,50 @@ namespace Resonance
             coords.X--;
             coords.Y--;
             spriteBatch.DrawString(scoreFont, deflectShieldString, coords, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+        }
+
+        private void drawProgressBar()
+        {
+            int width = ScreenManager.pixelsX(healthBar.Width);
+            int height = ScreenManager.pixelsY(healthBar.Height);
+            int x = ScreenManager.ScreenWidth / 2 - width / 2;
+            int y;
+            if (ScreenManager.ScreenWidth >= 1450)
+            {
+                y = ScreenManager.ScreenHeight - 50 - height;
+            }
+            else
+            {
+                y = ScreenManager.ScreenHeight - 10 - height;
+            }
+            int sliceX = x + ScreenManager.pixelsX(9);
+            int sliceY = y + ScreenManager.pixelsY(9);
+            int sliceWidth = 1;
+            int sliceHeight = ScreenManager.pixelsY(healthSlice.Height);
+
+            string temp = "";
+            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582) * ObjectiveManager.getProgress(ref temp));
+
+            float greenValue;
+            Color c;
+            spriteBatch.Draw(healthBar, new Rectangle(x, y, width, height), Color.White);
+            for (int i = 0; i < limit; i++)
+            {
+                greenValue = (float)i / ScreenManager.pixelsX(582);
+                float red = (float)(greenValue > 0.5 ? 1 - 2 * (greenValue - 0.5) : 1.0);
+                float green = (float)(greenValue > 0.5 ? 1.0 : 2 * greenValue);
+                c = new Color(red, green, 0f);
+
+                spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
+            }
+
+            string progress = "Progress";
+            int xOffset = (int)Math.Round(scoreFont.MeasureString(progress).X / 2);
+            Vector2 coords = new Vector2(ScreenManager.ScreenWidth / 2 - xOffset + ScreenManager.pixelsX(70), y - 5+ ScreenManager.pixelsY(20));
+            spriteBatch.DrawString(scoreFont, progress, coords, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            coords.X--;
+            coords.Y--;
+            spriteBatch.DrawString(scoreFont, progress, coords, Color.White, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
         }
 
         /// <summary>
