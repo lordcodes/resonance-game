@@ -490,36 +490,16 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </Compile>
+    <Compile Include="Drawing\Models\terrain.fbx">
+      <Name>terrain</Name>
+      <Importer>FbxImporter</Importer>
+      <Processor>ModelProcessor</Processor>
+    </Compile>
     <None Include="Drawing\Models\terrain128.fbx">
       <Name>terrain128</Name>
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
     </None>
-    <None Include="Drawing\Models\terrainHiPoly.fbx">
-      <Name>terrainHiPoly</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <None Include="Drawing\Models\terrain32.fbx">
-      <Name>terrain32</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <None Include="Drawing\Models\terrain64.fbx">
-      <Name>terrain64</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <None Include="Drawing\Models\terrain24.fbx">
-      <Name>terrain24</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
-    <Compile Include="Drawing\Models\tree-physics.fbx">
-      <Name>tree-physics</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </Compile>
     <Compile Include="Drawing\Shaders\Ground.fx">
       <Name>Ground</Name>
       <Importer>EffectImporter</Importer>
@@ -603,11 +583,6 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
     </Compile>
-    <None Include="Drawing\Models\terrain.fbx">
-      <Name>terrain</Name>
-      <Importer>FbxImporter</Importer>
-      <Processor>ModelProcessor</Processor>
-    </None>
     <None Include="Drawing\Models\texturedBox.fbx">
       <Name>texturedBox</Name>
       <Importer>FbxImporter</Importer>
@@ -2042,13 +2017,6 @@
     </Compile>
     <Compile Include="Drawing\Textures\yellowWave.png">
       <Name>yellowWave</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Drawing\Models\bossTexture.png">
-      <Name>bossTexture</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

@@ -122,7 +122,7 @@
       <Item>
         <identifier>Bacteria13</identifier>
         <type>Bacteria</type>
-        <xWorldCoord>-110</xWorldCoord>
+        <xWorldCoord>-100</xWorldCoord>
         <zWorldCoord>-10</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>2</gameModelNum>
