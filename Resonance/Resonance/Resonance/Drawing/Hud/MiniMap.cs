@@ -51,6 +51,8 @@ namespace Resonance
         public static float PICKUP_ALPHA         = 0.8f;
         public static float SPAWNER_ALPHA        = 0.8f;
 
+        public const  float LARGE_SPRITE_SCALE   = 2f;
+
         // Colours
         //public static Color       OUTLINE_COLOUR = new Color(0.0f, 0.0f, 0.0f, 1.0f          ); // 0.8 alpha?
         public static Color    BACKGROUND_COLOUR = new Color(0.0f, 0.0f, 0.2f, 0.5f          );
@@ -95,12 +97,17 @@ namespace Resonance
         private GoodVibe gVRef;
 
 
-        private static int SCALE_GRANULARITY         = 10;
-        private static Texture2D[] scaledVibes       = new Texture2D[SCALE_GRANULARITY];
-        private static Texture2D[] scaledPickups     = new Texture2D[SCALE_GRANULARITY];
-        private static Texture2D[] scaledSpawners    = new Texture2D[SCALE_GRANULARITY];
-        private static Texture2D[] scaledCheckpoints = new Texture2D[SCALE_GRANULARITY];
-        private static Texture2D[] scaledBosses      = new Texture2D[SCALE_GRANULARITY];
+        private static int SCALE_GRANULARITY           = 10;
+        private static Texture2D[] scaledVibes         = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledPickups       = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledSpawners      = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledCheckpoints   = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledBosses        = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledUpVibes       = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledUpPickups     = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledUpSpawners    = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledUpCheckpoints = new Texture2D[SCALE_GRANULARITY];
+        private static Texture2D[] scaledUpBosses      = new Texture2D[SCALE_GRANULARITY];
 
         private static int mapX, mapY, mapH, mapW;
 
@@ -139,11 +146,16 @@ namespace Resonance
             float step  = scale;
 
             for (int i = 1; i < SCALE_GRANULARITY; i++) {
-                      scaledVibes[i] = Drawing.scaleTexture(vibe      , scale);
-                    scaledPickups[i] = Drawing.scaleTexture(pickup    , scale);
-                   scaledSpawners[i] = Drawing.scaleTexture(spawner   , scale);
-                scaledCheckpoints[i] = Drawing.scaleTexture(checkpoint, scale);
-                     scaledBosses[i] = Drawing.scaleTexture(boss      , scale);
+                        scaledVibes[i] = Drawing.scaleTexture(vibe      , scale);
+                      scaledPickups[i] = Drawing.scaleTexture(pickup    , scale);
+                     scaledSpawners[i] = Drawing.scaleTexture(spawner   , scale);
+                  scaledCheckpoints[i] = Drawing.scaleTexture(checkpoint, scale);
+                       scaledBosses[i] = Drawing.scaleTexture(boss      , scale);
+                      scaledUpVibes[i] = Drawing.scaleTexture(vibe      , scale * LARGE_SPRITE_SCALE);
+                    scaledUpPickups[i] = Drawing.scaleTexture(pickup    , scale * LARGE_SPRITE_SCALE);
+                   scaledUpSpawners[i] = Drawing.scaleTexture(spawner   , scale * LARGE_SPRITE_SCALE);
+                scaledUpCheckpoints[i] = Drawing.scaleTexture(checkpoint, scale * LARGE_SPRITE_SCALE);
+                     scaledUpBosses[i] = Drawing.scaleTexture(boss      , scale * LARGE_SPRITE_SCALE);
                 scale += step;
             }
         }
@@ -396,7 +408,9 @@ namespace Resonance
             Vector2 origin = new Vector2(vibe.Width * scaleFactor / 2f, vibe.Height * scaleFactor / 2f);
             origin = new Vector2(0f, 0f);
             //Texture2D scaled = Drawing.scaleTexture(vibe, 2f);
-            spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, sF, SpriteEffects.None, 0f);
+            float largeSF = sF;
+            if (large) largeSF *= LARGE_SPRITE_SCALE;
+            spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, largeSF, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.
             List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup), typeof(Checkpoint), typeof(ObjectivePickup), typeof(Boss)};
@@ -417,11 +431,26 @@ namespace Resonance
             Texture2D scaledSpawner = Drawing.scaleTexture(spawner, sF);*/
 
             int idx = (int) (((float) SCALE_GRANULARITY) * sF);
-            Texture2D scaledVibe       =       scaledVibes[idx];
-            Texture2D scaledPickup     =     scaledPickups[idx];
-            Texture2D scaledSpawner    =    scaledSpawners[idx];
-            Texture2D scaledCheckpoint = scaledCheckpoints[idx];
-            Texture2D scaledBoss       =      scaledBosses[idx];
+            Texture2D scaledVibe;
+            Texture2D scaledPickup;
+            Texture2D scaledSpawner;
+            Texture2D scaledCheckpoint;
+            Texture2D scaledBoss;
+
+            if (large) {
+                scaledVibe       =       scaledUpVibes[idx];
+                scaledPickup     =     scaledUpPickups[idx];
+                scaledSpawner    =    scaledUpSpawners[idx];
+                scaledCheckpoint = scaledUpCheckpoints[idx];
+                scaledBoss       =      scaledUpBosses[idx];
+
+            } else {
+                scaledVibe       =         scaledVibes[idx];
+                scaledPickup     =       scaledPickups[idx];
+                scaledSpawner    =      scaledSpawners[idx];
+                scaledCheckpoint =   scaledCheckpoints[idx];
+                scaledBoss       =        scaledBosses[idx];
+            }
 
             Object          o;
             BadVibe         v;
