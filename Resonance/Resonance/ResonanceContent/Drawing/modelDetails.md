@@ -17,7 +17,6 @@ BadVibeRanged-physics, Models\BadVibeRanged-physics.fbx
 Bullet, Models\Bullet.fbx
 Boss, Models\Boss.fbx
 terrain, Models\terrain.fbx
---terrain64, Models\terrain64.fbx
 terrain128,	Models\terrain128.fbx
 Walls, Models\Walls.fbx
 Wave, Models\Wave.fbx
@@ -154,10 +153,10 @@ tunnel_texture, Textures\tunnel_texture.png
 18,         Boss,                   1.3,        BossPhysics,			        1.3,			boss,							1
 19,			Walls,					150,		Walls,					        150,			wallTexture
 20,			Walls,					120,		Walls,					        120,			wallTexture
-22,			Walls,					200,		Walls,					        195,			wallTexture
-23,			Walls,					70,			Walls,					        65,				wallTexture
-24,			Walls,					200,		Walls,					        195,			wallTexture
-25,			Walls,					150,		Walls,					        145,			wallTexture
+22,			Walls,					200,		Walls,					        200,			wallTexture
+23,			Walls,					70,			Walls,					        70,				wallTexture
+24,			Walls,					200,		Walls,					        200,			wallTexture
+25,			Walls,					150,		Walls,					        150,			wallTexture
 21,			CheckPoint,				1.5,        CheckPoint,                     1.5,            checkpointColours
 26,			PickupOrb,				1,		pickup,				        0.25
 27,         Ramp,                   1,          Ramp_phys,                      1,            rampText

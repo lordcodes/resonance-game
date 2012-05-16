@@ -14,7 +14,7 @@
       <Item>
         <identifier>Neuron0</identifier>
         <type>Neuron</type>
-        <xWorldCoord>-60</xWorldCoord>
+        <xWorldCoord>-50</xWorldCoord>
         <zWorldCoord>60</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
@@ -24,7 +24,7 @@
         <identifier>Neuron1</identifier>
         <type>Neuron</type>
         <xWorldCoord>50</xWorldCoord>
-        <zWorldCoord>60</zWorldCoord>
+        <zWorldCoord>50</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>
