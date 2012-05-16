@@ -62,6 +62,8 @@ namespace Resonance
         private static Texture2D spawnercount;
         private static Texture2D infSpawnercount;
         private static Texture2D texPixel;
+        private static Texture2D eyeclosed;
+        private static Texture2D eyeopen;
 
 
         private static float ARMOUR_SCALE = 1.5f;
@@ -129,6 +131,8 @@ namespace Resonance
             spawnercount    = Content.Load<Texture2D>         ("Drawing/HUD/Textures/spawnercount");
             infSpawnercount = Content.Load<Texture2D>         ("Drawing/HUD/Textures/infcountnice");
             texPixel        = Content.Load<Texture2D>         ("Drawing/Textures/texPixel");
+            eyeclosed       = Content.Load<Texture2D> ("Drawing/UI/eye_closed");
+            eyeopen         = Content.Load<Texture2D> ("Drawing/UI/eye_open");
 
             if (GameScreen.USE_MINIMAP)
             {
@@ -459,6 +463,8 @@ namespace Resonance
 
         private void drawWhiteness() {
             spriteBatch.Draw(texPixel, new Rectangle(ScreenManager.pixelsX(0), ScreenManager.pixelsY(0), ScreenManager.ScreenWidth, ScreenManager.ScreenHeight), Color.White * whiteness);
+            spriteBatch.Draw(eyeclosed, new Rectangle((ScreenManager.ScreenWidth / 2) - (eyeclosed.Width / 2), (ScreenManager.ScreenHeight / 2) - (eyeclosed.Height / 2), eyeclosed.Width, eyeclosed.Height), Color.White);
+            spriteBatch.Draw(eyeopen,   new Rectangle((ScreenManager.ScreenWidth / 2) - (eyeclosed.Width / 2), (ScreenManager.ScreenHeight / 2) - (eyeclosed.Height / 2), eyeclosed.Width, eyeclosed.Height), Color.White * whiteness);
         }
 
         /// <summary>
