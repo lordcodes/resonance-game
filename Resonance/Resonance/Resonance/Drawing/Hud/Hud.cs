@@ -210,7 +210,11 @@ namespace Resonance
             drawLightning();
             if (whiteness > 0) drawWhiteness();
             spriteBatch.End();
-            
+            /*if (MiniMap.miniMapBuffer != null && !MiniMap.miniMapBuffer.IsDisposed)
+            {
+                MiniMap.miniMapBuffer.Dispose();
+                Console.WriteLine("disposed");
+            }*/
             Drawing.resetGraphics();
         }
 

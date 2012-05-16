@@ -105,12 +105,14 @@ namespace Resonance
         {
             graphics.GraphicsDevice.SetRenderTarget(null);
             shinyFloorTexture = (Texture2D)mirrorRenderTarget;
+            //if (mirrorRenderTarget != null) mirrorRenderTarget.Dispose();
             try
             {
                 ((GroundShader)gameGraphics.CustomShaders.Ground).setReflectionTexture(shinyFloorTexture);
             }
             catch (Exception)
             {}
+            //if (shinyFloorTexture != null && !shinyFloorTexture.IsDisposed) shinyFloorTexture.Dispose();
             drawingReflection = false;
         }
 
@@ -118,12 +120,14 @@ namespace Resonance
         {
             graphics.GraphicsDevice.SetRenderTarget(null);
             shadowsTexture = (Texture2D)shadowsRenderTarget;
+            //if (shadowsRenderTarget != null) shadowsRenderTarget.Dispose();
             try
             {
                 ((GroundShader)gameGraphics.CustomShaders.Ground).setShadowTexture(shadowsTexture);
                 //te.Texture = shadowsTexture;
             }
             catch (Exception){}
+            //if (shadowsTexture != null && !shadowsTexture.IsDisposed) shadowsTexture.Dispose();
             drawingShadows = false;
         }
 

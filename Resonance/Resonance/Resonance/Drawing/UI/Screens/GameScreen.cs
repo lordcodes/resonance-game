@@ -38,7 +38,7 @@ namespace Resonance
 
         // Time in milliseconds between each update of the hud and the minimap
         private const float HUD_UPDATE_DELAY = 500;
-        private const float MAP_UPDATE_DELAY = 100;
+        private const float MAP_UPDATE_DELAY = 300;
 
         private Stopwatch preEndGameTimer;
         private Stopwatch prePreEndGameTimer;
