@@ -113,6 +113,8 @@ namespace Resonance
 
         private static Texture2D savedMinimap;
 
+        private static Rectangle constRect = new Rectangle();
+
         /// Constructor
 
         ///<summary>
@@ -322,7 +324,8 @@ namespace Resonance
         public void draw(SpriteBatch spriteBatch)
         {
             if(savedMinimap != null)spriteBatch.Draw(savedMinimap, new Vector2(mapX, mapY), Color.White * ENTIRE_MAP_ALPHA);
-            spriteBatch.Draw(outline, new Rectangle(mapX, mapY, mapW, mapH), Color.White);
+            constRect.X = mapX; constRect.Y = mapY; constRect.Width = mapW; constRect.Height = mapH;
+            spriteBatch.Draw(outline, constRect, Color.White);
         }
 
         /// <summary>
