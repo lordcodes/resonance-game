@@ -216,7 +216,7 @@ namespace Resonance {
 
                     if (DEBUG_MODE || QUICK_GAME) return 1f;
                     else {
-                        if ((ts.Minutes <= 0) && (ts.Seconds <= 0)) return 1f; else return (float) (ts.TotalSeconds / survivalTime.TotalSeconds);
+                        if ((ts.Minutes <= 0) && (ts.Seconds <= 0)) return 1f; else return 1f - (float) (ts.TotalSeconds / survivalTime.TotalSeconds);
                     }
                 }
                 case (TERRITORIES) : {
