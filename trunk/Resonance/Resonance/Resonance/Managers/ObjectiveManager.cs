@@ -32,13 +32,14 @@ namespace Resonance {
         private static Stopwatch spawnWatch = new Stopwatch();
 
         public static void loadObjectivesGame(ScreenManager sm) {
+            bvKilledAtStart = 0;
             ScreenManager.game = new GameScreen(sm, cObj);
             LoadingScreen.LoadAScreen(sm, cObj + 2, ScreenManager.game);
         }
 
         public static void setObjective(int newObj) {
             cObj = newObj;
-            if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
+            if (newObj == KILL_ALL_BV) bvKilledAtStart = 0;
             initialDistThroughSong = MediaPlayer.PlayPosition;
             if (newObj == SURVIVE) { spawnWatch.Stop(); spawnWatch.Reset(); JUST_STARTED_SURVIVAL = true;}
             initialGVHealth = GoodVibe.MAX_HEALTH;
