@@ -82,7 +82,7 @@ namespace Resonance {
                 }
                 case (KILL_BOSS) : {
                     longStr  = "Destroy the Master Bad Vibe to heal the Frontal Lobe\nand wake up from the coma.";
-                    shortStr = "Destroy the Master Bad Vibe";
+                    shortStr = "Destroy the Final Boss";
                     break;
                 }
                 case (SURVIVE) : {
