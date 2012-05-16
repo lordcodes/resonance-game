@@ -320,9 +320,9 @@ namespace Resonance
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
 
-            string progress = "Progress";
+            string progress = "Progress: " + (int)(ObjectiveManager.getProgress(ref temp)*100) + "%";
             int xOffset = (int)Math.Round(scoreFont.MeasureString(progress).X / 2);
-            Vector2 coords = new Vector2(ScreenManager.ScreenWidth / 2 - xOffset + ScreenManager.pixelsX(70), y - 5+ ScreenManager.pixelsY(20));
+            Vector2 coords = new Vector2(ScreenManager.ScreenWidth / 2 - xOffset + ScreenManager.pixelsX(120), y - 5+ ScreenManager.pixelsY(20));
             spriteBatch.DrawString(scoreFont, progress, coords, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
             coords.X--;
             coords.Y--;
