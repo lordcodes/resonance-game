@@ -151,7 +151,14 @@ namespace Resonance
                     }
                     x = ScreenManager.pixelsX(70);
                     y = screenSize.Y - ScreenManager.pixelsY(100);
-                    ScreenManager.SpriteBatch.Draw(bgs[16], new Rectangle((int)x, (int)y, 600, 300), Color.White);
+                    if (ScreenManager.ScreenWidth >= 1450)
+                    {
+                        ScreenManager.SpriteBatch.Draw(bgs[16], new Vector2(x,y), Color.White);
+                    }
+                    else
+                    {
+                        ScreenManager.SpriteBatch.Draw(bgs[16], new Rectangle((int)x, (int)y, 600, 300), Color.White);
+                    }
 
                     string obj = "";
                     string con = "";
@@ -166,23 +173,36 @@ namespace Resonance
 
                     y = (screenSize.Y * 0.5f) - 140;
 
+                    int off1;
+                    int off2;
+                    if (ScreenManager.ScreenWidth >= 1450)
+                    {
+                        off1 = 30;
+                        off2 = 60;
+                    }
+                    else
+                    {
+                        off1 = 20;
+                        off2 = 50;
+                    }
+
                     ScreenManager.SpriteBatch.DrawString(font, "Objective", new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
                         Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                    y += 20;
+                    y += off1;
                     ScreenManager.SpriteBatch.DrawString(font, obj, new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
                         Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
 
-                    y += 50;
+                    y += off2;
                     ScreenManager.SpriteBatch.DrawString(font, "Controller player", new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
                         Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                    y += 20;
+                    y += off1;
                     ScreenManager.SpriteBatch.DrawString(font, con, new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
                         Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
 
-                    y += 50;
+                    y += off2;
                     ScreenManager.SpriteBatch.DrawString(font, "Drum kit player", new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
                         Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                    y += 20;
+                    y += off1;
                     ScreenManager.SpriteBatch.DrawString(font, drum, new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
                         Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
                 }

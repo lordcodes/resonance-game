@@ -278,7 +278,7 @@ namespace Resonance
         {
             string deflectShieldString = "Deflection: " + GameScreen.getGV().DeflectShield.ToString();
             int xOff = (int)(Math.Round(scoreFont.MeasureString(deflectShieldString).X) * 0.5);
-            Vector2 coords = new Vector2(ScreenManager.pixelsX(1895) - xOff, ScreenManager.pixelsY(200));
+            Vector2 coords = new Vector2(ScreenManager.pixelsX(1895) - xOff, ScreenManager.pixelsY(140));
             spriteBatch.DrawString(scoreFont, deflectShieldString, coords, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
             coords.X--;
             coords.Y--;
