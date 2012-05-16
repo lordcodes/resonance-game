@@ -29,7 +29,7 @@ namespace Resonance {
         public override void init(Vector3 p) {
             pos = p;
 
-            emissionsPerUpdate = 100;
+            emissionsPerUpdate = 30;
             maxParticleLife = 20;
             particlesLeft = -1;
             maxParticleSpd = 0.25f;
