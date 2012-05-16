@@ -115,6 +115,8 @@ namespace Resonance
 
         private static Rectangle constRect = new Rectangle();
 
+        private static List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup), typeof(Checkpoint), typeof(ObjectivePickup), typeof(Boss)};
+
         /// Constructor
 
         ///<summary>
@@ -162,6 +164,14 @@ namespace Resonance
             }
         }
 
+        private Rectangle setConstRect(int nX, int nY, int nW, int nH) {
+            constRect.X      = nX;
+            constRect.Y      = nY;
+            constRect.Width  = nW;
+            constRect.Height = nH;
+
+            return constRect;
+        }
 
         ///<summary>
         ///</summary>
@@ -267,19 +277,19 @@ namespace Resonance
             /*for (int i = 0; i < 4; i++) {
                 switch (i) {
                     case(0) : {
-                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Red, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        spriteBatch.Draw(pickup, setConstRect((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Red, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
                         break;
                     }
                     case(1) : {
-                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Green, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        spriteBatch.Draw(pickup, setConstRect((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Green, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
                         break;
                     }
                     case(2) : {
-                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Blue, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        spriteBatch.Draw(pickup, setConstRect((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Blue, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
                         break;
                     }
                     case(3) : {
-                        spriteBatch.Draw(pickup, new Rectangle((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Yellow, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
+                        spriteBatch.Draw(pickup, setConstRect((int) cnrScrPos[i].X, (int) cnrScrPos[i].Y, 25, 25), null, Color.Yellow, 0, new Vector2(12.5f, 12.5f), SpriteEffects.None, 0f);
                         break;
                     }
                 }
@@ -324,8 +334,8 @@ namespace Resonance
         public void draw(SpriteBatch spriteBatch)
         {
             if(savedMinimap != null)spriteBatch.Draw(savedMinimap, new Vector2(mapX, mapY), Color.White * ENTIRE_MAP_ALPHA);
-            constRect.X = mapX; constRect.Y = mapY; constRect.Width = mapW; constRect.Height = mapH;
-            spriteBatch.Draw(outline, constRect, Color.White);
+            //constRect.X = mapX; constRect.Y = mapY; constRect.Width = mapW; constRect.Height = mapH;
+            spriteBatch.Draw(outline, setConstRect(mapX, mapY, mapW, mapH), Color.White);
         }
 
         /// <summary>
@@ -369,17 +379,17 @@ namespace Resonance
             float corner_dist = (float) Math.Sqrt(Math.Pow((double) ZOOM, 2.0) * 2);
 
             // Draw fill
-            spriteBatch.Draw(background, new Rectangle(0, 0, mapW, mapH), BACKGROUND_COLOUR);
+            spriteBatch.Draw(background, setConstRect(0, 0, mapW, mapH), BACKGROUND_COLOUR);
 
             // Draw scale lines, to provide a frame of reference.
             if (DRAW_SCALE_LINES)  {
                 for (float i = mapW / 2; i < mapW; i += scaleFactor * SCALE_LINE_INTERVAL)  {
-                    spriteBatch.Draw(background, new Rectangle((int) i, 0, 1, mapH), SCALE_LINE_COLOUR);
-                    spriteBatch.Draw(background, new Rectangle(mapW - (int) i, 0, 1, mapH), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, setConstRect((int) i, 0, 1, mapH), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, setConstRect(mapW - (int) i, 0, 1, mapH), SCALE_LINE_COLOUR);
                 }
                 for (float i = mapH / 2; i < mapH; i += scaleFactor * SCALE_LINE_INTERVAL) {
-                    spriteBatch.Draw(background, new Rectangle(0, (int) i, mapW, 1), SCALE_LINE_COLOUR);
-                    spriteBatch.Draw(background, new Rectangle(0, mapH - (int) i, mapW, 1), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, setConstRect(0, (int) i, mapW, 1), SCALE_LINE_COLOUR);
+                    spriteBatch.Draw(background, setConstRect(0, mapH - (int) i, mapW, 1), SCALE_LINE_COLOUR);
                 }
             }
 
@@ -416,7 +426,6 @@ namespace Resonance
             spriteBatch.Draw(vibe, drawPos, null, GOOD_VIBE_COLOUR, r, origin, largeSF, SpriteEffects.None, 0f);
 
             // Loop through and draw stuff.
-            List<Type> drawnTypes = new List<Type>() {typeof(BadVibe), typeof(BVSpawner), typeof(Pickup), typeof(Checkpoint), typeof(ObjectivePickup), typeof(Boss)};
             List<Object> toDraw = ScreenManager.game.World.returnObjectSubset(drawnTypes);
 
             Vector2 gVPos = new Vector2(gVRef.Body.Position.X, gVRef.Body.Position.Z);
@@ -565,7 +574,7 @@ namespace Resonance
                     if (visible) {
                         Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
                         Color col = new Color(cVec.X, cVec.Y, cVec.Z, alpha + 0.2f);
-                        spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), col);
+                        spriteBatch.Draw(dVibe, setConstRect((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), col);
                     }
                 }
                 else if (o is BadVibe)
@@ -600,7 +609,7 @@ namespace Resonance
                         Vector3 cVec = BAD_VIBE_COLOUR.ToVector3();
                         Color col;
                         col = new Color(cVec.X, cVec.Y, cVec.Z, alpha);
-                        spriteBatch.Draw(dVibe, new Rectangle((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), col);
+                        spriteBatch.Draw(dVibe, setConstRect((int)bVScreenPos.X, (int)bVScreenPos.Y, VIBE_WIDTH, VIBE_HEIGHT), col);
                     }
                 }
             }
@@ -609,7 +618,7 @@ namespace Resonance
             if (SWEEPER_ON) {
                 if (sweeperX < 0) sweeperX += mapW;
 
-                //spriteBatch.Draw(background, new Rectangle(sweeperX, mapY, 1, mapH), SWEEPER_COLOUR);
+                //spriteBatch.Draw(background, setConstRect(sweeperX, mapY, 1, mapH), SWEEPER_COLOUR);
 
                 int x;
                 float alpha = BAD_VIBE_ALPHA;
@@ -619,14 +628,14 @@ namespace Resonance
 
                     x = sweeperX + i;
                     if (x > mapW) x -= mapW;
-                    spriteBatch.Draw(block, new Rectangle(x, 0, 1, mapH), new Color(0f, 0f, 0.9f + alpha - 1f, alpha));
+                    spriteBatch.Draw(block, setConstRect(x, 0, 1, mapH), new Color(0f, 0f, 0.9f + alpha - 1f, alpha));
                 }
 
                 sweeperX --;
             }
 
             // Draw outline
-            //spriteBatch.Draw(outline, new Rectangle(0, 0, mapW, mapH), OUTLINE_COLOUR);
+            //spriteBatch.Draw(outline, setConstRect(0, 0, mapW, mapH), OUTLINE_COLOUR);
 
             spriteBatch.End();
             gd.SetRenderTarget(null);
