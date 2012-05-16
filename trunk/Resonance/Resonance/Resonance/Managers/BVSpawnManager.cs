@@ -11,6 +11,7 @@ namespace Resonance
         public const int MAX_BV = 12;
 
         public const int OBJECTIVE_MAX_BV = 3;
+        public const int ARCADE_MAX_BV = 2000;
 
         private static int spawnerCount;
         private static int bvcount = 0;
@@ -60,6 +61,8 @@ namespace Resonance
                 spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, OBJECTIVE_MAX_BV, SPAWN_RADIUS, MAX_ACTIVE, false);
             } else if ((GameScreen.mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.SURVIVE)) {
                 spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, OBJECTIVE_MAX_BV, SPAWN_RADIUS, MAX_ACTIVE, true);
+            } else if (GameScreen.mode.MODE == GameMode.ARCADE) {
+                spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, ARCADE_MAX_BV, SPAWN_RADIUS, MAX_ACTIVE, false);
             } else {
                 spawn = new BVSpawner(GameModels.BV_SPAWNER, "BVSpawner" + spawnerCount, position, MAX_BV, SPAWN_RADIUS, MAX_ACTIVE, false);
             }
