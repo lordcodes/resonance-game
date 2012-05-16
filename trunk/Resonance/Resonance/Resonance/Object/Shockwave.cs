@@ -151,7 +151,8 @@ namespace Resonance
                 {
                     if (point.hitPoint(colour-1))
                     {
-                        ScreenManager.game.World.fadeObjectAway(point, 0.6f);
+                        //ScreenManager.game.World.fadeObjectAway(point, 0.6f);
+                        point.ModelInstance.fadeAway(0.6f);
                         GameScreen.getGV().adjustScore(150);
                     }
                 }
