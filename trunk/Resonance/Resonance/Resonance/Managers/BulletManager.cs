@@ -100,10 +100,10 @@ namespace Resonance
                         }
                         else
                         {
-                            BulletImpact e = (BulletImpact) ParticleEmitterManager.getEmitter<BulletImpact>();
+                            /*BulletImpact e = (BulletImpact) ParticleEmitterManager.getEmitter<BulletImpact>();
                             if (e == null) e = new BulletImpact();
                             Vector3 bPos = bullet.Body.Position;
-                            e.init(bPos, bPos - GameScreen.getGV().Body.Position);
+                            e.init(bPos, bPos - GameScreen.getGV().Body.Position);*/
                             GameScreen.getGV().AdjustHealth(-DAMAGE);
                         }
 
