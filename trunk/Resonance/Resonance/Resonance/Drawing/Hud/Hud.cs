@@ -195,7 +195,7 @@ namespace Resonance
             drawNitroBar();
             drawFreezeBar();
             highlightedPowerPercentage();
-            if (GameScreen.USE_MINIMAP) drawMiniMap();
+            if (GameScreen.USE_MINIMAP && !((GameScreen.mode.MODE == GameMode.OBJECTIVES) && ObjectiveManager.currentObjective() == ObjectiveManager.SURVIVE) ) drawMiniMap();
             drawProgressBar();
             drawDrumkit();
             drawThrobber();
