@@ -194,7 +194,7 @@ namespace Resonance {
                                 }
                                 return 1f;
                             }
-                            else return (float) pct / 100f;
+                            else return (float) (100 - pct) / 100f;
                         }
                     }
                     else
