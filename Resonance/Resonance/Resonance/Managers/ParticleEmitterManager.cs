@@ -9,6 +9,8 @@ namespace Resonance {
     /// Manages all particle system data.
     /// </summary>
     class ParticleEmitterManager {
+        public static float XBOX_PARTICLE_COEFFICIENT = 0.5f;
+
         public static Texture2D TEX_PIXEL;
         public static Texture2D TEX_DIST_BV;
         public static Texture2D TEX_TRIANGLE;

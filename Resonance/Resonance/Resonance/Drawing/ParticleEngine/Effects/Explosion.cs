@@ -12,8 +12,14 @@ namespace Resonance {
 
         public override void init(Vector3 p) {
             pos = p;
-            particlesLeft      = 100;// 500;
-            emissionsPerUpdate = 100;// 500;
+            particlesLeft      = 80;// 500;
+            emissionsPerUpdate = 80;// 500;
+
+#if XBOX
+            particlesLeft      = (int) ((float) particlesLeft      * ParticleEmitterManager.XBOX_PARTICLE_COEFFICIENT);
+            emissionsPerUpdate = (int) ((float) emissionsPerUpdate * ParticleEmitterManager.XBOX_PARTICLE_COEFFICIENT);
+#endif
+
             maxParticleSpd     = 0.9f;
             maxParticleLife    = 30;
             iColour            = Color.White;
@@ -28,9 +34,7 @@ namespace Resonance {
                     //Vector3 iDir = new Vector3((float)gen.NextDouble(), (float)gen.NextDouble(), (float)gen.NextDouble());
                     Vector3 iDir = Vector3.Up;
                     Vector3 offset = new Vector3((float) gen.NextDouble() / 2f, (float) gen.NextDouble() / 2f, (float) gen.NextDouble() / 2f);
-                    /*if (gen.Next() % 2 == 0) iDir.X *= -1;
-                    if (gen.Next() % 2 == 0) iDir.Y *= -1;
-                    if (gen.Next() % 2 == 0) iDir.Z *= -1;*/
+
                     if (gen.Next() % 2 == 0) offset.X *= -1;
                     if (gen.Next() % 2 == 0) offset.Z *= -1;
                     iDir += offset;
