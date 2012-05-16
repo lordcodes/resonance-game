@@ -97,10 +97,10 @@ namespace Resonance
                 {
                     float wall_length = 20f;
                     float wall_height = 150f;
-                    Vector3 pos1 = new Vector3(0, 75f, (PLAYABLE_MAP_Z / 2 - MOVE_WALL) + (wall_length / 2));
-                    Vector3 pos2 = new Vector3((PLAYABLE_MAP_X / 2 - MOVE_WALL) + (wall_length / 2), 75f, 0);
-                    Vector3 pos3 = new Vector3(0, 75f, (-PLAYABLE_MAP_Z / 2 + MOVE_WALL) - (wall_length / 2));
-                    Vector3 pos4 = new Vector3((-PLAYABLE_MAP_X / 2 + MOVE_WALL) - (wall_length / 2), 75f, 0);
+                    Vector3 pos1 = new Vector3(0, 75f, (PLAYABLE_MAP_Z / 2) + (wall_length / 2));
+                    Vector3 pos2 = new Vector3((PLAYABLE_MAP_X / 2) + (wall_length / 2), 75f, 0);
+                    Vector3 pos3 = new Vector3(0, 75f, (-PLAYABLE_MAP_Z / 2) - (wall_length / 2));
+                    Vector3 pos4 = new Vector3((-PLAYABLE_MAP_X / 2) - (wall_length / 2), 75f, 0);
                     Box b1 = new Box(pos1, PLAYABLE_MAP_X, wall_height, wall_length);
                     Box b2 = new Box(pos2, wall_length, wall_height, PLAYABLE_MAP_Z);
                     Box b3 = new Box(pos3, PLAYABLE_MAP_X, wall_height, wall_length);
@@ -285,7 +285,7 @@ namespace Resonance
                             {
                                 PLAYABLE_MAP_X = 238;
                                 PLAYABLE_MAP_Z = 238;
-                                MOVE_WALL = 2f;
+                                MOVE_WALL = 0f;
                                 CEILING = 5f;
                                 addObject(new StaticObject(GameModels.TRAININGWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
@@ -313,7 +313,7 @@ namespace Resonance
                                 PLAYABLE_MAP_X = 398;
                                 PLAYABLE_MAP_Z = 398;
                                 MOVE_WALL = 3.5f;
-                                CEILING = 20f;
+                                CEILING = 8f;
                                 addObject(new StaticObject(GameModels.PICKUPSWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }
@@ -322,7 +322,7 @@ namespace Resonance
                                 PLAYABLE_MAP_X = 298;
                                 PLAYABLE_MAP_Z = 298;
                                 MOVE_WALL = 1.5f;
-                                CEILING = 10f;
+                                CEILING = 8f;
                                 addObject(new StaticObject(GameModels.BOSSWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }

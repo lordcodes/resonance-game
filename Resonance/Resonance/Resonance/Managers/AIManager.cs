@@ -12,7 +12,7 @@ namespace Resonance
 {
     class AIManager
     {
-        public const float DEFAULT_TARGET = 100f; //25f
+        public const float DEFAULT_TARGET = 25f;
         public const int DEFAULT_RATE = 4;
         public const int DEFAULT_MISS = 20;
         public const float DEFAULT_MOVE = 12f;
