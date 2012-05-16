@@ -76,9 +76,12 @@ namespace Resonance
         public void addWave(Vector2 position)
         {
             //addHole(position.X, position.Y);
-            if (waveCount >= waves.Length) waveCount = 0;
-            waves[waveCount] = new Wave(position, masterBuffer.Count);
-            waveCount++;
+            if (waveCount < 1)
+            {
+                if (waveCount >= waves.Length) waveCount = 0;
+                waves[waveCount] = new Wave(position, masterBuffer.Count);
+                waveCount++;
+            }
         }
 
         public Texture2D getMap()

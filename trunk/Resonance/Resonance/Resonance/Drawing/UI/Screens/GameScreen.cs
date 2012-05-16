@@ -358,7 +358,10 @@ namespace Resonance
                     ScreenManager.addScreen(new GameOverScreen());
                 }
                 else
-                    ScreenManager.addScreen(new SuccessScreen(false));
+                {
+                    HighScoreManager.updateTable(GameStats.Score);
+                    ScreenManager.addScreen(new SuccessScreen());
+                }
             } else if (mode.MODE == GameMode.OBJECTIVES) {
                 if (!GV_KILLED) {
                     ObjectiveManager.calcuateScoreBonus(true);
