@@ -410,27 +410,21 @@ namespace Resonance
                     beginnerBank.Add(new ArmourSequence(seq));
                     BEGINNER_COUNT++;
                 }
-
+                
                 {
-                    int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5 };
+                    int[] seq = { 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 4, 0, 5 };
                     beginnerBank.Add(new ArmourSequence(seq));
                     BEGINNER_COUNT++;
                 }
 
                 {
-                    int[] seq = { 3, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 5 };
+                    int[] seq = { 1, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 5 };
                     beginnerBank.Add(new ArmourSequence(seq));
                     BEGINNER_COUNT++;
                 }
 
                 {
-                    int[] seq = { 2, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 5 };
-                    beginnerBank.Add(new ArmourSequence(seq));
-                    BEGINNER_COUNT++;
-                }
-
-                {
-                    int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 5 };
+                    int[] seq = { 1, 0, 0, 0, 4, 0, 0, 0, 3, 0, 2, 0, 5 };
                     beginnerBank.Add(new ArmourSequence(seq));
                     BEGINNER_COUNT++;
                 }
@@ -442,13 +436,55 @@ namespace Resonance
                 }
 
                 {
+                    int[] seq = { 2, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 2, 0, 0, 0, 2, 0, 0, 0, 4, 0, 4, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 2, 0, 0, 0, 3, 0, 0, 0, 2, 0, 3, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 2, 0, 0, 0, 4, 0, 0, 0, 1, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
                     int[] seq = { 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 5 };
                     beginnerBank.Add(new ArmourSequence(seq));
                     BEGINNER_COUNT++;
                 }
 
                 {
-                    int[] seq = { 4, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 5 };
+                    int[] seq = { 3, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 3, 0, 0, 0, 1, 0, 0, 0, 2, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 3, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 3, 0, 0, 0, 2, 0, 0, 0, 4, 0, 0, 0, 5 };
                     beginnerBank.Add(new ArmourSequence(seq));
                     BEGINNER_COUNT++;
                 }
@@ -460,7 +496,49 @@ namespace Resonance
                 }
 
                 {
-                    int[] seq = { 1, 0, 0, 0, 2, 0, 0, 0, 3, 0, 4, 0, 5 };
+                    int[] seq = { 3, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 4, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 4, 0, 0, 0, 2, 0, 0, 0, 3, 0, 4, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 4, 0, 0, 0, 3, 0, 0, 0, 1, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 4, 0, 0, 0, 3, 0, 0, 0, 4, 0, 0, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 1, 0, 5 };
+                    beginnerBank.Add(new ArmourSequence(seq));
+                    BEGINNER_COUNT++;
+                }
+
+                {
+                    int[] seq = { 4, 0, 0, 0, 4, 0, 4, 0, 4, 0, 0, 0, 5 };
                     beginnerBank.Add(new ArmourSequence(seq));
                     BEGINNER_COUNT++;
                 }
@@ -521,14 +599,14 @@ namespace Resonance
 
                 {
                     int[] seq = { 1, 0, 2, 0, 3, 0, 4, 0, 1, 1, 1, 0, 5 };
-                    mediumBank.Add(new ArmourSequence(seq));
-                    MEDIUM_COUNT++;
+                    easyBank.Add(new ArmourSequence(seq));
+                    EASY_COUNT++;
                 }
 
                 {
                     int[] seq = { 2, 0, 1, 0, 2, 0, 1, 0, 3, 3, 4, 0, 5 };
-                    mediumBank.Add(new ArmourSequence(seq));
-                    MEDIUM_COUNT++;
+                    easyBank.Add(new ArmourSequence(seq));
+                    EASY_COUNT++;
                 }
             }
 
