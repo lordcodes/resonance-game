@@ -151,12 +151,12 @@ tunnel_texture, Textures\tunnel_texture.png
 16,         BadVibeRanged,          0.5,        BadVibeRanged-physics,          0.5,             virus,                        1
 17,         Bullet,                 0.5,        pickup,                         0.5,            bulletColors
 18,         Boss,                   1.3,        BossPhysics,			        1.3,			boss,							1
-19,			Walls,					150,		Walls,					        150,			wallTexture
-20,			Walls,					120,		Walls,					        120,			wallTexture
-22,			Walls,					200,		Walls,					        200,			wallTexture
-23,			Walls,					70,			Walls,					        70,				wallTexture
-24,			Walls,					200,		Walls,					        200,			wallTexture
-25,			Walls,					150,		Walls,					        150,			wallTexture
+19,			Walls,					150,		Walls,					        153,			wallTexture
+20,			Walls,					120,		Walls,					        123,			wallTexture
+22,			Walls,					200,		Walls,					        203,			wallTexture
+23,			Walls,					70,			Walls,					        73,				wallTexture
+24,			Walls,					200,		Walls,					        203,			wallTexture
+25,			Walls,					150,		Walls,					        153,			wallTexture
 21,			CheckPoint,				1.5,        CheckPoint,                     1.5,            checkpointColours
 26,			PickupOrb,				1,		pickup,				        0.25
 27,         Ramp,                   1,          Ramp_phys,                      1,            rampText
