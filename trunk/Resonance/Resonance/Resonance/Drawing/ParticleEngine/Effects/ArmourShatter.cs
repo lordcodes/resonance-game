@@ -32,6 +32,12 @@ namespace Resonance {
             blastVec           = blast;
             emissionsPerUpdate = 15; //200
             particlesLeft      = 40; //200
+
+#if XBOX
+            particlesLeft      = (int) ((float) particlesLeft      * ParticleEmitterManager.XBOX_PARTICLE_COEFFICIENT);
+            emissionsPerUpdate = (int) ((float) emissionsPerUpdate * ParticleEmitterManager.XBOX_PARTICLE_COEFFICIENT);
+#endif
+
             maxParticleSpd     = 2.2f;
             maxParticleLife    = 50;
             iPSize             = 0.4f;

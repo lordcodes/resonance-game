@@ -55,7 +55,14 @@ namespace Resonance {
 
         protected override void generateParticles() {
             if (FREEZE_ON) {
-                for (int i = 0; i < emissionsPerUpdate; i++) {
+                int emissions = 0;
+#if XBOX
+                emissions = (int) ((float) emissionsPerUpdate * ParticleEmitterManager.XBOX_PARTICLE_COEFFICIENT);
+#endif
+#if WINDOWS
+                emissions = emissionsPerUpdate;
+#endif
+                for (int i = 0; i < emissions; ++i) {
                     Vector3 iDir = new Vector3((float)gen.NextDouble(), 0.1f, (float)gen.NextDouble());
                     if (gen.Next() % 2 == 0) iDir.X *= -1;
                     if (gen.Next() % 2 == 0) iDir.Z *= -1;

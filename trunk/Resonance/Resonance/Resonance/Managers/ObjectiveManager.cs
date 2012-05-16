@@ -38,7 +38,6 @@ namespace Resonance {
 
         public static void setObjective(int newObj) {
             cObj = newObj;
-
             if (newObj == KILL_ALL_BV) bvKilledAtStart = GameStats.BVsKilled;
             initialDistThroughSong = MediaPlayer.PlayPosition;
             if (newObj == SURVIVE) { spawnWatch.Stop(); spawnWatch.Reset(); JUST_STARTED_SURVIVAL = true;}

@@ -37,7 +37,14 @@ namespace Resonance {
         }
 
         protected override void generateParticles() {
-            for (int i = 0; i < emissionsPerUpdate; ++i) {
+            int emissions = 0;
+#if XBOX
+            emissions = (int) ((float) emissionsPerUpdate * ParticleEmitterManager.XBOX_PARTICLE_COEFFICIENT);
+#endif
+#if WINDOWS
+            emissions = emissionsPerUpdate;
+#endif
+            for (int i = 0; i < emissions; ++i) {
                 Vector3 iDir = Vector3.Down;
 
                 // These only have to represent the area of screen you can see at one time, as Rain follows the GV
