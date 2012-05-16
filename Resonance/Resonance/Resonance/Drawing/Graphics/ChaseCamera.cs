@@ -57,7 +57,7 @@ namespace Resonance
             }
             if (locked) return cameraPos;
 
-            return position;
+            return cameraPos;
         }
 
         /// <summary>
