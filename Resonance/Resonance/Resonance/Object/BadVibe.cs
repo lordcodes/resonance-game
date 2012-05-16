@@ -19,6 +19,8 @@ namespace Resonance
         private GameModelInstance deathAnimation;
         private GameModelInstance aliveAnimation;
 
+        private static Random armourGenerator = new Random();
+
         AIManager ai;
 
         ArmourSequence armour;
@@ -251,8 +253,8 @@ namespace Resonance
             /// <returns></returns>
             public static ArmourSequence random()
             {
-                Random generator = new Random();
-                int x = generator.Next();
+                Random generator = armourGenerator;
+                int x = generator.Next(9001);
 
                 if (GameScreen.DIFFICULTY == GameScreen.BEGINNER)
                 {
@@ -360,13 +362,13 @@ namespace Resonance
             // Good luck!
             private static ArmourSequence generateRandom()
             {
-                Random generator = new Random();
+                //Random generator = new Random();
 
                 int[] seq = new int[13];
 
                 for (int i = 0; i < 12; i++)
                 {
-                    seq[i] = generator.Next() % 5;
+                    seq[i] = armourGenerator.Next() % 5;
                 }
 
                 seq[12] = Shockwave.CYMBAL;
