@@ -305,7 +305,19 @@ namespace Resonance
             int sliceHeight = ScreenManager.pixelsY(healthSlice.Height);
 
             string temp = "";
-            int limit = (int)Math.Round((float)ScreenManager.pixelsX(582) * ObjectiveManager.getProgress(ref temp));
+            int limit;
+            double arcadeprogress = 0;
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES)
+            {
+                limit = (int)Math.Round((float)ScreenManager.pixelsX(582) * ObjectiveManager.getProgress(ref temp));
+            }
+            else
+            {
+                double secs = MediaPlayer.PlayPosition.TotalSeconds;
+                double durationsecs = MusicHandler.getTrack().Song.Duration.TotalSeconds;
+                arcadeprogress = secs / durationsecs;
+                limit = (int)Math.Round((float)ScreenManager.pixelsX(582) * arcadeprogress);
+            }
 
             float greenValue;
             Color c;
@@ -320,7 +332,15 @@ namespace Resonance
                 spriteBatch.Draw(healthSlice, new Rectangle(sliceX + i, sliceY, sliceWidth, sliceHeight), c);
             }
 
-            string progress = "Progress: " + (int)(ObjectiveManager.getProgress(ref temp)*100) + "%";
+            string progress = "";
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES)
+            {
+                progress = "Progress: " + (int)(ObjectiveManager.getProgress(ref temp) * 100) + "%";
+            }
+            else
+            {
+                progress = "Progress: " + (int)(arcadeprogress * 100) + "%";
+            }
             int xOffset = (int)Math.Round(scoreFont.MeasureString(progress).X / 2);
             Vector2 coords = new Vector2(ScreenManager.ScreenWidth / 2 - xOffset + ScreenManager.pixelsX(120), y - 5+ ScreenManager.pixelsY(20));
             spriteBatch.DrawString(scoreFont, progress, coords, Color.Black, 0f, Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
