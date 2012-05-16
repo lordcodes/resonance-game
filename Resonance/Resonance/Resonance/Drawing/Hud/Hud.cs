@@ -476,7 +476,7 @@ namespace Resonance
                 
                 //Vector2 countPos = new Vector2(screenPosition.X + (spawnercount.Width / 2) - (ssize.X / 2), screenPosition.Y + (spawnercount.Height / 2) - (ssize.Y / 2));
 
-                if (!(GameScreen.mode.MODE == GameMode.OBJECTIVES) || (ObjectiveManager.currentObjective() != ObjectiveManager.SURVIVE)) {
+                if (((GameScreen.mode.MODE == GameMode.OBJECTIVES) && ObjectiveManager.currentObjective() != ObjectiveManager.SURVIVE)) {
                     spriteBatch.Draw(spawnercount, new Rectangle((int) screenPosition.X, (int) screenPosition.Y, spawnercount.Width, spawnercount.Height), c);
                     Vector2 ssize = scoreFont.MeasureString(count);
                     spriteBatch.DrawString(scoreFont, count, new Vector2(screenPosition.X + (spawnercount.Width / 2) + 3, screenPosition.Y + (spawnercount.Height / 2) + 5), c, 0f, new Vector2(ssize.X / 2, ssize.Y / 2), 0.8f, SpriteEffects.None, 0f);
