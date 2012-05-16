@@ -71,7 +71,7 @@ namespace Resonance
         public  static bool      large;
 
         private static GraphicsDeviceManager graphics;
-        private static RenderTarget2D miniMapBuffer;
+        public static RenderTarget2D miniMapBuffer;
         private static Texture2D outline;
         private static Texture2D background;
         private static Texture2D vibe;
@@ -111,7 +111,7 @@ namespace Resonance
 
         private static int mapX, mapY, mapH, mapW;
 
-        private static Texture2D savedMinimap;
+        public static Texture2D savedMinimap;
 
         private static Rectangle constRect = new Rectangle();
 
@@ -343,6 +343,7 @@ namespace Resonance
         /// </summary>
         public static void clear()
         {
+            if(savedMinimap != null)savedMinimap.Dispose();
             savedMinimap = null;
         }
 
@@ -411,7 +412,10 @@ namespace Resonance
                 if (!(sObj is BVSpawner) && !(sObj.Equals(ScreenManager.game.World.getObject("Ground")))) {
                     try {
                         drawBox(spriteBatch, sObj.Body.BoundingBox, gvx, gvy);
-                    } catch (Exception e) {}
+                    } catch (Exception e) {
+                        int iiii = 0;
+                    
+                    }
                 }
             }
 
