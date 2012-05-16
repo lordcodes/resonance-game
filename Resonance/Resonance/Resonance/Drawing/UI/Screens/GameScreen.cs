@@ -89,7 +89,6 @@ namespace Resonance
             {
                 GameStats.init();
             }
-
             deadVibes = new string[50];
         }
 
@@ -359,7 +358,7 @@ namespace Resonance
                     ScreenManager.addScreen(new GameOverScreen());
                 }
                 else
-                    ScreenManager.addScreen(new SuccessScreen());
+                    ScreenManager.addScreen(new SuccessScreen(false));
             } else if (mode.MODE == GameMode.OBJECTIVES) {
                 if (!GV_KILLED) {
                     ObjectiveManager.calcuateScoreBonus(true);
@@ -368,7 +367,7 @@ namespace Resonance
                         ObjectiveManager.loadObjectivesGame(ScreenManager);
                     } else {
                         HighScoreManager.updateTable(GameStats.Score);
-                        ScreenManager.addScreen(new SuccessScreen());
+                        ScreenManager.addScreen(new SuccessScreen(true));
                     }
                 } else {
                     WeatherManager.playLightning();

@@ -20,17 +20,25 @@ namespace Resonance
 
         Song music;
 
-        public SuccessScreen()
+        public SuccessScreen(bool obj)
             : base("Success")
         {
-            MenuElement playAgain = new MenuElement("Play Again", playGameAgain);
-            MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
-            MenuElement quitCompletely = new MenuElement("Quit Game", quitGameCompletely);
-            async = 0;
-            MenuItems.Add(playAgain);
-            MenuItems.Add(quit);
-            MenuItems.Add(quitCompletely);
+            if (obj)
+            {
+                MenuElement con = new MenuElement("Continue", continueGame);
+                MenuItems.Add(con);
+            }
+            else
+            {
+                MenuElement playAgain = new MenuElement("Play Again", playGameAgain);
+                MenuElement quit = new MenuElement("Back to Main Menu", quitGame);
+                MenuElement quitCompletely = new MenuElement("Quit Game", quitGameCompletely);
+                MenuItems.Add(playAgain);
+                MenuItems.Add(quit);
+                MenuItems.Add(quitCompletely);
+            }
 
+            async = 0;
 
             Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight);
             if (ScreenManager.ScreenWidth >= 1450)
@@ -50,7 +58,7 @@ namespace Resonance
             leftTimes = 0;
             rightTimes = 0;
 
-            this.musicStart = true;
+            if(!obj) this.musicStart = true;
         }
 
         public override void LoadContent()
@@ -275,6 +283,12 @@ namespace Resonance
             string msg = "Are you sure you want to quit the game?";
 
             ScreenManager.addScreen(new PopupScreen(msg, PopupScreen.QUIT_GAME));
+        }
+
+        private void continueGame()
+        {
+            ExitScreen();
+            ScreenManager.addScreen(new CreditsScreen());
         }
     }
 }

@@ -121,7 +121,11 @@ namespace Resonance
                             timeElapsed -= FADE_DURATION;
                             state = FADEIN;
                             frame++;
-                            if (frame > 7) ExitScreen();
+                            if (frame > 7)
+                            {
+                                ExitScreen();
+                                ScreenManager.addScreen(ScreenManager.mainMenu);
+                            }
                             fadeValue = 0f;
                         }
                         break;
@@ -181,7 +185,11 @@ namespace Resonance
                          (input.Keys.IsKeyDown(Keys.Escape) || input.PlayerOne.IsButtonDown(Buttons.B));
             bool backPause = !input.LastPlayerOne.IsButtonDown(Buttons.Start) && input.PlayerOne.IsButtonDown(Buttons.Start);
 
-            if (select || back || backPause) ExitScreen();
+            if (select || back || backPause)
+            {
+                ExitScreen();
+                ScreenManager.addScreen(ScreenManager.mainMenu);
+            }
         }
     }
 }

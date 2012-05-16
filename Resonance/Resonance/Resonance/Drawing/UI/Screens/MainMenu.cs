@@ -91,7 +91,9 @@ namespace Resonance
 
         public void startGame()
         {
-            if (GameScreen.mode.MODE == GameMode.OBJECTIVES) {
+            GameStats.init();
+            if (GameScreen.mode.MODE == GameMode.OBJECTIVES)
+            {
                 ObjectiveManager.setObjective(ObjectiveManager.DEFAULT_OBJECTIVE);
                 ObjectiveManager.loadObjectivesGame(ScreenManager);
             } else {
