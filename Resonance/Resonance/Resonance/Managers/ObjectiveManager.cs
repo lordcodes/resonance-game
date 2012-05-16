@@ -144,7 +144,8 @@ namespace Resonance {
         }
 
         static int maxPickups = 0;
-        public static bool getProgress(ref string oStr) {
+        public static float getProgress(ref string oStr) {
+            float pctComplete = 0f;
             switch (cObj) {
                 case (KILL_ALL_BV) : {
                     int killed = GameStats.BVsKilled - bvKilledAtStart;
@@ -152,9 +153,9 @@ namespace Resonance {
                     if (GameScreen.USE_BV_SPAWNER) total = BVSpawnManager.OBJECTIVE_MAX_BV * BVSpawnManager.getSpawnerCount();
                     oStr = "" + killed + " / " + total + " destroyed";
 
-                    if (DEBUG_MODE) return true;
-                    if(QUICK_GAME) if (killed >= 1) return true; else return false;
-                    else if(!QUICK_GAME) if (killed == total) return true; else return false;
+                    if (DEBUG_MODE) return 1f;
+                    if(QUICK_GAME) if (killed >= 1) return 1f; else return 0f;
+                    else if(!QUICK_GAME) if (killed == total) return 1f; else return (float) killed / (float) total;
                 }
                 case (COLLECT_ALL_PICKUPS) : {
                     List<Object> ps = ScreenManager.game.World.returnObjectSubset<ObjectivePickup>();
@@ -162,9 +163,9 @@ namespace Resonance {
                     int collected = maxPickups - ps.Count;
                     oStr = "" + collected + " / " + maxPickups + " collected";
 
-                    if (DEBUG_MODE) return true;
-                    if (QUICK_GAME) if (collected >= 1) return true; else return false;
-                    else if(!QUICK_GAME) if (collected == maxPickups) return true; else return false;
+                    if (DEBUG_MODE) return 1f;
+                    if (QUICK_GAME) if (collected >= 1) return 1f; else return 0f;
+                    else if(!QUICK_GAME) if (collected == maxPickups) return 1f; else return (float) collected / (float) maxPickups;
                 }
                 case (KILL_BOSS) : {
                     if (BulletManager.BOSS_EXISTS)
@@ -177,8 +178,8 @@ namespace Resonance {
 
                         oStr = "Boss at " + pct + "% health";
 
-                        if (DEBUG_MODE) return true;
-                        if (QUICK_GAME) if (pct <= 50) return true; else return false;
+                        if (DEBUG_MODE) return 1f;
+                        if (QUICK_GAME) if (pct <= 50) return 1f; else return 0f;
                         else if (!QUICK_GAME)
                         {
                             if (bossDead)
@@ -191,15 +192,15 @@ namespace Resonance {
                                     ScreenManager.game.World.addObject(new DynamicObject(z, "boss" + z, b.Body.Position));
                                     z++;
                                 }
-                                return true;
+                                return 1f;
                             }
-                            else return false;
+                            else return (float) pct / 100f;
                         }
                     }
                     else
                     {
                         oStr = "Boss defeated";
-                        return true;
+                        return 1f;
                     }
                 }
                 case (SURVIVE) : {
@@ -213,9 +214,9 @@ namespace Resonance {
 
                     oStr = "Stay alive for " + formattedTimeSpan;
 
-                    if (DEBUG_MODE || QUICK_GAME) return true;
+                    if (DEBUG_MODE || QUICK_GAME) return 1f;
                     else {
-                        if ((ts.Minutes <= 0) && (ts.Seconds <= 0)) return true; else return false;
+                        if ((ts.Minutes <= 0) && (ts.Seconds <= 0)) return 1f; else return (float) (ts.TotalSeconds / survivalTime.TotalSeconds);
                     }
                 }
                 case (TERRITORIES) : {
@@ -231,14 +232,14 @@ namespace Resonance {
 
                     oStr = "" + healed + " / " + total + " areas healed";
 
-                    if (DEBUG_MODE) return true;
-                    if (QUICK_GAME) if (healed >= 1) return true; else return false;
-                    else if(!QUICK_GAME) if (healed >= total) return true; else return false;
+                    if (DEBUG_MODE) return 1f;
+                    if (QUICK_GAME) if (healed >= 1) return 1f; else return 0f;
+                    else if(!QUICK_GAME) if (healed >= total) return 1f; else return (float) healed / (float) total;
                 }
             }
 
             oStr = "";
-            return false;
+            return 0f;
         }
 
         public static void updateSpawners() {

@@ -278,7 +278,7 @@ namespace Resonance
                     {
                         string x = "";
                         bool prePre = ((mode.MODE == GameMode.OBJECTIVES) && (ObjectiveManager.currentObjective() == ObjectiveManager.FINAL_OBJECTIVE));
-                        if (!endgame && GV_KILLED || mode.terminated() || (mode.MODE == GameMode.OBJECTIVES && (ObjectiveManager.getProgress(ref x))))
+                        if (!endgame && GV_KILLED || mode.terminated() || (mode.MODE == GameMode.OBJECTIVES && (ObjectiveManager.getProgress(ref x) == 1f)))
                         {
                             if (prePre && !prePreEndGameTimer.IsRunning)
                             {
