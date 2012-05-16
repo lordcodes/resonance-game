@@ -123,6 +123,7 @@
     <Compile Include="Drawing\UI\Screens\DebugMenu.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Drawing\UI\Screens\EyeScreen.cs" />
     <Compile Include="Drawing\UI\Screens\GameOverScreen.cs" />
     <Compile Include="Drawing\UI\Screens\GameScreen.cs" />
     <Compile Include="Drawing\UI\Screens\HighscoreScreen.cs" />
