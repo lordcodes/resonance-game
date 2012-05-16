@@ -22,6 +22,9 @@ namespace Resonance
         private Vector2 lastPosition;
         private Vector2 gVPosition;
         private Texture2D dispMap = null;
+        private Texture2D empty1 = null;
+        private Texture2D empty2 = null;
+        private int alt = 0; 
         private int waveCount = 0;
         private static Dictionary<string, float> distanceValues = new Dictionary<string, float>();
         private Wave[] waves = new Wave[1];
@@ -35,6 +38,7 @@ namespace Resonance
         public void reset()
         {
             for (int i = 0; i < buffer.Length; i++) buffer[i] = damageBuffer[i];
+            dispMap.Dispose();
             dispMap = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
             dispMap.SetData<float>(buffer, 0, buffer.Length);
         }
@@ -42,6 +46,9 @@ namespace Resonance
         public void setGD(GraphicsDevice nGraphics)
         {
             graphicsDevice = nGraphics;
+            dispMap = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
+            empty1 = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
+            empty2 = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
         }
 
 
@@ -152,7 +159,24 @@ namespace Resonance
                         updateBuffer(xi, yi, depth);
                     }
                 }
+                //dispMap = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
+                //Texture2D t = new Texture2D(graphicsDevice, 1, 1, true, SurfaceFormat.Single);
+                /*if (alt == 0)
+                {
+                    dispMap.Dispose
+                    alt = 1;
+                }
+                else
+                {
+                    dispMap = empty2;
+                    alt = 0;
+                }*/
+                dispMap.Dispose();
                 dispMap = new Texture2D(graphicsDevice, width, height, true, SurfaceFormat.Single);
+                graphicsDevice.Textures[0] = null;
+                graphicsDevice.SetRenderTarget(null);
+                graphicsDevice.SetVertexBuffer(null);
+                ((GroundShader)Drawing.gameGraphics.Shaders.Ground).setDispMap(dispMap);
                 dispMap.SetData<float>(buffer, 0, buffer.Length);
             }
             else

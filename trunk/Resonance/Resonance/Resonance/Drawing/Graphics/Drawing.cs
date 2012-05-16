@@ -12,7 +12,7 @@ namespace Resonance
         private static GraphicsDeviceManager graphics;
         private static ContentManager content;
         private static Hud hud;
-        private static Graphics gameGraphics;
+        public static Graphics gameGraphics;
         private static int frameCounter;
         private static int frameTime;
         private static int currentFrameRate;
@@ -277,7 +277,7 @@ namespace Resonance
         public static void Update(GameTime gameTime)
         {
             // Fire trail experiment
-            if (GVMotionManager.BOOSTING)
+            /*if (GVMotionManager.BOOSTING)
             {
                 Random randomGen = new Random();
                 int num = randomGen.Next(3);
@@ -285,7 +285,7 @@ namespace Resonance
                 {
                     new FireTextureEffect(1, 1, new Vector3(GameScreen.getGV().Body.Position.X + 1/(randomGen.Next(-3,2)+1f), 0.3f, GameScreen.getGV().Body.Position.Z));
                 }
-            }
+            }*/
 
             gameGraphics.Shaders.setPointLightPos(new Vector3(GameScreen.getGV().Body.Position.X, GameScreen.getGV().Body.Position.Y+3, GameScreen.getGV().Body.Position.Z));
 
