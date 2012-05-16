@@ -9,7 +9,7 @@ namespace Resonance
     {
         private static GraphicsDeviceManager graphics;
         private static ContentManager content;
-        private static Shaders shaders;
+        public static Shaders shaders;
         private static Matrix world;
         private static Matrix projection;
         private static DisplacementMap dispMap;
@@ -123,10 +123,10 @@ namespace Resonance
         {
             projection = Matrix.CreatePerspectiveFieldOfView(MathHelper.PiOver4, graphics.GraphicsDevice.Viewport.AspectRatio, 1.0f, GraphicsSettings.DRAW_DISTANCE);
             world = Matrix.Identity;
-            shaders = new Shaders();
+            if (dispMap == null) shaders = new Shaders();
             shaders.Default.sceneSetup(world, CameraMotionManager.Camera.View, projection, Vector3.Zero);
             graphics.GraphicsDevice.SamplerStates[0] = SamplerState.LinearClamp;
-            dispMap = LoadedContent.getDisp(importedModels, graphics.GraphicsDevice);
+            if(dispMap == null)dispMap = LoadedContent.getDisp(importedModels, graphics.GraphicsDevice);
             init2dTextures();
 
             graphics.GraphicsDevice.BlendState = BlendState.AlphaBlend;
@@ -138,7 +138,7 @@ namespace Resonance
             if (dispMap != null)
             {
                 dispMap.addWave(position);
-                dispMap.addHole(position.X, position.Y);
+                //dispMap.addHole(position.X, position.Y);
             }
         }
 
