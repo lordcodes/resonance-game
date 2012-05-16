@@ -40,7 +40,7 @@ namespace Resonance
         {
             displaySplash = displayScreen;
             screenToLoad = loadScreen;
-            bgs = new Texture2D[15];
+            bgs = new Texture2D[17];
             fadeValue = 0.0f;
 
             if (ScreenManager.ScreenWidth >= 1450)
@@ -55,6 +55,8 @@ namespace Resonance
 
         public override void LoadContent()
         {
+            bgs[16] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/Menus/Textures/Controller-Small");
+            bgs[15] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/map_key");
             bgs[14] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/button_a");
             bgs[13] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain5");
             bgs[12] = ScreenManager.Content.Load<Texture2D>("Drawing/UI/LoadingScreen/Textures/brain4");
@@ -132,7 +134,7 @@ namespace Resonance
 
                 Vector2 screenSize = new Vector2(ScreenManager.ScreenWidth / 2, ScreenManager.ScreenHeight / 2);
 
-                if (displaySplash <= 7) 
+                if (displaySplash <= 7)
                 {
                     bool arcade = displaySplash == ARCADE_SPLASH;
                     bool firstObj = displaySplash == OBJECTIVE_SPLASH1;
@@ -140,30 +142,49 @@ namespace Resonance
                     float x = (screenSize.X * 1.5f) - 287 + ScreenManager.pixelsX(100);
                     float y = screenSize.Y - 249;
                     if (!arcade && !firstObj) ScreenManager.SpriteBatch.Draw(bgs[5 + displaySplash], new Vector2(x, y), Color.White);
-                    ScreenManager.SpriteBatch.Draw(bgs[6 + displaySplash], new Vector2(x, y), Color.White * fadeValue);
-
-                    if (!arcade)
+                    if (!arcade && !firstObj) ScreenManager.SpriteBatch.Draw(bgs[6 + displaySplash], new Vector2(x, y), Color.White * fadeValue);
+                    else
                     {
-                        string obj = "";
-                        string con = "";
-                        string drum = "";
-                        ObjectiveManager.getLoadingScreenString(ref obj, ref con, ref drum);
-
-                        ScreenManager.SpriteBatch.DrawString(font, "Objective", new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 140), Color.White, 0f,
-                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                        ScreenManager.SpriteBatch.DrawString(font, obj, new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 115), Color.White, 0f,
-                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-
-                        ScreenManager.SpriteBatch.DrawString(font, "Controller player", new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 55), Color.White, 0f,
-                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                        ScreenManager.SpriteBatch.DrawString(font, con, new Vector2(ScreenManager.pixelsX(80), screenSize.Y - 30), Color.White, 0f,
-                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-
-                        ScreenManager.SpriteBatch.DrawString(font, "Drum kit player", new Vector2(ScreenManager.pixelsX(80), screenSize.Y + 30), Color.White, 0f,
-                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
-                        ScreenManager.SpriteBatch.DrawString(font, drum, new Vector2(ScreenManager.pixelsX(80), screenSize.Y + 55), Color.White, 0f,
-                            Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                        x = (screenSize.X * 1.5f) - 101f;
+                        y = ScreenManager.pixelsY(50);
+                        ScreenManager.SpriteBatch.Draw(bgs[15], new Vector2(x, y), Color.White);
                     }
+                    x = ScreenManager.pixelsX(70);
+                    y = screenSize.Y - ScreenManager.pixelsY(100);
+                    ScreenManager.SpriteBatch.Draw(bgs[16], new Rectangle((int)x, (int)y, 600, 300), Color.White);
+
+                    string obj = "";
+                    string con = "";
+                    string drum = "";
+                    if (GameScreen.mode.MODE == GameMode.ARCADE)
+                    {
+                        obj = "Defeat Bad Vibes to earn points.";
+                        con = "Navigate the world to allow the drummer to attack the Bad Vibes.";
+                        drum = "The Bad Vibes have a set armour sequence, hit the drum\ncorresponding with the bottom of the sequence to destroy the layer.";
+                    }
+                    ObjectiveManager.getLoadingScreenString(ref obj, ref con, ref drum);
+
+                    y = (screenSize.Y * 0.5f) - 140;
+
+                    ScreenManager.SpriteBatch.DrawString(font, "Objective", new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
+                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                    y += 20;
+                    ScreenManager.SpriteBatch.DrawString(font, obj, new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
+                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+
+                    y += 50;
+                    ScreenManager.SpriteBatch.DrawString(font, "Controller player", new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
+                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                    y += 20;
+                    ScreenManager.SpriteBatch.DrawString(font, con, new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
+                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+
+                    y += 50;
+                    ScreenManager.SpriteBatch.DrawString(font, "Drum kit player", new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
+                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
+                    y += 20;
+                    ScreenManager.SpriteBatch.DrawString(font, drum, new Vector2(ScreenManager.pixelsX(80), y), Color.White, 0f,
+                        Vector2.Zero, OBJ_FONT_SIZE, SpriteEffects.None, 0f);
                 }
 
                 if (displaySplash == OBJECTIVE_SPLASH1)
