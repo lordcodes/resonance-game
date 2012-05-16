@@ -360,7 +360,7 @@ namespace Resonance
                 else
                 {
                     HighScoreManager.updateTable(GameStats.Score);
-                    ScreenManager.addScreen(new SuccessScreen());
+                    ScreenManager.addScreen(new SuccessScreen(false));
                 }
             } else if (mode.MODE == GameMode.OBJECTIVES) {
                 if (!GV_KILLED) {
