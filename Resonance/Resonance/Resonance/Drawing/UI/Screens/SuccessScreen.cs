@@ -288,6 +288,7 @@ namespace Resonance
         private void continueGame()
         {
             ExitScreen();
+            MediaPlayer.Play(music);
             ScreenManager.addScreen(new CreditsScreen());
         }
     }

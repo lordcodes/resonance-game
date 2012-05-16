@@ -111,7 +111,7 @@ namespace Resonance
                     space.Add(b4);
 
                     Box b5 = new Box(new Vector3(0, CEILING, 0), PLAYABLE_MAP_X, 2f, PLAYABLE_MAP_Z);
-                    space.Add(b5);
+                    if(!(CEILING >= 20f)) space.Add(b5);
                 }
             }
             //Program.game.Components.Add(obj);
@@ -313,7 +313,7 @@ namespace Resonance
                                 PLAYABLE_MAP_X = 398;
                                 PLAYABLE_MAP_Z = 398;
                                 MOVE_WALL = 3.5f;
-                                CEILING = 8f;
+                                CEILING = 20f;
                                 addObject(new StaticObject(GameModels.PICKUPSWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }
@@ -322,7 +322,7 @@ namespace Resonance
                                 PLAYABLE_MAP_X = 298;
                                 PLAYABLE_MAP_Z = 298;
                                 MOVE_WALL = 1.5f;
-                                CEILING = 8f;
+                                CEILING = 20f;
                                 addObject(new StaticObject(GameModels.BOSSWALLS, "Walls", new Vector3(0, -1, 0)));
                                 break;
                             }
