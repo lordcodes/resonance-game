@@ -23,8 +23,8 @@
       <Item>
         <identifier>Bacteria2</identifier>
         <type>Bacteria</type>
-        <xWorldCoord>-110</xWorldCoord>
-        <zWorldCoord>110</zWorldCoord>
+        <xWorldCoord>-100</xWorldCoord>
+        <zWorldCoord>100</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>2</gameModelNum>
         <pickuptype>-1</pickuptype>
@@ -203,8 +203,8 @@
       <Item>
         <identifier>Neuron23</identifier>
         <type>Neuron</type>
-        <xWorldCoord>110</xWorldCoord>
-        <zWorldCoord>-110</zWorldCoord>
+        <xWorldCoord>100</xWorldCoord>
+        <zWorldCoord>-100</zWorldCoord>
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>3</gameModelNum>
         <pickuptype>-1</pickuptype>

@@ -84,15 +84,6 @@
         <pickuptype>1</pickuptype>
       </Item>
       <Item>
-        <identifier>ObjectivePickup107</identifier>
-        <type>Ramp</type>
-        <xWorldCoord>-110</xWorldCoord>
-        <zWorldCoord>50</zWorldCoord>
-        <yWorldCoord>0</yWorldCoord>
-        <gameModelNum>20</gameModelNum>
-        <pickuptype>0</pickuptype>
-      </Item>
-      <Item>
         <identifier>ObjectivePickup8</identifier>
         <type>ObjectivePickup</type>
         <xWorldCoord>-70</xWorldCoord>
@@ -181,6 +172,15 @@
         <yWorldCoord>0</yWorldCoord>
         <gameModelNum>20</gameModelNum>
         <pickuptype>1</pickuptype>
+      </Item>
+      <Item>
+        <identifier>Neuron1</identifier>
+        <type>Neuron</type>
+        <xWorldCoord>250</xWorldCoord>
+        <zWorldCoord>250</zWorldCoord>
+        <yWorldCoord>0</yWorldCoord>
+        <gameModelNum>3</gameModelNum>
+        <pickuptype>-1</pickuptype>
       </Item>
     </list>
   </Asset>
