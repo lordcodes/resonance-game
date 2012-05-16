@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace Resonance {
     class ObjectiveManager {
         public const bool DEBUG_MODE            = false;
-        public const bool QUICK_GAME            = false;
+        public const bool QUICK_GAME            = true;
 
         public const int KILL_ALL_BV            = 0;
         public const int COLLECT_ALL_PICKUPS    = 1;
@@ -15,7 +15,7 @@ namespace Resonance {
         public const int TERRITORIES            = 3;
         public const int KILL_BOSS              = 4;
 
-        public static int DEFAULT_OBJECTIVE = KILL_ALL_BV;
+        public static int DEFAULT_OBJECTIVE = KILL_BOSS;
 
         public  const  int FINAL_OBJECTIVE      = KILL_BOSS;
 
