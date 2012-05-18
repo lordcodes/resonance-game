@@ -61,6 +61,7 @@ namespace Resonance
             Matrix translate = Matrix.CreateTranslation((float)-(INITIAL_RADIUS*2-1) * position.X, 0.0f, (float)-(INITIAL_RADIUS*2-1) * position.Z);
             transform = Matrix.Multiply(transform, translate);
             bVibes.Clear();
+            numHit = 0;
         }
 
         public static void fillPool() {

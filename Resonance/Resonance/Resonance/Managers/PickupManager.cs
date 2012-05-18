@@ -80,7 +80,7 @@ namespace Resonance
                     MusicHandler.playSound(MusicHandler.DING);
                     if (ObjectiveManager.currentObjective() == ObjectiveManager.KILL_BOSS)
                     {
-                        GameScreen.getGV().adjustDeflectShield(10);
+                        GameScreen.getGV().adjustDeflectShield(1);
                     }
                     else
                     {

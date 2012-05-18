@@ -58,7 +58,7 @@ namespace Resonance
             leftTimes = 0;
             rightTimes = 0;
 
-            if(!obj) this.musicStart = true;
+            this.musicStart = true;
         }
 
         public override void LoadContent()

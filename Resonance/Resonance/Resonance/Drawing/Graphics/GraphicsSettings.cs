@@ -13,7 +13,7 @@ namespace Resonance
         public static int REFLECTION_TEXTURE_SIZE = 2048;
 #else
         public static bool FLOOR_REFLECTIONS = true;
-        public static int REFLECTION_TEXTURE_SIZE = 2048;
+        public static int REFLECTION_TEXTURE_SIZE = 4096;
 #endif
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Resonance
         public static int SHADOWS_TEXTURE_SIZE = 2048;
 #else
         public static bool FLOOR_SHADOWS = true;
-        public static int SHADOWS_TEXTURE_SIZE = 2048;
+        public static int SHADOWS_TEXTURE_SIZE = 4096;
 #endif
 
         /// <summary>
