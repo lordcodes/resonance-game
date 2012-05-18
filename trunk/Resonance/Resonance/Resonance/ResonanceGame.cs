@@ -9,7 +9,7 @@ namespace Resonance
         GraphicsDeviceManager graphics;
         ScreenManager screenManager;
         public const float FPS = 30f;
-        private const bool HD1080 = false;
+        private const bool HD1080 = true;
 
         /// <summary>
         /// The main game constructor.
@@ -23,7 +23,7 @@ namespace Resonance
             IsFixedTimeStep = true;
             this.TargetElapsedTime = TimeSpan.FromSeconds(1.0f / FPS);
             graphics.SynchronizeWithVerticalRetrace = true;
-            graphics.IsFullScreen = false;
+            graphics.IsFullScreen = true;
             graphics.PreferMultiSampling = true;
             if (HD1080)
             {

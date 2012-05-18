@@ -30,7 +30,7 @@ namespace Resonance
         public static bool GAME_CAN_END = true;
         public const bool USE_BV_SPAWNER = true;
         public const bool USE_PICKUP_SPAWNER = true;
-        public const bool USE_MINIMAP = false;
+        public const bool USE_MINIMAP = true;
         public const bool USE_BADVIBE_AI = true;
         public const bool USE_WHEATHER = true;
         public const bool USE_PROFILER = true;
@@ -38,7 +38,7 @@ namespace Resonance
 
         // Time in milliseconds between each update of the hud and the minimap
         private const float HUD_UPDATE_DELAY = 500;
-        private const float MAP_UPDATE_DELAY = 300;
+        private const float MAP_UPDATE_DELAY = 100;
 
         private Stopwatch preEndGameTimer;
         private Stopwatch prePreEndGameTimer;

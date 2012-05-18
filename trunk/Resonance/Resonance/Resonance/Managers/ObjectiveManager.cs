@@ -56,7 +56,7 @@ namespace Resonance {
 
         public static void surviveSetup() {
             //AIManager.MAX_MOVE_SPEED *= 1.5f;
-            AIManager.TARGET_RANGE *= 0.3f;
+            AIManager.TARGET_RANGE *= 0.7f;
             //AIManager.ATTACK_RATE = 8;
             //AIManager.CHANCE_MISS = 15;
         }

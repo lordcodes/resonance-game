@@ -1,4 +1,5 @@
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Media;
 
 namespace Resonance
 {
@@ -27,6 +28,11 @@ namespace Resonance
                 MenuScreen m = ((MenuScreen)this);
                 m.controlMusic(false);
                 m.Selected = 0;
+            }
+            else if(this is CreditsScreen)
+            {
+                MediaPlayer.Stop();
+                ScreenManager.mainMenu.musicStart = true;
             }
             ScreenManager.removeScreen(this);
         }

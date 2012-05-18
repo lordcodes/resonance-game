@@ -201,7 +201,7 @@ namespace Resonance
                 if (maxZ > (int)World.MAP_Z) maxZ = (int)World.PLAYABLE_MAP_Z - 15;
 
                 pos.X = r.Next(minX, maxX);
-                pos.Y = 5f;
+                pos.Y = 3f;
                 pos.Z = r.Next(minZ, maxZ);
 
                 if (!ScreenManager.game.World.querySpace(pos))
