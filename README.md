@@ -1,5 +1,7 @@
 # Resonance
 
+NOTE - Not actively developed. The project was a group exercise whilst at the University of Bristol. It serves to demonstrate what was done, but isn't actively worked on or supported.
+
 Resonance is an asymmetrical co-operative two player game for Xbox 360 and Windows. It is written in C# using the XNA game studio and using the BEPU physics engine.
 
 ## Synopsis
